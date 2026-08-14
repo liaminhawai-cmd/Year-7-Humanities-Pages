@@ -33,14 +33,28 @@ button{font:inherit;cursor:pointer}
               border-radius:2em;padding:.32em .8em;font-size:.9em;font-weight:700}
 .rungs button.done{color:#9fd3b4;border-color:#3f6b52}
 .rungs button[aria-current="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
-.toggles{display:flex;gap:.3em}
+.toggles{display:flex;gap:.3em;position:relative}
 .toggles button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
                 border-radius:.5em;padding:.38em .85em;font-size:.9em;font-weight:700}
 .toggles button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
-.toggles select{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
-                border-radius:.5em;padding:.38em .5em;font-size:.9em;font-weight:700;font-family:inherit}
-.toggles select:not([data-on="0"]){background:var(--gold);border-color:var(--gold);color:#fff}
+.langbtn{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:.5em;
+         padding:.38em .72em;font-size:.9em;font-weight:700}
+.langbtn[data-on="1"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu{position:absolute;right:0;top:calc(100% + .35em);z-index:40;width:min(34em,92vw);
+          padding:.55em;background:var(--paper);border:1px solid var(--line);border-radius:.6em;
+          box-shadow:0 .5em 1.6em rgba(0,0,0,.35);display:grid;
+          grid-template-columns:repeat(3,minmax(0,1fr));gap:.3em}
+.langmenu[hidden]{display:none}
+.langmenu button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                 border-radius:.4em;padding:.45em .55em;text-align:left;font-size:.78em;line-height:1.25}
+.langmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu .clear{grid-column:1/-1;text-align:center}
 .pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .pick{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .pick span{display:block;font-size:.78em;color:var(--muted);margin-bottom:.3em}
+.pop .pick button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                  border-radius:.4em;padding:.22em .5em;margin:0 .25em .25em 0;font-size:.86em}
+.pop .pick button:hover{border-color:var(--deep)}
 .pop .tr b{display:block;font-size:1.25em;line-height:1.3;color:var(--deep)}
 .pop .tr .warn{display:block;font-size:.74em;color:var(--muted);margin-top:.25em;font-style:italic}
 
@@ -53,7 +67,7 @@ button{font:inherit;cursor:pointer}
 /* The hotspots are positioned against this box, so it has to keep the plate's
    shape even if the image itself never arrives — otherwise the buttons collapse
    on top of the caption. */
-.plate{position:relative;flex:0 0 auto;background:#0e1211;border-radius:.35em}
+.plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
 .plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
 .plate .missing{position:absolute;inset:0;display:none;place-items:center;text-align:center;
                 color:#cfc7b8;font-size:.8em;padding:1em;line-height:1.4}
@@ -80,6 +94,25 @@ button{font:inherit;cursor:pointer}
 .zoomall{border:1px solid #3b4442;background:#222927;color:#f4d98b;border-radius:.5em;
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
+/* The two panels share the column; only one is on screen, so neither has to
+   fight the other for height — which is what was pushing the "I can" list off
+   the bottom of the screen. */
+.tabs{display:flex;gap:.25em;flex:0 0 auto}
+.tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+             border-radius:.45em;padding:.35em .5em;font-size:.92em;font-weight:700}
+.tabs button[aria-selected="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
+.pane{display:flex;flex-direction:column;gap:.45em;min-height:0;flex:1 1 auto}
+.pane[hidden]{display:none}
+.rubric{overflow:auto;min-height:0;flex:1 1 auto;display:grid;gap:.4em;align-content:start}
+.rubric .band{font-size:.78em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+              color:#8fa39c}
+.rubric .row{background:#1b2220;border:1px solid #33403c;border-left-width:.3em;
+             border-radius:.45em;padding:.5em .65em}
+.rubric .row h4{font-size:.9em;margin-bottom:.15em;display:flex;gap:.4em;align-items:baseline}
+.rubric .row p{color:#eae5db;font-size:.92em;line-height:1.35}
+.rubric .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78em;
+              color:#8fa39c;margin-top:.25em;display:block}
+.rubric .note{color:#8fa39c;font-size:.82em;line-height:1.4}
 .kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
      overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
      font-size:calc(1em * var(--kk,1))}
@@ -135,6 +168,9 @@ button{font:inherit;cursor:pointer}
 /* glossary chips */
 .g3,.g2{cursor:pointer;border-radius:.15em}
 .g3{border-bottom:.14em dotted currentColor}
+/* a word that has a translation waiting says so, rather than hiding behind a
+   dropdown the student has to find first */
+.g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
 /* Inside a marked phrase, a chip's own dotted border stacks on top of the
    criterion's underline and the two patterns become unreadable — and that
    pattern is the channel that survives greyscale. Tint instead. */
@@ -213,18 +249,26 @@ button{font:inherit;cursor:pointer}
     <div class="rungs" id="rungs"></div>
     <div class="toggles">
       <button id="tBg"  aria-pressed="false">Background</button>
-      <button id="tVc"  aria-pressed="false">I can…</button>
-      <select id="tLang" aria-label="Translate subject words"></select>
+
+      <button class="langbtn" id="tLangBtn" type="button" aria-expanded="false"
+              aria-controls="langMenu" data-on="0">🌐 Translate</button>
+      <div class="langmenu" id="langMenu" hidden></div>
       
     </div>
   </div>
 
   <div class="main">
     <div class="rock">
-      <div class="plate" id="plate"></div>
-      <button class="zoomall" id="zoomAll">⤢ Open it big</button>
-      <div class="rockcap" id="rockcap"></div>
-      <div class="kid" id="kidBox" hidden></div>
+      <div class="tabs" id="tabs" role="tablist">
+        <button id="tabSource" role="tab" aria-selected="true">The source</button>
+        <button id="tabRubric" role="tab" aria-selected="false">Rubric</button>
+      </div>
+      <div class="pane" id="paneSource">
+        <div class="plate" id="plate"></div>
+        <button class="zoomall" id="zoomAll">⤢ Open it big</button>
+        <div class="rockcap" id="rockcap"></div>
+      </div>
+      <div class="pane" id="paneRubric" hidden></div>
     </div>
     <div class="stage" id="stage"></div>
   </div>
@@ -259,7 +303,7 @@ button{font:inherit;cursor:pointer}
 </div>
 
 <script>
-/* inlined from ../eal.js */
+/* inlined from ../../eal.js */
 /* =======================================================================
    EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
 
@@ -857,31 +901,78 @@ el("kicker").textContent = WALL.title;
    hub is built from, so a word cannot mean one thing here and another there.
    The choice is remembered per browser; nothing leaves the device. */
 const hasEAL = typeof EAL !== "undefined" && typeof EAL_LANGS !== "undefined";
+/* Only offer languages that cover every unit-specific term on this wall.
+   A language choice that leaves some tappable words blank is a broken choice,
+   not partial support. Shared source-analysis words may have wider coverage in
+   the Word Builder; this wall promises complete coverage for what it offers. */
+const UNIT_LANGS = hasEAL ? EAL_LANGS.filter(l => {
+  const tables = (typeof TIER3_T !== "undefined") ? Object.values(TIER3_T) : [];
+  return !tables.length || tables.every(t => t && t[l.code]);
+}) : [];
 let lang = "";
 if (hasEAL){
   try { lang = localStorage.getItem("wagoll-lang") || ""; } catch (e) { lang = ""; }
-  const sel = el("tLang");
-  sel.innerHTML = '<option value="">Translate…</option>' +
-    EAL_LANGS.map(l => `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}</option>`).join("");
-  sel.value = lang;
-  sel.dataset.on = lang ? "1" : "0";
-  sel.onchange = () => {
-    lang = sel.value;
-    sel.dataset.on = lang ? "1" : "0";
-    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
-    hidePop();
-    render();
+  if (lang && !UNIT_LANGS.some(l => l.code === lang)) lang = "";
+  const btn = el("tLangBtn"), menu = el("langMenu");
+  const languageLabel = () => UNIT_LANGS.find(l => l.code === lang);
+  function syncLanguageButton(){
+    const chosen = languageLabel();
+    btn.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+    btn.dataset.on = chosen ? "1" : "0";
+    menu.querySelectorAll("button[data-l]").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
+  }
+  menu.innerHTML = UNIT_LANGS.map(l =>
+    `<button type="button" data-l="${l.code}" lang="${l.code}" aria-pressed="false">` +
+    `<b>${esc(l.label)}</b><br>${esc(l.english)}</button>`).join("") +
+    '<button type="button" class="clear" data-l="">English only</button>';
+  btn.onclick = ev => {
+    ev.stopPropagation();
+    const open = menu.hidden;
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
   };
+  menu.onclick = ev => {
+    const choice = ev.target.closest("button[data-l]");
+    if (!choice) return;
+    ev.stopPropagation();
+    lang = choice.dataset.l;
+    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+    menu.hidden = true; btn.setAttribute("aria-expanded", "false");
+    syncLanguageButton(); hidePop(); render();
+  };
+  syncLanguageButton();
 } else {
-  el("tLang").hidden = true;
+  el("tLangBtn").hidden = true;
 }
 
 /* The shared table wins over a unit's own gloss for the words it covers, so
    the definition a student reads is the one the hub also teaches. */
+/* Two tables, one lookup. eal.js holds the words shared by every unit; the
+   unit's own content.js holds its own, in the same shape. Neither repeats the
+   other, and the tool cannot tell them apart. */
 function ealFor(term){
-  if (!hasEAL || !lang) return null;
-  const hit = EAL[String(term).toLowerCase()];
-  return hit && hit.t[lang] ? hit : null;
+  const k = String(term).toLowerCase();
+  let t = null, en = "";
+  if (hasEAL && EAL[k]) { t = EAL[k].t; en = EAL[k].en; }
+  else if (typeof TIER3_T !== "undefined" && TIER3_T[term]) { t = TIER3_T[term]; }
+  else if (typeof TIER3_T !== "undefined") {
+    const hit = Object.keys(TIER3_T).find(x => x.toLowerCase() === k);
+    if (hit) t = TIER3_T[hit];
+  }
+  if (!t) return null;
+  return (!lang || t[lang]) ? { t, en } : null;
+}
+/* Put the globe on every chip whose word has a translation available, so the
+   feature is visible without opening anything. */
+function markTranslatable(){
+  document.querySelectorAll("[data-t3]").forEach(el => {
+    const k = String(el.dataset.t3).toLowerCase();
+    const has = (hasEAL && !!EAL[k]) ||
+      (typeof TIER3_T !== "undefined" &&
+       Object.keys(TIER3_T).some(x => x.toLowerCase() === k));
+    el.classList.toggle("tr", has);
+  });
 }
 document.title = WALL.title + " — bump it up";
 el("key").innerHTML = CRITERIA.map(c =>
@@ -1096,16 +1187,42 @@ document.addEventListener("keydown", e => {
 });
 
 document.addEventListener("click", e => {
+  if (hasEAL && !e.target.closest("#langMenu") && !e.target.closest("#tLangBtn")){
+    el("langMenu").hidden = true;
+    el("tLangBtn").setAttribute("aria-expanded", "false");
+  }
   if (e.target.closest("#pop")) return;
   const g3 = e.target.closest("[data-t3]");
   if (g3){
     const term = g3.dataset.t3, hit = ealFor(term);
     showPop("What it means", g3.textContent, defOf(term), null, g3);
-    if (hit){
-      const label = EAL_LANGS.find(l => l.code === lang);
+    if (hit && lang){
+      const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
         `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+    } else if (hit){
+      /* No language chosen yet. Rather than showing nothing and looking broken,
+         offer the languages here — one tap translates and is remembered. */
+      el("popBody").insertAdjacentHTML("beforeend",
+        `<span class="pick"><span>See this in your language:</span>` +
+        UNIT_LANGS.filter(l => hit.t[l.code])
+          .map(l => `<button data-l="${l.code}" lang="${l.code}">${esc(l.label)}</button>`).join("") +
+        `</span>`);
+      el("popBody").querySelectorAll("button[data-l]").forEach(btn => btn.onclick = ev => {
+        ev.stopPropagation();
+        lang = btn.dataset.l;
+        const chosen = UNIT_LANGS.find(l => l.code === lang);
+        const languageButton = el("tLangBtn");
+        languageButton.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+        languageButton.dataset.on = chosen ? "1" : "0";
+        try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+        showPop("What it means", g3.textContent, defOf(term), null, g3);
+        const lb = UNIT_LANGS.find(l => l.code === lang);
+        el("popBody").insertAdjacentHTML("beforeend",
+          `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+          `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
+      });
     }
     return;
   }
@@ -1135,10 +1252,10 @@ function drawRungs(){
 function render(){
   hidePop();
   drawRungs();
+  if (pane === "rubric") renderRubric();
   const stage = el("stage");
   if (i === -1){
     el("rungName").textContent = "The source";
-    syncKid();
     stage.classList.remove("small");
     stage.innerHTML =
       `<div class="inquiry">${esc(WALL.inquiry)}</div>
@@ -1149,6 +1266,7 @@ function render(){
     /* the source stage has no worked example to shrink, but it still has to
        fit — it is the first thing on the screen and the class reads it cold */
     fit();
+    markTranslatable();
     return;
   }
   const lv = LADDER[i];
@@ -1164,6 +1282,7 @@ function render(){
      <p class="example">${marked(ex)}</p>
      <p class="crumbs">Tap any underlined phrase to see what it proves.</p>`;
   syncBg();
+  markTranslatable();
 }
 
 /* Opening the Background or Curriculum panel eats vertical room. Rather than
@@ -1186,14 +1305,14 @@ function fit(){
   /* first shrink just the worked example, which is the part with slack */
   let k = baseK;
   st.style.setProperty("--k", k.toFixed(3));
-  for (let g = 0; g < 40 && over() && k > 0.72; g++){
+  for (let g = 0; g < 60 && over() && k > 0.60; g++){
     k *= 0.94;
     st.style.setProperty("--k", k.toFixed(3));
   }
   /* then, if the fixed panels are still too tall on their own, shrink the
      whole stage together — everything inside is sized in em */
   let sk = 1;
-  for (let g = 0; g < 40 && over() && sk > 0.6; g++){
+  for (let g = 0; g < 60 && over() && sk > 0.5; g++){
     sk *= 0.96;
     st.style.setProperty("--sk", sk.toFixed(3));
   }
@@ -1202,42 +1321,67 @@ function fit(){
 function syncBg(){
   const box = el("bgBox");
   if (box) box.hidden = el("tBg").getAttribute("aria-pressed") !== "true";
-  syncKid();
   fit();
 }
 
-/* the "I can ..." box lives beside the rock, not in the stage, so it never
-   competes with the worked example for room */
-function syncKid(){
-  const box = el("kidBox");
+/* ---------- the rubric panel ----------
+   The left column shows either the source or the rubric for the rung on
+   screen. They swap rather than stack: when both were in the column at once
+   the picture took the height it wanted and pushed the descriptors off the
+   bottom of the screen, which is how a student ended up reading half a list.
+
+   The rubric is the school's continuum wording, with the curriculum code
+   underneath it, both straight out of content.js. */
+function renderRubric(){
   const lv = LADDER[i];
-  const k = (typeof KID !== "undefined" && KID[lv]) || null;
-  const on = el("tVc").getAttribute("aria-pressed") === "true";
-  box.hidden = !(on && k);
-  if (!box.hidden){
-    box.innerHTML = `<span class="band">${esc(k.band)}</span><ul>` +
-      k.lines.map(l => `<li>${esc(l)}</li>`).join("") + "</ul>";
-    /* Same trick as the stage: rather than guess a size that fits every rung on
-       every screen, shrink until the last line is actually visible. A clipped
-       "I can ..." list is worse than a slightly smaller one. */
-    box.style.setProperty("--kk", "1");
-    let kk = 1;
-    for (let g = 0; g < 30 && box.scrollHeight > box.clientHeight + 1 && kk > 0.6; g++){
-      kk *= 0.95;
-      box.style.setProperty("--kk", kk.toFixed(3));
-    }
+  const box = el("paneRubric");
+  if (i === -1){
+    box.innerHTML = `<div class="rubric"><p class="note">Pick a rung to see what is
+      being asked for at that level.</p></div>`;
+    return;
   }
+  const kid = (typeof KID !== "undefined" && KID[lv]) || null;
+  const codes = (typeof VC !== "undefined" && VC[lv]) || [];
+  const rows = CRITERIA.map((c, n) => {
+    const wall = (typeof CONTINUUM !== "undefined" && CONTINUUM[c.key] && CONTINUUM[c.key][lv]) || "";
+    const said = kid && kid.lines[n] ? kid.lines[n] : "";
+    const text = wall || said;
+    if (!text) return "";
+    return `<div class="row" style="border-left-color:${c.lamp}">
+      <h4 style="color:${c.lamp}">${c.glyph} ${c.name.replace(/&amp;/g,"&")}</h4>
+      <p>${esc(text)}</p>
+      ${said && wall && said !== wall ? `<p style="opacity:.72;font-size:.86em">${esc(said)}</p>` : ""}
+    </div>`;
+  }).join("");
+  box.innerHTML = `<div class="rubric">
+      <span class="band">${esc(kid ? kid.band : lv)}</span>
+      ${rows}
+      ${codes.length ? `<div class="row" style="border-left-color:#5b6b66">
+        <h4 style="color:#8fa39c">Victorian Curriculum</h4>
+        ${codes.map(([code, t]) => `<span class="code">${esc(code)}</span><p>${esc(t)}</p>`).join("")}
+      </div>` : ""}
+      ${typeof VC_NOTE !== "undefined" ? `<p class="note">${esc(VC_NOTE)}</p>` : ""}
+    </div>`;
 }
+
+let pane = "source";
+function showPane(which){
+  pane = which;
+  el("paneSource").hidden = which !== "source";
+  el("paneRubric").hidden = which !== "rubric";
+  el("tabSource").setAttribute("aria-selected", String(which === "source"));
+  el("tabRubric").setAttribute("aria-selected", String(which === "rubric"));
+  if (which === "rubric") renderRubric();
+}
+el("tabSource").onclick = () => showPane("source");
+el("tabRubric").onclick = () => showPane("rubric");
+
 el("tBg").onclick = ()=>{
   const on = el("tBg").getAttribute("aria-pressed") === "true";
   el("tBg").setAttribute("aria-pressed", String(!on));
   syncBg();
 };
-el("tVc").onclick = ()=>{
-  const on = el("tVc").getAttribute("aria-pressed") === "true";
-  el("tVc").setAttribute("aria-pressed", String(!on));
-  syncKid(); fit();
-};
+
 
 el("prev").onclick = ()=>{ if (i > -1){ i--; render(); } };
 el("next").onclick = ()=>{ if (i < LADDER.length-1){ i++; render(); } };

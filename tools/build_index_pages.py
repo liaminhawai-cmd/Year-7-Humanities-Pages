@@ -20,6 +20,8 @@ import html
 import pathlib
 
 WORD_BUILDER = "https://liaminhawai-cmd.github.io/EAL-Vocabulary-Site/"
+HISTORY_WORDS = WORD_BUILDER + "#/l/year-7/humanities-civics/f/history"
+GEOGRAPHY_WORDS = WORD_BUILDER + "#/l/year-7/humanities-civics/f/geography"
 
 FOOT = ("Year 7 Humanities &middot; Kew High School. Nothing on this site collects "
         "anything: no accounts, no tracking, no analytics.")
@@ -45,7 +47,7 @@ def wagoll(full, screen, single):
         ]
     return cards
 
-SOURCE_WORDS = ("&#127760;", "The words you need", WORD_BUILDER,
+SOURCE_WORDS = ("&#127760;", "The words you need", HISTORY_WORDS,
                 "Twenty source-analysis words in eighteen languages, on the Word "
                 "Builder. The same words are tappable inside the tool above.", None)
 
@@ -65,9 +67,6 @@ SITE = [
            "Water in the World, and Landscapes &amp; Landforms.", None),
           ("&#128188;", "Economics &amp; Business", "economics/",
            "Pigeon Patrol: one student business at every level of the continuum.", None)]),
-        ("To print", "walls, sheets and the student booklet", [
-          ("&#128424;", "Print pack", "print/",
-           "The A2 and A3 walls, the Word versions, and the A5 booklet.", None)]),
       ],
       note="<b>Everything here is a plain HTML file.</b> No login, no install, and no internet needed "
            "once a page has loaded. The single-file versions download and run from a USB stick.<br><br>"
@@ -118,10 +117,12 @@ SITE = [
            "Foundation to Year 10, one rung at a time. Tap the rock, tap any phrase.",
            "The same page with the picture built in. Download to use offline.") + [
            ("&#129704;", "The source", "source-sheet.html",
-            "What GS73 is, where it was found, and how it became evidence.", None)]),
+            "What GS73 is, where it was found, and how it became evidence.", None),
+           ("&#128424;", "Print-ready set", "../../print/",
+            "The A2 poster set, six A3 year-level sheets and the compact A4 WAGOLL.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Every word this topic marks, with a definition and a translation.", None),
+            "Meet, build and recall every word this topic marks.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -142,7 +143,7 @@ SITE = [
            "The same page with everything built in. Download to use offline.")),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Every word this topic marks, with a definition and a translation.", None),
+            "Meet, build and recall every word this topic marks.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -161,7 +162,7 @@ SITE = [
            "The same page with everything built in. Download to use offline.")),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Every word this topic marks, with a definition and a translation.", None),
+            "Meet, build and recall every word this topic marks.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -198,10 +199,8 @@ SITE = [
             "D &middot; P &middot; I &middot; U, one card per sentence. Switch to PEEL or TEEL.", None)]),
         ("Words", "kept in this browser, nothing sent anywhere", [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Every word this topic marks, with a definition and a translation.", None),
-           ("&#128167;", "Water vocab hub", "water-vocab-hub.html",
-            "The older unit hub, with its own practice activities.", None),
-           ("&#127760;", "On the Word Builder", WORD_BUILDER,
+            "Meet, build and recall every word this topic marks.", None),
+           ("&#127760;", "On the Word Builder", GEOGRAPHY_WORDS,
             "The same words with morphology and practice, for EAL students.", None)]),
       ],
       note="<b>Draft.</b> Checked against Victorian Curriculum 2.0 Geography F&ndash;10; the unit sits on "
@@ -260,7 +259,9 @@ SITE = [
           ("&#129521;", "Paragraph builder", "paragraph-builder.html",
            "P &middot; I &middot; D, one card per sentence. Switch to PEEL or TEEL.", None),
           ("&#127919;", "Build the wall", "build-the-wall.html",
-           "Answer a round, fill in part of the wall.", None)])],
+           "Answer a round, fill in part of the wall.", None),
+          ("&#128424;", "Print-ready set", "../../print/",
+           "The Pigeon Patrol wall, level sheets and editable version.", None)])],
       note="<b>Check before you teach it:</b> the row wording is the school's own, not Victorian "
            "Curriculum 2.0."),
 
@@ -274,10 +275,12 @@ SITE = [
           ("&#128214;", "What is source analysis?", "What-is-source-analysis-A5.pdf",
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
         ("History &mdash; Ancient Australia", None, [
-          ("&#128202;", "The wall", "GS73-WAGOLL-Wall-A2.pdf",
-           "A2 landscape, 1 page &mdash; the whole continuum.", None),
-          ("&#128196;", "Level sheets", "GS73-Level-Sheets-A3.pdf",
-           "A3 portrait, 6 pages &mdash; one per year level.", None),
+          ("&#128202;", "Poster set", "Ancient-Australia-History-Wall-Posters-A2.pdf",
+           "A2 landscape, 4 pages &mdash; source, method, continuum and contested claim.", None),
+          ("&#128196;", "Year-by-year wall", "Ancient-Australia-WAGOLL-Wall-Grade5-Year10-A3.pdf",
+           "A3 portrait, 6 pages &mdash; worked example above, matching continuum below.", None),
+          ("&#128221;", "Student WAGOLL", "Ancient-Australia-Source-WAGOLL-A4.pdf",
+           "A4 portrait, 1 page &mdash; the dense Year 7 model and colour-keyed continuum.", None),
           ("&#129704;", "The source", "GS73-Source-Sheet-A3.pdf",
            "A3 portrait, 1 page &mdash; the source, described.", None),
           ("&#128221;", "Editable wall", "GS73-WAGOLL-Wall.docx",
@@ -289,9 +292,9 @@ SITE = [
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
-      note="The A2 wall is A2 rather than A3 because six columns of that much prose only fit A3 at a "
-           "type size nobody can read across a room. If you only have A3, print it at 71% and treat it "
-           "as a teacher reference. The A3 walls scale up to A2 at 141%."),
+      note="The four A2 sheets make the teaching sequence visible across the wall. The six A3 sheets "
+           "are the 12-month increments from Grade 5 to Year 10; each keeps the worked example directly "
+           "above its matching, colour-coded continuum cells. The A4 page is the compact student model."),
 ]
 
 

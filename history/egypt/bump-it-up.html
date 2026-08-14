@@ -33,13 +33,22 @@ button{font:inherit;cursor:pointer}
               border-radius:2em;padding:.32em .8em;font-size:.9em;font-weight:700}
 .rungs button.done{color:#9fd3b4;border-color:#3f6b52}
 .rungs button[aria-current="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
-.toggles{display:flex;gap:.3em}
+.toggles{display:flex;gap:.3em;position:relative}
 .toggles button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
                 border-radius:.5em;padding:.38em .85em;font-size:.9em;font-weight:700}
 .toggles button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
-.toggles select{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
-                border-radius:.5em;padding:.38em .5em;font-size:.9em;font-weight:700;font-family:inherit}
-.toggles select:not([data-on="0"]){background:var(--gold);border-color:var(--gold);color:#fff}
+.langbtn{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:.5em;
+         padding:.38em .72em;font-size:.9em;font-weight:700}
+.langbtn[data-on="1"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu{position:absolute;right:0;top:calc(100% + .35em);z-index:40;width:min(34em,92vw);
+          padding:.55em;background:var(--paper);border:1px solid var(--line);border-radius:.6em;
+          box-shadow:0 .5em 1.6em rgba(0,0,0,.35);display:grid;
+          grid-template-columns:repeat(3,minmax(0,1fr));gap:.3em}
+.langmenu[hidden]{display:none}
+.langmenu button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                 border-radius:.4em;padding:.45em .55em;text-align:left;font-size:.78em;line-height:1.25}
+.langmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu .clear{grid-column:1/-1;text-align:center}
 .pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
 .pop .pick{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
 .pop .pick span{display:block;font-size:.78em;color:var(--muted);margin-bottom:.3em}
@@ -241,7 +250,9 @@ button{font:inherit;cursor:pointer}
     <div class="toggles">
       <button id="tBg"  aria-pressed="false">Background</button>
 
-      <select id="tLang" aria-label="Translate subject words"></select>
+      <button class="langbtn" id="tLangBtn" type="button" aria-expanded="false"
+              aria-controls="langMenu" data-on="0">🌐 Translate</button>
+      <div class="langmenu" id="langMenu" hidden></div>
       
     </div>
   </div>
@@ -326,23 +337,49 @@ el("kicker").textContent = WALL.title;
    hub is built from, so a word cannot mean one thing here and another there.
    The choice is remembered per browser; nothing leaves the device. */
 const hasEAL = typeof EAL !== "undefined" && typeof EAL_LANGS !== "undefined";
+/* Only offer languages that cover every unit-specific term on this wall.
+   A language choice that leaves some tappable words blank is a broken choice,
+   not partial support. Shared source-analysis words may have wider coverage in
+   the Word Builder; this wall promises complete coverage for what it offers. */
+const UNIT_LANGS = hasEAL ? EAL_LANGS.filter(l => {
+  const tables = (typeof TIER3_T !== "undefined") ? Object.values(TIER3_T) : [];
+  return !tables.length || tables.every(t => t && t[l.code]);
+}) : [];
 let lang = "";
 if (hasEAL){
   try { lang = localStorage.getItem("wagoll-lang") || ""; } catch (e) { lang = ""; }
-  const sel = el("tLang");
-  sel.innerHTML = '<option value="">Translate…</option>' +
-    EAL_LANGS.map(l => `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}</option>`).join("");
-  sel.value = lang;
-  sel.dataset.on = lang ? "1" : "0";
-  sel.onchange = () => {
-    lang = sel.value;
-    sel.dataset.on = lang ? "1" : "0";
-    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
-    hidePop();
-    render();
+  if (lang && !UNIT_LANGS.some(l => l.code === lang)) lang = "";
+  const btn = el("tLangBtn"), menu = el("langMenu");
+  const languageLabel = () => UNIT_LANGS.find(l => l.code === lang);
+  function syncLanguageButton(){
+    const chosen = languageLabel();
+    btn.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+    btn.dataset.on = chosen ? "1" : "0";
+    menu.querySelectorAll("button[data-l]").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
+  }
+  menu.innerHTML = UNIT_LANGS.map(l =>
+    `<button type="button" data-l="${l.code}" lang="${l.code}" aria-pressed="false">` +
+    `<b>${esc(l.label)}</b><br>${esc(l.english)}</button>`).join("") +
+    '<button type="button" class="clear" data-l="">English only</button>';
+  btn.onclick = ev => {
+    ev.stopPropagation();
+    const open = menu.hidden;
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
   };
+  menu.onclick = ev => {
+    const choice = ev.target.closest("button[data-l]");
+    if (!choice) return;
+    ev.stopPropagation();
+    lang = choice.dataset.l;
+    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+    menu.hidden = true; btn.setAttribute("aria-expanded", "false");
+    syncLanguageButton(); hidePop(); render();
+  };
+  syncLanguageButton();
 } else {
-  el("tLang").hidden = true;
+  el("tLangBtn").hidden = true;
 }
 
 /* The shared table wins over a unit's own gloss for the words it covers, so
@@ -586,13 +623,17 @@ document.addEventListener("keydown", e => {
 });
 
 document.addEventListener("click", e => {
+  if (hasEAL && !e.target.closest("#langMenu") && !e.target.closest("#tLangBtn")){
+    el("langMenu").hidden = true;
+    el("tLangBtn").setAttribute("aria-expanded", "false");
+  }
   if (e.target.closest("#pop")) return;
   const g3 = e.target.closest("[data-t3]");
   if (g3){
     const term = g3.dataset.t3, hit = ealFor(term);
     showPop("What it means", g3.textContent, defOf(term), null, g3);
     if (hit && lang){
-      const label = EAL_LANGS.find(l => l.code === lang);
+      const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
         `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
@@ -601,17 +642,19 @@ document.addEventListener("click", e => {
          offer the languages here — one tap translates and is remembered. */
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="pick"><span>See this in your language:</span>` +
-        EAL_LANGS.filter(l => hit.t[l.code])
+        UNIT_LANGS.filter(l => hit.t[l.code])
           .map(l => `<button data-l="${l.code}" lang="${l.code}">${esc(l.label)}</button>`).join("") +
         `</span>`);
       el("popBody").querySelectorAll("button[data-l]").forEach(btn => btn.onclick = ev => {
         ev.stopPropagation();
         lang = btn.dataset.l;
-        const sel = el("tLang");
-        sel.value = lang; sel.dataset.on = "1";
+        const chosen = UNIT_LANGS.find(l => l.code === lang);
+        const languageButton = el("tLangBtn");
+        languageButton.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+        languageButton.dataset.on = chosen ? "1" : "0";
         try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
         showPop("What it means", g3.textContent, defOf(term), null, g3);
-        const lb = EAL_LANGS.find(l => l.code === lang);
+        const lb = UNIT_LANGS.find(l => l.code === lang);
         el("popBody").insertAdjacentHTML("beforeend",
           `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
           `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
