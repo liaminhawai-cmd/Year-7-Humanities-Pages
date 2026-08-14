@@ -305,7 +305,7 @@ button{font:inherit;cursor:pointer}
 <script src="../../eal.js"></script>
 <script src="content.js"></script>
 <script>
-/* Everything shown here comes from content.js. The ladder is the five early
+/* Everything shown here comes from content.js. The ladder is the two early
    rungs plus the six on the wall; examples are read from whichever object
    holds them, so no text exists twice. */
 
@@ -766,8 +766,8 @@ function syncBg(){
    the picture took the height it wanted and pushed the descriptors off the
    bottom of the screen, which is how a student ended up reading half a list.
 
-   The rubric is the school's continuum wording, with the curriculum code
-   underneath it, both straight out of content.js. */
+   The rubric is the school's learning continuum, straight out of content.js.
+   It is deliberately the only rubric shown here. */
 function renderRubric(){
   const lv = LADDER[i];
   const box = el("paneRubric");
@@ -776,27 +776,21 @@ function renderRubric(){
       being asked for at that level.</p></div>`;
     return;
   }
-  const kid = (typeof KID !== "undefined" && KID[lv]) || null;
-  const codes = (typeof VC !== "undefined" && VC[lv]) || [];
-  const rows = CRITERIA.map((c, n) => {
+  const rows = CRITERIA.map(c => {
     const wall = (typeof CONTINUUM !== "undefined" && CONTINUUM[c.key] && CONTINUUM[c.key][lv]) || "";
-    const said = kid && kid.lines[n] ? kid.lines[n] : "";
-    const text = wall || said;
-    if (!text) return "";
+    if (!wall) return "";
     return `<div class="row" style="border-left-color:${c.lamp}">
       <h4 style="color:${c.lamp}">${c.glyph} ${c.name.replace(/&amp;/g,"&")}</h4>
-      <p>${esc(text)}</p>
-      ${said && wall && said !== wall ? `<p style="opacity:.72;font-size:.86em">${esc(said)}</p>` : ""}
+      <p>${esc(wall)}</p>
     </div>`;
   }).join("");
+  if (!rows) {
+    box.innerHTML = `<div class="rubric"><p class="note">This access rung sits below the Grade 5–Year 10 learning continuum. Move to Grade 5 to see the first continuum column.</p></div>`;
+    return;
+  }
   box.innerHTML = `<div class="rubric">
-      <span class="band">${esc(kid ? kid.band : lv)}</span>
+      <span class="band">Learning continuum · ${esc(lv)}</span>
       ${rows}
-      ${codes.length ? `<div class="row" style="border-left-color:#5b6b66">
-        <h4 style="color:#8fa39c">Victorian Curriculum</h4>
-        ${codes.map(([code, t]) => `<span class="code">${esc(code)}</span><p>${esc(t)}</p>`).join("")}
-      </div>` : ""}
-      ${typeof VC_NOTE !== "undefined" ? `<p class="note">${esc(VC_NOTE)}</p>` : ""}
     </div>`;
 }
 
