@@ -1,0 +1,65 @@
+# Checks the site on every push. It does NOT deploy.
+#
+# Deployment is handled by GitHub's own "pages build and deployment", which runs
+# automatically because Settings -> Pages -> Source is "Deploy from a branch"
+# (main / root). Adding a deploy job here as well would mean two publishers
+# racing for the same site, so this workflow only checks.
+#
+# What it checks is the thing that actually breaks a classroom site: a link that
+# goes nowhere. Those get found by a student in the middle of a lesson, which is
+# the worst possible time, so they get found here instead.
+name: Check site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Every internal link resolves
+        run: |
+          dead=0
+          while IFS= read -r page; do
+            dir=$(dirname "$page")
+            # hrefs that are not external and not bare anchors
+            grep -o 'href="[^"#][^"]*"' "$page" 2>/dev/null \
+              | sed 's/^href="//; s/"$//' \
+              | grep -v '^https\?:' \
+              | grep -v '^mailto:' \
+              > /tmp/links || true
+            while IFS= read -r link; do
+              [ -z "$link" ] && continue
+              target="$dir/${link%%#*}"
+              if [ ! -e "$target" ] && [ ! -e "$target/index.html" ]; then
+                echo "::error file=$page::dead link -> $link"
+                dead=$((dead + 1))
+              fi
+            done < /tmp/links
+          done < <(find . -name '*.html' -not -path './.git/*')
+          echo "---"
+          if [ "$dead" -gt 0 ]; then
+            echo "$dead dead link(s)"; exit 1
+          fi
+          echo "all internal links resolve"
+
+      - name: Every index page is what the site map generates
+        run: |
+          # tools/build_index_pages.py is the only place the navigation lives.
+          # If someone hand-edits an index page, that edit is lost the next time
+          # anyone runs the generator — so fail now rather than lose it later.
+          python3 tools/build_index_pages.py > /dev/null
+          if ! git diff --quiet; then
+            echo "::error::an index page differs from what the site map generates"
+            git diff --stat
+            echo "Edit tools/build_index_pages.py and re-run it, do not edit index pages by hand."
+            exit 1
+          fi
+          echo "index pages match the site map"
