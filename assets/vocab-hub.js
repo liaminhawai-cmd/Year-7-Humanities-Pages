@@ -14,9 +14,17 @@ const WORDS=(()=>{
     out.set(word.toLowerCase(),{word,def:item.en,trans:item.t||null,morph:item.morph||null,shared:true});
   return [...out.values()].sort((a,b)=>a.word.localeCompare(b.word));
 })();
+// Offer a language if ANY word carries it, not only if every word does.
+// Demanding every word punished the best-covered topics: Ancient Australia has
+// all 35 of its words translated, but only 8 languages run right through all of
+// them, so the all-or-nothing test hid the other ten from the students who read
+// them — while a thinly covered topic offered all eighteen. Coverage is stated
+// in the option instead, and a word without a translation simply shows none.
+const COVER=new Map();
 const LANGS=(typeof EAL_LANGS!=="undefined"?EAL_LANGS:[]).filter(l=>{
-  const translated=WORDS.filter(w=>w.trans);
-  return !translated.length||translated.every(w=>w.trans[l.code]);
+  const n=WORDS.filter(w=>w.trans&&w.trans[l.code]).length;
+  if(n)COVER.set(l.code,n);
+  return n>0;
 });
 const STORE="topic-vocab-"+((typeof WALL!=="undefined"&&WALL.id)||location.pathname);
 let known=new Set(),lang="",mode="meet",round=[],at=0,answered=false;
@@ -102,6 +110,8 @@ function show(nextMode){
   mode==="meet"?drawMeet():start(mode);
 }
 $("kicker").textContent=typeof WALL!=="undefined"?WALL.title:"Humanities";
-$("lang").innerHTML='<option value="">English only</option>'+LANGS.map(l=>`<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}</option>`).join("");
+$("lang").innerHTML='<option value="">English only</option>'+LANGS.map(l=>{
+  const n=COVER.get(l.code)||0,part=n<WORDS.length?` · ${n} of ${WORDS.length} words`:"";
+  return `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}${part}</option>`}).join("");
 $("lang").value=lang;$("lang").onchange=()=>{lang=$("lang").value;save();mode==="meet"?drawMeet():renderPractice()};
 $("search").oninput=drawMeet;$("left").onchange=drawMeet;document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>show(b.dataset.mode));drawMeet();

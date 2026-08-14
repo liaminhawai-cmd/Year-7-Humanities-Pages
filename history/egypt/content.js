@@ -276,7 +276,7 @@ const GLOSS = {
   "Herodotus":"A Greek writer, born about 484 BCE, who travelled widely and wrote the first surviving work of history in Greek.",
   "the Nile":"The river that runs the length of Egypt. Almost everyone in ancient Egypt lived within a few kilometres of it.",
   "silt":"Fine mud carried by a river and left behind when the water goes down. It makes soil rich.",
-  "solstice":"The longest or shortest day of the year. The summer solstice is when the Nile flood used to begin.",
+  "solstice":"The longest or shortest day of the year. The longest one is when the Nile flood used to begin.",
   "flood":"When a river rises over its banks and covers the land beside it.",
   "sow":"To scatter seed on ground so that it grows.",
   "harvest":"Gathering in the crop when it is ready.",
