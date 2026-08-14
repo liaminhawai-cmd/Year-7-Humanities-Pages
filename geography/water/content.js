@@ -367,3 +367,123 @@ const KID = {
    "I can judge the data, work out what follows from it, and predict what happens next.",
    "I can use values and other people's perspectives to justify my conclusion."]}
 };
+
+
+/* ---------------------------------------------------------------------------
+   The paragraph frame. The four steps are the four criteria in the order you
+   write them, so reading down the wall is the same as writing the paragraph.
+   --------------------------------------------------------------------------- */
+
+const FRAME = {
+  name: "D · P · I · U",
+  blurb: "The four steps are the four criteria, in the order you write them. Reading down the wall is the same as writing the paragraph.",
+  steps: [
+    { key:"source", letter:"D", title:"Data",
+      job:"Say what the data is, who produced it, and why this display was made.",
+      guide:"Two different things get named here: the figures, and the display built out of them. Name both. A chart is somebody's choice about how to show a number.",
+      warn:"This is a graph about water.",
+      warnWhy:"That is the topic, not the source. No origin, no content, no purpose.",
+      stems:["The data is ___, published by ___.",
+             "The display itself is ___, made to ___.",
+             "It reports ___ at ___."] },
+
+    { key:"context", letter:"P", title:"Place &amp; scale",
+      job:"Say where things are, and at what scale you are looking.",
+      guide:"Scale is a choice, and it decides what you can see. A global figure hides every country in it. Say which scale this works at, and what that scale leaves out.",
+      warn:"Water is everywhere in the world.",
+      warnWhy:"No pattern and no scale. Where is it, and how big is the area you are describing?",
+      stems:["At a ___ scale, ___ is concentrated in ___.",
+             "The largest stores sit in ___, far from ___.",
+             "At this scale ___ disappears."] },
+
+    { key:"evidence", letter:"I", title:"Interconnection",
+      job:"Explain how one thing is connected to another, using the figures.",
+      guide:"An explanation needs its number attached with “because”. The interesting connections here are the ones the chart cannot show — how fast a store refills, not just how big it is.",
+      warn:"There is not much fresh water so people run out.",
+      warnWhy:"You have named a result without the process. What connects the amount to the shortage?",
+      stems:["___ explains ___ because ___.",
+             "Although ___ holds only ___, it supplies ___ because ___.",
+             "The pattern of supply and the pattern of demand ___."] },
+
+    { key:"judge", letter:"U", title:"Usefulness",
+      job:"Judge what the source is good for, then say plainly what it cannot settle.",
+      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology — it is half of the judgement.",
+      warn:"This source is very useful and reliable.",
+      warnWhy:"Useful for which claim? A judgement with nothing attached and no limit is not a judgement.",
+      stems:["___ is useful for ___ because ___.",
+             "However, it cannot tell us ___.",
+             "It is strong evidence for ___, but misleading evidence for ___."] },
+  ]
+};
+
+const VERBS = {
+  use: [
+    { w:"shows",        note:"points at the data" },
+    { w:"reports",      note:"points at the data" },
+    { w:"describes",    note:"adds detail" },
+    { w:"represents",   note:"what the display does" },
+    { w:"explains",     note:"gives a reason" },
+    { w:"interprets",   note:"reads meaning from data" },
+    { w:"suggests",     note:"reads meaning from data" },
+    { w:"conceals",     note:"names what the display hides" },
+    { w:"governs",      note:"names what controls something" },
+    { w:"qualifies",    note:"limits a claim" },
+    { w:"converge",     note:"separate sources agreeing" }
+  ],
+  avoid: [
+    { w:"proves",  why:"one figure rarely proves anything on its own" },
+    { w:"talks about", why:"a chart does not talk. Say what it shows." },
+    { w:"is about", why:"names the topic, not what the source does" }
+  ]
+};
+
+
+/* ---------------------------------------------------------------------------
+   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   students meet in English, mapped onto the same criterion keys so that a
+   student's writing survives switching frames.
+
+   P and T are the same move. Both are here because different classes are
+   taught different letters, and arguing about the letter helps nobody.
+   --------------------------------------------------------------------------- */
+
+const FRAMES = [FRAME,
+ { name:"P · E · E · L",
+   blurb:"The same four moves under the letters you use in English. Your writing carries across if you switch.",
+   steps:[
+    { key:FRAME.steps[0].key, letter:"P", title:"Point",
+      job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
+      warn:FRAME.steps[0].warn, warnWhy:FRAME.steps[0].warnWhy,
+      stems:FRAME.steps[0].stems },
+    { key:FRAME.steps[2].key, letter:"E", title:"Evidence",
+      job:FRAME.steps[2].job, guide:FRAME.steps[2].guide,
+      warn:FRAME.steps[2].warn, warnWhy:FRAME.steps[2].warnWhy,
+      stems:FRAME.steps[2].stems },
+    { key:FRAME.steps[1].key, letter:"E", title:"Explain",
+      job:FRAME.steps[1].job, guide:FRAME.steps[1].guide,
+      warn:FRAME.steps[1].warn, warnWhy:FRAME.steps[1].warnWhy,
+      stems:FRAME.steps[1].stems },
+    { key:FRAME.steps[3].key, letter:"L", title:"Link",
+      job:FRAME.steps[3].job, guide:FRAME.steps[3].guide,
+      warn:FRAME.steps[3].warn, warnWhy:FRAME.steps[3].warnWhy,
+      stems:FRAME.steps[3].stems }]},
+ { name:"T · E · E · L",
+   blurb:"The same as PEEL, with Topic sentence in place of Point. Your writing carries across if you switch.",
+   steps:[
+    { key:FRAME.steps[0].key, letter:"T", title:"Topic sentence",
+      job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
+      warn:FRAME.steps[0].warn, warnWhy:FRAME.steps[0].warnWhy,
+      stems:FRAME.steps[0].stems },
+    { key:FRAME.steps[2].key, letter:"E", title:"Evidence",
+      job:FRAME.steps[2].job, guide:FRAME.steps[2].guide,
+      warn:FRAME.steps[2].warn, warnWhy:FRAME.steps[2].warnWhy,
+      stems:FRAME.steps[2].stems },
+    { key:FRAME.steps[1].key, letter:"E", title:"Explain",
+      job:FRAME.steps[1].job, guide:FRAME.steps[1].guide,
+      warn:FRAME.steps[1].warn, warnWhy:FRAME.steps[1].warnWhy,
+      stems:FRAME.steps[1].stems },
+    { key:FRAME.steps[3].key, letter:"L", title:"Link",
+      job:FRAME.steps[3].job, guide:FRAME.steps[3].guide,
+      warn:FRAME.steps[3].warn, warnWhy:FRAME.steps[3].warnWhy,
+      stems:FRAME.steps[3].stems }]}
+];

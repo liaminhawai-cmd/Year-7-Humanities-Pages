@@ -204,11 +204,40 @@ footer b{color:var(--ink)}
 const el = id => document.getElementById(id);
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
 const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,(_,k,t)=>`<span class="m m-${k}">${t}</span>`);
-const critOf = k => CRITERIA.find(c => c.key === k);
+/* A frame step can name a key that is not a criterion — PEEL's Link in a
+   subject with only three criteria is the student's own concluding sentence,
+   with nothing on the wall to read off. Everything downstream tolerates it. */
+const critOf = k => CRITERIA.find(c => c.key === k) || null;
 
 el("kicker").textContent = WALL.title;
-el("h1").textContent = FRAME.name;
-el("blurb").textContent = FRAME.blurb;
+
+/* The frame is switchable: the subject's own letters, or PEEL / TEEL. Every
+   frame maps its steps onto the SAME criterion keys, so a student's writing is
+   kept when they switch — the boxes are relabelled, not emptied. */
+const ALL_FRAMES = (typeof FRAMES !== "undefined" && FRAMES.length) ? FRAMES : [FRAME];
+let frame = ALL_FRAMES[0];
+try {
+  const saved = localStorage.getItem("wagoll_" + WALL.id + "_frameName");
+  if (saved) frame = ALL_FRAMES.find(f => f.name === saved) || frame;
+} catch (e) {}
+
+if (ALL_FRAMES.length > 1){
+  const sel = document.createElement("select");
+  sel.id = "frameSel";
+  sel.setAttribute("aria-label", "Paragraph frame");
+  sel.innerHTML = ALL_FRAMES.map(f => `<option${f === frame ? " selected" : ""}>${f.name}</option>`).join("");
+  sel.onchange = () => {
+    frame = ALL_FRAMES[sel.selectedIndex];
+    try { localStorage.setItem("wagoll_" + WALL.id + "_frameName", frame.name); } catch (e) {}
+    paintFrame(); renderSteps(); renderSlots(); restoreMine(); showState();
+  };
+  el("h1").after(sel);
+}
+function paintFrame(){
+  el("h1").textContent = frame.name;
+  el("blurb").textContent = frame.blurb;
+}
+paintFrame();
 el("foot").innerHTML = WALL.foot;
 
 /* Split an example into sentences without ever cutting through a {mark}: the
@@ -247,13 +276,13 @@ el("lvl").onchange = e => { level = e.target.value; renderSteps(); };
 /* ---------- step cards ---------- */
 function renderSteps(){
   const openNow = new Set([...document.querySelectorAll(".step.open")].map(s => s.dataset.k));
-  el("steps").innerHTML = FRAME.steps.map(st => {
+  el("steps").innerHTML = frame.steps.map(st => {
     const c = critOf(st.key);
-    const sent = sentencesFor(st.key, level);
+    const sent = c ? sentencesFor(st.key, level) : [];
     return `<section class="step s-${st.key}${openNow.has(st.key)?" open":""}" data-k="${st.key}">
       <button class="head" aria-expanded="${openNow.has(st.key)}">
         <span class="letter">${st.letter}</span>
-        <span><h3>${st.title}<span style="color:var(--muted);font-weight:600"> · ${c.name}</span></h3>
+        <span><h3>${st.title}${c ? `<span style="color:var(--muted);font-weight:600"> · ${c.name}</span>` : ""}</h3>
               <span class="job">${esc(st.job)}</span></span>
         <span class="chev">▸</span>
       </button>
@@ -261,7 +290,9 @@ function renderSteps(){
         <div class="lab">From the wall — ${esc(level)}</div>
         <div class="fromwall">${sent.length
             ? sent.map(mark).join(" ")
-            : `<span style="color:var(--muted);font-style:italic">This step is not written at ${esc(level)}.</span>`}</div>
+            : `<span style="color:var(--muted);font-style:italic">${c
+                 ? `This step is not written at ${esc(level)}.`
+                 : "This one is yours. There is nothing on the wall to copy the shape of."}</span>`}</div>
 
         <div class="lab">How to write it</div>
         <p class="guide">${esc(st.guide)}</p>
@@ -324,13 +355,17 @@ el("avoid").innerHTML = `<div class="lab" style="margin:0 0 2px">Not these</div>
 
 /* ---------- build your own ---------- */
 const STORE = "wagoll_" + WALL.id + "_frame";
-el("slots").innerHTML = FRAME.steps.map(st => `
+function renderSlots(){
+el("slots").innerHTML = frame.steps.map(st => `
   <div class="slot s-${st.key}">
     <div class="sh"><span class="sl">${st.letter}</span><span class="st">${st.title}</span>
       <span class="sj">${esc(st.job)}</span></div>
     <div class="write" contenteditable="true" spellcheck="true"
          data-k="${st.key}" data-ph="Write your ${st.letter} sentence here…"></div>
   </div>`).join("");
+document.querySelectorAll(".write").forEach(w => w.addEventListener("input", saveMine));
+}
+renderSlots();
 
 function saveMine(){
   const data = {};
@@ -341,19 +376,24 @@ function saveMine(){
   showState();
 }
 function showState(){
-  const empty = FRAME.steps.filter(st =>
+  const empty = frame.steps.filter(st =>
     !document.querySelector(`.write[data-k="${st.key}"]`).textContent.trim());
   el("state").textContent = empty.length
     ? "Still empty: " + empty.map(s => s.letter + " (" + s.title + ")").join(", ") + "."
     : "Every step has something in it.";
 }
-try {
-  const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
-  document.querySelectorAll(".write").forEach(w => {
-    if (saved[w.dataset.k]) w.textContent = saved[w.dataset.k];
-  });
-} catch(e){}
-document.querySelectorAll(".write").forEach(w => w.addEventListener("input", saveMine));
+/* Writing is stored against the CRITERION key, not the frame's letter, so a
+   student who switches from S·C·I·U to PEEL finds their sentences waiting in
+   the relabelled boxes rather than an empty form. */
+function restoreMine(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
+    document.querySelectorAll(".write").forEach(w => {
+      if (saved[w.dataset.k]) w.textContent = saved[w.dataset.k];
+    });
+  } catch(e){}
+}
+restoreMine();
 el("clearMine").onclick = ()=>{
   document.querySelectorAll(".write").forEach(w => w.textContent = "");
   saveMine();

@@ -39,7 +39,7 @@ def wagoll(full, screen, single):
             ("&#9999;", "Mark the example", "interactive.html",
              "Mark it yourself, then compare with the model.", None),
             ("&#129521;", "Paragraph builder", "paragraph-builder.html",
-             "One card per sentence, with PQE and TEEL stems.", None),
+             "One card per sentence. Switch between the subject's letters, PEEL and TEEL.", None),
             ("&#127919;", "Build the wall", "build-the-wall.html",
              "Answer a round, fill in part of the wall.", None),
         ]
@@ -187,7 +187,9 @@ SITE = [
       sections=[
         ("Resources", None, wagoll(False,
            "Foundation to Year 10, one rung at a time. Tap the figure, tap any phrase.",
-           "The same page with the figure built in. Download to use offline.")),
+           "The same page with the figure built in. Download to use offline.") + [
+           ("&#129521;", "Paragraph builder", "paragraph-builder.html",
+            "D &middot; P &middot; I &middot; U, one card per sentence. Switch to PEEL or TEEL.", None)]),
         ("Words", "kept in this browser, nothing sent anywhere", [
            ("&#128167;", "Water vocab hub", "water-vocab-hub.html",
             "The full unit vocabulary, with your progress remembered.", None),
@@ -249,7 +251,7 @@ SITE = [
           ("&#9999;", "Mark the example", "interactive.html",
            "Mark it yourself, then compare with the model.", None),
           ("&#129521;", "Paragraph builder", "paragraph-builder.html",
-           "P &middot; I &middot; D &mdash; one card per sentence, with stems.", None),
+           "P &middot; I &middot; D, one card per sentence. Switch to PEEL or TEEL.", None),
           ("&#127919;", "Build the wall", "build-the-wall.html",
            "Answer a round, fill in part of the wall.", None)])],
       note="<b>Check before you teach it:</b> the row wording is the school's own, not Victorian "

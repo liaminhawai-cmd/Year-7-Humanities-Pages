@@ -499,3 +499,54 @@ const KID = {
    "I can judge the different explanations and say why they differ.",
    "I can compare sources and analyse how accurate and reliable they are."]}
 };
+
+
+/* ---------------------------------------------------------------------------
+   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   students meet in English, mapped onto the same criterion keys so that a
+   student's writing survives switching frames.
+
+   P and T are the same move. Both are here because different classes are
+   taught different letters, and arguing about the letter helps nobody.
+   --------------------------------------------------------------------------- */
+
+const FRAMES = [FRAME,
+ { name:"P · E · E · L",
+   blurb:"The same four moves under the letters you use in English. Your writing carries across if you switch.",
+   steps:[
+    { key:FRAME.steps[0].key, letter:"P", title:"Point",
+      job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
+      warn:FRAME.steps[0].warn, warnWhy:FRAME.steps[0].warnWhy,
+      stems:FRAME.steps[0].stems },
+    { key:FRAME.steps[2].key, letter:"E", title:"Evidence",
+      job:FRAME.steps[2].job, guide:FRAME.steps[2].guide,
+      warn:FRAME.steps[2].warn, warnWhy:FRAME.steps[2].warnWhy,
+      stems:FRAME.steps[2].stems },
+    { key:FRAME.steps[1].key, letter:"E", title:"Explain",
+      job:FRAME.steps[1].job, guide:FRAME.steps[1].guide,
+      warn:FRAME.steps[1].warn, warnWhy:FRAME.steps[1].warnWhy,
+      stems:FRAME.steps[1].stems },
+    { key:FRAME.steps[3].key, letter:"L", title:"Link",
+      job:FRAME.steps[3].job, guide:FRAME.steps[3].guide,
+      warn:FRAME.steps[3].warn, warnWhy:FRAME.steps[3].warnWhy,
+      stems:FRAME.steps[3].stems }]},
+ { name:"T · E · E · L",
+   blurb:"The same as PEEL, with Topic sentence in place of Point. Your writing carries across if you switch.",
+   steps:[
+    { key:FRAME.steps[0].key, letter:"T", title:"Topic sentence",
+      job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
+      warn:FRAME.steps[0].warn, warnWhy:FRAME.steps[0].warnWhy,
+      stems:FRAME.steps[0].stems },
+    { key:FRAME.steps[2].key, letter:"E", title:"Evidence",
+      job:FRAME.steps[2].job, guide:FRAME.steps[2].guide,
+      warn:FRAME.steps[2].warn, warnWhy:FRAME.steps[2].warnWhy,
+      stems:FRAME.steps[2].stems },
+    { key:FRAME.steps[1].key, letter:"E", title:"Explain",
+      job:FRAME.steps[1].job, guide:FRAME.steps[1].guide,
+      warn:FRAME.steps[1].warn, warnWhy:FRAME.steps[1].warnWhy,
+      stems:FRAME.steps[1].stems },
+    { key:FRAME.steps[3].key, letter:"L", title:"Link",
+      job:FRAME.steps[3].job, guide:FRAME.steps[3].guide,
+      warn:FRAME.steps[3].warn, warnWhy:FRAME.steps[3].warnWhy,
+      stems:FRAME.steps[3].stems }]}
+];

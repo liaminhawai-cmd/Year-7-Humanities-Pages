@@ -218,3 +218,62 @@ const BUILD = {
   ],
   done: "The wall is complete. Everything in it came out of your answers."
 };
+
+
+/* ---------------------------------------------------------------------------
+   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   students meet in English, mapped onto the same criterion keys so that a
+   student's writing survives switching frames.
+
+   P and T are the same move. Both are here because different classes are
+   taught different letters, and arguing about the letter helps nobody.
+   --------------------------------------------------------------------------- */
+
+const FRAMES = [FRAME,
+ { name:"P · E · E · L",
+   blurb:"The same moves under the letters you use in English. Link is your own concluding sentence &mdash; the only step with nothing to read off the wall.",
+   steps:[
+    { key:FRAME.steps[0].key, letter:"P", title:"Point",
+      job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
+      warn:FRAME.steps[0].warn, warnWhy:FRAME.steps[0].warnWhy,
+      stems:FRAME.steps[0].stems },
+    { key:FRAME.steps[2].key, letter:"E", title:"Evidence",
+      job:FRAME.steps[2].job, guide:FRAME.steps[2].guide,
+      warn:FRAME.steps[2].warn, warnWhy:FRAME.steps[2].warnWhy,
+      stems:FRAME.steps[2].stems },
+    { key:FRAME.steps[1].key, letter:"E", title:"Explain",
+      job:FRAME.steps[1].job, guide:FRAME.steps[1].guide,
+      warn:FRAME.steps[1].warn, warnWhy:FRAME.steps[1].warnWhy,
+      stems:FRAME.steps[1].stems },
+    { key:"link", letter:"L", title:"Link",
+      job:"Tie it back. Say what the decision means for the business overall.",
+      guide:"The Link is the only step with nothing to read off the wall — it is your sentence, not the source&#39;s. Say what all of it adds up to for the business.",
+      warn:"So that is why Pigeon Patrol is good.",
+      warnWhy:"Good at what, and how do you know? A link has to carry the argument, not just end it.",
+      stems:["Overall this means ___ for the business, because ___.",
+             "Taken together, ___ matters more than ___ because ___.",
+             "The trade-off the business is making is ___."] }]},
+ { name:"T · E · E · L",
+   blurb:"The same as PEEL, with Topic sentence in place of Point.",
+   steps:[
+    { key:FRAME.steps[0].key, letter:"T", title:"Topic sentence",
+      job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
+      warn:FRAME.steps[0].warn, warnWhy:FRAME.steps[0].warnWhy,
+      stems:FRAME.steps[0].stems },
+    { key:FRAME.steps[2].key, letter:"E", title:"Evidence",
+      job:FRAME.steps[2].job, guide:FRAME.steps[2].guide,
+      warn:FRAME.steps[2].warn, warnWhy:FRAME.steps[2].warnWhy,
+      stems:FRAME.steps[2].stems },
+    { key:FRAME.steps[1].key, letter:"E", title:"Explain",
+      job:FRAME.steps[1].job, guide:FRAME.steps[1].guide,
+      warn:FRAME.steps[1].warn, warnWhy:FRAME.steps[1].warnWhy,
+      stems:FRAME.steps[1].stems },
+    { key:"link", letter:"L", title:"Link",
+      job:"Tie it back. Say what the decision means for the business overall.",
+      guide:"The Link is the only step with nothing to read off the wall — it is your sentence, not the source&#39;s. Say what all of it adds up to for the business.",
+      warn:"So that is why Pigeon Patrol is good.",
+      warnWhy:"Good at what, and how do you know? A link has to carry the argument, not just end it.",
+      stems:["Overall this means ___ for the business, because ___.",
+             "Taken together, ___ matters more than ___ because ___.",
+             "The trade-off the business is making is ___."] }]}
+];
