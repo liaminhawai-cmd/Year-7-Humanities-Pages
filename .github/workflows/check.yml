@@ -1,14 +1,18 @@
-# Checks the site on every push. It does NOT deploy.
+# Checks the site, then publishes it.
 #
-# Deployment is handled by GitHub's own "pages build and deployment", which runs
-# automatically because Settings -> Pages -> Source is "Deploy from a branch"
-# (main / root). Adding a deploy job here as well would mean two publishers
-# racing for the same site, so this workflow only checks.
+# Publishing happens here rather than through GitHub's "Deploy from a branch"
+# because the branch builder is invisible from outside the settings page: when
+# it is misconfigured the site simply 404s and nothing says why. Every push now
+# produces a run you can open, and a failure names its own cause.
 #
-# What it checks is the thing that actually breaks a classroom site: a link that
-# goes nowhere. Those get found by a student in the middle of a lesson, which is
-# the worst possible time, so they get found here instead.
-name: Check site
+# Settings -> Pages -> Source must therefore stay on "GitHub Actions". If it is
+# switched back to a branch, the deploy step below fails loudly — which is the
+# intended behaviour. A red run beats a silently stale site.
+#
+# What it checks first is the failure that actually hurts: a link a student
+# clicks in the middle of a lesson, and an index page hand-edited away from the
+# site map, which is lost the next time anyone regenerates.
+name: Check and publish
 
 on:
   push:
@@ -17,10 +21,20 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+# Never let two publishes race; a newer push supersedes one already queued.
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  links:
+  publish:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -63,3 +77,10 @@ jobs:
             exit 1
           fi
           echo "index pages match the site map"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
