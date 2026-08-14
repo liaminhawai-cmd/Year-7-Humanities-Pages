@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="One card per step of the answer: what the sentence has to do, the real sentence from the wall, how to write it, what fails, and stems to start from.">
+<title>Paragraph Builder</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#efe8dc; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --gold:#8b681e; --gold-soft:#f6e7c2;
+  --warn:#b42318; --warn-soft:#fdeceb;
+  --success:#1f4ed8; --success-soft:#e4ebfe;
+  --innovation:#c2410c; --innovation-soft:#fceee6;
+  --decisions:#15803d; --decisions-soft:#e2f4e8;
+  --meta:#53666b; --meta-soft:#e2eaeb;
+  --source:#176b87; --source-soft:#d8edf4;
+  --context:#357a46; --context-soft:#dff0df;
+  --evidence:#a34d1d; --evidence-soft:#f7e3d4;
+  --judge:#744f91; --judge-soft:#eadff2;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#1b1e1c; --bg:#111312; --ink:#eae5db; --muted:#a49a8b; --line:#3a4038;
+    --deep:#cfe0e0; --on-deep:#111312; --band:#232725; --shadow:0 1px 2px rgba(0,0,0,.45);
+    --gold:#e0b64c; --gold-soft:#3a2f10;
+    --warn:#f0837a; --warn-soft:#3a1a18;
+    --success:#7ba2ff; --success-soft:#182444;
+    --innovation:#f0906a; --innovation-soft:#3a2117;
+    --decisions:#66c98a; --decisions-soft:#12301f;
+    --meta:#a3b6bb; --meta-soft:#232c2e;
+    --source:#6fc0da; --source-soft:#12303a;
+    --context:#74c288; --context-soft:#15301d;
+    --evidence:#e89a63; --evidence-soft:#3a2417;
+    --judge:#bda0d8; --judge-soft:#2b1f3a;
+  }
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.5;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1060px;margin:0 auto;padding:18px 14px 60px}
+
+header.top{background:var(--deep);color:var(--on-deep);padding:20px 14px 22px}
+header.top .in{max-width:1060px;margin:0 auto}
+.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;opacity:.75}
+h1{font-size:clamp(1.4rem,3.6vw,2.1rem);line-height:1.1;margin:.2rem 0 .35rem;letter-spacing:.02em}
+.blurb{font-size:.9rem;opacity:.92;max-width:80ch}
+
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:14px}
+.bar button{font:inherit;font-size:.8rem;font-weight:600;padding:6px 12px;border-radius:999px;
+            border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.bar .sp{flex:1}
+.bar select{font:inherit;font-size:.8rem;padding:6px 10px;border-radius:8px;
+            border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.bar label{font-size:.8rem;color:var(--muted);font-weight:600}
+
+h2.sec{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+       color:var(--muted);margin:20px 0 8px}
+
+/* ---------- step cards ---------- */
+.step{border:1px solid var(--line);border-left:6px solid var(--line);border-radius:11px;
+      background:var(--paper);box-shadow:var(--shadow);margin-bottom:9px;overflow:hidden}
+.step>button.head{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;
+                  background:none;border:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.letter{flex:none;width:38px;height:38px;border-radius:9px;display:grid;place-items:center;
+        font-weight:800;font-size:1.15rem;color:#fff}
+.step h3{font-size:1rem;line-height:1.2}
+.step .job{font-size:.83rem;color:var(--muted);margin-top:1px}
+.step .chev{margin-left:auto;color:var(--muted);transition:transform .18s}
+.step.open .chev{transform:rotate(90deg)}
+.step .body{display:none;padding:0 14px 14px}
+.step.open .body{display:block}
+
+.lab{font-size:.68rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+     color:var(--muted);margin:12px 0 5px}
+.fromwall{font-family:Georgia,"Times New Roman",serif;font-size:1rem;line-height:1.8;
+          background:var(--band);border-radius:8px;padding:11px 13px}
+.guide{font-size:.88rem;line-height:1.5}
+.bad{border:1px solid var(--warn);background:var(--warn-soft);border-radius:8px;padding:10px 12px;font-size:.87rem}
+.bad .x{color:var(--warn);font-weight:800;margin-right:5px}
+.bad .why{display:block;margin-top:4px;color:var(--muted);font-size:.83rem}
+.stems{display:grid;gap:5px}
+.stems button{font:inherit;font-size:.87rem;text-align:left;padding:8px 11px;border-radius:8px;
+              border:1px dashed var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+              font-family:Georgia,"Times New Roman",serif}
+.stems button:hover{border-style:solid;border-color:var(--deep)}
+.stems button::after{content:" ＋";color:var(--muted);font-family:system-ui,sans-serif;font-size:.8em}
+
+.ladder{margin-top:6px;border-top:1px dashed var(--line);padding-top:9px}
+.ladder .row{display:grid;grid-template-columns:minmax(74px,110px) 1fr;gap:9px;
+             padding:5px 0;font-size:.85rem;align-items:baseline}
+.ladder .lv{font-weight:800;color:var(--deep);font-size:.76rem;text-transform:uppercase;letter-spacing:.04em}
+.ladder .ph{font-family:Georgia,"Times New Roman",serif;line-height:1.55}
+.ladder .none{color:var(--muted);font-style:italic}
+
+/* ---------- verbs ---------- */
+.verbs{display:flex;flex-wrap:wrap;gap:5px}
+.verbs button{font:inherit;font-size:.85rem;padding:5px 11px;border-radius:999px;cursor:pointer;
+              border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.verbs button[aria-pressed="true"]{border-color:var(--deep);box-shadow:inset 0 0 0 1px var(--deep)}
+.vnote{font-size:.84rem;color:var(--muted);margin-top:8px;min-height:1.3em}
+.avoid{margin-top:12px;display:grid;gap:5px}
+.avoid div{font-size:.85rem;display:flex;gap:8px}
+.avoid s{color:var(--warn);text-decoration-thickness:1.5px;flex:none;font-weight:700}
+
+/* ---------- build ---------- */
+.slot{border:1px solid var(--line);border-radius:10px;background:var(--paper);
+      box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden}
+.slot .sh{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--band);
+          border-bottom:1px solid var(--line)}
+.slot .sl{flex:none;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;
+          font-weight:800;font-size:.9rem;color:#fff}
+.slot .st{font-weight:700;font-size:.88rem}
+.slot .sj{font-size:.78rem;color:var(--muted);margin-left:auto;text-align:right}
+.write{font-family:Georgia,"Times New Roman",serif;font-size:1rem;line-height:1.8;
+       padding:11px 13px;outline:none;min-height:58px}
+.write:focus{background:var(--band)}
+.write:empty::before{content:attr(data-ph);color:var(--muted)}
+.state{font-size:.84rem;color:var(--muted);margin-top:10px}
+.note{font-size:.78rem;color:var(--muted);margin-top:9px}
+footer{max-width:1060px;margin:0 auto;padding:0 14px 40px;font-size:.75rem;color:var(--muted);line-height:1.5}
+footer b{color:var(--ink)}
+
+/* ---------- criterion colours ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+.m-success,.m-source{text-decoration-style:solid}
+.m-innovation,.m-context{text-decoration-style:dashed}
+.m-decisions,.m-evidence{text-decoration-style:dotted}
+.m-judge{text-decoration-style:double}
+.m-meta{text-decoration-style:wavy;text-decoration-thickness:1.2px}
+.m-success{color:var(--success);text-decoration-color:var(--success)}
+.m-innovation{color:var(--innovation);text-decoration-color:var(--innovation)}
+.m-decisions{color:var(--decisions);text-decoration-color:var(--decisions)}
+.m-source{color:var(--source);text-decoration-color:var(--source)}
+.m-context{color:var(--context);text-decoration-color:var(--context)}
+.m-evidence{color:var(--evidence);text-decoration-color:var(--evidence)}
+.m-judge{color:var(--judge);text-decoration-color:var(--judge)}
+.m-meta{color:var(--meta);text-decoration-color:var(--meta)}
+
+.s-success{border-left-color:var(--success)} .s-success .letter,.s-success .sl{background:var(--success)}
+.s-innovation{border-left-color:var(--innovation)} .s-innovation .letter,.s-innovation .sl{background:var(--innovation)}
+.s-decisions{border-left-color:var(--decisions)} .s-decisions .letter,.s-decisions .sl{background:var(--decisions)}
+.s-meta{border-left-color:var(--meta)} .s-meta .letter,.s-meta .sl{background:var(--meta)}
+.s-source{border-left-color:var(--source)} .s-source .letter,.s-source .sl{background:var(--source)}
+.s-context{border-left-color:var(--context)} .s-context .letter,.s-context .sl{background:var(--context)}
+.s-evidence{border-left-color:var(--evidence)} .s-evidence .letter,.s-evidence .sl{background:var(--evidence)}
+.s-judge{border-left-color:var(--judge)} .s-judge .letter,.s-judge .sl{background:var(--judge)}
+
+@media print{
+  header.top{background:none;color:var(--ink)}
+  .bar,.stems,.chev{display:none!important}
+  .step .body{display:block!important}
+  .step,.slot{break-inside:avoid;box-shadow:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="blurb" id="blurb"></p>
+</div></header>
+
+<main>
+  <div class="bar">
+    <button id="openAll">Open all</button>
+    <button id="shutAll">Close all</button>
+    <span class="sp"></span>
+    <label for="lvl">Show the sentences from</label>
+    <select id="lvl"></select>
+  </div>
+
+  <div id="steps"></div>
+
+  <h2 class="sec">Verbs that do the work</h2>
+  <div class="card" style="background:var(--paper);border:1px solid var(--line);border-radius:11px;
+       box-shadow:var(--shadow);padding:14px">
+    <div class="verbs" id="verbs"></div>
+    <p class="vnote" id="vnote">Tap a verb to see what it does.</p>
+    <div class="avoid" id="avoid"></div>
+  </div>
+
+  <h2 class="sec">Build your own</h2>
+  <div id="slots"></div>
+  <p class="state" id="state"></p>
+  <div class="bar" style="margin-top:9px">
+    <button id="clearMine">Clear everything</button>
+    <span class="sp"></span>
+    <button id="printMine">Print</button>
+  </div>
+  <p class="note">Saved on this device only, in this browser. Nobody else can see it, and clearing your browser data will delete it.</p>
+</main>
+
+<footer id="foot"></footer>
+
+<script src="content.js"></script>
+<script>
+/* Step text comes from FRAME in content.js; every worked sentence is pulled out
+   of EXAMPLES, so nothing on this page is a second copy of the wall. */
+
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,(_,k,t)=>`<span class="m m-${k}">${t}</span>`);
+const critOf = k => CRITERIA.find(c => c.key === k);
+
+el("kicker").textContent = WALL.title;
+el("h1").textContent = FRAME.name;
+el("blurb").textContent = FRAME.blurb;
+el("foot").innerHTML = WALL.foot;
+
+/* Split an example into sentences without ever cutting through a {mark}: the
+   marks contain their own full stops and question marks. */
+function sentences(src){
+  const out = []; let buf = "", depth = 0;
+  for (let i = 0; i < src.length; i++){
+    const ch = src[i];
+    buf += ch;
+    if (ch === "{") depth++;
+    else if (ch === "}") depth--;
+    else if ((ch === "." || ch === "?") && depth === 0){
+      let j = i + 1;
+      while (j < src.length && /[”"’')\]]/.test(src[j])){ buf += src[j]; j++; }
+      if (j >= src.length || /\s/.test(src[j])){
+        out.push(buf.trim()); buf = "";
+        while (j < src.length && /\s/.test(src[j])) j++;
+      }
+      i = j - 1;
+    }
+  }
+  if (buf.trim()) out.push(buf.trim());
+  return out;
+}
+const sentencesFor = (key, lv) =>
+  sentences(EXAMPLES[lv]).filter(s => s.includes("{" + key + "|"));
+const phrasesFor = (key, lv) =>
+  [...EXAMPLES[lv].matchAll(new RegExp("\\{" + key + "\\|([^}]*)\\}", "g"))].map(m => m[1]);
+
+/* ---------- level selector ---------- */
+let level = LEVELS.includes(WALL.expected) ? WALL.expected : LEVELS[0];
+el("lvl").innerHTML = LEVELS.map(lv =>
+  `<option value="${lv}"${lv===level?" selected":""}>${lv}${lv===WALL.expected?" (expected)":""}</option>`).join("");
+el("lvl").onchange = e => { level = e.target.value; renderSteps(); };
+
+/* ---------- step cards ---------- */
+function renderSteps(){
+  const openNow = new Set([...document.querySelectorAll(".step.open")].map(s => s.dataset.k));
+  el("steps").innerHTML = FRAME.steps.map(st => {
+    const c = critOf(st.key);
+    const sent = sentencesFor(st.key, level);
+    return `<section class="step s-${st.key}${openNow.has(st.key)?" open":""}" data-k="${st.key}">
+      <button class="head" aria-expanded="${openNow.has(st.key)}">
+        <span class="letter">${st.letter}</span>
+        <span><h3>${st.title}<span style="color:var(--muted);font-weight:600"> · ${c.name}</span></h3>
+              <span class="job">${esc(st.job)}</span></span>
+        <span class="chev">▸</span>
+      </button>
+      <div class="body">
+        <div class="lab">From the wall — ${esc(level)}</div>
+        <div class="fromwall">${sent.length
+            ? sent.map(mark).join(" ")
+            : `<span style="color:var(--muted);font-style:italic">This step is not written at ${esc(level)}.</span>`}</div>
+
+        <div class="lab">How to write it</div>
+        <p class="guide">${esc(st.guide)}</p>
+
+        <div class="lab">What does not count</div>
+        <div class="bad"><span class="x">✗</span>${esc(st.warn)}
+          <span class="why">${esc(st.warnWhy)}</span></div>
+
+        <div class="lab">Start with one of these</div>
+        <div class="stems">${st.stems.map(s =>
+          `<button type="button" data-stem="${esc(s).replace(/"/g,"&quot;")}" data-k="${st.key}">${esc(s)}</button>`).join("")}</div>
+
+        <div class="ladder">
+          <div class="lab" style="margin-top:0">The same step, every level</div>
+          ${LEVELS.map(lv => {
+            const ph = phrasesFor(st.key, lv);
+            return `<div class="row"><span class="lv">${esc(lv)}</span>
+              <span class="ph ${ph.length?"":"none"}">${ph.length
+                ? ph.map(p => `<span class="m m-${st.key}">${esc(p)}</span>`).join(" · ")
+                : "not written at this level"}</span></div>`;
+          }).join("")}
+        </div>
+      </div>
+    </section>`;
+  }).join("");
+
+  el("steps").querySelectorAll(".step .head").forEach(b => b.onclick = () => {
+    const s = b.closest(".step");
+    const open = s.classList.toggle("open");
+    b.setAttribute("aria-expanded", String(open));
+  });
+  el("steps").querySelectorAll("[data-stem]").forEach(b => b.onclick = () => {
+    const slot = document.querySelector(`.write[data-k="${b.dataset.k}"]`);
+    if (!slot) return;
+    slot.textContent = (slot.textContent.trim() ? slot.textContent.trim() + " " : "") + b.dataset.stem;
+    slot.scrollIntoView({ behavior:"smooth", block:"center" });
+    slot.focus();
+    saveMine();
+  });
+}
+
+el("openAll").onclick = ()=> document.querySelectorAll(".step").forEach(s => {
+  s.classList.add("open"); s.querySelector(".head").setAttribute("aria-expanded","true"); });
+el("shutAll").onclick = ()=> document.querySelectorAll(".step").forEach(s => {
+  s.classList.remove("open"); s.querySelector(".head").setAttribute("aria-expanded","false"); });
+
+/* ---------- verbs ---------- */
+el("verbs").innerHTML = VERBS.use.map((v,i) =>
+  `<button data-v="${i}" aria-pressed="false">${esc(v.w)}</button>`).join("");
+el("verbs").onclick = e => {
+  const b = e.target.closest("button[data-v]"); if (!b) return;
+  const on = b.getAttribute("aria-pressed") === "true";
+  el("verbs").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed", String(!on));
+  el("vnote").textContent = on ? "Tap a verb to see what it does."
+    : VERBS.use[+b.dataset.v].w + " — " + VERBS.use[+b.dataset.v].note;
+};
+el("avoid").innerHTML = `<div class="lab" style="margin:0 0 2px">Not these</div>` +
+  VERBS.avoid.map(a => `<div><s>${esc(a.w)}</s><span>${esc(a.why)}</span></div>`).join("");
+
+/* ---------- build your own ---------- */
+const STORE = "wagoll_" + WALL.id + "_frame";
+el("slots").innerHTML = FRAME.steps.map(st => `
+  <div class="slot s-${st.key}">
+    <div class="sh"><span class="sl">${st.letter}</span><span class="st">${st.title}</span>
+      <span class="sj">${esc(st.job)}</span></div>
+    <div class="write" contenteditable="true" spellcheck="true"
+         data-k="${st.key}" data-ph="Write your ${st.letter} sentence here…"></div>
+  </div>`).join("");
+
+function saveMine(){
+  const data = {};
+  document.querySelectorAll(".write").forEach(w => data[w.dataset.k] = w.textContent);
+  try { localStorage.setItem(STORE, JSON.stringify(data)); }
+  catch(e){ el("state").textContent =
+    "This browser will not let the page save. Copy your writing somewhere else before you close the tab."; return; }
+  showState();
+}
+function showState(){
+  const empty = FRAME.steps.filter(st =>
+    !document.querySelector(`.write[data-k="${st.key}"]`).textContent.trim());
+  el("state").textContent = empty.length
+    ? "Still empty: " + empty.map(s => s.letter + " (" + s.title + ")").join(", ") + "."
+    : "Every step has something in it.";
+}
+try {
+  const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
+  document.querySelectorAll(".write").forEach(w => {
+    if (saved[w.dataset.k]) w.textContent = saved[w.dataset.k];
+  });
+} catch(e){}
+document.querySelectorAll(".write").forEach(w => w.addEventListener("input", saveMine));
+el("clearMine").onclick = ()=>{
+  document.querySelectorAll(".write").forEach(w => w.textContent = "");
+  saveMine();
+};
+el("printMine").onclick = ()=> window.print();
+
+renderSteps();
+showState();
+</script>
+</body>
+</html>

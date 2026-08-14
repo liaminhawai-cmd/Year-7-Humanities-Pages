@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Build the WAGOLL wall a round at a time. Every question comes out of the wall itself.">
+<title>Build the Wall</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#eef1f6; --ink:#161a22; --muted:#5b6478; --line:#d7dde8;
+  --deep:#1f2a3c; --on-deep:#ffffff; --band:#f4f6fa;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --gold:#a16207; --gold-soft:#fdf3d7;
+  --ok:#15803d; --ok-soft:#e2f4e8; --no:#b42318; --no-soft:#fdeceb;
+  --success:#1f4ed8; --success-soft:#e4ebfe;
+  --innovation:#c2410c; --innovation-soft:#fceee6;
+  --decisions:#15803d; --decisions-soft:#e2f4e8;
+  --meta:#7c3aed; --meta-soft:#efe8fd;
+  --source:#176b87; --source-soft:#d8edf4;
+  --context:#357a46; --context-soft:#dff0df;
+  --evidence:#a34d1d; --evidence-soft:#f7e3d4;
+  --judge:#744f91; --judge-soft:#eadff2;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#161c28; --bg:#0e131c; --ink:#e9edf5; --muted:#98a2b6; --line:#2a3448;
+    --deep:#dce3f0; --on-deep:#0e131c; --band:#1c2432; --shadow:0 1px 2px rgba(0,0,0,.45);
+    --gold:#e0b64c; --gold-soft:#3a2f10;
+    --ok:#66c98a; --ok-soft:#12301f; --no:#f0837a; --no-soft:#3a1a18;
+    --success:#7ba2ff; --success-soft:#182444;
+    --innovation:#f0906a; --innovation-soft:#3a2117;
+    --decisions:#66c98a; --decisions-soft:#12301f;
+    --meta:#b795fb; --meta-soft:#271a44;
+    --source:#6fc0da; --source-soft:#12303a;
+    --context:#74c288; --context-soft:#15301d;
+    --evidence:#e89a63; --evidence-soft:#3a2417;
+    --judge:#bda0d8; --judge-soft:#2b1f3a;
+  }
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.5;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:960px;margin:0 auto;padding:16px 14px 60px}
+
+header.top{background:var(--deep);color:var(--on-deep);padding:18px 14px 20px}
+header.top .in{max-width:960px;margin:0 auto;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;font-weight:800;opacity:.75}
+h1{font-size:clamp(1.3rem,3.4vw,1.9rem);line-height:1.1;margin-top:.15rem}
+.score{margin-left:auto;font-weight:700;font-size:.9rem;white-space:nowrap}
+
+.stagepath{display:flex;gap:5px;flex-wrap:wrap;margin:14px 0}
+.stagepath button{font:inherit;font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px;
+                  border:1px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer}
+.stagepath button[aria-current="true"]{background:var(--deep);color:var(--on-deep);border-color:var(--deep)}
+.stagepath button.done{color:var(--ok);border-color:var(--ok)}
+.stagepath button.done::before{content:"✓ "}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+      box-shadow:var(--shadow);padding:15px 16px;margin-bottom:12px}
+h2{font-size:1.05rem;color:var(--deep);margin-bottom:8px}
+.teach{font-size:.89rem;line-height:1.55;background:var(--band);border-left:4px solid var(--deep);
+       border-radius:8px;padding:11px 13px;margin-bottom:12px}
+.teach ul{margin:7px 0 0 18px} .teach li{margin-bottom:3px}
+.teach.re{border-left-color:var(--no);background:var(--no-soft)}
+
+.qn{font-size:.74rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stem{font-family:Georgia,"Times New Roman",serif;font-size:1.12rem;line-height:1.6;
+      background:var(--band);border-radius:9px;padding:13px 15px;margin-bottom:11px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opts button{font:inherit;font-size:.92rem;text-align:left;padding:10px 13px;border-radius:9px;
+             border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+             display:flex;align-items:center;gap:9px}
+.opts button:hover:not(:disabled){border-color:var(--deep)}
+.opts button:disabled{cursor:default}
+.opts button.right{border-color:var(--ok);background:var(--ok-soft);font-weight:700}
+.opts button.wrong{border-color:var(--no);background:var(--no-soft)}
+.opts .g{flex:none;width:22px;text-align:center}
+
+.verdict{margin-top:11px;font-size:.9rem;padding:10px 13px;border-radius:9px;display:none}
+.verdict.show{display:block}
+.verdict.yes{background:var(--ok-soft);color:var(--ok);font-weight:700}
+.verdict.no{background:var(--no-soft)}
+.verdict.no b{color:var(--no)}
+.next{margin-top:11px;display:flex;gap:7px;flex-wrap:wrap}
+.next button{font:inherit;font-size:.85rem;font-weight:700;padding:8px 16px;border-radius:9px;
+             border:1px solid var(--deep);background:var(--deep);color:var(--on-deep);cursor:pointer}
+.next button.ghost{background:var(--paper);color:var(--ink);border-color:var(--line);font-weight:600}
+
+/* ---------- ordering task ---------- */
+.order{display:grid;gap:7px}
+.order .row{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);
+            border-radius:9px;padding:10px 12px;background:var(--paper)}
+.order .row.right{border-color:var(--ok);background:var(--ok-soft)}
+.order .row.wrong{border-color:var(--no);background:var(--no-soft)}
+.order .num{flex:none;width:26px;height:26px;border-radius:7px;background:var(--band);
+            display:grid;place-items:center;font-weight:800;font-size:.85rem;color:var(--muted)}
+.order .txt{font-family:Georgia,"Times New Roman",serif;font-size:.97rem;line-height:1.5}
+.order .mv{margin-left:auto;display:flex;flex-direction:column;gap:3px}
+.order .mv button{font:inherit;font-size:.7rem;line-height:1;padding:4px 7px;border-radius:6px;
+                  border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+
+/* ---------- the wall being built ---------- */
+.wallwrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px;background:var(--paper)}
+table.wall{border-collapse:collapse;width:100%;min-width:620px;table-layout:fixed;font-size:.72rem}
+.wall th,.wall td{border:1px solid var(--line);padding:6px 7px;vertical-align:middle;text-align:left}
+.wall thead th{background:var(--deep);color:var(--on-deep);text-align:center;font-size:.72rem}
+.wall .rowlab{width:112px;font-weight:800;font-size:.66rem;text-transform:uppercase;letter-spacing:.03em}
+.wall td.cell{height:30px;background:var(--band);color:transparent}
+.wall td.cell.on{color:var(--ink);font-size:.68rem;line-height:1.25}
+.wall td.cell.on.c-success{background:var(--success-soft)} .wall td.cell.on.c-innovation{background:var(--innovation-soft)}
+.wall td.cell.on.c-decisions{background:var(--decisions-soft)} .wall td.cell.on.c-meta{background:var(--meta-soft)}
+.wall td.cell.on.c-source{background:var(--source-soft)} .wall td.cell.on.c-context{background:var(--context-soft)}
+.wall td.cell.on.c-evidence{background:var(--evidence-soft)} .wall td.cell.on.c-judge{background:var(--judge-soft)}
+.wallnote{font-size:.8rem;color:var(--muted);margin-top:8px}
+
+.report{display:grid;gap:8px;margin-top:10px}
+.report .miss{border:1px solid var(--line);border-left:4px solid var(--no);border-radius:8px;padding:9px 11px;font-size:.87rem}
+.report .miss b{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px}
+.allgood{color:var(--ok);font-weight:700;font-size:.9rem}
+
+.rowlab-success{color:var(--success)} .rowlab-innovation{color:var(--innovation)}
+.rowlab-decisions{color:var(--decisions)} .rowlab-meta{color:var(--meta)}
+.rowlab-source{color:var(--source)} .rowlab-context{color:var(--context)}
+.rowlab-evidence{color:var(--evidence)} .rowlab-judge{color:var(--judge)}
+
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+.m-success,.m-source{text-decoration-style:solid} .m-innovation,.m-context{text-decoration-style:dashed}
+.m-decisions,.m-evidence{text-decoration-style:dotted} .m-judge{text-decoration-style:double}
+.m-meta{text-decoration-style:wavy}
+.m-success{color:var(--success);text-decoration-color:var(--success)}
+.m-innovation{color:var(--innovation);text-decoration-color:var(--innovation)}
+.m-decisions{color:var(--decisions);text-decoration-color:var(--decisions)}
+.m-source{color:var(--source);text-decoration-color:var(--source)}
+.m-context{color:var(--context);text-decoration-color:var(--context)}
+.m-evidence{color:var(--evidence);text-decoration-color:var(--evidence)}
+.m-judge{color:var(--judge);text-decoration-color:var(--judge)}
+.m-meta{color:var(--meta);text-decoration-color:var(--meta)}
+
+footer{max-width:960px;margin:0 auto;padding:0 14px 40px;font-size:.74rem;color:var(--muted);line-height:1.5}
+footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <div><div class="kicker" id="kicker"></div><h1>Build the wall</h1></div>
+  <div class="score" id="score"></div>
+</div></header>
+
+<main>
+  <div class="stagepath" id="path"></div>
+  <div id="stageBox"></div>
+
+  <div class="card">
+    <h2>The wall so far</h2>
+    <div class="wallwrap"><table class="wall" id="wall"></table></div>
+    <p class="wallnote" id="wallnote"></p>
+  </div>
+</main>
+
+<footer id="foot"></footer>
+
+<script src="content.js"></script>
+<script>
+/* Every question is generated from EXAMPLES / CONTINUUM / FRAME in content.js.
+   Only the teaching text comes from BUILD, so the activity can never ask about
+   something the wall does not actually say. */
+
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const critOf = k => CRITERIA.find(c => c.key === k);
+const shuffle = a => { const r=[...a];
+  for (let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [r[i],r[j]]=[r[j],r[i]]; } return r; };
+
+el("kicker").textContent = WALL.title;
+el("foot").innerHTML = WALL.foot;
+
+/* ---------- build the question banks out of the wall ---------- */
+function phraseItems(){
+  const out = [];
+  LEVELS.forEach(lv => CRITERIA.forEach(c => {
+    [...EXAMPLES[lv].matchAll(new RegExp("\\{"+c.key+"\\|([^}]*)\\}","g"))].forEach(m => {
+      if (m[1].length >= 18) out.push({ stem:m[1], answer:c.key, level:lv, crit:c.key });
+    });
+  }));
+  return out;
+}
+function descriptorItems(){
+  const out = [];
+  CRITERIA.forEach(c => LEVELS.forEach(lv => {
+    const d = CONTINUUM[c.key][lv];
+    if (d) out.push({ stem:d, answer:c.key, level:lv, crit:c.key });
+  }));
+  return out;
+}
+function levelItems(){
+  const out = [];
+  CRITERIA.forEach(c => LEVELS.forEach(lv => {
+    const d = CONTINUUM[c.key][lv];
+    if (d) out.push({ stem:d, answer:lv, level:lv, crit:c.key });
+  }));
+  return out;
+}
+function orderItem(){
+  const lv = LEVELS.includes(WALL.expected) ? WALL.expected : LEVELS[0];
+  const order = FRAME.steps.map(s => s.key);
+  const seen = [];
+  sentences(EXAMPLES[lv]).forEach(s => {
+    const k = order.find(key => s.includes("{"+key+"|"));
+    if (k && !seen.some(x => x.key === k)) seen.push({ key:k, text:plain(s) });
+  });
+  seen.sort((a,b) => order.indexOf(a.key) - order.indexOf(b.key));
+  return { level:lv, correct:seen };
+}
+const plain = s => String(s).replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+const mark  = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,(_,k,t)=>`<span class="m m-${k}">${t}</span>`);
+
+/* split without ever cutting through a {mark} — marks contain their own stops */
+function sentences(src){
+  const out=[]; let buf="", depth=0;
+  for (let i=0;i<src.length;i++){
+    const ch=src[i]; buf+=ch;
+    if (ch==="{") depth++;
+    else if (ch==="}") depth--;
+    else if ((ch==="."||ch==="?") && depth===0){
+      let j=i+1;
+      while (j<src.length && /[”"’')\]]/.test(src[j])){ buf+=src[j]; j++; }
+      if (j>=src.length || /\s/.test(src[j])){ out.push(buf.trim()); buf="";
+        while (j<src.length && /\s/.test(src[j])) j++; }
+      i=j-1;
+    }
+  }
+  if (buf.trim()) out.push(buf.trim());
+  return out;
+}
+
+const PER_STAGE = 6;
+const BANK = {
+  phrase:     shuffle(phraseItems()).slice(0, PER_STAGE),
+  descriptor: shuffle(descriptorItems()).slice(0, PER_STAGE),
+  level:      shuffle(levelItems()).slice(0, PER_STAGE),
+  order:      [orderItem()]
+};
+
+/* ---------- state ---------- */
+const filled = {};                       // "crit|level" -> true
+CRITERIA.forEach(c => LEVELS.forEach(lv => filled[c.key+"|"+lv] = false));
+let stageIx = 0, itemIx = 0, retry = false, answered = false;
+const missed = [];                       // wrong on first try
+let firstTry = 0, asked = 0;
+
+/* ---------- the wall ---------- */
+function drawWall(){
+  el("wall").innerHTML =
+    `<thead><tr><th class="rowlab"></th>${LEVELS.map(lv=>`<th>${esc(lv)}</th>`).join("")}</tr></thead>
+     <tbody>${CRITERIA.map(c=>`<tr>
+       <th class="rowlab rowlab-${c.key}">${c.glyph} ${c.row}</th>
+       ${LEVELS.map(lv=>{
+         const on = filled[c.key+"|"+lv];
+         const d = CONTINUUM[c.key][lv];
+         return `<td class="cell c-${c.key}${on?" on":""}">${on ? esc(d || "—") : ""}</td>`;
+       }).join("")}</tr>`).join("")}</tbody>`;
+  const total = CRITERIA.length * LEVELS.length;
+  const done = Object.values(filled).filter(Boolean).length;
+  el("wallnote").textContent =
+      done === 0     ? BUILD.intro
+    : done === total ? BUILD.done
+    : `${done} of ${total} cells filled.`;
+}
+function fillCell(crit, level){
+  if (crit && level && filled[crit+"|"+level] === false){ filled[crit+"|"+level] = true; }
+}
+
+/* ---------- stage path ---------- */
+function drawPath(){
+  el("path").innerHTML = BUILD.stages.map((s,i)=>{
+    const done = i < stageIx;
+    return `<button data-i="${i}" class="${done?"done":""}" aria-current="${i===stageIx}">${esc(s.short)}</button>`;
+  }).join("") + `<button data-i="${BUILD.stages.length}" aria-current="${stageIx===BUILD.stages.length}">Report</button>`;
+  el("path").querySelectorAll("button").forEach(b => b.onclick = ()=>{
+    stageIx = +b.dataset.i; itemIx = 0; retry = false; answered = false; render();
+  });
+  el("score").textContent = asked ? `${firstTry} of ${asked} right first time` : "";
+}
+
+/* ---------- render ---------- */
+function render(){
+  drawPath(); drawWall();
+  if (stageIx >= BUILD.stages.length) return renderReport();
+  const stage = BUILD.stages[stageIx];
+  if (stage.id === "order") return renderOrder(stage);
+  renderChoice(stage);
+}
+
+function renderChoice(stage){
+  const items = BANK[stage.id];
+  const item = items[itemIx];
+  if (!item) return nextStage();
+  const isLevel = stage.id === "level";
+  const options = isLevel ? LEVELS : CRITERIA.map(c => c.key);
+  const label = k => isLevel ? k : critOf(k).name;
+  const glyph = k => isLevel ? "" : `<span class="g">${critOf(k).glyph}</span>`;
+
+  el("stageBox").innerHTML = `
+    <div class="card">
+      <h2>${esc(stage.title)}</h2>
+      <div class="teach${retry?" re":""}">${retry ? stage.reteach : stage.teach}</div>
+      <div class="qn">Question ${itemIx+1} of ${items.length}</div>
+      <div class="stem">${stage.id==="phrase"
+        ? `<span class="m m-${item.crit}">${esc(item.stem)}</span>`
+        : esc(item.stem)}</div>
+      <div class="opts" id="opts">
+        ${options.map(o=>`<button data-o="${esc(o)}">${glyph(o)}<span>${esc(label(o))}</span></button>`).join("")}
+      </div>
+      <div class="verdict" id="verdict"></div>
+      <div class="next" id="next"></div>
+    </div>`;
+
+  el("opts").querySelectorAll("button").forEach(b => b.onclick = ()=>{
+    if (answered) return;
+    answered = true;
+    const pick = b.dataset.o, right = pick === item.answer;
+    asked++; if (right && !retry) firstTry++;
+    el("opts").querySelectorAll("button").forEach(x=>{
+      x.disabled = true;
+      if (x.dataset.o === item.answer) x.classList.add("right");
+      else if (x === b) x.classList.add("wrong");
+    });
+    const v = el("verdict");
+    v.className = "verdict show " + (right ? "yes" : "no");
+    v.innerHTML = right
+      ? "Yes."
+      : `<b>Not this one.</b> ${esc(stage.id==="level"
+          ? "That descriptor is " + item.answer + "."
+          : "That phrase belongs to " + critOf(item.answer).name + ".")}`;
+    if (right) fillCell(item.crit, item.level);
+    else missed.push({ stage:stage.short, stem:item.stem, answer:isLevel ? item.answer : critOf(item.answer).name });
+    drawWall();
+    el("next").innerHTML = `<button id="go">${itemIx+1 < items.length ? "Next question" : "Finish this round"}</button>`
+      + (right ? "" : `<button class="ghost" id="again">Read the help again</button>`);
+    el("go").onclick = ()=>{ itemIx++; answered=false; if (itemIx>=items.length) nextStage(); else render(); };
+    const again = document.getElementById("again");
+    if (again) again.onclick = ()=>{ retry = true; answered = false; render(); };
+  });
+}
+
+function nextStage(){ stageIx++; itemIx = 0; retry = false; answered = false; render(); }
+
+function renderOrder(stage){
+  const item = BANK.order[0];
+  if (!window.__order) window.__order = shuffle(item.correct);
+  const cur = window.__order;
+  el("stageBox").innerHTML = `
+    <div class="card">
+      <h2>${esc(stage.title)}</h2>
+      <div class="teach${retry?" re":""}">${retry ? stage.reteach : stage.teach}</div>
+      <div class="qn">The ${esc(item.level)} answer, out of order</div>
+      <div class="order" id="order">
+        ${cur.map((s,i)=>`<div class="row" data-i="${i}">
+          <span class="num">${i+1}</span><span class="txt">${esc(s.text)}</span>
+          <span class="mv"><button data-mv="up" data-i="${i}" aria-label="Move up">▲</button>
+                           <button data-mv="down" data-i="${i}" aria-label="Move down">▼</button></span>
+        </div>`).join("")}
+      </div>
+      <div class="verdict" id="verdict"></div>
+      <div class="next"><button id="check">Check the order</button>
+        <button class="ghost" id="again">Read the help again</button></div>
+    </div>`;
+
+  el("order").querySelectorAll("[data-mv]").forEach(b => b.onclick = ()=>{
+    const i = +b.dataset.i, j = b.dataset.mv === "up" ? i-1 : i+1;
+    if (j < 0 || j >= cur.length) return;
+    [cur[i], cur[j]] = [cur[j], cur[i]];
+    render();
+  });
+  el("check").onclick = ()=>{
+    let allRight = true;
+    el("order").querySelectorAll(".row").forEach((r,i)=>{
+      const ok = cur[i].key === item.correct[i].key;
+      r.classList.add(ok ? "right" : "wrong");
+      if (!ok) allRight = false;
+    });
+    asked++; if (allRight && !retry) firstTry++;
+    const v = el("verdict");
+    v.className = "verdict show " + (allRight ? "yes" : "no");
+    v.innerHTML = allRight ? "That is the order the wall reads in."
+      : `<b>Not yet.</b> The rows in red are not where the frame puts them.`;
+    if (allRight){
+      item.correct.forEach(s => fillCell(s.key, item.level));
+      drawWall();
+      el("check").outerHTML = `<button id="go">Finish</button>`;
+      document.getElementById("go").onclick = ()=> nextStage();
+    } else if (!missed.some(m => m.stage === stage.short)) {
+      missed.push({ stage:stage.short, stem:"the order of the "+item.level+" answer",
+                    answer:item.correct.map(s=>critOf(s.key).name).join(" → ") });
+    }
+  };
+  el("again").onclick = ()=>{ retry = true; render(); };
+}
+
+function renderReport(){
+  const total = CRITERIA.length * LEVELS.length;
+  const done = Object.values(filled).filter(Boolean).length;
+  el("stageBox").innerHTML = `
+    <div class="card">
+      <h2>Report</h2>
+      <p style="font-size:.92rem">You answered <b>${firstTry} of ${asked}</b> right on the first try, and filled
+         <b>${done} of ${total}</b> cells of the wall.</p>
+      <div class="report" id="rep"></div>
+      <div class="next"><button id="restart">Start again</button></div>
+    </div>`;
+  el("rep").innerHTML = missed.length
+    ? `<p style="font-size:.85rem;color:var(--muted)">Missed on the first try:</p>` + missed.map(m =>
+        `<div class="miss"><b>${esc(m.stage)}</b>${esc(m.stem)}<br><span style="color:var(--muted)">→ ${esc(m.answer)}</span></div>`).join("")
+    : `<p class="allgood">Nothing missed on a first try.</p>`;
+  el("restart").onclick = ()=> location.reload();
+}
+
+render();
+</script>
+</body>
+</html>

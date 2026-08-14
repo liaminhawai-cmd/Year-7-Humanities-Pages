@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is source analysis?</title>
+<style>
+/* A5 booklet, printed two-up on A4 and folded. Chromium does not honour
+   @page size reliably, so the page size comes from build-booklet.mjs; this
+   stylesheet only has to lay out one A5 page and never overflow it. */
+@page { margin: 0; }
+:root{
+  --paper:#fbf7ee; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --band:#f5f0e6; --gold:#8b681e;
+  --source:#176b87; --context:#357a46; --evidence:#a34d1d; --judge:#744f91;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);
+     font-family:Georgia,"Times New Roman",serif;font-size:10.2pt;line-height:1.42}
+.page{width:148mm;height:210mm;padding:13mm 12mm 11mm;position:relative;
+      page-break-after:always;overflow:hidden;display:flex;flex-direction:column}
+.page:last-child{page-break-after:auto}
+.num{position:absolute;bottom:6mm;right:12mm;font-size:8pt;color:var(--muted);
+     font-family:system-ui,sans-serif}
+.page.cover .num{display:none}
+
+h1{font-size:23pt;line-height:1.02;color:var(--deep);letter-spacing:-.01em;margin-bottom:3mm}
+h2{font-size:13pt;color:var(--deep);line-height:1.12;margin-bottom:2.5mm}
+h3{font-size:10.5pt;color:var(--deep);margin:3mm 0 1mm}
+p{margin-bottom:2.6mm}
+p:last-child{margin-bottom:0}
+.kicker{font-family:system-ui,sans-serif;font-size:7.5pt;font-weight:800;
+        letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:2mm}
+.lead{font-size:11.5pt;line-height:1.35}
+
+/* cover */
+.cover{background:var(--deep);color:var(--paper);justify-content:space-between}
+.cover h1{color:var(--paper);font-size:30pt}
+.cover .kicker{color:rgba(251,247,238,.62)}
+.cover .sub{font-size:11.5pt;line-height:1.35;opacity:.93;max-width:95%}
+.cover .foot{font-family:system-ui,sans-serif;font-size:7.5pt;opacity:.6;line-height:1.4}
+
+/* the four questions, one colour each */
+.q{border-left:2.6mm solid var(--c);background:var(--band);padding:2.6mm 3.4mm;
+   margin-bottom:2.6mm;border-radius:1mm}
+.q .g{font-family:system-ui,sans-serif;font-weight:800;color:var(--c);font-size:9pt}
+.q b{display:block;color:var(--deep);font-size:10.5pt;margin:.4mm 0 1mm}
+.q .say{font-style:italic;color:var(--muted);font-size:9.4pt;display:block;margin-top:1mm}
+.c-source{--c:var(--source)} .c-context{--c:var(--context)}
+.c-evidence{--c:var(--evidence)} .c-judge{--c:var(--judge)}
+
+.box{background:var(--band);border-radius:1.2mm;padding:3mm 3.6mm;margin-bottom:2.6mm}
+.box .h{font-family:system-ui,sans-serif;font-size:7.5pt;font-weight:800;letter-spacing:.13em;
+        text-transform:uppercase;color:var(--muted);margin-bottom:1.2mm}
+.rule{border:0;border-top:1px solid var(--line);margin:3mm 0}
+
+/* the worked example */
+.ex{font-size:10.4pt;line-height:1.5}
+.m{font-weight:700;text-decoration-line:underline;text-underline-offset:.13em;
+   text-decoration-thickness:.5pt}
+.m-source{color:var(--source);text-decoration-color:var(--source);text-decoration-style:solid}
+.m-context{color:var(--context);text-decoration-color:var(--context);text-decoration-style:dashed}
+.m-evidence{color:var(--evidence);text-decoration-color:var(--evidence);text-decoration-style:dotted}
+.m-judge{color:var(--judge);text-decoration-color:var(--judge);text-decoration-style:double}
+
+.legend{display:flex;flex-wrap:wrap;gap:1.5mm 4mm;font-family:system-ui,sans-serif;
+        font-size:8pt;margin-top:2mm}
+.legend i{font-style:normal;font-weight:800}
+
+/* writing lines students fill in */
+.lines{margin-top:1.5mm}
+.lines div{border-bottom:.4pt solid var(--line);height:6.2mm}
+.stem{font-size:9.6pt;color:var(--muted);font-style:italic;margin-top:2mm}
+
+/* word list */
+table{width:100%;border-collapse:collapse;font-size:9.2pt}
+td{padding:1.1mm 0;vertical-align:top;border-bottom:.4pt solid var(--line)}
+td.w{font-weight:700;color:var(--deep);width:31mm;padding-right:2mm}
+
+ol,ul{margin:0 0 2.6mm 4.6mm}
+li{margin-bottom:1.2mm}
+.tiny{font-family:system-ui,sans-serif;font-size:7.6pt;color:var(--muted);line-height:1.4}
+</style>
+</head>
+<body>
+<div id="out"></div>
+
+<script src="../../eal.js"></script>
+<script src="../../history/gs73/content.js"></script>
+<script>
+/* Everything printed here comes from the same content.js and eal.js the walls
+   and the big-screen tool read, so the booklet cannot teach a different
+   definition from the one on the wall. */
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const marked = t => esc(t).replace(/\{(\w+)\|([^}]*)\}/g,
+  (_,k,x) => `<span class="m m-${k}">${x}</span>`);
+const plain = t => t.replace(/\{(\w+)\|([^}]*)\}/g, "$2");
+
+/* One question per criterion, in student language. The criterion names and
+   colours come from CRITERIA; only the question wording lives here. */
+const QUESTIONS = {
+  source:   ["What is it, and who made it?",
+             "Say what kind of source it is, where it came from, and why someone made it.",
+             "This source is… It was made by… They made it because…"],
+  context:  ["What was going on at the time?",
+             "Say what was happening around the source, and what the people in it believed or cared about.",
+             "At the time… The people who made it believed…"],
+  evidence: ["What do people say it means?",
+             "People who study the past do not all agree. Say what the different explanations are, and what each one rests on.",
+             "Some argue… because… Others argue… because…"],
+  judge:    ["How much is it worth as evidence?",
+             "Say what the source is good for, what it cannot tell you, and how sure you are.",
+             "It is strong evidence for… but it cannot tell us… because…"],
+};
+
+const LEVEL = "Year 7";                 // the worked example the booklet uses
+const pages = [];
+const page = (cls, html) => pages.push(`<div class="page ${cls}">${html}</div>`);
+
+/* ---------- 1. cover ---------- */
+page("cover", `
+  <div>
+    <div class="kicker">Year 7 Humanities</div>
+    <h1>What is source&nbsp;analysis?</h1>
+  </div>
+  <div class="sub">
+    Everything we know about the past, we know from something that survived.
+    A stone. A letter. A drawing. A number in a table.<br><br>
+    Source analysis is what you do to turn one of those things into
+    <b>evidence</b> — and how you work out how much to trust it.
+  </div>
+  <div class="foot">Keep this booklet. Every source you meet this year gets the same four questions.</div>`);
+
+/* ---------- 2. the idea ---------- */
+page("", `
+  <div class="kicker">Start here</div>
+  <h2>A source is not the same as the past</h2>
+  <p class="lead">The past is gone. You cannot go and look at it.</p>
+  <p>What is left behind is a <b>source</b>: something that survived, by luck or
+     because somebody kept it. A source is not the past itself. It is one thing
+     that came out of it.</p>
+  <p>That matters, because every source was made by someone, for a reason, and
+     leaves things out. A photograph is taken from one spot and not another. A
+     letter is written to one person and not everyone. A stone tool tells you
+     what it was used for and nothing at all about the name of the person who
+     held it.</p>
+  <hr class="rule">
+  <div class="box">
+    <div class="h">The move that makes it analysis</div>
+    <p>Anyone can say what a source <i>shows</i>. Source analysis is saying what
+       it <b>proves</b>, and how far.</p>
+    <p style="margin-bottom:0">Those are different sentences. "The stone has deep
+       grooves in it" is what it shows. "The grooves are evidence that people
+       ground food here, though they cannot tell us which plant" is what it
+       proves, and where that proof stops.</p>
+  </div>
+  <p class="tiny">Everything in this booklet is generated from the same file as
+     the wall in your classroom, so the words here and the words there are the
+     same words.</p>
+  <div class="num">2</div>`);
+
+/* ---------- 3. the four questions ---------- */
+page("", `
+  <div class="kicker">The method</div>
+  <h2>Four questions, every time</h2>
+  <p>Ask these of any source, in any subject. They are the same four the wall
+     is built on — and the same four your work is marked against.</p>
+  ${CRITERIA.map(c => {
+    const q = QUESTIONS[c.key];
+    return `<div class="q c-${c.key}">
+      <span class="g">${c.glyph} ${c.name.replace(/&amp;/g,"&")}</span>
+      <b>${esc(q[0])}</b>
+      ${esc(q[1])}
+      <span class="say">${esc(q[2])}</span>
+    </div>`;
+  }).join("")}
+  <p class="tiny">You will not always answer all four in that order, and some
+     sources give you much more of one than another. But if you have not asked
+     all four, you have not finished.</p>
+  <div class="num">3</div>`);
+
+/* ---------- 4. worked example ---------- */
+page("", `
+  <div class="kicker">What a good one looks like</div>
+  <h2>${esc(WALL.title)}</h2>
+  <p class="tiny" style="margin-bottom:2.5mm">${esc(WALL.inquiry)}</p>
+  <p class="ex">${marked(EXAMPLES[LEVEL])}</p>
+  <div class="legend">
+    ${CRITERIA.map(c => `<span style="color:var(--${c.key})">
+      <i>${c.glyph}</i> ${c.name.replace(/&amp;/g,"&")}</span>`).join("")}
+  </div>
+  <hr class="rule">
+  <p class="tiny">Notice how much of it is <b>not</b> marked. The plain words are
+     the glue — they are what turns a list of facts into an argument. If every
+     word were coloured, none of it would be evidence of anything.</p>
+  <div class="box" style="margin-top:auto">
+    <div class="h">Mark it up yourself</div>
+    <p style="margin-bottom:0">Find the sentence that says what the source
+       <b>cannot</b> tell us. Underline it. Then find the word that limits how
+       certain the writer is being, and circle that.</p>
+  </div>
+  <div class="num">4</div>`);
+
+/* ---------- 5. why each mark counts ---------- */
+page("", `
+  <div class="kicker">Reading the marks</div>
+  <h2>Why each part counts</h2>
+  <p>Each marked phrase on the page before is doing one specific job. Here is
+     what each one proves.</p>
+  ${CRITERIA.map(c => `<div class="q c-${c.key}">
+      <span class="g">${c.glyph} ${c.name.replace(/&amp;/g,"&")}</span>
+      ${esc(EXPLANATIONS[LEVEL][c.key])}
+    </div>`).join("")}
+  <div class="num">5</div>`);
+
+/* ---------- 6. your turn ---------- */
+page("", `
+  <div class="kicker">Your turn</div>
+  <h2>Write one of your own</h2>
+  <p>Use a source your teacher gives you. One or two sentences per question is
+     plenty — a good answer is short and exact, not long.</p>
+  ${CRITERIA.map(c => {
+    const q = QUESTIONS[c.key];
+    return `<h3 style="color:var(--${c.key})">${c.glyph} ${esc(q[0])}</h3>
+      <div class="stem">${esc(q[2])}</div>
+      <div class="lines"><div></div><div></div></div>`;
+  }).join("")}
+  <div class="num">6</div>`);
+
+/* ---------- 7. the words ---------- */
+const WORDS = Object.keys(EAL).sort();
+page("", `
+  <div class="kicker">The words</div>
+  <h2>Words you need</h2>
+  <p class="tiny" style="margin-bottom:2.5mm">These are on the vocabulary hub in
+     eighteen languages. Tap any of them in the online version to see your own.</p>
+  <table>${WORDS.map(w => `<tr><td class="w">${esc(w)}</td><td>${esc(EAL[w].en)}</td></tr>`).join("")}</table>
+  <div class="num">7</div>`);
+
+/* ---------- 8. how it gets better ---------- */
+page("", `
+  <div class="kicker">Bumping it up</div>
+  <h2>The same source, answered better</h2>
+  <p>The wall shows one source answered at every level from Foundation to Year
+     10. Nothing in the source changes. What changes is what you do with it.</p>
+  ${["Grade 5","Year 7","Year 9"].map(lv => `
+    <div class="box">
+      <div class="h">${esc(lv)}</div>
+      <p style="font-size:9.4pt;line-height:1.4;margin-bottom:0">${esc(
+        plain(EXAMPLES[lv]).slice(0, 300).replace(/\s+\S*$/, "") + "…")}</p>
+    </div>`).join("")}
+  <p class="tiny">Read those three in order. The facts are the same. What grows
+     is the number of separate things being held together in one sentence, and
+     how carefully the claim is limited.</p>
+  <div class="num">8</div>`);
+
+/* ---------- 9. checklist + back ---------- */
+page("", `
+  <div class="kicker">Before you hand it in</div>
+  <h2>Check your own</h2>
+  <ul>
+    <li>Have I said what the source <b>is</b>, and who made it, and why?</li>
+    <li>Have I said what was going on at the time?</li>
+    <li>Have I given more than one explanation, and what each rests on?</li>
+    <li>Have I said what it is good evidence <b>for</b>, and what it cannot tell us?</li>
+    <li>Have I used a limiting word — <i>may</i>, <i>suggests</i>, <i>although</i> —
+        anywhere I am not certain?</li>
+    <li>Is there plain writing between my quotes, doing the explaining?</li>
+  </ul>
+  <hr class="rule">
+  <div class="box">
+    <div class="h">The one-sentence version</div>
+    <p style="margin-bottom:0;font-size:11pt">Say what it is, say what was going
+       on, say what people argue about it, and say how far you would trust it.</p>
+  </div>
+  <p class="tiny" style="margin-top:auto">${WALL.foot.replace(/<[^>]+>/g,"")}</p>
+  <div class="num">9</div>`);
+
+el("out").innerHTML = pages.join("");
+</script>
+</body>
+</html>

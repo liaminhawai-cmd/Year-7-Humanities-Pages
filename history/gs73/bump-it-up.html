@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Bump it up: the same source answered from Foundation to Year 10, one rung at a time, sized for the classroom screen.">
+<title>Bump It Up</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
+  /* criterion colours are not written here — they come from CRITERIA in
+     content.js, so a unit with different criteria needs no CSS edit */
+  /* one knob drives every size on the page, so it scales to any screen */
+  --u: clamp(12px, 1.02vw + 0.5vh, 30px);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);overflow:hidden;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+     font-size:var(--u);line-height:1.45}
+button{font:inherit;cursor:pointer}
+
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto;gap:.6em;padding:.7em .9em}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.title{color:var(--paper);font-weight:800;font-size:1.5em;letter-spacing:-.01em;white-space:nowrap}
+.title small{display:block;font-size:.44em;font-weight:700;letter-spacing:.16em;
+             text-transform:uppercase;opacity:.62}
+.rungs{display:flex;gap:.22em;flex-wrap:wrap;margin-left:auto}
+.rungs button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+              border-radius:2em;padding:.32em .8em;font-size:.9em;font-weight:700}
+.rungs button.done{color:#9fd3b4;border-color:#3f6b52}
+.rungs button[aria-current="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
+.toggles{display:flex;gap:.3em}
+.toggles button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+                border-radius:.5em;padding:.38em .85em;font-size:.9em;font-weight:700}
+.toggles button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.toggles select{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+                border-radius:.5em;padding:.38em .5em;font-size:.9em;font-weight:700;font-family:inherit}
+.toggles select:not([data-on="0"]){background:var(--gold);border-color:var(--gold);color:#fff}
+.pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .tr b{display:block;font-size:1.25em;line-height:1.3;color:var(--deep)}
+.pop .tr .warn{display:block;font-size:.74em;color:var(--muted);margin-top:.25em;font-style:italic}
+
+/* ---------- main split ---------- */
+.main{display:grid;grid-template-columns:minmax(0,31%) minmax(0,1fr);gap:.7em;min-height:0}
+
+/* the rock, always on screen */
+.rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
+      gap:.45em;min-height:0}
+/* The hotspots are positioned against this box, so it has to keep the plate's
+   shape even if the image itself never arrives — otherwise the buttons collapse
+   on top of the caption. */
+.plate{position:relative;flex:0 0 auto;background:#0e1211;border-radius:.35em}
+.plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
+.plate .missing{position:absolute;inset:0;display:none;place-items:center;text-align:center;
+                color:#cfc7b8;font-size:.8em;padding:1em;line-height:1.4}
+.plate.noimg .missing{display:grid}
+.plate.noimg button{display:none}
+.plate button{position:absolute;border:2px solid transparent;background:transparent;border-radius:.3em;padding:0}
+.plate button:hover,.plate button:focus-visible{border-color:#f4d98b;background:rgba(244,217,139,.14);outline:none}
+.plate button[aria-pressed="true"]{border-color:#f4d98b;background:rgba(244,217,139,.2)}
+.plate .pin{position:absolute;top:.25em;right:.3em;width:1.5em;height:1.5em;border-radius:50%;
+            background:rgba(15,18,17,.85);color:#f4d98b;font-size:.72em;font-weight:800;
+            display:grid;place-items:center;pointer-events:none}
+/* A written source sits in the same slot the picture would. It scrolls rather
+   than keeping a fixed shape, because a passage has no aspect ratio. */
+.plate.text{flex:1 1 auto;min-height:0;overflow:auto;padding:.7em .85em;
+            background:#141a18;border:1px solid #2b3431}
+.passage{font-family:Georgia,"Times New Roman",serif;color:#eae5db;font-size:1.02em;line-height:1.55}
+.passage p{margin:0 0 .6em}
+.passage .seg{cursor:pointer;border-bottom:.12em solid #6b7d78;border-radius:.1em}
+.passage .seg:hover,.passage .seg:focus-visible{background:rgba(244,217,139,.18);outline:none}
+.passage .seg[aria-pressed="true"]{background:rgba(244,217,139,.28);border-bottom-color:#f4d98b}
+.passage .segno{color:#f4d98b;font-weight:800;font-size:.78em;vertical-align:.35em;padding-left:.1em}
+.passage .cite{display:block;margin-top:.4em;color:#9aa8a3;font-size:.8em;
+               font-family:system-ui,sans-serif;line-height:1.4}
+.zoomall{border:1px solid #3b4442;background:#222927;color:#f4d98b;border-radius:.5em;
+          padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
+.rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
+.kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
+     overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
+     font-size:calc(1em * var(--kk,1))}
+/* flex:0 0 so the passage beside it cannot eat the box's last line — the "I can"
+   list is the thing a student reads to know what they are aiming at */
+.kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
+           text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
+.kid ul{list-style:none;display:grid;gap:.35em}
+.kid li{color:#eae5db;font-size:.95em;line-height:1.35;padding-left:1.1em;position:relative}
+.kid li::before{content:"✓";position:absolute;left:0;color:#9fd3b4;font-weight:800}
+.rockcap b{color:#f4d98b;display:block;font-size:1.02em}
+.rockcap .idle{opacity:.6}
+
+/* the stage */
+.stage{background:var(--paper);border-radius:.6em;padding:1em 1.2em;overflow:auto;min-height:0;
+       display:flex;flex-direction:column;gap:.7em;font-size:calc(var(--u) * var(--sk,1))}
+.stage h2{color:var(--deep);font-size:1.9em;line-height:1.06;letter-spacing:-.015em}
+.stage h2 .of{color:var(--muted);font-size:.45em;font-weight:700;letter-spacing:.12em;
+              text-transform:uppercase;display:block;margin-bottom:.15em}
+.newbar{background:var(--gold);color:#fff;border-radius:.45em;padding:.5em .8em;font-size:1.02em;font-weight:700}
+.newbar span{display:block;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:800}
+.bg{background:var(--band);border-left:.35em solid var(--deep);border-radius:.4em;
+    padding:.55em .8em;font-size:.98em}
+.bg span{display:block;font-size:.66em;letter-spacing:.13em;text-transform:uppercase;
+         color:var(--muted);font-weight:800;margin-bottom:.1em}
+/* --k is set per rung from how much prose that rung actually has, so Prep
+   fills the screen instead of leaving two thirds of it blank */
+.example{font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+         font-size:calc(1.45em * var(--k,1))}
+.crumbs{font-size:.92em;color:var(--muted)}
+/* the actual curriculum descriptors this rung meets */
+.vc{background:#eef3f3;border-radius:.4em;padding:.5em .8em;font-size:.86em;line-height:1.4}
+.vc span{display:block;font-size:.72em;letter-spacing:.13em;text-transform:uppercase;
+         color:var(--muted);font-weight:800;margin-bottom:.25em}
+.vc li{margin:.18em 0 .18em 1.1em}
+.vc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;
+         color:var(--deep);font-size:.92em}
+.vc .none{color:var(--muted);font-style:italic}
+
+/* the source stage */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:.5em}
+.fact{background:var(--band);border-radius:.45em;padding:.6em .8em;font-size:1.08em;line-height:1.4}
+.fact b{display:block;color:var(--deep);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.15em}
+.inquiry{background:var(--deep);color:var(--on-deep);border-radius:.5em;padding:.7em 1em;
+         font-size:1.35em;font-weight:800;line-height:1.25}
+
+/* ---------- the two channels ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:.18em;
+   text-decoration-thickness:.06em;cursor:pointer;border-radius:.15em;padding:0 .06em}
+.m:hover,.m:focus-visible{background:#fff2c9;outline:none}
+/* .m-KEY, .k-KEY and .pop.k-KEY are written at load from CRITERIA */
+
+/* glossary chips */
+.g3,.g2{cursor:pointer;border-radius:.15em}
+.g3{border-bottom:.14em dotted currentColor}
+/* Inside a marked phrase, a chip's own dotted border stacks on top of the
+   criterion's underline and the two patterns become unreadable — and that
+   pattern is the channel that survives greyscale. Tint instead. */
+.m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
+/* tier 2 is its own affordance: a soft tint you can always see, and each word
+   opens on its own rather than the whole page flipping at once */
+.g2{background:#e7f0d8;box-shadow:0 0 0 .09em #e7f0d8}
+.g2.on::after{content:" (" attr(data-syn) ")";color:var(--muted);font-size:.82em;font-style:italic}
+.m .g2{background:rgba(21,128,61,.13);box-shadow:none;padding:0 .12em}
+
+/* ---------- full-screen picture ---------- */
+.zoom{position:fixed;inset:0;z-index:60;background:#070a09;display:grid;
+      grid-template-rows:1fr auto;padding:1.2em 1.4em 1em;gap:.6em}
+.zoom[hidden]{display:none}
+.zstage{position:relative;min-height:0;display:grid;place-items:center}
+.zwrap{position:relative;overflow:hidden;border-radius:.4em;background:#000}
+.zwrap[hidden]{display:none}
+.zwrap img{position:absolute;display:block;max-width:none}
+/* the written-source equivalent of the crop box: the passage at reading size
+   for the back of the room, with the segment under discussion lit up */
+.zpass{max-width:46ch;max-height:100%;overflow:auto;color:#f4f0e6;
+       font-family:Georgia,"Times New Roman",serif;font-size:1.42em;line-height:1.5}
+.zpass[hidden]{display:none}
+.zpass p{margin:0 0 .6em}
+.zpass .seg{opacity:.42}
+.zpass .seg.lit{opacity:1;background:rgba(244,217,139,.22);border-radius:.15em;
+                box-shadow:0 0 0 .12em rgba(244,217,139,.22)}
+/* the whole-passage view dims nothing and lights nothing: it is the passage */
+.zpass.all .seg{opacity:1;background:none;box-shadow:none}
+.zpass .cite{display:block;margin-top:.5em;color:#9aa8a3;font-size:.5em;
+             font-family:system-ui,sans-serif;line-height:1.4}
+.zcap{text-align:center;color:#f4f0e6;max-width:60ch;margin:0 auto}
+.zcap b{display:block;color:#f4d98b;font-size:1.9em;line-height:1.15;margin-bottom:.15em}
+.zcap span{font-size:1.25em;line-height:1.4}
+.zclose{position:absolute;top:.5em;right:.7em;z-index:2;border:1px solid #3b4442;
+        background:#161c1a;color:#f4f0e6;border-radius:.5em;padding:.3em .7em;font-size:1.2em}
+.znav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;border:1px solid #3b4442;
+      background:rgba(18,22,21,.85);color:#f4f0e6;border-radius:50%;
+      width:2em;height:2em;font-size:1.8em;line-height:1;display:grid;place-items:center}
+.zprev{left:.3em} .znext{right:.3em}
+.zdots{display:flex;gap:.4em;justify-content:center}
+.zdots button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:2em;
+              padding:.3em .9em;font-size:.92em;font-weight:700}
+.zdots button[aria-current="true"]{background:#f4d98b;border-color:#f4d98b;color:#20231f}
+
+/* ---------- popup ---------- */
+.pop{position:fixed;inset:auto;z-index:40;max-width:min(46em,80vw);background:#fff;
+     border-radius:.6em;box-shadow:0 1.2em 3em rgba(0,0,0,.45);padding:.9em 1.1em;display:none}
+.pop.show{display:block}
+.pop .kind{font-size:.72em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2em}
+.pop .word{font-size:1.35em;font-weight:800;color:var(--deep);line-height:1.15;margin-bottom:.25em}
+.pop .body{font-size:1.02em;line-height:1.45}
+.pop .close{position:absolute;top:.3em;right:.5em;border:0;background:none;font-size:1.2em;color:var(--muted)}
+.pop.k-word .kind{color:var(--gold)}
+
+/* ---------- bottom ---------- */
+.foot{display:flex;align-items:center;gap:.6em}
+.nav{display:flex;gap:.4em}
+.nav button{border:0;background:var(--paper);color:var(--deep);border-radius:.5em;
+            padding:.45em 1.4em;font-weight:800;font-size:1.05em}
+.nav button:disabled{opacity:.35}
+.key{display:flex;gap:.8em;flex-wrap:wrap;margin-left:auto;color:#cfc7b8;font-size:.95em}
+.key i{font-style:normal;font-weight:700}
+
+@media (max-width:900px){
+  body{overflow:auto}
+  .app{height:auto}
+  .main{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="bar">
+    <div class="title"><small id="kicker"></small><span id="rungName"></span></div>
+    <div class="rungs" id="rungs"></div>
+    <div class="toggles">
+      <button id="tBg"  aria-pressed="false">Background</button>
+      <button id="tVc"  aria-pressed="false">I can…</button>
+      <select id="tLang" aria-label="Translate subject words"></select>
+      
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="rock">
+      <div class="plate" id="plate"></div>
+      <button class="zoomall" id="zoomAll">⤢ Open it big</button>
+      <div class="rockcap" id="rockcap"></div>
+      <div class="kid" id="kidBox" hidden></div>
+    </div>
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <div class="foot">
+    <div class="nav">
+      <button id="prev">← Back</button>
+      <button id="next">Next →</button>
+    </div>
+    <div class="key" id="key"></div>
+  </div>
+</div>
+
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="The source, enlarged">
+  <button class="zclose" id="zClose">✕ Close</button>
+  <button class="znav zprev" id="zPrev" aria-label="Previous view">‹</button>
+  <button class="znav znext" id="zNext" aria-label="Next view">›</button>
+  <div class="zstage">
+    <div class="zwrap" id="zWrap"><img id="zImg" alt=""
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></div>
+    <div class="zpass" id="zPass" hidden></div>
+  </div>
+  <div class="zcap"><b id="zTitle"></b><span id="zText"></span></div>
+  <div class="zdots" id="zDots"></div>
+</div>
+
+<div class="pop" id="pop" role="dialog" aria-live="polite">
+  <button class="close" id="popClose" aria-label="Close">✕</button>
+  <div class="kind" id="popKind"></div>
+  <div class="word" id="popWord"></div>
+  <div class="body" id="popBody"></div>
+</div>
+
+<script src="../../eal.js"></script>
+<script src="content.js"></script>
+<script>
+/* Everything shown here comes from content.js. The ladder is the five early
+   rungs plus the six on the wall; examples are read from whichever object
+   holds them, so no text exists twice. */
+
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const critOf = k => CRITERIA.find(c => c.key === k);
+
+/* Criterion colours live in content.js, so a unit with its own criteria needs
+   no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
+   bar) and an underline style — the second channel, which is what survives a
+   greyscale photocopy or a colour-blind reader. */
+document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
+.m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}}
+.k-${c.key}{color:${c.lamp}}
+.pop.k-${c.key} .kind{color:${c.ink}}`).join("") + "</style>");
+
+const LADDER  = EARLY_LEVELS.concat(LEVELS);
+const exOf    = lv => (typeof EARLY_EXAMPLES !== "undefined" && EARLY_EXAMPLES[lv]) || EXAMPLES[lv];
+const explOf  = lv => {
+  const e = (typeof EARLY_EXPLANATIONS !== "undefined" && EARLY_EXPLANATIONS[lv]) || EXPLANATIONS[lv];
+  return e && e.items ? e.items : (e || {});
+};
+let i = -1;                       // -1 is the source stage, which comes first
+
+el("kicker").textContent = WALL.title;
+
+/* ---------- EAL ----------
+   The table is shared across every unit and is the same table the vocabulary
+   hub is built from, so a word cannot mean one thing here and another there.
+   The choice is remembered per browser; nothing leaves the device. */
+const hasEAL = typeof EAL !== "undefined" && typeof EAL_LANGS !== "undefined";
+let lang = "";
+if (hasEAL){
+  try { lang = localStorage.getItem("wagoll-lang") || ""; } catch (e) { lang = ""; }
+  const sel = el("tLang");
+  sel.innerHTML = '<option value="">Translate…</option>' +
+    EAL_LANGS.map(l => `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}</option>`).join("");
+  sel.value = lang;
+  sel.dataset.on = lang ? "1" : "0";
+  sel.onchange = () => {
+    lang = sel.value;
+    sel.dataset.on = lang ? "1" : "0";
+    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+    hidePop();
+    render();
+  };
+} else {
+  el("tLang").hidden = true;
+}
+
+/* The shared table wins over a unit's own gloss for the words it covers, so
+   the definition a student reads is the one the hub also teaches. */
+function ealFor(term){
+  if (!hasEAL || !lang) return null;
+  const hit = EAL[String(term).toLowerCase()];
+  return hit && hit.t[lang] ? hit : null;
+}
+document.title = WALL.title + " — bump it up";
+el("key").innerHTML = CRITERIA.map(c =>
+  `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
+
+/* ---------- glossary linking ----------
+   Longest terms first so "grinding stone" wins over "stone". Applied to plain
+   text only, never inside a tag. */
+/* The shared source-analysis words are linked in every unit, not only where a
+   unit happened to gloss them — they are the words a student needs to do the
+   task at all. A word the unit already treats as tier 2 keeps its tier-2
+   behaviour rather than being marked twice. */
+const SHARED = (typeof EAL !== "undefined")
+  ? Object.keys(EAL).filter(w => !(w in GLOSS.tier3) && !(w in GLOSS.tier2))
+  : [];
+const T3 = Object.keys(GLOSS.tier3).concat(SHARED).sort((a,b)=>b.length-a.length);
+const T2 = Object.keys(GLOSS.tier2).sort((a,b)=>b.length-a.length);
+const defOf = t => (GLOSS.tier3[t]) || (typeof EAL !== "undefined" && EAL[t] && EAL[t].en) || "";
+const rx = t => new RegExp("\\b(" + t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + ")\\b", "gi");
+
+function linkGloss(html){
+  return html.split(/(<[^>]+>)/).map(part => {
+    if (part.startsWith("<")) return part;
+    let s = part;
+    T3.forEach(t => { s = s.replace(rx(t), m =>
+      `<span class="g3" data-t3="${esc(t)}">${m}</span>`); });
+    T2.forEach(t => { s = s.replace(rx(t), m =>
+      `<span class="g2" data-t2="${esc(t)}" data-syn="${esc(GLOSS.tier2[t])}">${m}</span>`); });
+    return s;
+  }).join("");
+}
+const marked = text => linkGloss(
+  esc(text).replace(/\{(\w+)\|([^}]*)\}/g,
+    (_,k,t) => `<span class="m m-${k}" data-crit="${k}" tabindex="0">${t}</span>`));
+
+/* ---------- the source panel ----------
+   SOURCE takes one of two shapes. A picture source names a file, its aspect
+   ratio and rectangles to zoom into; a written source names paragraphs and the
+   exact phrases to light up. Everything below branches on SOURCE.kind and
+   nothing else, so a unit built on a letter works the same as one built on a
+   photograph. */
+const SOURCE = (typeof SOURCE_PANEL !== "undefined") ? SOURCE_PANEL : {
+  kind:"image", file:(typeof SHEET_IMAGE !== "undefined" ? SHEET_IMAGE : ""),
+  ar:"4/3", alt:"", missing:"", whole:{ label:"The whole source", text:"" }
+};
+const isText = SOURCE.kind === "text";
+const plate  = el("plate");
+let rockImg = null;
+
+if (isText){
+  plate.classList.add("text");
+  /* Each hotspot names a phrase; wrap that phrase in a button wherever it
+     appears. Longest first so a phrase inside another phrase cannot break it. */
+  const order = HOTSPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
+  const body = SOURCE.paragraphs.map(p => {
+    let s = esc(p);
+    order.forEach(({h,n}) => {
+      const q = esc(h.mark);
+      if (s.includes(q) && !s.includes(`data-h="${n}"`))
+        s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
+              title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
+    });
+    return `<p>${s}</p>`;
+  }).join("");
+  plate.innerHTML = `<div class="passage" id="passage">${body}
+    <span class="cite">${SOURCE.cite}</span></div>`;
+} else {
+  plate.style.aspectRatio = SOURCE.ar;
+  plate.innerHTML =
+    `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
+     <div class="missing">${SOURCE.missing}</div>` +
+    HOTSPOTS.map((h,n)=>
+      `<button data-h="${n}" aria-pressed="false" title="${esc(h.label)}"
+         style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%">
+         <span class="pin">${n+1}</span></button>`).join("");
+  rockImg = el("rockImg");
+  const flagMissing = ()=> plate.classList.add("noimg");
+  rockImg.addEventListener("error", flagMissing);
+  if (rockImg.complete && rockImg.naturalWidth === 0) flagMissing();
+}
+
+const idleCap = `<span class="idle">${isText
+  ? "Tap an underlined part of the passage to open it big."
+  : "Tap a part of the picture to open it big."}</span>`;
+el("rockcap").innerHTML = idleCap;
+el("zoomAll").textContent = isText ? "⤢ Open the passage big" : "⤢ Open the picture big";
+
+/* ---------- tap the source, it fills the screen ----------
+   VIEWS[0] is the whole source; the rest are the hotspots. A picture region is
+   shown by scaling the image inside an overflow box, which keeps the crop exact
+   and the aspect right without touching the file. */
+const VIEWS = [Object.assign({ x:0, y:0, w:100, h:100 }, SOURCE.whole)].concat(HOTSPOTS);
+let zi = 0;
+
+function showZoom(n){
+  zi = (n + VIEWS.length) % VIEWS.length;
+  const v = VIEWS[zi];
+  if (isText) drawZoomText(n); else drawZoomImage(v);
+  el("zTitle").textContent = v.label;
+  el("zText").textContent  = v.text;
+  el("zDots").innerHTML = VIEWS.map((x,i)=>
+    `<button data-z="${i}" aria-current="${i===zi}">${esc(x.label)}</button>`).join("");
+  el("zDots").querySelectorAll("button").forEach(btn =>
+    btn.onclick = ()=> showZoom(+btn.dataset.z));
+  el("zoom").hidden = false;
+  /* Only now does the dialog have layout. A long passage does not fit a screen
+     at reading-from-the-back size, so bring the chosen phrase to the middle
+     rather than leaving it below the fold — scrollIntoView is a no-op while the
+     container is still [hidden]. */
+  if (isText){
+    const lit = el("zPass").querySelector(".lit");
+    if (lit) lit.scrollIntoView({ block: "center" });
+  } else sizeWrap();
+  el("zClose").focus();
+}
+
+function drawZoomImage(v){
+  el("zPass").hidden = true; el("zWrap").hidden = false;
+  const natW = rockImg.naturalWidth || 1200, natH = rockImg.naturalHeight || 900;
+  const wrap = el("zWrap"), img = el("zImg");
+  img.src = rockImg.currentSrc || rockImg.src;
+  /* the box is w% of the image wide, so the image is 100/w times the box */
+  img.style.width = (100 / v.w * 100) + "%";
+  img.style.left  = (-v.x / v.w * 100) + "%";
+  img.style.top   = (-v.y / v.h * 100) + "%";
+  wrap.dataset.ar = ((v.w / 100 * natW) / (v.h / 100 * natH)).toFixed(5);
+  img.alt = v.label + ". " + v.text;
+}
+
+/* n is the VIEWS index: 0 is the whole passage, so hotspot k is at n = k+1.
+   Everything except the chosen segment is dimmed rather than hidden, so the
+   class can still see where in the passage the phrase sits. */
+function drawZoomText(n){
+  el("zWrap").hidden = true;
+  const box = el("zPass");
+  box.hidden = false;
+  box.innerHTML = plate.querySelector(".passage").innerHTML;
+  box.classList.toggle("all", n === 0);
+  box.querySelectorAll("[data-h]").forEach(s => {
+    s.classList.add("seg");
+    if (n > 0 && +s.dataset.h === n - 1) s.classList.add("lit");
+  });
+  box.querySelectorAll(".segno").forEach(x => x.remove());
+  /* A long passage does not fit a screen at reading-from-the-back size, so
+     bring the chosen phrase to the middle rather than leaving it below the fold. */
+  box.scrollTop = 0;
+}
+
+/* Size the crop box in pixels rather than leaning on CSS aspect-ratio: the box
+   has no intrinsic size (the image inside is absolutely positioned), so in a
+   centred grid it collapses to nothing. */
+function sizeWrap(){
+  const wrap = el("zWrap");
+  const ar = parseFloat(wrap.dataset.ar || "1");
+  const box = el("zoom").querySelector(".zstage").getBoundingClientRect();
+  let w = box.width, h = w / ar;
+  if (h > box.height){ h = box.height; w = h * ar; }
+  wrap.style.width  = Math.floor(w) + "px";
+  wrap.style.height = Math.floor(h) + "px";
+}
+window.addEventListener("resize", ()=>{ if (!el("zoom").hidden && !isText) sizeWrap(); });
+const closeZoom = ()=>{ el("zoom").hidden = true; };
+el("zClose").onclick = closeZoom;
+el("zPrev").onclick = ()=> showZoom(zi - 1);
+el("zNext").onclick = ()=> showZoom(zi + 1);
+el("zoom").addEventListener("click", e => {
+  if (e.target === el("zoom") || e.target === el("zWrap") || e.target === el("zPass")) closeZoom();
+});
+
+plate.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const s = e.target.closest(".seg");
+  if (!s) return;
+  e.preventDefault();
+  s.click();
+});
+plate.addEventListener("click", e => {
+  const b = e.target.closest("[data-h]");
+  if (!b) return;
+  const n = +b.dataset.h;
+  const h = HOTSPOTS[n];
+  plate.querySelectorAll("[data-h]").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  el("rockcap").innerHTML = `<b>${esc(h.label)}</b>${esc(h.text)}`;
+  showZoom(n + 1);                    // VIEWS[0] is the whole source
+});
+el("zoomAll").onclick = ()=> showZoom(0);
+
+/* ---------- popup ---------- */
+const pop = el("pop");
+function showPop(kind, word, body, key, anchor){
+  el("popKind").textContent = kind;
+  el("popWord").textContent = word;
+  el("popBody").textContent = body;
+  pop.className = "pop show k-" + (key || "word");
+  const r = anchor.getBoundingClientRect();
+  pop.style.visibility = "hidden"; pop.style.left = "0px"; pop.style.top = "0px";
+  const pr = pop.getBoundingClientRect();
+  let left = Math.min(Math.max(8, r.left), window.innerWidth - pr.width - 8);
+  let top  = r.bottom + 10;
+  if (top + pr.height > window.innerHeight - 8) top = Math.max(8, r.top - pr.height - 10);
+  pop.style.left = left + "px"; pop.style.top = top + "px"; pop.style.visibility = "";
+}
+const hidePop = () => pop.classList.remove("show");
+el("popClose").onclick = hidePop;
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape"){ hidePop(); closeZoom(); }
+  if (!el("zoom").hidden){
+    if (e.key === "ArrowRight"){ e.preventDefault(); showZoom(zi + 1); }
+    if (e.key === "ArrowLeft"){  e.preventDefault(); showZoom(zi - 1); }
+  }
+});
+
+document.addEventListener("click", e => {
+  if (e.target.closest("#pop")) return;
+  const g3 = e.target.closest("[data-t3]");
+  if (g3){
+    const term = g3.dataset.t3, hit = ealFor(term);
+    showPop("What it means", g3.textContent, defOf(term), null, g3);
+    if (hit){
+      const label = EAL_LANGS.find(l => l.code === lang);
+      el("popBody").insertAdjacentHTML("beforeend",
+        `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+        `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+    }
+    return;
+  }
+  const g2 = e.target.closest("[data-t2]");
+  if (g2){ g2.classList.toggle("on"); hidePop(); return; }
+  const m = e.target.closest("[data-crit]");
+  if (m) {
+    const c = critOf(m.dataset.crit), lv = LADDER[i];
+    const why = explOf(lv)[c.key];
+    return showPop(c.glyph + "  " + c.name.replace(/&amp;/g,"&"), m.textContent,
+      why || "This phrase is the evidence for " + c.name.replace(/&amp;/g,"&") + " at " + lv + ".",
+      c.key, m);
+  }
+  hidePop();
+});
+
+/* ---------- stages ---------- */
+function drawRungs(){
+  el("rungs").innerHTML =
+    `<button data-i="-1" ${i===-1?'aria-current="true"':""}>The source</button>` +
+    LADDER.map((lv,n)=>`<button data-i="${n}" class="${n<i?"done":""}" ${n===i?'aria-current="true"':""}>${esc(lv)}</button>`).join("");
+  el("rungs").querySelectorAll("button").forEach(b => b.onclick = ()=>{ i = +b.dataset.i; render(); });
+  el("prev").disabled = i <= -1;
+  el("next").disabled = i >= LADDER.length - 1;
+}
+
+function render(){
+  hidePop();
+  drawRungs();
+  const stage = el("stage");
+  if (i === -1){
+    el("rungName").textContent = "The source";
+    syncKid();
+    stage.classList.remove("small");
+    stage.innerHTML =
+      `<div class="inquiry">${esc(WALL.inquiry)}</div>
+       <p class="crumbs">Everything underlined can be tapped. Dotted words are subject words with a
+          definition; the green words open an everyday meaning when you tap them.</p>
+       <div class="facts">${FACTS.map(([h,t])=>
+          `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
+    /* the source stage has no worked example to shrink, but it still has to
+       fit — it is the first thing on the screen and the class reads it cold */
+    fit();
+    return;
+  }
+  const lv = LADDER[i];
+  el("rungName").textContent = lv;
+  const ex = exOf(lv);
+  const plain = ex.replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+  baseK = Math.min(2.4, Math.max(0.92, Math.sqrt(950 / plain.length)));
+  const b = BUMP[lv] || {};
+  stage.innerHTML =
+    `<h2><span class="of">Rung ${i+1} of ${LADDER.length}</span>${esc(lv)}</h2>
+     ${b.new ? `<div class="newbar"><span>New at this rung</span>${esc(b.new)}</div>` : ""}
+     ${b.background ? `<div class="bg" id="bgBox" hidden><span>You need to know</span>${esc(b.background)}</div>` : ""}
+     <p class="example">${marked(ex)}</p>
+     <p class="crumbs">Tap any underlined phrase to see what it proves.</p>`;
+  syncBg();
+}
+
+/* Opening the Background or Curriculum panel eats vertical room. Rather than
+   guess a smaller size for those cases, shrink the example until it actually
+   fits — the stage must never scroll on a screen at the front of a room. */
+let baseK = 1;
+function fit(){
+  const st = el("stage");
+  st.style.setProperty("--sk", "1");
+  const over = ()=> st.scrollHeight > st.clientHeight;
+  /* the source stage has no worked example, but it still has to fit */
+  if (!st.querySelector(".example")){
+    let s0 = 1;
+    for (let g = 0; g < 40 && over() && s0 > 0.6; g++){
+      s0 *= 0.96;
+      st.style.setProperty("--sk", s0.toFixed(3));
+    }
+    return;
+  }
+  /* first shrink just the worked example, which is the part with slack */
+  let k = baseK;
+  st.style.setProperty("--k", k.toFixed(3));
+  for (let g = 0; g < 40 && over() && k > 0.72; g++){
+    k *= 0.94;
+    st.style.setProperty("--k", k.toFixed(3));
+  }
+  /* then, if the fixed panels are still too tall on their own, shrink the
+     whole stage together — everything inside is sized in em */
+  let sk = 1;
+  for (let g = 0; g < 40 && over() && sk > 0.6; g++){
+    sk *= 0.96;
+    st.style.setProperty("--sk", sk.toFixed(3));
+  }
+}
+
+function syncBg(){
+  const box = el("bgBox");
+  if (box) box.hidden = el("tBg").getAttribute("aria-pressed") !== "true";
+  syncKid();
+  fit();
+}
+
+/* the "I can ..." box lives beside the rock, not in the stage, so it never
+   competes with the worked example for room */
+function syncKid(){
+  const box = el("kidBox");
+  const lv = LADDER[i];
+  const k = (typeof KID !== "undefined" && KID[lv]) || null;
+  const on = el("tVc").getAttribute("aria-pressed") === "true";
+  box.hidden = !(on && k);
+  if (!box.hidden){
+    box.innerHTML = `<span class="band">${esc(k.band)}</span><ul>` +
+      k.lines.map(l => `<li>${esc(l)}</li>`).join("") + "</ul>";
+    /* Same trick as the stage: rather than guess a size that fits every rung on
+       every screen, shrink until the last line is actually visible. A clipped
+       "I can ..." list is worse than a slightly smaller one. */
+    box.style.setProperty("--kk", "1");
+    let kk = 1;
+    for (let g = 0; g < 30 && box.scrollHeight > box.clientHeight + 1 && kk > 0.6; g++){
+      kk *= 0.95;
+      box.style.setProperty("--kk", kk.toFixed(3));
+    }
+  }
+}
+el("tBg").onclick = ()=>{
+  const on = el("tBg").getAttribute("aria-pressed") === "true";
+  el("tBg").setAttribute("aria-pressed", String(!on));
+  syncBg();
+};
+el("tVc").onclick = ()=>{
+  const on = el("tVc").getAttribute("aria-pressed") === "true";
+  el("tVc").setAttribute("aria-pressed", String(!on));
+  syncKid(); fit();
+};
+
+el("prev").onclick = ()=>{ if (i > -1){ i--; render(); } };
+el("next").onclick = ()=>{ if (i < LADDER.length-1){ i++; render(); } };
+document.addEventListener("keydown", e => {
+  if (e.target.closest("button") || !el("zoom").hidden) return;
+  if (e.key === "ArrowRight") el("next").click();
+  if (e.key === "ArrowLeft")  el("prev").click();
+});
+
+render();
+</script>
+</body>
+</html>

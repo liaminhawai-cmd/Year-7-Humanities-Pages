@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="One A3 anchor sheet per level: the worked example, what each marked phrase proves, and that level's continuum descriptors.">
+<title>GS73 Level Anchor Sheets</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#efe8dc; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --gold:#8b681e; --gold-soft:#f6e7c2;
+  --success:#1f4ed8; --success-soft:#e4ebfe;
+  --innovation:#c2410c; --innovation-soft:#fceee6;
+  --decisions:#15803d; --decisions-soft:#e2f4e8;
+  --meta:#53666b; --meta-soft:#e2eaeb;
+  --source:#176b87; --source-soft:#d8edf4;
+  --context:#357a46; --context-soft:#dff0df;
+  --evidence:#a34d1d; --evidence-soft:#f7e3d4;
+  --judge:#744f91; --judge-soft:#eadff2;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#1b1e1c; --bg:#111312; --ink:#eae5db; --muted:#a49a8b; --line:#3a4038;
+    --deep:#cfe0e0; --on-deep:#111312; --band:#232725; --shadow:0 1px 2px rgba(0,0,0,.45);
+    --gold:#e0b64c; --gold-soft:#3a2f10;
+    --success:#7ba2ff; --success-soft:#182444;
+    --innovation:#f0906a; --innovation-soft:#3a2117;
+    --decisions:#66c98a; --decisions-soft:#12301f;
+    --meta:#a3b6bb; --meta-soft:#232c2e;
+    --source:#6fc0da; --source-soft:#12303a;
+    --context:#74c288; --context-soft:#15301d;
+    --evidence:#e89a63; --evidence-soft:#3a2417;
+    --judge:#bda0d8; --judge-soft:#2b1f3a;
+  }
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.5;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+
+.sheet{width:297mm;min-height:420mm;margin:14px auto;background:var(--paper);
+       border:1px solid var(--line);box-shadow:var(--shadow);padding:14mm 13mm 11mm;
+       display:flex;flex-direction:column}
+
+.head{border-bottom:3px solid var(--deep);padding-bottom:7mm;margin-bottom:6mm}
+.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:9pt;font-weight:800;color:var(--muted)}
+.lvline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:2mm 0 3mm}
+h1{font-size:44pt;line-height:.98;color:var(--deep);letter-spacing:-.02em}
+.badge{background:var(--gold);color:#fff;font-size:10pt;font-weight:800;letter-spacing:.1em;
+       text-transform:uppercase;padding:3px 11px;border-radius:999px}
+.intro{font-size:12.5pt;color:var(--ink);line-height:1.45}
+.intro b{color:var(--deep)}
+
+.key{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6mm}
+.key .k{flex:1 1 0;min-width:120px;border:1px solid var(--line);border-left:5px solid;
+        border-radius:7px;padding:5px 8px;background:var(--band)}
+.k .kh{font-weight:800;font-size:10.5pt;display:flex;gap:5px;align-items:baseline;line-height:1.2}
+
+.sec{margin-bottom:6mm}
+.sec>h2{font-size:10.5pt;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+        color:var(--deep);border-bottom:1.5px solid var(--line);padding-bottom:2mm;margin-bottom:3.5mm}
+
+.example{font-family:Georgia,"Times New Roman",serif;font-size:calc(18.5pt * var(--k,1));line-height:1.55}
+
+.proves{display:grid;gap:3mm}
+.pv{display:flex;gap:8px;font-size:calc(13pt * var(--k2,1));line-height:1.4}
+.pv .g{flex:none;font-size:.85em;line-height:1.6}
+.pv b{font-weight:700}
+
+.cont{display:grid;gap:3px}
+.cr{display:grid;grid-template-columns:58mm 1fr;gap:0;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.cr .cn{padding:4mm;font-weight:800;font-size:11pt;letter-spacing:.03em;text-transform:uppercase;line-height:1.25;
+        display:flex;align-items:center;gap:6px}
+.cr .cd{padding:4mm;font-size:calc(13.5pt * var(--k2,1));line-height:1.4}
+.cr.gap .cd{color:var(--muted);font-style:italic}
+
+.foot{margin-top:auto;padding-top:5mm;border-top:1px solid var(--line);
+      font-size:8pt;color:var(--muted);line-height:1.45}
+.foot b{color:var(--ink)}
+
+/* ---------- two channels: colour AND line pattern ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:3px;text-decoration-thickness:1.6px}
+.m-success,.m-source{text-decoration-style:solid}
+.m-innovation,.m-context{text-decoration-style:dashed}
+.m-decisions,.m-evidence{text-decoration-style:dotted}
+.m-judge{text-decoration-style:double}
+.m-meta{text-decoration-style:wavy;text-decoration-thickness:1.2px}
+.m-success{color:var(--success);text-decoration-color:var(--success)}
+.m-innovation{color:var(--innovation);text-decoration-color:var(--innovation)}
+.m-decisions{color:var(--decisions);text-decoration-color:var(--decisions)}
+.m-source{color:var(--source);text-decoration-color:var(--source)}
+.m-context{color:var(--context);text-decoration-color:var(--context)}
+.m-evidence{color:var(--evidence);text-decoration-color:var(--evidence)}
+.m-judge{color:var(--judge);text-decoration-color:var(--judge)}
+.m-meta{color:var(--meta);text-decoration-color:var(--meta)}
+
+.k-success{border-left-color:var(--success)} .k-success .kh{color:var(--success)}
+.k-innovation{border-left-color:var(--innovation)} .k-innovation .kh{color:var(--innovation)}
+.k-decisions{border-left-color:var(--decisions)} .k-decisions .kh{color:var(--decisions)}
+.k-source{border-left-color:var(--source)} .k-source .kh{color:var(--source)}
+.k-context{border-left-color:var(--context)} .k-context .kh{color:var(--context)}
+.k-evidence{border-left-color:var(--evidence)} .k-evidence .kh{color:var(--evidence)}
+.k-judge{border-left-color:var(--judge)} .k-judge .kh{color:var(--judge)}
+.k-meta{border-left-color:var(--meta)} .k-meta .kh{color:var(--meta)}
+
+.pv-success .g{color:var(--success)} .pv-innovation .g{color:var(--innovation)}
+.pv-decisions .g{color:var(--decisions)} .pv-source .g{color:var(--source)}
+.pv-context .g{color:var(--context)} .pv-evidence .g{color:var(--evidence)}
+.pv-judge .g{color:var(--judge)} .pv-meta .g{color:var(--meta)}
+.pv-success b{color:var(--success)} .pv-innovation b{color:var(--innovation)}
+.pv-decisions b{color:var(--decisions)} .pv-meta b{color:var(--meta)}
+
+.cr-success .cn{background:var(--success-soft);color:var(--success)}
+.cr-innovation .cn{background:var(--innovation-soft);color:var(--innovation)}
+.cr-decisions .cn{background:var(--decisions-soft);color:var(--decisions)}
+.cr-source .cn{background:var(--source-soft);color:var(--source)}
+.cr-context .cn{background:var(--context-soft);color:var(--context)}
+.cr-evidence .cn{background:var(--evidence-soft);color:var(--evidence)}
+.cr-judge .cn{background:var(--judge-soft);color:var(--judge)}
+.cr-meta .cn{background:var(--meta-soft);color:var(--meta)}
+
+@media (max-width:860px){.sheet{width:auto;min-height:0;padding:16px}h1{font-size:32pt}
+  .example{font-size:13pt}.cr{grid-template-columns:1fr}}
+
+@page{size:A3 portrait;margin:11mm}
+@media print{
+  :root{--paper:#fff;--bg:#fff;--ink:#000;--muted:#4a463d;--line:#c3b8a4;--band:#f5f0e6}
+  body{background:#fff}
+  .sheet{width:auto;min-height:0;margin:0;padding:0;border:0;box-shadow:none;
+         break-after:page;min-height:calc(420mm - 22mm)}
+  .sheet:last-of-type{break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec,.cr,.pv{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main id="out"></main>
+
+<script src="content.js"></script>
+<script>
+/* Renders one A3 anchor sheet per level, straight from content.js.
+   Nothing here holds any wall text of its own. */
+
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,
+  (_,k,t)=>`<span class="m m-${k}">${t}</span>`);
+const strip = s => String(s).replace(/<[^>]+>/g,"");
+
+/* The two subjects store explanations slightly differently — economics keeps a
+   short label per criterion, history does not. Normalise to one shape. */
+function proves(lv){
+  const e = EXPLANATIONS[lv];
+  const src = e && e.items ? e.items : e;
+  return CRITERIA.map(c=>{
+    const v = src[c.key];
+    if(v == null) return null;
+    return Array.isArray(v) ? {c, label:v[0], text:v[1]} : {c, label:"", text:v};
+  }).filter(Boolean);
+}
+
+const intro = WALL.task || WALL.inquiry || "";
+
+/* Each level has a different amount of prose. Scale the type so every sheet
+   fills its page rather than leaving the short levels two-thirds empty. */
+const plain = lv => EXAMPLES[lv].replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+const clamp = (lo,v,hi) => Math.min(hi, Math.max(lo, v));
+function scale(lv){
+  const k  = clamp(0.86, Math.sqrt(700 / plain(lv).length), 1.5);
+  const k2 = clamp(0.94, Math.pow(k, 0.45), 1.22);
+  return `--k:${k.toFixed(3)};--k2:${k2.toFixed(3)}`;
+}
+
+document.getElementById("out").innerHTML = LEVELS.map(lv=>{
+  const expected = lv === WALL.expected;
+  return `<section class="sheet" style="${scale(lv)}">
+    <header class="head">
+      <div class="kicker">${strip(document.title)} · ${esc(WALL.title)}</div>
+      <div class="lvline"><h1>${esc(lv)}</h1>${expected?'<span class="badge">Expected</span>':''}</div>
+      <p class="intro">${intro}</p>
+    </header>
+
+    <div class="key">${CRITERIA.map(c=>
+      `<div class="k k-${c.key}"><div class="kh"><span>${c.glyph}</span><span>${c.name}</span></div></div>`).join("")}</div>
+
+    <section class="sec">
+      <h2>Worked example</h2>
+      <p class="example">${mark(EXAMPLES[lv])}</p>
+    </section>
+
+    <section class="sec">
+      <h2>What each marked phrase proves</h2>
+      <div class="proves">${proves(lv).map(p=>
+        `<div class="pv pv-${p.c.key}"><span class="g">${p.c.glyph}</span><span>${
+          p.label?`<b>${p.label}:</b> `:""}${esc(p.text)}</span></div>`).join("")}</div>
+    </section>
+
+    <section class="sec">
+      <h2>Learning continuum at ${esc(lv)}</h2>
+      <div class="cont">${CRITERIA.map(c=>{
+        const d = CONTINUUM[c.key][lv];
+        return `<div class="cr cr-${c.key}${d?"":" gap"}">
+          <div class="cn"><span>${c.glyph}</span><span>${c.row}</span></div>
+          <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : "—")}</div>
+        </div>`;}).join("")}</div>
+    </section>
+
+    <p class="foot">${WALL.foot}</p>
+  </section>`;
+}).join("");
+</script>
+</body>
+</html>

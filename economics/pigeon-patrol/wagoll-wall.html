@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Year 7 Economics and Business WAGOLL wall. One worked example — Pigeon Patrol — written at Levels 6 to 10, with a criterion-by-criterion explanation and the matching learning continuum.">
+<title>Pigeon Patrol WAGOLL Wall</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#eef1f6; --ink:#161a22; --muted:#5b6478; --line:#d7dde8;
+  --deep:#1f2a3c; --on-deep:#ffffff; --band:#f4f6fa;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --gold:#a16207; --gold-soft:#fdf3d7;
+  --success:#1f4ed8; --success-soft:#e4ebfe;
+  --innovation:#c2410c; --innovation-soft:#fceee6;
+  --decisions:#15803d; --decisions-soft:#e2f4e8;
+  --meta:#7c3aed; --meta-soft:#efe8fd;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#161c28; --bg:#0e131c; --ink:#e9edf5; --muted:#98a2b6; --line:#2a3448;
+    --deep:#dce3f0; --on-deep:#0e131c; --band:#1c2432; --shadow:0 1px 2px rgba(0,0,0,.45);
+    --gold:#e0b64c; --gold-soft:#3a2f10;
+    --success:#7ba2ff; --success-soft:#182444;
+    --innovation:#f0906a; --innovation-soft:#3a2117;
+    --decisions:#66c98a; --decisions-soft:#12301f;
+    --meta:#b795fb; --meta-soft:#271a44;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161c28; --bg:#0e131c; --ink:#e9edf5; --muted:#98a2b6; --line:#2a3448;
+  --deep:#dce3f0; --on-deep:#0e131c; --band:#1c2432; --shadow:0 1px 2px rgba(0,0,0,.45);
+  --gold:#e0b64c; --gold-soft:#3a2f10;
+  --success:#7ba2ff; --success-soft:#182444;
+  --innovation:#f0906a; --innovation-soft:#3a2117;
+  --decisions:#66c98a; --decisions-soft:#12301f;
+  --meta:#b795fb; --meta-soft:#271a44;
+}
+
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.5;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.sheet{max-width:1660px;margin:14px auto;background:var(--paper);border:1px solid var(--line);
+       border-radius:14px;box-shadow:var(--shadow);padding:20px 22px 24px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:3px solid var(--deep);padding-bottom:12px;margin-bottom:12px}
+.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;color:var(--muted)}
+h1{font-size:clamp(1.5rem,3.1vw,2.3rem);line-height:1.06;color:var(--deep);margin:.18rem 0 .3rem;letter-spacing:-.015em}
+.task{font-size:.92rem;color:var(--ink);max-width:105ch}
+.task b{color:var(--deep)}
+.howto{margin-top:7px;font-size:.79rem;color:var(--muted)}
+.howto b{color:var(--ink)}
+
+/* ---------- key ---------- */
+.key{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 14px}
+.key .k{border:1px solid var(--line);border-left:5px solid;border-radius:9px;padding:8px 10px;background:var(--band)}
+.k .kh{font-weight:800;font-size:.83rem;display:flex;align-items:baseline;gap:6px}
+.k .kd{font-size:.74rem;color:var(--muted);margin-top:2px;line-height:1.35}
+.k-success{border-left-color:var(--success)} .k-success .kh{color:var(--success)}
+.k-innovation{border-left-color:var(--innovation)} .k-innovation .kh{color:var(--innovation)}
+.k-decisions{border-left-color:var(--decisions)} .k-decisions .kh{color:var(--decisions)}
+.k-meta{border-left-color:var(--meta)} .k-meta .kh{color:var(--meta)}
+.k .sample{font-weight:400;color:var(--ink);font-size:.74rem}
+
+/* ---------- the two channels: colour AND line pattern ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:2.5px;text-decoration-thickness:1.4px}
+.m-success{color:var(--success);text-decoration-color:var(--success);text-decoration-style:solid}
+.m-innovation{color:var(--innovation);text-decoration-color:var(--innovation);text-decoration-style:dashed}
+.m-decisions{color:var(--decisions);text-decoration-color:var(--decisions);text-decoration-style:dotted}
+.m-meta{color:var(--meta);text-decoration-color:var(--meta);text-decoration-style:wavy;text-decoration-thickness:1px}
+
+/* ---------- toolbar ---------- */
+.tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.tools button{font:inherit;font-size:.78rem;font-weight:600;padding:5px 11px;border-radius:999px;
+              border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+              display:inline-flex;align-items:center;gap:6px}
+.tools button[aria-pressed="true"]{border-color:var(--deep);box-shadow:inset 0 0 0 1px var(--deep)}
+.tools .sp{flex:1}
+.tools .glyph{font-size:.9em}
+.t-success[aria-pressed="true"]{color:var(--success);border-color:var(--success);box-shadow:inset 0 0 0 1px var(--success)}
+.t-innovation[aria-pressed="true"]{color:var(--innovation);border-color:var(--innovation);box-shadow:inset 0 0 0 1px var(--innovation)}
+.t-decisions[aria-pressed="true"]{color:var(--decisions);border-color:var(--decisions);box-shadow:inset 0 0 0 1px var(--decisions)}
+.t-meta[aria-pressed="true"]{color:var(--meta);border-color:var(--meta);box-shadow:inset 0 0 0 1px var(--meta)}
+
+/* dim everything that is not the chosen criterion */
+body.filtering .m{color:var(--muted);font-weight:400;text-decoration-color:transparent}
+body.filtering .exp-item,body.filtering tr.crit{opacity:.22}
+body.f-success .m-success,body.f-innovation .m-innovation,
+body.f-decisions .m-decisions,body.f-meta .m-meta{font-weight:600;text-decoration-color:currentColor}
+body.f-success .m-success{color:var(--success)} body.f-innovation .m-innovation{color:var(--innovation)}
+body.f-decisions .m-decisions{color:var(--decisions)} body.f-meta .m-meta{color:var(--meta)}
+body.f-success .exp-success,body.f-innovation .exp-innovation,
+body.f-decisions .exp-decisions,body.f-meta .exp-meta,
+body.f-success tr.crit-success,body.f-innovation tr.crit-innovation,
+body.f-decisions tr.crit-decisions,body.f-meta tr.crit-meta{opacity:1}
+body.greyscale .sheet{filter:grayscale(1)}
+
+/* ---------- the matrix ---------- */
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+table.wall{border-collapse:collapse;width:100%;min-width:1180px;table-layout:fixed}
+.wall th,.wall td{border:1px solid var(--line);padding:9px 10px;vertical-align:top;text-align:left}
+.wall col.lbl{width:148px}
+.wall thead th{background:var(--deep);color:var(--on-deep);text-align:center;vertical-align:middle;
+               font-size:.92rem;padding:9px 6px;letter-spacing:.02em}
+.wall thead th .sub{display:block;font-size:.66rem;font-weight:600;opacity:.78;letter-spacing:.09em;
+                    text-transform:uppercase;margin-top:2px}
+.wall thead th.expected{background:var(--gold)}
+.wall .rowlab{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+              color:var(--deep);vertical-align:middle;background:var(--band)}
+.wall .rowlab small{display:block;font-size:.64rem;font-weight:600;text-transform:none;
+                    letter-spacing:0;color:var(--muted);margin-top:3px;line-height:1.3}
+
+td.example{font-family:Georgia,"Times New Roman",serif;font-size:.85rem;line-height:1.62}
+td.expl{font-size:.73rem;line-height:1.45;background:var(--band)}
+.exp-item{display:flex;gap:5px;margin-bottom:5px}
+.exp-item .g{flex:none;font-size:.8em;line-height:1.7}
+.exp-item b{font-weight:700}
+.exp-success .g,.exp-success b{color:var(--success)}
+.exp-innovation .g,.exp-innovation b{color:var(--innovation)}
+.exp-decisions .g,.exp-decisions b{color:var(--decisions)}
+.exp-meta .g,.exp-meta b{color:var(--meta)}
+.notyet{margin-top:7px;padding-top:6px;border-top:1px dashed var(--line);color:var(--muted);font-size:.71rem}
+.notyet b{color:var(--ink);text-transform:uppercase;letter-spacing:.05em;font-size:.92em}
+
+.wall tr.band td{background:var(--deep);color:var(--on-deep);font-size:.72rem;font-weight:800;
+                 letter-spacing:.09em;text-transform:uppercase;text-align:center;padding:5px}
+.wall tr.crit td{font-size:.75rem;line-height:1.42}
+.wall tr.crit .rowlab{background:transparent}
+tr.crit-success td{background:var(--success-soft)} tr.crit-success .rowlab{color:var(--success)}
+tr.crit-innovation td{background:var(--innovation-soft)} tr.crit-innovation .rowlab{color:var(--innovation)}
+tr.crit-decisions td{background:var(--decisions-soft)} tr.crit-decisions .rowlab{color:var(--decisions)}
+tr.crit-meta td{background:var(--meta-soft)} tr.crit-meta .rowlab{color:var(--meta)}
+.wall td.gap{color:var(--muted);font-style:italic}
+.wall td.expected-col{box-shadow:inset 3px 0 0 var(--gold),inset -3px 0 0 var(--gold)}
+
+.foot{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
+      font-size:.72rem;color:var(--muted);line-height:1.5}
+.foot b{color:var(--ink)}
+
+@media (max-width:1000px){.key{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.key{grid-template-columns:1fr}.sheet{padding:14px;margin:0;border-radius:0;border:0}}
+
+/* ---------- print master: A3 landscape, one page ---------- */
+@page{size:A3 landscape;margin:7mm}
+@media print{
+  :root{--paper:#fff;--bg:#fff;--ink:#000;--muted:#43485a;--line:#b9c2d0;
+        --deep:#1f2a3c;--on-deep:#fff;--band:#f4f6fa}
+  body{background:#fff}
+  .tools,.noprint{display:none!important}
+  .sheet{max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}
+  .wrap{overflow:visible;border:0;border-radius:0}
+  table.wall{min-width:0;width:100%}
+  .mast{padding-bottom:5px;margin-bottom:6px;border-bottom-width:2.5px}
+  h1{font-size:21pt;margin:1pt 0 3pt}
+  .kicker{font-size:7.6pt} .task{font-size:8.8pt} .howto{font-size:7.4pt;margin-top:3pt}
+  .key{gap:4px;margin:6px 0 6px}
+  .k{padding:4px 7px} .k .kh{font-size:8.6pt} .k .kd{font-size:7.2pt} .k .sample{font-size:7.2pt}
+  .wall col.lbl{width:112pt}
+  .wall th,.wall td{padding:5pt 6pt}
+  .wall thead th{font-size:11.5pt;padding:5pt} .wall thead th .sub{font-size:6.6pt}
+  .wall .rowlab{font-size:7.6pt} .wall .rowlab small{font-size:6.7pt}
+  td.example{font-size:9.2pt;line-height:1.38}
+  td.expl{font-size:7.6pt;line-height:1.29} .exp-item{margin-bottom:2.5pt}
+  .notyet{font-size:7.4pt;margin-top:4pt;padding-top:3pt}
+  .wall tr.band td{font-size:7.6pt;padding:3pt}
+  .wall tr.crit td{font-size:8.1pt;line-height:1.3}
+  .foot{font-size:6.9pt;margin-top:5pt;padding-top:4pt}
+  .wall tr,.wall td{break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header class="mast">
+  <div class="kicker">Year 7 Economics &amp; Business · WAGOLL wall</div>
+  <h1 id="wallTitle"></h1>
+  <p class="task" id="taskLine"></p>
+  <p class="howto"><b>Read across</b> to see what changes between one level and the next.
+     <b>Read down</b> to go from the worked example, to the reason it meets that level, to the exact continuum descriptor.
+     Only the phrases that <b>prove</b> a criterion are marked — the black text is the glue that holds them together.</p>
+</header>
+
+<div class="key" id="key"></div>
+
+<div class="tools noprint" role="group" aria-label="Wall tools">
+  <button id="showAll" aria-pressed="true">Show all</button>
+  <span id="lenses" style="display:contents"></span>
+  <span class="sp"></span>
+  <button id="grey" aria-pressed="false">Greyscale check</button>
+  <button id="print">Print / save PDF</button>
+</div>
+
+<div class="wrap">
+  <table class="wall" id="wall"></table>
+</div>
+
+<p class="foot" id="foot"></p>
+
+</div>
+
+<script src="content.js"></script>
+<script>
+/* ===================== rendering ===================== */
+
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,
+  (_,k,t)=>`<span class="m m-${k}">${t}</span>`);
+
+document.getElementById("wallTitle").textContent = WALL.title;
+document.getElementById("taskLine").innerHTML = WALL.task;
+document.getElementById("foot").innerHTML = WALL.foot;
+
+document.getElementById("key").innerHTML = CRITERIA.map(c=>`
+  <div class="k k-${c.key}">
+    <div class="kh"><span>${c.glyph}</span><span>${c.name}</span></div>
+    <div class="kd">${c.blurb}</div>
+    <div class="kd"><span class="sample m m-${c.key}">marked like this</span></div>
+  </div>`).join("");
+
+const isExp = lv => lv === WALL.expected;
+const colCls = lv => isExp(lv) ? ' class="expected-col"' : '';
+
+const head = `<colgroup><col class="lbl">${LEVELS.map(()=>"<col>").join("")}</colgroup>
+<thead><tr><th class="rowlab" scope="col">Level</th>${
+  LEVELS.map(lv=>`<th scope="col"${isExp(lv)?' class="expected"':''}>${lv}<span class="sub">${
+    isExp(lv) ? "Expected · Year 7" : MOVE[lv]}</span></th>`).join("")}</tr></thead>`;
+
+const exampleRow = `<tr><th class="rowlab" scope="row">Worked example<small>Pigeon Patrol, written at this level</small></th>${
+  LEVELS.map(lv=>`<td class="example${isExp(lv)?" expected-col":""}">${mark(EXAMPLES[lv])}</td>`).join("")}</tr>`;
+
+const explainRow = `<tr><th class="rowlab" scope="row">Why it meets this level<small>What each marked phrase proves</small></th>${
+  LEVELS.map(lv=>{
+    const e = EXPLANATIONS[lv];
+    const items = CRITERIA.map(c=>{
+      const it = e.items[c.key];
+      return it ? `<div class="exp-item exp-${c.key}"><span class="g">${c.glyph}</span><span><b>${it[0]}:</b> ${esc(it[1])}</span></div>` : "";
+    }).join("");
+    const ny = e.notYet ? `<div class="notyet"><b>Not yet:</b> ${esc(e.notYet)}</div>` : "";
+    return `<td class="expl${isExp(lv)?" expected-col":""}">${items}${ny}</td>`;
+  }).join("")}</tr>`;
+
+const bandRow = `<tr class="band"><td>Learning continuum</td>${
+  LEVELS.map(lv=>`<td${colCls(lv)}>${lv}</td>`).join("")}</tr>`;
+
+const critRows = CRITERIA.map(c=>`<tr class="crit crit-${c.key}"><th class="rowlab" scope="row">${c.row}</th>${
+  LEVELS.map(lv=>{
+    const t = CONTINUUM[c.key][lv];
+    return `<td class="${t?"":"gap"}${isExp(lv)?" expected-col":""}">${t ? esc(t) : GAP_TEXT}</td>`;
+  }).join("")}</tr>`).join("");
+
+document.getElementById("wall").innerHTML =
+  head + "<tbody>" + exampleRow + explainRow + bandRow + critRows + "</tbody>";
+
+/* ===================== tools ===================== */
+
+const lenses = document.getElementById("lenses");
+lenses.innerHTML = CRITERIA.map(c=>
+  `<button class="t-${c.key}" data-f="${c.key}" aria-pressed="false"><span class="glyph">${c.glyph}</span>${c.name}</button>`).join("");
+
+const allBtn = document.getElementById("showAll");
+function setFilter(f){
+  document.body.classList.remove("filtering", ...CRITERIA.map(c=>"f-"+c.key));
+  if(f) document.body.classList.add("filtering","f-"+f);
+  allBtn.setAttribute("aria-pressed", f ? "false" : "true");
+  lenses.querySelectorAll("button").forEach(b=>
+    b.setAttribute("aria-pressed", b.dataset.f===f ? "true" : "false"));
+}
+allBtn.onclick = ()=>setFilter("");
+lenses.querySelectorAll("button").forEach(b=>
+  b.onclick = ()=>setFilter(b.getAttribute("aria-pressed")==="true" ? "" : b.dataset.f));
+
+const grey = document.getElementById("grey");
+grey.onclick = ()=>{
+  const on = document.body.classList.toggle("greyscale");
+  grey.setAttribute("aria-pressed", String(on));
+};
+document.getElementById("print").onclick = ()=>window.print();
+</script>
+</body>
+</html>

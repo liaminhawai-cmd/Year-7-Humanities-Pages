@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A3 source sheet for GS73: what the object is, where it was found, how it was recorded, what researchers make of it, and whose Country it comes from.">
+<title>Source A — GS73</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#efe8dc; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6;
+  --shadow:0 1px 2px rgba(48,39,24,.06),0 4px 14px rgba(48,39,24,.08);
+  --rule:#b9ac96;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#1b1e1c; --bg:#111312; --ink:#eae5db; --muted:#a49a8b; --line:#3a4038;
+    --deep:#cfe0e0; --on-deep:#111312; --band:#232725; --rule:#4a5148;
+    --shadow:0 1px 2px rgba(0,0,0,.5);
+  }
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);
+     font-family:Georgia,"Times New Roman",serif;line-height:1.5}
+
+.sheet{width:297mm;min-height:420mm;margin:14px auto;background:var(--paper);
+       border:1px solid var(--line);box-shadow:var(--shadow);
+       padding:15mm 15mm 11mm;display:flex;flex-direction:column}
+
+.kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+        text-transform:uppercase;letter-spacing:.2em;font-size:9.5pt;font-weight:700;color:var(--muted)}
+h1{font-size:64pt;line-height:.9;color:var(--deep);letter-spacing:-.02em;margin:1mm 0 0;font-weight:700}
+.standfirst{font-size:14pt;line-height:1.4;color:var(--ink);max-width:62ch;margin-top:4mm;font-style:italic}
+.rule{height:2.5px;background:var(--deep);margin:5mm 0 5mm}
+
+/* caption sits beside the plate, not under it — otherwise the four views push
+   the closing paragraphs onto a second page */
+figure{margin:0 0 5mm;display:grid;grid-template-columns:1fr 74mm;gap:8mm;align-items:end}
+figure img{width:100%;max-height:130mm;height:auto;display:block;background:#111;object-fit:contain}
+figcaption{font-size:10.6pt;line-height:1.45;color:var(--muted);
+           padding-left:5mm;border-left:2px solid var(--rule)}
+@media (max-width:860px){figure{grid-template-columns:1fr}figure img{max-height:none}}
+
+.body{columns:2;column-gap:11mm;column-rule:1px solid var(--line);font-size:12.6pt;line-height:1.52;
+      text-align:justify;hyphens:auto}
+.body p{margin-bottom:3.4mm;break-inside:avoid-column}
+.body p:first-of-type::first-letter{
+  float:left;font-size:34pt;line-height:.82;padding:1mm 2mm 0 0;color:var(--deep);font-weight:700}
+
+.close{margin-top:5mm;padding-top:4mm;border-top:2px solid var(--deep);
+       font-size:14pt;line-height:1.45;color:var(--deep)}
+
+.foot{margin-top:auto;padding-top:5mm;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      font-size:8pt;color:var(--muted);line-height:1.45}
+.foot b{color:var(--ink)}
+
+@media (max-width:860px){
+  .sheet{width:auto;min-height:0;padding:16px;margin:0;border:0}
+  h1{font-size:46pt}.body{columns:1}
+}
+
+@page{size:A3 portrait;margin:12mm}
+@media print{
+  :root{--paper:#fff;--bg:#fff;--ink:#000;--muted:#4a463d;--line:#c3b8a4;--rule:#9c9382}
+  body{background:#fff}
+  .sheet{width:auto;min-height:0;margin:0;padding:0;border:0;box-shadow:none}
+  figure,.close{break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="standfirst" id="standfirst"></p>
+  </header>
+  <div class="rule"></div>
+
+  <figure>
+    <img src="gs73-source-panel.jpg" alt="Four views of GS73: the artefact with a five-centimetre scale bar and arrows marking worn areas; the same surface at low magnification showing striations and levelled quartz grains; and two microscope views showing bright polish on the raised parts of individual grains.">
+    <figcaption id="views"></figcaption>
+  </figure>
+
+  <div class="body" id="body"></div>
+  <p class="close" id="close"></p>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script src="content.js"></script>
+<script>
+/* getElementById throughout: several of these ids (title, close) collide with
+   built-in window properties, so bare global lookup would not reach the node */
+const S = SOURCE_SHEET;
+const el = id => document.getElementById(id);
+el("kicker").textContent = S.kicker;
+el("title").textContent = S.title;
+el("standfirst").textContent = S.standfirst;
+el("views").textContent = S.views;
+el("body").innerHTML = S.paras.map(p=>`<p>${p}</p>`).join("");
+el("close").textContent = S.close;
+el("foot").innerHTML = WALL.foot;
+</script>
+</body>
+</html>

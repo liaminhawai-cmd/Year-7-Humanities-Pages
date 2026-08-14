@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kestrel Range — should you allow the mine?</title><style>
+:root{--ink:#2a2620;--muted:#766c5e;--line:#e0d8c8;--paper:#fffdf8;--bg:#f4efe4;
+--gold:#c98a2b;--green:#5b8c4e;--blue:#3d83b8;--accent:#7a4b2b;--red:#b1492f;
+--ok-b:#e7efe0;--ok-t:#3a6030;--warn-b:#f8edd4;--warn-t:#8a5a0c;--bad-b:#f6e1db;--bad-t:#9b3526;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55;font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:16px}
+.wrap{max-width:1060px;margin:0 auto;padding:18px 18px 80px}
+header{border-bottom:2px solid var(--ink);padding-bottom:9px}
+header h1{margin:0;font-size:25px}
+header .sub{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+header .place{font-size:13px;color:var(--accent);font-style:italic;margin-top:3px}
+.brief{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:4px;padding:13px 16px;margin:14px 0}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line);margin-bottom:12px}
+.tab{cursor:pointer;border:1px solid var(--line);border-bottom:none;background:#efe8d9;border-radius:6px 6px 0 0;padding:9px 16px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;font-weight:600;color:var(--muted)}
+.tab.on{background:var(--paper);color:var(--ink);border-color:var(--accent)}
+.view{display:none}.view.on{display:block}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:14px}
+.sans{font-family:ui-sans-serif,system-ui,sans-serif}
+.lead{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:13.5px;margin:0 0 10px}
+h2.sec{font-size:18px;margin:0 0 6px}
+.grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;align-items:start}
+@media(max-width:840px){.grid2{grid-template-columns:1fr}}
+.mapframe{background:#f3ecdb;border:1.5px solid #c3b694;border-radius:5px;padding:8px}
+svg.map{width:100%;height:auto;display:block;touch-action:manipulation}
+.layerbtns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.lbtn{cursor:pointer;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:#efe8d9;border-radius:20px;padding:6px 13px;color:var(--muted)}
+.lbtn.on{background:#fff;border-color:var(--accent);color:var(--ink)}
+.lbtn .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.caption{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#5a5040;background:#efe8d9;border-radius:5px;padding:8px 11px;margin-top:8px;min-height:38px}
+.tile{cursor:pointer}.tile.locked{cursor:not-allowed}
+.flabel{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;fill:#332b20;paint-order:stroke;stroke:#f3ecdb;stroke-width:3px;font-weight:700}
+.phasetag{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.tally{font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px}
+.tally .big{font-size:30px;font-weight:700;font-family:Georgia,serif;color:var(--accent)}
+button.act{font-family:ui-sans-serif,system-ui,sans-serif;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:7px;padding:12px 18px;font-size:15px;font-weight:700;width:100%;margin-top:10px}
+button.act:disabled{opacity:.45;cursor:default;background:#fff;color:var(--muted);border-color:var(--line)}
+.mini{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:var(--muted);cursor:pointer;background:none;border:none;text-decoration:underline;margin-top:6px}
+.cons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.cons{grid-template-columns:1fr}}
+.ccard{border:1px solid var(--line);border-radius:7px;padding:12px 14px;background:#fff;border-top:4px solid var(--line)}
+.ccard .role{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:14px}
+.ccard .val{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
+.ccard p{margin:0 0 8px;font-size:14px}
+.ccard .say{font-size:14.5px;font-style:italic;margin:0}
+.ccard.good{border-top-color:var(--ok-t)}.ccard.concern{border-top-color:var(--warn-t)}.ccard.bad{border-top-color:var(--bad-t)}
+.meters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:8px 0}
+@media(max-width:680px){.meters{grid-template-columns:repeat(2,1fr)}}
+.meter{border:1px solid var(--line);border-radius:6px;padding:10px;background:#fff;font-family:ui-sans-serif,system-ui,sans-serif}
+.meter .lab{font-size:11px;color:var(--muted)}.meter .num{font-size:24px;font-weight:700;font-family:Georgia,serif}
+.bar{height:8px;border-radius:4px;background:var(--bg);margin-top:5px;overflow:hidden}.bar>div{height:100%;transition:width .6s}
+.log{font-family:ui-sans-serif,system-ui,sans-serif;margin-top:12px}
+.logitem{border-left:3px solid var(--line);padding:7px 0 7px 12px;margin-bottom:8px;font-size:14px}
+.logitem.good{border-color:var(--ok-t)}.logitem.warn{border-color:var(--warn-t)}.logitem.bad{border-color:var(--bad-t)}
+.verdict{border-radius:6px;padding:14px 16px;margin-top:10px;font-family:ui-sans-serif,system-ui,sans-serif}
+.verdict.good{background:var(--ok-b);color:var(--ok-t)}.verdict.mixed{background:var(--warn-b);color:var(--warn-t)}.verdict.bad{background:var(--bad-b);color:var(--bad-t)}
+.verdict h3{margin:0 0 5px;font-size:18px}
+.saq{border:1px solid var(--line);border-radius:6px;padding:13px 15px;margin-bottom:12px;background:#fff}
+.saq .tie{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);margin-bottom:4px}
+.saq .q{font-size:15px;margin:0 0 8px}
+.saq textarea{width:100%;min-height:74px;font:inherit;font-size:14px;padding:8px;border:1px solid var(--line);border-radius:5px;resize:vertical}
+.saq .cbtn{font-family:ui-sans-serif,system-ui,sans-serif;cursor:pointer;background:#efe8d9;border:1px solid var(--line);border-radius:5px;padding:7px 12px;font-size:12.5px;margin-top:7px}
+.saq .sc{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;margin-top:8px;padding:9px 11px;border-radius:5px;background:#f3ecdb;border:1px solid var(--line);display:none}
+.saq .sc.show{display:block}.saq .sc .miss{color:var(--bad-t)}.saq .sc .ok{color:var(--ok-t)}
+.hidden{display:none}
+</style></head><body><div class="wrap">
+<header><h1>Kestrel Range — should you allow the mine?</h1><div class="sub">Year 7 Geography · The value of landforms</div>
+<div class="place">Kestrel Range (a made-up town and Country, used so we do not invent real sacred sites)</div></header>
+<div class="brief">You are the mayor of Brackton, a small town doing it tough. A company wants to dig a mine in the Kestrel Range. Read what the four consultants say, turn on the map layers, then choose where to dig for the first ten years. Take more ground and the town earns more, but every tile has an effect somewhere. After ten years the consultants will tell you what your mine has done, and you decide the next ten years. You cannot un-dig a pit. There is no perfect answer.</div>
+<div class="tabs">
+<div class="tab on" data-v="map" onclick="setView('map')">The map</div>
+<div class="tab" data-v="consult" onclick="setView('consult')">The consultants</div>
+</div>
+
+<div id="v-map" class="view on"><div class="panel"><div class="grid2">
+<div>
+  <div class="layerbtns">
+    <button class="lbtn" data-l="height"><span class="dot" style="background:#3d83b8"></span>Height</button>
+    <button class="lbtn" data-l="plants"><span class="dot" style="background:#5b8c4e"></span>Plants</button>
+    <button class="lbtn" data-l="ore"><span class="dot" style="background:#c98a2b"></span>Where the metal is</button>
+  </div>
+  <div class="mapframe"><svg class="map" id="mapSVG" viewBox="0 0 600 400"></svg></div>
+  <div class="caption" id="caption"></div>
+</div>
+<div>
+  <div class="panel" style="margin:0">
+    <div class="phasetag" id="phasetag">Years 1–10: plan your first ten years.</div>
+    <p class="lead">Click tiles to dig. Turn on the layers to see what is there. Read "The consultants" before you decide.</p>
+    <div class="tally" id="tally"></div>
+    <div id="phase1box"><button class="act" id="runBtn" disabled onclick="startMining()">Start mining (Years 1–10)</button>
+      <button class="mini" onclick="state.sel.clear();drawMap();updateTally()">Clear my tiles</button></div>
+    <div id="phase2box" class="hidden"><button class="act" id="finishBtn" onclick="finish()">Finish (Years 11–20)</button></div>
+  </div>
+</div>
+</div></div></div>
+
+<div id="v-consult" class="view"><div class="panel"><h2 class="sec">The consultants</h2>
+<p class="lead">Four people advise you. Each cares about something different. Read them before you dig.</p>
+<div class="cons" id="consultProfiles"></div></div></div>
+
+<div id="midpoint" class="panel hidden"><h2 class="sec">Year 10: the consultants report back</h2>
+<p class="lead">This is what your first ten years have done. Now decide the next ten on the map above.</p>
+<div class="meters" id="midMeters"></div>
+<div class="cons" id="midCards" style="margin-top:10px"></div></div>
+
+<div id="result" class="panel hidden"><h2 class="sec">After twenty years</h2>
+<div class="meters" id="meters"></div><div class="log" id="eventLog"></div>
+<div class="cons" id="closeCards" style="margin-top:10px"></div><div id="verdict"></div></div>
+
+<div id="reflect" class="panel hidden"><h2 class="sec">Now think it through</h2>
+<p class="lead">Answer using what you read and what happened. The check button only tells you which ideas you used.</p>
+<div id="qArea"></div></div>
+
+</div><script>
+const D={"meta": {"title": "Kestrel Range — should you allow the mine?", "subtitle": "Year 7 Geography · The value of landforms", "place": "Kestrel Range (a made-up town and Country, used so we do not invent real sacred sites)", "brief": "You are the mayor of Brackton, a small town doing it tough. A company wants to dig a mine in the Kestrel Range. Read what the four consultants say, turn on the map layers, then choose where to dig for the first ten years. Take more ground and the town earns more, but every tile has an effect somewhere. After ten years the consultants will tell you what your mine has done, and you decide the next ten years. You cannot un-dig a pit. There is no perfect answer."}, "grid": {"cols": 12, "rows": 7}, "zones": {"oreLobes": [{"c": 5, "r": 3, "amp": 1.0, "spread": 2.6}, {"c": 8, "r": 5, "amp": 0.5, "spread": 1.7}], "veg": {"cMin": 1, "cMax": 5, "rMin": 2, "rMax": 4}, "cultural": [[2, 0], [3, 0], [4, 0], [3, 5], [4, 5]], "low": [[0, 6], [1, 6], [2, 6], [3, 6], [2, 5], [3, 5], [4, 5]], "tourismLookout": {"cMin": 10, "cMax": 11, "rMin": 1, "rMax": 4}, "tourismRoad": [[8, 3], [9, 3], [9, 4]], "ridgeRow": 0, "townMarker": [0, 6]}, "layers": {"height": "Higher ground is safer to dig. Low ground by the creek and waterhole fills with water if you dig it.", "plants": "Green tiles have plants and trees. Clearing them in this dry place can turn the land to desert.", "ore": "Gold tiles have more metal underground. More metal means more money for the town."}, "features": [{"c": 3, "r": 0, "label": "Rock shelter", "kind": "shelter"}, {"c": 3.5, "r": 5, "label": "Waterhole", "kind": "water"}, {"c": 10.5, "r": 2, "label": "Gorge lookout", "kind": "lookout"}, {"c": 8.5, "r": 3.5, "label": "Scenic road", "kind": "road"}, {"c": 0.2, "r": 6.4, "label": "Brackton", "kind": "town"}], "consultants": [{"id": "elder", "role": "Speaking for the Traditional Owners", "value": "Culture & Country", "color": "#b1492f", "signal": "cultural", "profile": ["For tens of thousands of years the Traditional Owners have lived on and cared for this Country.", "Two places here matter deeply to them. The rock shelter on the northern ridge holds very old paintings and is a place of learning and ceremony. The waterhole below it is a living water place that has always been looked after.", "The Elders ask that these places, and the ground around them, are not dug up or damaged, and that the community is part of any decision about the land. These places are also protected by law as cultural heritage."], "react": {"good": "You have kept away from the rock shelter and the waterhole. Thank you. Please keep them out of your plans for the next ten years too, and keep talking with us.", "concern": "Your pits are creeping toward the waterhole. The water is alive to us and to everyone downstream. Please pull back before it is harmed.", "bad": "You have dug into Country we asked you to protect. This is a serious harm and it cannot be undone. We are asking you to stop, and others will be asking too."}}, {"id": "tourism", "role": "Tourism consultant", "value": "Tourism", "color": "#3d83b8", "signal": "tourism", "profile": ["Visitors come to the Kestrel Range for two things: the view from the gorge lookout in the east, and the walk to the waterhole. They drive in along the scenic road.", "Tourism brings money and jobs to the town all year round. A mine that can be seen from the lookout, or that blocks the road or the waterhole walk, would turn visitors away."], "react": {"good": "Good news. The lookout view and the waterhole walk are still clear, and visitors keep coming. Keep the mine small and out of sight and tourism stays strong.", "concern": "The mine is getting large. Even away from the tourist spots, a big scar changes how the place feels. Watch the size over the next ten years.", "bad": "Part of the mine can be seen from the lookout or sits across the scenic road. We are already getting cancellations."}}, {"id": "enviro", "role": "Environmental scientist", "value": "Land & wildlife", "color": "#5b8c4e", "signal": "land", "profile": ["The Kestrel Range is dry country. It gets very little rain, about 280 mm a year, less than half of what Melbourne gets.", "When plants are cleared in a dry place like this, the bare ground dries out and blows away, and new plants struggle to grow back. Over time the land can turn to desert. This is called desertification. Digging in the low ground also lets dirty water reach the creek and waterhole."], "react": {"good": "The plants and the creek are mostly untouched, so the land and wildlife are holding up well. In country this dry, that really matters.", "concern": "You have cleared a little vegetation. In a place this dry it will not grow back quickly. Be careful how much more you take.", "bad": "Too much clearing and digging in low ground. The bare soil is drying out and blowing away, and dirty water is reaching the creek. This is how desertification starts."}}, {"id": "town", "role": "Town economic adviser", "value": "Town money & jobs", "color": "#7a4b2b", "signal": "money", "profile": ["Brackton has lost jobs as other industries closed, and young people are leaving to find work.", "The mine could bring jobs, wages and money to the town for years, and the richest metal is right here in the range. My job is to get the best deal for the town. I know the range matters to others too, so we have to find a way through."], "react": {"good": "The jobs are flowing and money is coming into Brackton. This is what we needed. If a bit more can be done safely, it would help.", "concern": "I appreciate the care, but the town is still struggling. We need more jobs than this. Could we dig a bit more over the next ten years?", "bad": "Money is really flowing now and the town is grateful. I do hear the others' worries though, so let us not push our luck."}}], "engine": {"moneyPerOre": 1.2, "safeCap": 3, "townBase": 20, "townGain": 80, "oreScale": 46, "cultureHit": 26, "lowHit": 13, "vegHit": 11, "tourismHit": 16, "scarPerTile": 0.9, "footprintLand": 0.7, "start": {"culture": 100, "tourism": 96, "land": 100}, "randomness": 5}, "questions": [{"n": 1, "tie": "The four values: cultural, spiritual, aesthetic, economic", "q": "Choose two values and explain how they clashed in your decision.", "lookFor": ["cultural", "spiritual", "economic", "aesthetic", "money", "tourism"], "selfcheck": "A strong answer names two of the four values and explains why getting more of one meant losing some of another."}, {"n": 2, "tie": "Using sources / considering other people's values", "q": "Where did you dig, which places did you avoid, and which consultant helped you decide?", "lookFor": ["waterhole", "rock shelter", "lookout", "plants", "low", "elder", "ore"], "selfcheck": "A strong answer points to specific places and to the consultant who told them why those places mattered."}, {"n": 3, "tie": "VCGGK120: cultural and spiritual value; protecting significant places", "q": "The Elders asked for some places to be protected. Did your plan respect that? Explain.", "lookFor": ["traditional owner", "elder", "rock shelter", "waterhole", "protect", "heritage", "consult"], "selfcheck": "A strong answer says whether the cultural and spiritual places were protected, and uses what the Elders asked for."}, {"n": 4, "tie": "Weighing it up / making a judgement", "q": "After the consultants spoke at year ten, did you change your plan? Was there a way to help the town without doing too much harm?", "lookFor": ["change", "year ten", "safe", "fewer", "away", "trade", "balance", "less"], "selfcheck": "A strong answer says whether the year-ten feedback changed the plan, and either describes a balanced choice or explains the trade-off they accepted."}], "_tiles": [{"c": 0, "r": 0, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 0, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 2, "r": 0, "ore": 3, "veg": 0, "cultural": 1, "low": 0, "tourism": 0}, {"c": 3, "r": 0, "ore": 4, "veg": 0, "cultural": 1, "low": 0, "tourism": 0}, {"c": 4, "r": 0, "ore": 5, "veg": 0, "cultural": 1, "low": 0, "tourism": 0}, {"c": 5, "r": 0, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 0, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 0, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 0, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 9, "r": 0, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 10, "r": 0, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 11, "r": 0, "ore": 0, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 0, "r": 1, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 1, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 2, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 3, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 4, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 5, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 9, "r": 1, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 10, "r": 1, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 11, "r": 1, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 0, "r": 2, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 2, "ore": 3, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 2, "r": 2, "ore": 5, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 3, "r": 2, "ore": 7, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 4, "r": 2, "ore": 9, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 5, "r": 2, "ore": 10, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 2, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 2, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 2, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 9, "r": 2, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 10, "r": 2, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 11, "r": 2, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 0, "r": 3, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 3, "ore": 3, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 2, "r": 3, "ore": 5, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 3, "r": 3, "ore": 7, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 4, "r": 3, "ore": 9, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 5, "r": 3, "ore": 10, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 3, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 3, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 3, "ore": 8, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 9, "r": 3, "ore": 5, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 10, "r": 3, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 11, "r": 3, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 0, "r": 4, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 4, "ore": 3, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 2, "r": 4, "ore": 5, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 3, "r": 4, "ore": 7, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 4, "r": 4, "ore": 9, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 5, "r": 4, "ore": 10, "veg": 1, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 4, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 4, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 4, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 9, "r": 4, "ore": 6, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 10, "r": 4, "ore": 4, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 11, "r": 4, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 1}, {"c": 0, "r": 5, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 5, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 2, "r": 5, "ore": 4, "veg": 0, "cultural": 0, "low": 1, "tourism": 0}, {"c": 3, "r": 5, "ore": 6, "veg": 0, "cultural": 1, "low": 1, "tourism": 0}, {"c": 4, "r": 5, "ore": 7, "veg": 0, "cultural": 1, "low": 1, "tourism": 0}, {"c": 5, "r": 5, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 5, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 5, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 5, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 9, "r": 5, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 10, "r": 5, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 11, "r": 5, "ore": 2, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 1, "r": 6, "ore": 2, "veg": 0, "cultural": 0, "low": 1, "tourism": 0}, {"c": 2, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 1, "tourism": 0}, {"c": 3, "r": 6, "ore": 4, "veg": 0, "cultural": 0, "low": 1, "tourism": 0}, {"c": 4, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 5, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 6, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 7, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 8, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 9, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 10, "r": 6, "ore": 3, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}, {"c": 11, "r": 6, "ore": 1, "veg": 0, "cultural": 0, "low": 0, "tourism": 0}]};const $=id=>document.getElementById(id);const NS="http://www.w3.org/2000/svg";
+function E(t,a,p,x){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(x!=null)e.textContent=x;if(p)p.appendChild(e);return e;}
+const G=D.grid,T=D._tiles,EN=D.engine,CON=D.consultants;
+const state={view:"map",layer:"none",phase:1,sel:new Set(),locked:new Set()};
+const key=(c,r)=>c+","+r;
+function setView(v){state.view=v;document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.v===v));document.querySelectorAll(".view").forEach(w=>w.classList.toggle("on",w.id==="v-"+v));}
+
+// ---------- map geometry ----------
+const VBW=600,VBH=400,mx=40,my=26,bandH=66;
+const gw=(VBW-mx*2)/G.cols, gh=(VBH-my-bandH-my)/G.rows;
+const tX=c=>mx+c*gw, tY=r=>my+r*gh;
+const fX=f=>tX(f.c)+gw/2, fY=f=>tY(f.r)+gh/2;
+
+function drawBase(s){
+  E("rect",{x:0,y:0,width:VBW,height:VBH,fill:"#f3ecdb"},s);
+  // northern escarpment / ridge with a few contour arcs
+  E("path",{d:`M${mx} ${my+8} Q${VBW/2} ${my-6} ${VBW-mx} ${my+10}`,fill:"none",stroke:"#b7a884","stroke-width":2},s);
+  for(let i=1;i<=2;i++)E("path",{d:`M${mx+30} ${my+8+i*9} Q${VBW/2} ${my+2+i*9} ${VBW-mx-30} ${my+10+i*9}`,fill:"none",stroke:"#cfc09a","stroke-width":1},s);
+  // gorge notch cutting in from the east near the lookout
+  E("path",{d:`M${VBW-mx} ${tY(2)} L${tX(9.4)} ${tY(2.7)+6} L${VBW-mx} ${tY(3.6)} Z`,fill:"#e4d8ba",stroke:"#b7a884","stroke-width":1},s);
+  // creek from waterhole to town (blue)
+  const wh=D.features.find(f=>f.kind==="water"),tw=D.features.find(f=>f.kind==="town");
+  E("path",{d:`M${fX(wh)} ${fY(wh)} C${tX(2.4)} ${tY(5.6)},${tX(1.4)} ${tY(6.1)},${fX(tw)+8} ${fY(tw)-4}`,fill:"none",stroke:"#7fb0d4","stroke-width":2.4},s);
+  // woodland stipple across the veg zone
+  const z=D.zones.veg;
+  for(let c=z.cMin;c<=z.cMax;c++)for(let r=z.rMin;r<=z.rMax;r++){const cx=tX(c)+gw/2,cy=tY(r)+gh/2;
+    E("circle",{cx:cx-6,cy:cy+4,r:2,fill:"#8aa775",opacity:.55},s);E("circle",{cx:cx+5,cy:cy-3,r:1.6,fill:"#8aa775",opacity:.5},s);}
+  // scenic road (dashed) from town toward lookout
+  const lk=D.features.find(f=>f.kind==="lookout");
+  E("path",{d:`M${fX(tw)+10} ${fY(tw)-6} L${tX(7)} ${tY(3.6)} L${fX(lk)-6} ${fY(lk)+8}`,fill:"none",stroke:"#9a8f72","stroke-width":1.8,"stroke-dasharray":"5 3"},s);
+}
+function tileStyle(t){
+  if(state.layer==="ore"){const v=t.ore/10;return {fill:v<=0?"#e9dfca":"#c98a2b",fo:v<=0?0.10:0.20+0.6*v};}
+  if(state.layer==="plants")return {fill:t.veg?"#5b8c4e":"#e9dfca",fo:t.veg?0.55:0.08};
+  if(state.layer==="height"){if(t.low)return{fill:"#3d83b8",fo:0.5};const r=t.r/(G.rows-1);return{fill:"#8a6a3a",fo:0.10+0.32*(1-r)};}
+  return {fill:"#cdbf9c",fo:0.08};
+}
+function drawTiles(s){
+  T.forEach(t=>{
+    const k=key(t.c,t.r),locked=state.locked.has(k),sel=state.sel.has(k);
+    const g=E("g",{class:"tile"+(locked?" locked":""),"data-k":k},s);
+    g.addEventListener("click",()=>toggleTile(t.c,t.r));
+    const st=tileStyle(t);
+    E("rect",{x:tX(t.c)+0.5,y:tY(t.r)+0.5,width:gw-1,height:gh-1,fill:st.fill,"fill-opacity":st.fo,stroke:"#fff","stroke-width":1},g);
+    if(locked||sel){const x=tX(t.c),y=tY(t.r),col=locked?"#5a4632":"#b1492f";
+      if(locked)E("rect",{x:x+0.5,y:y+0.5,width:gw-1,height:gh-1,fill:"#5a4632","fill-opacity":0.35,stroke:col,"stroke-width":1.5},g);
+      else E("rect",{x:x+0.5,y:y+0.5,width:gw-1,height:gh-1,fill:"none",stroke:col,"stroke-width":2.4},g);
+      E("line",{x1:x+5,y1:y+5,x2:x+gw-5,y2:y+gh-5,stroke:col,"stroke-width":2}, g);
+      E("line",{x1:x+gw-5,y1:y+5,x2:x+5,y2:y+gh-5,stroke:col,"stroke-width":2}, g);}
+  });
+}
+function drawFeatures(s){
+  D.features.forEach(f=>{const x=fX(f),y=fY(f);
+    if(f.kind==="water")E("ellipse",{cx:x,cy:y,rx:8,ry:5,fill:"#7fb0d4",stroke:"#3d83b8","stroke-width":1.3},s);
+    else if(f.kind==="lookout"){E("path",{d:`M${x} ${y-7} L${x+6} ${y+4} L${x-6} ${y+4} Z`,fill:"#3d83b8"},s);}
+    else if(f.kind==="shelter"){E("path",{d:`M${x-7} ${y+4} L${x-7} ${y-2} Q${x} ${y-9} ${x+7} ${y-2} L${x+7} ${y+4} Z`,fill:"#9b6a3e",stroke:"#5a4632","stroke-width":1},s);}
+    else if(f.kind==="town"){E("rect",{x:x-7,y:y-4,width:6,height:7,fill:"#7a4b2b"},s);E("rect",{x:x+1,y:y-6,width:6,height:9,fill:"#7a4b2b"},s);}
+    else if(f.kind==="road"){/* drawn as path in base */}
+    if(f.kind==="road"){E("text",{x:x-18,y:y-5,class:"flabel"},s,f.label);}
+    else {const east=f.c>=8;E("text",{x:east?x-9:x+(f.kind==="town"?12:10),y:y+4,class:"flabel","text-anchor":east?"end":"start"},s,f.label);}
+  });
+}
+function drawDecor(s){
+  // north arrow
+  E("path",{d:`M${VBW-26} 30 L${VBW-21} 44 L${VBW-26} 40 L${VBW-31} 44 Z`,fill:"#5a4632"},s);
+  E("text",{x:VBW-26,y:26,class:"flabel","text-anchor":"middle"},s,"N");
+  // scale bar in bottom band
+  const sy=VBH-bandH+30,sx=mx;
+  E("rect",{x:sx,y:sy,width:60,height:6,fill:"#5a4632"},s);E("rect",{x:sx,y:sy,width:30,height:6,fill:"#cdbf9c"},s);
+  E("text",{x:sx,y:sy-4,class:"flabel"},s,"0        5 km");
+  // mini legend
+  const ly=VBH-bandH+22,lx=mx+150;const items=[["#7fb0d4","creek / water"],["#5b8c4e","woodland"],["#b7a884","ridge / gorge"]];
+  items.forEach((it,i)=>{E("rect",{x:lx+i*150,y:ly+8,width:13,height:9,fill:it[0]},s);E("text",{x:lx+i*150+18,y:ly+17,class:"flabel"},s,it[1]);});
+}
+function drawMap(){const s=$("mapSVG");s.innerHTML="";drawBase(s);drawTiles(s);drawFeatures(s);drawDecor(s);}
+
+function toggleTile(c,r){const k=key(c,r);if(state.locked.has(k))return;state.sel.has(k)?state.sel.delete(k):state.sel.add(k);drawMap();updateTally();}
+function setLayer(l){state.layer=(state.layer===l?"none":l);document.querySelectorAll(".lbtn").forEach(b=>b.classList.toggle("on",b.dataset.l===state.layer));
+  $("caption").textContent=state.layer==="none"?"Turn on a layer to see what is under the ground. Then click tiles to dig.":D.layers[state.layer];drawMap();}
+
+// ---------- engine ----------
+function counts(setLike){let ore=0,cult=0,low=0,veg=0,tour=0,n=0;
+  setLike.forEach(k=>{const[c,r]=k.split(",").map(Number);const t=T.find(x=>x.c===c&&x.r===r);if(!t)return;n++;ore+=t.ore;cult+=t.cultural;low+=t.low;veg+=t.veg;tour+=t.tourism;});
+  return {ore,cult,low,veg,tour,n,money:Math.round(ore*EN.moneyPerOre)};}
+function meters(cn){return {
+  town: EN.townBase + EN.townGain*(1-Math.exp(-cn.ore/EN.oreScale)),
+  culture: EN.start.culture - cn.cult*EN.cultureHit,
+  tourism: EN.start.tourism - cn.tour*EN.tourismHit - cn.n*EN.scarPerTile,
+  land: EN.start.land - cn.veg*EN.vegHit - cn.low*EN.lowHit - cn.n*EN.footprintLand};}
+function clampM(M,jit){const o={};for(const k in M)o[k]=Math.max(0,Math.min(100,Math.round(M[k]+(jit?(Math.random()*2-1)*EN.randomness:0))));return o;}
+function level(con,cn){ // which react line for this consultant
+  if(con.signal==="cultural")return cn.cult>0?"bad":(cn.low>0?"concern":"good");
+  if(con.signal==="tourism")return cn.tour>0?"bad":(cn.n>18?"concern":"good");
+  if(con.signal==="land")return (cn.veg+cn.low)>=3?"bad":((cn.veg+cn.low)>0?"concern":"good");
+  if(con.signal==="money")return cn.money<35?"concern":(cn.money<=70?"good":"bad");
+  return "good";}
+function consultantCards(cn){return CON.map(con=>{const lv=level(con,cn);
+  return `<div class="ccard ${lv}" style="border-top-color:${con.color}"><div class="role">${con.role}</div><div class="val">${con.value}</div><p class="say">"${con.react[lv]}"</p></div>`;}).join("");}
+
+// ---------- phase 1 -> midpoint ----------
+function startMining(){
+  if(state.sel.size===0)return;
+  state.sel.forEach(k=>state.locked.add(k));state.sel.clear();state.phase=2;drawMap();
+  const cn=counts(state.locked),M=clampM(meters(cn),false);
+  $("midMeters").innerHTML=meterHTML(M);
+  $("midCards").innerHTML=consultantCards(cn);
+  $("midpoint").classList.remove("hidden");
+  $("phase1box").classList.add("hidden");$("phase2box").classList.remove("hidden");
+  $("phasetag").textContent="Years 11–20: you can dig more, but you cannot un-dig the first ten years.";
+  updateTally();
+  $("midpoint").scrollIntoView({behavior:"smooth",block:"start"});
+}
+// ---------- phase 2 -> final ----------
+function finish(){
+  const all=new Set([...state.locked,...state.sel]);
+  const cn=counts(all),M=clampM(meters(cn),true);
+  $("meters").innerHTML=meterHTML(M);
+  const log=[];const add=(ty,t,x)=>log.push({ty,t,x});
+  add(cn.money>=55?"good":"warn","Money for the town",`Over twenty years your mine dug ${cn.n} tiles and earned about $${cn.money}M for Brackton.`);
+  if(cn.cult>0)add("bad","The Traditional Owners",`You dug ${cn.cult} tile${cn.cult>1?"s":""} in the places the Elders asked you to protect. It cannot be undone.`);
+  if(cn.low>0)add("bad","Water",`${cn.low} pit${cn.low>1?"s":""} in low ground filled with water and ran toward the waterhole.`);
+  if(cn.veg>0)add("bad","The land",`You cleared plants on ${cn.veg} tile${cn.veg>1?"s":""}; in this dry country the ground is turning to desert.`);
+  if(cn.tour>0)add("bad","Tourism","Part of the mine can be seen from the lookout or sits across the scenic road; visitors are leaving.");
+  if(cn.cult===0&&cn.veg===0&&cn.low===0&&cn.tour===0)add("good","Well placed","You found metal while staying off every place the consultants asked you to protect.");
+  $("eventLog").innerHTML=log.map(it=>`<div class="logitem ${it.ty}"><b>${it.t}.</b> ${it.x}</div>`).join("");
+  $("closeCards").innerHTML=consultantCards(cn);
+  let cls="mixed",h="A mixed result",msg="You got some things right and paid for others. Look at which bar dropped the most, and why.";
+  if(M.town>=52&&M.culture>=55&&M.tourism>=52&&M.land>=52){cls="good";h="A balanced plan";msg="You found money for the town without wrecking what other people value. That is a hard balance, and you got close.";}
+  if(M.town>=70&&(M.culture<35||M.tourism<35||M.land<35)){cls="bad";h="A boomtown built on damage";msg="The town made good money, but something other people cared about was badly hurt to get it.";}
+  if(M.town<40){cls="bad";h="The town misses out";msg="You protected the range, but the town stayed poor. Was there a safer patch you could have dug for at least some money?";}
+  $("verdict").innerHTML=`<div class="verdict ${cls}"><h3>${h}</h3>${msg}</div>`;
+  $("result").classList.remove("hidden");$("reflect").classList.remove("hidden");drawQs();
+  $("result").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function meterHTML(M){const defs=[["town","Town money & jobs","#7a4b2b"],["culture","Culture & Country","#b1492f"],["tourism","Tourism","#3d83b8"],["land","Land & wildlife","#5b8c4e"]];
+  return defs.map(([k,l,c])=>`<div class="meter"><div class="lab">${l}</div><div class="num">${M[k]}</div><div class="bar"><div style="width:${M[k]}%;background:${c}"></div></div></div>`).join("");}
+function updateTally(){const cn=counts(new Set([...state.locked,...state.sel]));
+  $("tally").innerHTML=`<div>Tiles dug: <b>${cn.n}</b>${state.locked.size?` (${state.locked.size} locked in)`:""}</div><div class="big">$${cn.money}M</div><div class="lead">for the town if you stop here</div>`;
+  $("runBtn").disabled=state.sel.size===0&&state.phase===1;
+  $("finishBtn") && ($("finishBtn").disabled=false);
+}
+
+// ---------- consultants tab + reflection ----------
+function consultProfiles(){return CON.map(con=>
+  `<div class="ccard" style="border-top-color:${con.color}"><div class="role">${con.role}</div><div class="val">${con.value}</div>`
+  +con.profile.map(p=>`<p>${p}</p>`).join("")+`</div>`).join("");}
+function drawQs(){$("qArea").innerHTML=D.questions.map(q=>
+  `<div class="saq"><div class="tie">${q.tie}</div><p class="q">${q.n}. ${q.q}</p><textarea id="ta${q.n}"></textarea>`
+  +`<button class="cbtn" data-q="${q.n}">Check my answer</button><div class="sc" id="sc${q.n}"></div></div>`).join("");
+  document.querySelectorAll(".cbtn").forEach(b=>b.addEventListener("click",()=>checkA(+b.dataset.q)));}
+function checkA(n){const q=D.questions.find(x=>x.n===n);const t=($("ta"+n).value||"").toLowerCase();const box=$("sc"+n);box.classList.add("show");
+  if(t.trim().length<30){box.innerHTML="Write a bit more first, then check.";return;}
+  const hit=q.lookFor.filter(k=>t.includes(k)),miss=q.lookFor.filter(k=>!t.includes(k));
+  box.innerHTML=`<div>${q.selfcheck}</div><div style="margin-top:6px"><span class="ok">You mentioned:</span> ${hit.length?hit.join(", "):"none of the key ideas yet"}.</div>`
+    +(miss.length?`<div class="miss" style="margin-top:3px">You could also bring in: ${miss.join(", ")}.</div>`:`<div class="ok" style="margin-top:3px">Good range. Now make sure you have explained each one.</div>`)
+    +`<div style="margin-top:6px;color:#766c5e">This only checks which ideas you used, not whether your reasons are right.</div>`;}
+
+function init(){drawMap();updateTally();setLayer("none");
+  document.querySelectorAll(".lbtn").forEach(b=>b.addEventListener("click",()=>setLayer(b.dataset.l)));
+  $("consultProfiles").innerHTML=consultProfiles();}
+init();
+</script></body></html>

@@ -1,0 +1,64 @@
+/* One stylesheet for every index page in the hub — the landing page, the four
+   subject pages and the topic pages all use it, so they cannot drift apart.
+   Content pages (the walls, the bump-it-ups, the simulations) are
+   self-contained and do not load this. */
+:root{
+  --bg:#f6f8fc; --card:#fff; --ink:#1c2333; --muted:#5b6478; --line:#e3e8f2;
+  --accent:#2563eb; --accent-soft:#dbeafe; --radius:14px;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --civics:#b45309; --history:#223f43; --geography:#1c5c78; --economics:#4c1d95;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#0f1420; --card:#171e2e; --ink:#fff; --muted:#c7d0e2; --line:#34405b;
+         --accent:#8eb4ff; --accent-soft:#1d2c4d; --shadow:0 1px 2px rgba(0,0,0,.4);
+         --civics:#f0b165; --history:#9fc6c6; --geography:#8ec8e0; --economics:#c4b5fd; }
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.5;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+
+header{color:#fff;padding:30px 20px 38px;text-align:center;
+       background:linear-gradient(135deg,#1c5c78,#223f43 55%,#4c1d95)}
+header.civics   {background:linear-gradient(135deg,#b45309,#92400e)}
+header.history  {background:linear-gradient(135deg,#223f43,#0f2c30)}
+header.geography{background:linear-gradient(135deg,#1c5c78,#124254)}
+header.economics{background:linear-gradient(135deg,#4c1d95,#2e1065)}
+header h1{font-size:clamp(1.6rem,5vw,2.5rem);letter-spacing:-.5px;line-height:1.05}
+header p{max-width:62ch;margin:10px auto 0;opacity:.94;font-size:.97rem}
+header .kicker{text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;
+               font-weight:800;opacity:.72;margin-bottom:4px}
+.back{display:inline-block;margin-top:14px;color:#fff;text-decoration:none;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+      padding:5px 13px;border-radius:999px;font-size:.85rem}
+.back:hover{background:rgba(255,255,255,.28)}
+
+main{max-width:1080px;margin:0 auto;padding:24px 18px 60px}
+section{margin-top:32px}
+section:first-child{margin-top:8px}
+section>h2{font-size:1.3rem;padding-bottom:8px;border-bottom:2px solid var(--line);
+           display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+section>h2 .sub{font-size:.8rem;font-weight:600;color:var(--muted)}
+section>p.intro{color:var(--muted);font-size:.9rem;margin-top:10px;max-width:70ch}
+
+.grid{display:grid;gap:14px;margin-top:16px;grid-template-columns:repeat(auto-fill,minmax(248px,1fr))}
+a.card{display:flex;flex-direction:column;gap:5px;background:var(--card);
+       border:1px solid var(--line);border-left:5px solid var(--accent);
+       border-radius:var(--radius);padding:15px;text-decoration:none;color:inherit;
+       box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
+a.card:hover{transform:translateY(-3px);border-color:var(--accent)}
+a.card.civics{border-left-color:var(--civics)}
+a.card.history{border-left-color:var(--history)}
+a.card.geography{border-left-color:var(--geography)}
+a.card.economics{border-left-color:var(--economics)}
+.card .emoji{font-size:1.55rem;line-height:1}
+.card h3{font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card p{font-size:.85rem;color:var(--muted)}
+.tag{font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+     background:var(--accent-soft);border-radius:5px;padding:2px 6px;color:var(--muted)}
+a.card.soon{opacity:.55;pointer-events:none}
+
+.note{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      padding:14px 16px;font-size:.85rem;color:var(--muted);margin-top:28px;line-height:1.55}
+.note b{color:var(--ink)}
+.note a{color:var(--accent)}
+footer{max-width:1080px;margin:0 auto;padding:0 18px 50px;font-size:.76rem;color:var(--muted)}

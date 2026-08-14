@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Mark the worked example yourself, then compare your marking with the model.">
+<title>Mark the Example</title>
+<style>
+:root{
+  --paper:#ffffff; --bg:#eef1f6; --ink:#161a22; --muted:#5b6478; --line:#d7dde8;
+  --deep:#1f2a3c; --on-deep:#ffffff; --band:#f4f6fa;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --gold:#a16207; --gold-soft:#fdf3d7;
+  --success:#1f4ed8; --success-soft:#e4ebfe;
+  --innovation:#c2410c; --innovation-soft:#fceee6;
+  --decisions:#15803d; --decisions-soft:#e2f4e8;
+  --meta:#7c3aed; --meta-soft:#efe8fd;
+  --source:#176b87; --source-soft:#d8edf4;
+  --context:#357a46; --context-soft:#dff0df;
+  --evidence:#a34d1d; --evidence-soft:#f7e3d4;
+  --judge:#744f91; --judge-soft:#eadff2;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#161c28; --bg:#0e131c; --ink:#e9edf5; --muted:#98a2b6; --line:#2a3448;
+    --deep:#dce3f0; --on-deep:#0e131c; --band:#1c2432; --shadow:0 1px 2px rgba(0,0,0,.45);
+    --gold:#e0b64c; --gold-soft:#3a2f10;
+    --success:#7ba2ff; --success-soft:#182444;
+    --innovation:#f0906a; --innovation-soft:#3a2117;
+    --decisions:#66c98a; --decisions-soft:#12301f;
+    --meta:#b795fb; --meta-soft:#271a44;
+    --source:#6fc0da; --source-soft:#12303a;
+    --context:#74c288; --context-soft:#15301d;
+    --evidence:#e89a63; --evidence-soft:#3a2417;
+    --judge:#bda0d8; --judge-soft:#2b1f3a;
+  }
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.5;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:18px 14px 60px}
+
+header.top{background:var(--deep);color:var(--on-deep);padding:20px 14px 22px}
+header.top .in{max-width:1100px;margin:0 auto}
+.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;opacity:.75}
+h1{font-size:clamp(1.3rem,3.4vw,2rem);line-height:1.1;margin:.2rem 0 .4rem}
+.task{font-size:.9rem;opacity:.92;max-width:90ch}
+.task b{font-weight:700}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+      box-shadow:var(--shadow);padding:15px 16px;margin-bottom:14px}
+h2{font-size:1rem;color:var(--deep);margin-bottom:3px}
+.hint{font-size:.83rem;color:var(--muted);margin-bottom:10px}
+
+.levels{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.levels button{font:inherit;font-size:.85rem;font-weight:700;padding:7px 14px;border-radius:999px;
+               border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.levels button[aria-pressed="true"]{background:var(--deep);color:var(--on-deep);border-color:var(--deep)}
+.levels button .exp{font-size:.72em;opacity:.8;margin-left:5px}
+
+.tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 0}
+.tools button{font:inherit;font-size:.8rem;font-weight:600;padding:6px 11px;border-radius:8px;
+              border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+              display:inline-flex;align-items:center;gap:6px}
+.tools .sp{flex:1}
+.tools .go{border-color:var(--deep);color:var(--deep);font-weight:700}
+.t-success{border-left:5px solid var(--success)} .t-innovation{border-left:5px solid var(--innovation)}
+.t-decisions{border-left:5px solid var(--decisions)} .t-meta{border-left:5px solid var(--meta)}
+.t-source{border-left:5px solid var(--source)} .t-context{border-left:5px solid var(--context)}
+.t-evidence{border-left:5px solid var(--evidence)} .t-judge{border-left:5px solid var(--judge)}
+
+.canvas{font-family:Georgia,"Times New Roman",serif;font-size:1.06rem;line-height:1.95;
+        border:2px dashed var(--line);border-radius:10px;padding:14px;background:var(--band);
+        outline:none;min-height:90px}
+.canvas:focus{border-style:solid;border-color:var(--deep)}
+.canvas:empty::before{content:attr(data-ph);color:var(--muted);font-family:inherit}
+
+.model{display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.model.show{display:block}
+.model .lbl{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;
+            font-weight:800;color:var(--muted);margin-bottom:6px}
+.modeltext{font-family:Georgia,"Times New Roman",serif;font-size:1.06rem;line-height:1.95}
+.tally{margin-top:10px;display:grid;gap:4px;font-size:.83rem}
+.tally div{display:flex;gap:7px;align-items:baseline}
+.tally .g{flex:none}
+
+details{border:1px solid var(--line);border-radius:10px;background:var(--paper);
+        box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+summary{cursor:pointer;font-weight:700;color:var(--deep);padding:12px 15px;font-size:.95rem;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--muted)}
+details[open] summary::before{content:"▾ "}
+details .in{padding:0 15px 14px}
+
+.proves{display:grid;gap:7px}
+.pv{display:flex;gap:7px;font-size:.88rem;line-height:1.45}
+.pv .g{flex:none}
+.cont{display:grid;gap:4px;margin-top:4px}
+.cr{display:grid;grid-template-columns:minmax(120px,200px) 1fr;border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;font-size:.86rem}
+.cr .cn{padding:9px 11px;font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;
+        display:flex;gap:6px;align-items:center;line-height:1.25}
+.cr .cd{padding:9px 11px;line-height:1.4}
+.cr.gap .cd{color:var(--muted);font-style:italic}
+@media (max-width:640px){.cr{grid-template-columns:1fr}}
+
+.src{float:right;width:min(280px,40%);margin:0 0 10px 14px}
+.src img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#111;display:block}
+@media (max-width:640px){.src{float:none;width:100%;margin:0 0 10px}}
+
+.note{font-size:.78rem;color:var(--muted);margin-top:9px}
+footer{max-width:1100px;margin:0 auto;padding:0 14px 40px;font-size:.75rem;color:var(--muted);line-height:1.5}
+footer b{color:var(--ink)}
+
+/* ---------- two channels: colour AND line pattern ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+.m-success,.m-source{text-decoration-style:solid}
+.m-innovation,.m-context{text-decoration-style:dashed}
+.m-decisions,.m-evidence{text-decoration-style:dotted}
+.m-judge{text-decoration-style:double}
+.m-meta{text-decoration-style:wavy;text-decoration-thickness:1.2px}
+.m-success{color:var(--success);text-decoration-color:var(--success)}
+.m-innovation{color:var(--innovation);text-decoration-color:var(--innovation)}
+.m-decisions{color:var(--decisions);text-decoration-color:var(--decisions)}
+.m-source{color:var(--source);text-decoration-color:var(--source)}
+.m-context{color:var(--context);text-decoration-color:var(--context)}
+.m-evidence{color:var(--evidence);text-decoration-color:var(--evidence)}
+.m-judge{color:var(--judge);text-decoration-color:var(--judge)}
+.m-meta{color:var(--meta);text-decoration-color:var(--meta)}
+
+.g-success,.pv-success .g,.tally-success .g{color:var(--success)}
+.g-innovation,.pv-innovation .g,.tally-innovation .g{color:var(--innovation)}
+.g-decisions,.pv-decisions .g,.tally-decisions .g{color:var(--decisions)}
+.g-meta,.pv-meta .g,.tally-meta .g{color:var(--meta)}
+.g-source,.pv-source .g,.tally-source .g{color:var(--source)}
+.g-context,.pv-context .g,.tally-context .g{color:var(--context)}
+.g-evidence,.pv-evidence .g,.tally-evidence .g{color:var(--evidence)}
+.g-judge,.pv-judge .g,.tally-judge .g{color:var(--judge)}
+
+.cr-success .cn{background:var(--success-soft);color:var(--success)}
+.cr-innovation .cn{background:var(--innovation-soft);color:var(--innovation)}
+.cr-decisions .cn{background:var(--decisions-soft);color:var(--decisions)}
+.cr-meta .cn{background:var(--meta-soft);color:var(--meta)}
+.cr-source .cn{background:var(--source-soft);color:var(--source)}
+.cr-context .cn{background:var(--context-soft);color:var(--context)}
+.cr-evidence .cn{background:var(--evidence-soft);color:var(--evidence)}
+.cr-judge .cn{background:var(--judge-soft);color:var(--judge)}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="task" id="task"></p>
+</div></header>
+
+<main>
+  <div class="levels" id="levels" role="group" aria-label="Choose a level"></div>
+
+  <section class="card">
+    <div class="src" id="srcbox" hidden></div>
+    <h2>Mark the example yourself</h2>
+    <p class="hint">Select some words, then tap the criterion they prove. Tap <b>Unmark</b> to take a mark off. Leave the joining words unmarked — only mark the words that are the evidence.</p>
+    <div class="canvas" id="canvas" contenteditable="true" spellcheck="false"></div>
+    <div class="tools" id="marktools"></div>
+    <div class="model" id="model">
+      <span class="lbl">The model marking</span>
+      <div class="modeltext" id="modeltext"></div>
+      <div class="tally" id="tally"></div>
+    </div>
+  </section>
+
+  <details id="provesBox">
+    <summary>What each marked phrase proves</summary>
+    <div class="in"><div class="proves" id="proves"></div></div>
+  </details>
+
+  <details id="contBox">
+    <summary>The learning continuum at this level</summary>
+    <div class="in"><div class="cont" id="cont"></div></div>
+  </details>
+
+  <section class="card">
+    <h2>Write your own</h2>
+    <p class="hint">Write your own answer, then mark it with the same buttons. Check that every criterion appears somewhere.</p>
+    <div class="canvas" id="mine" contenteditable="true" spellcheck="true" data-ph="Write your answer here…"></div>
+    <div class="tools" id="minetools"></div>
+    <p class="note" id="savenote">Saved on this device only, in this browser. Nobody else can see it, and clearing your browser data will delete it.</p>
+  </section>
+</main>
+
+<footer id="foot"></footer>
+
+<script src="content.js"></script>
+<script>
+/* All wall text comes from content.js — nothing is duplicated here. */
+
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const mark  = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,(_,k,t)=>`<span class="m m-${k}">${t}</span>`);
+const plain = s => String(s).replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+const KEYS  = CRITERIA.map(c=>c.key);
+const critOf = k => CRITERIA.find(c=>c.key===k);
+
+el("kicker").textContent = (WALL.kicker || "Mark the example");
+el("h1").textContent = WALL.title;
+el("task").innerHTML = WALL.task || WALL.inquiry || "";
+el("foot").innerHTML = WALL.foot;
+
+if (typeof SHEET_IMAGE !== "undefined" && SHEET_IMAGE) {
+  const b = el("srcbox");
+  b.hidden = false;
+  b.innerHTML = `<img src="${SHEET_IMAGE}" alt="Four views of the source: the artefact with a scale bar, a low-magnification view of its worn surface, and two microscope views of polished grains.">`;
+}
+
+/* economics stores a short label per criterion, history does not */
+function proves(lv){
+  const e = EXPLANATIONS[lv], src = e && e.items ? e.items : e;
+  return CRITERIA.map(c=>{
+    const v = src[c.key];
+    if (v == null) return null;
+    return Array.isArray(v) ? {c,label:v[0],text:v[1]} : {c,label:"",text:v};
+  }).filter(Boolean);
+}
+
+/* ---------- marking ---------- */
+/* Split an enclosing mark into the part before `node`, `node` itself, and the
+   part after, so re-marking part of an existing mark replaces it rather than
+   nesting inside it. */
+function splitAround(anc, node){
+  const before = anc.cloneNode(false), after = anc.cloneNode(false);
+  while (anc.firstChild && anc.firstChild !== node) before.appendChild(anc.firstChild);
+  anc.removeChild(node);
+  while (anc.firstChild) after.appendChild(anc.firstChild);
+  const frag = document.createDocumentFragment();
+  if (before.textContent) frag.appendChild(before);
+  frag.appendChild(node);
+  if (after.textContent) frag.appendChild(after);
+  anc.parentNode.replaceChild(frag, anc);
+}
+
+/* Wrap the current selection in a criterion span. Marks inside the selection are
+   unwrapped, and marks enclosing it are split, so marks never nest and never
+   overlap — one phrase carries exactly one criterion. */
+function markSelection(box, key){
+  const sel = window.getSelection();
+  if (!sel.rangeCount || sel.isCollapsed) return;
+  const r = sel.getRangeAt(0);
+  if (!box.contains(r.commonAncestorContainer)) return;
+
+  const frag = r.extractContents();
+  frag.querySelectorAll("span.m").forEach(sp => sp.replaceWith(...sp.childNodes));
+
+  /* always insert through a wrapper so ancestors can be split around it */
+  const holder = document.createElement("span");
+  if (key) holder.className = "m m-" + key; else holder.dataset.tmp = "1";
+  holder.appendChild(frag);
+  r.insertNode(holder);
+
+  let p = holder.parentNode;
+  while (p && p !== box){
+    const next = p.parentNode;
+    if (p.classList && p.classList.contains("m")) splitAround(p, holder);
+    p = next;
+  }
+  if (!key) holder.replaceWith(...holder.childNodes);
+
+  box.normalize();
+  sel.removeAllRanges();
+}
+
+function toolbar(host, box, extra){
+  host.innerHTML = CRITERIA.map(c=>
+    `<button class="t-${c.key}" data-k="${c.key}"><span class="g g-${c.key}">${c.glyph}</span>${c.name}</button>`
+  ).join("") + `<button data-k="">Unmark</button>` + (extra || "");
+  host.querySelectorAll("button[data-k]").forEach(btn=>{
+    /* without this the button steals focus and the selection is lost */
+    btn.addEventListener("mousedown", e=>e.preventDefault());
+    btn.addEventListener("click", ()=>markSelection(box, btn.dataset.k));
+  });
+}
+
+/* ---------- level state ---------- */
+let current = LEVELS.includes(WALL.expected) ? WALL.expected : LEVELS[0];
+
+el("levels").innerHTML = LEVELS.map(lv=>
+  `<button data-lv="${lv}" aria-pressed="false">${lv}${
+    lv===WALL.expected?'<span class="exp">expected</span>':''}</button>`).join("");
+
+function render(){
+  el("levels").querySelectorAll("button").forEach(b=>
+    b.setAttribute("aria-pressed", String(b.dataset.lv === current)));
+
+  el("canvas").textContent = plain(EXAMPLES[current]);
+  el("model").classList.remove("show");
+  el("modeltext").innerHTML = mark(EXAMPLES[current]);
+
+  const counts = {};
+  KEYS.forEach(k=>counts[k]=0);
+  (EXAMPLES[current].match(/\{(\w+)\|/g) || []).forEach(m=>{
+    const k = m.slice(1,-1); if (k in counts) counts[k]++;
+  });
+  el("tally").innerHTML = CRITERIA.map(c=>
+    `<div class="tally-${c.key}"><span class="g">${c.glyph}</span><span>${c.name}: the model marks ${
+      counts[c.key]} phrase${counts[c.key]===1?"":"s"} here.</span></div>`).join("");
+
+  el("proves").innerHTML = proves(current).map(p=>
+    `<div class="pv pv-${p.c.key}"><span class="g">${p.c.glyph}</span><span>${
+      p.label?`<b>${p.label}:</b> `:""}${esc(p.text)}</span></div>`).join("");
+
+  el("cont").innerHTML = CRITERIA.map(c=>{
+    const d = CONTINUUM[c.key][current];
+    return `<div class="cr cr-${c.key}${d?"":" gap"}">
+      <div class="cn"><span>${c.glyph}</span><span>${c.row}</span></div>
+      <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : "—")}</div></div>`;
+  }).join("");
+
+  el("provesBox").open = false;
+  el("contBox").open = false;
+}
+
+el("levels").querySelectorAll("button").forEach(b=>
+  b.addEventListener("click", ()=>{ current = b.dataset.lv; render(); }));
+
+toolbar(el("marktools"), el("canvas"),
+  `<span class="sp"></span>
+   <button class="go" id="reset">Start again</button>
+   <button class="go" id="reveal">Show the model</button>`);
+
+el("reset").addEventListener("mousedown", e=>e.preventDefault());
+el("reset").onclick = ()=>{ el("canvas").textContent = plain(EXAMPLES[current]);
+                            el("model").classList.remove("show"); };
+el("reveal").addEventListener("mousedown", e=>e.preventDefault());
+el("reveal").onclick = ()=> el("model").classList.toggle("show");
+
+/* ---------- the student's own writing, kept on this device ---------- */
+const STORE = "wagoll_" + WALL.id + "_draft";
+const mine = el("mine");
+toolbar(el("minetools"), mine, `<span class="sp"></span><button id="clearMine">Clear</button>`);
+el("clearMine").addEventListener("mousedown", e=>e.preventDefault());
+el("clearMine").onclick = ()=>{ mine.innerHTML = ""; save(); };
+
+function save(){
+  try { localStorage.setItem(STORE, mine.innerHTML); }
+  catch(e){ el("savenote").textContent =
+    "This browser will not let the page save, so your writing is not being kept. Copy it somewhere else before you close the tab."; }
+}
+try { mine.innerHTML = localStorage.getItem(STORE) || ""; } catch(e){}
+mine.addEventListener("input", save);
+
+render();
+</script>
+</body>
+</html>

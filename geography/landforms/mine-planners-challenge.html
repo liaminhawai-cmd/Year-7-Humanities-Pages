@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mine Planner's Challenge — Final V10</title>
+<style>
+:root{
+  --ink:#23272e; --muted:#6b7280; --line:#d8dce1; --paper:#ffffff; --bg:#f4f6f8;
+  --accent:#1f6f6b; --accent2:#b4541f;
+  --ok-bg:#e7f3e0; --ok-tx:#3a6b14;
+  --warn-bg:#fdeccd; --warn-tx:#8a560c;
+  --bad-bg:#fbe5e3; --bad-tx:#a3322a;
+  --info-bg:#e3eef0; --info-tx:#175e5a;
+  --map-paper:#f5efde; --map-line:#6b6650;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;}
+.wrap{max-width:1450px;margin:0 auto;padding:14px 18px 72px;}
+header.app h1{font-family:Georgia,serif;font-size:26px;margin:0 0 2px;}
+header.app p{margin:0;color:var(--muted);font-size:13px;}
+.accent{height:3px;width:84px;background:var(--accent);border-radius:2px;margin-top:8px;}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;}
+h2.sec{font-family:Georgia,serif;font-size:18px;margin:0 0 4px;}
+h2.sec .step{display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;margin-right:8px;vertical-align:middle;}
+p.lead{color:var(--muted);font-size:13.5px;margin:0 0 12px;}
+.callout{background:var(--info-bg);color:var(--info-tx);border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;}
+button.act{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 15px;font-size:13px;color:var(--ink);font-family:inherit;font-weight:600;}
+button.act:hover{background:var(--bg);} 
+button.act.primary{background:var(--accent);color:#fff;border-color:var(--accent);} 
+button.act.big{font-size:15px;padding:11px 22px;} 
+button.act:disabled{opacity:.45;cursor:default;}
+.viewtabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;border-bottom:2px solid var(--line);} 
+.viewtab{cursor:pointer;border:1px solid var(--line);border-bottom:none;background:#fff;border-radius:8px 8px 0 0;padding:8px 15px;font-size:13px;font-weight:600;color:var(--muted);font-family:inherit;margin-bottom:-2px;} 
+.viewtab.on{color:var(--ink);border-color:var(--accent);border-bottom:2px solid var(--paper);background:var(--paper);} 
+.viewpanel{display:none;} .viewpanel.on{display:block;}
+.grid2{display:grid;grid-template-columns:1.55fr .95fr;gap:16px;align-items:start;} 
+.grid3{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;align-items:start;}
+@media (max-width:1000px){.grid2,.grid3{grid-template-columns:1fr;}}
+.map-frame{background:var(--map-paper);border:1.5px solid var(--map-line);border-radius:6px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);} 
+.map-title{font-family:Georgia,serif;font-size:13.5px;text-align:center;margin-bottom:6px;color:#3c2f1e;} 
+svg.map, svg.chart{width:100%;height:auto;display:block;border-radius:4px;}
+svg.map{background:var(--map-paper);border:1px solid #c9bf9e;}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:#3c2f1e;margin-top:10px;padding:6px 8px;background:#f9f5e8;border:1px solid #c9bf9e;border-radius:4px;} 
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.control{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:#fff;} 
+.control h3{margin:0 0 6px;font-size:14px;} 
+.readout{font-size:12.5px;margin-top:8px;} 
+.readout .row{display:flex;justify-content:space-between;padding:4px 0;border-top:1px solid var(--line);gap:10px;} 
+.readout .row .v{font-weight:600;text-align:right;}
+.info{background:#fbfaf6;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;}
+.siteMarker{cursor:pointer;}
+.siteMarker .dot{fill:#fff;stroke:#3c2f1e;stroke-width:2;}
+.siteMarker.sel .dot{fill:#b4541f;stroke:#b4541f;}
+.siteMarker text{font-family:Georgia,serif;font-size:13px;font-weight:700;fill:#3c2f1e;pointer-events:none;}
+.hotspot{cursor:pointer;}
+.hotspot circle{fill:#fff;stroke:#1f6f6b;stroke-width:2;}
+.hotspot.sel circle{fill:#1f6f6b;}
+.hotspot text{font-size:11px;font-family:"Segoe UI";fill:#1f6f6b;pointer-events:none;font-weight:700;}
+.hotspot.sel text{fill:#fff;}
+.atlaslabel{font-size:11px;font-family:"Segoe UI";fill:#3c2f1e;pointer-events:none;}
+.atlassmall{font-size:10px;font-family:"Segoe UI";fill:#5b5245;pointer-events:none;}
+.atlasmicro{font-size:9px;font-family:"Segoe UI";fill:#6a604f;pointer-events:none;}
+.chartbox{background:#fbfaf6;border:1px solid var(--line);border-radius:8px;padding:10px 12px;} 
+.chartbox .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;flex-wrap:wrap;gap:6px;} 
+.chartbox h4{margin:0;font-size:13px;font-weight:700;} 
+.chartbox .src{font-size:11px;color:var(--muted);font-style:italic;} 
+.meters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:8px 0 4px;} 
+@media (max-width:900px){.meters{grid-template-columns:repeat(2,1fr);}}
+.meter{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;} 
+.meter .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;} 
+.meter .num{font-size:22px;font-weight:700;font-family:Georgia,serif;} 
+.meter .bar{height:7px;border-radius:4px;background:var(--bg);margin-top:5px;overflow:hidden;} 
+.meter .bar > div{height:100%;border-radius:4px;transition:width .5s;} 
+.log{margin-top:12px;} 
+.logitem{border-left:3px solid var(--line);padding:8px 0 8px 12px;margin-bottom:8px;font-size:13px;} 
+.logitem.good{border-color:#3a6b14;} 
+.logitem.bad{border-color:#a3322a;} 
+.logitem.warn{border-color:#8a560c;} 
+.logitem .t{font-weight:700;font-size:12px;display:block;margin-bottom:2px;} 
+.logitem .delta{font-size:11.5px;color:var(--muted);margin-top:3px;} 
+.verdict{border-radius:10px;padding:14px 16px;font-size:14px;margin-top:12px;} 
+.verdict.good{background:var(--ok-bg);color:var(--ok-tx);} 
+.verdict.mixed{background:var(--warn-bg);color:var(--warn-tx);} 
+.verdict.bad{background:var(--bad-bg);color:var(--bad-tx);} 
+.verdict h3{margin:0 0 4px;font-size:16px;} 
+.saq{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;background:#fff;} 
+.saq .q{font-size:14px;font-weight:600;margin:0 0 4px;} 
+.saq .hintq{font-size:12.5px;color:var(--muted);margin:0 0 8px;} 
+.saq textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-family:inherit;font-size:13.5px;resize:vertical;} 
+.hidden{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="app">
+  <h1>Mine Planner's Challenge</h1>
+  <p>Final v10 — one classroom-ready version for Years 7–8: dense maps, interactive climate data, simpler site names, and tighter report questions.</p>
+  <div class="accent"></div>
+</header>
+
+<div class="callout"><strong>Your role:</strong> Choose where a new lithium mine should go. Use the maps and the climate graph to avoid flood risk, farming conflict and culturally sensitive areas — while still finding a strong mineral target.</div>
+
+<section class="panel">
+  <h2 class="sec"><span class="step">1</span>Compare the maps</h2>
+  <p class="lead">Click across the four map layers. The same seven site options appear on every map.</p>
+
+  <div class="viewtabs">
+    <button class="viewtab on" data-view="climateMap" onclick="setView('climateMap')">Climate & waterways</button>
+    <button class="viewtab" data-view="culturalMap" onclick="setView('culturalMap')">Cultural heritage</button>
+    <button class="viewtab" data-view="landUseMap" onclick="setView('landUseMap')">Farming & grazing</button>
+    <button class="viewtab" data-view="mineralsMap" onclick="setView('mineralsMap')">Minerals & scenic value</button>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <div class="viewpanel on" id="view-climateMap">
+        <div class="map-frame">
+          <div class="map-title">District atlas map — climate, creek lines and flood risk</div>
+          <svg class="map" id="mapClimate" viewBox="0 0 760 460"></svg>
+          <div class="legend">
+            <span><i style="display:inline-block;width:18px;height:10px;background:#98c379;border:1px solid #5f594a"></i> wetter country</span>
+            <span><i style="display:inline-block;width:18px;height:10px;background:#e0cf8e;border:1px solid #5f594a"></i> moderate rainfall</span>
+            <span><i style="display:inline-block;width:18px;height:10px;background:#ead59a;border:1px solid #5f594a"></i> drier country</span>
+            <span>blue = creek / flood path</span>
+            <span>grey dashed = roads / crossings</span>
+          </div>
+        </div>
+      </div>
+      <div class="viewpanel" id="view-culturalMap">
+        <div class="map-frame">
+          <div class="map-title">District atlas map — Aboriginal heritage sensitivity</div>
+          <svg class="map" id="mapCultural" viewBox="0 0 760 460"></svg>
+          <div class="legend">
+            <span><i style="display:inline-block;width:18px;height:10px;background:#e8b1a2;border:1px solid #5f594a"></i> high sensitivity zone</span>
+            <span>dashed ring = no blasting nearby</span>
+          </div>
+        </div>
+      </div>
+      <div class="viewpanel" id="view-landUseMap">
+        <div class="map-frame">
+          <div class="map-title">District atlas map — farming, stations and cattle movement</div>
+          <svg class="map" id="mapLandUse" viewBox="0 0 760 460"></svg>
+          <div class="legend">
+            <span><i style="display:inline-block;width:18px;height:10px;background:#cfdc92;border:1px solid #5f594a"></i> pasture / fodder</span>
+            <span>brown dashed = cattle route</span>
+            <span>small square = station / bore / yards</span>
+          </div>
+        </div>
+      </div>
+      <div class="viewpanel" id="view-mineralsMap">
+        <div class="map-frame">
+          <div class="map-title">District atlas map — lithium targets, scenic country and leases</div>
+          <svg class="map" id="mapMinerals" viewBox="0 0 760 460"></svg>
+          <div class="legend">
+            <span><i style="display:inline-block;width:18px;height:10px;background:#d6a7d8;border:1px solid #5f594a"></i> stronger mineral target</span>
+            <span><i style="display:inline-block;width:18px;height:10px;background:#e9c1a2;border:1px solid #5f594a"></i> scenic gorge / lookout area</span>
+            <span>fine dashed line = lease boundary</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="control">
+        <h3>Chosen site</h3>
+        <div class="readout" id="siteReadout"><div class="row"><span>No site chosen yet</span><span class="v">—</span></div></div>
+      </div>
+      <div class="control">
+        <h3>Before you run the report</h3>
+        <div class="info">Compare at least <strong>two map layers</strong> and the <strong>climate graph</strong>. Use the maps first — the report is the first point where you get feedback.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="sec"><span class="step">2</span>Use the climate data</h2>
+  <p class="lead">Click a Pilbara climate region. The climograph updates and the district climate layer changes. Use the monthly rainfall and temperature data before you choose where to dig.</p>
+  <div class="grid3">
+    <div class="map-frame">
+      <div class="map-title">Western Australia context — click a climate region</div>
+      <svg class="map" id="waClimateMap" viewBox="0 0 600 400"></svg>
+      <div class="legend">
+        <span>Coast = storm rain</span>
+        <span>Inland = hotter, drier</span>
+        <span>Gorge country = some extra upland rain</span>
+      </div>
+    </div>
+    <div>
+      <div class="chartbox">
+        <div class="head"><h4>Interactive climograph</h4><span class="src">Monthly rainfall (mm) and temperature (°C)</span></div>
+        <svg class="chart" id="climateChart" viewBox="0 0 560 260"></svg>
+      </div>
+      <div class="info" id="climateSummary" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="sec"><span class="step">3</span>Run the official report</h2>
+  <p class="lead">Once you have chosen a site, run the report. This is the first point where you get feedback.</p>
+  <button class="act primary big" id="runBtn" onclick="runPlan()" disabled>Select a site first</button>
+  <div id="simResult" class="hidden">
+    <div class="meters" id="meters"></div>
+    <div class="log" id="eventLog"></div>
+    <div id="verdict"></div>
+  </div>
+</section>
+
+<section class="panel hidden" id="reflectPanel">
+  <h2 class="sec"><span class="step">4</span>Write the planner report</h2>
+  <p class="lead">Answer the questions using evidence from the maps and the climate graph.</p>
+  <div id="saqArea"></div>
+</section>
+</div>
+
+<script>
+const state = {view:'climateMap', site:null, climateRegion:'coast'};
+const svgNS='http://www.w3.org/2000/svg';
+function E(tag, attrs, parent){const el=document.createElementNS(svgNS, tag); for(const k in attrs) el.setAttribute(k, attrs[k]); if(parent) parent.appendChild(el); return el;}
+function setView(v){state.view=v; document.querySelectorAll('.viewtab').forEach(b=>b.classList.toggle('on', b.dataset.view===v)); document.querySelectorAll('.viewpanel').forEach(p=>p.classList.toggle('on', p.id==='view-'+v));}
+
+const SITES = {
+  A:{id:'A', name:'Rock Ridge', x:176, y:118, climateRegion:'gorge', mine:3, flood:1, cultural:3, farm:0, scenic:3, note:'Rocky rise west of the creek, near gorge country.'},
+  B:{id:'B', name:'Creek Bend', x:362, y:226, climateRegion:'coast', mine:3, flood:3, cultural:1, farm:1, scenic:0, note:'Strong target beside the main flood path.'},
+  C:{id:'C', name:'Dusty Farm', x:560, y:286, climateRegion:'inland', mine:2, flood:1, cultural:0, farm:3, scenic:0, note:'Lower-grade target on active agricultural land.'},
+  D:{id:'D', name:'Mulga Rise', x:454, y:160, climateRegion:'inland', mine:2, flood:0, cultural:0, farm:1, scenic:0, note:'Remote rise on drier country.'},
+  E:{id:'E', name:'Stock Route', x:300, y:308, climateRegion:'coast', mine:2, flood:2, cultural:1, farm:2, scenic:0, note:'Moderate target near a stock route and low crossing.'},
+  F:{id:'F', name:'North Bore', x:520, y:210, climateRegion:'inland', mine:1, flood:1, cultural:0, farm:2, scenic:0, note:'Weak target near bore infrastructure and station access.'},
+  G:{id:'G', name:'Mesa Lookout', x:250, y:150, climateRegion:'gorge', mine:2, flood:1, cultural:2, farm:0, scenic:3, note:'Moderate target in scenic uplift country.'}
+};
+
+const CLIM = {
+  coast:{label:'Coastal Pilbara', rain:[90,120,70,35,18,12,8,7,6,8,15,45], temp:[36,35,34,31,27,24,24,26,29,33,35,36], summary:'Wet-season storms create the greatest runoff and flood risk.'},
+  inland:{label:'Inland Pilbara / plains', rain:[55,65,40,18,10,8,5,4,3,5,9,20], temp:[39,38,36,32,27,22,22,25,30,34,37,39], summary:'Hotter and drier. Lower flood risk, but more dust and land degradation.'},
+  gorge:{label:'Gorge country / uplands', rain:[80,95,55,28,16,14,9,9,8,10,18,36], temp:[37,36,35,31,26,22,21,24,29,33,35,37], summary:'Some extra upland rain and strong scenic / cultural value.'}
+};
+
+function drawDistrictFrame(svg){
+  const north=E('g',{transform:'translate(705,54)'},svg); E('line',{x1:0,y1:16,x2:0,y2:-16,stroke:'#3c2f1e','stroke-width':'1.6'},north); E('polygon',{points:'-4,-8 0,-16 4,-8',fill:'#3c2f1e'},north); const nt=E('text',{x:0,y:-21,'text-anchor':'middle','font-size':'10','font-family':'Georgia,serif',fill:'#3c2f1e','font-weight':'700'},north); nt.textContent='N';
+  const sb=E('g',{transform:'translate(560,417)'},svg); for(let i=0;i<4;i++) E('rect',{x:i*20,y:0,width:20,height:6,fill:i%2?'#fff':'#3c2f1e',stroke:'#3c2f1e','stroke-width':'0.7'},sb); const s1=E('text',{x:0,y:18,'font-size':'9','font-family':'Georgia,serif',fill:'#3c2f1e'},sb); s1.textContent='0'; const s2=E('text',{x:80,y:18,'font-size':'9','font-family':'Georgia,serif',fill:'#3c2f1e','text-anchor':'end'},sb); s2.textContent='8 km';
+}
+function drawDistrictBase(svg){
+  svg.innerHTML='';
+  E('rect',{x:32,y:24,width:696,height:396,fill:'#efe6c9',stroke:'#3c2f1e','stroke-width':'1.1'},svg);
+  E('path',{d:'M70 80 L170 55 L320 75 L450 50 L650 110 L685 250 L640 360 L470 395 L280 380 L150 330 L90 230 Z',fill:'#eadfbf',stroke:'#6b6650','stroke-width':'2'},svg);
+  ['M118 102 C160 82, 205 82, 246 102','M132 118 C164 102, 200 101, 232 118','M146 135 C171 121, 195 120, 220 134','M156 151 C179 139, 199 138, 218 148','M515 121 C548 111, 586 116, 621 132','M524 141 C556 134, 585 138, 611 149','M532 161 C558 154, 582 157, 603 166'].forEach(d=>E('path',{d:d,fill:'none',stroke:'#c3aa7d','stroke-width':'1.0',opacity:'0.8'},svg));
+  ['M240 86 L246 380','M430 62 L422 388','M98 214 L642 216'].forEach(d=>E('path',{d:d,fill:'none',stroke:'#75684f','stroke-width':'1.2','stroke-dasharray':'4 4',opacity:'0.65'},svg));
+  const l1=E('text',{x:248,y:76,class:'atlasmicro'},svg); l1.textContent='Lease boundary';
+  E('path',{d:'M110 260 L230 225 L310 210 L405 215 L530 250 L620 285',fill:'none',stroke:'#8a6a3e','stroke-width':'2.2','stroke-dasharray':'4 3',opacity:'0.9'},svg);
+  E('path',{d:'M265 355 L280 320 L315 275 L360 245 L420 215',fill:'none',stroke:'#8a6a3e','stroke-width':'2.2','stroke-dasharray':'4 3',opacity:'0.9'},svg);
+  E('path',{d:'M512 350 L540 304 L552 246',fill:'none',stroke:'#8a6a3e','stroke-width':'2.2','stroke-dasharray':'4 3',opacity:'0.9'},svg);
+  const r1=E('text',{x:420,y:205,class:'atlassmall'},svg); r1.textContent='haul / station road';
+  const creek='M95 170 C160 180, 190 175, 245 195 C300 215, 345 240, 405 248 C470 255, 540 280, 620 330';
+  E('path',{d:creek,fill:'none',stroke:'#8dbad7','stroke-width':'8','stroke-linecap':'round',opacity:'0.25'},svg);
+  E('path',{d:creek,fill:'none',stroke:'#4d89b4','stroke-width':'3.2','stroke-linecap':'round',opacity:'0.85'},svg);
+  E('path',{d:'M250 195 C245 240, 240 276, 222 318',fill:'none',stroke:'#4d89b4','stroke-width':'2.4','stroke-linecap':'round',opacity:'0.78'},svg);
+  E('path',{d:'M410 248 C428 220, 455 188, 490 150',fill:'none',stroke:'#4d89b4','stroke-width':'2.4','stroke-linecap':'round',opacity:'0.78'},svg);
+  E('path',{d:'M520 280 C540 258, 560 242, 590 222',fill:'none',stroke:'#4d89b4','stroke-width':'1.8','stroke-linecap':'round',opacity:'0.72'},svg);
+  const c1=E('text',{x:432,y:232,class:'atlassmall'},svg); c1.textContent='Ephemeral Creek';
+  const c2=E('text',{x:485,y:247,class:'atlassmall'},svg); c2.textContent='flood path';
+  [[520,214,'North Bore'],[575,232,'Stock Yards'],[498,312,'Farm Sheds'],[285,332,'Junction Bore'],[345,220,'Creek Crossing'],[215,287,'Rock Ford']].forEach(([x,y,n])=>{E('rect',{x:x,y:y,width:8,height:8,fill:'#5e4725'},svg); const t=E('text',{x:x+12,y:y+8,class:'atlassmall'},svg); t.textContent=n;});
+  drawDistrictFrame(svg);
+}
+function drawSiteMarkers(svg){ Object.values(SITES).forEach(s=>{const g=E('g',{class:'siteMarker'+(state.site===s.id?' sel':''),transform:'translate('+s.x+','+s.y+')'},svg); g.addEventListener('click',()=>selectSite(s.id)); E('circle',{cx:0,cy:0,r:15,class:'dot'},g); const t=E('text',{x:0,y:5,'text-anchor':'middle'},g); t.textContent=s.id;}); }
+function climateLayerConfig(){
+  if(state.climateRegion==='coast') return {wet1:'M72 92 L180 70 L308 85 L285 170 L155 178 L88 160 Z', wet2:'M238 95 L462 60 L650 120 L638 220 L520 238 L340 220 L282 170 Z', dry:'M340 220 L520 238 L628 330 L470 388 L280 378 L170 330 L145 260 Z', wet1Color:'#9bc67b', wet2Color:'#bfd08b', dryColor:'#ead59a', creekWidth:4.8, labels:[['112','62','coastal storm belt'],['340','137','highest runoff risk'],['490','370','drier plains']]};
+  if(state.climateRegion==='inland') return {wet1:'M72 92 L176 72 L286 86 L265 160 L160 172 L95 156 Z', wet2:'M245 95 L450 68 L635 124 L620 208 L505 224 L330 210 L275 166 Z', dry:'M312 208 L515 226 L630 328 L470 388 L280 378 L168 330 L145 258 Z', wet1Color:'#b8ca83', wet2Color:'#d6d58e', dryColor:'#e7cb8d', creekWidth:2.6, labels:[['118','62','upland showers'],['344','139','hot semi-arid belt'],['485','370','very dry plains']]};
+  return {wet1:'M70 88 L176 66 L286 82 L270 168 L160 178 L90 160 Z', wet2:'M225 92 L455 58 L645 118 L632 220 L512 236 L332 220 L276 170 Z', dry:'M330 220 L515 238 L628 330 L470 388 L280 378 L168 330 L145 262 Z', wet1Color:'#98c379', wet2Color:'#ced48f', dryColor:'#ead59a', creekWidth:3.6, labels:[['114','62','gorge storms'],['350','138','moderate rainfall'],['488','370','drier plains']]};
+}
+function drawClimateMap(){ const svg=document.getElementById('mapClimate'); drawDistrictBase(svg); const cfg=climateLayerConfig(); E('path',{d:cfg.wet1,fill:cfg.wet1Color,opacity:'0.82'},svg); E('path',{d:cfg.wet2,fill:cfg.wet2Color,opacity:'0.70'},svg); E('path',{d:cfg.dry,fill:cfg.dryColor,opacity:'0.85'},svg); const creek='M95 170 C160 180, 190 175, 245 195 C300 215, 345 240, 405 248 C470 255, 540 280, 620 330'; E('path',{d:creek,fill:'none',stroke:'#4d89b4','stroke-width':cfg.creekWidth,'stroke-linecap':'round',opacity:'0.95'},svg); cfg.labels.forEach(([x,y,txt])=>{const t=E('text',{x:x,y:y,class:'atlaslabel'},svg); t.textContent=txt;}); const region=E('text',{x:46,y:42,'font-size':'11','font-family':'Segoe UI',fill:'#3c2f1e','font-weight':'700'},svg); region.textContent='Linked climate region: '+CLIM[state.climateRegion].label; drawSiteMarkers(svg); }
+function drawCulturalMap(){ const svg=document.getElementById('mapCultural'); drawDistrictBase(svg); E('path',{d:'M110 96 C162 62, 232 68, 272 104 C252 145, 214 166, 163 170 C126 166, 107 140, 110 96 Z',fill:'#e8b1a2',stroke:'#ad6f64','stroke-width':'1.5',opacity:'0.88'},svg); E('circle',{cx:176,cy:118,r:78,fill:'none',stroke:'#ad6f64','stroke-width':'3','stroke-dasharray':'8 6',opacity:'0.9'},svg); E('path',{d:'M258 286 C280 268, 306 266, 328 283 C321 309, 301 322, 276 321 C262 315, 255 303, 258 286 Z',fill:'#e8b1a2',stroke:'#ad6f64','stroke-width':'1.2',opacity:'0.65'},svg); E('circle',{cx:248,cy:150,r:42,fill:'none',stroke:'#ad6f64','stroke-width':'2.2','stroke-dasharray':'6 5',opacity:'0.78'},svg); const t1=E('text',{x:114,y:79,class:'atlaslabel',fill:'#7b3d34'},svg); t1.textContent='Generalised heritage zone'; const t2=E('text',{x:98,y:220,class:'atlassmall',fill:'#7b3d34'},svg); t2.textContent='No blasting / dust nearby'; const t3=E('text',{x:246,y:334,class:'atlassmall',fill:'#7b3d34'},svg); t3.textContent='Sensitive crossing place'; const t4=E('text',{x:208,y:111,class:'atlasmicro',fill:'#7b3d34'},svg); t4.textContent='Rock art shelter buffer'; drawSiteMarkers(svg); }
+function drawLandUseMap(){ const svg=document.getElementById('mapLandUse'); drawDistrictBase(svg); E('rect',{x:470,y:220,width:130,height:94,fill:'#cfdc92',stroke:'#8e9b55','stroke-width':'1.5',rx:4},svg); E('rect',{x:520,y:244,width:84,height:60,fill:'#b8cd73',stroke:'#8e9b55','stroke-width':'1'},svg); E('rect',{x:535,y:290,width:64,height:30,fill:'#dfe9a8',stroke:'#8e9b55','stroke-width':'1'},svg); E('rect',{x:430,y:180,width:70,height:42,fill:'#dbe7a5',stroke:'#8e9b55','stroke-width':'1'},svg); E('path',{d:'M150 190 C220 185, 275 205, 350 230 C428 255, 500 258, 560 255',fill:'none',stroke:'#8a6a3e','stroke-width':'3','stroke-dasharray':'8 6'},svg); E('path',{d:'M230 325 C260 310, 292 300, 330 300',fill:'none',stroke:'#8a6a3e','stroke-width':'3','stroke-dasharray':'8 6'},svg); E('path',{d:'M505 214 C535 208, 558 208, 588 215',fill:'none',stroke:'#8a6a3e','stroke-width':'3','stroke-dasharray':'8 6'},svg); const t1=E('text',{x:482,y:214,class:'atlaslabel',fill:'#566222'},svg); t1.textContent='Pasture / fodder block'; const t2=E('text',{x:150,y:183,class:'atlassmall',fill:'#5e4725'},svg); t2.textContent='Main cattle route'; const t3=E('text',{x:232,y:336,class:'atlassmall',fill:'#5e4725'},svg); t3.textContent='Secondary stock route'; const t4=E('text',{x:431,y:173,class:'atlasmicro',fill:'#5e4725'},svg); t4.textContent='holding paddock'; drawSiteMarkers(svg); }
+function drawMineralsMap(){ const svg=document.getElementById('mapMinerals'); drawDistrictBase(svg); E('path',{d:'M142 90 C190 72, 232 82, 256 110 C236 132, 192 147, 154 145 C140 132, 136 111, 142 90 Z',fill:'#d6a7d8',stroke:'#9a6ba0','stroke-width':'1.5',opacity:'0.9'},svg); E('ellipse',{cx:362,cy:226,rx:70,ry:48,fill:'#d6a7d8',stroke:'#9a6ba0','stroke-width':'1.5',opacity:'0.76'},svg); E('rect',{x:528,y:264,width:70,height:40,fill:'#e2c6e4',stroke:'#9a6ba0','stroke-width':'1.2',rx:4},svg); E('ellipse',{cx:454,cy:160,rx:42,ry:28,fill:'#e2c6e4',stroke:'#9a6ba0','stroke-width':'1.2',opacity:'0.84'},svg); E('ellipse',{cx:300,cy:308,rx:36,ry:24,fill:'#ead0ec',stroke:'#9a6ba0','stroke-width':'1.2',opacity:'0.84'},svg); E('ellipse',{cx:520,cy:210,rx:26,ry:18,fill:'#ead0ec',stroke:'#9a6ba0','stroke-width':'1.2',opacity:'0.80'},svg); E('ellipse',{cx:250,cy:150,rx:34,ry:20,fill:'#e5c5e7',stroke:'#9a6ba0','stroke-width':'1.2',opacity:'0.80'},svg); E('path',{d:'M96 96 C146 66, 226 74, 268 106 C252 150, 220 182, 174 195 C130 186, 100 155, 96 96 Z',fill:'#e9c1a2',stroke:'#b4866e','stroke-width':'1.2',opacity:'0.72'},svg); E('path',{d:'M220 120 C250 112, 278 121, 290 148 C275 170, 248 180, 218 172 C206 156, 208 136, 220 120 Z',fill:'#e9c1a2',stroke:'#b4866e','stroke-width':'1.2',opacity:'0.58'},svg); const t1=E('text',{x:122,y:72,class:'atlaslabel',fill:'#6b3952'},svg); t1.textContent='Stronger lithium target'; const t2=E('text',{x:102,y:214,class:'atlassmall',fill:'#7a4e2d'},svg); t2.textContent='Scenic gorge / lookout country'; drawSiteMarkers(svg); }
+function selectSite(id){ state.site=id; state.climateRegion=SITES[id].climateRegion; drawAllMaps(); drawWAMap(); renderClimateChart(); updateSiteReadout(); updateRunBtn(); }
+function stars(n){ return '★'.repeat(n); }
+function updateSiteReadout(){ const ro=document.getElementById('siteReadout'); if(!state.site){ro.innerHTML='<div class="row"><span>No site chosen yet</span><span class="v">—</span></div>'; return;} const s=SITES[state.site]; ro.innerHTML='<div class="row"><span>Chosen site</span><span class="v">'+s.id+' · '+s.name+'</span></div>'+'<div class="row"><span>Mineral potential</span><span class="v">'+stars(s.mine)+'</span></div>'+'<div class="row"><span>Flood risk</span><span class="v">'+stars(Math.max(1,s.flood))+'</span></div>'+'<div class="row"><span>Cultural sensitivity</span><span class="v">'+stars(Math.max(1,s.cultural))+'</span></div>'+'<div class="row"><span>Farm / grazing conflict</span><span class="v">'+stars(Math.max(1,s.farm))+'</span></div>'+'<div class="row"><span>Landscape note</span><span class="v">'+s.note+'</span></div>'; }
+function drawWAMap(){ const svg=document.getElementById('waClimateMap'); svg.innerHTML=''; E('rect',{x:28,y:24,width:544,height:352,fill:'#efe6c9',stroke:'#3c2f1e','stroke-width':'1.1'},svg); E('path',{d:'M145 55 L214 44 L284 79 L336 160 L372 212 L356 294 L326 350 L250 370 L170 326 L124 248 L116 178 L129 105 Z',fill:'#eadfbf',stroke:'#6b6650','stroke-width':'2'},svg); E('rect',{x:190,y:104,width:96,height:74,fill:'#e9c1a2',stroke:'#b4866e','stroke-width':'1.2',opacity:'0.9',rx:5},svg); const lab=E('text',{x:238,y:98,'text-anchor':'middle','font-size':'12','font-family':'Georgia,serif',fill:'#3c2f1e','font-weight':'700'},svg); lab.textContent='Pilbara'; E('path',{d:'M195 108 L224 110 L224 132 L196 129 Z',fill:'#98c379',opacity:'0.85'},svg); E('path',{d:'M245 136 L278 138 L278 168 L245 166 Z',fill:'#ead59a',opacity:'0.95'},svg); E('path',{d:'M225 117 L252 123 L240 144 L216 138 Z',fill:'#cfd58a',opacity:'0.95'},svg); [{id:'coast',x:210,y:120,label:'Coast'},{id:'gorge',x:236,y:132,label:'Gorge'},{id:'inland',x:263,y:152,label:'Inland'}].forEach(h=>{const g=E('g',{class:'hotspot'+(state.climateRegion===h.id?' sel':''),transform:'translate('+h.x+','+h.y+')'},svg); g.addEventListener('click',()=>{state.climateRegion=h.id; drawWAMap(); renderClimateChart(); drawClimateMap();}); E('circle',{cx:0,cy:0,r:18},g); const t=E('text',{x:0,y:4,'text-anchor':'middle'},g); t.textContent=h.label;}); const p=E('text',{x:116,y:338,class:'atlassmall'},svg); p.textContent='Click a climate region to update the district climate layer and graph'; drawDistrictFrame(svg); }
+function renderClimateChart(){ const svg=document.getElementById('climateChart'); svg.innerHTML=''; const data=CLIM[state.climateRegion]; const W=560,H=260,pL=42,pR=40,pB=42,pT=18,pW=W-pL-pR,pH=H-pT-pB; E('rect',{x:pL,y:pT,width:pW,height:pH,fill:'#fffdfa',stroke:'#e0dfd5'},svg); const maxRain=140,bw=pW/12*0.62; data.rain.forEach((r,i)=>{const x=pL+pW/12*(i+0.5)-bw/2; const h=r/maxRain*pH; E('rect',{x:x,y:H-pB-h,width:bw,height:h,fill:'#2b7bb9',opacity:'0.68',rx:'2'},svg); const tt=E('text',{x:x+bw/2,y:H-pB-h-3,'font-size':'8',fill:'#2b7bb9','text-anchor':'middle'},svg); tt.textContent=r;}); const tMax=42,tMin=10; function tx(i){return pL+pW/12*(i+0.5);} function ty(t){return H-pB-(t-tMin)/(tMax-tMin)*pH;} let dp='M'; data.temp.forEach((t,i)=>{dp+=(i===0?'':'L')+tx(i)+' '+ty(t)+' ';}); E('path',{d:dp,fill:'none',stroke:'#b4541f','stroke-width':'2.6'},svg); data.temp.forEach((t,i)=>{E('circle',{cx:tx(i),cy:ty(t),r:'2.5',fill:'#b4541f'},svg); const tt=E('text',{x:tx(i),y:ty(t)-6,'font-size':'8',fill:'#b4541f','text-anchor':'middle'},svg); tt.textContent=t;}); const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; months.forEach((m,i)=>{const t=E('text',{x:tx(i),y:H-pB+16,'font-size':'9',fill:'#6b7280','text-anchor':'middle'},svg); t.textContent=m;}); [0,40,80,120].forEach(v=>{const y=H-pB-v/maxRain*pH; const t=E('text',{x:pL-6,y:y+3,'font-size':'9',fill:'#2b7bb9','text-anchor':'end'},svg); t.textContent=v;}); [10,20,30,40].forEach(v=>{const t=E('text',{x:W-pR+6,y:ty(v)+3,'font-size':'9',fill:'#b4541f','text-anchor':'start'},svg); t.textContent=v+'°';}); const mm=E('text',{x:pL-28,y:pT+8,'font-size':'9.5',fill:'#2b7bb9','font-weight':'700'},svg); mm.textContent='mm'; const cc=E('text',{x:W-pR+20,y:pT+8,'font-size':'9.5',fill:'#b4541f','font-weight':'700'},svg); cc.textContent='°C'; const title=E('text',{x:W/2,y:12,'text-anchor':'middle','font-size':'12','font-family':'Segoe UI',fill:'#3c2f1e','font-weight':'700'},svg); title.textContent=data.label; document.getElementById('climateSummary').innerHTML='<strong>'+data.label+'</strong><br><br>'+data.summary+'<br><br><strong>Use the data:</strong> compare the wettest months and the hottest months before you run the report.'; }
+function drawAllMaps(){ drawClimateMap(); drawCulturalMap(); drawLandUseMap(); drawMineralsMap(); }
+function updateRunBtn(){ const btn=document.getElementById('runBtn'); const ready=!!state.site; btn.disabled=!ready; btn.textContent=ready?'Run the official report →':'Select a site first'; }
+function clamp(v){return Math.max(0,Math.min(100,Math.round(v)));}
+function runPlan(){ if(!state.site) return; const s=SITES[state.site]; let M={economic:50, environmental:50, cultural:50, agricultural:50}; const log=[]; function ev(type,title,text,deltas){ for(const k in deltas){M[k]=clamp(M[k]+deltas[k]);} log.push({type,title,text,deltas}); }
+  ev('good','Mineral assessment','Site '+s.id+' has '+['low','moderate','strong','very strong'][s.mine]+' mineral potential.',{economic:(s.mine*7)-5});
+  if(s.cultural>=3) ev('bad','Cultural conflict','This site sits too close to a high-sensitivity heritage area.',{cultural:-32,economic:-6});
+  else if(s.cultural===2) ev('warn','Heritage buffer issue','This site is outside the strongest exclusion area but still close to a heritage buffer.',{cultural:-16});
+  else if(s.cultural===1) ev('warn','Cultural check needed','This site is not in the strongest exclusion area, but consultation would still matter.',{cultural:-8});
+  if(s.flood>=3) ev('bad','Flood and runoff risk','This site sits beside a creek / flood path. Heavy rain could wash sediment downstream.',{environmental:-30, agricultural:-8});
+  else if(s.flood===2) ev('warn','Floodplain edge','This site is not on the main creek bend, but nearby flood flows could still cause erosion.',{environmental:-14});
+  else if(s.flood===1) ev('good','Lower flood risk','This site is away from the worst flood path.',{environmental:+6});
+  if(s.farm>=3) ev('bad','Farm business lost','This site would take over active agricultural land.',{agricultural:-30,economic:-4});
+  else if(s.farm===2) ev('warn','Grazing route conflict','This site would interfere with stock movement or station access.',{agricultural:-18});
+  else if(s.farm===1) ev('warn','Minor land-use conflict','This site is close to existing pastoral land use.',{agricultural:-8});
+  if(s.scenic>=3) ev('warn','Scenic landscape impact','This site would scar gorge country with strong aesthetic value.',{environmental:-9,cultural:-4});
+  if(state.climateRegion==='coast') ev('warn','Storm-rain climate','The chosen climate region has the biggest wet-season runoff risk.',{environmental:-10});
+  if(state.climateRegion==='inland') ev('warn','Hot dry climate','The chosen climate region lowers flood risk but increases dust and land degradation.',{environmental:-6});
+  if(state.climateRegion==='gorge') ev('warn','Gorge climate','This region still brings erosion risk and overlaps with scenic / cultural country.',{environmental:-5,cultural:-3});
+  renderSim(M,log,s);
+}
+function renderSim(M,log,s){ document.getElementById('simResult').classList.remove('hidden'); const defs=[['economic','Economic value','#2e8b3d'],['environmental','Environmental value','#2b7bb9'],['cultural','Cultural value','#8e44ad'],['agricultural','Agricultural value','#c98a1a']]; document.getElementById('meters').innerHTML=defs.map(([k,lab,col])=>'<div class="meter"><div class="lab">'+lab+'</div><div class="num">'+M[k]+'</div><div class="bar"><div style="width:'+M[k]+'%;background:'+col+'"></div></div></div>').join(''); document.getElementById('eventLog').innerHTML=log.map(it=>{const del=Object.entries(it.deltas).map(([k,v])=>{const lab={economic:'Economic',environmental:'Environmental',cultural:'Cultural',agricultural:'Agricultural'}[k]; return (v>0?'+':'')+v+' '+lab;}).join(' · '); return '<div class="logitem '+it.type+'"><span class="t">'+it.title+'</span>'+it.text+'<div class="delta">'+del+'</div></div>';}).join(''); const avg=(M.economic+M.environmental+M.cultural+M.agricultural)/4; let cls='mixed', head='A mixed report', msg='This site solves some problems but creates others.'; if(avg>=62 && M.environmental>=45 && M.cultural>=45){cls='good'; head='A workable site'; msg='This site balances mining with the other landscape values better than the alternatives.';} if(avg<42 || M.cultural<20 || M.environmental<20){cls='bad'; head='A poor site choice'; msg='This site creates too much conflict or environmental risk.';} document.getElementById('verdict').innerHTML='<div class="verdict '+cls+'"><h3>'+head+'</h3><div><strong>Chosen site:</strong> '+s.id+' · '+s.name+'</div><div style="margin-top:6px;">'+msg+'</div></div>'; document.getElementById('reflectPanel').classList.remove('hidden'); drawQuestions(); window.scrollTo({top:document.getElementById('simResult').offsetTop-18,behavior:'smooth'}); }
+
+const QUESTIONS=[
+  {q:'1. Which site did you choose and where is it located?', hint:'Name the site and describe where it is on the map (for example: near a creek, inland, near a road, near a gorge).'},
+  {q:'2. Use the maps: what is ONE advantage and ONE disadvantage of your site?', hint:'Use words like flood, farming, culture, heritage, minerals or scenic.'},
+  {q:'3. How did the climate data help your decision?', hint:'Use rainfall or temperature data from the graph.'},
+  {q:'4. Which site should NOT be used? Explain why.', hint:'Choose a different site and explain the problem clearly.'},
+  {q:'5. What should happen to the land after mining finishes?', hint:'Think about rehabilitation and how the land can be made safe again.'}
+];
+function drawQuestions(){ const area=document.getElementById('saqArea'); area.innerHTML=QUESTIONS.map((item,i)=>'<div class="saq"><p class="q">'+item.q+'</p><p class="hintq">'+item.hint+'</p><textarea placeholder="Write your answer here..."></textarea></div>').join(''); }
+
+function init(){ drawAllMaps(); drawWAMap(); renderClimateChart(); updateRunBtn(); }
+init();
+</script>
+</body>
+</html>
