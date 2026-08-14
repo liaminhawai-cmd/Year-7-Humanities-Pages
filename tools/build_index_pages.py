@@ -215,19 +215,14 @@ SITE = [
            "Plan a trek against altitude, weather and supplies.", None)]),
         ("Mining &amp; land use", None, [
           ("&#9935;", "Kestrel Range mine inquiry", "kestrel-range-mine-inquiry.html",
-           "Should the mine be approved? Weigh the evidence and decide.", None),
-          ("&#128506;", "Mining landscape planner", "mining-landscape-planner.html",
-           "Site a mine against its landscape impacts.", None),
-          ("&#128506;", "Mine planner's challenge", "mine-planners-challenge.html",
-           "A different build of the mine-siting task.", "alt version")]),
+           "Should the mine be approved? Weigh the evidence and decide.", None)]),
         ("Words", None, [
           ("&#127183;", "Geography flashcards", "geography-flashcards.html",
            "Landform, glacier, sediment, discharge &mdash; term revision.", None)]),
       ],
-      note="<b>One is marked &ldquo;alt version&rdquo;.</b> The mine-siting task exists as two different "
-           "builds with different titles, and it is not clear which is current. Both are kept until you "
-           "say which to retire. Wattle Bay v14 was retired on request &mdash; it is still in the git "
-           "history if it is ever wanted back."),
+      note="Every duplicate has now been resolved: Wattle Bay v14 and the two other mine-siting builds "
+           "were retired on request, leaving one tool per task. They are all still in the git history if "
+           "any is ever wanted back."),
 
  # ---------------- Economics ----------------
  dict(path="economics/index.html", cls="economics", depth=1, kicker="Year 7 Humanities",
