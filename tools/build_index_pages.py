@@ -120,6 +120,8 @@ SITE = [
            ("&#129704;", "The source", "source-sheet.html",
             "What GS73 is, where it was found, and how it became evidence.", None)]),
         ("Words &amp; booklet", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Every word this topic marks, with a definition and a translation.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -139,6 +141,8 @@ SITE = [
            "Foundation to Year 10. Tap any part of the passage, tap any phrase.",
            "The same page with everything built in. Download to use offline.")),
         ("Words &amp; booklet", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Every word this topic marks, with a definition and a translation.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -156,6 +160,8 @@ SITE = [
            "Foundation to Year 10. Tap any part of the letter, tap any phrase.",
            "The same page with everything built in. Download to use offline.")),
         ("Words &amp; booklet", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Every word this topic marks, with a definition and a translation.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -191,12 +197,12 @@ SITE = [
            ("&#129521;", "Paragraph builder", "paragraph-builder.html",
             "D &middot; P &middot; I &middot; U, one card per sentence. Switch to PEEL or TEEL.", None)]),
         ("Words", "kept in this browser, nothing sent anywhere", [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Every word this topic marks, with a definition and a translation.", None),
            ("&#128167;", "Water vocab hub", "water-vocab-hub.html",
-            "The full unit vocabulary, with your progress remembered.", None),
-           ("&#129513;", "Natural resources morpheme trainer", "natural-resources-morpheme-trainer.html",
-            "Build precipitation, erosion and the rest out of their parts.", None),
+            "The older unit hub, with its own practice activities.", None),
            ("&#127760;", "On the Word Builder", WORD_BUILDER,
-            "The same words in eighteen languages, for EAL students.", None)]),
+            "The same words with morphology and practice, for EAL students.", None)]),
       ],
       note="<b>Draft.</b> Checked against Victorian Curriculum 2.0 Geography F&ndash;10; the unit sits on "
            "VC2HG8K01, K03 and K04. <b>The figure is a classroom redraw</b> of U.S. Geological Survey "
@@ -219,8 +225,9 @@ SITE = [
           ("&#9935;", "Kestrel Range mine inquiry", "kestrel-range-mine-inquiry.html",
            "Should the mine be approved? Weigh the evidence and decide.", None)]),
         ("Words", None, [
-          ("&#127183;", "Geography flashcards", "geography-flashcards.html",
-           "Landform, glacier, sediment, discharge &mdash; term revision.", None)]),
+          ("&#127760;", "Landform words", WORD_BUILDER,
+           "Archipelago, isthmus, plateau and the rest &mdash; 23 terms on the Word Builder, "
+           "with morphology and nine languages.", None)]),
       ],
       note="Every duplicate has now been resolved: Wattle Bay v14 and the two other mine-siting builds "
            "were retired on request, leaving one tool per task. They are all still in the git history if "

@@ -487,3 +487,29 @@ const FRAMES = [FRAME,
       warn:FRAME.steps[3].warn, warnWhy:FRAME.steps[3].warnWhy,
       stems:FRAME.steps[3].stems }]}
 ];
+
+/* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
+   the tool treats a unit word and a shared word identically. The shared
+   source-analysis words are NOT repeated here — they live in eal.js and only
+   there. Machine-drafted, unreviewed, and labelled as such on screen. */
+const TIER3_T = {
+  "fresh water": {"zh-Hans": "淡水", "zh-Hant": "淡水", "vi": "nước ngọt", "ar": "مياه عذبة", "fa": "آب شیرین", "ur": "میٹھا پانی", "ml": "ശുദ്ധജലം", "am": "ንጹህ ውሃ"},
+  "groundwater": {"zh-Hans": "地下水", "zh-Hant": "地下水", "vi": "nước ngầm", "ar": "مياه جوفية", "fa": "آب زیرزمینی", "ur": "زیرِ زمین پانی", "ml": "ഭൂഗർഭജലം", "am": "የከርሰ ምድር ውሃ"},
+  "aquifer": {"zh-Hans": "含水层", "zh-Hant": "含水層", "vi": "tầng ngậm nước", "ar": "طبقة مياه جوفية", "fa": "سفره آب زیرزمینی", "ur": "آبی تہہ", "ml": "ജലസംഭരണ പാളി", "am": "የውሃ ንብርብር"},
+  "glacier": {"zh-Hans": "冰川", "zh-Hant": "冰川", "vi": "sông băng", "ar": "نهر جليدي", "fa": "یخچال طبیعی", "ur": "گلیشیئر", "ml": "ഹിമാനി", "am": "የበረዶ ወንዝ"},
+  "glaciers": {"zh-Hans": "冰川", "zh-Hant": "冰川", "vi": "các sông băng", "ar": "أنهار جليدية", "fa": "یخچال‌های طبیعی", "ur": "گلیشیئرز", "ml": "ഹിമാനികൾ", "am": "የበረዶ ወንዞች"},
+  "ice cap": {"zh-Hans": "冰盖", "zh-Hant": "冰蓋", "vi": "chỏm băng", "ar": "قلنسوة جليدية", "fa": "کلاهک یخی", "ur": "برفانی ٹوپی", "ml": "ഹിമപാളി", "am": "የበረዶ ክዳን"},
+  "ice caps": {"zh-Hans": "冰盖", "zh-Hant": "冰蓋", "vi": "các chỏm băng", "ar": "قلنسوات جليدية", "fa": "کلاهک‌های یخی", "ur": "برفانی ٹوپیاں", "ml": "ഹിമപാളികൾ", "am": "የበረዶ ክዳኖች"},
+  "soil moisture": {"zh-Hans": "土壤水分", "zh-Hant": "土壤水分", "vi": "độ ẩm đất", "ar": "رطوبة التربة", "fa": "رطوبت خاک", "ur": "مٹی کی نمی", "ml": "മണ്ണിലെ ഈർപ്പം", "am": "የአፈር እርጥበት"},
+  "residence time": {"zh-Hans": "滞留时间", "zh-Hant": "滯留時間", "vi": "thời gian lưu", "ar": "زمن المكوث", "fa": "زمان ماند", "ur": "قیام کا دورانیہ", "ml": "വാസകാലം", "am": "የቆይታ ጊዜ"},
+  "store": {"zh-Hans": "储量", "zh-Hant": "儲量", "vi": "nơi chứa", "ar": "مخزن", "fa": "انبار", "ur": "ذخیرہ", "ml": "സംഭരണി", "am": "ማከማቻ"},
+  "stock": {"zh-Hans": "存量", "zh-Hant": "存量", "vi": "lượng dự trữ", "ar": "مخزون", "fa": "موجودی", "ur": "ذخیرہ", "ml": "ശേഖരം", "am": "ክምችት"},
+  "scarcity": {"zh-Hans": "稀缺", "zh-Hant": "稀缺", "vi": "sự khan hiếm", "ar": "ندرة", "fa": "کمیابی", "ur": "قلت", "ml": "ദൗർലഭ്യം", "am": "እጥረት"},
+  "distribution": {"zh-Hans": "分布", "zh-Hant": "分布", "vi": "sự phân bố", "ar": "توزيع", "fa": "پراکنش", "ur": "تقسیم", "ml": "വിതരണം", "am": "ስርጭት"},
+  "hydrologist": {"zh-Hans": "水文学家", "zh-Hant": "水文學家", "vi": "nhà thủy văn học", "ar": "عالم هيدرولوجيا", "fa": "آب‌شناس", "ur": "ماہرِ آبیات", "ml": "ജലശാസ്ത്രജ്ഞൻ", "am": "የውሃ ተመራማሪ"},
+  "hydrologists": {"zh-Hans": "水文学家", "zh-Hant": "水文學家", "vi": "các nhà thủy văn học", "ar": "علماء الهيدرولوجيا", "fa": "آب‌شناسان", "ur": "ماہرینِ آبیات", "ml": "ജലശാസ്ത്രജ്ഞർ", "am": "የውሃ ተመራማሪዎች"},
+  "compilation": {"zh-Hans": "汇编", "zh-Hant": "彙編", "vi": "bản tổng hợp", "ar": "تجميع", "fa": "گردآوری", "ur": "تالیف", "ml": "സമാഹാരം", "am": "ስብስብ"},
+  "modelling": {"zh-Hans": "建模", "zh-Hant": "建模", "vi": "mô hình hóa", "ar": "نمذجة", "fa": "مدل‌سازی", "ur": "ماڈلنگ", "ml": "മാതൃകാ നിർമ്മാണം", "am": "ሞዴል ማድረግ"},
+  "scale": {"zh-Hans": "尺度", "zh-Hant": "尺度", "vi": "quy mô", "ar": "مقياس", "fa": "مقیاس", "ur": "پیمانہ", "ml": "തോത്", "am": "መጠን"},
+  "per cent": {"zh-Hans": "百分之", "zh-Hant": "百分之", "vi": "phần trăm", "ar": "في المائة", "fa": "درصد", "ur": "فیصد", "ml": "ശതമാനം", "am": "በመቶ"}
+};

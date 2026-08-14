@@ -550,3 +550,25 @@ const FRAMES = [FRAME,
       warn:FRAME.steps[3].warn, warnWhy:FRAME.steps[3].warnWhy,
       stems:FRAME.steps[3].stems }]}
 ];
+
+/* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
+   the tool treats a unit word and a shared word identically. The shared
+   source-analysis words are NOT repeated here — they live in eal.js and only
+   there. Machine-drafted, unreviewed, and labelled as such on screen. */
+const TIER3_T = {
+  "grinding stone": {"zh-Hans": "石磨", "zh-Hant": "石磨", "vi": "đá nghiền", "ar": "حجر طحن", "fa": "سنگ آسیاب", "ur": "پیسنے کا پتھر", "ml": "അരയ്ക്കുന്ന കല്ല്", "am": "መፍጫ ድንጋይ"},
+  "millstone": {"zh-Hans": "磨盘", "zh-Hant": "磨盤", "vi": "cối đá", "ar": "حجر الرحى", "fa": "سنگ آسیاب", "ur": "چکی کا پاٹ", "ml": "തിരികല്ല്", "am": "የወፍጮ ድንጋይ"},
+  "excavated": {"zh-Hans": "发掘出土", "zh-Hant": "發掘出土", "vi": "được khai quật", "ar": "مُنقَّب عنه", "fa": "کاوش‌شده", "ur": "کھدائی سے نکالا گیا", "ml": "ഖനനം ചെയ്തെടുത്ത", "am": "የተቆፈረ"},
+  "Madjedbebe": {"zh-Hans": "马杰贝贝遗址", "zh-Hant": "馬傑貝貝遺址", "vi": "Madjedbebe (di chỉ)", "ar": "مادجيدبيبي", "fa": "مادجدبیبی", "ur": "مادجدبیبی", "ml": "മാഡ്ജെഡ്ബെബെ", "am": "ማጅedቤቤ"},
+  "Mirarr": {"zh-Hans": "米拉尔族", "zh-Hant": "米拉爾族", "vi": "người Mirarr", "ar": "الميرار", "fa": "میرار", "ur": "میرار", "ml": "മിരാർ", "am": "ሚራር"},
+  "Phase 2": {"zh-Hans": "第二层", "zh-Hant": "第二層", "vi": "Lớp 2", "ar": "الطبقة ٢", "fa": "لایه ۲", "ur": "تہہ ۲", "ml": "ഘട്ടം 2", "am": "ደረጃ 2"},
+  "sediment": {"zh-Hans": "沉积物", "zh-Hant": "沉積物", "vi": "trầm tích", "ar": "رواسب", "fa": "رسوب", "ur": "تلچھٹ", "ml": "അവസാദം", "am": "ደለል"},
+  "residues": {"zh-Hans": "残留物", "zh-Hant": "殘留物", "vi": "cặn còn lại", "ar": "بقايا", "fa": "باقی‌مانده‌ها", "ur": "باقیات", "ml": "അവശിഷ്ടങ്ങൾ", "am": "ቀሪዎች"},
+  "starch grains": {"zh-Hans": "淀粉粒", "zh-Hant": "澱粉粒", "vi": "hạt tinh bột", "ar": "حبيبات نشا", "fa": "دانه‌های نشاسته", "ur": "نشاستے کے ذرات", "ml": "അന്നജ കണികകൾ", "am": "የስታርች ቅንጣቶች"},
+  "micrographs": {"zh-Hans": "显微照片", "zh-Hant": "顯微照片", "vi": "ảnh hiển vi", "ar": "صور مجهرية", "fa": "ریزنگاره‌ها", "ur": "خردبینی تصاویر", "ml": "സൂക്ഷ്മചിത്രങ്ങൾ", "am": "ማይክሮ ፎቶዎች"},
+  "archaeologists": {"zh-Hans": "考古学家", "zh-Hant": "考古學家", "vi": "nhà khảo cổ học", "ar": "علماء الآثار", "fa": "باستان‌شناسان", "ur": "ماہرینِ آثارِ قدیمہ", "ml": "പുരാവസ്തു ഗവേഷകർ", "am": "አርኪኦሎጂስቶች"},
+  "custodians": {"zh-Hans": "守护者", "zh-Hant": "守護者", "vi": "người gìn giữ", "ar": "الأوصياء", "fa": "نگهبانان", "ur": "محافظین", "ml": "സംരക്ഷകർ", "am": "ጠባቂዎች"},
+  "contamination": {"zh-Hans": "污染", "zh-Hant": "污染", "vi": "sự nhiễm bẩn", "ar": "تلوث", "fa": "آلودگی", "ur": "آلودگی", "ml": "മലിനീകരണം", "am": "ብክለት"},
+  "striations": {"zh-Hans": "擦痕", "zh-Hant": "擦痕", "vi": "vết xước", "ar": "خدوش", "fa": "خط‌های سایش", "ur": "خراشیں", "ml": "ചാലുകൾ", "am": "ጭረቶች"},
+  "polish": {"zh-Hans": "光泽", "zh-Hant": "光澤", "vi": "độ bóng", "ar": "لمعان", "fa": "براقی", "ur": "چمک", "ml": "മിനുസം", "am": "አንጸባራቂነት"}
+};
