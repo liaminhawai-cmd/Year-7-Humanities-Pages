@@ -209,9 +209,7 @@ SITE = [
         ("Coasts", None, [
           ("&#127754;", "Wattle Bay coastal manager", "wattle-bay-coastal-manager.html",
            "Manage a stretch of coast and live with the consequences.", None),
-          ("&#127754;", "Wattle Bay v14", "wattle-bay-coastal-manager-v14.html",
-           "A smaller rebuild of the same task. Kept because it is unclear which of the two is current.",
-           "alt version")]),
+]),
         ("Mountains", None, [
           ("&#127956;", "Himalaya trek planner", "himalaya-trek-planner.html",
            "Plan a trek against altitude, weather and supplies.", None)]),
@@ -226,9 +224,10 @@ SITE = [
           ("&#127183;", "Geography flashcards", "geography-flashcards.html",
            "Landform, glacier, sediment, discharge &mdash; term revision.", None)]),
       ],
-      note="<b>Two are marked &ldquo;alt version&rdquo;.</b> They came from different repositories under "
-           "different filenames and it is not clear which is current. Both are kept until you say which "
-           "to retire &mdash; nothing has been thrown away."),
+      note="<b>One is marked &ldquo;alt version&rdquo;.</b> The mine-siting task exists as two different "
+           "builds with different titles, and it is not clear which is current. Both are kept until you "
+           "say which to retire. Wattle Bay v14 was retired on request &mdash; it is still in the git "
+           "history if it is ever wanted back."),
 
  # ---------------- Economics ----------------
  dict(path="economics/index.html", cls="economics", depth=1, kicker="Year 7 Humanities",
