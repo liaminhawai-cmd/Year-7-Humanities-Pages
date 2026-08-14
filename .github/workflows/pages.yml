@@ -1,0 +1,65 @@
+# Publishes the site to GitHub Pages on every push to main.
+#
+# This exists so the deploy is visible. With "Deploy from a branch" the build is
+# invisible from outside the repository settings — if it is misconfigured the
+# site just 404s and nothing says why. With this workflow, every push produces a
+# run you can open, and a failure names its own cause.
+#
+# ONE SETTING IS STILL NEEDED, once: Settings -> Pages -> Source -> GitHub
+# Actions. Without that the deploy step fails with "Pages site not found", which
+# is itself the message telling you to go and set it.
+#
+# Nothing is built. The site is plain HTML and is uploaded exactly as committed.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; let a newer push supersede one already queued.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check every internal link resolves
+        run: |
+          # A dead link on a classroom site is found by a student, not by us.
+          # Cheap enough to run on every push.
+          fail=0
+          while IFS= read -r page; do
+            dir=$(dirname "$page")
+            grep -o 'href="[^"#][^"]*"' "$page" 2>/dev/null \
+              | sed 's/href="//; s/"$//' \
+              | grep -v '^https\?:' \
+              | while IFS= read -r link; do
+                  target="$dir/${link%%#*}"
+                  if [ ! -e "$target" ] && [ ! -e "$target/index.html" ]; then
+                    echo "DEAD: $page -> $link"
+                    exit 1
+                  fi
+                done || fail=1
+          done < <(find . -name '*.html' -not -path './.git/*')
+          [ "$fail" -eq 0 ] || { echo "dead links found"; exit 1; }
+          echo "all internal links resolve"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
