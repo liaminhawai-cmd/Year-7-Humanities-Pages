@@ -994,15 +994,35 @@ const T2 = Object.keys(GLOSS.tier2).sort((a,b)=>b.length-a.length);
 const defOf = t => (GLOSS.tier3[t]) || (typeof EAL !== "undefined" && EAL[t] && EAL[t].en) || "";
 const rx = t => new RegExp("\\b(" + t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + ")\\b", "gi");
 
+/* One pass, not one pass per term.
+   The old version replaced each term in turn over a string that already held
+   the spans it had just inserted, so a short term could match INSIDE an
+   attribute written by a longer one: "period" struck inside
+   data-t3="regal period" and broke the tag open, printing the raw
+   `period">regal period` into the passage. Matching every term in a single
+   alternation, longest first, means inserted markup is never rescanned. */
+const GLOSS_TERMS = (() => {
+  const seen = new Map();                       // lowercase -> {term, tier}
+  T2.forEach(t => seen.set(t.toLowerCase(), { term: t, tier: 2 }));
+  T3.forEach(t => seen.set(t.toLowerCase(), { term: t, tier: 3 }));  // tier 3 wins
+  return seen;
+})();
+const GLOSS_RX = GLOSS_TERMS.size
+  ? new RegExp("\\b(" + [...GLOSS_TERMS.values()].map(o => o.term)
+      .sort((a, b) => b.length - a.length)      // longest first: "regal period" beats "period"
+      .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")\\b", "gi")
+  : null;
+
 function linkGloss(html){
+  if (!GLOSS_RX) return html;
   return html.split(/(<[^>]+>)/).map(part => {
     if (part.startsWith("<")) return part;
-    let s = part;
-    T3.forEach(t => { s = s.replace(rx(t), m =>
-      `<span class="g3" data-t3="${esc(t)}">${m}</span>`); });
-    T2.forEach(t => { s = s.replace(rx(t), m =>
-      `<span class="g2" data-t2="${esc(t)}" data-syn="${esc(GLOSS.tier2[t])}">${m}</span>`); });
-    return s;
+    return part.replace(GLOSS_RX, m => {
+      const hit = GLOSS_TERMS.get(m.toLowerCase());
+      if (!hit) return m;
+      if (hit.tier === 3) return `<span class="g3" data-t3="${esc(hit.term)}">${m}</span>`;
+      return `<span class="g2" data-t2="${esc(hit.term)}" data-syn="${esc(GLOSS.tier2[hit.term])}">${m}</span>`;
+    });
   }).join("");
 }
 const marked = text => linkGloss(
