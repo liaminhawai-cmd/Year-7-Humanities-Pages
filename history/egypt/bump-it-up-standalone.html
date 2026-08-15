@@ -882,7 +882,8 @@ const critOf = k => CRITERIA.find(c => c.key === k);
    bar) and an underline style — the second channel, which is what survives a
    greyscale photocopy or a colour-blind reader. */
 document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
-.m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}}
+.m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
+  c.weight ? ";text-decoration-thickness:" + c.weight : ""}}
 .k-${c.key}{color:${c.lamp}}
 .pop.k-${c.key} .kind{color:${c.ink}}`).join("") + "</style>");
 

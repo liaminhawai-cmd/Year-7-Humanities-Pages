@@ -101,8 +101,8 @@ SITE = [
           ("&#127755;", "2 &middot; Ancient Rome", "vesuvius/",
            "Origins, social groups, citizens, religion, law, army. Pliny on Vesuvius is the source "
            "here; the CAT is a tourist guidebook.", "draft"),
-          ("&#127772;", "3 &middot; Ancient China", "#",
-           "Chronology, social groups, the Great Wall and Terracotta Warriors, Qin Shi Huang.", "not built")]),
+          ("&#127772;", "3 &middot; Ancient China", "china/",
+           "Chronology, social groups, the Great Wall and Terracotta Warriors, Qin Shi Huang.", "draft")]),
         ("Archive", "written, levelled, but not on the program", [
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
@@ -192,6 +192,33 @@ SITE = [
            "wall treats that disagreement as part of what there is to analyse."),
 
  # ---------------- Geography ----------------
+ dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
+      title="Ancient China",
+      intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
+            "argued. Task 3 of the CAT booklet asks you to weigh him.",
+      back=("../", "History"),
+      sections=[
+        ("Resources", None, [
+           ("&#128250;", "Bump it up", "bump-it-up.html",
+            "Level 6 to Level 9 &mdash; the CAT rubric's own bands. Tap any phrase.", "big screen"),
+           ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
+            "The same page with everything built in. Download to use offline.", "single file")]),
+        ("Words", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Meet, build and recall every word this topic marks.", None),
+           SOURCE_WORDS,
+           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
+            "The nine-page student booklet, ready to print.", None)]),
+      ],
+      note="<b>This wall rehearses CAT 3.</b> Every other wall on this site runs Foundation to Year 10, "
+           "because it is showing a skill grow across a whole school. This one runs <b>Level 6 to "
+           "Level 9</b>, because that is what the Ancient China Source Analysis Booklet rubric runs, and "
+           "a student should be able to find their own CAT band on it.<br><br>"
+           "<b>Six rows, not four.</b> They are the booklet's five numbered source-analysis rows plus the "
+           "significance strand Task 3 adds &mdash; including <b>historical perspectives</b>, which the "
+           "other walls on this site do not have. Each row also names the question it is marked from.<br><br>"
+           "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
+
  dict(path="geography/index.html", cls="geography", depth=1, kicker="Year 7 Humanities",
       title="Geography",
       intro="Two topics: where the world's water is, and how landscapes are shaped and argued over.",
