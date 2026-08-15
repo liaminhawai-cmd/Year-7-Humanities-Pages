@@ -98,20 +98,26 @@ SITE = [
         ("Topics", "the units being taught", [
           ("&#129704;", "1 &middot; Ancient Australia", "gs73/",
            "GS73, a grinding stone from Madjedbebe. An excavated object with no author.", None),
-          ("&#127772;", "2 &middot; Ancient China", "#",
-           "The assessed source-analysis unit: bronze bell, jade burial suit, Qin Shi Huang.", "not built"),
-          ("&#127755;", "3 &middot; Ancient Rome", "vesuvius/",
-           "Pliny on Vesuvius. A participant who did not see the part that matters most.", "draft")]),
+          ("&#127755;", "2 &middot; Ancient Rome", "vesuvius/",
+           "Origins, social groups, citizens, religion, law, army. Pliny on Vesuvius is the source "
+           "here; the CAT is a tourist guidebook.", "draft"),
+          ("&#127772;", "3 &middot; Ancient China", "#",
+           "Chronology, social groups, the Great Wall and Terracotta Warriors, Qin Shi Huang.", "not built")]),
         ("Archive", "written, levelled, but not on the program", [
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
            "is a complete second-hand-report source and works as extra practice.", "archived")])],
-      note="<b>What each unit assesses is not the same.</b> Ancient Australia and Ancient China are "
-           "assessed on source analysis; Ancient China adds historical perspectives and significance. "
-           "The Ancient Rome CAT is a tourist guidebook marked on chronology, cause and effect, "
-           "metacognition and presentation &mdash; not on source analysis. The Vesuvius wall is a "
-           "source for that unit, not its assessment task.<br><br>"
+      note="<b>The three units are not assessed on the same skill.</b> "
+           "<b>CAT 1 &mdash; Ancient Australia</b> is a source-analysis test: primary and secondary "
+           "sources, reliability and accuracy, and First Nations beliefs, values and lives. "
+           "<b>CAT 2 &mdash; Ancient Rome</b> is a tourist guidebook for a traveller arriving in "
+           "300 CE, marked on chronology, cause and effect, metacognition and presentation &mdash; no "
+           "source analysis at all. <b>CAT 3 &mdash; Ancient China</b> is two booklets, chronology "
+           "skills and source analysis, and adds historical perspectives and historical "
+           "significance.<br><br>"
+           "So the wall on Ancient Australia rehearses its CAT, and the Vesuvius wall does not "
+           "rehearse Rome's &mdash; it is a source for the unit, not a model of its task.<br><br>"
            "The booklet and the word list are the same for every topic, so they sit on each topic "
            "page rather than here."),
 
@@ -165,7 +171,7 @@ SITE = [
            "or a relief lesson. The worked examples are written and levelled but have never been taught, "
            "and there is no wall, level sheets or print pack."),
 
- dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
+ dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
       title="Ancient Rome",
       intro="Pliny the Younger's letter to Tacitus on the eruption of Vesuvius, written twenty-five "
             "years after it happened.",
