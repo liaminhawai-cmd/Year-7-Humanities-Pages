@@ -12,8 +12,7 @@
    about a source, because that is what those units assess. Ancient Rome does
    not assess source analysis at all. Its CAT is a tourist guidebook written
    for someone travelling from the outer reaches of the empire to Rome in
-   300 CE, and it is marked on four things: chronology, cause and effect,
-   metacognition, and presentation.
+   300 CE, and it is marked on chronology, cause and effect and presentation.
 
    So the worked examples below are guidebook writing. A student comparing
    their draft with this wall is comparing like with like — the same genre,
@@ -41,7 +40,7 @@ const FACTS = [
   ["What it must contain", "Map, timeline, history, what to see, religion, currency, language, accommodation. Eight sections."],
   ["Whose Rome", "Accommodation must cover a peasant AND a wealthy traveller. The guidebook is not written only for the rich."],
   ["The trap", "Writing a guidebook for modern tourists. The task says ancient visitors, and the highlight in the task sheet says so twice."],
-  ["What it is marked on", "Chronology, cause and effect, metacognition, presentation. Not source analysis — that is CAT 1 and CAT 3."]
+  ["What it is marked on", "Chronology, cause and effect and presentation. Not source analysis — that is CAT 1 and CAT 3."]
 ];
 
 /* ink   — the colour on paper, all four above 4.5:1 on the wall's cream
@@ -152,7 +151,7 @@ const HOTSPOTS = [
  { mark:"What might happen if the God was offended?", label:"This is the cause-and-effect question",
    text:"It looks like a religion question. It is really the rubric's second row: Romans believed an offended god punished the whole community, which is a cause with an effect on people." },
  { mark:"for ancient, not modern, visitors to Rome", label:"The warning, highlighted twice on the task sheet",
-   text:"Recommending a hotel, a currency exchange or a photograph of the ruins puts the guidebook in the wrong century. Checking your draft against this line is itself a metacognition mark." }
+   text:"Recommending a hotel, a currency exchange or a photograph of the ruins puts the guidebook in the wrong century. Checking your draft against this line is the cheapest mark on the rubric." }
 ];
 
 /* No rungs below Level 6: the CAT rubric this mirrors starts there. Declared
@@ -164,9 +163,8 @@ const EARLY_EXPLANATIONS = {};
 /* Victorian Curriculum 2.0. This CAT sits in the History skills sub-strands
    for chronology and for cause and effect, NOT in "Using historical sources"
    — which is why the codes here differ from every other History wall on this
-   site. The metacognition and presentation rows are not History descriptors
-   at all: they come from the Critical and Creative Thinking capability and
-   from the school's own reporting, so they carry no VC2HH code. */
+   site. The presentation row is not a History descriptor at all: it comes from the
+   school's own reporting, so it carries no VC2HH code. */
 const VC = {
  "Level 6": [
    ["VC2HH6S01","sequence information about events, developments and periods"],
@@ -181,7 +179,7 @@ const VC = {
    ["VC2HH10S01","sequence information about events, developments and periods using chronological conventions"],
    ["VC2HH10S07","analyse causes and effects, and continuity and change"]]
 };
-const VC_NOTE = "The rows on this wall are the CAT 2 rubric, word for word, because that is what the guidebook is marked against. Two of the four rows are History skills and carry VC 2.0 codes: chronology, and cause and effect. The other two do not. Metacognition belongs to the Critical and Creative Thinking capability rather than to History, and Presentation is the school's own reporting row — neither has a VC2HH code, and pretending otherwise would misrepresent the curriculum. This is also the only History wall on this site that is not built on the 'Using historical sources' descriptors, because this unit does not assess source analysis. See CURRICULUM-CHECK.md.";
+const VC_NOTE = "The rows on this wall are the CAT 2 rubric, word for word, because that is what the guidebook is marked against. Two of the three rows are History skills and carry VC 2.0 codes: chronology, and cause and effect. Presentation does not — it is the school's own reporting row, and pretending otherwise would misrepresent the curriculum. This is also the only History wall on this site that is not built on the 'Using historical sources' descriptors, because this unit does not assess source analysis. See CURRICULUM-CHECK.md.";
 
 const BUMP = {
  "Level 6": "You have dates in order and one reason the city grew. To reach Level 7, name the three periods of Rome's history and say which one your traveller is arriving in, then say who each cause affected.",
@@ -209,7 +207,6 @@ const GLOSS = {
    "cause":"The reason something happened.",
    "effect":"What happened as a result.",
    "motive":"The reason a person chose to act.",
-   "metacognition":"Thinking about how you are learning, and changing it if it is not working.",
    "paraphrase":"Put something into your own words.",
    "summarise":"Give the main points briefly.",
    "regal period":"The time when Rome was ruled by kings, to 509 BCE.",
@@ -258,6 +255,68 @@ const FRAME = {
     { key:"cause",        label:"Say why",            prompt:"For each thing you describe, say why it is there and who it affects. Turn facts into because-sentences." },
     { key:"cause",        label:"Include the cost",   prompt:"Conquest and enslaved labour built much of what the traveller will admire. The top band expects the uncomfortable causes too." },
     { key:"presentation", label:"Lay it out",         prompt:"Heading, map or image, caption. Design it so a hurried traveller can find one fact fast." },
-    { key:"meta",         label:"Check and change",   prompt:"Read your draft against the task sheet. Is it written for an ancient visitor? Say what you changed and why." }
+    { key:"presentation", label:"Check it",           prompt:"Read your draft against the task sheet. Is every section there, and is it written for an ancient visitor rather than a modern one?" }
   ]
 };
+
+/* ---------- criteria held back from the rubric ----------
+   Metacognition is written into this file — a continuum row, an explanation at
+   every level, and a marked phrase in every worked example — but it is not being
+   assessed for now. Rather than delete that work, it is withdrawn here: the key
+   below is removed from CRITERIA, so it is not a colour on the wall, not a row
+   in the rubric and not a tappable mark, and its phrases are unwrapped so the
+   modelled reflection still reads as ordinary prose in each example.
+
+   Everything is applied in this one place, so all seven pages that read this
+   file agree without any of them knowing about it. To bring metacognition back,
+   empty this list. */
+const HIDDEN_CRITERIA = ["meta"];
+
+for (const key of HIDDEN_CRITERIA) {
+  const at = CRITERIA.findIndex(c => c.key === key);
+  if (at > -1) CRITERIA.splice(at, 1);
+  // KID lines are paired to criteria BY POSITION when the rubric renders, so a
+  // criterion cannot be removed without its line: every row below it would
+  // silently shift up and be captioned with the wrong "I can".
+  if (at > -1 && typeof KID !== "undefined")
+    for (const band of Object.values(KID))
+      if (band && Array.isArray(band.lines) && band.lines.length > at) band.lines.splice(at, 1);
+  delete CONTINUUM[key];
+  if (typeof EXPLANATIONS !== "undefined")
+    for (const lv of Object.values(EXPLANATIONS)) delete lv[key];
+  if (typeof EARLY_EXPLANATIONS !== "undefined")
+    for (const lv of Object.values(EARLY_EXPLANATIONS)) delete lv[key];
+  // Unwrap {key|phrase} to phrase, leaving every other criterion's marks intact.
+  const unwrap = new RegExp("\\{" + key + "\\|([^}]*)\\}", "g");
+  for (const set of [typeof EXAMPLES !== "undefined" ? EXAMPLES : null,
+                     typeof EARLY_EXAMPLES !== "undefined" ? EARLY_EXAMPLES : null])
+    if (set) for (const k of Object.keys(set))
+      if (typeof set[k] === "string") set[k] = set[k].replace(unwrap, "$1");
+
+  // Teaching prose that only makes sense when the criterion is being assessed is
+  // wrapped in <!--key--> … <!--/key--> where it is written. Drop it with the
+  // criterion, so no page explains a colour that is no longer on the wall.
+  const prose = new RegExp("<!--" + key + "-->[\\s\\S]*?<!--\\/" + key + "-->", "g");
+  const strip = obj => { for (const k of Object.keys(obj)) {
+    const v = obj[k];
+    if (typeof v === "string") obj[k] = v.replace(prose, "");
+    else if (v && typeof v === "object") strip(v);
+  } };
+  for (const o of [typeof FRAME !== "undefined" ? FRAME : null,
+                   typeof BUILD !== "undefined" ? BUILD : null,
+                   typeof VERBS !== "undefined" ? VERBS : null]) if (o) strip(o);
+}
+
+// Clear the markers themselves, whether or not their criterion survived. They
+// are inert in HTML, but the Word and PDF builders lay this prose out as text,
+// where a stray <!--meta--> would print.
+for (const o of [typeof FRAME !== "undefined" ? FRAME : null,
+                 typeof BUILD !== "undefined" ? BUILD : null,
+                 typeof VERBS !== "undefined" ? VERBS : null]) {
+  if (!o) continue;
+  (function clean(obj){ for (const k of Object.keys(obj)) {
+    const v = obj[k];
+    if (typeof v === "string") obj[k] = v.replace(/<!--\/?[a-z]+-->/g, "");
+    else if (v && typeof v === "object") clean(v);
+  } })(o);
+}

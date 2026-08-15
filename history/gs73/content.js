@@ -511,6 +511,12 @@ const HIDDEN_CRITERIA = ["meta"];
 for (const key of HIDDEN_CRITERIA) {
   const at = CRITERIA.findIndex(c => c.key === key);
   if (at > -1) CRITERIA.splice(at, 1);
+  // KID lines are paired to criteria BY POSITION when the rubric renders, so a
+  // criterion cannot be removed without its line: every row below it would
+  // silently shift up and be captioned with the wrong "I can".
+  if (at > -1 && typeof KID !== "undefined")
+    for (const band of Object.values(KID))
+      if (band && Array.isArray(band.lines) && band.lines.length > at) band.lines.splice(at, 1);
   delete CONTINUUM[key];
   if (typeof EXPLANATIONS !== "undefined")
     for (const lv of Object.values(EXPLANATIONS)) delete lv[key];

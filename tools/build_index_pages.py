@@ -62,7 +62,7 @@ SITE = [
           ("&#127963;", "Civics &amp; Citizenship", "civics/",
            "Government, democracy, law and citizenship. Nothing built yet.", "empty"),
           ("\U0001F3FA", "History", "history/",
-           "Ancient Australia, Egypt and Rome &mdash; one source analysed at every level.", None),
+           "Ancient Australia, Rome and China &mdash; each unit rehearsing its own CAT.", None),
           ("&#127759;", "Geography", "geography/",
            "Water in the World, and Landscapes &amp; Landforms.", None),
           ("&#128188;", "Economics &amp; Business", "economics/",
@@ -71,7 +71,7 @@ SITE = [
       note="<b>Everything here is a plain HTML file.</b> No login, no install, and no internet needed "
            "once a page has loaded. The single-file versions download and run from a USB stick.<br><br>"
            "<b>The words for each topic sit with that topic</b>, not in a pile at the front &mdash; "
-           "Water in the World has its own vocab hub, History has its own word list, and both also "
+           "Water in the World has a lesson-by-lesson vocab hub, History has its own word list, and both "
            "appear on the <a href=\"" + WORD_BUILDER + "\">EAL Word Builder</a>.<br><br>"
            "<b>Teacher context</b> &mdash; curriculum documents, source files, planning &mdash; lives in "
            "the private <b>Year-7-Humanities</b> repository, not here."),
@@ -116,7 +116,7 @@ SITE = [
            "<b>CAT 1 &mdash; Ancient Australia</b> is a source-analysis test: primary and secondary "
            "sources, reliability and accuracy, and First Nations beliefs, values and lives. "
            "<b>CAT 2 &mdash; Ancient Rome</b> is a tourist guidebook for a traveller arriving in "
-           "300 CE, marked on chronology, cause and effect, metacognition and presentation &mdash; no "
+           "300 CE, marked on chronology, cause and effect and presentation &mdash; no "
            "source analysis at all. <b>CAT 3 &mdash; Ancient China</b> is two booklets, chronology "
            "skills and source analysis, and adds historical perspectives and historical "
            "significance.<br><br>"
@@ -217,12 +217,11 @@ SITE = [
       note="<b>This wall rehearses CAT 2, and it is not a source-analysis wall.</b> Every other "
            "History wall here marks up an analytical paragraph about a source. Ancient Rome does not "
            "assess that. Its CAT is a tourist guidebook, marked on <b>chronology, cause and effect, "
-           "metacognition and presentation</b> &mdash; so the worked examples are guidebook writing, "
+           "and presentation</b> &mdash; so the worked examples are guidebook writing, "
            "and a student comparing their draft with this wall is comparing like with like.<br><br>"
-           "<b>Two of the four rows are not History descriptors.</b> Chronology and cause and effect "
-           "carry VC 2.0 codes. Metacognition belongs to Critical and Creative Thinking, and "
-           "Presentation is the school's own reporting row; neither has a curriculum code, and the "
-           "wall says so rather than inventing one.<br><br>"
+           "<b>One of the three rows is not a History descriptor.</b> Chronology and cause and effect "
+           "carry VC 2.0 codes; Presentation is the school's own reporting row and has no curriculum "
+           "code, and the wall says so rather than inventing one.<br><br>"
            "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
 
  dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
@@ -278,14 +277,12 @@ SITE = [
            ("&#129521;", "Paragraph builder", "paragraph-builder.html",
             "D &middot; P &middot; I &middot; U, one card per sentence. Switch to PEEL or TEEL.", None)]),
         ("Words", "kept in this browser, nothing sent anywhere", [
-           ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
-           ("&#128218;", "Vocab hub &middot; lesson by lesson", "water-vocab-hub.html",
-            "The same 54 words split into the unit's nine lessons (1.1 to 3.2), each with its own "
-            "morpheme bank, adaptive base-camp and stretch tiers, and a printable verified report.",
-            "extra practice"),
+           ("&#128218;", "Vocab hub", "water-vocab-hub.html",
+            "All 54 words, split into the unit's nine lessons. Each lesson has its own morpheme "
+            "bank, a warm-up review of earlier lessons, base-camp and stretch tiers, and a "
+            "printable report.", None),
            ("&#127760;", "On the Word Builder", GEOGRAPHY_WORDS,
-            "The same words with morphology and practice, for EAL students.", None)]),
+            "The same nine lessons with spaced practice, in eighteen languages.", None)]),
         ("Interactive tasks", "decision-and-consequence simulations, each with a printable report", [
            ("&#128167;", "Every Drop", "every-drop.html",
             "200 years in one catchment. Clearing, sewage, a dam, a sealed city, a changed climate "
