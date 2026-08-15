@@ -57,6 +57,15 @@ a.card.economics{border-left-color:var(--economics)}
      background:var(--accent-soft);border-radius:5px;padding:2px 6px;color:var(--muted)}
 a.card.soon{opacity:.55;pointer-events:none}
 
+/* A retired or archived resource: a small link, not a card. It should not
+   compete for attention with what a teacher is actually meant to click. */
+.archive-links{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+a.archive-link{display:flex;align-items:baseline;gap:8px;text-decoration:none;
+       color:var(--ink);font-size:.85rem;padding:4px 2px;border-bottom:1px dotted var(--line)}
+a.archive-link:hover{color:var(--accent)}
+a.archive-link .emoji{font-size:1rem}
+a.archive-link .desc{color:var(--muted);font-weight:400}
+
 .note{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
       padding:14px 16px;font-size:.85rem;color:var(--muted);margin-top:28px;line-height:1.55}
 .note b{color:var(--ink)}

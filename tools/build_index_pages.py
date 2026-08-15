@@ -280,12 +280,20 @@ SITE = [
         ("Words", "kept in this browser, nothing sent anywhere", [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
+           ("&#128220;", "Lesson vocab builder", "lesson-vocab-builder.html",
+            "The same 54 words, split by lesson (1.1 to 3.2), with a scenario, a diagram and a "
+            "cloze question written for each one.", "extra practice"),
            ("&#127760;", "On the Word Builder", GEOGRAPHY_WORDS,
             "The same words with morphology and practice, for EAL students.", None)]),
       ],
       note="<b>Draft.</b> Checked against Victorian Curriculum 2.0 Geography F&ndash;10; the unit sits on "
            "VC2HG8K01, K03 and K04. <b>The figure is a classroom redraw</b> of U.S. Geological Survey "
-           "public-domain estimates &mdash; who made a display and why is half the source analysis."),
+           "public-domain estimates &mdash; who made a display and why is half the source analysis.<br><br>"
+           "<b>The lesson vocab builder</b> was found living in a different repository, built for this "
+           "unit but never linked from it. Its words are the same words already on this page and the "
+           "Word Builder &mdash; nothing here can drift from them &mdash; but its practice questions are "
+           "hand-written per word and exist nowhere else, so it is kept as its own resource rather than "
+           "merged into the shared vocab hub."),
 
  dict(path="geography/landforms/index.html", cls="geography", depth=2, kicker="Geography &middot; Topic 2",
       title="Landscapes &amp; Landforms",
@@ -386,12 +394,27 @@ def card(emoji, title, href, desc, tag, cls):
             f'<h3>{title}{tag_html}</h3><p>{desc}</p></a>')
 
 
+def archive_link(emoji, title, href, desc, tag, cls):
+    # A retired resource: one line, not a card, so it does not compete for
+    # attention with what a teacher is actually meant to click.
+    tag_html = f' <span class="tag">{tag}</span>' if tag else ""
+    return (f'<a class="archive-link" href="{href}">'
+            f'<span class="emoji">{emoji}</span>'
+            f'<span><b>{title}</b>{tag_html} &mdash; <span class="desc">{desc}</span></span></a>')
+
+
 def build(spec):
     up = "../" * spec["depth"]
     cls = spec["cls"]
     secs = ""
     for heading, sub, cards in spec["sections"]:
         sub_html = f' <span class="sub">{sub}</span>' if sub else ""
+        # "Archive" is the one heading rendered as small links rather than
+        # cards, everywhere on the site, from this single check.
+        if heading == "Archive":
+            body = "".join(archive_link(*c, cls) for c in cards)
+            secs += f'<section><h2>{heading}{sub_html}</h2><div class="archive-links">{body}</div></section>\n'
+            continue
         body = "".join(card(*c, cls) for c in cards)
         secs += f'<section><h2>{heading}{sub_html}</h2><div class="grid">{body}</div></section>\n'
     back = ""
