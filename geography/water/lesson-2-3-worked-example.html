@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<title>2.3 Worked Example — TEEL</title>
+<style>
+  :root{
+    --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
+    --line:#d8cfbb; --line-soft:#e8e0cd; --deep:#1d5f7d; --accent:#2b7a99;
+    --t:#8a5a2c; --e1:#1d6f8b; --e2:#5a7a4a; --l:#7a4a8a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--ink);
+       line-height:1.55;padding:20px;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:1080px}
+  h1{font-size:1.7rem;color:var(--deep)}
+  h2{font-size:1.15rem;color:var(--deep);margin-bottom:6px}
+  .eyebrow{letter-spacing:.12em;text-transform:uppercase;font-size:.7rem;color:var(--muted);font-weight:800}
+  .sub{color:var(--muted);font-size:.94rem}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+  .qbox{background:#eef4f7;border:1px solid #cfe0ea;border-radius:10px;padding:10px 14px;font-size:.95rem;font-weight:700;color:var(--deep)}
+
+  .frame{display:grid;gap:9px;grid-template-columns:repeat(4,1fr);margin:12px 0 4px}
+  @media(max-width:720px){.frame{grid-template-columns:1fr 1fr}}
+  .fb{border:2px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff;cursor:pointer;text-align:left;font:inherit}
+  .fb .lt{font-weight:800;font-size:.95rem;display:block}
+  .fb .d{font-size:.79rem;color:var(--muted);line-height:1.45}
+  .fb.t .lt{color:var(--t)} .fb.e1 .lt{color:var(--e1)} .fb.e2 .lt{color:var(--e2)} .fb.l .lt{color:var(--l)}
+  .fb.t.on{background:var(--t);border-color:var(--t)} .fb.e1.on{background:var(--e1);border-color:var(--e1)}
+  .fb.e2.on{background:var(--e2);border-color:var(--e2)} .fb.l.on{background:var(--l);border-color:var(--l)}
+  .fb.on .lt,.fb.on .d{color:#fff}
+
+  .lvlrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  .lbl{font-weight:700;color:var(--muted);font-size:.85rem}
+  .lv{border:2px solid var(--line);background:#fff;border-radius:9px;padding:6px 14px;font-weight:800;cursor:pointer;font-size:.87rem;color:var(--deep)}
+  .lv.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+
+  .para{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px 16px;font-size:.95rem;line-height:1.75}
+  .para p{margin-bottom:9px;transition:background .15s}
+  .para p.dim{opacity:.32}
+  .para p.hit{background:#fdf6e3;border-radius:6px;padding:4px 8px;margin-left:-8px}
+  .tag{font-weight:800;font-size:.66rem;letter-spacing:.05em;color:#fff;border-radius:4px;padding:1px 6px;margin-right:6px}
+  .tag.t{background:var(--t)} .tag.e1{background:var(--e1)} .tag.e2{background:var(--e2)} .tag.l{background:var(--l)}
+
+  .exp{display:none;background:#f4f0e6;border-left:4px solid var(--deep);border-radius:0 9px 9px 0;padding:11px 14px;margin-top:10px;font-size:.88rem;line-height:1.6}
+  .exp.on{display:block}
+  .exp b{color:var(--deep)}
+  .moved{background:#eef5ee;border:1px solid #cfe0d0;border-radius:9px;padding:10px 13px;margin-top:11px;font-size:.87rem;line-height:1.55}
+  .moved b{color:#2f6a3e}
+  .rub{font-size:.82rem;color:var(--muted);margin-top:8px}
+  a{color:var(--accent)}
+  @media print{body{background:#fff;padding:0}.noprint{display:none!important}.exp{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Water in the World · 2.3 The Significance of Water</div>
+  <h1>Worked example: writing a TEEL paragraph</h1>
+  <p class="sub">Content for Self-Assessment: Interconnection</p>
+
+  <div class="card">
+    <div class="qbox">Question: Explain the significance of the Martuwarra Fitzroy River to its Traditional Owners.</div>
+
+    <div class="frame noprint">
+      <button class="fb t" id="b-t" onclick="pick('t')"><span class="lt">T — Topic</span><span class="d">Answer the question in one sentence</span></button>
+      <button class="fb e1" id="b-e1" onclick="pick('e1')"><span class="lt">E — Evidence</span><span class="d">A quote or number, and who said it</span></button>
+      <button class="fb e2" id="b-e2" onclick="pick('e2')"><span class="lt">E — Explain</span><span class="d">What the evidence means</span></button>
+      <button class="fb l" id="b-l" onclick="pick('l')"><span class="lt">L — Link</span><span class="d">Back to the question</span></button>
+    </div>
+    <p class="sub noprint" style="font-size:.85rem">Click each part of TEEL to see what it is doing.</p>
+
+    <div class="lvlrow noprint">
+      <span class="lbl">Level:</span>
+      <button class="lv" id="v5" onclick="setLevel(5)">5</button>
+      <button class="lv" id="v6" onclick="setLevel(6)">6</button>
+      <button class="lv on" id="v7" onclick="setLevel(7)">7</button>
+      <button class="lv" id="v8" onclick="setLevel(8)">8</button>
+      <button class="lv" id="v9" onclick="setLevel(9)">9</button>
+    </div>
+
+    <!-- LEVEL 5 -->
+    <div class="para" id="p5" style="display:none">
+      <p data-k="t"><span class="tag t">T</span>Water is important to Aboriginal people.</p>
+      <p data-k="e1"><span class="tag e1">E</span>People say the river is really important to them and it should not be wrecked.</p>
+      <p data-k="e2"><span class="tag e2">E</span>This shows water is important.</p>
+      <p data-k="l"><span class="tag l">L</span>So it is important.</p>
+    </div>
+
+    <!-- LEVEL 6 -->
+    <div class="para" id="p6" style="display:none">
+      <p data-k="t"><span class="tag t">T</span>Water is important to the Traditional Owners of the Martuwarra Fitzroy River.</p>
+      <p data-k="e1"><span class="tag e1">E</span>Dr Anne Poelina says the river is a living ancestor. The government wants to take water out of it for farming.</p>
+      <p data-k="e2"><span class="tag e2">E</span>This shows the people and the river are connected.</p>
+      <p data-k="l"><span class="tag l">L</span>So water is important to them.</p>
+    </div>
+
+    <!-- LEVEL 7 -->
+    <div class="para" id="p7">
+      <p data-k="t"><span class="tag t">T</span>The Martuwarra Fitzroy River is significant to its Traditional Owners because they see it as a living ancestor rather than a resource.</p>
+      <p data-k="e1"><span class="tag e1">E</span>Dr Anne Poelina, a Nyikina Warrwa woman, describes the river as “an ancestral serpent being with a right to not only live but a right to live and flow”. Yi Martuwarra Traditional Owner Anthony McLarty says “It is a living system. It has the right to life.”</p>
+      <p data-k="e2"><span class="tag e2">E</span>This shows the connection is a relationship, not just a use. The river provides food and identity, and in return the people have a responsibility to protect it.</p>
+      <p data-k="l"><span class="tag l">L</span>Water at the Martuwarra is therefore valued spiritually and culturally, not only economically.</p>
+    </div>
+
+    <!-- LEVEL 8 -->
+    <div class="para" id="p8" style="display:none">
+      <p data-k="t"><span class="tag t">T</span>The Martuwarra Fitzroy River is significant to its Traditional Owners because they see it as a living ancestor, but who controls the river has changed.</p>
+      <p data-k="e1"><span class="tag e1">E</span>Dr Anne Poelina, a Nyikina Warrwa woman, describes the river as “an ancestral serpent being with a right to not only live but a right to live and flow”. Hancock Agriculture has sought a licence to pump 325 gigalitres a year, and in 2019 the state government was considering allocations of up to 600 gigalitres.</p>
+      <p data-k="e2"><span class="tag e2">E</span>These are two different values of water in conflict. The conflict exists because colonisation changed who makes the decisions: Traditional Owners cared for the river for thousands of years, but water licences are now granted by the state government. This is why six Traditional Owner groups signed the Fitzroy River declaration in 2016 and formed the Martuwarra Fitzroy River Council.</p>
+      <p data-k="l"><span class="tag l">L</span>The interconnection between the people and the river has therefore changed from custodianship to a contest over control.</p>
+    </div>
+
+    <!-- LEVEL 9 -->
+    <div class="para" id="p9" style="display:none">
+      <p data-k="t"><span class="tag t">T</span>The Martuwarra Fitzroy River shows how the interconnection between people and water has changed over time, and why that change is now being contested.</p>
+      <p data-k="e1"><span class="tag e1">E</span>Dr Anne Poelina, a Nyikina Warrwa woman, describes the river as “an ancestral serpent being with a right to not only live but a right to live and flow”, while Hancock Agriculture has sought a licence to pump 325 gigalitres a year. At Menindee on the Darling River, up to a million native fish died in 2019, blamed on drought and over-extraction — the comparison Traditional Owners themselves use.</p>
+      <p data-k="e2"><span class="tag e2">E</span>For thousands of years the interconnection was custodianship: people cared for the river and the river sustained them. Colonisation moved the decisions to the state, and the pressure now is commercial agriculture. The Murray–Darling shows what happens when that change runs unchecked — extraction outgrew the river and the interconnection collapsed. The Fitzroy River declaration (2016) and the Martuwarra Fitzroy River Council are an attempt by Traditional Owners to reverse the change before it reaches that point.</p>
+      <p data-k="l"><span class="tag l">L</span>Analysed over time, the significance of the Martuwarra is inseparable from who controls it — and the Murray–Darling comparison shows the next change is a choice, not an inevitability.</p>
+    </div>
+
+    <div class="exp" id="exp"></div>
+
+    <div class="moved" id="moved"></div>
+    <p class="rub" id="rub"></p>
+  </div>
+
+  <p class="sub noprint" style="text-align:center;margin:14px 0;font-size:.84rem">
+    Part of the <a href="index.html">Water in the World</a> teaching set.</p>
+</div>
+
+<script>
+  var EXP = {
+    t: "<b>T — Topic sentence.</b> Answer the question in one sentence. Name the place, the people and the value. Do not start with evidence, and do not start with “In this paragraph I will…”.",
+    e1: "<b>E — Evidence.</b> Use a quote or a number, and say who it came from. Two pieces is enough. Put quotes inside quotation marks and name the person and their language group.",
+    e2: "<b>E — Explain.</b> Say what the evidence means. This is the part most students leave out. To reach Level 8, explain <i>why</i> the interconnection exists and <i>how it has changed</i>.",
+    l: "<b>L — Link.</b> One sentence that goes back to the question. Do not add new evidence here."
+  };
+  var MOVED = {
+    5: "<b>Below the rubric.</b> No place is named, no person is named, and there is no evidence — nothing here can be credited. Naming the river and one specific connection lifts it to Level 6.",
+    6: "<b>Level 6 — identify.</b> It names a connection but does not describe it. The evidence has no detail and the explain sentence only repeats the topic sentence.",
+    7: "<b>Level 7 — describe.</b> It describes the interconnection using two named sources and explains what the relationship involves. To reach Level 8, add what has <i>changed</i> and why.",
+    8: "<b>Level 8 — explain and describe changes.</b> It explains why the conflict exists (colonisation changed who decides) and describes how the interconnection has changed over time.",
+    9: "<b>Level 9 — analyse, with discussion of change over time.</b> It analyses the change (custodianship → state control → commercial pressure) and uses a second place, the Murray–Darling, to weigh what the change could lead to."
+  };
+  var RUB = {
+    5: "Below Level 6 — the rubric starts at: I can identify major interconnections within and between places.",
+    6: "Interconnection, Level 6: I can identify major interconnections within and between places.",
+    7: "Interconnection, Level 7: I can describe major interconnections within and between places.",
+    8: "Interconnection, Level 8: I can explain major interconnections within and between places and describe changes to these places.",
+    9: "Interconnection, Level 9: I can analyse major interconnections within and between places with discussion of significant changes over time."
+  };
+  var lvl = 7, part = null;
+
+  function setLevel(n){
+    lvl = n;
+    [5,6,7,8,9].forEach(function(x){
+      document.getElementById('p'+x).style.display = (x===n) ? 'block' : 'none';
+      document.getElementById('v'+x).classList.toggle('on', x===n);
+    });
+    document.getElementById('moved').innerHTML = MOVED[n];
+    document.getElementById('rub').textContent = RUB[n];
+    if(part) pick(part, true);
+  }
+  function pick(k, keep){
+    if(part === k && !keep){ part = null; clear(); return; }
+    part = k;
+    ['t','e1','e2','l'].forEach(function(x){
+      document.getElementById('b'+'-'+x).classList.toggle('on', x===k);
+    });
+    var ps = document.querySelectorAll('#p'+lvl+' p');
+    ps.forEach(function(p){
+      var hit = p.dataset.k === k;
+      p.classList.toggle('hit', hit);
+      p.classList.toggle('dim', !hit);
+    });
+    var e = document.getElementById('exp');
+    e.innerHTML = EXP[k]; e.classList.add('on');
+  }
+  function clear(){
+    ['t','e1','e2','l'].forEach(function(x){ document.getElementById('b-'+x).classList.remove('on'); });
+    document.querySelectorAll('.para p').forEach(function(p){ p.classList.remove('hit','dim'); });
+    document.getElementById('exp').classList.remove('on');
+  }
+  setLevel(7);
+</script>
+</body>
+</html>

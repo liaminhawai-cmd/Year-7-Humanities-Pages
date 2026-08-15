@@ -280,20 +280,37 @@ SITE = [
         ("Words", "kept in this browser, nothing sent anywhere", [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
-           ("&#128220;", "Lesson vocab builder", "lesson-vocab-builder.html",
-            "The same 54 words, split by lesson (1.1 to 3.2), with a scenario, a diagram and a "
-            "cloze question written for each one.", "extra practice"),
+           ("&#128218;", "Vocab hub &middot; lesson by lesson", "water-vocab-hub.html",
+            "The same 54 words split into the unit's nine lessons (1.1 to 3.2), each with its own "
+            "morpheme bank, adaptive base-camp and stretch tiers, and a printable verified report.",
+            "extra practice"),
            ("&#127760;", "On the Word Builder", GEOGRAPHY_WORDS,
             "The same words with morphology and practice, for EAL students.", None)]),
+        ("Interactive tasks", "decision-and-consequence simulations, each with a printable report", [
+           ("&#128167;", "Every Drop", "every-drop.html",
+            "200 years in one catchment. Clearing, sewage, a dam, a sealed city, a changed climate "
+            "&mdash; watch your decisions re-plumb the water cycle itself.", None),
+           ("&#127964;&#65039;", "Share the River", "share-the-river.html",
+            "“The Big Dry.” Steer a Murray&ndash;Darling catchment through a five-year drought "
+            "by setting policy, not numbers, and live with an irreversible legacy.", None)]),
+        ("Reading &amp; writing", "lesson 2.1&ndash;2.3 content", [
+           ("&#128202;", "Reading data (PQE)", "reading-data-pqe.html",
+            "Model P &middot; Q &middot; E on the world's water at three levels, then apply it to "
+            "Australia's rainfall map. Project it or print it as a worksheet.", None),
+           ("&#9997;&#65039;", "2.3 worked example", "lesson-2-3-worked-example.html",
+            "One TEEL paragraph on the Martuwarra Fitzroy River. Tap each part of TEEL; switch "
+            "Level 6, 7 and 8 to see what gets added.", None),
+           ("&#129685;", "2.3 lesson plan", "lesson-2-3-significance.html",
+            "The Significance of Water, rebuilt: one question, a three-case jigsaw, and success "
+            "criteria taken from the Interconnection ladder.", "teacher")]),
       ],
       note="<b>Draft.</b> Checked against Victorian Curriculum 2.0 Geography F&ndash;10; the unit sits on "
            "VC2HG8K01, K03 and K04. <b>The figure is a classroom redraw</b> of U.S. Geological Survey "
            "public-domain estimates &mdash; who made a display and why is half the source analysis.<br><br>"
-           "<b>The lesson vocab builder</b> was found living in a different repository, built for this "
-           "unit but never linked from it. Its words are the same words already on this page and the "
-           "Word Builder &mdash; nothing here can drift from them &mdash; but its practice questions are "
-           "hand-written per word and exist nowhere else, so it is kept as its own resource rather than "
-           "merged into the shared vocab hub."),
+           "<b>Everything below the first two rows</b> was found on an unmerged branch in a different "
+           "repository &mdash; built for this unit, working, and never linked from it. Nothing here can "
+           "drift from the shared vocab hub or the Word Builder: the words are the same words. The "
+           "interactive tasks and the 2.1&ndash;2.3 materials exist nowhere else on this site."),
 
  dict(path="geography/landforms/index.html", cls="geography", depth=2, kicker="Geography &middot; Topic 2",
       title="Landscapes &amp; Landforms",
