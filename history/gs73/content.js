@@ -203,7 +203,7 @@ const SOURCE_SHEET = {
 
 const FRAME = {
   name: "S · C · I · U",
-  blurb: "The four historical-thinking steps build the paragraph. The grey metacognition phrase shows how the writer planned, checked or revised it.",
+  blurb: "The four historical-thinking steps build the paragraph.<!--meta--> The grey metacognition phrase shows how the writer planned, checked or revised it.<!--/meta-->",
   steps: [
     { key:"source", letter:"S", title:"Source",
       job:"Say what the source is, where it came from, and why it was made.",
@@ -281,7 +281,7 @@ const BUILD = {
   stages: [
     { id:"phrase", title:"Which criterion does this phrase prove?", short:"Phrases",
       teach:"Every marked phrase on the wall is marked because it <b>proves one criterion</b>. The unmarked words around it are the glue that holds the sentence together.<br><br>Ask: <i>what is this phrase doing?</i> Naming the source is not the same as judging it. Giving an interpretation is not the same as giving the evidence for it.",
-      reteach:"Slow it down. Read the phrase on its own, without the sentence around it, and ask what job it does:<ul><li>Does it <b>name or describe the source</b>, or say why it was made? → Origin, features &amp; purpose.</li><li>Does it place the source in <b>a time, a place or a practice</b>? → Historical context.</li><li>Does it say <b>what someone thinks</b>, or give the evidence they think it from? → Historical interpretations.</li><li>Does it say <b>how useful or how limited</b> the source is? → Accuracy, usefulness &amp; reliability.</li><li>Does it show <b>how the writer planned, checked or improved</b> the response? → Metacognition.</li></ul>" },
+      reteach:"Slow it down. Read the phrase on its own, without the sentence around it, and ask what job it does:<ul><li>Does it <b>name or describe the source</b>, or say why it was made? → Origin, features &amp; purpose.</li><li>Does it place the source in <b>a time, a place or a practice</b>? → Historical context.</li><li>Does it say <b>what someone thinks</b>, or give the evidence they think it from? → Historical interpretations.</li><li>Does it say <b>how useful or how limited</b> the source is? → Accuracy, usefulness &amp; reliability.</li><!--meta--><li>Does it show <b>how the writer planned, checked or improved</b> the response? → Metacognition.</li><!--/meta--></ul>" },
 
     { id:"descriptor", title:"Which row does this descriptor belong in?", short:"Rows",
       teach:"Under the worked examples, the wall has one row per criterion. Each row runs left to right through the levels.<br><br>These are the descriptors from that grid. Put each one back in its row.",
@@ -494,3 +494,59 @@ const TIER3_T = {
   "striations": {"zh-Hans": "擦痕", "zh-Hant": "擦痕", "vi": "vết xước", "ar": "خدوش", "fa": "خط‌های سایش", "ur": "خراشیں", "ml": "ചാലുകൾ", "am": "ጭረቶች"},
   "polish": {"zh-Hans": "光泽", "zh-Hant": "光澤", "vi": "độ bóng", "ar": "لمعان", "fa": "براقی", "ur": "چمک", "ml": "മിനുസം", "am": "አንጸባራቂነት"}
 };
+
+/* ---------- criteria held back from the rubric ----------
+   Metacognition is written into this file — a continuum row, an explanation at
+   every level, and a marked phrase in every worked example — but it is not being
+   assessed for now. Rather than delete that work, it is withdrawn here: the key
+   below is removed from CRITERIA, so it is not a colour on the wall, not a row
+   in the rubric and not a tappable mark, and its phrases are unwrapped so the
+   modelled reflection still reads as ordinary prose in each example.
+
+   Everything is applied in this one place, so all seven pages that read this
+   file agree without any of them knowing about it. To bring metacognition back,
+   empty this list. */
+const HIDDEN_CRITERIA = ["meta"];
+
+for (const key of HIDDEN_CRITERIA) {
+  const at = CRITERIA.findIndex(c => c.key === key);
+  if (at > -1) CRITERIA.splice(at, 1);
+  delete CONTINUUM[key];
+  if (typeof EXPLANATIONS !== "undefined")
+    for (const lv of Object.values(EXPLANATIONS)) delete lv[key];
+  if (typeof EARLY_EXPLANATIONS !== "undefined")
+    for (const lv of Object.values(EARLY_EXPLANATIONS)) delete lv[key];
+  // Unwrap {key|phrase} to phrase, leaving every other criterion's marks intact.
+  const unwrap = new RegExp("\\{" + key + "\\|([^}]*)\\}", "g");
+  for (const set of [typeof EXAMPLES !== "undefined" ? EXAMPLES : null,
+                     typeof EARLY_EXAMPLES !== "undefined" ? EARLY_EXAMPLES : null])
+    if (set) for (const k of Object.keys(set))
+      if (typeof set[k] === "string") set[k] = set[k].replace(unwrap, "$1");
+
+  // Teaching prose that only makes sense when the criterion is being assessed is
+  // wrapped in <!--key--> … <!--/key--> where it is written. Drop it with the
+  // criterion, so no page explains a colour that is no longer on the wall.
+  const prose = new RegExp("<!--" + key + "-->[\\s\\S]*?<!--\\/" + key + "-->", "g");
+  const strip = obj => { for (const k of Object.keys(obj)) {
+    const v = obj[k];
+    if (typeof v === "string") obj[k] = v.replace(prose, "");
+    else if (v && typeof v === "object") strip(v);
+  } };
+  for (const o of [typeof FRAME !== "undefined" ? FRAME : null,
+                   typeof BUILD !== "undefined" ? BUILD : null,
+                   typeof VERBS !== "undefined" ? VERBS : null]) if (o) strip(o);
+}
+
+// Clear the markers themselves, whether or not their criterion survived. They
+// are inert in HTML, but the Word and PDF builders lay this prose out as text,
+// where a stray <!--meta--> would print.
+for (const o of [typeof FRAME !== "undefined" ? FRAME : null,
+                 typeof BUILD !== "undefined" ? BUILD : null,
+                 typeof VERBS !== "undefined" ? VERBS : null]) {
+  if (!o) continue;
+  (function clean(obj){ for (const k of Object.keys(obj)) {
+    const v = obj[k];
+    if (typeof v === "string") obj[k] = v.replace(/<!--\/?[a-z]+-->/g, "");
+    else if (v && typeof v === "object") clean(v);
+  } })(o);
+}
