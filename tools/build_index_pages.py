@@ -91,20 +91,28 @@ SITE = [
  # ---------------- History ----------------
  dict(path="history/index.html", cls="history", depth=1, kicker="Year 7 Humanities",
       title="History",
-      intro="Three sources, three kinds of source. Each is answered at every level from Foundation to "
-            "Year 10, with the evidence-bearing phrases marked.",
+      intro="The units on the Year 7 program, and the sources answered at every level from Foundation "
+            "to Year 10 with the evidence-bearing phrases marked.",
       back=("../", "All four areas"),
-      sections=[("Topics", "the source type is the sequence", [
+      sections=[
+        ("Topics", "the units being taught", [
           ("&#129704;", "1 &middot; Ancient Australia", "gs73/",
            "GS73, a grinding stone from Madjedbebe. An excavated object with no author.", None),
-          ("\U0001F3FA", "2 &middot; Ancient Egypt", "egypt/",
-           "Herodotus on the Nile. A visitor writing much of it at second hand.", "draft"),
+          ("&#127772;", "2 &middot; Ancient China", "#",
+           "The assessed source-analysis unit: bronze bell, jade burial suit, Qin Shi Huang.", "not built"),
           ("&#127755;", "3 &middot; Ancient Rome", "vesuvius/",
-           "Pliny on Vesuvius. A participant who did not see the part that matters most.", "draft")])],
-      note="<b>The three source types are deliberate.</b> The questions you can ask of an object, of a "
-           "visitor's report and of a participant's letter are different questions. Units 2 and 3 are "
-           "drafts: written and levelled, but not yet taught.<br><br>"
-           "The booklet and the word list are the same for all three topics, so they sit on each topic "
+           "Pliny on Vesuvius. A participant who did not see the part that matters most.", "draft")]),
+        ("Archive", "written, levelled, but not on the program", [
+          ("\U0001F3FA", "Ancient Egypt", "egypt/",
+           "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
+           "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
+           "is a complete second-hand-report source and works as extra practice.", "archived")])],
+      note="<b>What each unit assesses is not the same.</b> Ancient Australia and Ancient China are "
+           "assessed on source analysis; Ancient China adds historical perspectives and significance. "
+           "The Ancient Rome CAT is a tourist guidebook marked on chronology, cause and effect, "
+           "metacognition and presentation &mdash; not on source analysis. The Vesuvius wall is a "
+           "source for that unit, not its assessment task.<br><br>"
+           "The booklet and the word list are the same for every topic, so they sit on each topic "
            "page rather than here."),
 
  dict(path="history/gs73/index.html", cls="history", depth=2, kicker="History &middot; Topic 1",
@@ -132,7 +140,7 @@ SITE = [
            "educational purposes. No commercial use is authorised without prior Mirarr consent. See "
            "<a href=\"SOURCE-NOTICE.md\">the source notice</a>."),
 
- dict(path="history/egypt/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
+ dict(path="history/egypt/index.html", cls="history", depth=2, kicker="History &middot; Archive",
       title="Ancient Egypt",
       intro="Herodotus on the Nile, about 430 BCE. A Greek visitor explaining a country whose writing "
             "he could not read.",
@@ -148,8 +156,14 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>Draft.</b> The worked examples are written and levelled but have not been taught. There is "
-           "no wall, level sheets or print pack for this unit yet."),
+      note="<b>Archived &mdash; not a Year 7 unit.</b> This was built as History 2 before the unit list "
+           "was checked against the program. Year 7 History teaches Ancient Australia, Ancient China and "
+           "Ancient Rome; there is no Egypt unit, and nothing here is assessed.<br><br>"
+           "It is kept, not deleted, because it is a complete worked example of a <i>second-hand "
+           "report</i> &mdash; a visitor explaining a country whose writing he could not read &mdash; "
+           "which is a source type the taught units do not otherwise cover. It works as extra practice "
+           "or a relief lesson. The worked examples are written and levelled but have never been taught, "
+           "and there is no wall, level sheets or print pack."),
 
  dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
       title="Ancient Rome",
