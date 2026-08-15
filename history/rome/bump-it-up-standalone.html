@@ -1,0 +1,1302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<meta name="description" content="Bump it up: the same source answered from Foundation to Year 10, one rung at a time, sized for the classroom screen.">
+<title>Bump It Up</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
+  /* criterion colours are not written here — they come from CRITERIA in
+     content.js, so a unit with different criteria needs no CSS edit */
+  /* one knob drives every size on the page, so it scales to any screen */
+  --u: clamp(12px, 1.02vw + 0.5vh, 30px);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);overflow:hidden;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+     font-size:var(--u);line-height:1.45}
+button{font:inherit;cursor:pointer}
+
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto;gap:.6em;padding:.7em .9em}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.title{color:var(--paper);font-weight:800;font-size:1.5em;letter-spacing:-.01em;white-space:nowrap}
+.title small{display:block;font-size:.44em;font-weight:700;letter-spacing:.16em;
+             text-transform:uppercase;opacity:.62}
+.rungs{display:flex;gap:.22em;flex-wrap:wrap;margin-left:auto}
+.rungs button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+              border-radius:2em;padding:.32em .8em;font-size:.9em;font-weight:700}
+.rungs button.done{color:#9fd3b4;border-color:#3f6b52}
+.rungs button[aria-current="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
+.toggles{display:flex;gap:.3em;position:relative}
+.toggles button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+                border-radius:.5em;padding:.38em .85em;font-size:.9em;font-weight:700}
+.toggles button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langbtn{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:.5em;
+         padding:.38em .72em;font-size:.9em;font-weight:700}
+.langbtn[data-on="1"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu{position:absolute;right:0;top:calc(100% + .35em);z-index:40;width:min(34em,92vw);
+          padding:.55em;background:var(--paper);border:1px solid var(--line);border-radius:.6em;
+          box-shadow:0 .5em 1.6em rgba(0,0,0,.35);display:grid;
+          grid-template-columns:repeat(3,minmax(0,1fr));gap:.3em}
+.langmenu[hidden]{display:none}
+.langmenu button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                 border-radius:.4em;padding:.45em .55em;text-align:left;font-size:.78em;line-height:1.25}
+.langmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu .clear{grid-column:1/-1;text-align:center}
+.pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .pick{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .pick span{display:block;font-size:.78em;color:var(--muted);margin-bottom:.3em}
+.pop .pick button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                  border-radius:.4em;padding:.22em .5em;margin:0 .25em .25em 0;font-size:.86em}
+.pop .pick button:hover{border-color:var(--deep)}
+.pop .tr b{display:block;font-size:1.25em;line-height:1.3;color:var(--deep)}
+.pop .tr .warn{display:block;font-size:.74em;color:var(--muted);margin-top:.25em;font-style:italic}
+
+/* ---------- main split ---------- */
+.main{display:grid;grid-template-columns:minmax(0,31%) minmax(0,1fr);gap:.7em;min-height:0}
+
+/* the rock, always on screen */
+.rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
+      gap:.45em;min-height:0}
+/* The hotspots are positioned against this box, so it has to keep the plate's
+   shape even if the image itself never arrives — otherwise the buttons collapse
+   on top of the caption. */
+.plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
+.plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
+.plate .missing{position:absolute;inset:0;display:none;place-items:center;text-align:center;
+                color:#cfc7b8;font-size:.8em;padding:1em;line-height:1.4}
+.plate.noimg .missing{display:grid}
+.plate.noimg button{display:none}
+.plate button{position:absolute;border:2px solid transparent;background:transparent;border-radius:.3em;padding:0}
+.plate button:hover,.plate button:focus-visible{border-color:#f4d98b;background:rgba(244,217,139,.14);outline:none}
+.plate button[aria-pressed="true"]{border-color:#f4d98b;background:rgba(244,217,139,.2)}
+.plate .pin{position:absolute;top:.25em;right:.3em;width:1.5em;height:1.5em;border-radius:50%;
+            background:rgba(15,18,17,.85);color:#f4d98b;font-size:.72em;font-weight:800;
+            display:grid;place-items:center;pointer-events:none}
+/* A written source sits in the same slot the picture would. It scrolls rather
+   than keeping a fixed shape, because a passage has no aspect ratio. */
+.plate.text{flex:1 1 auto;min-height:0;overflow:auto;padding:.7em .85em;
+            background:#141a18;border:1px solid #2b3431}
+.passage{font-family:Georgia,"Times New Roman",serif;color:#eae5db;font-size:1.02em;line-height:1.55}
+.passage p{margin:0 0 .6em}
+.passage .seg{cursor:pointer;border-bottom:.12em solid #6b7d78;border-radius:.1em}
+.passage .seg:hover,.passage .seg:focus-visible{background:rgba(244,217,139,.18);outline:none}
+.passage .seg[aria-pressed="true"]{background:rgba(244,217,139,.28);border-bottom-color:#f4d98b}
+.passage .segno{color:#f4d98b;font-weight:800;font-size:.78em;vertical-align:.35em;padding-left:.1em}
+.passage .cite{display:block;margin-top:.4em;color:#9aa8a3;font-size:.8em;
+               font-family:system-ui,sans-serif;line-height:1.4}
+.zoomall{border:1px solid #3b4442;background:#222927;color:#f4d98b;border-radius:.5em;
+          padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
+.rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
+/* The two panels share the column; only one is on screen, so neither has to
+   fight the other for height — which is what was pushing the "I can" list off
+   the bottom of the screen. */
+.tabs{display:flex;gap:.25em;flex:0 0 auto}
+.tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+             border-radius:.45em;padding:.35em .5em;font-size:.92em;font-weight:700}
+.tabs button[aria-selected="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
+.pane{display:flex;flex-direction:column;gap:.45em;min-height:0;flex:1 1 auto}
+.pane[hidden]{display:none}
+.rubric{overflow:auto;min-height:0;flex:1 1 auto;display:grid;gap:.4em;align-content:start}
+.rubric .band{font-size:.78em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+              color:#8fa39c}
+.rubric .row{background:#1b2220;border:1px solid #33403c;border-left-width:.3em;
+             border-radius:.45em;padding:.5em .65em}
+.rubric .row h4{font-size:.9em;margin-bottom:.15em;display:flex;gap:.4em;align-items:baseline}
+.rubric .row p{color:#eae5db;font-size:.92em;line-height:1.35}
+.rubric .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78em;
+              color:#8fa39c;margin-top:.25em;display:block}
+.rubric .note{color:#8fa39c;font-size:.82em;line-height:1.4}
+.kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
+     overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
+     font-size:calc(1em * var(--kk,1))}
+/* flex:0 0 so the passage beside it cannot eat the box's last line — the "I can"
+   list is the thing a student reads to know what they are aiming at */
+.kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
+           text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
+.kid ul{list-style:none;display:grid;gap:.35em}
+.kid li{color:#eae5db;font-size:.95em;line-height:1.35;padding-left:1.1em;position:relative}
+.kid li::before{content:"✓";position:absolute;left:0;color:#9fd3b4;font-weight:800}
+.rockcap b{color:#f4d98b;display:block;font-size:1.02em}
+.rockcap .idle{opacity:.6}
+
+/* the stage */
+.stage{background:var(--paper);border-radius:.6em;padding:1em 1.2em;overflow:auto;min-height:0;
+       display:flex;flex-direction:column;gap:.7em;font-size:calc(var(--u) * var(--sk,1))}
+.stage h2{color:var(--deep);font-size:1.9em;line-height:1.06;letter-spacing:-.015em}
+.stage h2 .of{color:var(--muted);font-size:.45em;font-weight:700;letter-spacing:.12em;
+              text-transform:uppercase;display:block;margin-bottom:.15em}
+.newbar{background:var(--gold);color:#fff;border-radius:.45em;padding:.5em .8em;font-size:1.02em;font-weight:700}
+.newbar span{display:block;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:800}
+.bg{background:var(--band);border-left:.35em solid var(--deep);border-radius:.4em;
+    padding:.55em .8em;font-size:.98em}
+.bg span{display:block;font-size:.66em;letter-spacing:.13em;text-transform:uppercase;
+         color:var(--muted);font-weight:800;margin-bottom:.1em}
+/* --k is set per rung from how much prose that rung actually has, so Prep
+   fills the screen instead of leaving two thirds of it blank */
+.example{font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+         font-size:calc(1.45em * var(--k,1))}
+.crumbs{font-size:.92em;color:var(--muted)}
+/* the actual curriculum descriptors this rung meets */
+.vc{background:#eef3f3;border-radius:.4em;padding:.5em .8em;font-size:.86em;line-height:1.4}
+.vc span{display:block;font-size:.72em;letter-spacing:.13em;text-transform:uppercase;
+         color:var(--muted);font-weight:800;margin-bottom:.25em}
+.vc li{margin:.18em 0 .18em 1.1em}
+.vc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;
+         color:var(--deep);font-size:.92em}
+.vc .none{color:var(--muted);font-style:italic}
+
+/* the source stage */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:.5em}
+.fact{background:var(--band);border-radius:.45em;padding:.6em .8em;font-size:1.08em;line-height:1.4}
+.fact b{display:block;color:var(--deep);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.15em}
+.inquiry{background:var(--deep);color:var(--on-deep);border-radius:.5em;padding:.7em 1em;
+         font-size:1.35em;font-weight:800;line-height:1.25}
+
+/* ---------- the two channels ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:.18em;
+   text-decoration-thickness:.06em;cursor:pointer;border-radius:.15em;padding:0 .06em}
+.m:hover,.m:focus-visible{background:#fff2c9;outline:none}
+/* .m-KEY, .k-KEY and .pop.k-KEY are written at load from CRITERIA */
+
+/* glossary chips */
+.g3,.g2{cursor:pointer;border-radius:.15em}
+.g3{border-bottom:.14em dotted currentColor}
+/* a word that has a translation waiting says so, rather than hiding behind a
+   dropdown the student has to find first */
+.g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
+/* Inside a marked phrase, a chip's own dotted border stacks on top of the
+   criterion's underline and the two patterns become unreadable — and that
+   pattern is the channel that survives greyscale. Tint instead. */
+.m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
+/* tier 2 is its own affordance: a soft tint you can always see, and each word
+   opens on its own rather than the whole page flipping at once */
+.g2{background:#e7f0d8;box-shadow:0 0 0 .09em #e7f0d8}
+.g2.on::after{content:" (" attr(data-syn) ")";color:var(--muted);font-size:.82em;font-style:italic}
+.m .g2{background:rgba(21,128,61,.13);box-shadow:none;padding:0 .12em}
+
+/* ---------- full-screen picture ---------- */
+.zoom{position:fixed;inset:0;z-index:60;background:#070a09;display:grid;
+      grid-template-rows:1fr auto;padding:1.2em 1.4em 1em;gap:.6em}
+.zoom[hidden]{display:none}
+.zstage{position:relative;min-height:0;display:grid;place-items:center}
+.zwrap{position:relative;overflow:hidden;border-radius:.4em;background:#000}
+.zwrap[hidden]{display:none}
+.zwrap img{position:absolute;display:block;max-width:none}
+/* the written-source equivalent of the crop box: the passage at reading size
+   for the back of the room, with the segment under discussion lit up */
+.zpass{max-width:46ch;max-height:100%;overflow:auto;color:#f4f0e6;
+       font-family:Georgia,"Times New Roman",serif;font-size:1.42em;line-height:1.5}
+.zpass[hidden]{display:none}
+.zpass p{margin:0 0 .6em}
+.zpass .seg{opacity:.42}
+.zpass .seg.lit{opacity:1;background:rgba(244,217,139,.22);border-radius:.15em;
+                box-shadow:0 0 0 .12em rgba(244,217,139,.22)}
+/* the whole-passage view dims nothing and lights nothing: it is the passage */
+.zpass.all .seg{opacity:1;background:none;box-shadow:none}
+.zpass .cite{display:block;margin-top:.5em;color:#9aa8a3;font-size:.5em;
+             font-family:system-ui,sans-serif;line-height:1.4}
+.zcap{text-align:center;color:#f4f0e6;max-width:60ch;margin:0 auto}
+.zcap b{display:block;color:#f4d98b;font-size:1.9em;line-height:1.15;margin-bottom:.15em}
+.zcap span{font-size:1.25em;line-height:1.4}
+.zclose{position:absolute;top:.5em;right:.7em;z-index:2;border:1px solid #3b4442;
+        background:#161c1a;color:#f4f0e6;border-radius:.5em;padding:.3em .7em;font-size:1.2em}
+.znav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;border:1px solid #3b4442;
+      background:rgba(18,22,21,.85);color:#f4f0e6;border-radius:50%;
+      width:2em;height:2em;font-size:1.8em;line-height:1;display:grid;place-items:center}
+.zprev{left:.3em} .znext{right:.3em}
+.zdots{display:flex;gap:.4em;justify-content:center}
+.zdots button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:2em;
+              padding:.3em .9em;font-size:.92em;font-weight:700}
+.zdots button[aria-current="true"]{background:#f4d98b;border-color:#f4d98b;color:#20231f}
+
+/* ---------- popup ---------- */
+.pop{position:fixed;inset:auto;z-index:40;max-width:min(46em,80vw);background:#fff;
+     border-radius:.6em;box-shadow:0 1.2em 3em rgba(0,0,0,.45);padding:.9em 1.1em;display:none}
+.pop.show{display:block}
+.pop .kind{font-size:.72em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2em}
+.pop .word{font-size:1.35em;font-weight:800;color:var(--deep);line-height:1.15;margin-bottom:.25em}
+.pop .body{font-size:1.02em;line-height:1.45}
+.pop .close{position:absolute;top:.3em;right:.5em;border:0;background:none;font-size:1.2em;color:var(--muted)}
+.pop.k-word .kind{color:var(--gold)}
+
+/* ---------- bottom ---------- */
+.foot{display:flex;align-items:center;gap:.6em}
+.nav{display:flex;gap:.4em}
+.nav button{border:0;background:var(--paper);color:var(--deep);border-radius:.5em;
+            padding:.45em 1.4em;font-weight:800;font-size:1.05em}
+.nav button:disabled{opacity:.35}
+.key{display:flex;gap:.8em;flex-wrap:wrap;margin-left:auto;color:#cfc7b8;font-size:.95em}
+.key i{font-style:normal;font-weight:700}
+
+@media (max-width:900px){
+  body{overflow:auto}
+  .app{height:auto}
+  .main{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="bar">
+    <div class="title"><small id="kicker"></small><span id="rungName"></span></div>
+    <div class="rungs" id="rungs"></div>
+    <div class="toggles">
+      <button id="tBg"  aria-pressed="false">Background</button>
+
+      <button class="langbtn" id="tLangBtn" type="button" aria-expanded="false"
+              aria-controls="langMenu" data-on="0">🌐 Translate</button>
+      <div class="langmenu" id="langMenu" hidden></div>
+      
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="rock">
+      <div class="tabs" id="tabs" role="tablist">
+        <button id="tabSource" role="tab" aria-selected="true">The source</button>
+        <button id="tabRubric" role="tab" aria-selected="false">Rubric</button>
+      </div>
+      <div class="pane" id="paneSource">
+        <div class="plate" id="plate"></div>
+        <button class="zoomall" id="zoomAll">⤢ Open it big</button>
+        <div class="rockcap" id="rockcap"></div>
+      </div>
+      <div class="pane" id="paneRubric" hidden></div>
+    </div>
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <div class="foot">
+    <div class="nav">
+      <button id="prev">← Back</button>
+      <button id="next">Next →</button>
+    </div>
+    <div class="key" id="key"></div>
+  </div>
+</div>
+
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="The source, enlarged">
+  <button class="zclose" id="zClose">✕ Close</button>
+  <button class="znav zprev" id="zPrev" aria-label="Previous view">‹</button>
+  <button class="znav znext" id="zNext" aria-label="Next view">›</button>
+  <div class="zstage">
+    <div class="zwrap" id="zWrap"><img id="zImg" alt=""
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></div>
+    <div class="zpass" id="zPass" hidden></div>
+  </div>
+  <div class="zcap"><b id="zTitle"></b><span id="zText"></span></div>
+  <div class="zdots" id="zDots"></div>
+</div>
+
+<div class="pop" id="pop" role="dialog" aria-live="polite">
+  <button class="close" id="popClose" aria-label="Close">✕</button>
+  <div class="kind" id="popKind"></div>
+  <div class="word" id="popWord"></div>
+  <div class="body" id="popBody"></div>
+</div>
+
+<script>
+/* inlined from ../../eal.js */
+/* =======================================================================
+   EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
+
+   These are the words a student needs in order to do source analysis at
+   all, as opposed to the words of any one unit. All three History units
+   read this file; the unit's own GLOSS.tier3 carries what is specific to
+   that source.
+
+   THE SAME TABLE FEEDS THE VOCABULARY HUB. tools/build_vocab_entries.py
+   turns it into entries for liaminhawai-cmd/EAL-Vocabulary-Site, so the
+   wall and the hub cannot end up teaching different words. Edit here, run
+   that script, and both are updated.
+
+   ---------------------------------------------------------------------
+   TRANSLATION STATUS: MACHINE-DRAFTED, NOT YET REVIEWED.
+
+   The vocabulary site's own rule is that every translation set must
+   include REVIEWED Taiwan Traditional Chinese as its own value, with
+   Taiwan terminology rather than character conversion. These drafts were
+   written with that in mind — zh-Hant and zh-Hans differ in wording, not
+   just in characters, wherever the two varieties genuinely differ — but
+   nobody has reviewed them yet. The wall labels them as unreviewed on
+   screen, and they should not be treated as meeting that rule until a
+   speaker of each language has been through them.
+
+   `morph` is the morpheme breakdown, where the word has one. The hub is
+   built on morphology, so this is what lets a word join its family there.
+   ======================================================================= */
+
+const EAL_LANGS = [
+  { code:"zh-Hans", label:"简体中文（中国）", english:"Chinese (China)" },
+  { code:"zh-Hant", label:"繁體中文（台灣）", english:"Chinese (Taiwan)" },
+  { code:"ja",      label:"日本語",           english:"Japanese" },
+  { code:"ko",      label:"한국어",            english:"Korean" },
+  { code:"vi",      label:"Tiếng Việt",       english:"Vietnamese" },
+  { code:"ar",      label:"العربية",           english:"Arabic" },
+  { code:"fa",      label:"فارسی",             english:"Farsi/Dari" },
+  { code:"ur",      label:"اردو",              english:"Urdu" },
+  { code:"ps",      label:"پښتو",              english:"Pashto" },
+  { code:"am",      label:"አማርኛ",             english:"Amharic" },
+  { code:"ml",      label:"മലയാളം",           english:"Malayalam" },
+  { code:"ta",      label:"தமிழ்",             english:"Tamil" },
+  { code:"hi",      label:"हिन्दी",              english:"Hindi" },
+  { code:"tl",      label:"Tagalog",          english:"Tagalog" },
+  { code:"ro",      label:"Română",           english:"Romanian" },
+  { code:"ru",      label:"Русский",          english:"Russian" },
+  { code:"fr",      label:"Français",         english:"French" },
+  { code:"es",      label:"Español",          english:"Spanish" }
+];
+
+const EAL_NOTE = "Machine-drafted. Not yet checked by a speaker of each language.";
+
+const EAL = {
+"source": { en:"Something from the past that we use to find out what happened.",
+  t:{ "zh-Hans":"史料", "zh-Hant":"史料", ja:"史料", ko:"사료", vi:"nguồn sử liệu",
+      ar:"مصدر", fa:"منبع", ur:"ماخذ", ps:"سرچینه", am:"ምንጭ", ml:"സ്രോതസ്സ്",
+      ta:"ஆதாரம்", hi:"स्रोत", tl:"pinagmulan", ro:"sursă", ru:"источник",
+      fr:"source", es:"fuente" }},
+
+"primary source": { en:"A source made at the time by someone who was there.",
+  t:{ "zh-Hans":"第一手史料", "zh-Hant":"第一手史料", ja:"一次史料", ko:"1차 사료",
+      vi:"nguồn sơ cấp", ar:"مصدر أولي", fa:"منبع دست اول", ur:"بنیادی ماخذ",
+      ps:"لومړنۍ سرچینه", am:"ቀዳማይ ምንጭ", ml:"പ്രാഥമിക സ്രോതസ്സ്",
+      ta:"முதன்மை ஆதாரம்", hi:"प्राथमिक स्रोत", tl:"pangunahing pinagmulan",
+      ro:"sursă primară", ru:"первичный источник", fr:"source primaire",
+      es:"fuente primaria" }},
+
+"secondary source": { en:"A source made later by someone studying the past.",
+  t:{ "zh-Hans":"第二手史料", "zh-Hant":"第二手史料", ja:"二次史料", ko:"2차 사료",
+      vi:"nguồn thứ cấp", ar:"مصدر ثانوي", fa:"منبع دست دوم", ur:"ثانوی ماخذ",
+      ps:"دویمنۍ سرچینه", am:"ካልኣይ ምንጭ", ml:"ദ്വിതീയ സ്രോതസ്സ്",
+      ta:"இரண்டாம் நிலை ஆதாரம்", hi:"द्वितीयक स्रोत", tl:"pangalawang pinagmulan",
+      ro:"sursă secundară", ru:"вторичный источник", fr:"source secondaire",
+      es:"fuente secundaria" }},
+
+"evidence": { en:"The part of a source that proves something.",
+  t:{ "zh-Hans":"证据", "zh-Hant":"證據", ja:"証拠", ko:"증거", vi:"bằng chứng",
+      ar:"دليل", fa:"شواهد", ur:"ثبوت", ps:"شواهد", am:"ማስረጃ", ml:"തെളിവ്",
+      ta:"சான்று", hi:"साक्ष्य", tl:"katibayan", ro:"dovadă", ru:"доказательство",
+      fr:"preuve", es:"evidencia" }},
+
+"artefact": { en:"An object made or used by people in the past.",
+  morph:[["arte","skill/craft","root"],["fact","made","root"]],
+  t:{ "zh-Hans":"文物", "zh-Hant":"文物", ja:"遺物", ko:"유물", vi:"hiện vật",
+      ar:"قطعة أثرية", fa:"شیء باستانی", ur:"نوادر", ps:"لرغونی توکی",
+      am:"ቅርስ", ml:"പുരാവസ്തു", ta:"தொல்பொருள்", hi:"कलाकृति",
+      tl:"artepakto", ro:"artefact", ru:"артефакт", fr:"artefact", es:"artefacto" }},
+
+"archaeologist": { en:"Someone who studies the past by digging up what people left behind.",
+  morph:[["archaeo","ancient","root"],["log","study of","root"],["ist","a person who","suffix"]],
+  t:{ "zh-Hans":"考古学家", "zh-Hant":"考古學家", ja:"考古学者", ko:"고고학자",
+      vi:"nhà khảo cổ học", ar:"عالم آثار", fa:"باستان‌شناس", ur:"ماہرِ آثارِ قدیمہ",
+      ps:"لرغون پوه", am:"አርኪኦሎጂስት", ml:"പുരാവസ്തു ഗവേഷകൻ",
+      ta:"தொல்லியலாளர்", hi:"पुरातत्वविद्", tl:"arkeologo", ro:"arheolog",
+      ru:"археолог", fr:"archéologue", es:"arqueólogo" }},
+
+"excavate": { en:"To dig something carefully out of the ground.",
+  morph:[["ex","out","prefix"],["cav","hollow","root"],["ate","to do","suffix"]],
+  t:{ "zh-Hans":"发掘", "zh-Hant":"發掘", ja:"発掘する", ko:"발굴하다",
+      vi:"khai quật", ar:"يُنقّب", fa:"کاوش کردن", ur:"کھدائی کرنا",
+      ps:"کیندل", am:"መቆፈር", ml:"ഖനനം ചെയ്യുക", ta:"அகழ்வாய்வு செய்",
+      hi:"खुदाई करना", tl:"maghukay", ro:"a excava", ru:"раскапывать",
+      fr:"fouiller", es:"excavar" }},
+
+"interpretation": { en:"What someone thinks a source means.",
+  morph:[["inter","between","prefix"],["pret","explain","root"],["ation","the act of","suffix"]],
+  t:{ "zh-Hans":"解释", "zh-Hant":"詮釋", ja:"解釈", ko:"해석", vi:"cách diễn giải",
+      ar:"تفسير", fa:"تفسیر", ur:"تعبیر", ps:"تفسیر", am:"ትርጓሜ",
+      ml:"വ്യാഖ്യാനം", ta:"விளக்கம்", hi:"व्याख्या", tl:"interpretasyon",
+      ro:"interpretare", ru:"интерпретация", fr:"interprétation",
+      es:"interpretación" }},
+
+"perspective": { en:"How something looks from one person's point of view.",
+  morph:[["per","through","prefix"],["spect","look","root"],["ive","having the quality of","suffix"]],
+  t:{ "zh-Hans":"观点", "zh-Hant":"觀點", ja:"視点", ko:"관점", vi:"góc nhìn",
+      ar:"وجهة نظر", fa:"دیدگاه", ur:"نقطۂ نظر", ps:"نظر", am:"አመለካከት",
+      ml:"കാഴ്ചപ്പാട്", ta:"பார்வை", hi:"दृष्टिकोण", tl:"pananaw",
+      ro:"perspectivă", ru:"точка зрения", fr:"point de vue", es:"perspectiva" }},
+
+"context": { en:"What was going on around the source when it was made.",
+  morph:[["con","together","prefix"],["text","woven","root"]],
+  t:{ "zh-Hans":"背景", "zh-Hant":"背景", ja:"背景", ko:"맥락", vi:"bối cảnh",
+      ar:"سياق", fa:"زمینه", ur:"پس منظر", ps:"شالید", am:"አውድ",
+      ml:"സന്ദർഭം", ta:"பின்னணி", hi:"संदर्भ", tl:"konteksto", ro:"context",
+      ru:"контекст", fr:"contexte", es:"contexto" }},
+
+"reliable": { en:"Able to be trusted.",
+  t:{ "zh-Hans":"可靠", "zh-Hant":"可靠", ja:"信頼できる", ko:"신뢰할 수 있는",
+      vi:"đáng tin cậy", ar:"موثوق", fa:"قابل اعتماد", ur:"قابلِ اعتماد",
+      ps:"د باور وړ", am:"አስተማማኝ", ml:"വിശ്വസനീയം", ta:"நம்பகமான",
+      hi:"विश्वसनीय", tl:"maaasahan", ro:"de încredere", ru:"надёжный",
+      fr:"fiable", es:"fiable" }},
+
+"bias": { en:"Leaning towards one side instead of being fair.",
+  t:{ "zh-Hans":"偏见", "zh-Hant":"偏見", ja:"偏り", ko:"편향", vi:"thiên kiến",
+      ar:"تحيّز", fa:"سوگیری", ur:"جانبداری", ps:"تعصب", am:"አድልዎ",
+      ml:"പക്ഷപാതം", ta:"சார்பு", hi:"पूर्वाग्रह", tl:"pagkiling",
+      ro:"părtinire", ru:"предвзятость", fr:"parti pris", es:"sesgo" }},
+
+"purpose": { en:"The reason something was made.",
+  t:{ "zh-Hans":"目的", "zh-Hant":"目的", ja:"目的", ko:"목적", vi:"mục đích",
+      ar:"الغرض", fa:"هدف", ur:"مقصد", ps:"موخه", am:"ዓላማ", ml:"ഉദ്ദേശ്യം",
+      ta:"நோக்கம்", hi:"उद्देश्य", tl:"layunin", ro:"scop", ru:"цель",
+      fr:"but", es:"propósito" }},
+
+"audience": { en:"The people something was made for.",
+  morph:[["audi","hear","root"],["ence","the state of","suffix"]],
+  t:{ "zh-Hans":"受众", "zh-Hant":"讀者群", ja:"読み手", ko:"독자층",
+      vi:"đối tượng người đọc", ar:"الجمهور", fa:"مخاطب", ur:"سامعین",
+      ps:"لوستونکي", am:"አድማጭ", ml:"വായനക്കാർ", ta:"வாசகர்கள்",
+      hi:"पाठक वर्ग", tl:"mambabasa", ro:"public", ru:"аудитория",
+      fr:"public", es:"público" }},
+
+"eyewitness": { en:"Someone who saw it happen with their own eyes.",
+  t:{ "zh-Hans":"目击者", "zh-Hant":"目擊者", ja:"目撃者", ko:"목격자",
+      vi:"nhân chứng tận mắt", ar:"شاهد عيان", fa:"شاهد عینی", ur:"عینی شاہد",
+      ps:"سترګه لیدونکی", am:"የዓይን ምስክር", ml:"ദൃക്‌സാക്ഷി",
+      ta:"நேரில் கண்டவர்", hi:"प्रत्यक्षदर्शी", tl:"saksi", ro:"martor ocular",
+      ru:"очевидец", fr:"témoin oculaire", es:"testigo presencial" }},
+
+"hearsay": { en:"Something you were told, rather than saw yourself.",
+  t:{ "zh-Hans":"传闻", "zh-Hant":"傳聞", ja:"伝聞", ko:"전해 들은 말",
+      vi:"lời đồn", ar:"سماع", fa:"شنیده", ur:"سنی سنائی بات", ps:"اورېدلي",
+      am:"ወሬ", ml:"കേട്ടുകേൾവി", ta:"கேள்விச் செய்தி", hi:"सुनी-सुनाई बात",
+      tl:"sabi-sabi", ro:"din auzite", ru:"слухи", fr:"ouï-dire",
+      es:"de oídas" }},
+
+"corroborate": { en:"To back something up with separate evidence.",
+  morph:[["cor","together","prefix"],["robor","strength","root"],["ate","to do","suffix"]],
+  t:{ "zh-Hans":"佐证", "zh-Hant":"佐證", ja:"裏付ける", ko:"뒷받침하다",
+      vi:"chứng thực", ar:"يؤكّد", fa:"تأیید کردن", ur:"تصدیق کرنا",
+      ps:"تاييدول", am:"ማረጋገጥ", ml:"സ്ഥിരീകരിക്കുക", ta:"உறுதிப்படுத்து",
+      hi:"पुष्टि करना", tl:"patunayan", ro:"a corobora", ru:"подтверждать",
+      fr:"corroborer", es:"corroborar" }},
+
+"chronology": { en:"The order in which things happened.",
+  morph:[["chrono","time","root"],["logy","study of","suffix"]],
+  t:{ "zh-Hans":"年代顺序", "zh-Hant":"年代順序", ja:"年代順", ko:"연대순",
+      vi:"trình tự thời gian", ar:"التسلسل الزمني", fa:"گاه‌شماری",
+      ur:"زمانی ترتیب", ps:"د وخت ترتیب", am:"የጊዜ ቅደም ተከተል",
+      ml:"കാലക്രമം", ta:"காலவரிசை", hi:"कालक्रम", tl:"pagkakasunod-sunod",
+      ro:"cronologie", ru:"хронология", fr:"chronologie", es:"cronología" }},
+
+"translation": { en:"A version of a text put into another language.",
+  morph:[["trans","across","prefix"],["lat","carried","root"],["ion","the act of","suffix"]],
+  t:{ "zh-Hans":"译文", "zh-Hant":"譯文", ja:"翻訳", ko:"번역", vi:"bản dịch",
+      ar:"ترجمة", fa:"ترجمه", ur:"ترجمہ", ps:"ژباړه", am:"ትርጉም",
+      ml:"വിവർത്തനം", ta:"மொழிபெயர்ப்பு", hi:"अनुवाद", tl:"salin",
+      ro:"traducere", ru:"перевод", fr:"traduction", es:"traducción" }},
+
+"manuscript": { en:"A copy of a text written out by hand, before printing existed.",
+  morph:[["manu","hand","root"],["script","written","root"]],
+  t:{ "zh-Hans":"手稿", "zh-Hant":"手稿", ja:"写本", ko:"필사본", vi:"bản chép tay",
+      ar:"مخطوطة", fa:"دست‌نوشته", ur:"مخطوطہ", ps:"لاسي لیکنه", am:"የእጅ ጽሑፍ",
+      ml:"കൈയെഴുത്തുപ്രതി", ta:"கையெழுத்துப் பிரதி", hi:"पांडुलिपि",
+      tl:"manuskrito", ro:"manuscris", ru:"рукопись", fr:"manuscrit",
+      es:"manuscrito" }}
+};
+
+</script>
+<script>
+/* inlined from content.js */
+/* =======================================================================
+   CONTENT BLOCK for the Ancient Rome WAGOLL family.
+   This is the ONLY place the wall text lives.
+
+   Mark evidence in an example with {key|the phrase}, where key is one of
+   the criterion keys in CRITERIA. Anything left unmarked stays black.
+
+   ------------------------------------------------------------------
+   THIS WALL REHEARSES CAT 2, AND IT IS NOT A SOURCE-ANALYSIS WALL.
+
+   Every other History wall on this site marks up an analytical paragraph
+   about a source, because that is what those units assess. Ancient Rome does
+   not assess source analysis at all. Its CAT is a tourist guidebook written
+   for someone travelling from the outer reaches of the empire to Rome in
+   300 CE, and it is marked on four things: chronology, cause and effect,
+   metacognition, and presentation.
+
+   So the worked examples below are guidebook writing. A student comparing
+   their draft with this wall is comparing like with like — the same genre,
+   the same audience, the same four criteria — rather than reading a model of
+   a task they were never set.
+
+   Metacognition is a real criterion here. It was withdrawn from the Ancient
+   Australia wall because that CAT does not mark it; this one does, and the
+   rubric asks for summarising, paraphrasing, and choosing and monitoring
+   strategies. On the wall it is the phrase where the writer's own thinking
+   shows.
+   ======================================================================= */
+
+const WALL = {
+  id: "hist-rome",
+  title: "A guidebook to Rome, 300 CE",
+  expected: "Level 7",
+  inquiry: "A traveller is coming to Rome from the far edge of the empire and has never seen the city. What do they need to know before they arrive?",
+  foot: "<b>Task:</b> Year 7 History CAT 2, Ancient Rome. Research and write a tourist guidebook for someone travelling from the outer reaches of the Roman Empire to the city of Rome in 300 CE. It must include a map of the city centre, a timeline of Rome's history to 300 CE, a one-page history, what to see, religion, currency, language and accommodation. Three lessons, submitted to Compass. The four rows on this wall are that CAT's rubric, level for level."
+};
+
+const FACTS = [
+  ["The traveller", "Someone from the empire's outer edge — Britain, North Africa, Syria — who has never seen Rome and needs to arrive able to cope."],
+  ["The year", "300 CE. Not the Republic, not the height of the Empire. Christianity is rising but Constantine has not yet converted."],
+  ["What it must contain", "Map, timeline, history, what to see, religion, currency, language, accommodation. Eight sections."],
+  ["Whose Rome", "Accommodation must cover a peasant AND a wealthy traveller. The guidebook is not written only for the rich."],
+  ["The trap", "Writing a guidebook for modern tourists. The task says ancient visitors, and the highlight in the task sheet says so twice."],
+  ["What it is marked on", "Chronology, cause and effect, metacognition, presentation. Not source analysis — that is CAT 1 and CAT 3."]
+];
+
+/* ink   — the colour on paper, all four above 4.5:1 on the wall's cream
+   lamp  — the same criterion on the dark bar of the big-screen tool
+   underline — the second channel, which survives a greyscale photocopy and
+               a colour-blind reader. */
+const CRITERIA = [
+  { key:"chronology",   row:"Chronology",           name:"Chronology",           glyph:"■",
+    ink:"#176b87", lamp:"#6fc0da", underline:"solid" },
+  { key:"cause",        row:"Cause and effect",     name:"Cause and effect",     glyph:"▲",
+    ink:"#2f6b3f", lamp:"#74c288", underline:"dashed" },
+  { key:"meta",         row:"Metacognition",        name:"Metacognition",        glyph:"●",
+    ink:"#a34d1d", lamp:"#e89a63", underline:"dotted" },
+  { key:"presentation", row:"Presentation",         name:"Presentation",         glyph:"◆",
+    ink:"#6b4a86", lamp:"#bda0d8", underline:"double" },
+];
+
+/* The CAT rubric's own bands. */
+const LEVELS = ["Level 6","Level 7","Level 8","Level 9"];
+
+const EXAMPLES = {
+"Level 6":
+`Welcome to Rome, the greatest city in the empire. It began in {chronology|753 BCE}, which was more than a thousand years before you arrive in {chronology|300 CE}, and the city grew this large because {cause|the River Tiber let boats carry grain and goods right into the centre}. While you are here you should visit the Forum, the public baths and the Colosseum, and you should carry Roman coins with you, because {cause|traders will not sell you food without them}. If you become lost, say "ubi thermae?", which means "where are the baths?", and {presentation|a labelled map of the city centre is printed on the next page}. {meta|I wrote my timeline before anything else, so that my dates stayed in the right order}.`,
+
+"Level 7":
+`Welcome to Rome, the largest and busiest city you will ever see. It was founded in {chronology|753 BCE} and has passed through three ages since then: {chronology|first the kings, then the Republic, and now the emperors}. You are arriving in {chronology|300 CE}, which places you late in that third age. The city can feed so many people because {cause|aqueducts carry fresh water down from the hills} and {cause|the Tiber and the great roads bring grain from Egypt and North Africa}. Visit the Forum first, then the public baths, and leave the Colosseum until last, and remember that money matters a great deal here, so carry denarii with you at all times. Three phrases will save you trouble, beginning with {presentation|"ubi thermae?", which means "where are the baths?"}. If you are poor you will sleep in an insula, a crowded block of rented rooms; if you are wealthy you will stay in a domus built around its own private courtyard. {presentation|Every section of this guidebook has its own heading and an illustration}, and {meta|I placed the timeline before the history section, because the dates make the whole story far easier to follow}.`,
+
+"Level 8":
+`Welcome to Rome. The city has existed for {chronology|more than a thousand years by the time you arrive in 300 CE}, and it is easiest to hold if you split it into three periods: {chronology|the regal period to 509 BCE, the Republic to 27 BCE, and the imperial period you are travelling in now}. Rome became this large for reasons that still shape your visit. {cause|Because the empire expanded, grain arrived from Egypt and North Africa, which is why a city of a million people does not starve}. {cause|Because the aqueducts were built, there is water for the baths you will use}, and {cause|because the roads were built, you can travel here at all}. Plan your days around the Forum, the baths and the Colosseum, and remember that entertainment came to Rome from the Etruscans. Religion is not optional: honour Jupiter, Mars and Diana, {cause|because Romans believed an offended god brought disaster on the whole city, not only on the person who offended them}. Your accommodation depends on your money — an insula if you are poor, a domus if you are wealthy. {presentation|I have used a labelled map, a dated timeline and a caption under every image so each section can be found quickly}. {meta|I summarised my research into my own words rather than copying it, because that forced me to work out what a traveller actually needs}.`,
+
+"Level 9":
+`Welcome to Rome, a city of perhaps a million people in {chronology|300 CE}. Its history divides cleanly into three, and knowing which one you are in matters: {chronology|the regal period from 753 to 509 BCE, the Republic from 509 to 27 BCE, and the imperial period that has run for the three centuries since}. You are arriving late in the third, {chronology|closer to Constantine than to Augustus}. Almost everything you will find useful here is a consequence of something. {cause|Conquest brought Egyptian and African grain into the ports, which is what allows a city this size to eat}, and {cause|the same conquests brought in the enslaved people whose labour built much of what you will admire}. {cause|Because the aqueducts carry fresh water, the baths are public and cheap, which is why they became where Romans do their business as much as their washing}. Rome adopted much of its art, architecture and entertainment from the Greeks and the Etruscans, {cause|so what looks Roman to you is often older and borrowed}. Honour the gods carefully. {cause|Romans held that an offended god punished the whole community, so a foreigner's carelessness was everyone's problem}. Where you sleep will depend entirely on your means: an insula, crowded and stacked, or a domus built around its own courtyard. {presentation|I have set the guidebook out as eight sections, each with a heading, a labelled map or image, and a caption that repeats the one fact a hurried reader needs}. {meta|I paraphrased my sources instead of quoting them, which showed me where I had understood something and where I had only copied it}. {meta|I also rewrote the religion section last, because checking it against the task sheet showed I had written for modern tourists rather than ancient ones}.`
+};
+
+const EXPLANATIONS = {
+"Level 6": {
+  chronology:   "Gives dates and puts them in order.",
+  cause:        "Identifies one cause of Rome's growth.",
+  meta:         "Names one strategy used, and why.",
+  presentation: "Presents information in a basic way — a map is included."
+},
+"Level 7": {
+  chronology:   "Sequences within a framework, naming the three periods and placing the reader inside one.",
+  cause:        "Describes causes and their effects on people, not just events.",
+  meta:         "Determines a strategy and gives a reason it suits the task.",
+  presentation: "Presents creatively — headings, a picture, and a phrase given with its translation."
+},
+"Level 8": {
+  chronology:   "Sequences with reference to named periods and their dates.",
+  cause:        "Explains causes and effects, and identifies what people at the time believed and did about them.",
+  meta:         "Evaluates a strategy — summarising into own words — and says what it produced.",
+  presentation: "Creative and engaging: a labelled map, a dated timeline, captions that do a job."
+},
+"Level 9": {
+  chronology:   "Sequences with reference to periods, their duration, and where the reader sits inside them.",
+  cause:        "Analyses causes and effects, including the ones that are uncomfortable, and explains motives.",
+  meta:         "Uses, monitors and redirects strategy — catches an error against the task sheet and fixes it.",
+  presentation: "Creative, sophisticated and imaginative: a structure designed around how a hurried reader reads."
+}
+};
+
+/* Verbatim from the Year 7 History CAT 2 rubric, level for level. Do not
+   paraphrase these — a student is marked against this wording. */
+const CONTINUUM = {
+chronology:{
+ "Level 6":"I can sequence events and people in chronological order, and represent time by creating timelines.",
+ "Level 7":"I can sequence events and developments within a chronological framework, using dating conventions to represent and measure time.",
+ "Level 8":"I can sequence events and developments within a chronological framework with reference to periods of time.",
+ "Level 9":"I can sequence events and developments within a chronological framework with reference to periods of time and their duration."},
+cause:{
+ "Level 6":"I can identify the causes and effects of events and developments.",
+ "Level 7":"I can describe the causes and effects of events and developments on societies, individuals and groups.",
+ "Level 8":"I can explain the causes and effects of events and developments and identify the motives and actions of people at the time.",
+ "Level 9":"I can analyse the causes and effects of events and developments and explain the motives and actions of people at the time."},
+meta:{
+ "Level 6":"I can apply learning strategies, including summarising and paraphrasing information.",
+ "Level 7":"I can determine the effectiveness of a range of learning strategies and select strategies that best meet the requirements of a task.",
+ "Level 8":"I can evaluate the effectiveness of a range of learning strategies and select strategies that best meet the requirements of a task.",
+ "Level 9":"I can use, monitor, evaluate and redirect as necessary a range of learning strategies."},
+presentation:{
+ "Level 6":"I can present information in a basic manner.",
+ "Level 7":"I can present information creatively.",
+ "Level 8":"I can present information in a creative and engaging manner.",
+ "Level 9":"I can present information in a creative, sophisticated and imaginative manner."},
+};
+
+const SHEET_IMAGE = "";
+
+const SOURCE_PANEL = {
+  kind: "text",
+  paragraphs: [
+    "THE TASK — Use the internet to research and write a tourist guidebook for someone travelling from the outer reaches of the Roman Empire to Rome (the city) in 300 CE.",
+    "YOUR GUIDEBOOK MUST INCLUDE — A map of the city centre as it was in ancient times. A timeline of Rome's history up to 300 CE. A one-page history: the origins of Rome (Romulus and Remus), Roman social classes (Patricians, Plebeians, Non-Citizens, Women and Rulers), and the Roman Army.",
+    "WHAT TO SEE — a short guide to interesting sights, for example the Forum, the baths and the Colosseum. RELIGION — choose three gods, and explain what a visitor would need to know to avoid offending each one. What might happen if the God was offended?",
+    "CURRENCY — identify the currency and denominations used in 300 CE. LANGUAGE — what language was spoken? Include three useful travel phrases, for example \"where are the baths?\" = ubi thermae? ACCOMMODATION — an option for a peasant and for a wealthy traveller.",
+    "REMEMBER that your guidebook is for ancient, not modern, visitors to Rome. Present it as a guidebook — Word, Canva, or ask your teacher. Include plenty of pictures. You have 3 lessons. Submit to Compass by the due date."
+  ],
+  cite: "Year 7 History CAT 2 — Ancient Rome. The task sheet, quoted so the wall and the assessment cannot drift apart.",
+  whole: { label:"The task, in full",
+    text:"Eight required sections and one warning. Read the warning twice: the commonest way to lose marks on this CAT is to write a guidebook for a modern tourist." }
+};
+
+const HOTSPOTS = [
+ { mark:"in 300 CE", label:"The year is doing work",
+   text:"Not the Republic and not Augustus. In 300 CE the empire is late, Christianity is spreading, and Constantine has not yet converted. A timeline that stops at Julius Caesar has missed three hundred years." },
+ { mark:"Patricians, Plebeians, Non-Citizens, Women and Rulers", label:"Five groups, not two",
+   text:"The task names them deliberately. A guidebook that describes only the rich cannot reach the top bands, because the accommodation section explicitly asks for a peasant as well." },
+ { mark:"What might happen if the God was offended?", label:"This is the cause-and-effect question",
+   text:"It looks like a religion question. It is really the rubric's second row: Romans believed an offended god punished the whole community, which is a cause with an effect on people." },
+ { mark:"for ancient, not modern, visitors to Rome", label:"The warning, highlighted twice on the task sheet",
+   text:"Recommending a hotel, a currency exchange or a photograph of the ruins puts the guidebook in the wrong century. Checking your draft against this line is itself a metacognition mark." }
+];
+
+/* No rungs below Level 6: the CAT rubric this mirrors starts there. Declared
+   empty rather than omitted so every page reading this file behaves alike. */
+const EARLY_LEVELS = [];
+const EARLY_EXAMPLES = {};
+const EARLY_EXPLANATIONS = {};
+
+/* Victorian Curriculum 2.0. This CAT sits in the History skills sub-strands
+   for chronology and for cause and effect, NOT in "Using historical sources"
+   — which is why the codes here differ from every other History wall on this
+   site. The metacognition and presentation rows are not History descriptors
+   at all: they come from the Critical and Creative Thinking capability and
+   from the school's own reporting, so they carry no VC2HH code. */
+const VC = {
+ "Level 6": [
+   ["VC2HH6S01","sequence information about events, developments and periods"],
+   ["VC2HH6S07","describe causes and effects, and continuity and change"]],
+ "Level 7": [
+   ["VC2HH8S01","sequence information about events, developments and periods using chronological conventions"],
+   ["VC2HH8S07","explain causes and effects, and continuity and change"]],
+ "Level 8": [
+   ["VC2HH8S01","sequence information about events, developments and periods using chronological conventions"],
+   ["VC2HH8S07","explain causes and effects, and continuity and change"]],
+ "Level 9": [
+   ["VC2HH10S01","sequence information about events, developments and periods using chronological conventions"],
+   ["VC2HH10S07","analyse causes and effects, and continuity and change"]]
+};
+const VC_NOTE = "The rows on this wall are the CAT 2 rubric, word for word, because that is what the guidebook is marked against. Two of the four rows are History skills and carry VC 2.0 codes: chronology, and cause and effect. The other two do not. Metacognition belongs to the Critical and Creative Thinking capability rather than to History, and Presentation is the school's own reporting row — neither has a VC2HH code, and pretending otherwise would misrepresent the curriculum. This is also the only History wall on this site that is not built on the 'Using historical sources' descriptors, because this unit does not assess source analysis. See CURRICULUM-CHECK.md.";
+
+const BUMP = {
+ "Level 6": "You have dates in order and one reason the city grew. To reach Level 7, name the three periods of Rome's history and say which one your traveller is arriving in, then say who each cause affected.",
+ "Level 7": "You are sequencing within a framework and describing effects on people. To reach Level 8, turn each cause into a because-sentence that reaches the traveller, and say what Romans themselves believed about it.",
+ "Level 8": "You are explaining causes and using your own words. To reach Level 9, include the uncomfortable causes as well as the impressive ones, and show a moment where you checked your draft and changed it.",
+ "Level 9": "You are analysing cause and effect and redirecting your own strategy. Keep the guidebook readable — at this level sophistication means a hurried traveller can still find the baths."
+};
+
+const GLOSS = {
+ tier2: {
+   "denominations":"the different values coins come in",
+   "consequence":"something that happens because of something else",
+   "borrowed":"taken from somewhere else and used",
+   "means":"how much money someone has",
+   "hurried":"in a rush"
+ },
+ tier3: {
+   "chronology":"The order in which things happened.",
+   "chronological framework":"A way of organising time using periods and dates.",
+   "dating conventions":"The agreed ways of writing dates, such as BCE and CE.",
+   "BCE":"Before Common Era — years counted backwards from year one.",
+   "CE":"Common Era — years counted forwards from year one.",
+   "period":"A named stretch of time, such as the Republic.",
+   "duration":"How long something lasted.",
+   "cause":"The reason something happened.",
+   "effect":"What happened as a result.",
+   "motive":"The reason a person chose to act.",
+   "metacognition":"Thinking about how you are learning, and changing it if it is not working.",
+   "paraphrase":"Put something into your own words.",
+   "summarise":"Give the main points briefly.",
+   "regal period":"The time when Rome was ruled by kings, to 509 BCE.",
+   "Republic":"The time when Rome was ruled by elected officials, 509 to 27 BCE.",
+   "imperial period":"The time when Rome was ruled by emperors, from 27 BCE.",
+   "patrician":"A Roman from one of the old wealthy families.",
+   "plebeian":"An ordinary Roman citizen, not from a noble family.",
+   "aqueduct":"A channel or bridge built to carry water into a city.",
+   "insula":"A crowded apartment block where poorer Romans lived.",
+   "domus":"A private house built around a courtyard, for wealthy Romans.",
+   "forum":"The public square at the centre of a Roman city.",
+   "denarius":"A Roman silver coin.",
+   "Etruscans":"The people of central Italy whose culture Rome borrowed from."
+ }
+};
+
+const KID = {
+ "Level 6": { band:"Level 6", lines:[
+   "I can put dates in the right order and make a timeline.",
+   "I can say one cause and what it led to.",
+   "I can say what I did to help myself learn.",
+   "I can present my work clearly."]},
+ "Level 7": { band:"Level 7", lines:[
+   "I can use dates and periods to organise Rome's history.",
+   "I can describe what a cause did to people and groups.",
+   "I can choose a way of working that suits the task and say why.",
+   "I can present my work creatively."]},
+ "Level 8": { band:"Level 8", lines:[
+   "I can place events inside named periods of time.",
+   "I can explain causes and effects and say what people at the time wanted.",
+   "I can judge how well a strategy worked for me.",
+   "I can present my work so it is engaging to read."]},
+ "Level 9": { band:"Level 9", lines:[
+   "I can use periods and their length to organise a long history.",
+   "I can analyse causes and effects and explain why people acted as they did.",
+   "I can watch how I am working and change it when it is not working.",
+   "I can present my work in a sophisticated and imaginative way."]}
+};
+
+/* The guidebook is not a paragraph, so the builder walks the sections of the
+   task rather than the sentences of an essay. */
+const FRAME = {
+  blurb: "The guidebook has eight required sections. These are the moves that earn the four rubric rows inside them.",
+  steps: [
+    { key:"chronology",   label:"Put time in order",  prompt:"Build the timeline to 300 CE. Name the three periods and say which one your traveller arrives in." },
+    { key:"cause",        label:"Say why",            prompt:"For each thing you describe, say why it is there and who it affects. Turn facts into because-sentences." },
+    { key:"cause",        label:"Include the cost",   prompt:"Conquest and enslaved labour built much of what the traveller will admire. The top band expects the uncomfortable causes too." },
+    { key:"presentation", label:"Lay it out",         prompt:"Heading, map or image, caption. Design it so a hurried traveller can find one fact fast." },
+    { key:"meta",         label:"Check and change",   prompt:"Read your draft against the task sheet. Is it written for an ancient visitor? Say what you changed and why." }
+  ]
+};
+
+</script>
+<script>
+/* Everything shown here comes from content.js. The ladder is the five early
+   rungs plus the six on the wall; examples are read from whichever object
+   holds them, so no text exists twice. */
+
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const critOf = k => CRITERIA.find(c => c.key === k);
+
+/* Criterion colours live in content.js, so a unit with its own criteria needs
+   no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
+   bar) and an underline style — the second channel, which is what survives a
+   greyscale photocopy or a colour-blind reader. */
+document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
+.m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
+  c.weight ? ";text-decoration-thickness:" + c.weight : ""}}
+.k-${c.key}{color:${c.lamp}}
+.pop.k-${c.key} .kind{color:${c.ink}}`).join("") + "</style>");
+
+const LADDER  = EARLY_LEVELS.concat(LEVELS);
+const exOf    = lv => (typeof EARLY_EXAMPLES !== "undefined" && EARLY_EXAMPLES[lv]) || EXAMPLES[lv];
+const explOf  = lv => {
+  const e = (typeof EARLY_EXPLANATIONS !== "undefined" && EARLY_EXPLANATIONS[lv]) || EXPLANATIONS[lv];
+  return e && e.items ? e.items : (e || {});
+};
+let i = -1;                       // -1 is the source stage, which comes first
+
+el("kicker").textContent = WALL.title;
+
+/* ---------- EAL ----------
+   The table is shared across every unit and is the same table the vocabulary
+   hub is built from, so a word cannot mean one thing here and another there.
+   The choice is remembered per browser; nothing leaves the device. */
+const hasEAL = typeof EAL !== "undefined" && typeof EAL_LANGS !== "undefined";
+/* Only offer languages that cover every unit-specific term on this wall.
+   A language choice that leaves some tappable words blank is a broken choice,
+   not partial support. Shared source-analysis words may have wider coverage in
+   the Word Builder; this wall promises complete coverage for what it offers. */
+const UNIT_LANGS = hasEAL ? EAL_LANGS.filter(l => {
+  const tables = (typeof TIER3_T !== "undefined") ? Object.values(TIER3_T) : [];
+  return !tables.length || tables.every(t => t && t[l.code]);
+}) : [];
+let lang = "";
+if (hasEAL){
+  try { lang = localStorage.getItem("wagoll-lang") || ""; } catch (e) { lang = ""; }
+  if (lang && !UNIT_LANGS.some(l => l.code === lang)) lang = "";
+  const btn = el("tLangBtn"), menu = el("langMenu");
+  const languageLabel = () => UNIT_LANGS.find(l => l.code === lang);
+  function syncLanguageButton(){
+    const chosen = languageLabel();
+    btn.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+    btn.dataset.on = chosen ? "1" : "0";
+    menu.querySelectorAll("button[data-l]").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
+  }
+  menu.innerHTML = UNIT_LANGS.map(l =>
+    `<button type="button" data-l="${l.code}" lang="${l.code}" aria-pressed="false">` +
+    `<b>${esc(l.label)}</b><br>${esc(l.english)}</button>`).join("") +
+    '<button type="button" class="clear" data-l="">English only</button>';
+  btn.onclick = ev => {
+    ev.stopPropagation();
+    const open = menu.hidden;
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+  };
+  menu.onclick = ev => {
+    const choice = ev.target.closest("button[data-l]");
+    if (!choice) return;
+    ev.stopPropagation();
+    lang = choice.dataset.l;
+    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+    menu.hidden = true; btn.setAttribute("aria-expanded", "false");
+    syncLanguageButton(); hidePop(); render();
+  };
+  syncLanguageButton();
+} else {
+  el("tLangBtn").hidden = true;
+}
+
+/* The shared table wins over a unit's own gloss for the words it covers, so
+   the definition a student reads is the one the hub also teaches. */
+/* Two tables, one lookup. eal.js holds the words shared by every unit; the
+   unit's own content.js holds its own, in the same shape. Neither repeats the
+   other, and the tool cannot tell them apart. */
+function ealFor(term){
+  const k = String(term).toLowerCase();
+  let t = null, en = "";
+  if (hasEAL && EAL[k]) { t = EAL[k].t; en = EAL[k].en; }
+  else if (typeof TIER3_T !== "undefined" && TIER3_T[term]) { t = TIER3_T[term]; }
+  else if (typeof TIER3_T !== "undefined") {
+    const hit = Object.keys(TIER3_T).find(x => x.toLowerCase() === k);
+    if (hit) t = TIER3_T[hit];
+  }
+  if (!t) return null;
+  return (!lang || t[lang]) ? { t, en } : null;
+}
+/* Put the globe on every chip whose word has a translation available, so the
+   feature is visible without opening anything. */
+function markTranslatable(){
+  document.querySelectorAll("[data-t3]").forEach(el => {
+    const k = String(el.dataset.t3).toLowerCase();
+    const has = (hasEAL && !!EAL[k]) ||
+      (typeof TIER3_T !== "undefined" &&
+       Object.keys(TIER3_T).some(x => x.toLowerCase() === k));
+    el.classList.toggle("tr", has);
+  });
+}
+document.title = WALL.title + " — bump it up";
+el("key").innerHTML = CRITERIA.map(c =>
+  `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
+
+/* ---------- glossary linking ----------
+   Longest terms first so "grinding stone" wins over "stone". Applied to plain
+   text only, never inside a tag. */
+/* The shared source-analysis words are linked in every unit, not only where a
+   unit happened to gloss them — they are the words a student needs to do the
+   task at all. A word the unit already treats as tier 2 keeps its tier-2
+   behaviour rather than being marked twice. */
+const SHARED = (typeof EAL !== "undefined")
+  ? Object.keys(EAL).filter(w => !(w in GLOSS.tier3) && !(w in GLOSS.tier2))
+  : [];
+const T3 = Object.keys(GLOSS.tier3).concat(SHARED).sort((a,b)=>b.length-a.length);
+const T2 = Object.keys(GLOSS.tier2).sort((a,b)=>b.length-a.length);
+const defOf = t => (GLOSS.tier3[t]) || (typeof EAL !== "undefined" && EAL[t] && EAL[t].en) || "";
+const rx = t => new RegExp("\\b(" + t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + ")\\b", "gi");
+
+function linkGloss(html){
+  return html.split(/(<[^>]+>)/).map(part => {
+    if (part.startsWith("<")) return part;
+    let s = part;
+    T3.forEach(t => { s = s.replace(rx(t), m =>
+      `<span class="g3" data-t3="${esc(t)}">${m}</span>`); });
+    T2.forEach(t => { s = s.replace(rx(t), m =>
+      `<span class="g2" data-t2="${esc(t)}" data-syn="${esc(GLOSS.tier2[t])}">${m}</span>`); });
+    return s;
+  }).join("");
+}
+const marked = text => linkGloss(
+  esc(text).replace(/\{(\w+)\|([^}]*)\}/g,
+    (_,k,t) => `<span class="m m-${k}" data-crit="${k}" tabindex="0">${t}</span>`));
+
+/* ---------- the source panel ----------
+   SOURCE takes one of two shapes. A picture source names a file, its aspect
+   ratio and rectangles to zoom into; a written source names paragraphs and the
+   exact phrases to light up. Everything below branches on SOURCE.kind and
+   nothing else, so a unit built on a letter works the same as one built on a
+   photograph. */
+const SOURCE = (typeof SOURCE_PANEL !== "undefined") ? SOURCE_PANEL : {
+  kind:"image", file:(typeof SHEET_IMAGE !== "undefined" ? SHEET_IMAGE : ""),
+  ar:"4/3", alt:"", missing:"", whole:{ label:"The whole source", text:"" }
+};
+const isText = SOURCE.kind === "text";
+const plate  = el("plate");
+let rockImg = null;
+
+if (isText){
+  plate.classList.add("text");
+  /* Each hotspot names a phrase; wrap that phrase in a button wherever it
+     appears. Longest first so a phrase inside another phrase cannot break it. */
+  const order = HOTSPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
+  const body = SOURCE.paragraphs.map(p => {
+    let s = esc(p);
+    order.forEach(({h,n}) => {
+      const q = esc(h.mark);
+      if (s.includes(q) && !s.includes(`data-h="${n}"`))
+        s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
+              title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
+    });
+    return `<p>${s}</p>`;
+  }).join("");
+  plate.innerHTML = `<div class="passage" id="passage">${body}
+    <span class="cite">${SOURCE.cite}</span></div>`;
+} else {
+  plate.style.aspectRatio = SOURCE.ar;
+  plate.innerHTML =
+    `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
+     <div class="missing">${SOURCE.missing}</div>` +
+    HOTSPOTS.map((h,n)=>
+      `<button data-h="${n}" aria-pressed="false" title="${esc(h.label)}"
+         style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%">
+         <span class="pin">${n+1}</span></button>`).join("");
+  rockImg = el("rockImg");
+  const flagMissing = ()=> plate.classList.add("noimg");
+  rockImg.addEventListener("error", flagMissing);
+  if (rockImg.complete && rockImg.naturalWidth === 0) flagMissing();
+}
+
+const idleCap = `<span class="idle">${isText
+  ? "Tap an underlined part of the passage to open it big."
+  : "Tap a part of the picture to open it big."}</span>`;
+el("rockcap").innerHTML = idleCap;
+el("zoomAll").textContent = isText ? "⤢ Open the passage big" : "⤢ Open the picture big";
+
+/* ---------- tap the source, it fills the screen ----------
+   VIEWS[0] is the whole source; the rest are the hotspots. A picture region is
+   shown by scaling the image inside an overflow box, which keeps the crop exact
+   and the aspect right without touching the file. */
+const VIEWS = [Object.assign({ x:0, y:0, w:100, h:100 }, SOURCE.whole)].concat(HOTSPOTS);
+let zi = 0;
+
+function showZoom(n){
+  zi = (n + VIEWS.length) % VIEWS.length;
+  const v = VIEWS[zi];
+  if (isText) drawZoomText(n); else drawZoomImage(v);
+  el("zTitle").textContent = v.label;
+  el("zText").textContent  = v.text;
+  el("zDots").innerHTML = VIEWS.map((x,i)=>
+    `<button data-z="${i}" aria-current="${i===zi}">${esc(x.label)}</button>`).join("");
+  el("zDots").querySelectorAll("button").forEach(btn =>
+    btn.onclick = ()=> showZoom(+btn.dataset.z));
+  el("zoom").hidden = false;
+  /* Only now does the dialog have layout. A long passage does not fit a screen
+     at reading-from-the-back size, so bring the chosen phrase to the middle
+     rather than leaving it below the fold — scrollIntoView is a no-op while the
+     container is still [hidden]. */
+  if (isText){
+    const lit = el("zPass").querySelector(".lit");
+    if (lit) lit.scrollIntoView({ block: "center" });
+  } else sizeWrap();
+  el("zClose").focus();
+}
+
+function drawZoomImage(v){
+  el("zPass").hidden = true; el("zWrap").hidden = false;
+  const natW = rockImg.naturalWidth || 1200, natH = rockImg.naturalHeight || 900;
+  const wrap = el("zWrap"), img = el("zImg");
+  img.src = rockImg.currentSrc || rockImg.src;
+  /* the box is w% of the image wide, so the image is 100/w times the box */
+  img.style.width = (100 / v.w * 100) + "%";
+  img.style.left  = (-v.x / v.w * 100) + "%";
+  img.style.top   = (-v.y / v.h * 100) + "%";
+  wrap.dataset.ar = ((v.w / 100 * natW) / (v.h / 100 * natH)).toFixed(5);
+  img.alt = v.label + ". " + v.text;
+}
+
+/* n is the VIEWS index: 0 is the whole passage, so hotspot k is at n = k+1.
+   Everything except the chosen segment is dimmed rather than hidden, so the
+   class can still see where in the passage the phrase sits. */
+function drawZoomText(n){
+  el("zWrap").hidden = true;
+  const box = el("zPass");
+  box.hidden = false;
+  box.innerHTML = plate.querySelector(".passage").innerHTML;
+  box.classList.toggle("all", n === 0);
+  box.querySelectorAll("[data-h]").forEach(s => {
+    s.classList.add("seg");
+    if (n > 0 && +s.dataset.h === n - 1) s.classList.add("lit");
+  });
+  box.querySelectorAll(".segno").forEach(x => x.remove());
+  /* A long passage does not fit a screen at reading-from-the-back size, so
+     bring the chosen phrase to the middle rather than leaving it below the fold. */
+  box.scrollTop = 0;
+}
+
+/* Size the crop box in pixels rather than leaning on CSS aspect-ratio: the box
+   has no intrinsic size (the image inside is absolutely positioned), so in a
+   centred grid it collapses to nothing. */
+function sizeWrap(){
+  const wrap = el("zWrap");
+  const ar = parseFloat(wrap.dataset.ar || "1");
+  const box = el("zoom").querySelector(".zstage").getBoundingClientRect();
+  let w = box.width, h = w / ar;
+  if (h > box.height){ h = box.height; w = h * ar; }
+  wrap.style.width  = Math.floor(w) + "px";
+  wrap.style.height = Math.floor(h) + "px";
+}
+window.addEventListener("resize", ()=>{ if (!el("zoom").hidden && !isText) sizeWrap(); });
+const closeZoom = ()=>{ el("zoom").hidden = true; };
+el("zClose").onclick = closeZoom;
+el("zPrev").onclick = ()=> showZoom(zi - 1);
+el("zNext").onclick = ()=> showZoom(zi + 1);
+el("zoom").addEventListener("click", e => {
+  if (e.target === el("zoom") || e.target === el("zWrap") || e.target === el("zPass")) closeZoom();
+});
+
+plate.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const s = e.target.closest(".seg");
+  if (!s) return;
+  e.preventDefault();
+  s.click();
+});
+plate.addEventListener("click", e => {
+  const b = e.target.closest("[data-h]");
+  if (!b) return;
+  const n = +b.dataset.h;
+  const h = HOTSPOTS[n];
+  plate.querySelectorAll("[data-h]").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  el("rockcap").innerHTML = `<b>${esc(h.label)}</b>${esc(h.text)}`;
+  showZoom(n + 1);                    // VIEWS[0] is the whole source
+});
+el("zoomAll").onclick = ()=> showZoom(0);
+
+/* ---------- popup ---------- */
+const pop = el("pop");
+function showPop(kind, word, body, key, anchor){
+  el("popKind").textContent = kind;
+  el("popWord").textContent = word;
+  el("popBody").textContent = body;
+  pop.className = "pop show k-" + (key || "word");
+  const r = anchor.getBoundingClientRect();
+  pop.style.visibility = "hidden"; pop.style.left = "0px"; pop.style.top = "0px";
+  const pr = pop.getBoundingClientRect();
+  let left = Math.min(Math.max(8, r.left), window.innerWidth - pr.width - 8);
+  let top  = r.bottom + 10;
+  if (top + pr.height > window.innerHeight - 8) top = Math.max(8, r.top - pr.height - 10);
+  pop.style.left = left + "px"; pop.style.top = top + "px"; pop.style.visibility = "";
+}
+const hidePop = () => pop.classList.remove("show");
+el("popClose").onclick = hidePop;
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape"){ hidePop(); closeZoom(); }
+  if (!el("zoom").hidden){
+    if (e.key === "ArrowRight"){ e.preventDefault(); showZoom(zi + 1); }
+    if (e.key === "ArrowLeft"){  e.preventDefault(); showZoom(zi - 1); }
+  }
+});
+
+document.addEventListener("click", e => {
+  if (hasEAL && !e.target.closest("#langMenu") && !e.target.closest("#tLangBtn")){
+    el("langMenu").hidden = true;
+    el("tLangBtn").setAttribute("aria-expanded", "false");
+  }
+  if (e.target.closest("#pop")) return;
+  const g3 = e.target.closest("[data-t3]");
+  if (g3){
+    const term = g3.dataset.t3, hit = ealFor(term);
+    showPop("What it means", g3.textContent, defOf(term), null, g3);
+    if (hit && lang){
+      const label = UNIT_LANGS.find(l => l.code === lang);
+      el("popBody").insertAdjacentHTML("beforeend",
+        `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+        `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+    } else if (hit){
+      /* No language chosen yet. Rather than showing nothing and looking broken,
+         offer the languages here — one tap translates and is remembered. */
+      el("popBody").insertAdjacentHTML("beforeend",
+        `<span class="pick"><span>See this in your language:</span>` +
+        UNIT_LANGS.filter(l => hit.t[l.code])
+          .map(l => `<button data-l="${l.code}" lang="${l.code}">${esc(l.label)}</button>`).join("") +
+        `</span>`);
+      el("popBody").querySelectorAll("button[data-l]").forEach(btn => btn.onclick = ev => {
+        ev.stopPropagation();
+        lang = btn.dataset.l;
+        const chosen = UNIT_LANGS.find(l => l.code === lang);
+        const languageButton = el("tLangBtn");
+        languageButton.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+        languageButton.dataset.on = chosen ? "1" : "0";
+        try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+        showPop("What it means", g3.textContent, defOf(term), null, g3);
+        const lb = UNIT_LANGS.find(l => l.code === lang);
+        el("popBody").insertAdjacentHTML("beforeend",
+          `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+          `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
+      });
+    }
+    return;
+  }
+  const g2 = e.target.closest("[data-t2]");
+  if (g2){ g2.classList.toggle("on"); hidePop(); return; }
+  const m = e.target.closest("[data-crit]");
+  if (m) {
+    const c = critOf(m.dataset.crit), lv = LADDER[i];
+    const why = explOf(lv)[c.key];
+    return showPop(c.glyph + "  " + c.name.replace(/&amp;/g,"&"), m.textContent,
+      why || "This phrase is the evidence for " + c.name.replace(/&amp;/g,"&") + " at " + lv + ".",
+      c.key, m);
+  }
+  hidePop();
+});
+
+/* ---------- stages ---------- */
+function drawRungs(){
+  el("rungs").innerHTML =
+    `<button data-i="-1" ${i===-1?'aria-current="true"':""}>The source</button>` +
+    LADDER.map((lv,n)=>`<button data-i="${n}" class="${n<i?"done":""}" ${n===i?'aria-current="true"':""}>${esc(lv)}</button>`).join("");
+  el("rungs").querySelectorAll("button").forEach(b => b.onclick = ()=>{ i = +b.dataset.i; render(); });
+  el("prev").disabled = i <= -1;
+  el("next").disabled = i >= LADDER.length - 1;
+}
+
+function render(){
+  hidePop();
+  drawRungs();
+  if (pane === "rubric") renderRubric();
+  const stage = el("stage");
+  if (i === -1){
+    el("rungName").textContent = "The source";
+    stage.classList.remove("small");
+    stage.innerHTML =
+      `<div class="inquiry">${esc(WALL.inquiry)}</div>
+       <p class="crumbs">Everything underlined can be tapped. Dotted words are subject words with a
+          definition; the green words open an everyday meaning when you tap them.</p>
+       <div class="facts">${FACTS.map(([h,t])=>
+          `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
+    /* the source stage has no worked example to shrink, but it still has to
+       fit — it is the first thing on the screen and the class reads it cold */
+    fit();
+    markTranslatable();
+    return;
+  }
+  const lv = LADDER[i];
+  el("rungName").textContent = lv;
+  const ex = exOf(lv);
+  const plain = ex.replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+  baseK = Math.min(2.4, Math.max(0.92, Math.sqrt(950 / plain.length)));
+  const b = BUMP[lv] || {};
+  stage.innerHTML =
+    `<h2><span class="of">Rung ${i+1} of ${LADDER.length}</span>${esc(lv)}</h2>
+     ${b.new ? `<div class="newbar"><span>New at this rung</span>${esc(b.new)}</div>` : ""}
+     ${b.background ? `<div class="bg" id="bgBox" hidden><span>You need to know</span>${esc(b.background)}</div>` : ""}
+     <p class="example">${marked(ex)}</p>
+     <p class="crumbs">Tap any underlined phrase to see what it proves.</p>`;
+  syncBg();
+  markTranslatable();
+}
+
+/* Opening the Background or Curriculum panel eats vertical room. Rather than
+   guess a smaller size for those cases, shrink the example until it actually
+   fits — the stage must never scroll on a screen at the front of a room. */
+let baseK = 1;
+function fit(){
+  const st = el("stage");
+  st.style.setProperty("--sk", "1");
+  const over = ()=> st.scrollHeight > st.clientHeight;
+  /* the source stage has no worked example, but it still has to fit */
+  if (!st.querySelector(".example")){
+    let s0 = 1;
+    for (let g = 0; g < 40 && over() && s0 > 0.6; g++){
+      s0 *= 0.96;
+      st.style.setProperty("--sk", s0.toFixed(3));
+    }
+    return;
+  }
+  /* first shrink just the worked example, which is the part with slack */
+  let k = baseK;
+  st.style.setProperty("--k", k.toFixed(3));
+  for (let g = 0; g < 60 && over() && k > 0.60; g++){
+    k *= 0.94;
+    st.style.setProperty("--k", k.toFixed(3));
+  }
+  /* then, if the fixed panels are still too tall on their own, shrink the
+     whole stage together — everything inside is sized in em */
+  let sk = 1;
+  for (let g = 0; g < 60 && over() && sk > 0.5; g++){
+    sk *= 0.96;
+    st.style.setProperty("--sk", sk.toFixed(3));
+  }
+}
+
+function syncBg(){
+  const box = el("bgBox");
+  if (box) box.hidden = el("tBg").getAttribute("aria-pressed") !== "true";
+  fit();
+}
+
+/* ---------- the rubric panel ----------
+   The left column shows either the source or the rubric for the rung on
+   screen. They swap rather than stack: when both were in the column at once
+   the picture took the height it wanted and pushed the descriptors off the
+   bottom of the screen, which is how a student ended up reading half a list.
+
+   The rubric is the school's continuum wording, with the curriculum code
+   underneath it, both straight out of content.js. */
+function renderRubric(){
+  const lv = LADDER[i];
+  const box = el("paneRubric");
+  if (i === -1){
+    box.innerHTML = `<div class="rubric"><p class="note">Pick a rung to see what is
+      being asked for at that level.</p></div>`;
+    return;
+  }
+  const kid = (typeof KID !== "undefined" && KID[lv]) || null;
+  const codes = (typeof VC !== "undefined" && VC[lv]) || [];
+  const rows = CRITERIA.map((c, n) => {
+    const wall = (typeof CONTINUUM !== "undefined" && CONTINUUM[c.key] && CONTINUUM[c.key][lv]) || "";
+    const said = kid && kid.lines[n] ? kid.lines[n] : "";
+    const text = wall || said;
+    if (!text) return "";
+    return `<div class="row" style="border-left-color:${c.lamp}">
+      <h4 style="color:${c.lamp}">${c.glyph} ${c.name.replace(/&amp;/g,"&")}</h4>
+      <p>${esc(text)}</p>
+      ${said && wall && said !== wall ? `<p style="opacity:.72;font-size:.86em">${esc(said)}</p>` : ""}
+    </div>`;
+  }).join("");
+  box.innerHTML = `<div class="rubric">
+      <span class="band">${esc(kid ? kid.band : lv)}</span>
+      ${rows}
+      ${codes.length ? `<div class="row" style="border-left-color:#5b6b66">
+        <h4 style="color:#8fa39c">Victorian Curriculum</h4>
+        ${codes.map(([code, t]) => `<span class="code">${esc(code)}</span><p>${esc(t)}</p>`).join("")}
+      </div>` : ""}
+      ${typeof VC_NOTE !== "undefined" ? `<p class="note">${esc(VC_NOTE)}</p>` : ""}
+    </div>`;
+}
+
+let pane = "source";
+function showPane(which){
+  pane = which;
+  el("paneSource").hidden = which !== "source";
+  el("paneRubric").hidden = which !== "rubric";
+  el("tabSource").setAttribute("aria-selected", String(which === "source"));
+  el("tabRubric").setAttribute("aria-selected", String(which === "rubric"));
+  if (which === "rubric") renderRubric();
+}
+el("tabSource").onclick = () => showPane("source");
+el("tabRubric").onclick = () => showPane("rubric");
+
+el("tBg").onclick = ()=>{
+  const on = el("tBg").getAttribute("aria-pressed") === "true";
+  el("tBg").setAttribute("aria-pressed", String(!on));
+  syncBg();
+};
+
+
+el("prev").onclick = ()=>{ if (i > -1){ i--; render(); } };
+el("next").onclick = ()=>{ if (i < LADDER.length-1){ i++; render(); } };
+document.addEventListener("keydown", e => {
+  if (e.target.closest("button") || !el("zoom").hidden) return;
+  if (e.key === "ArrowRight") el("next").click();
+  if (e.key === "ArrowLeft")  el("prev").click();
+});
+
+render();
+</script>
+</body>
+</html>

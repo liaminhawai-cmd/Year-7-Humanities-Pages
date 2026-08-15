@@ -98,12 +98,16 @@ SITE = [
         ("Topics", "the units being taught", [
           ("&#129704;", "1 &middot; Ancient Australia", "gs73/",
            "GS73, a grinding stone from Madjedbebe. An excavated object with no author.", None),
-          ("&#127755;", "2 &middot; Ancient Rome", "vesuvius/",
-           "Origins, social groups, citizens, religion, law, army. Pliny on Vesuvius is the source "
-           "here; the CAT is a tourist guidebook.", "draft"),
+          ("&#127963;", "2 &middot; Ancient Rome", "rome/",
+           "Origins, social groups, citizens, religion, law, army &mdash; and a guidebook for a "
+           "traveller arriving in 300 CE.", "draft"),
           ("&#127772;", "3 &middot; Ancient China", "china/",
            "Chronology, social groups, the Great Wall and Terracotta Warriors, Qin Shi Huang.", "draft")]),
-        ("Archive", "written, levelled, but not on the program", [
+        ("Archive", "written and levelled, but not rehearsing a CAT", [
+          ("&#127755;", "Pliny on Vesuvius", "vesuvius/",
+           "A source-analysis wall built for Rome before the CAT was checked. Rome's CAT is a "
+           "guidebook and assesses no source analysis, so this rehearses nothing a student is "
+           "marked on. Kept because Pliny is a real Roman source and works as extension.", "archived"),
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
@@ -171,7 +175,7 @@ SITE = [
            "or a relief lesson. The worked examples are written and levelled but have never been taught, "
            "and there is no wall, level sheets or print pack."),
 
- dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
+ dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Archive",
       title="Ancient Rome",
       intro="Pliny the Younger's letter to Tacitus on the eruption of Vesuvius, written twenty-five "
             "years after it happened.",
@@ -192,6 +196,35 @@ SITE = [
            "wall treats that disagreement as part of what there is to analyse."),
 
  # ---------------- Geography ----------------
+ dict(path="history/rome/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
+      title="Ancient Rome",
+      intro="A traveller is coming to Rome from the far edge of the empire and has never seen the "
+            "city. CAT 2 asks you to write the guidebook they need.",
+      back=("../", "History"),
+      sections=[
+        ("Resources", None, [
+           ("&#128250;", "Bump it up", "bump-it-up.html",
+            "Level 6 to Level 9 &mdash; the CAT rubric's own bands. Tap any phrase.", "big screen"),
+           ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
+            "The same page with everything built in. Download to use offline.", "single file")]),
+        ("Words", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Meet, build and recall every word this topic marks.", None),
+           ("&#127755;", "Pliny on Vesuvius", "../vesuvius/",
+            "A Roman source, analysed at every level. Extension &mdash; this CAT does not assess "
+            "source analysis.", None)]),
+      ],
+      note="<b>This wall rehearses CAT 2, and it is not a source-analysis wall.</b> Every other "
+           "History wall here marks up an analytical paragraph about a source. Ancient Rome does not "
+           "assess that. Its CAT is a tourist guidebook, marked on <b>chronology, cause and effect, "
+           "metacognition and presentation</b> &mdash; so the worked examples are guidebook writing, "
+           "and a student comparing their draft with this wall is comparing like with like.<br><br>"
+           "<b>Two of the four rows are not History descriptors.</b> Chronology and cause and effect "
+           "carry VC 2.0 codes. Metacognition belongs to Critical and Creative Thinking, and "
+           "Presentation is the school's own reporting row; neither has a curriculum code, and the "
+           "wall says so rather than inventing one.<br><br>"
+           "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
+
  dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
       title="Ancient China",
       intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
