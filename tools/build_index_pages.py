@@ -116,8 +116,8 @@ SITE = [
            "<b>CAT 1 &mdash; Ancient Australia</b> is a source-analysis test: primary and secondary "
            "sources, reliability and accuracy, and First Nations beliefs, values and lives. "
            "<b>CAT 2 &mdash; Ancient Rome</b> is a tourist guidebook for a traveller arriving in "
-           "300 CE, marked on chronology, cause and effect and presentation &mdash; no "
-           "source analysis at all. <b>CAT 3 &mdash; Ancient China</b> is two booklets, chronology "
+           "300 CE. Its wall carries the historical thinking that task needs: chronology, cause and "
+           "effect, and continuity and change &mdash; no source analysis at all. <b>CAT 3 &mdash; Ancient China</b> is two booklets, chronology "
            "skills and source analysis, and adds historical perspectives and historical "
            "significance.<br><br>"
            "So the wall on Ancient Australia rehearses its CAT, and the Vesuvius wall does not "
@@ -214,15 +214,19 @@ SITE = [
             "A Roman source, analysed at every level. Extension &mdash; this CAT does not assess "
             "source analysis.", None)]),
       ],
-      note="<b>This wall rehearses CAT 2, and it is not a source-analysis wall.</b> Every other "
-           "History wall here marks up an analytical paragraph about a source. Ancient Rome does not "
-           "assess that. Its CAT is a tourist guidebook, marked on <b>chronology, cause and effect, "
-           "and presentation</b> &mdash; so the worked examples are guidebook writing, "
-           "and a student comparing their draft with this wall is comparing like with like.<br><br>"
-           "<b>One of the three rows is not a History descriptor.</b> Chronology and cause and effect "
-           "carry VC 2.0 codes; Presentation is the school's own reporting row and has no curriculum "
-           "code, and the wall says so rather than inventing one.<br><br>"
-           "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
+      note="<b>Three historical thinking skills, not a formatting checklist.</b> Ancient Rome does not "
+           "assess source analysis &mdash; that is CAT 1 and CAT 3. Its CAT is a tourist guidebook, and "
+           "this wall carries the thinking that has to happen inside it: <b>chronology</b> and "
+           "<b>cause and effect</b> from the CAT rubric, plus <b>continuity and change</b> from Kew's "
+           "own Developmental Rubric.<br><br>"
+           "<b>The CAT's other two rows are deliberately not here.</b> Presentation is about laying a "
+           "document out; metacognition is about managing your own learning. Both may be worth marking, "
+           "but neither is a way of thinking about the past, and a wall modelling &ldquo;present "
+           "information creatively&rdquo; would teach formatting rather than history.<br><br>"
+           "<b>Continuity and change earns its place</b> because the genre demands it: a traveller "
+           "arriving in 300 CE walks into a city already a thousand years old. Some of what they meet "
+           "has never changed and some of it just has &mdash; saying which, and why, is the skill.<br><br>"
+           "<b>Draft.</b> Written and levelled against both rubrics, but not yet taught."),
 
  dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
       title="Ancient China",
