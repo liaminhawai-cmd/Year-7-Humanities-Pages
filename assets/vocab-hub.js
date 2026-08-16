@@ -18,7 +18,7 @@ const WORDS=(()=>{
 // Demanding every word punished the best-covered topics: Ancient Australia has
 // all 35 of its words translated, but only 8 languages run right through all of
 // them, so the all-or-nothing test hid the other ten from the students who read
-// them — while a thinly covered topic offered all eighteen. Coverage is stated
+// them, while a thinly covered topic offered all eighteen. Coverage is stated
 // in the option instead, and a word without a translation simply shows none.
 const COVER=new Map();
 const LANGS=(typeof EAL_LANGS!=="undefined"?EAL_LANGS:[]).filter(l=>{
@@ -75,7 +75,7 @@ function renderMatch(w,tr){
   $("task").querySelectorAll(".options button").forEach(b=>b.onclick=()=>{
     if(answered)return;answered=true;const ok=b.dataset.word.toLowerCase()===w.word.toLowerCase();
     b.classList.add(ok?"right":"wrong");if(ok)mark(w.word);
-    $("feedback").className="feedback "+(ok?"ok":"bad");$("feedback").innerHTML=ok?`Correct — <b>${esc(w.word)}</b>.`:`The word is <b>${esc(w.word)}</b>.`;
+    $("feedback").className="feedback "+(ok?"ok":"bad");$("feedback").innerHTML=ok?`Correct, <b>${esc(w.word)}</b>.`:`The word is <b>${esc(w.word)}</b>.`;
     setTimeout(next,850);
   });
 }
@@ -87,7 +87,7 @@ function renderBuild(w,tr){
     <div class="bank">${shuffle(parts).map(p=>`<button class="piece" data-i="${p.i}"><b>${esc(p.surface)}</b><br><small>${esc(p.meaning)}</small></button>`).join("")}</div>
     <p class="feedback" id="feedback">Tap the pieces in word order.</p>`;
   $("task").querySelectorAll(".piece").forEach(b=>b.onclick=()=>{
-    if(+b.dataset.i!==placed){$("feedback").className="feedback bad";$("feedback").textContent="Not that piece yet — read the meanings and try again.";return}
+    if(+b.dataset.i!==placed){$("feedback").className="feedback bad";$("feedback").textContent="Not that piece yet: read the meanings and try again.";return}
     const p=parts[placed],slot=$("task").querySelector(`[data-slot="${placed}"]`);slot.textContent=p.surface;slot.classList.add("filled");b.disabled=true;placed++;
     if(placed===parts.length){mark(w.word);$("feedback").className="feedback ok";$("feedback").textContent="Built correctly.";setTimeout(next,850)}
     else{$("feedback").className="feedback";$("feedback").textContent="Good. Add the next piece."}

@@ -10,7 +10,7 @@
 :root{
   --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
   --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
-  /* criterion colours are not written here — they come from CRITERIA in
+  /* criterion colours are not written here. They come from CRITERIA in
      content.js, so a unit with different criteria needs no CSS edit */
   /* one knob drives every size on the page, so it scales to any screen */
   --u: clamp(12px, 1.02vw + 0.5vh, 30px);
@@ -66,7 +66,7 @@ button{font:inherit;cursor:pointer}
 .rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
       gap:.45em;min-height:0}
 /* The hotspots are positioned against this box, so it has to keep the plate's
-   shape even if the image itself never arrives — otherwise the buttons collapse
+   shape even if the image itself never arrives, otherwise the buttons collapse
    on top of the caption. */
 .plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
 .plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
@@ -96,7 +96,7 @@ button{font:inherit;cursor:pointer}
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
 /* The two panels share the column; only one is on screen, so neither has to
-   fight the other for height — which is what was pushing the "I can" list off
+   fight the other for height, which is what was pushing the "I can" list off
    the bottom of the screen. */
 .tabs{display:flex;gap:.25em;flex:0 0 auto}
 .tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
@@ -117,7 +117,7 @@ button{font:inherit;cursor:pointer}
 .kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
      overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
      font-size:calc(1em * var(--kk,1))}
-/* flex:0 0 so the passage beside it cannot eat the box's last line — the "I can"
+/* flex:0 0 so the passage beside it cannot eat the box's last line, the "I can"
    list is the thing a student reads to know what they are aiming at */
 .kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
            text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
@@ -173,7 +173,7 @@ button{font:inherit;cursor:pointer}
    dropdown the student has to find first */
 .g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
 /* Inside a marked phrase, a chip's own dotted border stacks on top of the
-   criterion's underline and the two patterns become unreadable — and that
+   criterion's underline and the two patterns become unreadable, and that
    pattern is the channel that survives greyscale. Tint instead. */
 .m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
 /* tier 2 is its own affordance: a soft tint you can always see, and each word
@@ -306,7 +306,7 @@ button{font:inherit;cursor:pointer}
 <script>
 /* inlined from ../../eal.js */
 /* =======================================================================
-   EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
+   EAL SOURCE-ANALYSIS VOCABULARY: the shared table.
 
    These are the words a student needs in order to do source analysis at
    all, as opposed to the words of any one unit. All three History units
@@ -324,8 +324,7 @@ button{font:inherit;cursor:pointer}
    The vocabulary site's own rule is that every translation set must
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
-   written with that in mind — zh-Hant and zh-Hans differ in wording, not
-   just in characters, wherever the two varieties genuinely differ — but
+   written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
    nobody has reviewed them yet. The wall labels them as unreviewed on
    screen, and they should not be treated as meeting that rule until a
    speaker of each language has been through them.
@@ -534,9 +533,8 @@ const FACTS = [
   ["Known limits", "Two chemical peaks were identified as plastic contamination. The integrity of the Phase 2 layer is contested."]
 ];
 
-/* ink   — the colour on paper, all five above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which is what survives a greyscale
+/* ink: the colour on paper, all five above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
                photocopy and a colour-blind reader */
 const CRITERIA = [
   { key:"source",   row:"Origin, features &amp; purpose",        name:"Origin, features &amp; purpose",        glyph:"■",
@@ -676,7 +674,7 @@ const SOURCE_PANEL = {
   alt:  "Four views of GS73: the artefact with a scale bar, its worn surface magnified, and two microscope views of polished grains.",
   missing: "The picture of GS73 did not load.<br>Keep <b>gs73-source-panel.jpg</b> in the same folder as this page.",
   whole: { label:"All four views",
-    text:"The same object at four magnifications. Nothing is added between one view and the next — only the magnification changes." }
+    text:"The same object at four magnifications. Nothing is added between one view and the next, only the magnification changes." }
 };
 
 const SOURCE_SHEET = {
@@ -684,29 +682,29 @@ const SOURCE_SHEET = {
   title: "GS73",
   standfirst: "A broken piece of sandstone from a rock shelter in northern Australia, and the long journey by which it became evidence.",
 
-  views: "The four views above are all of the same object. The first is the artefact itself, photographed with a five-centimetre scale bar, with arrows marking the worn areas. The second is the same surface at low magnification, where striations and levelled quartz grains become visible. The last two are microscope views, taken at different points, showing bright polish on the raised parts of individual grains. Nothing has been added to the stone between one view and the next — only the magnification changes.",
+  views: "The four views above are all of the same object. The first is the artefact itself, photographed with a five-centimetre scale bar, with arrows marking the worn areas. The second is the same surface at low magnification, where striations and levelled quartz grains become visible. The last two are microscope views, taken at different points, showing bright polish on the raised parts of individual grains. Nothing has been added to the stone between one view and the next, only the magnification changes.",
 
   paras: [
     "GS73 is a fragment of a millstone: the lower, fixed slab of a grinding pair, against which a smaller handheld stone is worked. It is sandstone, it is broken, and on its own it looks unremarkable. It was excavated from square B5/52 at the Madjedbebe rock shelter, on Mirarr Country in northern Australia.",
 
     "Where a thing is found in the ground matters as much as the thing itself. GS73 came from Phase 2 of the excavation, a layer modelled to between 68,700 and 50,400 years ago. That range is not a measurement of the stone; it is a model of the deposit the stone was lying in, and the earliest end of it is disputed.",
 
-    "The stone reached a laboratory before it reached this page. Researchers photographed it, examined its surface under magnification, and washed and analysed what was still caught in it. They recovered 41 starch grains and detected plant-related compounds. They could not identify which plant. They also found two chemical peaks they identified as plastic contamination — a modern signal sitting inside an ancient sample, reported rather than quietly removed.",
+    "The stone reached a laboratory before it reached this page. Researchers photographed it, examined its surface under magnification, and washed and analysed what was still caught in it. They recovered 41 starch grains and detected plant-related compounds. They could not identify which plant. They also found two chemical peaks they identified as plastic contamination, a modern signal sitting inside an ancient sample, reported rather than quietly removed.",
 
-    "Hayes and colleagues read the combination — the shape, the deep partial grooves, the levelled grains and polish, the starch and the plant compounds — as evidence of plant processing, and published it in 2022 as part of an argument that grinding-stone use at Madjedbebe has a very long history. Several independent methods pointing the same way is what makes that reading strong.",
+    "Hayes and colleagues read the combination, the shape, the deep partial grooves, the levelled grains and polish, the starch and the plant compounds, as evidence of plant processing, and published it in 2022 as part of an argument that grinding-stone use at Madjedbebe has a very long history. Several independent methods pointing the same way is what makes that reading strong.",
 
     "The age of the layer is argued about separately. Clarkson and colleagues hold that the artefacts stayed where they were deposited, supporting occupation around 65,000 years ago. Williams and colleagues point to termite activity and sediment movement, and argue that the earliest material may not have stayed in place. Note what is and is not in dispute: the disagreement is about how old the layer is, not about whether GS73 is a genuine grinding stone.",
 
     "None of this work was done on unclaimed ground. Madjedbebe is on Mirarr Country. The research was carried out with the permission of the custodians of Madjedbebe, May Nango and Djaykuk Djandjomerr, and of Mirarr Senior Traditional Owner Yvonne Margarula, with Gundjeihmi Aboriginal Corporation facilitating the work. The images and information were published for general educational purposes; no commercial use is authorised without prior Mirarr consent. Country and custodianship are part of this source’s context, not a footnote to it."
   ],
 
-  close: "A single stone cannot tell you who used it, or what exactly they ground. What it can do — once it has been recorded, magnified, analysed, argued over and attributed — is carry evidence. That is the difference between an object and a source."
+  close: "A single stone cannot tell you who used it, or what exactly they ground. What it can do, once it has been recorded, magnified, analysed, argued over and attributed, is carry evidence. That is the difference between an object and a source."
 };
 
 /* ---------------------------------------------------------------------------
    Paragraph frame (paragraph-builder.html). Same idea as the ELC TEEA tool:
    one card per step, each opening to the job, the guide, a worked non-example
-   and sentence stems. The worked examples are NOT repeated here — the builder
+   and sentence stems. The worked examples are NOT repeated here, the builder
    pulls them out of EXAMPLES above, so they can never drift.
    --------------------------------------------------------------------------- */
 
@@ -743,7 +741,7 @@ const FRAME = {
 
     { key:"judge", letter:"U", title:"Usefulness",
       job:"Judge what the source is good for, then say plainly what it cannot settle.",
-      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology — it is half of the judgement.",
+      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology. It is half of the judgement.",
       warn:"This source is very useful and reliable.",
       warnWhy:"Useful for which claim? A judgement with nothing attached and no limit is not a judgement.",
       stems:["___ is useful for investigating ___ because ___.",
@@ -781,12 +779,12 @@ const VERBS = {
 
 /* ---------------------------------------------------------------------------
    Staged build activity (build-the-wall.html). Only the teaching text lives
-   here — every question is generated from EXAMPLES, CONTINUUM and FRAME above,
+   here: every question is generated from EXAMPLES, CONTINUUM and FRAME above,
    so the activity can never ask about something the wall does not say.
    --------------------------------------------------------------------------- */
 
 const BUILD = {
-  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked — you can leave a round and come back.",
+  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked. You can leave a round and come back.",
   stages: [
     { id:"phrase", title:"Which criterion does this phrase prove?", short:"Phrases",
       teach:"Every marked phrase on the wall is marked because it <b>proves one criterion</b>. The unmarked words around it are the glue that holds the sentence together.<br><br>Ask: <i>what is this phrase doing?</i> Naming the source is not the same as judging it. Giving an interpretation is not the same as giving the evidence for it.",
@@ -837,7 +835,7 @@ const EARLY_EXAMPLES = {
 const EARLY_EXPLANATIONS = {
  "Foundation to Level 2": {
    source:  "Identifies features you can see on the source itself: the lines, and the shine (VC2HH2S03).",
-   context: "Identifies a perspective — what the person using it was trying to do (VC2HH2S04). The wall colours this green, but at this band the curriculum calls it perspectives, not context." },
+   context: "Identifies a perspective: what the person using it was trying to do (VC2HH2S04). The wall colours this green, but at this band the curriculum calls it perspectives, not context." },
  "Levels 3 and 4": {
    source:  "Identifies the features and content of a historical source, and names where it was found (VC2HH4S03).",
    context: "Describes the perspective of people in the past, using evidence from the object itself (VC2HH4S04).",
@@ -925,7 +923,7 @@ const HOTSPOTS = [
  { x:2,  y:2,  w:46, h:50, label:"The artefact",
    text:"GS73 itself, photographed with a five-centimetre scale bar. The white arrows point to the worn areas." },
  { x:50, y:2,  w:48, h:50, label:"Low magnification",
-   text:"The same surface, magnified. Now you can see striations — fine scratch lines — and quartz grains levelled flat by rubbing." },
+   text:"The same surface, magnified. Now you can see striations, fine scratch lines, and quartz grains levelled flat by rubbing." },
  { x:4,  y:54, w:44, h:44, label:"Microscope view r",
    text:"Bright polish on the raised parts of single grains. Polish like this builds up when a stone is used again and again." },
  { x:50, y:54, w:48, h:44, label:"Microscope view s",
@@ -933,7 +931,7 @@ const HOTSPOTS = [
 ];
 
 /* ---------------------------------------------------------------------------
-   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   PEEL and TEEL. Not a different paragraph, the same moves under the names
    students meet in English, mapped onto the same criterion keys so that a
    student's writing survives switching frames.
 
@@ -984,7 +982,7 @@ const FRAMES = [FRAME,
 
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
-   source-analysis words are NOT repeated here — they live in eal.js and only
+   source-analysis words are NOT repeated here. They live in eal.js and only
    there. Machine-drafted, unreviewed, and labelled as such on screen. */
 const TIER3_T = {
   "grinding stone": {"zh-Hans": "石磨", "zh-Hant": "石磨", "vi": "đá nghiền", "ar": "حجر طحن", "fa": "سنگ آسیاب", "ur": "پیسنے کا پتھر", "ml": "അരയ്ക്കുന്ന കല്ല്", "am": "መፍጫ ድንጋይ"},
@@ -1005,8 +1003,7 @@ const TIER3_T = {
 };
 
 /* ---------- criteria held back from the rubric ----------
-   Metacognition is written into this file — a continuum row, an explanation at
-   every level, and a marked phrase in every worked example — but it is not being
+   Metacognition is written into this file, a continuum row, an explanation at every level, and a marked phrase in every worked example, but it is not being
    assessed for now. Rather than delete that work, it is withdrawn here: the key
    below is removed from CRITERIA, so it is not a colour on the wall, not a row
    in the rubric and not a tappable mark, and its phrases are unwrapped so the
@@ -1020,6 +1017,12 @@ const HIDDEN_CRITERIA = ["meta"];
 for (const key of HIDDEN_CRITERIA) {
   const at = CRITERIA.findIndex(c => c.key === key);
   if (at > -1) CRITERIA.splice(at, 1);
+  // KID lines are paired to criteria BY POSITION when the rubric renders, so a
+  // criterion cannot be removed without its line: every row below it would
+  // silently shift up and be captioned with the wrong "I can".
+  if (at > -1 && typeof KID !== "undefined")
+    for (const band of Object.values(KID))
+      if (band && Array.isArray(band.lines) && band.lines.length > at) band.lines.splice(at, 1);
   delete CONTINUUM[key];
   if (typeof EXPLANATIONS !== "undefined")
     for (const lv of Object.values(EXPLANATIONS)) delete lv[key];
@@ -1072,7 +1075,7 @@ const critOf = k => CRITERIA.find(c => c.key === k);
 
 /* Criterion colours live in content.js, so a unit with its own criteria needs
    no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
-   bar) and an underline style — the second channel, which is what survives a
+   bar) and an underline style: the second channel, which is what survives a
    greyscale photocopy or a colour-blind reader. */
 document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
 .m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
@@ -1168,7 +1171,7 @@ function markTranslatable(){
     el.classList.toggle("tr", has);
   });
 }
-document.title = WALL.title + " — bump it up";
+document.title = WALL.title + ": bump it up";
 el("key").innerHTML = CRITERIA.map(c =>
   `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
 
@@ -1176,7 +1179,7 @@ el("key").innerHTML = CRITERIA.map(c =>
    Longest terms first so "grinding stone" wins over "stone". Applied to plain
    text only, never inside a tag. */
 /* The shared source-analysis words are linked in every unit, not only where a
-   unit happened to gloss them — they are the words a student needs to do the
+   unit happened to gloss them. They are the words a student needs to do the
    task at all. A word the unit already treats as tier 2 keeps its tier-2
    behaviour rather than being marked twice. */
 const SHARED = (typeof EAL !== "undefined")
@@ -1294,7 +1297,7 @@ function showZoom(n){
   el("zoom").hidden = false;
   /* Only now does the dialog have layout. A long passage does not fit a screen
      at reading-from-the-back size, so bring the chosen phrase to the middle
-     rather than leaving it below the fold — scrollIntoView is a no-op while the
+     rather than leaving it below the fold: scrollIntoView is a no-op while the
      container is still [hidden]. */
   if (isText){
     const lit = el("zPass").querySelector(".lit");
@@ -1414,10 +1417,10 @@ document.addEventListener("click", e => {
       const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-        `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
     } else if (hit){
       /* No language chosen yet. Rather than showing nothing and looking broken,
-         offer the languages here — one tap translates and is remembered. */
+         offer the languages here: one tap translates and is remembered. */
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="pick"><span>See this in your language:</span>` +
         UNIT_LANGS.filter(l => hit.t[l.code])
@@ -1435,7 +1438,7 @@ document.addEventListener("click", e => {
         const lb = UNIT_LANGS.find(l => l.code === lang);
         el("popBody").insertAdjacentHTML("beforeend",
           `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-          `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
+          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
       });
     }
     return;
@@ -1478,7 +1481,7 @@ function render(){
        <div class="facts">${FACTS.map(([h,t])=>
           `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
     /* the source stage has no worked example to shrink, but it still has to
-       fit — it is the first thing on the screen and the class reads it cold */
+       fit. It is the first thing on the screen and the class reads it cold */
     fit();
     markTranslatable();
     return;
@@ -1501,7 +1504,7 @@ function render(){
 
 /* Opening the Background or Curriculum panel eats vertical room. Rather than
    guess a smaller size for those cases, shrink the example until it actually
-   fits — the stage must never scroll on a screen at the front of a room. */
+   fits: the stage must never scroll on a screen at the front of a room. */
 let baseK = 1;
 function fit(){
   const st = el("stage");
@@ -1524,7 +1527,7 @@ function fit(){
     st.style.setProperty("--k", k.toFixed(3));
   }
   /* then, if the fixed panels are still too tall on their own, shrink the
-     whole stage together — everything inside is sized in em */
+     whole stage together, everything inside is sized in em */
   let sk = 1;
   for (let g = 0; g < 60 && over() && sk > 0.5; g++){
     sk *= 0.96;

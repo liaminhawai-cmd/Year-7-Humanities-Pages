@@ -1,5 +1,5 @@
 /* =======================================================================
-   EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
+   EAL SOURCE-ANALYSIS VOCABULARY: the shared table.
 
    These are the words a student needs in order to do source analysis at
    all, as opposed to the words of any one unit. All three History units
@@ -17,8 +17,7 @@
    The vocabulary site's own rule is that every translation set must
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
-   written with that in mind — zh-Hant and zh-Hans differ in wording, not
-   just in characters, wherever the two varieties genuinely differ — but
+   written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
    nobody has reviewed them yet. The wall labels them as unreviewed on
    screen, and they should not be treated as meeting that rule until a
    speaker of each language has been through them.

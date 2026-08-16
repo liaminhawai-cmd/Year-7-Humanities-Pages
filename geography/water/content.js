@@ -50,14 +50,13 @@ const FACTS = [
   ["What it is", "A three-panel bar figure. Each panel takes one slice of the panel above it and breaks that slice open."],
   ["Where the numbers are from", "The United States Geological Survey's summary of global water storage, itself drawn from Shiklomanov's 1993 estimates."],
   ["Who drew it", "This classroom. The numbers are someone else's; the display is ours, and that is part of what there is to analyse."],
-  ["What it measures", "Stores &mdash; how much water is sitting in each place at one moment. It does not measure flow."],
+  ["What it measures", "Stores: how much water is sitting in each place at one moment. It does not measure flow."],
   ["The scale", "Global, and one moment in time. No country, no river, no year."],
   ["Known limits", "The figures are modelled estimates, not measurements. The smallest slice on the chart, rivers, is the one most people actually drink from."]
 ];
 
-/* ink   — the colour on paper, all four above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which is what survives a greyscale
+/* ink: the colour on paper, all four above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
                photocopy and a colour-blind reader */
 const CRITERIA = [
   { key:"source",   row:"Data, origin &amp; purpose",       name:"Data, origin &amp; purpose",       glyph:"■",
@@ -112,7 +111,7 @@ const EXPLANATIONS = {
   judge:    "Concludes that the comparison is the useful part, then bounds the claim with two limits."
 },
 "Year 8": {
-  source:   "Describes what kind of measurement this is — a stock at one moment — and how the display simplifies it.",
+  source:   "Describes what kind of measurement this is, a stock at one moment, and how the display simplifies it.",
   context:  "Describes distribution by latitude and geology rather than just naming the stores.",
   evidence: "Introduces rate of renewal, which is the thing the chart cannot show.",
   judge:    "Notes independent agreement, then asks targeted questions about method, age and chart type."
@@ -177,12 +176,12 @@ const SOURCE_PANEL = {
 
 /* Clickable regions on water-distribution.png, as percentages of the image. */
 const HOTSPOTS = [
- { x:4,  y:7,  w:92, h:26, label:"Panel 1 — all the water",
+ { x:4,  y:7,  w:92, h:26, label:"Panel 1: all the water",
    text:"Every drop on the planet. 96.5% of it is salt water in the oceans, so everything people drink, grow food with and wash in comes out of the pale sliver on the right." },
- { x:4,  y:36, w:92, h:27, label:"Panel 2 — the fresh water",
+ { x:4,  y:36, w:92, h:27, label:"Panel 2: the fresh water",
    text:"The pale sliver, opened up. Almost seven tenths of the world's fresh water is frozen, and almost all the rest is underground. Both are hard to reach." },
- { x:4,  y:65, w:92, h:27, label:"Panel 3 — the surface water",
-   text:"What is left. Rivers are 0.49% of this panel, which is 0.49% of 1.2% of 2.5% of all the water there is — and rivers are where most of the world's cities get their water." },
+ { x:4,  y:65, w:92, h:27, label:"Panel 3: the surface water",
+   text:"What is left. Rivers are 0.49% of this panel, which is 0.49% of 1.2% of 2.5% of all the water there is, and rivers are where most of the world's cities get their water." },
  { x:4,  y:94, w:70, h:5.5, label:"Where the numbers came from",
    text:"The line that makes this analysable. The percentages are the U.S. Geological Survey's, after Shiklomanov 1993. The drawing is ours. Estimates, not measurements, and more than thirty years old." }
 ];
@@ -213,7 +212,7 @@ const EARLY_EXPLANATIONS = {
    evidence:"Connects the size of a slice to how people actually get water." }
 };
 
-/* No VC codes here on purpose — see the header. */
+/* No VC codes here on purpose: see the header. */
 const VC = {
  "Foundation to Level 2": [
   ["VC2HG2S02","collect, sort and record information and data from observations, including from fieldwork and maps"],
@@ -270,14 +269,14 @@ const BUMP = {
    new:"You separate the published data from the display made out of it, and you say why the display was made.",
    background:"That the same numbers can be drawn in ways that argue different things." },
  "Year 8": {
-   new:"You name what kind of measurement it is — a store at one moment — and you bring in how fast water is replaced.",
+   new:"You name what kind of measurement it is, a store at one moment, and you bring in how fast water is replaced.",
    background:"That a river holding very little water can still supply a lot, because it refills. This is residence time." },
  "Year 9": {
    new:"You explain why several compilations agreeing is stronger than one, and you rank your claims by how well the source supports them.",
    background:"What independent estimates are, and that the clarity of a graphic can hide how uncertain its numbers are." },
  "Year 10": {
    new:"You read the argument the chart is making underneath its numbers, and you explain what choosing a global scale erases.",
-   background:"That the form of a representation — stores, one moment, one scale — is itself a claim about what matters." }
+   background:"That the form of a representation, stores, one moment, one scale, is itself a claim about what matters." }
 };
 
 /* Tier 3 = the subject's own words, which need a definition.
@@ -398,7 +397,7 @@ const FRAME = {
 
     { key:"evidence", letter:"I", title:"Interconnection",
       job:"Explain how one thing is connected to another, using the figures.",
-      guide:"An explanation needs its number attached with “because”. The interesting connections here are the ones the chart cannot show — how fast a store refills, not just how big it is.",
+      guide:"An explanation needs its number attached with “because”. The interesting connections here are the ones the chart cannot show, how fast a store refills, not just how big it is.",
       warn:"There is not much fresh water so people run out.",
       warnWhy:"You have named a result without the process. What connects the amount to the shortage?",
       stems:["___ explains ___ because ___.",
@@ -407,7 +406,7 @@ const FRAME = {
 
     { key:"judge", letter:"U", title:"Usefulness",
       job:"Judge what the source is good for, then say plainly what it cannot settle.",
-      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology — it is half of the judgement.",
+      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology. It is half of the judgement.",
       warn:"This source is very useful and reliable.",
       warnWhy:"Useful for which claim? A judgement with nothing attached and no limit is not a judgement.",
       stems:["___ is useful for ___ because ___.",
@@ -439,7 +438,7 @@ const VERBS = {
 
 
 /* ---------------------------------------------------------------------------
-   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   PEEL and TEEL. Not a different paragraph, the same moves under the names
    students meet in English, mapped onto the same criterion keys so that a
    student's writing survives switching frames.
 
@@ -490,7 +489,7 @@ const FRAMES = [FRAME,
 
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
-   source-analysis words are NOT repeated here — they live in eal.js and only
+   source-analysis words are NOT repeated here. They live in eal.js and only
    there. Machine-drafted, unreviewed, and labelled as such on screen. */
 const TIER3_T = {
   "fresh water": {"zh-Hans": "淡水", "zh-Hant": "淡水", "vi": "nước ngọt", "ar": "مياه عذبة", "fa": "آب شیرین", "ur": "میٹھا پانی", "ml": "ശുദ്ധജലം", "am": "ንጹህ ውሃ"},

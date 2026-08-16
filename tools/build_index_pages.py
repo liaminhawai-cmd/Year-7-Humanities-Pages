@@ -8,7 +8,7 @@ from SITE. Nothing about the navigation is typed twice, so a resource cannot
 appear on one page and be missing from another, and moving something is one
 edit here rather than a hunt through nine files.
 
-Content pages — the walls, the bump-it-ups, the simulations — are NOT generated.
+Content pages, the walls, the bump-it-ups, the simulations, are NOT generated.
 They are self-contained and this script never touches them.
 
 Rule of thumb for where a thing goes: a resource lives on the page for the
@@ -62,7 +62,7 @@ SITE = [
           ("&#127963;", "Civics &amp; Citizenship", "civics/",
            "Government, democracy, law and citizenship. Nothing built yet.", "empty"),
           ("\U0001F3FA", "History", "history/",
-           "Ancient Australia, Rome and China &mdash; each unit rehearsing its own CAT.", None),
+           "Ancient Australia, Rome and China. Each unit rehearsing its own CAT.", None),
           ("&#127759;", "Geography", "geography/",
            "Water in the World, and Landscapes &amp; Landforms.", None),
           ("&#128188;", "Economics &amp; Business", "economics/",
@@ -70,10 +70,10 @@ SITE = [
       ],
       note="<b>Everything here is a plain HTML file.</b> No login, no install, and no internet needed "
            "once a page has loaded. The single-file versions download and run from a USB stick.<br><br>"
-           "<b>The words for each topic sit with that topic</b>, not in a pile at the front &mdash; "
+           "<b>The words for each topic sit with that topic</b>, not in a pile at the front: "
            "Water in the World has a lesson-by-lesson vocab hub, History has its own word list, and both "
            "appear on the <a href=\"" + WORD_BUILDER + "\">EAL Word Builder</a>.<br><br>"
-           "<b>Teacher context</b> &mdash; curriculum documents, source files, planning &mdash; lives in "
+           "<b>Teacher context</b>, curriculum documents, source files, planning, lives in "
            "the private <b>Year-7-Humanities</b> repository, not here."),
 
  # ---------------- Civics ----------------
@@ -99,7 +99,7 @@ SITE = [
           ("&#129704;", "1 &middot; Ancient Australia", "gs73/",
            "GS73, a grinding stone from Madjedbebe. An excavated object with no author.", None),
           ("&#127963;", "2 &middot; Ancient Rome", "rome/",
-           "Origins, social groups, citizens, religion, law, army &mdash; and a guidebook for a "
+           "Origins, social groups, citizens, religion, law, army, and a guidebook for a "
            "traveller arriving in 300 CE.", "draft"),
           ("&#127772;", "3 &middot; Ancient China", "china/",
            "Chronology, social groups, the Great Wall and Terracotta Warriors, Qin Shi Huang.", "draft")]),
@@ -113,15 +113,15 @@ SITE = [
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
            "is a complete second-hand-report source and works as extra practice.", "archived")])],
       note="<b>The three units are not assessed on the same skill.</b> "
-           "<b>CAT 1 &mdash; Ancient Australia</b> is a source-analysis test: primary and secondary "
+           "<b>CAT 1: Ancient Australia</b> is a source-analysis test: primary and secondary "
            "sources, reliability and accuracy, and First Nations beliefs, values and lives. "
-           "<b>CAT 2 &mdash; Ancient Rome</b> is a tourist guidebook for a traveller arriving in "
+           "<b>CAT 2: Ancient Rome</b> is a tourist guidebook for a traveller arriving in "
            "300 CE. Its wall carries the historical thinking that task needs: chronology, cause and "
-           "effect, and continuity and change &mdash; no source analysis at all. <b>CAT 3 &mdash; Ancient China</b> is two booklets, chronology "
+           "effect, and continuity and change: no source analysis at all. <b>CAT 3: Ancient China</b> is two booklets, chronology "
            "skills and source analysis, and adds historical perspectives and historical "
            "significance.<br><br>"
            "So the wall on Ancient Australia rehearses its CAT, and the Vesuvius wall does not "
-           "rehearse Rome's &mdash; it is a source for the unit, not a model of its task.<br><br>"
+           "rehearse Rome's. It is a source for the unit, not a model of its task.<br><br>"
            "The booklet and the word list are the same for every topic, so they sit on each topic "
            "page rather than here."),
 
@@ -166,11 +166,11 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>Archived &mdash; not a Year 7 unit.</b> This was built as History 2 before the unit list "
+      note="<b>Archived, not a Year 7 unit.</b> This was built as History 2 before the unit list "
            "was checked against the program. Year 7 History teaches Ancient Australia, Ancient China and "
            "Ancient Rome; there is no Egypt unit, and nothing here is assessed.<br><br>"
            "It is kept, not deleted, because it is a complete worked example of a <i>second-hand "
-           "report</i> &mdash; a visitor explaining a country whose writing he could not read &mdash; "
+           "report</i>, a visitor explaining a country whose writing he could not read, "
            "which is a source type the taught units do not otherwise cover. It works as extra practice "
            "or a relief lesson. The worked examples are written and levelled but have never been taught, "
            "and there is no wall, level sheets or print pack."),
@@ -192,7 +192,7 @@ SITE = [
             "The nine-page student booklet, ready to print.", None)]),
       ],
       note="<b>Draft.</b> Written and levelled but not yet taught. The traditional 24 August date is "
-           "disputed &mdash; an inscription found at Pompeii in 2018 points to autumn &mdash; and the "
+           "disputed, an inscription found at Pompeii in 2018 points to autumn, and the "
            "wall treats that disagreement as part of what there is to analyse."),
 
  # ---------------- Geography ----------------
@@ -204,18 +204,18 @@ SITE = [
       sections=[
         ("Resources", None, [
            ("&#128250;", "Bump it up", "bump-it-up.html",
-            "Level 6 to Level 9 &mdash; the CAT rubric's own bands. Tap any phrase.", "big screen"),
+            "Level 6 to Level 9: the CAT rubric's own bands. Tap any phrase.", "big screen"),
            ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
             "The same page with everything built in. Download to use offline.", "single file")]),
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
            ("&#127755;", "Pliny on Vesuvius", "../vesuvius/",
-            "A Roman source, analysed at every level. Extension &mdash; this CAT does not assess "
+            "A Roman source, analysed at every level. Extension. This CAT does not assess "
             "source analysis.", None)]),
       ],
       note="<b>Three historical thinking skills, not a formatting checklist.</b> Ancient Rome does not "
-           "assess source analysis &mdash; that is CAT 1 and CAT 3. Its CAT is a tourist guidebook, and "
+           "assess source analysis. That is CAT 1 and CAT 3. Its CAT is a tourist guidebook, and "
            "this wall carries the thinking that has to happen inside it: <b>chronology</b> and "
            "<b>cause and effect</b> from the CAT rubric, plus <b>continuity and change</b> from Kew's "
            "own Developmental Rubric.<br><br>"
@@ -225,7 +225,7 @@ SITE = [
            "information creatively&rdquo; would teach formatting rather than history.<br><br>"
            "<b>Continuity and change earns its place</b> because the genre demands it: a traveller "
            "arriving in 300 CE walks into a city already a thousand years old. Some of what they meet "
-           "has never changed and some of it just has &mdash; saying which, and why, is the skill.<br><br>"
+           "has never changed and some of it just has, saying which, and why, is the skill.<br><br>"
            "<b>Draft.</b> Written and levelled against both rubrics, but not yet taught."),
 
  dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
@@ -236,7 +236,7 @@ SITE = [
       sections=[
         ("Resources", None, [
            ("&#128250;", "Bump it up", "bump-it-up.html",
-            "Level 6 to Level 9 &mdash; the CAT rubric's own bands. Tap any phrase.", "big screen"),
+            "Level 6 to Level 9: the CAT rubric's own bands. Tap any phrase.", "big screen"),
            ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
             "The same page with everything built in. Download to use offline.", "single file")]),
         ("Words", None, [
@@ -251,7 +251,7 @@ SITE = [
            "Level 9</b>, because that is what the Ancient China Source Analysis Booklet rubric runs, and "
            "a student should be able to find their own CAT band on it.<br><br>"
            "<b>Six rows, not four.</b> They are the booklet's five numbered source-analysis rows plus the "
-           "significance strand Task 3 adds &mdash; including <b>historical perspectives</b>, which the "
+           "significance strand Task 3 adds, including <b>historical perspectives</b>, which the "
            "other walls on this site do not have. Each row also names the question it is marked from.<br><br>"
            "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
 
@@ -290,7 +290,7 @@ SITE = [
         ("Interactive tasks", "decision-and-consequence simulations, each with a printable report", [
            ("&#128167;", "Every Drop", "every-drop.html",
             "200 years in one catchment. Clearing, sewage, a dam, a sealed city, a changed climate "
-            "&mdash; watch your decisions re-plumb the water cycle itself.", None),
+            ": watch your decisions re-plumb the water cycle itself.", None),
            ("&#127964;&#65039;", "Share the River", "share-the-river.html",
             "“The Big Dry.” Steer a Murray&ndash;Darling catchment through a five-year drought "
             "by setting policy, not numbers, and live with an irreversible legacy.", None)]),
@@ -300,22 +300,19 @@ SITE = [
             "Australia's rainfall map. Project it or print it as a worksheet.", None),
            ("&#9997;&#65039;", "2.3 worked example", "lesson-2-3-worked-example.html",
             "One TEEL paragraph on the Martuwarra Fitzroy River. Tap each part of TEEL; switch "
-            "Level 6, 7 and 8 to see what gets added.", None),
-           ("&#129685;", "2.3 lesson plan", "lesson-2-3-significance.html",
-            "The Significance of Water, rebuilt: one question, a three-case jigsaw, and success "
-            "criteria taken from the Interconnection ladder.", "teacher")]),
+            "Level 6, 7 and 8 to see what gets added.", None)]),
       ],
       note="<b>Draft.</b> Checked against Victorian Curriculum 2.0 Geography F&ndash;10; the unit sits on "
            "VC2HG8K01, K03 and K04. <b>The figure is a classroom redraw</b> of U.S. Geological Survey "
-           "public-domain estimates &mdash; who made a display and why is half the source analysis.<br><br>"
+           "public-domain estimates. Who made a display and why is half the source analysis.<br><br>"
            "<b>Everything below the first two rows</b> was found on an unmerged branch in a different "
-           "repository &mdash; built for this unit, working, and never linked from it. Nothing here can "
+           "repository: built for this unit, working, and never linked from it. Nothing here can "
            "drift from the shared vocab hub or the Word Builder: the words are the same words. The "
            "interactive tasks and the 2.1&ndash;2.3 materials exist nowhere else on this site."),
 
  dict(path="geography/landforms/index.html", cls="geography", depth=2, kicker="Geography &middot; Topic 2",
       title="Landscapes &amp; Landforms",
-      intro="Simulations and decision tasks. Each is a single self-contained file &mdash; download it "
+      intro="Simulations and decision tasks. Each is a single self-contained file, download it "
             "and it works offline.",
       back=("../", "Geography"),
       sections=[
@@ -331,7 +328,7 @@ SITE = [
            "Should the mine be approved? Weigh the evidence and decide.", None)]),
         ("Words", None, [
           ("&#127760;", "Landform words", WORD_BUILDER,
-           "Archipelago, isthmus, plateau and the rest &mdash; 23 terms on the Word Builder, "
+           "Archipelago, isthmus, plateau and the rest: 23 terms on the Word Builder, "
            "with morphology and nine languages.", None)]),
       ],
       note="Every duplicate has now been resolved: Wattle Bay v14 and the two other mine-siting builds "
@@ -341,7 +338,7 @@ SITE = [
  # ---------------- Economics ----------------
  dict(path="economics/index.html", cls="economics", depth=1, kicker="Year 7 Humanities",
       title="Economics &amp; Business",
-      intro="One student business, written five times &mdash; once at each level of the continuum.",
+      intro="One student business, written five times, once at each level of the continuum.",
       back=("../", "All four areas"),
       sections=[("Topics", None, [
           ("&#128038;", "Pigeon Patrol", "pigeon-patrol/",
@@ -353,7 +350,7 @@ SITE = [
 
  dict(path="economics/pigeon-patrol/index.html", cls="economics", depth=2,
       kicker="Economics &middot; Topic 1", title="Pigeon Patrol",
-      intro="One student service business, written five times &mdash; once at each level from Level 6 "
+      intro="One student service business, written five times, once at each level from Level 6 "
             "to Level 10.",
       back=("../", "Economics &amp; Business"),
       sections=[("Resources", None, [
@@ -380,21 +377,21 @@ SITE = [
         ("Student booklet", None, [
           ("&#128214;", "What is source analysis?", "What-is-source-analysis-A5.pdf",
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
-        ("History &mdash; Ancient Australia", None, [
+        ("History: Ancient Australia", None, [
           ("&#128202;", "Poster set", "Ancient-Australia-History-Wall-Posters-A2.pdf",
-           "A2 landscape, 4 pages &mdash; source, method, continuum and contested claim.", None),
+           "A2 landscape, 4 pages: source, method, continuum and contested claim.", None),
           ("&#128196;", "Year-by-year wall", "Ancient-Australia-WAGOLL-Wall-Grade5-Year10-A3.pdf",
-           "A3 portrait, 6 pages &mdash; worked example above, matching continuum below.", None),
+           "A3 portrait, 6 pages: worked example above, matching continuum below.", None),
           ("&#128221;", "Student WAGOLL", "Ancient-Australia-Source-WAGOLL-A4.pdf",
-           "A4 portrait, 1 page &mdash; the dense Year 7 model and colour-keyed continuum.", None),
+           "A4 portrait, 1 page: the dense Year 7 model and colour-keyed continuum.", None),
           ("&#129704;", "The source", "GS73-Source-Sheet-A3.pdf",
-           "A3 portrait, 1 page &mdash; the source, described.", None),
+           "A3 portrait, 1 page: the source, described.", None),
           ("&#128221;", "Editable wall", "GS73-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
-        ("Economics &mdash; Pigeon Patrol", None, [
+        ("Economics: Pigeon Patrol", None, [
           ("&#128202;", "The wall", "Pigeon-Patrol-WAGOLL-Wall-A3.pdf", "A3 landscape, 1 page.", None),
           ("&#128196;", "Level sheets", "Pigeon-Patrol-Level-Sheets-A3.pdf",
-           "A3 portrait, 5 pages &mdash; one per level.", None),
+           "A3 portrait, 5 pages: one per level.", None),
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
@@ -418,7 +415,7 @@ def archive_link(emoji, title, href, desc, tag, cls):
     tag_html = f' <span class="tag">{tag}</span>' if tag else ""
     return (f'<a class="archive-link" href="{href}">'
             f'<span class="emoji">{emoji}</span>'
-            f'<span><b>{title}</b>{tag_html} &mdash; <span class="desc">{desc}</span></span></a>')
+            f'<span><b>{title}</b>{tag_html}: <span class="desc">{desc}</span></span></a>')
 
 
 def build(spec):

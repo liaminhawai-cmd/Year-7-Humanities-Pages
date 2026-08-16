@@ -13,7 +13,7 @@
 
    Sequenced third on purpose. Unit 1 is an object with no author, unit 2
    is a written source by an outsider at second hand, and this one is a
-   written source by a participant — who is nonetheless not an eyewitness
+   written source by a participant, who is nonetheless not an eyewitness
    to the part of it that matters most.
    ======================================================================= */
 
@@ -34,9 +34,8 @@ const FACTS = [
   ["Known limits", "The date is disputed. The account of the death is second-hand. He had a personal stake in how his uncle was remembered."]
 ];
 
-/* ink   — the colour on paper, all four above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which is what survives a greyscale
+/* ink: the colour on paper, all four above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
                photocopy and a colour-blind reader */
 const CRITERIA = [
   { key:"source",   row:"Origin, features &amp; purpose",        name:"Origin, features &amp; purpose",        glyph:"■",
@@ -65,7 +64,7 @@ const EXAMPLES = {
 `Pliny wrote this letter {source|around 106 CE, at the request of Tacitus, who was writing a history}. He tells Tacitus {source|to take from it whatever he needs}, and he says plainly that {source|a letter and a history are not the same thing}. Misenum was {context|the base of the Roman fleet, about thirty kilometres across the bay from the mountain}. Pliny the Elder {context|commanded it and also wrote on natural history}, which explains {context|both the rescue and the curiosity together}. Pliny describes the eruption column as {evidence|a pine-shaped cloud}, a description exact enough that {evidence|volcanologists now call this kind of eruption Plinian}. He separates {evidence|the cloud he saw from his uncle's death, which reached him at second hand}. The letter is {judge|strongly supported where the deposits at Pompeii match his order of ash, then pumice, then stone}. I would ask {judge|how much twenty-five years and a wish to honour his uncle have shaped the telling}.`,
 
 "Year 9":
-`The letter survives {source|because it was collected and published among Pliny's correspondence}, not because anyone preserved it {source|as a record of a disaster}. He wrote it {source|for Tacitus, and past him for the readers of a published collection}. He draws the distinction himself: {source|writing to a friend is not writing for the public}. Misenum lay {context|across the Bay of Naples from Vesuvius, far enough for Pliny to watch and near enough for the fleet to be ordered out}. His uncle's decision to sail {context|belonged to a Roman elite in which command and the study of nature sat in one person}. Pliny explains the column {evidence|as a pine, a comparison precise enough that modern volcanology took its name from him}. He distinguishes {evidence|what he observed from what was reported to him afterwards}. Because {judge|the layers excavated at Pompeii follow the same order he gives — ash, then pumice, then blackened stone — the physical account is well supported}. The account of his uncle's last hours is {judge|weaker, resting on survivors' testimony recalled a quarter of a century later}.`,
+`The letter survives {source|because it was collected and published among Pliny's correspondence}, not because anyone preserved it {source|as a record of a disaster}. He wrote it {source|for Tacitus, and past him for the readers of a published collection}. He draws the distinction himself: {source|writing to a friend is not writing for the public}. Misenum lay {context|across the Bay of Naples from Vesuvius, far enough for Pliny to watch and near enough for the fleet to be ordered out}. His uncle's decision to sail {context|belonged to a Roman elite in which command and the study of nature sat in one person}. Pliny explains the column {evidence|as a pine, a comparison precise enough that modern volcanology took its name from him}. He distinguishes {evidence|what he observed from what was reported to him afterwards}. Because {judge|the layers excavated at Pompeii follow the same order he gives, ash, then pumice, then blackened stone, the physical account is well supported}. The account of his uncle's last hours is {judge|weaker, resting on survivors' testimony recalled a quarter of a century later}.`,
 
 "Year 10":
 `Pliny is a witness to part of what he describes, but the text reaches us {source|as literature: a letter written for publication, inside a collection its author arranged}. Its explicit evidence is {source|the shape of the column and the order of what fell}. Its implicit argument is that {source|his uncle died as a Roman of learning and command should die}, and it is aimed {source|at a historian and, through him, at a reading public}. The letter reflects {context|an empire in which naval command, natural philosophy and literary reputation belonged to the same men}. It reveals what Pliny valued: {context|accuracy, courage, and the memory of his family}. Volcanologists accept the eruption sequence {evidence|because the deposits at Pompeii and Herculaneum record the same order independently}. Historians treat the death scene more cautiously {evidence|because it came through survivors and through twenty-five years of retelling}, and they now dispute even the date {evidence|because autumn fruit, heavier clothing and an inscription found in 2018 point past August}. Their readings diverge because {evidence|deposits and memory decay in different ways}. Overall the letter is {judge|strong evidence for the physical eruption and qualified evidence for the human events inside it}. Its strength is {judge|that an independent record in the ground agrees with it}; its limits are {judge|the delay, the second-hand core, and the author's stake in how his uncle is remembered}.`
@@ -93,7 +92,7 @@ const EXPLANATIONS = {
 "Year 8": {
   source:   "Describes the commission, the audience, and Pliny's own statement about genre.",
   context:  "Describes Misenum and explains the double role that produced both the rescue and the observation.",
-  evidence: "Connects his description to its modern reception — the term Plinian — and holds the two evidence bases apart.",
+  evidence: "Connects his description to its modern reception, the term Plinian, and holds the two evidence bases apart.",
   judge:    "Compares the letter with the excavated deposits, then asks targeted questions about time and motive."
 },
 "Year 9": {
@@ -163,7 +162,7 @@ const HOTSPOTS = [
  { mark:"likening it to a pine", label:"The comparison that became a technical term",
    text:"A Roman umbrella pine: a bare trunk with a flat spreading crown. The description was accurate enough that volcanologists now call this eruption type Plinian, after him." },
  { mark:"pumice and blackened stones", label:"The part the ground can check",
-   text:"Excavators at Pompeii dug through ash, then pumice, then heavier stone — the same order Pliny gives. An independent record agreeing with a witness is the strongest thing in source analysis." },
+   text:"Excavators at Pompeii dug through ash, then pumice, then heavier stone, the same order Pliny gives. An independent record agreeing with a witness is the strongest thing in source analysis." },
  { mark:"a great difference between a letter and a history", label:"He tells you what this is",
    text:"Pliny names his own genre. A letter to a friend, written for publication, supplying a historian with material. Three purposes at once, and he expects you to know it." }
 ];
@@ -197,7 +196,7 @@ const EARLY_EXPLANATIONS = {
 /* The Victorian Curriculum 2.0 descriptor each rung is working inside, from
    the History sub-strand "Using historical sources", Foundation to Level 10.
    These are about the skill, not the topic, so they are identical across all
-   three units — that is correct, not a copy-paste slip.
+   three units. That is correct, not a copy-paste slip.
 
    This is the SECOND layer: CONTINUUM above is Kew High School's own learning
    continuum. See CURRICULUM-CHECK.md for where the two diverge. */
@@ -240,7 +239,7 @@ const VC = {
   ["VC2HH10S05","analyse the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
   ["VC2HH10S06","evaluate historical interpretations and debates"]]
 };
-const VC_NOTE = "The row wording on this wall is Kew High School's own learning continuum, which runs level by level. The codes are Victorian Curriculum 2.0, which bands History two years at a time — so the two years inside a band share a code. The school continuum runs about one level behind the curriculum through the middle of the ladder: at Level 8 it asks students to \u2018describe\u2019 where VC2HH8S03 asks them to \u2018explain\u2019, and to \u2018explain\u2019 interpretations where VC2HH8S06 asks them to \u2018analyse\u2019. The two converge again by Level 10. See CURRICULUM-CHECK.md.";
+const VC_NOTE = "The row wording on this wall is Kew High School's own learning continuum, which runs level by level. The codes are Victorian Curriculum 2.0, which bands History two years at a time, so the two years inside a band share a code. The school continuum runs about one level behind the curriculum through the middle of the ladder: at Level 8 it asks students to \u2018describe\u2019 where VC2HH8S03 asks them to \u2018explain\u2019, and to \u2018explain\u2019 interpretations where VC2HH8S06 asks them to \u2018analyse\u2019. The two converge again by Level 10. See CURRICULUM-CHECK.md.";
 
 const BUMP = {
  "Foundation to Level 2": {

@@ -149,7 +149,7 @@ const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,
   (_,k,t)=>`<span class="m m-${k}">${t}</span>`);
 const strip = s => String(s).replace(/<[^>]+>/g,"");
 
-/* The two subjects store explanations slightly differently — economics keeps a
+/* The two subjects store explanations slightly differently, economics keeps a
    short label per criterion, history does not. Normalise to one shape. */
 function proves(lv){
   const e = EXPLANATIONS[lv];
@@ -203,7 +203,7 @@ document.getElementById("out").innerHTML = LEVELS.map(lv=>{
         const d = CONTINUUM[c.key][lv];
         return `<div class="cr cr-${c.key}${d?"":" gap"}">
           <div class="cn"><span>${c.glyph}</span><span>${c.row}</span></div>
-          <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : "—")}</div>
+          <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : ": ")}</div>
         </div>`;}).join("")}</div>
     </section>
 

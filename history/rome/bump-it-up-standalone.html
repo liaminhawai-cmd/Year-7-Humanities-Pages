@@ -10,7 +10,7 @@
 :root{
   --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
   --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
-  /* criterion colours are not written here — they come from CRITERIA in
+  /* criterion colours are not written here. They come from CRITERIA in
      content.js, so a unit with different criteria needs no CSS edit */
   /* one knob drives every size on the page, so it scales to any screen */
   --u: clamp(12px, 1.02vw + 0.5vh, 30px);
@@ -66,7 +66,7 @@ button{font:inherit;cursor:pointer}
 .rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
       gap:.45em;min-height:0}
 /* The hotspots are positioned against this box, so it has to keep the plate's
-   shape even if the image itself never arrives — otherwise the buttons collapse
+   shape even if the image itself never arrives, otherwise the buttons collapse
    on top of the caption. */
 .plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
 .plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
@@ -96,7 +96,7 @@ button{font:inherit;cursor:pointer}
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
 /* The two panels share the column; only one is on screen, so neither has to
-   fight the other for height — which is what was pushing the "I can" list off
+   fight the other for height, which is what was pushing the "I can" list off
    the bottom of the screen. */
 .tabs{display:flex;gap:.25em;flex:0 0 auto}
 .tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
@@ -117,7 +117,7 @@ button{font:inherit;cursor:pointer}
 .kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
      overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
      font-size:calc(1em * var(--kk,1))}
-/* flex:0 0 so the passage beside it cannot eat the box's last line — the "I can"
+/* flex:0 0 so the passage beside it cannot eat the box's last line, the "I can"
    list is the thing a student reads to know what they are aiming at */
 .kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
            text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
@@ -173,7 +173,7 @@ button{font:inherit;cursor:pointer}
    dropdown the student has to find first */
 .g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
 /* Inside a marked phrase, a chip's own dotted border stacks on top of the
-   criterion's underline and the two patterns become unreadable — and that
+   criterion's underline and the two patterns become unreadable, and that
    pattern is the channel that survives greyscale. Tint instead. */
 .m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
 /* tier 2 is its own affordance: a soft tint you can always see, and each word
@@ -306,7 +306,7 @@ button{font:inherit;cursor:pointer}
 <script>
 /* inlined from ../../eal.js */
 /* =======================================================================
-   EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
+   EAL SOURCE-ANALYSIS VOCABULARY: the shared table.
 
    These are the words a student needs in order to do source analysis at
    all, as opposed to the words of any one unit. All three History units
@@ -324,8 +324,7 @@ button{font:inherit;cursor:pointer}
    The vocabulary site's own rule is that every translation set must
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
-   written with that in mind — zh-Hant and zh-Hans differ in wording, not
-   just in characters, wherever the two varieties genuinely differ — but
+   written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
    nobody has reviewed them yet. The wall labels them as unreviewed on
    screen, and they should not be treated as meeting that rule until a
    speaker of each language has been through them.
@@ -517,7 +516,7 @@ const EAL = {
    ------------------------------------------------------------------
    THIS WALL IS ABOUT THREE HISTORICAL THINKING SKILLS.
 
-   Ancient Rome does not assess source analysis — that is CAT 1 and CAT 3.
+   Ancient Rome does not assess source analysis. That is CAT 1 and CAT 3.
    Its CAT is a tourist guidebook for a traveller arriving in Rome in 300 CE,
    and the CAT rubric marks four things: chronology, cause and effect,
    metacognition, and presentation.
@@ -534,7 +533,7 @@ const EAL = {
    their own learning. Both are real things a teacher may want to mark, and
    neither is a way of thinking about the past. A WAGOLL wall exists to show
    what better historical thinking looks like, and a row that says "I can
-   present information creatively" cannot do that — it teaches a student to
+   present information creatively" cannot do that. It teaches a student to
    improve their formatting, not their history.
 
    Continuity and change earns its place because the guidebook genre demands
@@ -548,21 +547,20 @@ const WALL = {
   title: "A guidebook to Rome, 300 CE",
   expected: "Level 7",
   inquiry: "A traveller is coming to Rome from the far edge of the empire and has never seen the city. What has been here for a thousand years, what has just changed, and why?",
-  foot: "<b>Task:</b> Year 7 History CAT 2, Ancient Rome &mdash; a tourist guidebook for someone travelling from the outer reaches of the Roman Empire to the city of Rome in 300 CE. <b>Chronology</b> and <b>cause and effect</b> are that CAT's own rubric rows, Level 6 to Level 9. <b>Continuity and change</b> is from Kew High School's Developmental Rubric. The CAT's other two rows, presentation and metacognition, are not historical thinking and are not on this wall."
+  foot: "<b>Task:</b> Year 7 History CAT 2, Ancient Rome: a tourist guidebook for someone travelling from the outer reaches of the Roman Empire to the city of Rome in 300 CE. <b>Chronology</b> and <b>cause and effect</b> are that CAT's own rubric rows, Level 6 to Level 9. <b>Continuity and change</b> is from Kew High School's Developmental Rubric. The CAT's other two rows, presentation and metacognition, are not historical thinking and are not on this wall."
 };
 
 const FACTS = [
-  ["The traveller", "Someone from the empire's outer edge &mdash; Britain, North Africa, Syria &mdash; who has never seen Rome and needs to arrive able to cope."],
+  ["The traveller", "Someone from the empire's outer edge, Britain, North Africa, Syria, who has never seen Rome and needs to arrive able to cope."],
   ["The year", "300 CE. Not the Republic, not the height of the Empire. Christianity is spreading but Constantine has not yet converted."],
   ["A thousand years old", "Rome was founded in 753 BCE. Your traveller arrives into a city older than almost anything they know."],
   ["What has lasted", "The Forum. The gods. Latin. The roads. The division between those with citizenship and those without."],
   ["What has changed", "Kings gone, then the Republic gone. Elections replaced by emperors. A new religion spreading fast."],
-  ["The skill", "Not listing sights. Saying what is old, what is new, and why &mdash; which is chronology, cause and effect, and continuity and change."]
+  ["The skill", "Not listing sights. Saying what is old, what is new, and why, which is chronology, cause and effect, and continuity and change."]
 ];
 
-/* ink   — the colour on paper, all three above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which survives a greyscale photocopy and
+/* ink: the colour on paper, all three above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which survives a greyscale photocopy and
                a colour-blind reader. */
 const CRITERIA = [
   { key:"chronology", row:"Chronology",            name:"Chronology",            glyph:"■",
@@ -614,7 +612,7 @@ const EXPLANATIONS = {
 
 /* Chronology and cause and effect are the CAT 2 rubric, word for word.
    Continuity and change is Kew's Developmental Rubric, word for word. Do not
-   paraphrase either — a student is marked against this wording. */
+   paraphrase either: a student is marked against this wording. */
 const CONTINUUM = {
 chronology:{
  "Level 6":"I can sequence events and people in chronological order, and represent time by creating timelines.",
@@ -638,15 +636,15 @@ const SHEET_IMAGE = "";
 const SOURCE_PANEL = {
   kind: "text",
   paragraphs: [
-    "THE TASK — Research and write a tourist guidebook for someone travelling from the outer reaches of the Roman Empire to Rome (the city) in 300 CE.",
-    "YOUR GUIDEBOOK MUST INCLUDE — A map of the city centre as it was in ancient times. A timeline of Rome's history up to 300 CE. A one-page history: the origins of Rome (Romulus and Remus), Roman social classes (Patricians, Plebeians, Non-Citizens, Women and Rulers), and the Roman Army.",
-    "WHAT TO SEE — a short guide to interesting sights, for example the Forum, the baths and the Colosseum. RELIGION — choose three gods, and explain what a visitor would need to know to avoid offending each one. What might happen if the God was offended?",
-    "CURRENCY — identify the currency and denominations used in 300 CE. LANGUAGE — what language was spoken? Include three useful travel phrases. ACCOMMODATION — an option for a peasant and for a wealthy traveller.",
+    "THE TASK: Research and write a tourist guidebook for someone travelling from the outer reaches of the Roman Empire to Rome (the city) in 300 CE.",
+    "YOUR GUIDEBOOK MUST INCLUDE: A map of the city centre as it was in ancient times. A timeline of Rome's history up to 300 CE. A one-page history: the origins of Rome (Romulus and Remus), Roman social classes (Patricians, Plebeians, Non-Citizens, Women and Rulers), and the Roman Army.",
+    "WHAT TO SEE: a short guide to interesting sights, for example the Forum, the baths and the Colosseum. RELIGION, choose three gods, and explain what a visitor would need to know to avoid offending each one. What might happen if the God was offended?",
+    "CURRENCY: identify the currency and denominations used in 300 CE. LANGUAGE, what language was spoken? Include three useful travel phrases. ACCOMMODATION, an option for a peasant and for a wealthy traveller.",
     "REMEMBER that your guidebook is for ancient, not modern, visitors to Rome. You have 3 lessons. Submit to Compass by the due date."
   ],
-  cite: "Year 7 History CAT 2 — Ancient Rome. The task sheet, quoted so the wall and the assessment cannot drift apart.",
+  cite: "Year 7 History CAT 2: Ancient Rome. The task sheet, quoted so the wall and the assessment cannot drift apart.",
   whole: { label:"The task, in full",
-    text:"Eight required sections. This wall does not model how to lay them out — it models the historical thinking that has to happen inside them." }
+    text:"Eight required sections. This wall does not model how to lay them out. It models the historical thinking that has to happen inside them." }
 };
 
 const HOTSPOTS = [
@@ -655,7 +653,7 @@ const HOTSPOTS = [
  { mark:"A timeline of Rome's history up to 300 CE", label:"This is the chronology row",
    text:"A list of dates is Level 6. Naming the three periods is Level 7. Saying how long each lasted, and which one the traveller is standing in, is Level 9." },
  { mark:"the origins of Rome (Romulus and Remus)", label:"Where continuity and change lives",
-   text:"The founding story is 753 BCE and the traveller arrives in 300 CE. Everything between those dates is either something that lasted or something that ended — and the strongest guidebooks say which, and why." },
+   text:"The founding story is 753 BCE and the traveller arrives in 300 CE. Everything between those dates is either something that lasted or something that ended, and the strongest guidebooks say which, and why." },
  { mark:"What might happen if the God was offended?", label:"This is the cause-and-effect question",
    text:"It looks like a religion question. It is really the second row: Romans believed an offended god punished the whole community, which is a cause with an effect on people." }
 ];
@@ -668,7 +666,7 @@ const EARLY_EXAMPLES = {};
 const EARLY_EXPLANATIONS = {};
 
 /* Victorian Curriculum 2.0. Unlike every other History wall on this site,
-   this one is NOT built on "Using historical sources" — this unit does not
+   this one is NOT built on "Using historical sources". This unit does not
    assess source analysis. All three rows here are genuine History skills
    with codes: VC 2.0 puts causes and effects together with continuity and
    change in a single descriptor (S07), which is exactly why those two rows
@@ -687,11 +685,11 @@ const VC = {
    ["VC2HH10S01","sequence information about events, developments and periods using chronological conventions"],
    ["VC2HH10S07","analyse causes and effects, and continuity and change"]]
 };
-const VC_NOTE = "Chronology and cause and effect are the CAT 2 rubric, word for word. Continuity and change is Kew High School's Developmental Rubric, word for word. All three carry Victorian Curriculum 2.0 codes, and VC 2.0 puts causes and effects together with continuity and change inside one descriptor (S07) — which is why those two rows sit next to each other here rather than in separate units. The CAT's other two rows are not on this wall: presentation is about laying a document out, and metacognition is about managing your own learning. Both may be worth marking; neither is a way of thinking about the past, and a wall that models 'present information creatively' teaches formatting rather than history. See CURRICULUM-CHECK.md.";
+const VC_NOTE = "Chronology and cause and effect are the CAT 2 rubric, word for word. Continuity and change is Kew High School's Developmental Rubric, word for word. All three carry Victorian Curriculum 2.0 codes, and VC 2.0 puts causes and effects together with continuity and change inside one descriptor (S07), which is why those two rows sit next to each other here rather than in separate units. The CAT's other two rows are not on this wall: presentation is about laying a document out, and metacognition is about managing your own learning. Both may be worth marking; neither is a way of thinking about the past, and a wall that models 'present information creatively' teaches formatting rather than history. See CURRICULUM-CHECK.md.";
 
 const BUMP = {
  "Level 6": "You have dates in order, a cause, and one thing that stayed and one that changed. To reach Level 7, name the three periods of Rome's history and say which one your traveller is arriving in, then say who each cause affected.",
- "Level 7": "You are sequencing within a framework and naming what changed. To reach Level 8, put continuity and change in the same sentence — say what stayed the same AS something else gave way — and turn each cause into a because-sentence.",
+ "Level 7": "You are sequencing within a framework and naming what changed. To reach Level 8, put continuity and change in the same sentence, say what stayed the same AS something else gave way, and turn each cause into a because-sentence.",
  "Level 8": "You are describing continuity and change together. To reach Level 9, give a reason WHY something lasted or ended, and include the uncomfortable causes as well as the impressive ones.",
  "Level 9": "You are explaining patterns and giving reasons. Keep testing them: is what lasted a habit, a building, or a law? Rome's constitutions changed faster than its customs, and noticing that is the top of this rubric."
 };
@@ -708,8 +706,8 @@ const GLOSS = {
    "chronology":"The order in which things happened.",
    "chronological framework":"A way of organising time using periods and dates.",
    "dating conventions":"The agreed ways of writing dates, such as BCE and CE.",
-   "BCE":"Before Common Era — years counted backwards from year one.",
-   "CE":"Common Era — years counted forwards from year one.",
+   "BCE":"Before Common Era: years counted backwards from year one.",
+   "CE":"Common Era: years counted forwards from year one.",
    "period":"A named stretch of time, such as the Republic.",
    "duration":"How long something lasted.",
    "cause":"The reason something happened.",
@@ -780,7 +778,7 @@ const critOf = k => CRITERIA.find(c => c.key === k);
 
 /* Criterion colours live in content.js, so a unit with its own criteria needs
    no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
-   bar) and an underline style — the second channel, which is what survives a
+   bar) and an underline style: the second channel, which is what survives a
    greyscale photocopy or a colour-blind reader. */
 document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
 .m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
@@ -876,7 +874,7 @@ function markTranslatable(){
     el.classList.toggle("tr", has);
   });
 }
-document.title = WALL.title + " — bump it up";
+document.title = WALL.title + ": bump it up";
 el("key").innerHTML = CRITERIA.map(c =>
   `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
 
@@ -884,7 +882,7 @@ el("key").innerHTML = CRITERIA.map(c =>
    Longest terms first so "grinding stone" wins over "stone". Applied to plain
    text only, never inside a tag. */
 /* The shared source-analysis words are linked in every unit, not only where a
-   unit happened to gloss them — they are the words a student needs to do the
+   unit happened to gloss them. They are the words a student needs to do the
    task at all. A word the unit already treats as tier 2 keeps its tier-2
    behaviour rather than being marked twice. */
 const SHARED = (typeof EAL !== "undefined")
@@ -1002,7 +1000,7 @@ function showZoom(n){
   el("zoom").hidden = false;
   /* Only now does the dialog have layout. A long passage does not fit a screen
      at reading-from-the-back size, so bring the chosen phrase to the middle
-     rather than leaving it below the fold — scrollIntoView is a no-op while the
+     rather than leaving it below the fold: scrollIntoView is a no-op while the
      container is still [hidden]. */
   if (isText){
     const lit = el("zPass").querySelector(".lit");
@@ -1122,10 +1120,10 @@ document.addEventListener("click", e => {
       const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-        `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
     } else if (hit){
       /* No language chosen yet. Rather than showing nothing and looking broken,
-         offer the languages here — one tap translates and is remembered. */
+         offer the languages here: one tap translates and is remembered. */
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="pick"><span>See this in your language:</span>` +
         UNIT_LANGS.filter(l => hit.t[l.code])
@@ -1143,7 +1141,7 @@ document.addEventListener("click", e => {
         const lb = UNIT_LANGS.find(l => l.code === lang);
         el("popBody").insertAdjacentHTML("beforeend",
           `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-          `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
+          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
       });
     }
     return;
@@ -1186,7 +1184,7 @@ function render(){
        <div class="facts">${FACTS.map(([h,t])=>
           `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
     /* the source stage has no worked example to shrink, but it still has to
-       fit — it is the first thing on the screen and the class reads it cold */
+       fit. It is the first thing on the screen and the class reads it cold */
     fit();
     markTranslatable();
     return;
@@ -1209,7 +1207,7 @@ function render(){
 
 /* Opening the Background or Curriculum panel eats vertical room. Rather than
    guess a smaller size for those cases, shrink the example until it actually
-   fits — the stage must never scroll on a screen at the front of a room. */
+   fits: the stage must never scroll on a screen at the front of a room. */
 let baseK = 1;
 function fit(){
   const st = el("stage");
@@ -1232,7 +1230,7 @@ function fit(){
     st.style.setProperty("--k", k.toFixed(3));
   }
   /* then, if the fixed panels are still too tall on their own, shrink the
-     whole stage together — everything inside is sized in em */
+     whole stage together, everything inside is sized in em */
   let sk = 1;
   for (let g = 0; g < 60 && over() && sk > 0.5; g++){
     sk *= 0.96;

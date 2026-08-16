@@ -23,10 +23,10 @@
    CONTINUUM rows map to VC2HE6/8/10 K01-K04 and S03/S05.
    ======================================================================= */const WALL = {
   id: "econ-pigeon",
-  title: "Pigeon Patrol — one business, five levels",
+  title: "Pigeon Patrol: one business, five levels",
   expected: "Level 7",
-  task: "<b>The task:</b> students plan, run and evaluate a small business for the school. Every worked example below describes the <b>same</b> student business — Pigeon Patrol, a service that clears pigeons from school eating areas — written five times, once at each level of the continuum.",
-  foot: "<b>The row wording below is the school’s own, not the Victorian Curriculum.</b> Checked against the Victorian Curriculum 2.0 Economics and Business Levels 5–10 scope and sequence: that document bands the subject 5&ndash;6, 7&ndash;8 and 9&ndash;10 rather than by single level, and none of the wording below appears in it. The closest real descriptors are VC2HE8K01 (scarcity, costs and benefits, incentives, opportunity cost), VC2HE8K03 (purposes and goals of businesses, and taking advantage of market opportunity), VC2HE8K04 (entrepreneurship and the link to business success), VC2HE8S03 (draw conclusions from graphs, models and text to identify cause-and-effect relationships) and VC2HE8S05 (analyse a response, identifying costs and benefits). <b>Level 7 is the expected level for Year 7</b> and is boxed in gold. Each criterion carries two signals — a colour <i>and</i> an underline pattern — so the wall still works photocopied in black and white. Marked with ■ ▲ ● in the explanation band for the same reason."
+  task: "<b>The task:</b> students plan, run and evaluate a small business for the school. Every worked example below describes the <b>same</b> student business, Pigeon Patrol, a service that clears pigeons from school eating areas, written five times, once at each level of the continuum.",
+  foot: "<b>The row wording below is the school’s own, not the Victorian Curriculum.</b> Checked against the Victorian Curriculum 2.0 Economics and Business Levels 5–10 scope and sequence: that document bands the subject 5&ndash;6, 7&ndash;8 and 9&ndash;10 rather than by single level, and none of the wording below appears in it. The closest real descriptors are VC2HE8K01 (scarcity, costs and benefits, incentives, opportunity cost), VC2HE8K03 (purposes and goals of businesses, and taking advantage of market opportunity), VC2HE8K04 (entrepreneurship and the link to business success), VC2HE8S03 (draw conclusions from graphs, models and text to identify cause-and-effect relationships) and VC2HE8S05 (analyse a response, identifying costs and benefits). <b>Level 7 is the expected level for Year 7</b> and is boxed in gold. Each criterion carries two signals, a colour <i>and</i> an underline pattern, so the wall still works photocopied in black and white. Marked with ■ ▲ ● in the explanation band for the same reason."
 };
 
 const CRITERIA = [
@@ -38,7 +38,7 @@ const CRITERIA = [
     blurb:"Taking the initiative, testing ideas, and improving something that already exists." },
   { key:"decisions",  row:"Business decisions",
     name:"Business decisions",   glyph:"●", line:"dotted",
-    blurb:"Costs, benefits, risks, and the effects a decision has — intended and unintended." },
+    blurb:"Costs, benefits, risks, and the effects a decision has, intended and unintended." },
 ];
 
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
@@ -70,7 +70,7 @@ const EXAMPLES = {
 
 /* One entry per criterion, in criterion order, so the column reads straight
    down: marked phrase → why it counts → continuum descriptor.
-   `notYet` names the ceiling of the level — what is still missing. */
+   `notYet` names the ceiling of the level: what is still missing. */
 const EXPLANATIONS = {
 "Level 6": {
   items:{
@@ -137,7 +137,7 @@ const GAP_TEXT = "Not on the continuum until Level 7.";
 /* ---------------------------------------------------------------------------
    Paragraph frame (paragraph-builder.html). Same idea as the ELC TEEA tool:
    one card per step, each opening to the job, the guide, a worked non-example
-   and sentence stems. The worked examples are NOT repeated here — the builder
+   and sentence stems. The worked examples are NOT repeated here, the builder
    pulls them out of EXAMPLES above, so they can never drift.
    --------------------------------------------------------------------------- */
 
@@ -198,7 +198,7 @@ const VERBS = {
 };
 
 const BUILD = {
-  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked — you can leave a round and come back.",
+  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked. You can leave a round and come back.",
   stages: [
     { id:"phrase", title:"Which criterion does this phrase prove?", short:"Phrases",
       teach:"Every marked phrase on the wall is marked because it <b>proves one criterion</b>. The unmarked words around it are the glue that holds the sentence together.<br><br>Ask: <i>what is this phrase doing?</i> Naming what the business does is not the same as weighing what a decision cost. Having an idea is not the same as testing one.",
@@ -221,7 +221,7 @@ const BUILD = {
 
 
 /* ---------------------------------------------------------------------------
-   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   PEEL and TEEL. Not a different paragraph, the same moves under the names
    students meet in English, mapped onto the same criterion keys so that a
    student's writing survives switching frames.
 
@@ -231,7 +231,7 @@ const BUILD = {
 
 const FRAMES = [FRAME,
  { name:"P · E · E · L",
-   blurb:"The same moves under the letters you use in English. Link is your own concluding sentence &mdash; the only step with nothing to read off the wall.",
+   blurb:"The same moves under the letters you use in English. Link is your own concluding sentence, the only step with nothing to read off the wall.",
    steps:[
     { key:FRAME.steps[0].key, letter:"P", title:"Point",
       job:FRAME.steps[0].job, guide:FRAME.steps[0].guide,
@@ -247,7 +247,7 @@ const FRAMES = [FRAME,
       stems:FRAME.steps[1].stems },
     { key:"link", letter:"L", title:"Link",
       job:"Tie it back. Say what the decision means for the business overall.",
-      guide:"The Link is the only step with nothing to read off the wall — it is your sentence, not the source&#39;s. Say what all of it adds up to for the business.",
+      guide:"The Link is the only step with nothing to read off the wall. It is your sentence, not the source&#39;s. Say what all of it adds up to for the business.",
       warn:"So that is why Pigeon Patrol is good.",
       warnWhy:"Good at what, and how do you know? A link has to carry the argument, not just end it.",
       stems:["Overall this means ___ for the business, because ___.",
@@ -270,7 +270,7 @@ const FRAMES = [FRAME,
       stems:FRAME.steps[1].stems },
     { key:"link", letter:"L", title:"Link",
       job:"Tie it back. Say what the decision means for the business overall.",
-      guide:"The Link is the only step with nothing to read off the wall — it is your sentence, not the source&#39;s. Say what all of it adds up to for the business.",
+      guide:"The Link is the only step with nothing to read off the wall. It is your sentence, not the source&#39;s. Say what all of it adds up to for the business.",
       warn:"So that is why Pigeon Patrol is good.",
       warnWhy:"Good at what, and how do you know? A link has to carry the argument, not just end it.",
       stems:["Overall this means ___ for the business, because ___.",

@@ -16,7 +16,7 @@
 
    The six criteria are the rubric's own rows, in the rubric's own words:
    its five numbered source-analysis rows plus the significance strand that
-   Task 3 adds. The wall is built on Task 3 — Qin Shi Huang — because it is
+   Task 3 adds. The wall is built on Task 3, Qin Shi Huang, because it is
    the only task in the booklet that touches all six at once: a primary
    painting, a secondary interpretation, and a judgement about a person.
    ======================================================================= */
@@ -38,9 +38,8 @@ const FACTS = [
   ["Why he is hard", "The same actions produced the achievement and the cruelty. Neither cancels the other, and a judgement has to hold both."]
 ];
 
-/* ink   — the colour on paper, all six above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which survives a greyscale photocopy and
+/* ink: the colour on paper, all six above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which survives a greyscale photocopy and
                a colour-blind reader. Six criteria and only five underline
                styles exist, so significance also carries a weight, and no
                two rows are told apart by colour alone. */
@@ -59,7 +58,7 @@ const CRITERIA = [
     ink:"#9b2f22", lamp:"#f0968a", underline:"solid", weight:"3px" },
 ];
 
-/* The CAT rubric's own bands. Not Foundation to Year 10 — this wall is the
+/* The CAT rubric's own bands. Not Foundation to Year 10. This wall is the
    assessment, and a student should find their own row on it. */
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9"];
 
@@ -113,7 +112,7 @@ const EXPLANATIONS = {
 };
 
 /* Verbatim from the Year 7 Ancient China Source Analysis Rubric, level for
-   level. Do not paraphrase these — a student is marked against this wording,
+   level. Do not paraphrase these, a student is marked against this wording,
    so the wall has to carry it exactly as the booklet does. */
 const CONTINUUM = {
 origin:{
@@ -152,12 +151,10 @@ significance:{
    these itself; carrying the map here is what turns the wall from a poster
    into a revision tool for the actual CAT. */
 const TASK_MAP = {
-  origin:         "Task 1 &mdash; Source 1: Q1&ndash;3 &middot; Source 2: Q4 &middot; Task 2 &mdash; Jade Suit: Q1, Q2",
-  context:        "Task 2 &mdash; Jade Suit: Q3",
-  perspective:    "Task 3 &mdash; Qin Shi Huang: Q2",
-  interpretation: "Task 1 &mdash; Source 2: Q5",
+  origin:         "Task 1: Source 1: Q1&ndash;3 &middot; Source 2: Q4 &middot; Task 2, Jade Suit: Q1, Q2", context: "Task 2, Jade Suit: Q3",
+  perspective:    "Task 3, Qin Shi Huang: Q2", interpretation: "Task 1, Source 2: Q5",
   useful:         "Task 4 (Level 7 option)",
-  significance:   "Task 3 &mdash; Qin Shi Huang: Q3, Q5"
+  significance:   "Task 3: Qin Shi Huang: Q3, Q5"
 };
 
 const SHEET_IMAGE = "";
@@ -165,8 +162,8 @@ const SHEET_IMAGE = "";
 const SOURCE_PANEL = {
   kind: "text",
   paragraphs: [
-    "SOURCE 1 — A Chinese painting illustrating Qin Shi Huang's burning of the books and execution of 460 scholars.",
-    "SOURCE 3 — Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
+    "SOURCE 1: A Chinese painting illustrating Qin Shi Huang's burning of the books and execution of 460 scholars.",
+    "SOURCE 3: Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
     "\"The Qin was really the first state to go into total mobilisation for war. It really saw the work of its population being fighting and soldiering to win wars and expand. One by one, Qin Shi Huang defeated neighbouring states, swallowed their territory into his growing empire and enslaved and castrated their citizens.\"",
     "\"Qin Shi Huang is credited not only with creating China, but with establishing the world's first truly centralised bureaucratic empire. He set out to unify the procedures and customs and policies of all the states.\"",
     "\"He collected taxes, he administered justice and he had trained bureaucrats all over China. That's an extraordinary achievement.\""
@@ -178,7 +175,7 @@ const SOURCE_PANEL = {
 
 const HOTSPOTS = [
  { mark:"burning of the books and execution of 460 scholars", label:"What the painting chooses to show",
-   text:"Of everything Qin Shi Huang did, the painter picked this. That choice is the point of view. Ask what the same painter left out — the roads, the single script, the canals." },
+   text:"Of everything Qin Shi Huang did, the painter picked this. That choice is the point of view. Ask what the same painter left out, the roads, the single script, the canals." },
  { mark:"We wouldn't have a China without Qin Shi Huang", label:"An interpretation, stated flat",
    text:"This is a historian's claim, not a fact you can look up. It is exactly the kind of sentence the interpretations row is asking you to describe, explain, or analyse." },
  { mark:"enslaved and castrated their citizens", label:"Bol does not soften it",
@@ -223,10 +220,10 @@ const VC = {
 const VC_NOTE = "The rows on this wall are the Ancient China Source Analysis Booklet rubric, word for word, because that is what the CAT is marked against. The codes are Victorian Curriculum 2.0. Two things are worth knowing. The unit plan for this topic still cites VCHHK codes, which belong to Victorian Curriculum 1.0 and have been superseded. And the booklet's significance strand has no equivalent code of its own: VC 2.0 folds significance into the value-of-sources descriptor (S04) rather than making it a separate skill, which is why the significance row here is the only one whose wording is the rubric's descriptive bands rather than an 'I can' statement. See CURRICULUM-CHECK.md.";
 
 const BUMP = {
- "Level 6": "You have named the source and one reason he mattered. To reach Level 7, say what the source was FOR, and give a second reason he mattered — one that lasted after he died.",
+ "Level 6": "You have named the source and one reason he mattered. To reach Level 7, say what the source was FOR, and give a second reason he mattered, one that lasted after he died.",
  "Level 7": "You have described the point of view and drawn a conclusion about usefulness. To reach Level 8, say WHY the painting and the historian disagree, and compare what each source is good for rather than judging them one at a time.",
  "Level 8": "You have explained both interpretations and held the achievement against the cost. To reach Level 9, weigh them: say which claim is better supported and why, and show that his significance is argued over rather than agreed.",
- "Level 9": "You are evaluating from several positions and treating significance as contested. Keep the evidence attached to every claim — at this level an unsupported judgement costs more than a cautious one."
+ "Level 9": "You are evaluating from several positions and treating significance as contested. Keep the evidence attached to every claim, at this level an unsupported judgement costs more than a cautious one."
 };
 
 const GLOSS = {

@@ -10,7 +10,7 @@
 :root{
   --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
   --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
-  /* criterion colours are not written here — they come from CRITERIA in
+  /* criterion colours are not written here. They come from CRITERIA in
      content.js, so a unit with different criteria needs no CSS edit */
   /* one knob drives every size on the page, so it scales to any screen */
   --u: clamp(12px, 1.02vw + 0.5vh, 30px);
@@ -66,7 +66,7 @@ button{font:inherit;cursor:pointer}
 .rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
       gap:.45em;min-height:0}
 /* The hotspots are positioned against this box, so it has to keep the plate's
-   shape even if the image itself never arrives — otherwise the buttons collapse
+   shape even if the image itself never arrives, otherwise the buttons collapse
    on top of the caption. */
 .plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
 .plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
@@ -96,7 +96,7 @@ button{font:inherit;cursor:pointer}
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
 /* The two panels share the column; only one is on screen, so neither has to
-   fight the other for height — which is what was pushing the "I can" list off
+   fight the other for height, which is what was pushing the "I can" list off
    the bottom of the screen. */
 .tabs{display:flex;gap:.25em;flex:0 0 auto}
 .tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
@@ -117,7 +117,7 @@ button{font:inherit;cursor:pointer}
 .kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
      overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
      font-size:calc(1em * var(--kk,1))}
-/* flex:0 0 so the passage beside it cannot eat the box's last line — the "I can"
+/* flex:0 0 so the passage beside it cannot eat the box's last line, the "I can"
    list is the thing a student reads to know what they are aiming at */
 .kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
            text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
@@ -173,7 +173,7 @@ button{font:inherit;cursor:pointer}
    dropdown the student has to find first */
 .g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
 /* Inside a marked phrase, a chip's own dotted border stacks on top of the
-   criterion's underline and the two patterns become unreadable — and that
+   criterion's underline and the two patterns become unreadable, and that
    pattern is the channel that survives greyscale. Tint instead. */
 .m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
 /* tier 2 is its own affordance: a soft tint you can always see, and each word
@@ -306,7 +306,7 @@ button{font:inherit;cursor:pointer}
 <script>
 /* inlined from ../../eal.js */
 /* =======================================================================
-   EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
+   EAL SOURCE-ANALYSIS VOCABULARY: the shared table.
 
    These are the words a student needs in order to do source analysis at
    all, as opposed to the words of any one unit. All three History units
@@ -324,8 +324,7 @@ button{font:inherit;cursor:pointer}
    The vocabulary site's own rule is that every translation set must
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
-   written with that in mind — zh-Hant and zh-Hans differ in wording, not
-   just in characters, wherever the two varieties genuinely differ — but
+   written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
    nobody has reviewed them yet. The wall labels them as unreviewed on
    screen, and they should not be treated as meeting that rule until a
    speaker of each language has been through them.
@@ -525,7 +524,7 @@ const EAL = {
 
    The six criteria are the rubric's own rows, in the rubric's own words:
    its five numbered source-analysis rows plus the significance strand that
-   Task 3 adds. The wall is built on Task 3 — Qin Shi Huang — because it is
+   Task 3 adds. The wall is built on Task 3, Qin Shi Huang, because it is
    the only task in the booklet that touches all six at once: a primary
    painting, a secondary interpretation, and a judgement about a person.
    ======================================================================= */
@@ -547,9 +546,8 @@ const FACTS = [
   ["Why he is hard", "The same actions produced the achievement and the cruelty. Neither cancels the other, and a judgement has to hold both."]
 ];
 
-/* ink   — the colour on paper, all six above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which survives a greyscale photocopy and
+/* ink: the colour on paper, all six above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which survives a greyscale photocopy and
                a colour-blind reader. Six criteria and only five underline
                styles exist, so significance also carries a weight, and no
                two rows are told apart by colour alone. */
@@ -568,7 +566,7 @@ const CRITERIA = [
     ink:"#9b2f22", lamp:"#f0968a", underline:"solid", weight:"3px" },
 ];
 
-/* The CAT rubric's own bands. Not Foundation to Year 10 — this wall is the
+/* The CAT rubric's own bands. Not Foundation to Year 10. This wall is the
    assessment, and a student should find their own row on it. */
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9"];
 
@@ -622,7 +620,7 @@ const EXPLANATIONS = {
 };
 
 /* Verbatim from the Year 7 Ancient China Source Analysis Rubric, level for
-   level. Do not paraphrase these — a student is marked against this wording,
+   level. Do not paraphrase these, a student is marked against this wording,
    so the wall has to carry it exactly as the booklet does. */
 const CONTINUUM = {
 origin:{
@@ -661,12 +659,10 @@ significance:{
    these itself; carrying the map here is what turns the wall from a poster
    into a revision tool for the actual CAT. */
 const TASK_MAP = {
-  origin:         "Task 1 &mdash; Source 1: Q1&ndash;3 &middot; Source 2: Q4 &middot; Task 2 &mdash; Jade Suit: Q1, Q2",
-  context:        "Task 2 &mdash; Jade Suit: Q3",
-  perspective:    "Task 3 &mdash; Qin Shi Huang: Q2",
-  interpretation: "Task 1 &mdash; Source 2: Q5",
+  origin:         "Task 1: Source 1: Q1&ndash;3 &middot; Source 2: Q4 &middot; Task 2, Jade Suit: Q1, Q2", context: "Task 2, Jade Suit: Q3",
+  perspective:    "Task 3, Qin Shi Huang: Q2", interpretation: "Task 1, Source 2: Q5",
   useful:         "Task 4 (Level 7 option)",
-  significance:   "Task 3 &mdash; Qin Shi Huang: Q3, Q5"
+  significance:   "Task 3: Qin Shi Huang: Q3, Q5"
 };
 
 const SHEET_IMAGE = "";
@@ -674,8 +670,8 @@ const SHEET_IMAGE = "";
 const SOURCE_PANEL = {
   kind: "text",
   paragraphs: [
-    "SOURCE 1 — A Chinese painting illustrating Qin Shi Huang's burning of the books and execution of 460 scholars.",
-    "SOURCE 3 — Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
+    "SOURCE 1: A Chinese painting illustrating Qin Shi Huang's burning of the books and execution of 460 scholars.",
+    "SOURCE 3: Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
     "\"The Qin was really the first state to go into total mobilisation for war. It really saw the work of its population being fighting and soldiering to win wars and expand. One by one, Qin Shi Huang defeated neighbouring states, swallowed their territory into his growing empire and enslaved and castrated their citizens.\"",
     "\"Qin Shi Huang is credited not only with creating China, but with establishing the world's first truly centralised bureaucratic empire. He set out to unify the procedures and customs and policies of all the states.\"",
     "\"He collected taxes, he administered justice and he had trained bureaucrats all over China. That's an extraordinary achievement.\""
@@ -687,7 +683,7 @@ const SOURCE_PANEL = {
 
 const HOTSPOTS = [
  { mark:"burning of the books and execution of 460 scholars", label:"What the painting chooses to show",
-   text:"Of everything Qin Shi Huang did, the painter picked this. That choice is the point of view. Ask what the same painter left out — the roads, the single script, the canals." },
+   text:"Of everything Qin Shi Huang did, the painter picked this. That choice is the point of view. Ask what the same painter left out, the roads, the single script, the canals." },
  { mark:"We wouldn't have a China without Qin Shi Huang", label:"An interpretation, stated flat",
    text:"This is a historian's claim, not a fact you can look up. It is exactly the kind of sentence the interpretations row is asking you to describe, explain, or analyse." },
  { mark:"enslaved and castrated their citizens", label:"Bol does not soften it",
@@ -732,10 +728,10 @@ const VC = {
 const VC_NOTE = "The rows on this wall are the Ancient China Source Analysis Booklet rubric, word for word, because that is what the CAT is marked against. The codes are Victorian Curriculum 2.0. Two things are worth knowing. The unit plan for this topic still cites VCHHK codes, which belong to Victorian Curriculum 1.0 and have been superseded. And the booklet's significance strand has no equivalent code of its own: VC 2.0 folds significance into the value-of-sources descriptor (S04) rather than making it a separate skill, which is why the significance row here is the only one whose wording is the rubric's descriptive bands rather than an 'I can' statement. See CURRICULUM-CHECK.md.";
 
 const BUMP = {
- "Level 6": "You have named the source and one reason he mattered. To reach Level 7, say what the source was FOR, and give a second reason he mattered — one that lasted after he died.",
+ "Level 6": "You have named the source and one reason he mattered. To reach Level 7, say what the source was FOR, and give a second reason he mattered, one that lasted after he died.",
  "Level 7": "You have described the point of view and drawn a conclusion about usefulness. To reach Level 8, say WHY the painting and the historian disagree, and compare what each source is good for rather than judging them one at a time.",
  "Level 8": "You have explained both interpretations and held the achievement against the cost. To reach Level 9, weigh them: say which claim is better supported and why, and show that his significance is argued over rather than agreed.",
- "Level 9": "You are evaluating from several positions and treating significance as contested. Keep the evidence attached to every claim — at this level an unsupported judgement costs more than a cautious one."
+ "Level 9": "You are evaluating from several positions and treating significance as contested. Keep the evidence attached to every claim, at this level an unsupported judgement costs more than a cautious one."
 };
 
 const GLOSS = {
@@ -827,7 +823,7 @@ const critOf = k => CRITERIA.find(c => c.key === k);
 
 /* Criterion colours live in content.js, so a unit with its own criteria needs
    no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
-   bar) and an underline style — the second channel, which is what survives a
+   bar) and an underline style: the second channel, which is what survives a
    greyscale photocopy or a colour-blind reader. */
 document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
 .m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
@@ -923,7 +919,7 @@ function markTranslatable(){
     el.classList.toggle("tr", has);
   });
 }
-document.title = WALL.title + " — bump it up";
+document.title = WALL.title + ": bump it up";
 el("key").innerHTML = CRITERIA.map(c =>
   `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
 
@@ -931,7 +927,7 @@ el("key").innerHTML = CRITERIA.map(c =>
    Longest terms first so "grinding stone" wins over "stone". Applied to plain
    text only, never inside a tag. */
 /* The shared source-analysis words are linked in every unit, not only where a
-   unit happened to gloss them — they are the words a student needs to do the
+   unit happened to gloss them. They are the words a student needs to do the
    task at all. A word the unit already treats as tier 2 keeps its tier-2
    behaviour rather than being marked twice. */
 const SHARED = (typeof EAL !== "undefined")
@@ -1049,7 +1045,7 @@ function showZoom(n){
   el("zoom").hidden = false;
   /* Only now does the dialog have layout. A long passage does not fit a screen
      at reading-from-the-back size, so bring the chosen phrase to the middle
-     rather than leaving it below the fold — scrollIntoView is a no-op while the
+     rather than leaving it below the fold: scrollIntoView is a no-op while the
      container is still [hidden]. */
   if (isText){
     const lit = el("zPass").querySelector(".lit");
@@ -1169,10 +1165,10 @@ document.addEventListener("click", e => {
       const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-        `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
     } else if (hit){
       /* No language chosen yet. Rather than showing nothing and looking broken,
-         offer the languages here — one tap translates and is remembered. */
+         offer the languages here: one tap translates and is remembered. */
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="pick"><span>See this in your language:</span>` +
         UNIT_LANGS.filter(l => hit.t[l.code])
@@ -1190,7 +1186,7 @@ document.addEventListener("click", e => {
         const lb = UNIT_LANGS.find(l => l.code === lang);
         el("popBody").insertAdjacentHTML("beforeend",
           `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-          `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
+          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
       });
     }
     return;
@@ -1233,7 +1229,7 @@ function render(){
        <div class="facts">${FACTS.map(([h,t])=>
           `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
     /* the source stage has no worked example to shrink, but it still has to
-       fit — it is the first thing on the screen and the class reads it cold */
+       fit. It is the first thing on the screen and the class reads it cold */
     fit();
     markTranslatable();
     return;
@@ -1256,7 +1252,7 @@ function render(){
 
 /* Opening the Background or Curriculum panel eats vertical room. Rather than
    guess a smaller size for those cases, shrink the example until it actually
-   fits — the stage must never scroll on a screen at the front of a room. */
+   fits: the stage must never scroll on a screen at the front of a room. */
 let baseK = 1;
 function fit(){
   const st = el("stage");
@@ -1279,7 +1275,7 @@ function fit(){
     st.style.setProperty("--k", k.toFixed(3));
   }
   /* then, if the fixed panels are still too tall on their own, shrink the
-     whole stage together — everything inside is sized in em */
+     whole stage together, everything inside is sized in em */
   let sk = 1;
   for (let g = 0; g < 60 && over() && sk > 0.5; g++){
     sk *= 0.96;

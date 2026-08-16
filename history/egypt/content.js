@@ -21,7 +21,7 @@ const WALL = {
   title: "A Greek explains Egypt",
   expected: "Year 7",
   inquiry: "How much can we learn about ancient Egypt from a visitor who could not read Egyptian?",
-  foot: "<b>Source:</b> Herodotus, <i>The Histories</i>, Book II, composed c. 430 BCE. English wording adapted from the public-domain translation of George Rawlinson (1858&ndash;60); sentence length and spelling modernised for classroom reading, and the four passages are drawn from sections 5, 14, 19 and 99. <b>The words are a translation of a translation of a copy</b> — no manuscript survives from Herodotus' own lifetime — and the wall treats that as part of the source, not as a footnote to it."
+  foot: "<b>Source:</b> Herodotus, <i>The Histories</i>, Book II, composed c. 430 BCE. English wording adapted from the public-domain translation of George Rawlinson (1858&ndash;60); sentence length and spelling modernised for classroom reading, and the four passages are drawn from sections 5, 14, 19 and 99. <b>The words are a translation of a translation of a copy</b>, no manuscript survives from Herodotus' own lifetime, and the wall treats that as part of the source, not as a footnote to it."
 };
 
 const FACTS = [
@@ -33,9 +33,8 @@ const FACTS = [
   ["Known limits", "He says himself where his own observation stops. Modern historians accept his geography far more readily than his chronology."]
 ];
 
-/* ink   — the colour on paper, all four above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which is what survives a greyscale
+/* ink: the colour on paper, all four above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
                photocopy and a colour-blind reader */
 const CRITERIA = [
   { key:"source",   row:"Origin, features &amp; purpose",        name:"Origin, features &amp; purpose",        glyph:"■",
@@ -96,7 +95,7 @@ const EXPLANATIONS = {
   judge:    "Distinguishes reliable from unreliable within one source, then asks a targeted question about informants."
 },
 "Year 9": {
-  source:   "Explains the transmission — composed, copied, translated — and which audience shaped the telling.",
+  source:   "Explains the transmission, composed, copied, translated, and which audience shaped the telling.",
   context:  "Explains outsider status and the language barrier as context, not just background.",
   evidence: "Analyses his interpretation as a causal claim about geography, and his method statement as evidence in itself.",
   judge:    "Identifies the flood as a stronger claim than the Egyptian past, and explains why."
@@ -159,7 +158,7 @@ const SOURCE_PANEL = {
 
 const HOTSPOTS = [
  { mark:"a gift of the river", label:"The claim",
-   text:"His whole argument in five words: the country exists because the river made it. This is a claim about cause, not a description — and it is the line he is still quoted for, 2,450 years later." },
+   text:"His whole argument in five words: the country exists because the river made it. This is a claim about cause, not a description, and it is the line he is still quoted for, 2,450 years later." },
  { mark:"with less labour than any other people", label:"A comparison, not a measurement",
    text:"He has no way of measuring Egyptian labour against anyone else's. He is comparing Egypt with the Greek farming he grew up with, and the comparison is doing the work." },
  { mark:"for a hundred days", label:"A number he could check",
@@ -187,7 +186,7 @@ const EARLY_EXAMPLES = {
 const EARLY_EXPLANATIONS = {
  "Foundation to Level 2": {
    source:  "Identifies the source and its author, and one thing he did (VC2HH2S03).",
-   context: "Identifies a perspective — what the writer says about the river (VC2HH2S04). The wall colours this green; at this band the curriculum calls it perspectives, not context." },
+   context: "Identifies a perspective: what the writer says about the river (VC2HH2S04). The wall colours this green; at this band the curriculum calls it perspectives, not context." },
  "Levels 3 and 4": {
    source:  "Identifies the features and content of the source, and when it was made (VC2HH4S03).",
    context: "Describes what people in the past did, using evidence from the source (VC2HH4S04).",
@@ -197,7 +196,7 @@ const EARLY_EXPLANATIONS = {
 /* The Victorian Curriculum 2.0 descriptor each rung is working inside, from
    the History sub-strand "Using historical sources", Foundation to Level 10.
    These are about the skill, not the topic, so they are identical across all
-   three units — that is correct, not a copy-paste slip.
+   three units. That is correct, not a copy-paste slip.
 
    This is the SECOND layer: CONTINUUM above is Kew High School's own learning
    continuum. See CURRICULUM-CHECK.md for where the two diverge. */
@@ -240,7 +239,7 @@ const VC = {
   ["VC2HH10S05","analyse the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
   ["VC2HH10S06","evaluate historical interpretations and debates"]]
 };
-const VC_NOTE = "The row wording on this wall is Kew High School's own learning continuum, which runs level by level. The codes are Victorian Curriculum 2.0, which bands History two years at a time — so the two years inside a band share a code. The school continuum runs about one level behind the curriculum through the middle of the ladder: at Level 8 it asks students to \u2018describe\u2019 where VC2HH8S03 asks them to \u2018explain\u2019, and to \u2018explain\u2019 interpretations where VC2HH8S06 asks them to \u2018analyse\u2019. The two converge again by Level 10. See CURRICULUM-CHECK.md.";
+const VC_NOTE = "The row wording on this wall is Kew High School's own learning continuum, which runs level by level. The codes are Victorian Curriculum 2.0, which bands History two years at a time, so the two years inside a band share a code. The school continuum runs about one level behind the curriculum through the middle of the ladder: at Level 8 it asks students to \u2018describe\u2019 where VC2HH8S03 asks them to \u2018explain\u2019, and to \u2018explain\u2019 interpretations where VC2HH8S06 asks them to \u2018analyse\u2019. The two converge again by Level 10. See CURRICULUM-CHECK.md.";
 
 const BUMP = {
  "Foundation to Level 2": {
@@ -257,7 +256,7 @@ const BUMP = {
    background:"That Herodotus was a foreigner in Egypt and could not read Egyptian writing." },
  "Year 7": {
    new:"You separate the ancient text from the modern translation, and you say who he was writing for.",
-   background:"That the pyramids were already two thousand years old when he arrived — he is closer to us than to them." },
+   background:"That the pyramids were already two thousand years old when he arrived. He is closer to us than to them." },
  "Year 8": {
    new:"You attach each modern position to the evidence behind it, and you ask who told him what.",
    background:"That Egypt was ruled by Persia at the time, and that everything he was told came through an interpreter." },

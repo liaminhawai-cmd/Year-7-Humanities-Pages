@@ -25,9 +25,8 @@ const FACTS = [
   ["Known limits", "Two chemical peaks were identified as plastic contamination. The integrity of the Phase 2 layer is contested."]
 ];
 
-/* ink   — the colour on paper, all five above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which is what survives a greyscale
+/* ink: the colour on paper, all five above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
                photocopy and a colour-blind reader */
 const CRITERIA = [
   { key:"source",   row:"Origin, features &amp; purpose",        name:"Origin, features &amp; purpose",        glyph:"■",
@@ -167,7 +166,7 @@ const SOURCE_PANEL = {
   alt:  "Four views of GS73: the artefact with a scale bar, its worn surface magnified, and two microscope views of polished grains.",
   missing: "The picture of GS73 did not load.<br>Keep <b>gs73-source-panel.jpg</b> in the same folder as this page.",
   whole: { label:"All four views",
-    text:"The same object at four magnifications. Nothing is added between one view and the next — only the magnification changes." }
+    text:"The same object at four magnifications. Nothing is added between one view and the next, only the magnification changes." }
 };
 
 const SOURCE_SHEET = {
@@ -175,29 +174,29 @@ const SOURCE_SHEET = {
   title: "GS73",
   standfirst: "A broken piece of sandstone from a rock shelter in northern Australia, and the long journey by which it became evidence.",
 
-  views: "The four views above are all of the same object. The first is the artefact itself, photographed with a five-centimetre scale bar, with arrows marking the worn areas. The second is the same surface at low magnification, where striations and levelled quartz grains become visible. The last two are microscope views, taken at different points, showing bright polish on the raised parts of individual grains. Nothing has been added to the stone between one view and the next — only the magnification changes.",
+  views: "The four views above are all of the same object. The first is the artefact itself, photographed with a five-centimetre scale bar, with arrows marking the worn areas. The second is the same surface at low magnification, where striations and levelled quartz grains become visible. The last two are microscope views, taken at different points, showing bright polish on the raised parts of individual grains. Nothing has been added to the stone between one view and the next, only the magnification changes.",
 
   paras: [
     "GS73 is a fragment of a millstone: the lower, fixed slab of a grinding pair, against which a smaller handheld stone is worked. It is sandstone, it is broken, and on its own it looks unremarkable. It was excavated from square B5/52 at the Madjedbebe rock shelter, on Mirarr Country in northern Australia.",
 
     "Where a thing is found in the ground matters as much as the thing itself. GS73 came from Phase 2 of the excavation, a layer modelled to between 68,700 and 50,400 years ago. That range is not a measurement of the stone; it is a model of the deposit the stone was lying in, and the earliest end of it is disputed.",
 
-    "The stone reached a laboratory before it reached this page. Researchers photographed it, examined its surface under magnification, and washed and analysed what was still caught in it. They recovered 41 starch grains and detected plant-related compounds. They could not identify which plant. They also found two chemical peaks they identified as plastic contamination — a modern signal sitting inside an ancient sample, reported rather than quietly removed.",
+    "The stone reached a laboratory before it reached this page. Researchers photographed it, examined its surface under magnification, and washed and analysed what was still caught in it. They recovered 41 starch grains and detected plant-related compounds. They could not identify which plant. They also found two chemical peaks they identified as plastic contamination, a modern signal sitting inside an ancient sample, reported rather than quietly removed.",
 
-    "Hayes and colleagues read the combination — the shape, the deep partial grooves, the levelled grains and polish, the starch and the plant compounds — as evidence of plant processing, and published it in 2022 as part of an argument that grinding-stone use at Madjedbebe has a very long history. Several independent methods pointing the same way is what makes that reading strong.",
+    "Hayes and colleagues read the combination, the shape, the deep partial grooves, the levelled grains and polish, the starch and the plant compounds, as evidence of plant processing, and published it in 2022 as part of an argument that grinding-stone use at Madjedbebe has a very long history. Several independent methods pointing the same way is what makes that reading strong.",
 
     "The age of the layer is argued about separately. Clarkson and colleagues hold that the artefacts stayed where they were deposited, supporting occupation around 65,000 years ago. Williams and colleagues point to termite activity and sediment movement, and argue that the earliest material may not have stayed in place. Note what is and is not in dispute: the disagreement is about how old the layer is, not about whether GS73 is a genuine grinding stone.",
 
     "None of this work was done on unclaimed ground. Madjedbebe is on Mirarr Country. The research was carried out with the permission of the custodians of Madjedbebe, May Nango and Djaykuk Djandjomerr, and of Mirarr Senior Traditional Owner Yvonne Margarula, with Gundjeihmi Aboriginal Corporation facilitating the work. The images and information were published for general educational purposes; no commercial use is authorised without prior Mirarr consent. Country and custodianship are part of this source’s context, not a footnote to it."
   ],
 
-  close: "A single stone cannot tell you who used it, or what exactly they ground. What it can do — once it has been recorded, magnified, analysed, argued over and attributed — is carry evidence. That is the difference between an object and a source."
+  close: "A single stone cannot tell you who used it, or what exactly they ground. What it can do, once it has been recorded, magnified, analysed, argued over and attributed, is carry evidence. That is the difference between an object and a source."
 };
 
 /* ---------------------------------------------------------------------------
    Paragraph frame (paragraph-builder.html). Same idea as the ELC TEEA tool:
    one card per step, each opening to the job, the guide, a worked non-example
-   and sentence stems. The worked examples are NOT repeated here — the builder
+   and sentence stems. The worked examples are NOT repeated here, the builder
    pulls them out of EXAMPLES above, so they can never drift.
    --------------------------------------------------------------------------- */
 
@@ -234,7 +233,7 @@ const FRAME = {
 
     { key:"judge", letter:"U", title:"Usefulness",
       job:"Judge what the source is good for, then say plainly what it cannot settle.",
-      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology — it is half of the judgement.",
+      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology. It is half of the judgement.",
       warn:"This source is very useful and reliable.",
       warnWhy:"Useful for which claim? A judgement with nothing attached and no limit is not a judgement.",
       stems:["___ is useful for investigating ___ because ___.",
@@ -272,12 +271,12 @@ const VERBS = {
 
 /* ---------------------------------------------------------------------------
    Staged build activity (build-the-wall.html). Only the teaching text lives
-   here — every question is generated from EXAMPLES, CONTINUUM and FRAME above,
+   here: every question is generated from EXAMPLES, CONTINUUM and FRAME above,
    so the activity can never ask about something the wall does not say.
    --------------------------------------------------------------------------- */
 
 const BUILD = {
-  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked — you can leave a round and come back.",
+  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked. You can leave a round and come back.",
   stages: [
     { id:"phrase", title:"Which criterion does this phrase prove?", short:"Phrases",
       teach:"Every marked phrase on the wall is marked because it <b>proves one criterion</b>. The unmarked words around it are the glue that holds the sentence together.<br><br>Ask: <i>what is this phrase doing?</i> Naming the source is not the same as judging it. Giving an interpretation is not the same as giving the evidence for it.",
@@ -328,7 +327,7 @@ const EARLY_EXAMPLES = {
 const EARLY_EXPLANATIONS = {
  "Foundation to Level 2": {
    source:  "Identifies features you can see on the source itself: the lines, and the shine (VC2HH2S03).",
-   context: "Identifies a perspective — what the person using it was trying to do (VC2HH2S04). The wall colours this green, but at this band the curriculum calls it perspectives, not context." },
+   context: "Identifies a perspective: what the person using it was trying to do (VC2HH2S04). The wall colours this green, but at this band the curriculum calls it perspectives, not context." },
  "Levels 3 and 4": {
    source:  "Identifies the features and content of a historical source, and names where it was found (VC2HH4S03).",
    context: "Describes the perspective of people in the past, using evidence from the object itself (VC2HH4S04).",
@@ -416,7 +415,7 @@ const HOTSPOTS = [
  { x:2,  y:2,  w:46, h:50, label:"The artefact",
    text:"GS73 itself, photographed with a five-centimetre scale bar. The white arrows point to the worn areas." },
  { x:50, y:2,  w:48, h:50, label:"Low magnification",
-   text:"The same surface, magnified. Now you can see striations — fine scratch lines — and quartz grains levelled flat by rubbing." },
+   text:"The same surface, magnified. Now you can see striations, fine scratch lines, and quartz grains levelled flat by rubbing." },
  { x:4,  y:54, w:44, h:44, label:"Microscope view r",
    text:"Bright polish on the raised parts of single grains. Polish like this builds up when a stone is used again and again." },
  { x:50, y:54, w:48, h:44, label:"Microscope view s",
@@ -424,7 +423,7 @@ const HOTSPOTS = [
 ];
 
 /* ---------------------------------------------------------------------------
-   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   PEEL and TEEL. Not a different paragraph, the same moves under the names
    students meet in English, mapped onto the same criterion keys so that a
    student's writing survives switching frames.
 
@@ -475,7 +474,7 @@ const FRAMES = [FRAME,
 
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
-   source-analysis words are NOT repeated here — they live in eal.js and only
+   source-analysis words are NOT repeated here. They live in eal.js and only
    there. Machine-drafted, unreviewed, and labelled as such on screen. */
 const TIER3_T = {
   "grinding stone": {"zh-Hans": "石磨", "zh-Hant": "石磨", "vi": "đá nghiền", "ar": "حجر طحن", "fa": "سنگ آسیاب", "ur": "پیسنے کا پتھر", "ml": "അരയ്ക്കുന്ന കല്ല്", "am": "መፍጫ ድንጋይ"},
@@ -496,8 +495,7 @@ const TIER3_T = {
 };
 
 /* ---------- criteria held back from the rubric ----------
-   Metacognition is written into this file — a continuum row, an explanation at
-   every level, and a marked phrase in every worked example — but it is not being
+   Metacognition is written into this file, a continuum row, an explanation at every level, and a marked phrase in every worked example, but it is not being
    assessed for now. Rather than delete that work, it is withdrawn here: the key
    below is removed from CRITERIA, so it is not a colour on the wall, not a row
    in the rubric and not a tappable mark, and its phrases are unwrapped so the

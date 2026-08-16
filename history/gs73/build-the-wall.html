@@ -215,7 +215,7 @@ function orderItem(){
 const plain = s => String(s).replace(/\{(\w+)\|([^}]*)\}/g,"$2");
 const mark  = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,(_,k,t)=>`<span class="m m-${k}">${t}</span>`);
 
-/* split without ever cutting through a {mark} — marks contain their own stops */
+/* split without ever cutting through a {mark}, marks contain their own stops */
 function sentences(src){
   const out=[]; let buf="", depth=0;
   for (let i=0;i<src.length;i++){
@@ -258,7 +258,7 @@ function drawWall(){
        ${LEVELS.map(lv=>{
          const on = filled[c.key+"|"+lv];
          const d = CONTINUUM[c.key][lv];
-         return `<td class="cell c-${c.key}${on?" on":""}">${on ? esc(d || "—") : ""}</td>`;
+         return `<td class="cell c-${c.key}${on?" on":""}">${on ? esc(d || ": ") : ""}</td>`;
        }).join("")}</tr>`).join("")}</tbody>`;
   const total = CRITERIA.length * LEVELS.length;
   const done = Object.values(filled).filter(Boolean).length;

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<title>Share the River — Water in the World</title>
+<title>Share the River: Water in the World</title>
 <style>
   :root{
     --bg:#f2ece0; --paper:#fbf7ef; --ink:#211d17; --muted:#6c6353;
@@ -181,12 +181,11 @@
 <script>
 "use strict";
 /* ============================================================
-   SHARE THE RIVER (v3) — the Big Dry
+   SHARE THE RIVER (v3): the Big Dry
    You manage a catchment through a MULTI-YEAR drought, modelled
    on the Millennium Drought. You never type a number: you set a
    POLICY POSTURE for each part of the system (like choosing a
-   strategy, not dialling an amount). Then the climate resolves —
-   the forecast is only a forecast — and you live with it.
+   strategy, not dialling an amount). Then the climate resolves, the forecast is only a forecast, and you live with it.
    Harm accumulates and some of it is permanent: a salt scar
    spreads, an aquifer draws down, a dried billabong stays dry, a
    town loses people. Knowledge lives in the advisers' voices;
@@ -194,10 +193,10 @@
    an opt-in, non-grading debrief against the school continuum;
    and it ends by comparing your drought to the real one.
    A fictionalised catchment standing in for the Murray–Darling
-   Basin — a deliberate simplification, named as such.
+   Basin: a deliberate simplification, named as such.
    ============================================================ */
 /* ============================================================
-   THE BIG DRY — a five-year drought arc.
+   THE BIG DRY: a five-year drought arc.
    odds are over {severe,dry,average,wet}; the climate RESOLVES
    from them each year (the forecast is only a forecast).
    ============================================================ */
@@ -205,11 +204,11 @@ const INFLOW_BY_CAT = { severe:5, dry:8, average:11, wet:16 };
 const CAT_WORD = { severe:"a severe, failed year", dry:"a dry year", average:"an average year", wet:"a wet year" };
 const YEARS = [
   { name:"Year 1", tag:"The onset", odds:{severe:0.10,dry:0.50,average:0.30,wet:0.10},
-    outlook:"The Bureau is <b>leaning dry</b> — an El Niño may be forming. Nothing certain yet.",
+    outlook:"The Bureau is <b>leaning dry</b>: an El Niño may be forming. Nothing certain yet.",
     setUp:"The rivers are still flowing, but the outlook has people worried. Set your first year's policy." },
   { name:"Year 2", tag:"Deepening", odds:{severe:0.20,dry:0.55,average:0.20,wet:0.05},
     outlook:"El Niño is confirmed. <b>Most likely dry, with a real chance of a failed year.</b>",
-    setUp:"Storages are dropping across the Basin. What you banked — or spent — last year matters now." },
+    setUp:"Storages are dropping across the Basin. What you banked, or spent, last year matters now." },
   { name:"Year 3", tag:"The grip tightens", odds:{severe:0.45,dry:0.40,average:0.13,wet:0.02}, event:"theft",
     outlook:"<b>A severe year is now most likely.</b> Every drop is contested.",
     setUp:"The worst of the drought. And upstream, an irrigator has been caught taking far more than their licence." },
@@ -217,7 +216,7 @@ const YEARS = [
     outlook:"Still <b>severe-to-dry</b>. Some Basin towns are trucking in drinking water.",
     setUp:"Reserves are near empty. The town is watching its taps; the wetland is barely alive." },
   { name:"Year 5", tag:"The break?", odds:{severe:0.05,dry:0.15,average:0.20,wet:0.60}, event:"flood",
-    outlook:"<b>La Niña signs — most likely wet.</b> The drought may break, perhaps with a flood.",
+    outlook:"<b>La Niña signs: most likely wet.</b> The drought may break, perhaps with a flood.",
     setUp:"Cloud is building in the north. If the rains come hard, you'll have a fast decision to make." },
 ];
 
@@ -234,54 +233,54 @@ const PLACES = [
 const LAYERS = {
   water:{ label:"Water", dot:"#2c7488", cap:"The catchment: a dam up top, farms, a tributary, the town, the wetland and a cut-off billabong at the bottom. Water taken up top never reaches those below." },
   rain:{ label:"Rainfall & inflow", dot:"#8aab6a", cap:"Rain falls mostly on the upstream ranges and fades to the dry lowland. Read the forecast: in the Big Dry, most years the water simply doesn't come." },
-  demand:{ label:"Who wants it", dot:"#b0741f", cap:"Each user's demand shown as a bubble. Cotton is thirstiest and sits at the top of the system — it takes first." },
+  demand:{ label:"Who wants it", dot:"#b0741f", cap:"Each user's demand shown as a bubble. Cotton is thirstiest and sits at the top of the system. It takes first." },
   health:{ label:"River health", dot:"#a8432f", cap:"Green is healthy; red is slow, warm and stressed. The stress always builds downstream of where the water was taken." },
-  salt:{ label:"Salinity", dot:"#a56a86", cap:"Salt left behind by irrigation and low flows. It builds slowly and clears slowly — a big flood can flush it, but until then it poisons soil and drinking water." },
+  salt:{ label:"Salinity", dot:"#a56a86", cap:"Salt left behind by irrigation and low flows. It builds slowly and clears slowly, a big flood can flush it, but until then it poisons soil and drinking water." },
 };
 
 /* ============================================================
-   ADVISERS — knowledge in their voices. Aunty Marion carries the
+   ADVISERS: knowledge in their voices. Aunty Marion carries the
    'consult early' (FPIC) mechanic.
    ============================================================ */
 const HYDRO = { key:"hydro", cls:"hydro", name:"Sana O.", role:"Catchment hydrologist", icon:"📈",
   profile:[
     "My job is to explain how the catchment works across a long drought, not to take a side.",
-    "Water is <b>renewable</b> but the amount arriving each year is <b>finite</b> — and in the Big Dry it fails, year after year. The forecast is odds, not a promise: the dam lets you move water through <b>time</b>, but banking it is a bet on next year being worse.",
-    "Two slow, cruel things build up over a drought. <b>Salinity</b> — salt left behind by irrigation and low flows — poisons soil and taps, and only a flood really flushes it. And <b>groundwater</b>: bores can save you now, but an aquifer drawn down takes decades to refill. Nothing here resets at the end of the year."],
+    "Water is <b>renewable</b> but the amount arriving each year is <b>finite</b>, and in the Big Dry it fails, year after year. The forecast is odds, not a promise: the dam lets you move water through <b>time</b>, but banking it is a bet on next year being worse.",
+    "Two slow, cruel things build up over a drought. <b>Salinity</b>, salt left behind by irrigation and low flows, poisons soil and taps, and only a flood really flushes it. And <b>groundwater</b>: bores can save you now, but an aquifer drawn down takes decades to refill. Nothing here resets at the end of the year."],
 };
 const ADVISERS = [
   { key:"farm", cls:"farm", name:"Dai N.", role:"Grower (cotton & citrus)", icon:"🚜",
     concern:"“Every dry year, the district loses more families.”",
     profile:[
-      "Irrigation is the district's lifeblood and its biggest water use. Flood irrigation is what we've always done — cheap, but thirsty, and it leaves salt behind.",
-      "<b>Drip</b> would grow the same crop on far less water and less salt, but it costs money to put in. In a long drought I can also <b>cut back</b> or <b>fallow</b> — rest the fields — but that's income and jobs gone.",
+      "Irrigation is the district's lifeblood and its biggest water use. Flood irrigation is what we've always done, cheap, but thirsty, and it leaves salt behind.",
+      "<b>Drip</b> would grow the same crop on far less water and less salt, but it costs money to put in. In a long drought I can also <b>cut back</b> or <b>fallow</b>, rest the fields, but that's income and jobs gone.",
       "If the farms fold, the town folds with us. Don't forget that when you're leaving water in the river."],
     wants:"Wants enough water to keep production and jobs alive through the drought.",
     react:{ good:"“We got a crop in. The town's still breathing because of it.”", concern:"“Scraping through. Another year like this and I'm laying people off.”", bad:"“The district's on its knees. Families are packing up and leaving for good.”" } },
   { key:"town", cls:"town", name:"Mayor Ellis", role:"Willow Bend council", icon:"🏛",
-    concern:"“I've got a town to keep watered — and alive.”",
+    concern:"“I've got a town to keep watered, and alive.”",
     profile:[
       "Drinking water first, always. But our jobs come from the farms, so starving them empties the town more slowly.",
-      "I can cut our demand with <b>restrictions</b> (people grumble) or a <b>recycling</b> scheme (costs money, but permanent). If we're desperate, town <b>bores</b> can pump groundwater — but that's borrowing from the future.",
+      "I can cut our demand with <b>restrictions</b> (people grumble) or a <b>recycling</b> scheme (costs money, but permanent). If we're desperate, town <b>bores</b> can pump groundwater, but that's borrowing from the future.",
       "And if the river upstream turns salty or foul, it's OUR taps that fail. A dying river is a dying town."],
     wants:"Wants secure town water, a working farm economy, and a river clean enough to drink.",
-    react:{ good:"“Taps on, hospital running, people staying. Thank you.”", concern:"“We're on restrictions and holding — just.”", bad:"“Families are leaving Willow Bend. Once they go, they don't come back.”" } },
+    react:{ good:"“Taps on, hospital running, people staying. Thank you.”", concern:"“We're on restrictions and holding: just.”", bad:"“Families are leaving Willow Bend. Once they go, they don't come back.”" } },
   { key:"river", cls:"river", name:"Priya R.", role:"River ecologist", icon:"🔬",
-    concern:"“A river can die in a long drought — and not come back.”",
+    concern:"“A river can die in a long drought, and not come back.”",
     profile:[
-      "Environmental flow keeps the wetland alive: fish, waterbirds, red-gums. In a multi-year drought there is no slack — each dry year draws down the last.",
+      "Environmental flow keeps the wetland alive: fish, waterbirds, red-gums. In a multi-year drought there is no slack. Each dry year draws down the last.",
       "Take too much and you get slow, warm, salty water: algal blooms and fish kills. The Menindee kind of fish kill. That damage compounds over years; a single wet season won't undo it.",
       "The migratory birds that feed here link this reach to wetlands thousands of kilometres away. What dies here is felt down the whole flyway."],
     wants:"Wants environmental flow protected every year so the wetland survives the whole drought.",
-    react:{ good:"“The wetland's holding through the dry — that's a real achievement.”", concern:"“Stressed and shrinking. It can't take many more years of this.”", bad:"“Slow, warm, salty water. Fish kills. This won't recover for a decade.”" } },
+    react:{ good:"“The wetland's holding through the dry: that's a real achievement.”", concern:"“Stressed and shrinking. It can't take many more years of this.”", bad:"“Slow, warm, salty water. Fish kills. This won't recover for a decade.”" } },
   { key:"culture", cls:"culture", name:"Aunty Marion", role:"First Nations custodian", icon:"🌏",
     concern:"“Water for Country isn't the leftovers. Talk with us first.”",
     profile:[
-      "Our people have cared for this Country and its waters for tens of thousands of years. The billabong is a living, sacred place — a cut-off bend that only survives on the water sent to it.",
-      "A cultural flow keeps it alive. Dry it out and it's a deep loss — for Country, food and ceremony — and it does not simply refill. First Nations peoples across the Basin are still fighting to have water for Country recognised as a right, not a favour.",
-      "And this is the heart of it: <b>ask us before you decide, not after</b>. Free, Prior and Informed Consent — spoken with early, given the full picture, with a real say. That changes everything about how a plan lands."],
-    wants:"Wants water for Country protected every year, and to be consulted BEFORE decisions — not told after.",
-    react:{ good:"“You kept the billabong alive, and you asked us first. That's how it should be.”", concern:"“Country's holding, but only just — and we're still fighting to be heard.”", bad:"“The billabong is dry. A living, sacred place — lost, and not by our choosing.”" } },
+      "Our people have cared for this Country and its waters for tens of thousands of years. The billabong is a living, sacred place, a cut-off bend that only survives on the water sent to it.",
+      "A cultural flow keeps it alive. Dry it out and it's a deep loss, for Country, food and ceremony, and it does not simply refill. First Nations peoples across the Basin are still fighting to have water for Country recognised as a right, not a favour.",
+      "And this is the heart of it: <b>ask us before you decide, not after</b>. Free, Prior and Informed Consent, spoken with early, given the full picture, with a real say. That changes everything about how a plan lands."],
+    wants:"Wants water for Country protected every year, and to be consulted BEFORE decisions, not told after.",
+    react:{ good:"“You kept the billabong alive, and you asked us first. That's how it should be.”", concern:"“Country's holding, but only just, and we're still fighting to be heard.”", bad:"“The billabong is dry. A living, sacred place, lost, and not by our choosing.”" } },
 ];
 
 /* ============================================================
@@ -300,12 +299,12 @@ const QUESTIONS = [
   { n:1, strand:"challenges", tie:"1.3 Challenges · a drought is a marathon",
     q:"You planned across five uncertain years. Describe your overall drought strategy, and one bet that went well or badly when the climate resolved.",
     scaffold:"Try: “My strategy was to ____ (e.g. modernise to drip early / bank water in the dam). In Year ____ I bet that ____, and the climate came in ____, so ____.”",
-    stretch:"Stretch (Yrs 9–10): <b>evaluate</b> — was there a more effective long-run strategy? Justify with economic, social and environmental reasons.",
+    stretch:"Stretch (Yrs 9–10): <b>evaluate</b>: was there a more effective long-run strategy? Justify with economic, social and environmental reasons.",
     lookFor:["drip","bank","dam","drought","year","bet","forecast","fallow","recycl","cut","trade","because","strategy"] },
   { n:2, strand:"interconnection", tie:"1.2 Interconnection · over time & scale",
     q:"Explain how a decision in one year, or in one part of the catchment, changed things in a LATER year or FURTHER downstream. Use salinity, the dam, or the billabong.",
     scaffold:"Try: “When I ____ in Year ____, it meant that later ____ / downstream ____. For example, salt built up because ____.”",
-    stretch:"Stretch (Yrs 9–10): explain it at the <b>Basin scale</b> — how do choices across the whole system, over many years, shape one reach?",
+    stretch:"Stretch (Yrs 9–10): explain it at the <b>Basin scale</b>: how do choices across the whole system, over many years, shape one reach?",
     lookFor:["salt","salin","later","year","downstream","dam","aquifer","billabong","because","accumulat","over time","basin","connect"] },
   { n:3, strand:"mapdata", tie:"2.1 Map & Data · planning under uncertainty",
     q:"The forecast each year was odds, not a promise. Describe how you read the outlook and the gauges (dam, salinity), and how the uncertainty changed your choices.",
@@ -320,14 +319,14 @@ const QUESTIONS = [
 ];
 const EPILOGUE = [
   { t:"The Millennium Drought", p:"South-eastern Australia's <b>Millennium Drought</b> (about 1997–2009) is the real Big Dry this is modelled on. Storages fell below 20%, towns went onto severe restrictions, and some ran within weeks of empty. It reshaped how Australia manages water." },
-  { t:"Menindee, 2019", p:"When the drought bit hardest on the Darling (Baaka), the river went stagnant and hot. In the summer of <b>2018–19, up to a million fish died at Menindee</b> — the fish kills Priya kept warning about. A river really can be pushed past recovery." },
-  { t:"The Murray–Darling Basin Plan", p:"In 2012 governments agreed the <b>Basin Plan</b>, which for the first time set aside water for the environment across the whole Basin — the idea that the river itself holds a legitimate claim, not just the leftovers." },
-  { t:"Water for Country", p:"First Nations peoples hold a tiny fraction of the Basin's water despite tens of thousands of years of custodianship. The fight for <b>cultural flows</b> — water for Country as a right, decided <i>with</i> Traditional Owners — is real and ongoing. How you treated Aunty Marion's ask mirrors a live question in Australian water law." },
+  { t:"Menindee, 2019", p:"When the drought bit hardest on the Darling (Baaka), the river went stagnant and hot. In the summer of <b>2018–19, up to a million fish died at Menindee</b>: the fish kills Priya kept warning about. A river really can be pushed past recovery." },
+  { t:"The Murray–Darling Basin Plan", p:"In 2012 governments agreed the <b>Basin Plan</b>, which for the first time set aside water for the environment across the whole Basin, the idea that the river itself holds a legitimate claim, not just the leftovers." },
+  { t:"Water for Country", p:"First Nations peoples hold a tiny fraction of the Basin's water despite tens of thousands of years of custodianship. The fight for <b>cultural flows</b>: water for Country as a right, decided <i>with</i> Traditional Owners: is real and ongoing. How you treated Aunty Marion's ask mirrors a live question in Australian water law." },
 ];
-/* ================= CONFIG (postures — display; mechanics below) ================= */
+/* ================= CONFIG (postures: display; mechanics below) ================= */
 const RES_CAP=10;
 const LEVERS = {
-  dam:{ cls:"store", name:"🏔 Highland dam", tag:"storage", desc:"Move water through time — but banking is a bet that next year is worse.",
+  dam:{ cls:"store", name:"🏔 Highland dam", tag:"storage", desc:"Move water through time, but banking is a bet that next year is worse.",
     postures:[{id:"bank",t:"Bank water",d:"Store inflow for later; less available now."},{id:"balanced",t:"Balanced",d:"A small release."},{id:"release",t:"Release storage",d:"More water now; the dam drains."}] },
   farm:{ cls:"farm", name:"🌾 Farms", tag:"cotton & orchards", desc:"How hard to farm this year. Flood is thirsty and leaves salt; resting the fields spares water but kills income.",
     postures:[{id:"full",t:"Full production",d:"Most water & income, most salt."},{id:"cutback",t:"Cut back",d:"Less water, less income, less salt."},{id:"fallow",t:"Fallow the fields",d:"Rest the land: little water or income; salt eases."}],
@@ -335,7 +334,7 @@ const LEVERS = {
   town:{ cls:"town", name:"🏘 Town", tag:"Willow Bend", desc:"Meet the town's demand, or cut it.",
     postures:[{id:"bau",t:"Business as usual",d:"Full town demand."},{id:"restrict",t:"Water restrictions",d:"Lower demand; people grumble."}],
     invest:{id:"recycle",t:"Recycling scheme",cost:3,d:"Permanent cut to town demand."} },
-  gw:{ cls:"town", name:"🕳 Groundwater", tag:"bores", desc:"Pump the aquifer to spare the river now — but it draws down a store that takes decades to refill.", needsOwn:"bores",
+  gw:{ cls:"town", name:"🕳 Groundwater", tag:"bores", desc:"Pump the aquifer to spare the river now, but it draws down a store that takes decades to refill.", needsOwn:"bores",
     postures:[{id:"off",t:"Leave it",d:"Aquifer recharges."},{id:"pump",t:"Pump bores",d:"Extra water now; the aquifer falls."}],
     invest:{id:"bores",t:"Sink town bores",cost:3,d:"One-off: unlocks groundwater pumping."} },
   country:{ cls:"culture", name:"🌏 Water for Country & river", tag:"environmental & cultural flow", desc:"Where the river and the sacred billabong sit in your priorities.",
@@ -458,14 +457,14 @@ function drawMap(){
   const L=state.layer, p=state.posture, se=YEARS[state.yearIdx];
   const chanCol=state.meters.river>=60?"#2c7488":(state.meters.river>=40?"#c98a2b":"#a8432f");
   const baseCol=L==="health"?chanCol:"#2c7488";
-  // main channel — width shrinks with how much farms/town take
+  // main channel: width shrinks with how much farms/town take
   const takeW=offtakeW(p.farm), downW=clamp(15-takeW*0.7,3,13);
   let river=`<line x1="230" y1="95" x2="230" y2="180" stroke="${baseCol}" stroke-width="13" stroke-linecap="round"/>
     <line x1="230" y1="180" x2="230" y2="410" stroke="${L==='health'?chanCol:'#2c7488'}" stroke-width="${downW}" stroke-linecap="round"/>
     <line x1="230" y1="410" x2="230" y2="500" stroke="${L==='health'?(p.country==='peoplefirst'?'#a8432f':chanCol):'#2c7488'}" stroke-width="${p.country==='peoplefirst'?4:downW*0.8}" stroke-linecap="round"/>
     <line x1="230" y1="500" x2="230" y2="600" stroke="${L==='health'?chanCol:'#2c7488'}" stroke-width="${p.country==='peoplefirst'?3:5}" stroke-linecap="round" opacity="0.8"/>
     <line x1="430" y1="235" x2="232" y2="250" stroke="#2c7488" stroke-width="8" stroke-linecap="round" opacity="0.9"/>`;
-  // billabong side channel — thickness by country posture
+  // billabong side channel: thickness by country posture
   const cw={countryfirst:8,fairshare:4,peoplefirst:1.5}[p.country];
   river+=`<path d="M230 525 Q300 545 345 575" fill="none" stroke="${state.dried?'#a98b4f':'#3f7a4a'}" stroke-width="${cw}" stroke-linecap="round" stroke-dasharray="${state.dried?'2 5':''}" opacity="0.9"/>`;
   // farm offtakes
@@ -474,7 +473,7 @@ function drawMap(){
   // rainfall overlay
   let over="";
   if(L==="rain") over=`<defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe3c9"/><stop offset="0.6" stop-color="#e8e0c4"/><stop offset="1" stop-color="#e6d3ad"/></linearGradient></defs><rect x="0" y="0" width="460" height="640" fill="url(#rg)" opacity="0.6"/>`;
-  // salinity scar (always visible faintly; layer makes it bold) — spreads near farms & lowland
+  // salinity scar (always visible faintly; layer makes it bold), spreads near farms & lowland
   const salF=state.salinity/100, salOp=(L==="salt"?0.55:0.22)*salF;
   const scar=salF>0.1?`<g opacity="${salOp}"><ellipse cx="150" cy="250" rx="${30+60*salF}" ry="${20+30*salF}" fill="#a56a86"/><ellipse cx="230" cy="470" rx="${40+70*salF}" ry="${20+40*salF}" fill="#a56a86"/></g>`:"";
   // dam gauge
@@ -505,26 +504,26 @@ function renderAdvisers(){
   return hydro+`<div class="advisers">${cards}</div>`;
 }
 function toggleConsult(k){ state.consult[k]=!state.consult[k];
-  if(k==="culture" && state.consult[k] && state.stage==="plan" && !state.consultEarly){ state.consultEarly=true; flash("You sat down with Aunty Marion before deciding. If your plan now delivers what she actually asked for, it lands as partnership — not tokenism."); }
+  if(k==="culture" && state.consult[k] && state.stage==="plan" && !state.consultEarly){ state.consultEarly=true; flash("You sat down with Aunty Marion before deciding. If your plan now delivers what she actually asked for, it lands as partnership, not tokenism."); }
   document.getElementById("advzone").innerHTML=renderAdvisers(); }
 
 /* ================= INTRO ================= */
 function renderIntro(){
   document.getElementById("scr-game").innerHTML=`
     <h1>Share the River</h1>
-    <p class="subtitle">The Big Dry. You manage a catchment through a five-year drought — never dialling amounts, only setting policy — and live with what the climate does.</p>
+    <p class="subtitle">The Big Dry. You manage a catchment through a five-year drought, never dialling amounts, only setting policy, and live with what the climate does.</p>
     <div class="maparea"><div><div class="layerbtns" id="layerbtns"></div><div class="mapframe" id="mapframe">${drawMap()}</div><div class="mapcap" id="mapcap">${LAYERS.water.cap}</div></div>
-      <div><div class="brief"><b>You are the water manager.</b> Each year you don't hand out litres — you choose a <b>policy</b>: how hard to farm, whether to bank or release the dam, whether to modernise or restrict, and where the river and the sacred billabong sit in your priorities. Then the <b>climate resolves</b> — the forecast is only odds — and the drought's damage builds up: salt, an emptying aquifer, a shrinking town, a billabong that can dry for good. Consult your advisers, then commit the year.</div>
+      <div><div class="brief"><b>You are the water manager.</b> Each year you don't hand out litres. You choose a <b>policy</b>: how hard to farm, whether to bank or release the dam, whether to modernise or restrict, and where the river and the sacred billabong sit in your priorities. Then the <b>climate resolves</b>, the forecast is only odds, and the drought's damage builds up: salt, an emptying aquifer, a shrinking town, a billabong that can dry for good. Consult your advisers, then commit the year.</div>
       <div id="advzone">${renderAdvisers()}</div></div></div>
-    <p class="note" style="text-align:center;margin-top:8px">A fictionalised catchment standing in for the Murray–Darling Basin. Advisers are role archetypes, not real people. Across the real Basin, First Nations peoples — including the Barkandji, whose name for the Darling is the <b>Baaka</b> — are its long-time custodians.</p>
-    <div class="runrow noprint" style="justify-content:center"><button class="btn btn-primary" onclick="startYear(0)">Begin — Year 1 →</button></div>`;
+    <p class="note" style="text-align:center;margin-top:8px">A fictionalised catchment standing in for the Murray–Darling Basin. Advisers are role archetypes, not real people. Across the real Basin, First Nations peoples, including the Barkandji, whose name for the Darling is the <b>Baaka</b>: are its long-time custodians.</p>
+    <div class="runrow noprint" style="justify-content:center"><button class="btn btn-primary" onclick="startYear(0)">Begin: Year 1 →</button></div>`;
   wireLayers();
 }
 function wireLayers(){ const box=document.getElementById("layerbtns"); if(!box)return; box.innerHTML=Object.keys(LAYERS).map(k=>`<button class="lbtn ${state.layer===k?'on':''}" onclick="setLayer('${k}')"><span class="dot" style="background:${LAYERS[k].dot}"></span>${LAYERS[k].label}</button>`).join(""); }
 function setLayer(k){ state.layer=k; document.getElementById("mapframe").innerHTML=drawMap(); document.getElementById("mapcap").innerHTML=LAYERS[k].cap; wireLayers(); }
 function flash(msg){ const h=document.getElementById("planhint"); if(h){ h.textContent=msg; setTimeout(()=>{if(h.textContent===msg)h.textContent="";},3200);} }
 
-/* ================= YEAR — PLAN ================= */
+/* ================= YEAR: PLAN ================= */
 function startYear(idx){ state.yearIdx=idx; state.stage="plan"; state.posture={...DEFAULT_POSTURE}; state.consultEarly=false;
   const ev=YEARS[idx].event; state.event = ev==="theft"?"enforce":(ev==="flood"?"flush":null);
   renderYear(); }
@@ -547,7 +546,7 @@ function renderYear(){
     <div id="advzone">${renderAdvisers()}</div>
     <div class="maparea">
       <div><div class="layerbtns" id="layerbtns"></div><div class="mapframe" id="mapframe">${drawMap()}</div><div class="mapcap" id="mapcap">${LAYERS[state.layer].cap}</div>
-        <div class="forecastbox"><b>This year's outlook.</b> ${y.outlook} ${oddsBar(y.odds)}<div class="muted" style="margin-top:4px">Severe · Dry · Average · Wet — the bar shows the odds. The actual year only reveals when you commit.</div></div></div>
+        <div class="forecastbox"><b>This year's outlook.</b> ${y.outlook} ${oddsBar(y.odds)}<div class="muted" style="margin-top:4px">Severe · Dry · Average · Wet: the bar shows the odds. The actual year only reveals when you commit.</div></div></div>
       <div><h3 style="margin-top:0">Your policy for ${esc(y.name)}</h3><div class="plan" id="plan"></div>
         <div class="runrow"><span class="muted" id="planhint"></span><button class="btn btn-primary" id="commit" onclick="commitYear()">Commit the year →</button></div></div>
     </div>`;
@@ -575,12 +574,12 @@ function renderPlan(){
 function refreshMap(){ if(document.getElementById("mapframe")) document.getElementById("mapframe").innerHTML=drawMap(); }
 function setPosture(lev,id){ if(LEVERS[lev].needsOwn && !state.owned[LEVERS[lev].needsOwn]) return; state.posture[lev]=id; renderPlan(); }
 function setEvent(id){ state.event=id; renderPlan(); }
-function invest(id,cost){ if(state.budget<cost){flash("Not enough budget yet — the farms need a better year first.");return;} state.budget=r1(state.budget-cost); state.owned[id]=true; document.querySelector('.gaugerow .gauge .g-val').textContent="$"+r1(state.budget)+"M"; renderPlan(); }
+function invest(id,cost){ if(state.budget<cost){flash("Not enough budget yet: the farms need a better year first.");return;} state.budget=r1(state.budget-cost); state.owned[id]=true; document.querySelector('.gaugerow .gauge .g-val').textContent="$"+r1(state.budget)+"M"; renderPlan(); }
 
 /* ================= COMMIT → YEAR REVIEW ================= */
 function narrativeFor(r){
   const p=r.decP;
-  let s=`The forecast said <b>${YEARS[r.year].outlook.replace(/<[^>]+>/g,'')}</b>. It came in as <b>${CAT_WORD[r.cat]}</b> — ${r.inflow} GL to work with. `;
+  let s=`The forecast said <b>${YEARS[r.year].outlook.replace(/<[^>]+>/g,'')}</b>. It came in as <b>${CAT_WORD[r.cat]}</b>: ${r.inflow} GL to work with. `;
   s+= r.got.env>=r.need.env*0.8?`The wetland held. `:r.got.env>=r.need.env*0.45?`The wetland ran low and stressed. `:`The wetland was left slow, warm and salty. `;
   if(r.overuse) s+=`You took most of the water out of the river. `;
   if(state.salinity>60) s+=`Salt is building badly across the soil and the town's supply. `;
@@ -599,14 +598,14 @@ function renderReview(r){
   const meterHtml=["farm","town","river","culture"].map(k=>{const nm={farm:"Farm economy",town:"Town wellbeing",river:"River health",culture:"Cultural & spiritual"}[k];const v=state.meters[k],dl=r.deltas[k];return `<div class="meter ${k}"><div class="m-top"><span>${nm}</span><span>${v}/100</span></div><div class="m-track"><div class="m-fill" style="width:${v}%"></div></div><div class="m-delta ${dl>0?'up':(dl<0?'down':'flat')}">${dl>0?'▲ +'+dl:(dl<0?'▼ '+dl:'– no change')}</div></div>`;}).join("");
   const reactHtml=ADVISERS.map(ad=>`<div class="rcard ${ad.cls}"><span class="rc-name">${esc(ad.name)}:</span> ${ad.react[moodOf(state.meters[ad.key])]}</div>`).join("");
   let alerts="";
-  if(r.driedNow) alerts+=`<div class="alert bad"><b>The billabong has dried.</b> A living, sacred place — and once dry it does not simply refill. The loss carries through the rest of the drought.</div>`;
-  if(r.leftTown) alerts+=`<div class="alert bad"><b>Families are leaving Willow Bend.</b> Once people go, the town rarely wins them back — its future has shrunk.</div>`;
+  if(r.driedNow) alerts+=`<div class="alert bad"><b>The billabong has dried.</b> A living, sacred place, and once dry it does not simply refill. The loss carries through the rest of the drought.</div>`;
+  if(r.leftTown) alerts+=`<div class="alert bad"><b>Families are leaving Willow Bend.</b> Once people go, the town rarely wins them back, its future has shrunk.</div>`;
   if(state.salinity>=70) alerts+=`<div class="alert warn"><b>Salinity is now severe.</b> The salt scar is spreading; soil and taps are affected, and only a real flood will flush it.</div>`;
-  if(r.isFlood && state.event==="flush") alerts+=`<div class="alert good"><b>The flood flushed the system.</b> Salt has dropped sharply and the river is reviving — the drought's grip is easing.</div>`;
+  if(r.isFlood && state.event==="flush") alerts+=`<div class="alert good"><b>The flood flushed the system.</b> Salt has dropped sharply and the river is reviving, the drought's grip is easing.</div>`;
   alerts+=`<div class="alert ${r.income>=6?'good':''}" style="${r.income>=6?'':'background:var(--bg);border:1px solid var(--line-soft)'}">The farms earned <b>$${r.income}M</b>. Budget now <b>$${r1(state.budget)}M</b>; dam <b>${r1(state.damStore)}/${RES_CAP} GL</b>.</div>`;
   document.querySelector("#scr-game .runrow").outerHTML=`
-    <div class="logentry"><div class="le-head">${esc(YEARS[state.yearIdx].name)} — what happened</div>
-      <div class="climate-reveal ${r.cat==='severe'?'severe':(r.cat==='wet'?'wet':(r.cat==='dry'?'dry':''))}">The year came in as ${CAT_WORD[r.cat]} — ${r.inflow} GL</div>
+    <div class="logentry"><div class="le-head">${esc(YEARS[state.yearIdx].name)}, what happened</div>
+      <div class="climate-reveal ${r.cat==='severe'?'severe':(r.cat==='wet'?'wet':(r.cat==='dry'?'dry':''))}">The year came in as ${CAT_WORD[r.cat]}, ${r.inflow} GL</div>
       <div class="le-narr">${r.narrative}</div>${alerts}
       <div class="meters">${meterHtml}</div><div class="react">${reactHtml}</div></div>
     <div class="runrow noprint"><span></span><button class="btn btn-primary" onclick="${last?'renderEnd()':'startYear('+(state.yearIdx+1)+')'}">${last?'See how the drought ended →':'On to '+YEARS[state.yearIdx+1].name+' →'}</button></div>`;
@@ -618,11 +617,11 @@ function renderReview(r){
 function verdict(){
   const M=state.meters, vals=[M.farm,M.town,M.river,M.culture], low=Math.min(...vals);
   const scars=[state.dried?"a dried billabong":"", state.salinity>60?"a salted landscape":"", state.townSize<70?"a shrunken town":"", state.aquifer<35?"a drawn-down aquifer":""].filter(Boolean);
-  if(vals.every(v=>v>=50)&&scars.length===0) return {cls:"good",h:"You brought the catchment through",p:"Five years of drought, and you kept the farms, the town, the river and Country all standing — with the salt held down and the billabong alive. Real managers rarely do this well. You used your whole toolkit: the dam, efficiency, restraint, and water for Country as a genuine partner, not an afterthought."};
-  if(M.farm>=60&&scars.length>=2) return {cls:"bad",h:"A district kept afloat on lasting damage",p:`The farms mostly survived, but the drought left ${scars.join(", ")} behind — and those don't heal when the rain returns. Could drip, restraint in the worst years, or protecting Country earlier have carried the district through with less permanent loss?`};
-  if((M.river>=55||M.culture>=55)&&(M.farm<40||state.townSize<70)) return {cls:"mixed",h:"You held the river; the community frayed",p:"You protected the environment and Country through the drought — genuinely hard, genuinely valuable. But the town and farms wore it, and a hollowed-out community is its own kind of loss. The art is doing both, and it's brutally hard in a five-year dry."};
-  if(low<30||scars.length>=3) return {cls:"bad",h:"The drought broke the system",p:`By the end, ${scars.length?scars.join(", "):"one value"} — and it won't come back with the rain. That's the hardest lesson of the Big Dry: some damage is permanent, and it's decided years earlier than it shows.`};
-  return {cls:"mixed",h:"A hard-fought, mixed drought",p:"You got the catchment through, but with real costs. Trace each fallen bar and each scar back to a year and a bet — that's where the geography lives."};
+  if(vals.every(v=>v>=50)&&scars.length===0) return {cls:"good",h:"You brought the catchment through",p:"Five years of drought, and you kept the farms, the town, the river and Country all standing, with the salt held down and the billabong alive. Real managers rarely do this well. You used your whole toolkit: the dam, efficiency, restraint, and water for Country as a genuine partner, not an afterthought."};
+  if(M.farm>=60&&scars.length>=2) return {cls:"bad",h:"A district kept afloat on lasting damage",p:`The farms mostly survived, but the drought left ${scars.join(", ")} behind, and those don't heal when the rain returns. Could drip, restraint in the worst years, or protecting Country earlier have carried the district through with less permanent loss?`};
+  if((M.river>=55||M.culture>=55)&&(M.farm<40||state.townSize<70)) return {cls:"mixed",h:"You held the river; the community frayed",p:"You protected the environment and Country through the drought, genuinely hard, genuinely valuable. But the town and farms wore it, and a hollowed-out community is its own kind of loss. The art is doing both, and it's brutally hard in a five-year dry."};
+  if(low<30||scars.length>=3) return {cls:"bad",h:"The drought broke the system",p:`By the end, ${scars.length?scars.join(", "):"one value"}, and it won't come back with the rain. That's the hardest lesson of the Big Dry: some damage is permanent, and it's decided years earlier than it shows.`};
+  return {cls:"mixed",h:"A hard-fought, mixed drought",p:"You got the catchment through, but with real costs. Trace each fallen bar and each scar back to a year and a bet, that's where the geography lives."};
 }
 function renderEnd(){
   const v=verdict(), M=state.meters;
@@ -636,8 +635,8 @@ function renderEnd(){
     <h2 style="text-align:center">Five years on the river</h2>
     <div class="verdict ${v.cls}"><h3>${v.h}</h3><p>${v.p}</p></div>
     <h3>How your advisers feel now</h3><div class="react">${feelings}</div>
-    <div class="epilogue"><h3>What actually happened</h3><p class="muted" style="margin-bottom:8px">Your Big Dry was fiction. Australia's was real — and your choices echo live questions in Australian water management.</p>${epi}</div>
-    <details class="reflect noprint"><summary>Reflect like a geographer</summary><div class="reflect-body"><p class="muted">Answer using what you decided and what happened. The check only tells you which <b>ideas</b> you used — not whether your reasoning is right; that's for you and your teacher. Tap <b>Sentence starter</b> for a way in, or <b>Stretch</b> to push further.</p>${qs}</div></details>
+    <div class="epilogue"><h3>What actually happened</h3><p class="muted" style="margin-bottom:8px">Your Big Dry was fiction. Australia's was real, and your choices echo live questions in Australian water management.</p>${epi}</div>
+    <details class="reflect noprint"><summary>Reflect like a geographer</summary><div class="reflect-body"><p class="muted">Answer using what you decided and what happened. The check only tells you which <b>ideas</b> you used, not whether your reasoning is right; that's for you and your teacher. Tap <b>Sentence starter</b> for a way in, or <b>Stretch</b> to push further.</p>${qs}</div></details>
     <details class="reflect noprint"><summary>Rate yourself on our Geography continuum</summary><div class="reflect-body"><p class="muted">Which statement best matches what <b>you</b> did? These are the same “I can…” statements your teacher uses; the year band is a guide, not a grade.</p>${ladders}</div></details>
     <div class="runrow noprint" style="justify-content:center"><button class="btn btn-primary" onclick="go('report')">Make my plan &amp; report →</button></div>`;
   window.scrollTo(0,0);
@@ -646,9 +645,9 @@ function saveRefl(n){ state.reflections[n]=document.getElementById("ta"+n).value
 function toggleAid(n,w){ document.getElementById((w==="scaf"?"scaf":"str")+n).classList.toggle("show"); }
 function pickRung(s,lv){ state.self[s]=lv; Object.keys(CONTINUUM[s].rungs).forEach(l=>{const el=document.getElementById(`rung-${s}-${l}`);if(el)el.classList.toggle("picked",+l===lv);}); }
 function checkRefl(n){ const q=QUESTIONS.find(x=>x.n===n),t=(state.reflections[n]||document.getElementById("ta"+n).value||"").toLowerCase(),box=document.getElementById("sc"+n); box.classList.add("show");
-  if(t.trim().split(/\s+/).filter(Boolean).length<12){box.innerHTML="Have a proper go first — a couple of sentences — then check.";return;}
+  if(t.trim().split(/\s+/).filter(Boolean).length<12){box.innerHTML="Have a proper go first, a couple of sentences, then check.";return;}
   const hit=q.lookFor.filter(k=>t.includes(k));
-  box.innerHTML=`<div><span class="ok">Ideas you used:</span> ${hit.length?esc(hit.join(", ")):"none of the key ones yet"}.</div>`+(hit.length>=3?`<div class="ok" style="margin-top:3px">Good range — now make sure each idea is <b>explained</b>, not just named.</div>`:`<div class="miss" style="margin-top:3px">You could also bring in ideas like: ${esc(q.lookFor.slice(0,6).join(", "))}.</div>`)+`<div class="muted" style="margin-top:5px">This checks which ideas you used, not whether your reasoning is correct.</div>`;
+  box.innerHTML=`<div><span class="ok">Ideas you used:</span> ${hit.length?esc(hit.join(", ")):"none of the key ones yet"}.</div>`+(hit.length>=3?`<div class="ok" style="margin-top:3px">Good range: now make sure each idea is <b>explained</b>, not just named.</div>`:`<div class="miss" style="margin-top:3px">You could also bring in ideas like: ${esc(q.lookFor.slice(0,6).join(", "))}.</div>`)+`<div class="muted" style="margin-top:5px">This checks which ideas you used, not whether your reasoning is correct.</div>`;
 }
 function vcode(str){let h=5381;for(let i=0;i<str.length;i++){h=((h<<5)+h+str.charCodeAt(i))>>>0;}return h.toString(36).toUpperCase().padStart(7,"0").slice(0,7);}
 function renderReport(){
@@ -661,12 +660,12 @@ function renderReport(){
   const meterRows=["farm","town","river","culture"].map(k=>{const nm={farm:"Farm economy",town:"Town wellbeing",river:"River health",culture:"Cultural & spiritual"}[k];return `<tr><td>${nm}</td><td><b>${M[k]}/100</b></td><td>${M[k]>=60?"looked after":(M[k]>=40?"under strain":"sacrificed")}</td></tr>`;}).join("");
   const scars=[state.dried?"billabong dried (irreversible)":"", "salinity "+Math.round(state.salinity)+"/100", "aquifer "+Math.round(state.aquifer)+"/100", "town "+Math.round(state.townSize)+"/100"].filter(Boolean).join(" · ");
   const reflRows=QUESTIONS.filter(q=>(state.reflections[q.n]||"").trim()).map(q=>`<p class="muted"><b>${esc(q.tie)}</b><br>${esc(state.reflections[q.n])}</p>`).join("")||`<p class="muted"><i>No written reflection saved.</i></p>`;
-  const selfRows=Object.keys(CONTINUUM).map(s=>{const lv=state.self[s];return `<tr><td>${esc(CONTINUUM[s].name)}</td><td>${lv?`Level ${lv} · ${bandLabel(lv)}`:"—"}</td><td>${lv?`“${esc(CONTINUUM[s].rungs[lv])}”`:'<i>not rated</i>'}</td></tr>`;}).join("");
+  const selfRows=Object.keys(CONTINUUM).map(s=>{const lv=state.self[s];return `<tr><td>${esc(CONTINUUM[s].name)}</td><td>${lv?`Level ${lv} · ${bandLabel(lv)}`:": "}</td><td>${lv?`“${esc(CONTINUUM[s].rungs[lv])}”`:'<i>not rated</i>'}</td></tr>`;}).join("");
   const code=vcode(`${state.name}|${state.sid}|${["farm","town","river","culture"].map(k=>M[k]).join(",")}|${Object.keys(CONTINUUM).map(s=>state.self[s]||0).join(",")}`);
   m.innerHTML=`
     <div class="idrow noprint"><span><label>Your name</label><input id="rep-name" value="${esc(state.name)}" placeholder="e.g. Ama Osei"></span><span><label>Student ID</label><input id="rep-sid" value="${esc(state.sid)}" placeholder="e.g. KHS12345"></span><span><button class="btn btn-primary" onclick="saveAndPrint()">Save as PDF</button></span></div>
     <p class="muted noprint" style="margin-bottom:12px">Enter your name &amp; ID, click <b>Save as PDF</b>, choose “Save as PDF”, then send it to your teacher.</p>
-    <h2>Share the River — my Big Dry</h2>
+    <h2>Share the River: my Big Dry</h2>
     <p class="muted">${state.name?`<b>${esc(state.name)}</b>`:"<i>(name not entered)</i>"} · ID ${state.sid?`<b>${esc(state.sid)}</b>`:"<i>(not entered)</i>"} · ${dt}</p>
     <div class="verdict ${v.cls}"><h3>${v.h}</h3><p>${v.p}</p></div>
     <h3>My policy each year</h3>

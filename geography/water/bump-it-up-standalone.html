@@ -10,7 +10,7 @@
 :root{
   --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
   --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
-  /* criterion colours are not written here — they come from CRITERIA in
+  /* criterion colours are not written here. They come from CRITERIA in
      content.js, so a unit with different criteria needs no CSS edit */
   /* one knob drives every size on the page, so it scales to any screen */
   --u: clamp(12px, 1.02vw + 0.5vh, 30px);
@@ -66,7 +66,7 @@ button{font:inherit;cursor:pointer}
 .rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
       gap:.45em;min-height:0}
 /* The hotspots are positioned against this box, so it has to keep the plate's
-   shape even if the image itself never arrives — otherwise the buttons collapse
+   shape even if the image itself never arrives, otherwise the buttons collapse
    on top of the caption. */
 .plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
 .plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
@@ -96,7 +96,7 @@ button{font:inherit;cursor:pointer}
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
 /* The two panels share the column; only one is on screen, so neither has to
-   fight the other for height — which is what was pushing the "I can" list off
+   fight the other for height, which is what was pushing the "I can" list off
    the bottom of the screen. */
 .tabs{display:flex;gap:.25em;flex:0 0 auto}
 .tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
@@ -117,7 +117,7 @@ button{font:inherit;cursor:pointer}
 .kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
      overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
      font-size:calc(1em * var(--kk,1))}
-/* flex:0 0 so the passage beside it cannot eat the box's last line — the "I can"
+/* flex:0 0 so the passage beside it cannot eat the box's last line, the "I can"
    list is the thing a student reads to know what they are aiming at */
 .kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
            text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
@@ -173,7 +173,7 @@ button{font:inherit;cursor:pointer}
    dropdown the student has to find first */
 .g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
 /* Inside a marked phrase, a chip's own dotted border stacks on top of the
-   criterion's underline and the two patterns become unreadable — and that
+   criterion's underline and the two patterns become unreadable, and that
    pattern is the channel that survives greyscale. Tint instead. */
 .m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
 /* tier 2 is its own affordance: a soft tint you can always see, and each word
@@ -306,7 +306,7 @@ button{font:inherit;cursor:pointer}
 <script>
 /* inlined from ../../eal.js */
 /* =======================================================================
-   EAL SOURCE-ANALYSIS VOCABULARY — the shared table.
+   EAL SOURCE-ANALYSIS VOCABULARY: the shared table.
 
    These are the words a student needs in order to do source analysis at
    all, as opposed to the words of any one unit. All three History units
@@ -324,8 +324,7 @@ button{font:inherit;cursor:pointer}
    The vocabulary site's own rule is that every translation set must
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
-   written with that in mind — zh-Hant and zh-Hans differ in wording, not
-   just in characters, wherever the two varieties genuinely differ — but
+   written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
    nobody has reviewed them yet. The wall labels them as unreviewed on
    screen, and they should not be treated as meeting that rule until a
    speaker of each language has been through them.
@@ -559,14 +558,13 @@ const FACTS = [
   ["What it is", "A three-panel bar figure. Each panel takes one slice of the panel above it and breaks that slice open."],
   ["Where the numbers are from", "The United States Geological Survey's summary of global water storage, itself drawn from Shiklomanov's 1993 estimates."],
   ["Who drew it", "This classroom. The numbers are someone else's; the display is ours, and that is part of what there is to analyse."],
-  ["What it measures", "Stores &mdash; how much water is sitting in each place at one moment. It does not measure flow."],
+  ["What it measures", "Stores: how much water is sitting in each place at one moment. It does not measure flow."],
   ["The scale", "Global, and one moment in time. No country, no river, no year."],
   ["Known limits", "The figures are modelled estimates, not measurements. The smallest slice on the chart, rivers, is the one most people actually drink from."]
 ];
 
-/* ink   — the colour on paper, all four above 4.5:1 on the wall's cream
-   lamp  — the same criterion on the dark bar of the big-screen tool
-   underline — the second channel, which is what survives a greyscale
+/* ink: the colour on paper, all four above 4.5:1 on the wall's cream
+   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
                photocopy and a colour-blind reader */
 const CRITERIA = [
   { key:"source",   row:"Data, origin &amp; purpose",       name:"Data, origin &amp; purpose",       glyph:"■",
@@ -621,7 +619,7 @@ const EXPLANATIONS = {
   judge:    "Concludes that the comparison is the useful part, then bounds the claim with two limits."
 },
 "Year 8": {
-  source:   "Describes what kind of measurement this is — a stock at one moment — and how the display simplifies it.",
+  source:   "Describes what kind of measurement this is, a stock at one moment, and how the display simplifies it.",
   context:  "Describes distribution by latitude and geology rather than just naming the stores.",
   evidence: "Introduces rate of renewal, which is the thing the chart cannot show.",
   judge:    "Notes independent agreement, then asks targeted questions about method, age and chart type."
@@ -686,12 +684,12 @@ const SOURCE_PANEL = {
 
 /* Clickable regions on water-distribution.png, as percentages of the image. */
 const HOTSPOTS = [
- { x:4,  y:7,  w:92, h:26, label:"Panel 1 — all the water",
+ { x:4,  y:7,  w:92, h:26, label:"Panel 1: all the water",
    text:"Every drop on the planet. 96.5% of it is salt water in the oceans, so everything people drink, grow food with and wash in comes out of the pale sliver on the right." },
- { x:4,  y:36, w:92, h:27, label:"Panel 2 — the fresh water",
+ { x:4,  y:36, w:92, h:27, label:"Panel 2: the fresh water",
    text:"The pale sliver, opened up. Almost seven tenths of the world's fresh water is frozen, and almost all the rest is underground. Both are hard to reach." },
- { x:4,  y:65, w:92, h:27, label:"Panel 3 — the surface water",
-   text:"What is left. Rivers are 0.49% of this panel, which is 0.49% of 1.2% of 2.5% of all the water there is — and rivers are where most of the world's cities get their water." },
+ { x:4,  y:65, w:92, h:27, label:"Panel 3: the surface water",
+   text:"What is left. Rivers are 0.49% of this panel, which is 0.49% of 1.2% of 2.5% of all the water there is, and rivers are where most of the world's cities get their water." },
  { x:4,  y:94, w:70, h:5.5, label:"Where the numbers came from",
    text:"The line that makes this analysable. The percentages are the U.S. Geological Survey's, after Shiklomanov 1993. The drawing is ours. Estimates, not measurements, and more than thirty years old." }
 ];
@@ -722,7 +720,7 @@ const EARLY_EXPLANATIONS = {
    evidence:"Connects the size of a slice to how people actually get water." }
 };
 
-/* No VC codes here on purpose — see the header. */
+/* No VC codes here on purpose: see the header. */
 const VC = {
  "Foundation to Level 2": [
   ["VC2HG2S02","collect, sort and record information and data from observations, including from fieldwork and maps"],
@@ -779,14 +777,14 @@ const BUMP = {
    new:"You separate the published data from the display made out of it, and you say why the display was made.",
    background:"That the same numbers can be drawn in ways that argue different things." },
  "Year 8": {
-   new:"You name what kind of measurement it is — a store at one moment — and you bring in how fast water is replaced.",
+   new:"You name what kind of measurement it is, a store at one moment, and you bring in how fast water is replaced.",
    background:"That a river holding very little water can still supply a lot, because it refills. This is residence time." },
  "Year 9": {
    new:"You explain why several compilations agreeing is stronger than one, and you rank your claims by how well the source supports them.",
    background:"What independent estimates are, and that the clarity of a graphic can hide how uncertain its numbers are." },
  "Year 10": {
    new:"You read the argument the chart is making underneath its numbers, and you explain what choosing a global scale erases.",
-   background:"That the form of a representation — stores, one moment, one scale — is itself a claim about what matters." }
+   background:"That the form of a representation, stores, one moment, one scale, is itself a claim about what matters." }
 };
 
 /* Tier 3 = the subject's own words, which need a definition.
@@ -907,7 +905,7 @@ const FRAME = {
 
     { key:"evidence", letter:"I", title:"Interconnection",
       job:"Explain how one thing is connected to another, using the figures.",
-      guide:"An explanation needs its number attached with “because”. The interesting connections here are the ones the chart cannot show — how fast a store refills, not just how big it is.",
+      guide:"An explanation needs its number attached with “because”. The interesting connections here are the ones the chart cannot show, how fast a store refills, not just how big it is.",
       warn:"There is not much fresh water so people run out.",
       warnWhy:"You have named a result without the process. What connects the amount to the shortage?",
       stems:["___ explains ___ because ___.",
@@ -916,7 +914,7 @@ const FRAME = {
 
     { key:"judge", letter:"U", title:"Usefulness",
       job:"Judge what the source is good for, then say plainly what it cannot settle.",
-      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology — it is half of the judgement.",
+      guide:"Useful for what? Name the claim. Then bound it. A limit is not an apology. It is half of the judgement.",
       warn:"This source is very useful and reliable.",
       warnWhy:"Useful for which claim? A judgement with nothing attached and no limit is not a judgement.",
       stems:["___ is useful for ___ because ___.",
@@ -948,7 +946,7 @@ const VERBS = {
 
 
 /* ---------------------------------------------------------------------------
-   PEEL and TEEL. Not a different paragraph — the same moves under the names
+   PEEL and TEEL. Not a different paragraph, the same moves under the names
    students meet in English, mapped onto the same criterion keys so that a
    student's writing survives switching frames.
 
@@ -999,7 +997,7 @@ const FRAMES = [FRAME,
 
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
-   source-analysis words are NOT repeated here — they live in eal.js and only
+   source-analysis words are NOT repeated here. They live in eal.js and only
    there. Machine-drafted, unreviewed, and labelled as such on screen. */
 const TIER3_T = {
   "fresh water": {"zh-Hans": "淡水", "zh-Hant": "淡水", "vi": "nước ngọt", "ar": "مياه عذبة", "fa": "آب شیرین", "ur": "میٹھا پانی", "ml": "ശുദ്ധജലം", "am": "ንጹህ ውሃ"},
@@ -1035,7 +1033,7 @@ const critOf = k => CRITERIA.find(c => c.key === k);
 
 /* Criterion colours live in content.js, so a unit with its own criteria needs
    no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
-   bar) and an underline style — the second channel, which is what survives a
+   bar) and an underline style: the second channel, which is what survives a
    greyscale photocopy or a colour-blind reader. */
 document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
 .m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
@@ -1131,7 +1129,7 @@ function markTranslatable(){
     el.classList.toggle("tr", has);
   });
 }
-document.title = WALL.title + " — bump it up";
+document.title = WALL.title + ": bump it up";
 el("key").innerHTML = CRITERIA.map(c =>
   `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
 
@@ -1139,7 +1137,7 @@ el("key").innerHTML = CRITERIA.map(c =>
    Longest terms first so "grinding stone" wins over "stone". Applied to plain
    text only, never inside a tag. */
 /* The shared source-analysis words are linked in every unit, not only where a
-   unit happened to gloss them — they are the words a student needs to do the
+   unit happened to gloss them. They are the words a student needs to do the
    task at all. A word the unit already treats as tier 2 keeps its tier-2
    behaviour rather than being marked twice. */
 const SHARED = (typeof EAL !== "undefined")
@@ -1257,7 +1255,7 @@ function showZoom(n){
   el("zoom").hidden = false;
   /* Only now does the dialog have layout. A long passage does not fit a screen
      at reading-from-the-back size, so bring the chosen phrase to the middle
-     rather than leaving it below the fold — scrollIntoView is a no-op while the
+     rather than leaving it below the fold: scrollIntoView is a no-op while the
      container is still [hidden]. */
   if (isText){
     const lit = el("zPass").querySelector(".lit");
@@ -1377,10 +1375,10 @@ document.addEventListener("click", e => {
       const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-        `<span class="warn">${esc(label.label)} — ${esc(EAL_NOTE)}</span></span>`);
+        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
     } else if (hit){
       /* No language chosen yet. Rather than showing nothing and looking broken,
-         offer the languages here — one tap translates and is remembered. */
+         offer the languages here: one tap translates and is remembered. */
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="pick"><span>See this in your language:</span>` +
         UNIT_LANGS.filter(l => hit.t[l.code])
@@ -1398,7 +1396,7 @@ document.addEventListener("click", e => {
         const lb = UNIT_LANGS.find(l => l.code === lang);
         el("popBody").insertAdjacentHTML("beforeend",
           `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-          `<span class="warn">${esc(lb.label)} — ${esc(EAL_NOTE)}</span></span>`);
+          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
       });
     }
     return;
@@ -1441,7 +1439,7 @@ function render(){
        <div class="facts">${FACTS.map(([h,t])=>
           `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
     /* the source stage has no worked example to shrink, but it still has to
-       fit — it is the first thing on the screen and the class reads it cold */
+       fit. It is the first thing on the screen and the class reads it cold */
     fit();
     markTranslatable();
     return;
@@ -1464,7 +1462,7 @@ function render(){
 
 /* Opening the Background or Curriculum panel eats vertical room. Rather than
    guess a smaller size for those cases, shrink the example until it actually
-   fits — the stage must never scroll on a screen at the front of a room. */
+   fits: the stage must never scroll on a screen at the front of a room. */
 let baseK = 1;
 function fit(){
   const st = el("stage");
@@ -1487,7 +1485,7 @@ function fit(){
     st.style.setProperty("--k", k.toFixed(3));
   }
   /* then, if the fixed panels are still too tall on their own, shrink the
-     whole stage together — everything inside is sized in em */
+     whole stage together, everything inside is sized in em */
   let sk = 1;
   for (let g = 0; g < 60 && over() && sk > 0.5; g++){
     sk *= 0.96;

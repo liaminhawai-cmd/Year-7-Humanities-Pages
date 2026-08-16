@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<title>Every Drop — 200 Years in One Catchment</title>
+<title>Every Drop: 200 Years in One Catchment</title>
 <style>
 :root{
   --bg:#f4efe6; --paper:#fbf7ee; --ink:#1f1f1f; --muted:#6b6256;
@@ -233,13 +233,12 @@ details.reflect .inner{padding:2px 16px 14px}
   <section id="scr-intro" class="screen on">
     <div class="intro-hero">
       <h2>💧 Every Drop</h2>
-      <p>One catchment. Two hundred years. Every drop of rain goes <b>somewhere</b> — sky, ground
-        or river — and every choice you make re-routes it. You're the keeper, 1850 → 2050.</p>
-      <p class="note">Talk to people before you decide — some choices only appear once you've listened.
+      <p>One catchment. Two hundred years. Every drop of rain goes <b>somewhere</b>, sky, ground or river, and every choice you make re-routes it. You're the keeper, 1850 → 2050.</p>
+      <p class="note">Talk to people before you decide: some choices only appear once you've listened.
         Some damage doesn't come back.</p>
     </div>
     <div style="text-align:center;margin:10px 0 26px">
-      <button class="btn btn-primary" style="font-size:1.05rem;padding:11px 26px" onclick="beginGame()">Begin — 1850, Country</button>
+      <button class="btn btn-primary" style="font-size:1.05rem;padding:11px 26px" onclick="beginGame()">Begin: 1850, Country</button>
       <p class="note" style="margin-top:8px">A fictional catchment; the processes are real. Figures are rounded model numbers.</p>
     </div>
   </section>
@@ -282,7 +281,7 @@ details.reflect .inner{padding:2px 16px 14px}
         <div class="vpane" id="vp-cycle">
           <div class="vizbox">
             <svg id="cyclesvg" viewBox="0 0 900 430" role="img" aria-label="The same catchment as a systems diagram"></svg>
-            <p class="caption">The same year, drawn as a systems diagram — every number here also appears on the catchment view. The arrows are the <b>flows</b>; the boxes are the <b>stores</b>. Check: do the flows out of "Rain" add up to the rain that fell?</p>
+            <p class="caption">The same year, drawn as a systems diagram, every number here also appears on the catchment view. The arrows are the <b>flows</b>; the boxes are the <b>stores</b>. Check: do the flows out of "Rain" add up to the rain that fell?</p>
           </div>
         </div>
 
@@ -293,7 +292,7 @@ details.reflect .inner{padding:2px 16px 14px}
         <div class="vpane" id="vp-notebook">
           <div class="vizbox">
             <h3 style="font-size:.98rem;color:var(--deep);margin-bottom:2px">📓 Field notebook</h3>
-            <p class="nb-note" style="margin:0 0 8px">You're the field scientist. Tap a column heading to record that reading across every era — choose the ones you think will matter over two hundred years.</p>
+            <p class="nb-note" style="margin:0 0 8px">You're the field scientist. Tap a column heading to record that reading across every era, choose the ones you think will matter over two hundred years.</p>
             <div class="nb-wrap"><table class="nb-table" id="nb-table"></table></div>
             <div class="nb-bars" id="nb-bars"></div>
           </div>
@@ -319,7 +318,7 @@ details.reflect .inner{padding:2px 16px 14px}
 <script>
 "use strict";
 /* ============================================================
-   EVERY DROP — data layer
+   EVERY DROP: data layer
    A fictional catchment; processes real; figures are model
    numbers rounded to be readable.
    ============================================================ */
@@ -336,30 +335,30 @@ const ADVISERS=[
 
 /* mood tests are computed by the engine each era; each voice can ask for some */
 const ERAS=[
-/* ================= ERA 1 — 1850 ================= */
+/* ================= ERA 1: 1850 ================= */
 { yr:"1850", name:"Country", climate:{P:1000,evapF:1.0},
-  intro:"Before the surveyors. Forest on the ranges, a clear river, a billabong that fills when the river rises — Country, managed with fire and Law for tens of thousands of years. Learn the machine: talk to all three people, follow a raindrop, then record the baseline.",
+  intro:"Before the surveyors. Forest on the ranges, a clear river, a billabong that fills when the river rises, Country, managed with fire and Law for tens of thousands of years. Learn the machine: talk to all three people, follow a raindrop, then record the baseline.",
   worksMax:0, decisions:[],
   commitLabel:"Record the baseline in my notebook →",
   voices:{
-    sana:{ say:"A thousand gigalitres of rain a year lands on this catchment. Watch where it goes — every drop is accounted for.",
-      more:["Rain splits three ways. More than half rises straight back to the sky — evaporation from wet leaves and soil, and <b>transpiration</b>, water breathed out by trees. About a quarter <b>soaks in</b>, filling the soil and trickling down to the <b>groundwater</b>. The rest <b>runs off</b> the surface into the river.",
-      "Here's the part most people never see: the groundwater doesn't just sit there. It seeps sideways into the river from below — we call it <b>baseflow</b> — and it's why the river still flows months after the last rain. The river you can see is fed by a river you can't.",
-      "People call water a <b>renewable resource</b>, and it is — but only at the speed of the cycle. Take it faster than rain puts it back and it behaves like coal or iron ore: gone for your lifetime. Remember that when someone offers to drill."],
-      wants:"Wants you to read the numbers before you change them — and to check they always add up." },
-    marion:{ say:"This isn't wilderness. It's Country — managed, named, sung. The billabong is the oldest elder on this floodplain.",
-      more:["Our people have been here since before this river ran in its current bed. The billabong is a cut-off bend — the river made it, then moved away — and it only lives when floods reach across and touch it. It is a birthing place, a food bowl and a story place. Its water level is not a statistic to us; it's the health of a relative.",
-      "Everything you'll meet in the next two hundred years — the clearing, the town, the dam — was decided by people who never asked us. You will get the chance to do better: <b>ask us before you decide, not after</b>. What you do with that chance is the real test in this game."],
-      wants:"Wants the billabong's floods protected — and to be consulted BEFORE decisions, not told after." },
-    priya:{ say:"Count the frogs while you can. This is your reference site — everything you change gets measured against today.",
-      more:["Ecologists dream about places like this: a river with steady <b>baseflow</b>, cool and clear, with floods that arrive often enough to keep the wetland and billabong alive but not so often the floodplain never dries. That rhythm — flood and dry, flood and dry — is the heartbeat everything here is built on.",
-      "Take notes on the numbers this era. Not because they're sacred — because you can't recognise damage if you never measured healthy."],
-      wants:"Wants the baseline recorded — flows, quality, the lot — before anything changes." },
+    sana:{ say:"A thousand gigalitres of rain a year lands on this catchment. Watch where it goes, every drop is accounted for.",
+      more:["Rain splits three ways. More than half rises straight back to the sky, evaporation from wet leaves and soil, and <b>transpiration</b>, water breathed out by trees. About a quarter <b>soaks in</b>, filling the soil and trickling down to the <b>groundwater</b>. The rest <b>runs off</b> the surface into the river.",
+      "Here's the part most people never see: the groundwater doesn't just sit there. It seeps sideways into the river from below. We call it <b>baseflow</b>, and it's why the river still flows months after the last rain. The river you can see is fed by a river you can't.",
+      "People call water a <b>renewable resource</b>, and it is, but only at the speed of the cycle. Take it faster than rain puts it back and it behaves like coal or iron ore: gone for your lifetime. Remember that when someone offers to drill."],
+      wants:"Wants you to read the numbers before you change them, and to check they always add up." },
+    marion:{ say:"This isn't wilderness. It's Country, managed, named, sung. The billabong is the oldest elder on this floodplain.",
+      more:["Our people have been here since before this river ran in its current bed. The billabong is a cut-off bend, the river made it, then moved away, and it only lives when floods reach across and touch it. It is a birthing place, a food bowl and a story place. Its water level is not a statistic to us; it's the health of a relative.",
+      "Everything you'll meet in the next two hundred years, the clearing, the town, the dam, was decided by people who never asked us. You will get the chance to do better: <b>ask us before you decide, not after</b>. What you do with that chance is the real test in this game."],
+      wants:"Wants the billabong's floods protected, and to be consulted BEFORE decisions, not told after." },
+    priya:{ say:"Count the frogs while you can. This is your reference site, everything you change gets measured against today.",
+      more:["Ecologists dream about places like this: a river with steady <b>baseflow</b>, cool and clear, with floods that arrive often enough to keep the wetland and billabong alive but not so often the floodplain never dries. That rhythm, flood and dry, flood and dry, is the heartbeat everything here is built on.",
+      "Take notes on the numbers this era. Not because they're sacred, because you can't recognise damage if you never measured healthy."],
+      wants:"Wants the baseline recorded, flows, quality, the lot, before anything changes." },
   }},
 
-/* ================= ERA 2 — 1890 ================= */
+/* ================= ERA 2: 1890 ================= */
 { yr:"1890", name:"The Clearing", climate:{P:1000,evapF:1.0},
-  intro:"Selectors have arrived with axes, sheep and wheat. Cleared land is a living — and every tree gone re-routes the rain. Decide how the clearing happens. Talk to people first: some know ways the loudest voices don't.",
+  intro:"Selectors have arrived with axes, sheep and wheat. Cleared land is a living, and every tree gone re-routes the rain. Decide how the clearing happens. Talk to people first: some know ways the loudest voices don't.",
   worksMax:0,
   decisions:[
     { id:"clearing", title:"How far does the clearing go?", why:"Trees drive the biggest arrow in the cycle. Remove them and that water goes somewhere else.",
@@ -367,94 +366,94 @@ const ERAS=[
       options:[
         {id:"flats", label:"Clear the river flats only", desc:"Good pasture, forest keeps the ranges. Modest farms, modest change.", fx:{dVeg:-25,dFarm:25}},
         {id:"ridges",label:"Clear to the ridgelines",    desc:"Maximum farmland, maximum wool cheques. The catchment becomes a paddock.", fx:{dVeg:-50,dFarm:45}},
-        {id:"riparian",label:"Clear widely — but keep riverside strips", desc:"Priya's ask: leave a belt of trees along every bank. Farms almost as big; the river keeps its shade and its filter.", gate:"priya", fx:{dVeg:-32,dFarm:34,set:{riparian:true}}},
+        {id:"riparian",label:"Clear widely, but keep riverside strips", desc:"Priya's ask: leave a belt of trees along every bank. Farms almost as big; the river keeps its shade and its filter.", gate:"priya", fx:{dVeg:-32,dFarm:34,set:{riparian:true}}},
         {id:"feeder",label:"Clear the flats, but leave the billabong's feeder country", desc:"Aunty Marion's ask: the low country that carries floodwater to the billabong stays uncleared, so floods can still reach it.", gate:"marion", fx:{dVeg:-27,dFarm:26,set:{protectFeeder:true}}},
       ]},
     { id:"wetland", title:"The wetland flats", why:"Drained, the reedy flats would be prime pasture. They're also the floodplain's sponge and filter.",
       def:"leave",
       options:[
-        {id:"drain",label:"Drain it for pasture", desc:"Ditches and a floodgate. Prime grazing — and the sponge that slowed floods and fed the billabong is gone.", fx:{dFarm:12,set:{drained:true}}},
-        {id:"leave",label:"Leave the wetland be", desc:"Wet, buzzing, 'useless' — and quietly storing floodwater, filtering run-off and feeding the billabong.", fx:{}},
+        {id:"drain",label:"Drain it for pasture", desc:"Ditches and a floodgate. Prime grazing, and the sponge that slowed floods and fed the billabong is gone.", fx:{dFarm:12,set:{drained:true}}},
+        {id:"leave",label:"Leave the wetland be", desc:"Wet, buzzing, 'useless', and quietly storing floodwater, filtering run-off and feeding the billabong.", fx:{}},
       ]},
   ],
   voices:{
     sana:{ say:"Here's the strange part: clearing will give the river MORE water, not less. The question is what kind of water.",
-      more:["Cut the trees and transpiration collapses, so more rain reaches the ground. But cleared soil crusts and compacts — the extra water arrives as <b>run-off</b>, in a rush, carrying soil with it. The river gets bigger, flashier and browner all at once. More is not the same as better.",
-      "And a slower problem: under this ground the rain has been dripping past salt laid down over thousands of years. The trees pumped that water out before it could rise. Fewer trees, and the <b>water table</b> starts to climb — bringing the salt up with it. You won't see it this era. Your grandchildren will."],
-      wants:"Wants you to watch the run-off share in the notebook — and remember the salt." },
+      more:["Cut the trees and transpiration collapses, so more rain reaches the ground. But cleared soil crusts and compacts, the extra water arrives as <b>run-off</b>, in a rush, carrying soil with it. The river gets bigger, flashier and browner all at once. More is not the same as better.",
+      "And a slower problem: under this ground the rain has been dripping past salt laid down over thousands of years. The trees pumped that water out before it could rise. Fewer trees, and the <b>water table</b> starts to climb, bringing the salt up with it. You won't see it this era. Your grandchildren will."],
+      wants:"Wants you to watch the run-off share in the notebook, and remember the salt." },
     marion:{ say:"They're clearing the low country that carries the floods to the billabong. Ask us which country matters before the axes decide.",
       more:["Not all ground is equal. Some of these flats are just grass. Some are the veins that carry floodwater across to the billabong when the river rises. Clear the wrong ones, throw a levee across a flood-run, and the billabong can sit fifty metres from a flooding river and stay dry.",
       "We know which country is which. Nobody has asked."],
-      wants:"Wants the billabong's feeder country left uncleared — ask before you clear, not after." },
+      wants:"Wants the billabong's feeder country left uncleared, ask before you clear, not after." },
     priya:{ say:"If you must clear, keep the riverside strips. A river with treed banks can survive a farmed catchment. A bare one can't.",
-      more:["A belt of trees along the bank — a <b>riparian strip</b> — is worth ten times its area. It shades the water and keeps it cool, holds the banks together, and filters the mud and manure out of farm run-off before it reaches the channel.",
+      more:["A belt of trees along the bank: a <b>riparian strip</b>: is worth ten times its area. It shades the water and keeps it cool, holds the banks together, and filters the mud and manure out of farm run-off before it reaches the channel.",
       "And leave the wetland alone. A wetland is the floodplain's kidney and its sponge: it soaks up the flood peak, releases it slowly, and cleans what passes through. Drain it and every flood downstream arrives faster, higher and dirtier."],
       wants:"Wants riverside tree strips kept and the wetland undrained." },
-    dai:{ say:"My grandparents drew a block here. Cleared land is the only wage there is — go easy on people who are only trying to eat.",
+    dai:{ say:"My grandparents drew a block here. Cleared land is the only wage there is, go easy on people who are only trying to eat.",
       more:["It's easy to judge the axes from a classroom. There's no dole out here; a selector family that doesn't clear doesn't eat. Wool and wheat built every town on this river.",
       "But I'll say this quietly: the old people who kept trees on their ridges still have soaks running in March. The ones who cleared to the skyline are carting water. Make of that what you like."],
       wants:"Wants enough cleared land for families to make a living." },
   }},
 
-/* ================= ERA 3 — 1930 ================= */
+/* ================= ERA 3: 1930 ================= */
 { yr:"1930", name:"The Town", climate:{P:950,evapF:1.0},
-  intro:"Willow Bend: twenty thousand people. Water in, waste out — and a dam proposal on your desk. Budget for TWO major works. Watch the map as you choose.",
+  intro:"Willow Bend: twenty thousand people. Water in, waste out, and a dam proposal on your desk. Budget for TWO major works. Watch the map as you choose.",
   worksMax:2,
   decisions:[
     { id:"sewage", title:"Where does the town's waste go?", why:"A town's wastewater re-enters the catchment somewhere. The only question is in what state.",
       def:"raw",
       options:[
-        {id:"raw", label:"Straight pipe to the river", desc:"Free. The outfall is just downstream of town — and just upstream of the swimming hole and the wetland.", fx:{set:{sewage:"raw"}}},
+        {id:"raw", label:"Straight pipe to the river", desc:"Free. The outfall is just downstream of town, and just upstream of the swimming hole and the wetland.", fx:{set:{sewage:"raw"}}},
         {id:"treated", label:"Build treatment works", desc:"A major works. Settling ponds and filters take out most of the load before the water returns to the river.", cost:1, fx:{set:{sewage:"treated"}}},
       ]},
     { id:"source", title:"Where does the town's water come from?", why:"Every tap pulls from the cycle you're watching.",
       def:"weir",
       options:[
         {id:"weir", label:"A weir on the river", desc:"Cheap and simple: pool the river at town and pump from the pool. The town drinks whatever the river carries.", fx:{set:{weir:true}}},
-        {id:"bores", label:"Sink town bores", desc:"A major works. Drill to the groundwater — clean, filtered by the earth itself. It is the same water that feeds the river's baseflow.", cost:1, fx:{set:{bores:true}}},
+        {id:"bores", label:"Sink town bores", desc:"A major works. Drill to the groundwater, clean, filtered by the earth itself. It is the same water that feeds the river's baseflow.", cost:1, fx:{set:{bores:true}}},
       ]},
-    { id:"dam", title:"The Highland Dam proposal", why:"Bank winter water for dry summers — and cage every flood the river has ever sent downstream.",
+    { id:"dam", title:"The Highland Dam proposal", why:"Bank winter water for dry summers, and cage every flood the river has ever sent downstream.",
       def:"nodam",
       options:[
         {id:"build", label:"Build Highland Dam", desc:"A major works. Water security for town and farms; floods caught and kept. The floods were also what filled the billabong.", cost:1, fx:{set:{dam:true}}},
-        {id:"nodam", label:"No dam — not yet", desc:"The river keeps its floods. The town keeps its dry-summer nerves.", fx:{}},
+        {id:"nodam", label:"No dam, not yet", desc:"The river keeps its floods. The town keeps its dry-summer nerves.", fx:{}},
       ]},
   ],
   voices:{
-    sana:{ say:"Your bores would drink from the same store that feeds the river between rains. There's no separate 'underground water' — it's one system.",
-      more:["Groundwater feels like a discovery — drill down, and there it is, clean and cold. But look at the cross-section: it's the same water that soaked in on the ranges, moving slowly toward the river. What the pumps take, the <b>baseflow</b> eventually loses. Pump modestly and you'll never notice. Pump hard, for decades, and the river will quietly stop being fed from below.",
-      "Some of Australia's groundwater — like parts of the Great Artesian Basin — fell as rain <i>thousands</i> of years ago. Water like that isn't renewable on any human timescale. Ours here is younger, but the lesson stands: a bore is a loan from the river's future."],
+    sana:{ say:"Your bores would drink from the same store that feeds the river between rains. There's no separate 'underground water', it's one system.",
+      more:["Groundwater feels like a discovery: drill down, and there it is, clean and cold. But look at the cross-section: it's the same water that soaked in on the ranges, moving slowly toward the river. What the pumps take, the <b>baseflow</b> eventually loses. Pump modestly and you'll never notice. Pump hard, for decades, and the river will quietly stop being fed from below.",
+      "Some of Australia's groundwater, like parts of the Great Artesian Basin, fell as rain <i>thousands</i> of years ago. Water like that isn't renewable on any human timescale. Ours here is younger, but the lesson stands: a bore is a loan from the river's future."],
       wants:"Wants groundwater pumped no faster than rain refills it." },
     marion:{ say:"A dam is a wall across a story. The floods it catches are the same floods that reach the billabong. Nobody has asked us about either.",
-      more:["We're told the dam means security. Security for whom? The billabong has filled from the river's floods since before this town, and every year it misses its flood it steps closer to being a memory. When you cage the floods, you decide the billabong's future — so decide it <i>with</i> us.",
+      more:["We're told the dam means security. Security for whom? The billabong has filled from the river's floods since before this town, and every year it misses its flood it steps closer to being a memory. When you cage the floods, you decide the billabong's future, so decide it <i>with</i> us.",
       "And the pipe they're planning: it enters the river above our meeting place. They didn't ask about that, either."],
-      wants:"Wants floods still reaching the billabong, dam or no dam — and to be asked first." },
-    priya:{ say:"'The solution to pollution is dilution' — that's the engineers' saying. It's wrong, and the wetland downstream will prove it.",
-      more:["A river can swallow a little waste; microbes and wetlands break it down. But it scales badly: double the load and you don't get double the smell, you get a dead reach — no oxygen, no fish, just grey water below an outfall. And whatever the river can't process, the wetland inherits.",
-      "If the dam goes ahead, fight for one rule: it must still <b>release floods</b> — on purpose, timed for the wetland and billabong. A dam with environmental releases is a tool. A dam without them is a tourniquet."],
+      wants:"Wants floods still reaching the billabong, dam or no dam, and to be asked first." },
+    priya:{ say:"'The solution to pollution is dilution': that's the engineers' saying. It's wrong, and the wetland downstream will prove it.",
+      more:["A river can swallow a little waste; microbes and wetlands break it down. But it scales badly: double the load and you don't get double the smell, you get a dead reach, no oxygen, no fish, just grey water below an outfall. And whatever the river can't process, the wetland inherits.",
+      "If the dam goes ahead, fight for one rule: it must still <b>release floods</b>: on purpose, timed for the wetland and billabong. A dam with environmental releases is a tool. A dam without them is a tourniquet."],
       wants:"Wants treatment works before outfall, and flood releases if the dam is built." },
-    dai:{ say:"Every dry January I watch my orchard gasp. That dam would mean water when we need it — count me in favour.",
-      more:["You've seen what a dry year does out here: fruit drops, stock trucked out, families gone by March. A dam means carryover — winter water saved for summer. For farms it's the difference between a bad year and a last year.",
+    dai:{ say:"Every dry January I watch my orchard gasp. That dam would mean water when we need it, count me in favour.",
+      more:["You've seen what a dry year does out here: fruit drops, stock trucked out, families gone by March. A dam means carryover, winter water saved for summer. For farms it's the difference between a bad year and a last year.",
       "I hear Aunty Marion on the floods. I do. But I can't feed my kids on a flood."],
       wants:"Wants the dam built and summer water guaranteed." },
-    marcus:{ say:"I can pipe waste away OR drill you clean water OR build you a dam — but the budget says two. Pick knowing all three matter.",
-      more:["Here's my honest engineering advice, ranked. First: never let a town drink its own outfall — one typhoid summer costs more than any treatment works. Second: secure the water supply. Third: the dam, nice as it would be.",
+    marcus:{ say:"I can pipe waste away OR drill you clean water OR build you a dam, but the budget says two. Pick knowing all three matter.",
+      more:["Here's my honest engineering advice, ranked. First: never let a town drink its own outfall, one typhoid summer costs more than any treatment works. Second: secure the water supply. Third: the dam, nice as it would be.",
       "But I don't get the final say. You do. Just remember that pipes are cheap on the day you lay them and expensive the decade you regret them."],
-      wants:"Wants treatment prioritised — 'clean water in, clean water out, then dams.'" },
+      wants:"Wants treatment prioritised: 'clean water in, clean water out, then dams.'" },
   }},
 
-/* ================= ERA 4 — 1990 ================= */
+/* ================= ERA 4: 1990 ================= */
 { yr:"1990", name:"The City & the Farms", climate:{P:900,evapF:1.05},
-  intro:"A city of forty-five thousand — roofs and roads seal the floodplain, irrigation is big business upstream. TWO major works. New ideas are in the air, if you talk to the people carrying them.",
+  intro:"A city of forty-five thousand: roofs and roads seal the floodplain, irrigation is big business upstream. TWO major works. New ideas are in the air, if you talk to the people carrying them.",
   worksMax:2,
   decisions:[
     { id:"storm", title:"Stormwater: what happens when rain hits concrete?", why:"Sealed ground turns rain into instant run-off. It has to go somewhere.",
       def:"pipes",
       options:[
-        {id:"pipes", label:"Bigger pipes — get it to the river fast", desc:"The old doctrine: collect every drop off every roof and road and race it to the channel. Efficient. Also why urban creeks flash-flood and then sit empty.", fx:{set:{storm:"pipes"}}},
-        {id:"wsud", label:"Water-sensitive city design", desc:"Priya's ask, a major works: rain-gardens, permeable paving, tanks. The city starts soaking rain in again — like ground does.", gate:"priya", cost:1, fx:{set:{storm:"wsud"}}},
+        {id:"pipes", label:"Bigger pipes: get it to the river fast", desc:"The old doctrine: collect every drop off every roof and road and race it to the channel. Efficient. Also why urban creeks flash-flood and then sit empty.", fx:{set:{storm:"pipes"}}},
+        {id:"wsud", label:"Water-sensitive city design", desc:"Priya's ask, a major works: rain-gardens, permeable paving, tanks. The city starts soaking rain in again, like ground does.", gate:"priya", cost:1, fx:{set:{storm:"wsud"}}},
       ]},
-    { id:"irrigation", title:"Irrigation on the upstream farms", why:"Food, jobs — and the biggest single take from the river.",
+    { id:"irrigation", title:"Irrigation on the upstream farms", why:"Food, jobs, and the biggest single take from the river.",
       def:"expand",
       options:[
         {id:"expand", label:"Approve the expansion", desc:"More licences, more channels, more crops. The district booms; the river below the pumps runs thinner every summer.", fx:{set:{irr:"expand"}}},
@@ -465,87 +464,87 @@ const ERAS=[
       def:"none",
       options:[
         {id:"none", label:"No special provision", desc:"The river gets whatever is left after the town and farms take theirs.", fx:{}},
-        {id:"envflow", label:"Environmental flow rules", desc:"Priya's ask: the water agency must release dam water to mimic small floods — timed by scientists for the wetland's needs.", gate:"priya", fx:{set:{envFlow:true}}},
+        {id:"envflow", label:"Environmental flow rules", desc:"Priya's ask: the water agency must release dam water to mimic small floods, timed by scientists for the wetland's needs.", gate:"priya", fx:{set:{envFlow:true}}},
         {id:"cultural", label:"A cultural flow, held by custodians", desc:"Aunty Marion's ask: a share of water legally held by First Nations people, who decide when Country needs it. Ask-first, made real.", gate:"marion", fx:{set:{culturalFlow:true}}},
       ]},
     { id:"recycle", title:"The recycling question", why:"The treatment works makes water clean enough to use again.",
       def:"norecycle",
       options:[
-        {id:"norecycle", label:"Keep sending it to the river", desc:"Simple, and the river appreciates the extra flow — such as it is.", fx:{}},
+        {id:"norecycle", label:"Keep sending it to the river", desc:"Simple, and the river appreciates the extra flow, such as it is.", fx:{}},
         {id:"recycled", label:"Build the recycling plant", desc:"A major works: treated water loops back for parks, industry and gardens. The town's demand on river and bores drops by a third.", cost:1, fx:{set:{recycled:true}}},
       ]},
   ],
   voices:{
     sana:{ say:"New reading, and it's a first: along one reach the river is now LOSING water into the ground instead of gaining it.",
-      more:["For ten thousand years this was a <b>gaining river</b> — groundwater pushed up into it from below. Decades of sealed ground (less soak-in) and pumping have dropped the water table below the riverbed in places. Water now leaks <i>out</i> of the river downward: a <b>losing river</b>. The river you can see has started refilling the river you can't.",
-      "It reverses — but only the slow way: more soak-in, less pumping, and years of patience. Groundwater has no fast-forward button."],
+      more:["For ten thousand years this was a <b>gaining river</b>: groundwater pushed up into it from below. Decades of sealed ground (less soak-in) and pumping have dropped the water table below the riverbed in places. Water now leaks <i>out</i> of the river downward: a <b>losing river</b>. The river you can see has started refilling the river you can't.",
+      "It reverses, but only the slow way: more soak-in, less pumping, and years of patience. Groundwater has no fast-forward button."],
       wants:"Wants soak-in restored before the whole river runs losing." },
     marion:{ say:"A cultural flow isn't a favour or a leftover. It's our water, our decision, our responsibility to Country. Sit down with us and we'll show you.",
-      more:["For two hundred years, water law in this valley has treated us as scenery. Every drop is owned by someone — a farm, a town, an agency. None by the people who held this river for a thousand generations.",
-      "A <b>cultural flow</b> is water held by us, in law: we choose when the billabong drinks, guided by knowledge older than the town's records. That's what <b>free, prior and informed consent</b> looks like when it grows up: not being told what was decided — holding the pen. This is the era it becomes possible. Don't let it pass."],
-      wants:"Wants the cultural flow established — water held and directed by custodians." },
-    priya:{ say:"The urban creeks flash-flood after every storm and sit bone-dry a week later. That's not weather — that's plumbing. We built it; we can rebuild it.",
-      more:["A city street sends up to five times more of its rain to the drain than bushland does — and it arrives in minutes, hot, oily and all at once. <b>Water-sensitive design</b> flips the doctrine: instead of racing rain away, the city catches it in a thousand small places — rain-gardens, tanks, permeable paving — and lets it soak. The city starts behaving like ground again.",
-      "On flows: agency-run environmental releases genuinely help; my hydrographs prove it. But I'll say plainly — the custodians read this floodplain on signs I don't measure. If both options are on the table and you can only choose one, choose theirs."],
-      wants:"Wants WSUD built, and a flow for the river — cultural flow first if it's on offer." },
-    dai:{ say:"Drip lines would nearly halve my take — but the loan would nearly break me. Help us modernise and both river and farm can live.",
-      more:["Open channels lose water at every joint — to the sun, to the soil, to evaporation you can watch shimmering off the surface at noon. Drip puts each litre at each root. The catch is capital: no farm carrying nineties interest rates can refit alone.",
+      more:["For two hundred years, water law in this valley has treated us as scenery. Every drop is owned by someone, a farm, a town, an agency. None by the people who held this river for a thousand generations.",
+      "A <b>cultural flow</b> is water held by us, in law: we choose when the billabong drinks, guided by knowledge older than the town's records. That's what <b>free, prior and informed consent</b> looks like when it grows up: not being told what was decided, holding the pen. This is the era it becomes possible. Don't let it pass."],
+      wants:"Wants the cultural flow established: water held and directed by custodians." },
+    priya:{ say:"The urban creeks flash-flood after every storm and sit bone-dry a week later. That's not weather, that's plumbing. We built it; we can rebuild it.",
+      more:["A city street sends up to five times more of its rain to the drain than bushland does, and it arrives in minutes, hot, oily and all at once. <b>Water-sensitive design</b> flips the doctrine: instead of racing rain away, the city catches it in a thousand small places, rain-gardens, tanks, permeable paving, and lets it soak. The city starts behaving like ground again.",
+      "On flows: agency-run environmental releases genuinely help; my hydrographs prove it. But I'll say plainly, the custodians read this floodplain on signs I don't measure. If both options are on the table and you can only choose one, choose theirs."],
+      wants:"Wants WSUD built, and a flow for the river, cultural flow first if it's on offer." },
+    dai:{ say:"Drip lines would nearly halve my take, but the loan would nearly break me. Help us modernise and both river and farm can live.",
+      more:["Open channels lose water at every joint: to the sun, to the soil, to evaporation you can watch shimmering off the surface at noon. Drip puts each litre at each root. The catch is capital: no farm carrying nineties interest rates can refit alone.",
       "Cap us without help and you just export our farms and import the food. Fund the refit and I'll hand water back to the river with a smile on my face."],
       wants:"Wants modernisation funded rather than a bare cap." },
     marcus:{ say:"I spent my career getting stormwater to the river faster. Now the ecologist wants it slower, and the annoying thing is her data's right.",
-      more:["Engineering doctrine my whole career: water on streets is a hazard; remove it fast. We got superb at it — so superb we turned every storm into a flood spike and starved the ground of soak-in. The new thinking treats the city itself as a catchment: capture, soak, reuse.",
+      more:["Engineering doctrine my whole career: water on streets is a hazard; remove it fast. We got superb at it, so superb we turned every storm into a flood spike and starved the ground of soak-in. The new thinking treats the city itself as a catchment: capture, soak, reuse.",
       "Recycling's the quiet achiever on my list: a third off town demand, forever, no new dam required. Nobody cuts a ribbon for it, which is exactly why I'm telling you."],
-      wants:"Wants recycling built — 'the cheapest new water is the water we already have.'" },
-    lan:{ say:"In the delta the river was our calendar — flood season gave silt, fish, everything. Here you treat every flood as an enemy. It puzzles me.",
-      more:["I grew up on the Mekong, in Việt Nam. When the flood came each year we didn't call it a disaster — it carried the silt that grew the rice and the fish that filled the pans. Water was livelihood, festival, ancestor — the whole calendar. My grandmother would not believe a country could pipe its rain to the sea on purpose.",
-      "On my market garden I use every drop twice — wash-water to the beds, shade cloth over everything. Not because I'm poor. Because I was raised knowing water's worth. Recycling a city's water isn't strange, child. Wasting it is."],
-      wants:"Wants water treated as precious — reuse normalised, floods respected as givers as well as takers." },
+      wants:"Wants recycling built: 'the cheapest new water is the water we already have.'" },
+    lan:{ say:"In the delta the river was our calendar: flood season gave silt, fish, everything. Here you treat every flood as an enemy. It puzzles me.",
+      more:["I grew up on the Mekong, in Việt Nam. When the flood came each year we didn't call it a disaster. It carried the silt that grew the rice and the fish that filled the pans. Water was livelihood, festival, ancestor, the whole calendar. My grandmother would not believe a country could pipe its rain to the sea on purpose.",
+      "On my market garden I use every drop twice, wash-water to the beds, shade cloth over everything. Not because I'm poor. Because I was raised knowing water's worth. Recycling a city's water isn't strange, child. Wasting it is."],
+      wants:"Wants water treated as precious: reuse normalised, floods respected as givers as well as takers." },
   }},
 
-/* ================= ERA 5 — 2050 ================= */
+/* ================= ERA 5: 2050 ================= */
 { yr:"2050", name:"The Changed Cycle", climate:{P:820,evapF:1.15,spiky:true},
-  intro:"The climate has moved: a fifth less rain, hotter air, harder downpours. The cycle runs differently before you touch a thing. Choose TWO adaptations — and one storm this era will test your flood plan.",
+  intro:"The climate has moved: a fifth less rain, hotter air, harder downpours. The cycle runs differently before you touch a thing. Choose TWO adaptations, and one storm this era will test your flood plan.",
   worksMax:2, portfolio:true,
   decisions:[
-    { id:"adapt", title:"The adaptation portfolio — choose exactly two", why:"Five proposals, budget for two. Each re-plumbs the cycle in a different place.",
+    { id:"adapt", title:"The adaptation portfolio: choose exactly two", why:"Five proposals, budget for two. Each re-plumbs the cycle in a different place.",
       def:null, pick:2,
       options:[
-        {id:"desal", label:"Desalination plant", desc:"Drinking water from the sea — rain-proof, drought-proof, energy-hungry. The cycle's one tap that doesn't depend on the sky.", fx:{set:{desal:true}}},
+        {id:"desal", label:"Desalination plant", desc:"Drinking water from the sea: rain-proof, drought-proof, energy-hungry. The cycle's one tap that doesn't depend on the sky.", fx:{set:{desal:true}}},
         {id:"sponge", label:"Sponge-city retrofit", desc:"Retrofit the whole city with soak-in design: unsealed verges, rain-gardens, tanks. Storm run-off down, groundwater refilling again.", fx:{set:{storm:"wsud",sponge:true}}},
         {id:"reveg", label:"Revegetate the ranges & saltlands", desc:"A generation of tree planting on the old cleared ridges and salt scalds. Slow medicine: the water table steadies, the salt starts to retreat.", fx:{dVeg:15,set:{reveg:true}}},
         {id:"buyback", label:"Buy back irrigation water for the river", desc:"Buy licences from willing growers and leave that water in the channel. The river's share, purchased back.", fx:{set:{buyback:true}}},
-        {id:"raisedam", label:"Raise Highland Dam", desc:"More storage for the dry years — and even fewer floods escaping downstream. (Needs the dam to exist.)", needs:"dam", fx:{set:{damRaised:true}}},
+        {id:"raisedam", label:"Raise Highland Dam", desc:"More storage for the dry years, and even fewer floods escaping downstream. (Needs the dam to exist.)", needs:"dam", fx:{set:{damRaised:true}}},
       ]},
     { id:"floodplan", title:"The flood plan", why:"A rain bomb will land this era. Choose how the city meets it.",
       def:"levees",
       options:[
-        {id:"levees", label:"Higher levees", desc:"Wall the river off from the city. Works until the day it doesn't — and walls the river off from its floodplain and billabong forever.", fx:{set:{flood:"levees"}}},
-        {id:"room", label:"Room for the river", desc:"Priya's ask: move the levees BACK, buy out the lowest paddocks, and let the flood spread where floods used to go — over the floodplain, into the wetland, out to the billabong.", gate:"priya", fx:{set:{flood:"room"}}},
-        {id:"warn", label:"Warnings and evacuation only", desc:"Spend nothing on walls; spend everything on sirens, apps and drills. Cheap, honest about risk — and the water still goes where it wants.", fx:{set:{flood:"warn"}}},
+        {id:"levees", label:"Higher levees", desc:"Wall the river off from the city. Works until the day it doesn't, and walls the river off from its floodplain and billabong forever.", fx:{set:{flood:"levees"}}},
+        {id:"room", label:"Room for the river", desc:"Priya's ask: move the levees BACK, buy out the lowest paddocks, and let the flood spread where floods used to go, over the floodplain, into the wetland, out to the billabong.", gate:"priya", fx:{set:{flood:"room"}}},
+        {id:"warn", label:"Warnings and evacuation only", desc:"Spend nothing on walls; spend everything on sirens, apps and drills. Cheap, honest about risk, and the water still goes where it wants.", fx:{set:{flood:"warn"}}},
       ]},
   ],
   voices:{
     sana:{ say:"Same catchment, new climate: a fifth less rain, hotter air taking a bigger cut, and what's left arriving in bursts the ground can't drink.",
-      more:["Look at your notebook's first row, then this era's. Same place — different water cycle. Warmer air evaporates more and holds more: so droughts run deeper <i>and</i> downpours fall harder, at the same time. Less water overall, arriving more violently. That double-shift is the signature of a heating climate, and southern Australia's rain gauges have been recording it for decades.",
+      more:["Look at your notebook's first row, then this era's. Same place, different water cycle. Warmer air evaporates more and holds more: so droughts run deeper <i>and</i> downpours fall harder, at the same time. Less water overall, arriving more violently. That double-shift is the signature of a heating climate, and southern Australia's rain gauges have been recording it for decades.",
       "The old plans assumed the cycle of 1990 was permanent. Your job is to plan for the one that actually exists."],
       wants:"Wants the portfolio judged against the NEW cycle, not the remembered one." },
-    marion:{ say:"Two hundred years, and Country is still here — thinner, saltier, but here. What you choose now decides what 2250 inherits.",
+    marion:{ say:"Two hundred years, and Country is still here, thinner, saltier, but here. What you choose now decides what 2250 inherits.",
       more:["Caring for Country was never a museum piece; it's a job description, and it's hiring. Our rangers burn the right fires, watch the water, read the billabong. If the cultural flow exists, we have been using it well: ask the black swans.",
-      "Whatever you build — plants, walls, pipes — the oldest infrastructure on this floodplain is knowledge. Two of your five proposals put water and land back. You know which two we'd choose."],
-      wants:"Wants healing choices — revegetation, water returned — and custodians in every room." },
+      "Whatever you build, plants, walls, pipes, the oldest infrastructure on this floodplain is knowledge. Two of your five proposals put water and land back. You know which two we'd choose."],
+      wants:"Wants healing choices, revegetation, water returned, and custodians in every room." },
     priya:{ say:"You cannot out-wall a rain bomb on a sealed floodplain. Give the flood somewhere to go, or it will choose somewhere itself.",
-      more:["Here's the flood arithmetic nobody likes: levees narrow the channel, which makes the same flood <i>higher</i>, which demands bigger levees — a ratchet that ends, somewhere, in a levee failing catastrophically instead of a floodplain flooding gently. <b>Room for the river</b> spends the flood across land built by floods: paddocks flood shallow, the wetland drinks, the billabong fills — and the city's peak drops.",
+      more:["Here's the flood arithmetic nobody likes: levees narrow the channel, which makes the same flood <i>higher</i>, which demands bigger levees: a ratchet that ends, somewhere, in a levee failing catastrophically instead of a floodplain flooding gently. <b>Room for the river</b> spends the flood across land built by floods: paddocks flood shallow, the wetland drinks, the billabong fills, and the city's peak drops.",
       "One storm this era will mark your homework. I'd rather it found floodplain than found out your levee."],
-      wants:"Wants room-for-the-river — work with the flood, not against it." },
+      wants:"Wants room-for-the-river: work with the flood, not against it." },
     dai:{ say:"Grandad cleared this land; I'm selling water off it back to the river and planting his ridges with trees. Strange century.",
-      more:["The buyback splits the district — some call selling water surrender. But I've watched the salt creep up the flats my whole life, and I've read the rain charts. Farming here in 2050 means growing more food from less water on healthier ground, or not farming at all.",
+      more:["The buyback splits the district: some call selling water surrender. But I've watched the salt creep up the flats my whole life, and I've read the rain charts. Farming here in 2050 means growing more food from less water on healthier ground, or not farming at all.",
       "Drip got us halfway. Buyback and trees might get my daughter the rest. She wants the farm. I want the farm to still be worth wanting."],
-      wants:"Wants adaptation that keeps working farms possible — buyback as choice, never punishment." },
-    marcus:{ say:"Desal is the honest option nobody loves: rain-proof water at a serious price. My advice hasn't changed — secure the supply, then be generous.",
-      more:["Retired now, so I'll say it plainly. Desal costs energy and money, and it is the only tap in this catchment the sky cannot turn off. Perth has run on it for years — by 2050, most of its drinking water doesn't fall from clouds. When the long dry lands here — and it will — the city with desal issues press releases; the city without it issues restrictions.",
+      wants:"Wants adaptation that keeps working farms possible, buyback as choice, never punishment." },
+    marcus:{ say:"Desal is the honest option nobody loves: rain-proof water at a serious price. My advice hasn't changed, secure the supply, then be generous.",
+      more:["Retired now, so I'll say it plainly. Desal costs energy and money, and it is the only tap in this catchment the sky cannot turn off. Perth has run on it for years, by 2050, most of its drinking water doesn't fall from clouds. When the long dry lands here, and it will, the city with desal issues press releases; the city without it issues restrictions.",
       "But pair it with something that heals: sponge city, trees, water back to the river. Concrete buys time. Only the cycle itself buys a future."],
       wants:"Wants supply secured (desal) paired with one healing choice." },
-    lan:{ say:"My granddaughter runs the garden now — drip lines, tanks, an app. The Mekong taught me water is life; this valley finally believes it.",
+    lan:{ say:"My granddaughter runs the garden now: drip lines, tanks, an app. The Mekong taught me water is life; this valley finally believes it.",
       more:["In the delta we lived with too much water; my granddaughter farms with too little. Same lesson both ends: respect it, reuse it, waste none. Her tomatoes drink the wash-water; her roof fills the tanks; the app knows each bed to the litre.",
       "Two hundred years this valley spent learning what my grandmother knew on a river far away: every drop has already been somewhere, and is already needed somewhere next. Spend it like it's borrowed. It is."],
       wants:"Wants the reuse-everything habit built into every choice." },
@@ -554,7 +553,7 @@ const ERAS=[
 
 /* ---------- factfile: real-world exhibits (approx figures, cited) ---------- */
 const FACTFILE=[
- { id:"climographs", title:"Exhibit A — Three Australias: monthly rainfall",
+ { id:"climographs", title:"Exhibit A: Three Australias: monthly rainfall",
    src:"Drawn from Bureau of Meteorology long-term climate averages (approximate, rounded).",
    kind:"climo",
    data:{ months:["J","F","M","A","M","J","J","A","S","O","N","D"],
@@ -562,42 +561,42 @@ const FACTFILE=[
        {name:"Cairns, QLD",   color:"#2b7a99", vals:[386,455,422,197,91,46,29,27,33,46,94,235]},
        {name:"Alice Springs, NT", color:"#b06a2c", vals:[40,43,31,17,18,14,15,9,9,21,29,38]},
        {name:"Perth, WA",     color:"#5a7a4a", vals:[15,15,20,36,90,127,146,122,80,44,24,15]}]},
-   pqe:{ p:"<b>Pattern:</b> three totally different rhythms — Cairns gets a summer WET SEASON (Dec–Apr), Perth gets a winter one (May–Sep), Alice Springs gets almost none, any time.",
-        q:"<b>Quantify:</b> Cairns ≈ 2060 mm a year, with ~455 mm in February alone — more in that one month than Alice Springs (~285 mm) receives in a year. Perth ≈ 730 mm, ~70% of it May–September.",
-        e:"<b>Exception test:</b> 'northern Australia is wet' hides that it's wet HALF the year — Cairns' July (29 mm) is drier than Perth's July (146 mm). Wet places have dry seasons; the pattern is in the timing, not just the totals." }},
- { id:"perth", title:"Exhibit B — Perth's dams: a drying trend in one chart",
+   pqe:{ p:"<b>Pattern:</b> three totally different rhythms: Cairns gets a summer WET SEASON (Dec–Apr), Perth gets a winter one (May–Sep), Alice Springs gets almost none, any time.",
+        q:"<b>Quantify:</b> Cairns ≈ 2060 mm a year, with ~455 mm in February alone, more in that one month than Alice Springs (~285 mm) receives in a year. Perth ≈ 730 mm, ~70% of it May–September.",
+        e:"<b>Exception test:</b> 'northern Australia is wet' hides that it's wet HALF the year, Cairns' July (29 mm) is drier than Perth's July (146 mm). Wet places have dry seasons; the pattern is in the timing, not just the totals." }},
+ { id:"perth", title:"Exhibit B: Perth's dams: a drying trend in one chart",
    src:"Drawn from Water Corporation (WA) streamflow-into-dams records (approximate period averages, GL/year).",
    kind:"bars",
    data:{ cats:["1911–1974","1975–2000","2001–2010","2011–2023"], vals:[338,177,92,66], color:"#2b7a99", unit:"GL/yr" },
-   pqe:{ p:"<b>Pattern:</b> a step-wise collapse — each period's average inflow is roughly HALF the one before.",
-        q:"<b>Quantify:</b> from ≈338 GL/yr (1911–74) to ≈66 GL/yr (2011–23) — a fall of about 80%, while Perth's population grew about five-fold.",
-        e:"<b>Exception / caution:</b> single wet years still happen inside the decline — one good winter doesn't break the trend. This chart is WHY Perth now gets most of its drinking water from desalination and groundwater, not dams." }},
- { id:"percap", title:"Exhibit C — Renewable freshwater per person, per year",
+   pqe:{ p:"<b>Pattern:</b> a step-wise collapse. Each period's average inflow is roughly HALF the one before.",
+        q:"<b>Quantify:</b> from ≈338 GL/yr (1911–74) to ≈66 GL/yr (2011–23), a fall of about 80%, while Perth's population grew about five-fold.",
+        e:"<b>Exception / caution:</b> single wet years still happen inside the decline, one good winter doesn't break the trend. This chart is WHY Perth now gets most of its drinking water from desalination and groundwater, not dams." }},
+ { id:"percap", title:"Exhibit C: Renewable freshwater per person, per year",
    src:"Drawn from World Bank / FAO AQUASTAT estimates (approximate, kL per person per year).",
    kind:"hbars",
    data:{ rows:[ {name:"Australia", val:20900, color:"#2b7a99"}, {name:"Vietnam", val:9100, color:"#5a7a4a"},
                  {name:"Egypt", val:560, color:"#b06a2c"}, {name:"Jordan", val:120, color:"#a83232"},
                  {name:"Yemen", val:80, color:"#a83232"} ], unit:"kL/person/yr", scarcity:1000 },
-   pqe:{ p:"<b>Pattern:</b> water wealth is wildly uneven — Australia has hundreds of times more renewable water per person than Jordan or Yemen.",
-        q:"<b>Quantify:</b> Australia ≈ 20,900 kL per person per year; Jordan ≈ 120; Yemen ≈ 80. Below ≈1000 kL/person/yr geographers call it water SCARCITY — Egypt, Jordan and Yemen are all under it.",
-        e:"<b>Exception:</b> Australia's huge number hides that most of the water is in the far north, most of the people in the south — a country can be water-rich on paper and still build desalination plants. Averages hide distribution." }},
- { id:"raingoes", title:"Exhibit D — Where the rain goes: bush vs suburb vs city centre",
+   pqe:{ p:"<b>Pattern:</b> water wealth is wildly uneven: Australia has hundreds of times more renewable water per person than Jordan or Yemen.",
+        q:"<b>Quantify:</b> Australia ≈ 20,900 kL per person per year; Jordan ≈ 120; Yemen ≈ 80. Below ≈1000 kL/person/yr geographers call it water SCARCITY, Egypt, Jordan and Yemen are all under it.",
+        e:"<b>Exception:</b> Australia's huge number hides that most of the water is in the far north, most of the people in the south, a country can be water-rich on paper and still build desalination plants. Averages hide distribution." }},
+ { id:"raingoes", title:"Exhibit D, Where the rain goes: bush vs suburb vs city centre",
    src:"Typical urban-hydrology teaching figures (per cent of rainfall).",
    kind:"stacked",
    data:{ cats:["Natural bush","Suburb","City centre"],
      parts:[ {name:"Evap + transpiration", color:"#c07a2c", vals:[40,35,30]},
              {name:"Soak-in", color:"#2c8a7e", vals:[50,35,15]},
              {name:"Run-off", color:"#2b7a99", vals:[10,30,55]} ] },
-   pqe:{ p:"<b>Pattern:</b> the more surfaces are sealed, the more the split flips — soak-in falls, run-off rises, step by step from bush to CBD.",
-        q:"<b>Quantify:</b> run-off jumps from ~10% of rain in bushland to ~55% in a city centre — more than five times the share. Soak-in drops from ~50% to ~15%.",
-        e:"<b>Exception:</b> evapotranspiration barely moves (~40→30%) — sealing ground mostly steals from SOAK-IN, which is why city groundwater and the creeks it feeds are the quiet casualty. (Compare this exhibit with your own field notebook!)" }},
- { id:"mdb", title:"Exhibit E — Who uses the Murray–Darling Basin's water?",
+   pqe:{ p:"<b>Pattern:</b> the more surfaces are sealed, the more the split flips, soak-in falls, run-off rises, step by step from bush to CBD.",
+        q:"<b>Quantify:</b> run-off jumps from ~10% of rain in bushland to ~55% in a city centre, more than five times the share. Soak-in drops from ~50% to ~15%.",
+        e:"<b>Exception:</b> evapotranspiration barely moves (~40→30%), sealing ground mostly steals from SOAK-IN, which is why city groundwater and the creeks it feeds are the quiet casualty. (Compare this exhibit with your own field notebook!)" }},
+ { id:"mdb", title:"Exhibit E, Who uses the Murray–Darling Basin's water?",
    src:"Drawn from MDBA / ABS water-use figures (approximate share of water diverted for use).",
    kind:"hbars",
    data:{ rows:[ {name:"Irrigated agriculture", val:80, color:"#9a6b2c"}, {name:"Towns, cities & industry", val:20, color:"#6b5b8a"} ], unit:"% of diverted water", pct:true },
-   pqe:{ p:"<b>Pattern:</b> water taken from the Basin overwhelmingly grows food and fibre — towns are a small slice of the take.",
+   pqe:{ p:"<b>Pattern:</b> water taken from the Basin overwhelmingly grows food and fibre, towns are a small slice of the take.",
         q:"<b>Quantify:</b> roughly 4 in every 5 diverted litres go to irrigation; the Basin grows around one-third of Australia's food supply.",
-        e:"<b>Exception / caution:</b> 'diverted' water isn't ALL the water — since the Basin Plan, a share is legally reserved for the river itself (environmental water), and First Nations organisations are still campaigning for water justice: a real say and real water. The chart shows users; it doesn't show the river's share or who was never asked." }},
+        e:"<b>Exception / caution:</b> 'diverted' water isn't ALL the water, since the Basin Plan, a share is legally reserved for the river itself (environmental water), and First Nations organisations are still campaigning for water justice: a real say and real water. The chart shows users; it doesn't show the river's share or who was never asked." }},
 ];
 
 /* ---------- school continuum (verbatim ladders) ---------- */
@@ -621,37 +620,37 @@ const CONTINUUM=[
 /* ---------- debrief questions ---------- */
 const QUESTIONS=[
  { id:"q1", lvl:"Continuum 2.1 · aim Level 7–8",
-   q:"Open your field notebook. Describe how RUN-OFF changed from 1850 to 2050 — read it off the readings you tracked, or the rainfall-split bars. Use PQE: state the pattern, quantify it with two numbers, and point out one exception or surprise.",
+   q:"Open your field notebook. Describe how RUN-OFF changed from 1850 to 2050, read it off the readings you tracked, or the rainfall-split bars. Use PQE: state the pattern, quantify it with two numbers, and point out one exception or surprise.",
    scaffold:"Sentence starters: “In 1850, ___ GL of the rain ran off, but by ___, run-off had ___ to ___ GL.” · “The biggest change happened in the era of ___, when ___.” · “One surprising thing in my table is ___.”",
-   stretch:"Stretch (L9): use SHEEPT — which social, economic or technological factors drove each jump in run-off? Which single factor mattered most, and how do you know from the numbers?",
+   stretch:"Stretch (L9): use SHEEPT, which social, economic or technological factors drove each jump in run-off? Which single factor mattered most, and how do you know from the numbers?",
    look:["pattern","increase","run-off","GL","era","exception","because","cleared","paved","sealed","soak"]},
  { id:"q2", lvl:"Continuum 1.2 · aim Level 8–9",
-   q:"Nobody ever 'took water out of' the river when the city paved its suburbs — yet the river changed. Explain the interconnection: how did sealing the ground change the river, the groundwater and the flood risk, even with no new pumps?",
+   q:"Nobody ever 'took water out of' the river when the city paved its suburbs, yet the river changed. Explain the interconnection: how did sealing the ground change the river, the groundwater and the flood risk, even with no new pumps?",
    scaffold:"Sentence starters: “When rain lands on concrete instead of soil, it ___ instead of ___.” · “Less soak-in means the groundwater ___, so the river's baseflow ___.” · “At the same time, run-off arrives ___, which makes floods ___.”",
-   stretch:"Stretch (L9–10): explain the reversal Sana reported — what is a 'losing river', at what scale does it operate (a reach? the catchment? decades?), and why is it slow to reverse?",
+   stretch:"Stretch (L9–10): explain the reversal Sana reported, what is a 'losing river', at what scale does it operate (a reach? the catchment? decades?), and why is it slow to reverse?",
    look:["soak","infiltrat","groundwater","baseflow","run-off","flash","flood","connect","concrete","sealed","losing"]},
  { id:"q3", lvl:"Continuum 1.2 · aim Level 9–10",
-   q:"Tell the billabong's story across your 200 years — and explain WHY it ended how it did. Use at least three factors from different eras (clearing, the dam, flows policy, your consulting choices) and say how they interacted over time.",
+   q:"Tell the billabong's story across your 200 years, and explain WHY it ended how it did. Use at least three factors from different eras (clearing, the dam, flows policy, your consulting choices) and say how they interacted over time.",
    scaffold:"Sentence starters: “In 1850 the billabong filled whenever ___.” · “The first threat came in the era of ___, when ___.” · “The decision that mattered most was ___, because ___.” · “By 2050 the billabong was ___.”",
-   stretch:"Stretch (L10): whose knowledge would have changed the outcome if it had been consulted earlier — and at what exact decision points? What does that tell you about WHO holds knowledge in a catchment?",
+   stretch:"Stretch (L10): whose knowledge would have changed the outcome if it had been consulted earlier, and at what exact decision points? What does that tell you about WHO holds knowledge in a catchment?",
    look:["billabong","flood","pulse","dam","cultural","consult","feeder","era","because","custodian","country"]},
  { id:"q4", lvl:"Continuum 2.1 · aim Level 10–11",
-   q:"“Water is a renewable resource.” Using at least TWO data sources — your field notebook AND one Factfile exhibit — argue whether this claim is true, partly true, or misleading. Quantify your evidence.",
+   q:"“Water is a renewable resource.” Using at least TWO data sources, your field notebook AND one Factfile exhibit, argue whether this claim is true, partly true, or misleading. Quantify your evidence.",
    scaffold:"Sentence starters: “Water is renewable because the cycle ___.” · “But my notebook shows the aquifer ___ when ___.” · “Exhibit ___ shows that in the real world, ___.” · “So the claim is ___ because ___.”",
-   stretch:"Stretch (L11): where does the claim break down fastest — groundwater pumped beyond recharge, a drying climate (Exhibit B), or scarcity per person (Exhibit C)? Rank them and justify your ranking.",
+   stretch:"Stretch (L11): where does the claim break down fastest, groundwater pumped beyond recharge, a drying climate (Exhibit B), or scarcity per person (Exhibit C)? Rank them and justify your ranking.",
    look:["renewable","cycle","rate","recharge","aquifer","exhibit","GL","evidence","Perth","scarcity","depends"]},
 ];
 
 /* ---------- real-world epilogue ---------- */
 const EPILOGUE=[
- {t:"“Marvellous Smellbourne” and the sewage farm (1890s)", d:"Your sewage decision replayed Melbourne's. By the 1880s the city piped waste into open drains and the Yarra — earning the nickname 'Smellbourne' and regular typhoid seasons. The response was real infrastructure: the Board of Works built a sewerage system, and from 1897 Melbourne's waste flowed to the Werribee treatment farm — which still treats about half the city's sewage today, and doubles as one of Australia's most important water-bird wetlands."},
- {t:"Clearing and the salt (WA wheatbelt, 1900s–now)", d:"Sana's warning is Western Australia's story. Clearing deep-rooted bush for wheat let water tables rise, dissolving ancient salt stored in the soil. Over a million hectares of WA farmland are now salt-affected, with millions more at risk — rivers in the wheatbelt run saltier than the sea in places. The fix being attempted is your Era-5 option: replanting trees, a century after the axes."},
- {t:"Perth: the city that outlived its rain (1975–now)", d:"Exhibit B is real. Streamflow into Perth's dams has collapsed by around 80% since the 1970s as the region's winter rains declined — the clearest climate-change signal in any Australian water record. Perth responded by re-plumbing itself: two desalination plants and treated-water recharge of aquifers now supply most of its drinking water. The 2050 you just played is already Perth's present."},
- {t:"Water justice: cultural flows (now)", d:"Aunty Marion's ask is a live national campaign. First Nations people of the Murray–Darling Basin — through organisations like MLDRIN — hold far less than 1% of Basin water entitlements, despite never ceding the rivers. 'Cultural flows' — water legally held and directed by First Nations peoples — moved from proposal to policy discussion, with the first small entitlements now real. The billabong's future, in other words, is still being decided."},
- {t:"Room for the river (Netherlands → Australia, 2007–now)", d:"Priya's flood plan is borrowed from the Dutch, who spent €2 billion moving levees BACK and giving 30+ rivers room to flood safely — after realising higher walls were a losing race. Australian floodplain planning now debates the same shift, especially after the 2022 floods put levee-lined towns underwater. Working with a flood, it turns out, can beat fighting it."},
+ {t:"“Marvellous Smellbourne” and the sewage farm (1890s)", d:"Your sewage decision replayed Melbourne's. By the 1880s the city piped waste into open drains and the Yarra, earning the nickname 'Smellbourne' and regular typhoid seasons. The response was real infrastructure: the Board of Works built a sewerage system, and from 1897 Melbourne's waste flowed to the Werribee treatment farm, which still treats about half the city's sewage today, and doubles as one of Australia's most important water-bird wetlands."},
+ {t:"Clearing and the salt (WA wheatbelt, 1900s–now)", d:"Sana's warning is Western Australia's story. Clearing deep-rooted bush for wheat let water tables rise, dissolving ancient salt stored in the soil. Over a million hectares of WA farmland are now salt-affected, with millions more at risk, rivers in the wheatbelt run saltier than the sea in places. The fix being attempted is your Era-5 option: replanting trees, a century after the axes."},
+ {t:"Perth: the city that outlived its rain (1975–now)", d:"Exhibit B is real. Streamflow into Perth's dams has collapsed by around 80% since the 1970s as the region's winter rains declined, the clearest climate-change signal in any Australian water record. Perth responded by re-plumbing itself: two desalination plants and treated-water recharge of aquifers now supply most of its drinking water. The 2050 you just played is already Perth's present."},
+ {t:"Water justice: cultural flows (now)", d:"Aunty Marion's ask is a live national campaign. First Nations people of the Murray–Darling Basin, through organisations like MLDRIN, hold far less than 1% of Basin water entitlements, despite never ceding the rivers. 'Cultural flows', water legally held and directed by First Nations peoples, moved from proposal to policy discussion, with the first small entitlements now real. The billabong's future, in other words, is still being decided."},
+ {t:"Room for the river (Netherlands → Australia, 2007–now)", d:"Priya's flood plan is borrowed from the Dutch, who spent €2 billion moving levees BACK and giving 30+ rivers room to flood safely, after realising higher walls were a losing race. Australian floodplain planning now debates the same shift, especially after the 2022 floods put levee-lined towns underwater. Working with a flood, it turns out, can beat fighting it."},
 ];
 /* ============================================================
-   EVERY DROP — engine
+   EVERY DROP: engine
    ============================================================ */
 const KEY="waterworld.everydrop.v1";
 let store; try{ localStorage.setItem("__t","1"); localStorage.removeItem("__t"); store=localStorage; }
@@ -737,7 +736,7 @@ function renderReviewBar(){ const bar=el("reviewbar"); if(!bar) return;
   if(_viewEra==null){ bar.classList.remove("on"); bar.innerHTML=""; return; }
   const e=ERAS[_viewEra];
   bar.classList.add("on");
-  bar.innerHTML=`<span>🔎 Reviewing <b>${e.yr} — ${esc(e.name)}</b> — the map, cycle and gauges show this era.</span>
+  bar.innerHTML=`<span>🔎 Reviewing <b>${e.yr}, ${esc(e.name)}</b>: the map, cycle and gauges show this era.</span>
     <button class="chip" onclick="replayEra(${_viewEra})">▶ Replay this change</button>
     <span class="spacer"></span>
     <button class="btn" style="padding:5px 12px;font-size:.82rem" onclick="returnToNow()">Back to ${ERAS[state.era].yr} ↩</button>`;
@@ -858,7 +857,7 @@ function renderEraPanel(){
     extraDecisions=[{ id:"outfall", title:"The outfall reckoning", why:"The straight pipe now carries a city's waste past a closed swimming hole.",
       def:"keepraw", options:[
         {id:"keepraw", label:"Keep the straight pipe", desc:"Still free. Still just upstream of the wetland.", fx:{}},
-        {id:"fixit", label:"Build the treatment works at last", desc:"A major works, sixty years late — better than ninety.", cost:1, fx:{set:{sewage:"treated"}}},
+        {id:"fixit", label:"Build the treatment works at last", desc:"A major works, sixty years late: better than ninety.", cost:1, fx:{set:{sewage:"treated"}}},
       ]}];
   }
   const decisions=[...era.decisions.map(d=>d), ...extraDecisions];
@@ -878,7 +877,7 @@ function renderEraPanel(){
         <span class="ol">${esc(o.label)}</span>${adv?`<span class="unlocked">💡 ${esc(adv.name.split(" ")[0]==="Aunty"?adv.name:adv.name.split(" ")[0])}'s idea</span>`:""}
         <span class="od">${esc(o.desc)}</span></button>`;
     });
-    if(hiddenCount>0) optsHtml += `<div class="hiddenopt">❓ There may be another way to handle this — worth hearing everyone out first.</div>`;
+    if(hiddenCount>0) optsHtml += `<div class="hiddenopt">❓ There may be another way to handle this, worth hearing everyone out first.</div>`;
     return `<div class="dcard"><h3>${esc(d.title)}${d.pick?` <span class="pill" style="background:#efeaf6;color:var(--town)">choose exactly ${d.pick}</span>`:""}</h3><div class="dwhy">${esc(d.why)}</div>${optsHtml}</div>`;
   }).join("");
 
@@ -898,12 +897,12 @@ function renderEraPanel(){
 
   const worksLine = era.worksMax>0 ? `<div class="works">🏗 Major works chosen: ${currentWorksCost()} / ${era.worksMax}</div>` : "";
   el("erapanel").innerHTML = `
-    <div class="rolebar">You are the <b>keeper of this catchment</b> — 1850 to 2050.</div>
-    <div class="era-head"><span class="yr">${era.yr}</span> — <span class="nm">${esc(era.name)}</span><p>${esc(era.intro)}</p></div>
+    <div class="rolebar">You are the <b>keeper of this catchment</b>: 1850 to 2050.</div>
+    <div class="era-head"><span class="yr">${era.yr}</span>: <span class="nm">${esc(era.name)}</span><p>${esc(era.intro)}</p></div>
     <div id="flashbox" class="flash noprint"></div>
     ${worksLine}${dHtml}
     <div class="card"><h3 style="font-size:.95rem;margin-bottom:7px">🗣 Talk to people first</h3><div class="advisers">${advHtml}</div></div>
-    <div class="commitrow"><button id="commitbtn" class="btn btn-primary" style="width:100%;padding:12px" onclick="commitEra()">${era.commitLabel||`Commit ${era.yr} — see what it does to the cycle →`}</button></div>`;
+    <div class="commitrow"><button id="commitbtn" class="btn btn-primary" style="width:100%;padding:12px" onclick="commitEra()">${era.commitLabel||`Commit ${era.yr}, see what it does to the cycle →`}</button></div>`;
 }
 function moodWord(v){ return v>=70?"CONTENT":v>=45?"UNEASY":"ALARMED"; }
 function moodColor(v){ return v>=70?"#2f6a3e":v>=45?"#a06a1f":"#a83232"; }
@@ -917,7 +916,7 @@ function toggleConsult(key){
       state.consulted[state.era]=[...(state.consulted[state.era]||[]),key];
       const gated=(era._activeDecisions||era.decisions).flatMap(d=>d.options.filter(o=>o.gate===key));
       const who=ADVISERS.find(a=>a.key===key); const fn=who?(who.name.startsWith("Aunty")?who.name:who.name.split(" ")[0]):"They";
-      if(gated.length) flash(`💡 <b>${esc(fn)}</b> has an idea — look for “${gated.map(o=>esc(o.label)).join("” and “")}” among your options.`);
+      if(gated.length) flash(`💡 <b>${esc(fn)}</b> has an idea: look for “${gated.map(o=>esc(o.label)).join("” and “")}” among your options.`);
     }
   }
   renderEraPanel(); save();
@@ -929,7 +928,7 @@ function pickOpt(did,oid,isPick){
     const d=(era._activeDecisions||era.decisions).find(x=>x.id===did);
     let p=state.picks[state.era]||[];
     if(p.includes(oid)) p=p.filter(x=>x!==oid);
-    else{ if(p.length>=d.pick){ flash(`Only ${d.pick} can be funded — unpick one first.`); renderEraPanel(); return; } p=[...p,oid]; }
+    else{ if(p.length>=d.pick){ flash(`Only ${d.pick} can be funded, unpick one first.`); renderEraPanel(); return; } p=[...p,oid]; }
     state.picks[state.era]=p;
   } else { state.choices[state.era][did]=oid; }
   renderEraPanel(); drawAll(); save();
@@ -946,8 +945,8 @@ function commitEra(){
   const era=ERAS[state.era];
   const decisions=era._activeDecisions||era.decisions;
   /* validate */
-  for(const d of decisions){ if(d.pick){ const p=state.picks[state.era]||[]; if(p.length!==d.pick){ flash(`⚠️ “${esc(d.title)}” needs exactly ${d.pick} choices — you have ${p.length}.`); return; } } }
-  if(era.worksMax>0 && currentWorksCost()>era.worksMax){ flash(`⚠️ Too many major works — the budget covers ${era.worksMax}.`); return; }
+  for(const d of decisions){ if(d.pick){ const p=state.picks[state.era]||[]; if(p.length!==d.pick){ flash(`⚠️ “${esc(d.title)}” needs exactly ${d.pick} choices. You have ${p.length}.`); return; } } }
+  if(era.worksMax>0 && currentWorksCost()>era.worksMax){ flash(`⚠️ Too many major works, the budget covers ${era.worksMax}.`); return; }
 
   const before={...state, lastFx:state.lastFx};
   const prevFx=state.lastFx;
@@ -965,11 +964,11 @@ function commitEra(){
   /* flood outcome (era 5) */
   state.floodOutcome=null;
   if(era.climate.spiky){
-    if(state.flood==="room") state.floodOutcome={k:"room", t:"The rain bomb landed — and the river had somewhere to go. The flood spread across the bought-back paddocks and the wetland drank for a week; the city's peak passed half a metre lower. The billabong filled for the first time in years."};
+    if(state.flood==="room") state.floodOutcome={k:"room", t:"The rain bomb landed, and the river had somewhere to go. The flood spread across the bought-back paddocks and the wetland drank for a week; the city's peak passed half a metre lower. The billabong filled for the first time in years."};
     else if(state.flood==="levees") state.floodOutcome = fx.run>320
-      ? {k:"breach", t:"The rain bomb landed. The levees held for six hours — then failed at the northern end, and the flood arrived all at once instead of gradually. Streets that were promised protection went under in twenty minutes. Walls make floods rarer and worse at the same time."}
-      : {k:"held", t:"The rain bomb landed and the levees held — this time. The whole flood passed inside the walls, racing seaward; the floodplain, wetland and billabong saw none of it."};
-    else if(state.flood==="warn") state.floodOutcome={k:"warn", t:"The rain bomb landed. Sirens, apps and doorknocks got everyone out — no lives lost, though low streets and shops flooded. The bill is real; the funerals aren't."};
+      ? {k:"breach", t:"The rain bomb landed. The levees held for six hours, then failed at the northern end, and the flood arrived all at once instead of gradually. Streets that were promised protection went under in twenty minutes. Walls make floods rarer and worse at the same time."}
+      : {k:"held", t:"The rain bomb landed and the levees held. This time. The whole flood passed inside the walls, racing seaward; the floodplain, wetland and billabong saw none of it."};
+    else if(state.flood==="warn") state.floodOutcome={k:"warn", t:"The rain bomb landed. Sirens, apps and doorknocks got everyone out, no lives lost, though low streets and shops flooded. The bill is real; the funerals aren't."};
   }
 
   moodsUpdate(fx, stocksPrev);
@@ -989,7 +988,7 @@ function notebookAdd(fx){
   if(state.floodOutcome) notes.push("storm: "+state.floodOutcome.k);
   state.notebook.push({era:state.era, yr:era.yr, name:era.name, P:fx.P, ET:fx.ET, soak:fx.soak, run:fx.run,
     base:fx.base, river:fx.river, quality:fx.quality, aquifer:rnd(state.aquifer), salinity:rnd(state.salinity),
-    flash:Math.round(fx.flash*100), take:fx.townRiver+fx.farmTake, note:notes.join("; ")||"—"});
+    flash:Math.round(fx.flash*100), take:fx.townRiver+fx.farmTake, note:notes.join("; ")||": "});
 }
 function moodsUpdate(fx, prev){
   const m=state.moods, era=state.era, c=state.consulted[era]||[];
@@ -1010,33 +1009,33 @@ function buildChanges(fx, prevFx, stocksPrev){
   const ch=[]; const era=ERAS[state.era];
   const add=(cls,html)=>ch.push({cls,html});
   if(state.era===0){
-    add("good",`<b>The machine at rest.</b> Of ${fx.P} GL of rain: <span class="mnum">${fx.ET} GL</span> (${pct(fx.ET,fx.P)}%) breathed back to the sky, <span class="mnum">${fx.soak} GL</span> (${pct(fx.soak,fx.P)}%) soaked in to feed the groundwater, <span class="mnum">${fx.run} GL</span> (${pct(fx.run,fx.P)}%) ran off to the river. Baseline recorded — everything from here is measured against this.`);
-    add("",`<b>The river you can't see.</b> The groundwater quietly returned <span class="mnum">${fx.base} GL</span> to the river as <b>baseflow</b> — that's why it flows all summer. Watch this number for two hundred years.`);
-    if(fx.pulse) add("good",`<b>The flood reached the billabong</b> — as it has, most years, for ten thousand. Remember what normal looks like.`);
+    add("good",`<b>The machine at rest.</b> Of ${fx.P} GL of rain: <span class="mnum">${fx.ET} GL</span> (${pct(fx.ET,fx.P)}%) breathed back to the sky, <span class="mnum">${fx.soak} GL</span> (${pct(fx.soak,fx.P)}%) soaked in to feed the groundwater, <span class="mnum">${fx.run} GL</span> (${pct(fx.run,fx.P)}%) ran off to the river. Baseline recorded, everything from here is measured against this.`);
+    add("",`<b>The river you can't see.</b> The groundwater quietly returned <span class="mnum">${fx.base} GL</span> to the river as <b>baseflow</b>: that's why it flows all summer. Watch this number for two hundred years.`);
+    if(fx.pulse) add("good",`<b>The flood reached the billabong</b>, as it has, most years, for ten thousand. Remember what normal looks like.`);
     return ch;
   }
   if(prevFx){
     const dET=fx.ET-prevFx.ET, dSoak=fx.soak-prevFx.soak, dRun=fx.run-prevFx.run;
-    if(Math.abs(dET)>=25) add(dET<0?"":"good",`<b>${dET<0?"Transpiration collapsed":"The trees are breathing again"}.</b> Evap + transpiration ${dET<0?"fell":"rose"} from <span class="mnum">${prevFx.ET}</span> to <span class="mnum">${fx.ET} GL</span>. ${dET<0?"The water the trees no longer lift must now go somewhere else — look at run-off.":"Deep roots are lifting water again and pulling the water table down with it."}`);
+    if(Math.abs(dET)>=25) add(dET<0?"":"good",`<b>${dET<0?"Transpiration collapsed":"The trees are breathing again"}.</b> Evap + transpiration ${dET<0?"fell":"rose"} from <span class="mnum">${prevFx.ET}</span> to <span class="mnum">${fx.ET} GL</span>. ${dET<0?"The water the trees no longer lift must now go somewhere else, look at run-off.":"Deep roots are lifting water again and pulling the water table down with it."}`);
     if(Math.abs(dSoak)>=20) add(dSoak<0?"bad":"good",`<b>Soak-in ${dSoak<0?"is being strangled":"recovered"}.</b> ${dSoak<0?"Sealed and cleared ground let":"Unsealed, replanted ground let"} <span class="mnum">${fx.soak} GL</span> through (was ${prevFx.soak}). Soak-in is tomorrow's baseflow: this number is the river's future, on a delay.`);
-    if(Math.abs(dRun)>=25) add(dRun>0?"bad":"good",`<b>Run-off ${dRun>0?"jumped":"eased"}</b> — <span class="mnum">${prevFx.run} → ${fx.run} GL</span>. ${dRun>0?"More water, arriving faster, carrying more with it: bigger river, browner river, flashier floods.":"Rain is spending longer in the ground and less time racing across it."}`);
+    if(Math.abs(dRun)>=25) add(dRun>0?"bad":"good",`<b>Run-off ${dRun>0?"jumped":"eased"}</b>: <span class="mnum">${prevFx.run} → ${fx.run} GL</span>. ${dRun>0?"More water, arriving faster, carrying more with it: bigger river, browner river, flashier floods.":"Rain is spending longer in the ground and less time racing across it."}`);
     const dBase=fx.base-prevFx.base;
-    if(Math.abs(dBase)>=20) add(dBase<0?"bad":"good",`<b>Baseflow ${dBase<0?"is fading":"is returning"}</b> — the groundwater's gift to the river went <span class="mnum">${prevFx.base} → ${fx.base} GL</span>. ${dBase<0?"This is the quiet damage: the river will now run thin between rains, in exactly the years it's needed most.":"The river you can't see is refilling the one you can."}`);
+    if(Math.abs(dBase)>=20) add(dBase<0?"bad":"good",`<b>Baseflow ${dBase<0?"is fading":"is returning"}</b>: the groundwater's gift to the river went <span class="mnum">${prevFx.base} → ${fx.base} GL</span>. ${dBase<0?"This is the quiet damage: the river will now run thin between rains, in exactly the years it's needed most.":"The river you can't see is refilling the one you can."}`);
   }
-  if(fx.losing) add("bad",`<b>⚠ The river is LOSING water.</b> Along one reach the water table has dropped below the riverbed — the river now leaks downward into the ground it once drank from. Sana has never recorded this before. It reverses only slowly: more soak-in, less pumping, years of patience.`);
+  if(fx.losing) add("bad",`<b>⚠ The river is LOSING water.</b> Along one reach the water table has dropped below the riverbed, the river now leaks downward into the ground it once drank from. Sana has never recorded this before. It reverses only slowly: more soak-in, less pumping, years of patience.`);
   if(state.sewage==="raw"&&state.pop>=20) add("bad",`<b>Typhoid summer.</b> A city's raw waste enters the river just upstream of the swimming hole (quality: <span class="mnum">${fx.quality}/100</span>). The hospital fills every February. Marcus's first rule was: never let a town drink its own outfall.`);
-  else if(fx.quality<60) add("bad",`<b>The river below town is struggling</b> — quality <span class="mnum">${fx.quality}/100</span>. Farm run-off${state.riparian?"":" (no riverside tree filter)"}, street run-off and the outfall all land in the same channel the wetland drinks from.`);
+  else if(fx.quality<60) add("bad",`<b>The river below town is struggling</b>: quality <span class="mnum">${fx.quality}/100</span>. Farm run-off${state.riparian?"":" (no riverside tree filter)"}, street run-off and the outfall all land in the same channel the wetland drinks from.`);
   if(!state.billDried){
-    if(fx.pulse) add("good",`<b>The flood reached the billabong.</b> ${state.culturalFlow?"Custodians timed the cultural flow to Country's calendar — the billabong drank exactly when it needed to.":state.envFlow?"The environmental release did its job — a made flood, but a flood.":state.protectFeeder?"The uncleared feeder country carried the water across, as Aunty Marion said it would.":"The river rose and reached across the floodplain, as it always did."} Health: <span class="mnum">${rnd(state.bill)}/100</span>.`);
+    if(fx.pulse) add("good",`<b>The flood reached the billabong.</b> ${state.culturalFlow?"Custodians timed the cultural flow to Country's calendar, the billabong drank exactly when it needed to.":state.envFlow?"The environmental release did its job: a made flood, but a flood.":state.protectFeeder?"The uncleared feeder country carried the water across, as Aunty Marion said it would.":"The river rose and reached across the floodplain, as it always did."} Health: <span class="mnum">${rnd(state.bill)}/100</span>.`);
     else add("bad",`<b>The billabong missed its flood.</b> ${state.dam?"The dam caught the rises that once reached it.":state.flood==="levees"?"The levees now wall the river off from its own floodplain.":"The river no longer rises far enough to touch it."} Health: <span class="mnum">${rnd(state.bill)}/100</span>. A cut-off bend only survives on the water sent to it.`);
   }
   if(state.billDried && !state._driedTold){ state._driedTold=true;
-    add("bad",`<b>⬛ The billabong has dried.</b> Too many missed floods. The mussels died in the mud; the swans left; a birthing place and story place ten thousand years old is a cracked clay pan. This does not simply refill — it is the one change in this game that behaves like forever.`);
+    add("bad",`<b>⬛ The billabong has dried.</b> Too many missed floods. The mussels died in the mud; the swans left; a birthing place and story place ten thousand years old is a cracked clay pan. This does not simply refill. It is the one change in this game that behaves like forever.`);
   }
-  if(state.salinity>=30 && stocksPrev.salinity<30) add("bad",`<b>The salt has surfaced.</b> With the deep-rooted trees gone, the water table has risen — carrying up salt laid down over millennia. White scalds are spreading on the flats (salinity <span class="mnum">${rnd(state.salinity)}/100</span>). Sana warned this exact thing in 1890.`);
-  if(state.reveg && state.salinity<stocksPrev.salinity) add("good",`<b>The trees are pulling the salt back down.</b> Revegetated ridges are lowering the water table — salinity eased to <span class="mnum">${rnd(state.salinity)}/100</span>. Slow medicine, working.`);
+  if(state.salinity>=30 && stocksPrev.salinity<30) add("bad",`<b>The salt has surfaced.</b> With the deep-rooted trees gone, the water table has risen, carrying up salt laid down over millennia. White scalds are spreading on the flats (salinity <span class="mnum">${rnd(state.salinity)}/100</span>). Sana warned this exact thing in 1890.`);
+  if(state.reveg && state.salinity<stocksPrev.salinity) add("good",`<b>The trees are pulling the salt back down.</b> Revegetated ridges are lowering the water table, salinity eased to <span class="mnum">${rnd(state.salinity)}/100</span>. Slow medicine, working.`);
   if(state.floodOutcome) add(state.floodOutcome.k==="breach"?"bad":state.floodOutcome.k==="room"?"good":"",`<b>The storm.</b> ${state.floodOutcome.t}`);
-  if(fx.desalSup) add("",`<b>The sky-proof tap.</b> Desalination supplied <span class="mnum">${fx.desalSup} GL</span> this era — the only water here that doesn't start as rain on this catchment.`);
+  if(fx.desalSup) add("",`<b>The sky-proof tap.</b> Desalination supplied <span class="mnum">${fx.desalSup} GL</span> this era: the only water here that doesn't start as rain on this catchment.`);
   if(state.era===4 && state.culturalFlow) add("good",`<b>Water for Country, held by Country's people.</b> The cultural flow ran all era, timed by custodians. This is what "ask first" looks like when it's built into law rather than goodwill.`);
   return ch;
 }
@@ -1050,10 +1049,10 @@ function renderResult(){
   }).join("");
   const last=state.era===ERAS.length-1;
   el("erapanel").innerHTML=`
-    <div class="era-head"><span class="yr">${era.yr}</span> — <span class="nm">${esc(era.name)}: what your choices did to the cycle</span></div>
+    <div class="era-head"><span class="yr">${era.yr}</span>: <span class="nm">${esc(era.name)}: what your choices did to the cycle</span></div>
     ${mechs}
     <div class="card"><b style="font-size:.85rem">How people are travelling:</b><div style="margin-top:6px">${advHtml}</div></div>
-    <div class="commitrow"><button class="btn btn-primary" style="width:100%;padding:12px" onclick="${last?"renderEnd()":"nextEra()"}">${last?"See what 200 years made →":"On to "+ERAS[state.era+1].yr+" — "+esc(ERAS[state.era+1].name)+" →"}</button></div>
+    <div class="commitrow"><button class="btn btn-primary" style="width:100%;padding:12px" onclick="${last?"renderEnd()":"nextEra()"}">${last?"See what 200 years made →":"On to "+ERAS[state.era+1].yr+": "+esc(ERAS[state.era+1].name)+" →"}</button></div>
     <p class="note noprint">Check the map (turn on <b>Compare with 1850</b>) and your 📓 notebook before moving on.</p>`;
   window.scrollTo(0,0);
 }
@@ -1103,8 +1102,8 @@ function drawXsec(){
   S.push(`</defs>`);
   /* sky */
   S.push(`<rect x="0" y="0" width="900" height="470" fill="url(#sky)"/>`);
-  S.push(dry>0.28?`<circle cx="810" cy="46" r="16" fill="#e9c25a"/><text x="60" y="20" font-size="11" fill="#9a7a3a">☀️ ${ERAS[state.era].yr} — hotter, drier · rain ${rnd(fx.P)} GL</text>`
-                 :`<text x="60" y="20" font-size="11" fill="#4a7a94">☁️ ${ERAS[state.era].yr} — rain ${rnd(fx.P)} GL</text>`);
+  S.push(dry>0.28?`<circle cx="810" cy="46" r="16" fill="#e9c25a"/><text x="60" y="20" font-size="11" fill="#9a7a3a">☀️ ${ERAS[state.era].yr}, hotter, drier · rain ${rnd(fx.P)} GL</text>`
+                 :`<text x="60" y="20" font-size="11" fill="#4a7a94">☁️ ${ERAS[state.era].yr}, rain ${rnd(fx.P)} GL</text>`);
   /* sea */
   S.push(`<rect x="820" y="284" width="80" height="186" fill="#4a8aa8" opacity=".85"/><text x="858" y="308" font-size="12" fill="#fff" text-anchor="middle">sea</text>`);
   /* ground body */
@@ -1116,8 +1115,8 @@ function drawXsec(){
   const wtPts=[]; for(let x=0;x<=820;x+=40) wtPts.push(`${x},${rnd(wt(x))}`);
   S.push(`<path d="M0,${rnd(wt(0))} ${wtPts.map(p=>"L"+p).join(" ")} L820,470 L0,470 Z" fill="url(#aq)" opacity="${clamp(0.28+state.aquifer/170,0.25,0.62)}"/>`);
   S.push(`<path d="M0,${rnd(wt(0))} ${wtPts.map(p=>"L"+p).join(" ")}" fill="none" stroke="#2b6a88" stroke-width="1.5" stroke-dasharray="5 4"/>`);
-  S.push(`<text x="12" y="${rnd(wt(30))+15}" font-size="10.5" fill="#1d5f7d">water table ${state.aquifer<30?"(low — bores & baseflow suffer)":""}</text>`);
-  /* salt scald — grows with salinity, across the farm flats */
+  S.push(`<text x="12" y="${rnd(wt(30))+15}" font-size="10.5" fill="#1d5f7d">water table ${state.aquifer<30?"(low: bores & baseflow suffer)":""}</text>`);
+  /* salt scald: grows with salinity, across the farm flats */
   if(state.salinity>18){ const sc=clamp(state.salinity/100,0,1);
     for(let i=0;i<Math.round(state.salinity/9);i++){ const x=250+(i*53)%230, y=terrY(x)+3+(i%2)*3;
       S.push(`<ellipse cx="${x}" cy="${y}" rx="${10+sc*14}" ry="${3+sc*3}" fill="#f2ede2" opacity="${0.55+sc*0.4}"/>`); }
@@ -1177,7 +1176,7 @@ function drawXsec(){
   else S.push(`<rect x="664" y="${wetY-1}" width="72" height="3" fill="#8a7a5a"/><text x="700" y="${wetY+16}" font-size="10" fill="#8a7a5a" text-anchor="middle">wetland (drained to a ditch)</text>`);
   /* ---- billabong ---- */
   const bx=784, by=terrY(bx)+22;
-  if(state.billDried) S.push(`<ellipse cx="${bx}" cy="${by}" rx="27" ry="8" fill="#b09a72"/><text x="${bx}" y="${by+4}" font-size="12" text-anchor="middle">🪨</text><text x="${bx}" y="${by+21}" font-size="10" fill="#8a6a4a" text-anchor="middle">billabong — DRY</text>`);
+  if(state.billDried) S.push(`<ellipse cx="${bx}" cy="${by}" rx="27" ry="8" fill="#b09a72"/><text x="${bx}" y="${by+4}" font-size="12" text-anchor="middle">🪨</text><text x="${bx}" y="${by+21}" font-size="10" fill="#8a6a4a" text-anchor="middle">billabong: DRY</text>`);
   else S.push(`<ellipse cx="${bx}" cy="${by}" rx="27" ry="${5+state.bill/16}" fill="#3f88a8" opacity="${clamp(state.bill/100,0.3,1)}"/><text x="${bx}" y="${by+3}" font-size="11" text-anchor="middle">🦢</text><text x="${bx}" y="${by+21}" font-size="10" fill="#1d5f7d" text-anchor="middle">billabong ${rnd(state.bill)}/100</text>`);
   /* ---- desal plant on the coast ---- */
   if(state.desal){ S.push(`<rect x="828" y="270" width="20" height="14" rx="2" fill="#2c8a7e"/><text x="838" y="266" font-size="9" fill="#1f6a5e" text-anchor="middle">desal</text>`); }
@@ -1203,9 +1202,9 @@ function drawXsec(){
   if(fx.sewReturn>0) S.push(arrow(590,terrY(590)-8,648,terrY(648)+1,clamp(fx.sewReturn/8,2,8),state.sewage==="raw"?"#8a6b4a":"#a89a6a",`outfall ${rnd(fx.sewReturn)}`,showNums));
   if(state.desal) S.push(arrow(840,282,700,terrY(700)-40,4,"#2c8a7e",`desal ${fx.desalSup}`,showNums,true));
   if(fx.pulse&&!state.billDried) S.push(arrow(742,terrY(742)+2,bx-20,by-4,4.5,state.culturalFlow?"#2f6a3e":"#3f88a8",state.culturalFlow?"cultural flow":"flood pulse",showNums,true));
-  S.push(`<text x="60" y="462" font-size="10.5" fill="#6b6256">▲ ranges · farms · town · wetland &amp; billabong · sea ▶ — arrows are drawn to scale with their flow</text>`);
+  S.push(`<text x="60" y="462" font-size="10.5" fill="#6b6256">▲ ranges · farms · town · wetland &amp; billabong · sea ▶, arrows are drawn to scale with their flow</text>`);
   el("xsec").innerHTML=S.join("");
-  el("xsec-caption").innerHTML = `<b>${ERAS[state.era].yr} — ${esc(ERAS[state.era].name)}.</b> River at the town: <b>${rnd(fx.river)} GL/yr</b> · quality <b>${rnd(fx.quality)}/100</b> · flash index ${(fx.flash*100|0)}% (how much arrives in a rush rather than seeping steadily). ${state.billDried?"The billabong is dry — permanently.":fx.pulse?"Water reached the billabong.":"No water reached the billabong."}${_previewing?` <b style="color:var(--warn)">◉ preview — not committed yet</b>`:""}`;
+  el("xsec-caption").innerHTML = `<b>${ERAS[state.era].yr}, ${esc(ERAS[state.era].name)}.</b> River at the town: <b>${rnd(fx.river)} GL/yr</b> · quality <b>${rnd(fx.quality)}/100</b> · flash index ${(fx.flash*100|0)}% (how much arrives in a rush rather than seeping steadily). ${state.billDried?"The billabong is dry: permanently.":fx.pulse?"Water reached the billabong.":"No water reached the billabong."}${_previewing?` <b style="color:var(--warn)">◉ preview, not committed yet</b>`:""}`;
 }
 
 /* ---------------- cycle diagram ---------------- */
@@ -1254,7 +1253,7 @@ function renderGauges(){
     host.innerHTML=items.map(()=>`<div class="gauge"><div class="glabel"></div><div class="gval"></div><div class="gbar"><span></span></div></div>`).join("");
   items.forEach((g,i)=>{ const c=host.children[i];
     const dcls=g.d>1?(g.invert?"down":"up"):g.d<-1?(g.invert?"up":"down"):"flat";
-    const dtxt=g.d>1?`▲ ${rnd(g.d)}`:g.d<-1?`▼ ${rnd(Math.abs(g.d))}`:"—";
+    const dtxt=g.d>1?`▲ ${rnd(g.d)}`:g.d<-1?`▼ ${rnd(Math.abs(g.d))}`:": ";
     c.querySelector(".glabel").textContent=g.l;
     c.querySelector(".gval").innerHTML=`${rnd(g.v)}${g.unit} <span class="gdelta ${dcls}">${dtxt}</span>`;
     const sp=c.querySelector(".gbar span");
@@ -1296,14 +1295,14 @@ function renderFactfile(){
     }
     return `<div class="ff-item"><h3>${esc(f.title)}</h3><div class="ff-src">${esc(f.src)}</div>${svg}
       <div class="pqe noprint">
-        <button class="chip" onclick="pqeReveal('${f.id}','p')">P — what's the pattern?</button>
-        <button class="chip" onclick="pqeReveal('${f.id}','q')">Q — quantify it</button>
-        <button class="chip" onclick="pqeReveal('${f.id}','e')">E — find the exception</button>
+        <button class="chip" onclick="pqeReveal('${f.id}','p')">P: what's the pattern?</button>
+        <button class="chip" onclick="pqeReveal('${f.id}','q')">Q: quantify it</button>
+        <button class="chip" onclick="pqeReveal('${f.id}','e')">E: find the exception</button>
       </div><div class="pqe-reveal" id="pqe-${f.id}"></div></div>`;
-  }).join("")+`<p class="note">Figures are approximate and rounded for teaching — always check the live source (BoM, Water Corporation, MDBA, World Bank) for current numbers. Try each P–Q–E yourself <i>before</i> revealing.</p>`;
+  }).join("")+`<p class="note">Figures are approximate and rounded for teaching, always check the live source (BoM, Water Corporation, MDBA, World Bank) for current numbers. Try each P–Q–E yourself <i>before</i> revealing.</p>`;
 }
 function pqeReveal(id,k){ const d=FACTFILE.find(f=>f.id===id); const box=el("pqe-"+id);
-  box.innerHTML=d.pqe[k]+`<div class="note" style="margin-top:5px">Say yours out loud first — then compare. Yours can be better than this one.</div>`; box.classList.add("on"); }
+  box.innerHTML=d.pqe[k]+`<div class="note" style="margin-top:5px">Say yours out loud first: then compare. Yours can be better than this one.</div>`; box.classList.add("on"); }
 
 /* ---------------- notebook (student-driven) ---------------- */
 function trackMetric(k){ state.tracked[k]=!state.tracked[k]; renderNotebook(); save(); }
@@ -1324,7 +1323,7 @@ function renderNotebook(){
     r+=`<td style="text-align:left">${esc(n.note)}</td></tr>`; return r; }).join("");
   el("nb-table").innerHTML=head+rows;
   /* controls + observations + provided chart */
-  const obs=nb.map((n,i)=>`<div class="obs-row"><label>${n.yr} — what I noticed<textarea rows="2" oninput="setObs(${n.era},this.value)" placeholder="e.g. run-off climbing every era; the billabong missed its flood once the dam went in…">${esc(state.observations[n.era]||"")}</textarea></label></div>`).join("");
+  const obs=nb.map((n,i)=>`<div class="obs-row"><label>${n.yr}, what I noticed<textarea rows="2" oninput="setObs(${n.era},this.value)" placeholder="e.g. run-off climbing every era; the billabong missed its flood once the dam went in…">${esc(state.observations[n.era]||"")}</textarea></label></div>`).join("");
   let bars="";
   { const W=760,H=44;
     bars=`<svg viewBox="0 0 ${W} ${nb.length*H+40}">`;
@@ -1336,7 +1335,7 @@ function renderNotebook(){
   }
   el("nb-bars").innerHTML=`
     <div class="nb-ctl noprint">
-      <span>${trackedCount?`Tracking <b>${trackedCount}</b> reading${trackedCount>1?"s":""}`:"<b>Tap a heading above</b> to start tracking a reading"} — pick the ones you think matter.</span>
+      <span>${trackedCount?`Tracking <b>${trackedCount}</b> reading${trackedCount>1?"s":""}`:"<b>Tap a heading above</b> to start tracking a reading"}: pick the ones you think matter.</span>
       <button class="chip" onclick="trackAll(true)">Track all</button><button class="chip" onclick="trackAll(false)">Clear</button>
     </div>
     <h4 style="font-size:.85rem;margin:14px 0 4px;color:var(--deep)">The instrument reading you're given: where each era's rain went</h4>
@@ -1349,32 +1348,32 @@ function renderNotebook(){
 function followDrop(){
   const fx=state.lastFx||computeEra();
   const strip=el("dropstrip"); strip.classList.add("on");
-  const steps=["💧 A drop falls on the "+(Math.random()<state.veg/100?"forested ranges…":state.imperv>25&&Math.random()<0.5?"city — on a carpark roof…":"open paddocks…")];
+  const steps=["💧 A drop falls on the "+(Math.random()<state.veg/100?"forested ranges…":state.imperv>25&&Math.random()<0.5?"city: on a carpark roof…":"open paddocks…")];
   const r=Math.random(), pET=fx.ET/fx.P, pSoak=fx.soak/fx.P;
-  if(r<pET){ steps.push("…it clings to a leaf, warms in the sun, and by afternoon it has <b>evaporated</b> — or been drawn up a root and <b>transpired</b> out of a leaf pore…"); steps.push("…back in the sky, it joins the next cloud. The cycle keeps every drop. (This is the biggest pathway here: "+pct(fx.ET,fx.P)+"% of all rain.)"); }
-  else if(r<pET+pSoak){ steps.push("…it slips between soil grains, down past the roots — days to fall one metre — into the <b>groundwater</b>…");
+  if(r<pET){ steps.push("…it clings to a leaf, warms in the sun, and by afternoon it has <b>evaporated</b>, or been drawn up a root and <b>transpired</b> out of a leaf pore…"); steps.push("…back in the sky, it joins the next cloud. The cycle keeps every drop. (This is the biggest pathway here: "+pct(fx.ET,fx.P)+"% of all rain.)"); }
+  else if(r<pET+pSoak){ steps.push("…it slips between soil grains, down past the roots, days to fall one metre, into the <b>groundwater</b>…");
     if(state.bores&&Math.random()<0.35) steps.push("…years later a <b>bore</b> pulls it up into the town's pipes. Someone fills a kettle with it, never knowing it fell on the ranges before they were born.");
-    else if(fx.losing&&Math.random()<0.4) steps.push("…it drifts toward the river — but the water table has sunk too low, and it never arrives. It sits in the dark, waiting for the ground above to fill again.");
-    else steps.push("…and after <i>years</i> underground it seeps quietly up through the riverbed: it has become <b>baseflow</b> — the reason this river runs in March."); }
+    else if(fx.losing&&Math.random()<0.4) steps.push("…it drifts toward the river, but the water table has sunk too low, and it never arrives. It sits in the dark, waiting for the ground above to fill again.");
+    else steps.push("…and after <i>years</i> underground it seeps quietly up through the riverbed: it has become <b>baseflow</b>: the reason this river runs in March."); }
   else { steps.push(state.imperv>25&&Math.random()<0.55?"…it hits sealed ground and is in a gutter within seconds, picking up oil and dust, flushed to the river in under an hour: <b>urban run-off</b>…":"…it sheets across the surface as <b>run-off</b>, joining a rivulet, then a creek, then the river within a day…");
     const r2=Math.random();
-    if(fx.pulse&&!state.billDried&&r2<0.25) steps.push("…the river rises with a million drops like it, reaches across the floodplain — and your drop ends its journey in the <b>billabong</b>, where a swan is waiting.");
+    if(fx.pulse&&!state.billDried&&r2<0.25) steps.push("…the river rises with a million drops like it, reaches across the floodplain, and your drop ends its journey in the <b>billabong</b>, where a swan is waiting.");
     else if(r2<0.5&&fx.farmTake>20) steps.push("…a pump lifts it into an irrigation "+(state.irr==="modern"?"drip line, and it enters an orange":"channel; it crosses a paddock in the sun")+". It leaves the catchment inside a piece of fruit on a truck.");
-    else if(r2<0.7&&state.pop>0) steps.push("…the town's "+(state.weir?"weir pool":"intake")+" swallows it; it runs a shower, goes down a drain, "+(state.sewage==="raw"?"and returns to the river <b>untreated</b> at the outfall — the swimming hole is just downstream.":state.sewage==="treated"?"passes through the treatment works, and returns to the river cleaner than it left the shower.":"and is gone into the works."));
-    else steps.push("…it rides the current past the wetland and out into the <b>sea</b> — where the sun is already lifting it back into the sky to start again."); }
+    else if(r2<0.7&&state.pop>0) steps.push("…the town's "+(state.weir?"weir pool":"intake")+" swallows it; it runs a shower, goes down a drain, "+(state.sewage==="raw"?"and returns to the river <b>untreated</b> at the outfall: the swimming hole is just downstream.":state.sewage==="treated"?"passes through the treatment works, and returns to the river cleaner than it left the shower.":"and is gone into the works."));
+    else steps.push("…it rides the current past the wetland and out into the <b>sea</b>, where the sun is already lifting it back into the sky to start again."); }
   strip.innerHTML=steps.map((s,i)=>`<div class="stage" style="animation-delay:${i*0.9}s">${s}</div>`).join("");
 }
 
 /* ---------------- end screen ---------------- */
 function verdictParas(){
   const fx=state.lastFx, b=state.baseline, out=[];
-  out.push(`<p><b>The river:</b> in 1850 it carried about ${b.river} GL past the town site, nearly half of it steady baseflow. In 2050 it carries ${fx.river} GL — ${fx.base<b.base*0.6?`but only ${fx.base} GL of that seeps steadily from the ground (it was ${b.base}): this river is now mostly weather, little memory`:`and ${fx.base} GL still arrives as baseflow — the underground river survived your two centuries`}. Quality ended at ${fx.quality}/100${fx.quality<60?" — the wetland inherits what the town and farms won't keep":""}.</p>`);
-  out.push(`<p><b>The ground:</b> groundwater ended at ${rnd(state.aquifer)}/100${state.aquifer<40?" — drawn down faster than rain could refill it; on human timescales that water was mined, not borrowed":""}. Salinity ended at ${rnd(state.salinity)}/100${state.salinity>40?" — the cleared ridges lifted ancient salt into the root zone, and no single generation puts that back":state.reveg?" — and falling, because someone finally replanted the ridges":""}.</p>`);
-  out.push(`<p><b>The billabong:</b> ${state.billDried?`dry. It missed too many floods — ${state.dam?"the dam caught them, ":""}${state.flood==="levees"?"the levees walled them off, ":""}and no one sent water in their place. A ten-thousand-year-old story place ended on your watch, and it does not refill`:`alive, at ${rnd(state.bill)}/100. ${state.culturalFlow?"The cultural flow did what a century of good intentions couldn't: put the decision where the knowledge was.":state.envFlow?"Environmental releases kept the pulses coming — made floods, but floods.":state.protectFeeder?"The feeder country Aunty Marion asked for in 1890 turned out to matter for the next 160 years.":"The floods kept reaching it — partly by your choices, partly by luck."}`}</p>`);
+  out.push(`<p><b>The river:</b> in 1850 it carried about ${b.river} GL past the town site, nearly half of it steady baseflow. In 2050 it carries ${fx.river} GL, ${fx.base<b.base*0.6?`but only ${fx.base} GL of that seeps steadily from the ground (it was ${b.base}): this river is now mostly weather, little memory`:`and ${fx.base} GL still arrives as baseflow, the underground river survived your two centuries`}. Quality ended at ${fx.quality}/100${fx.quality<60?": the wetland inherits what the town and farms won't keep":""}.</p>`);
+  out.push(`<p><b>The ground:</b> groundwater ended at ${rnd(state.aquifer)}/100${state.aquifer<40?": drawn down faster than rain could refill it; on human timescales that water was mined, not borrowed":""}. Salinity ended at ${rnd(state.salinity)}/100${state.salinity>40?": the cleared ridges lifted ancient salt into the root zone, and no single generation puts that back":state.reveg?", and falling, because someone finally replanted the ridges":""}.</p>`);
+  out.push(`<p><b>The billabong:</b> ${state.billDried?`dry. It missed too many floods, ${state.dam?"the dam caught them, ":""}${state.flood==="levees"?"the levees walled them off, ":""}and no one sent water in their place. A ten-thousand-year-old story place ended on your watch, and it does not refill`:`alive, at ${rnd(state.bill)}/100. ${state.culturalFlow?"The cultural flow did what a century of good intentions couldn't: put the decision where the knowledge was.":state.envFlow?"Environmental releases kept the pulses coming, made floods, but floods.":state.protectFeeder?"The feeder country Aunty Marion asked for in 1890 turned out to matter for the next 160 years.":"The floods kept reaching it: partly by your choices, partly by luck."}`}</p>`);
   const consultedMarion=[1,2,3,4].some(i=>(state.consulted[i]||[]).includes("marion"));
   const acted=state.protectFeeder||state.culturalFlow;
-  out.push(`<p><b>The asking:</b> ${consultedMarion&&acted?`you consulted the custodians before deciding, and your plans carried their asks — that's free, prior and informed consent practised, not just clicked`:consultedMarion&&!acted?`you heard the custodians out — and then decided without them anyway. Being consulted and being ignored, Aunty Marion would tell you, feel almost the same from her side of the table`:`the biggest decisions of two centuries were made without once sitting down with the people who know this river best. That, too, is a faithful re-run of Australian history — it was also a choice`}.</p>`);
-  if(state.floodOutcome) out.push(`<p><b>The storm:</b> ${state.floodOutcome.k==="room"?"when the rain bomb came, the river had somewhere to go — the flood was land being floodplain, not disaster":state.floodOutcome.k==="breach"?"the levees turned a flood into a catastrophe — rarer, and worse, exactly as the ecologist warned":state.floodOutcome.k==="held"?"the levees held, this time — and the floodplain behind them is still betting they always will":"sirens saved every life and no wall saved a single shop — an honest bargain, honestly made"}.</p>`);
+  out.push(`<p><b>The asking:</b> ${consultedMarion&&acted?`you consulted the custodians before deciding, and your plans carried their asks, that's free, prior and informed consent practised, not just clicked`:consultedMarion&&!acted?`you heard the custodians out, and then decided without them anyway. Being consulted and being ignored, Aunty Marion would tell you, feel almost the same from her side of the table`:`the biggest decisions of two centuries were made without once sitting down with the people who know this river best. That, too, is a faithful re-run of Australian history. It was also a choice`}.</p>`);
+  if(state.floodOutcome) out.push(`<p><b>The storm:</b> ${state.floodOutcome.k==="room"?"when the rain bomb came, the river had somewhere to go, the flood was land being floodplain, not disaster":state.floodOutcome.k==="breach"?"the levees turned a flood into a catastrophe, rarer, and worse, exactly as the ecologist warned":state.floodOutcome.k==="held"?"the levees held, this time, and the floodplain behind them is still betting they always will":"sirens saved every life and no wall saved a single shop, an honest bargain, honestly made"}.</p>`);
   return out.join("");
 }
 function renderEnd(){
@@ -1394,28 +1393,28 @@ function renderEnd(){
       <div class="selfcheck" id="sc-${q.id}"></div>
     </div>`).join("");
   const ladders=CONTINUUM.map(c=>`
-    <div class="ladder" id="ladder-${c.id}"><h4>${c.code} ${esc(c.name)} — where was your thinking today? (tap one)</h4>
+    <div class="ladder" id="ladder-${c.id}"><h4>${c.code} ${esc(c.name)}, where was your thinking today? (tap one)</h4>
       ${c.rungs.map((r,i)=>`<button class="rung" onclick="pickRung('${c.id}',${i})"><span class="rl">${r.l}</span>${esc(r.t)}</button>`).join("")}
     </div>`).join("");
   el("endzone").innerHTML=`
     <div class="verdict"><h3>What 200 years made</h3>${verdictParas()}
-      <p class="note">No score. A catchment isn't a level you beat — it's a place you leave to someone.</p></div>
+      <p class="note">No score. A catchment isn't a level you beat, it's a place you leave to someone.</p></div>
     <div class="card"><b style="font-size:.85rem">The catchment's people, 2050:</b><div class="advisers" style="margin-top:8px">${finals}</div></div>
-    <div class="epilogue"><h3>🌏 What actually happened — the real versions of your choices</h3>
+    <div class="epilogue"><h3>🌏 What actually happened: the real versions of your choices</h3>
       ${EPILOGUE.map(e=>`<div class="epi-item"><b>${esc(e.t)}</b>${esc(e.d)}</div>`).join("")}</div>
-    <details class="reflect"><summary>🧭 Reflect like a geographer (optional — uses your notebook &amp; the Factfile)</summary><div class="inner">${saqs}</div></details>
+    <details class="reflect"><summary>🧭 Reflect like a geographer (optional: uses your notebook &amp; the Factfile)</summary><div class="inner">${saqs}</div></details>
     <details class="reflect"><summary>🪜 Rate yourself on the continuum (optional)</summary><div class="inner">${ladders}</div></details>
     <div class="card noprint"><h3 style="font-size:.95rem">Make my report</h3>
       <div class="repform"><input id="rep-name" placeholder="Name"><input id="rep-class" placeholder="Class"></div>
       <button class="btn btn-primary" onclick="renderReport()">Make my 200-year report →</button>
-      <span class="note" style="margin-left:8px">Your choices, notebook, reflections and self-ratings — print or save as PDF.</span></div>`;
+      <span class="note" style="margin-left:8px">Your choices, notebook, reflections and self-ratings, print or save as PDF.</span></div>`;
   window.scrollTo(0,0); save();
 }
 function ideaCheck(qid){
   const q=QUESTIONS.find(x=>x.id===qid); const txt=(el("ta-"+qid).value||"").toLowerCase();
   const hit=q.look.filter(k=>txt.includes(k.toLowerCase()));
   const miss=q.look.filter(k=>!txt.includes(k.toLowerCase())).slice(0,4);
-  el("sc-"+qid).innerHTML=`<b>Ideas you used:</b> ${hit.length?hit.join(", "):"none of the key ones yet"}.<br><b>Ideas you could still bring in:</b> ${miss.join(", ")||"— you've covered the main ones!"}.<br><span class="note">This checks which ideas you used, not whether your reasoning is correct — a human reader (you, a partner, your teacher) judges that.</span>`;
+  el("sc-"+qid).innerHTML=`<b>Ideas you used:</b> ${hit.length?hit.join(", "):"none of the key ones yet"}.<br><b>Ideas you could still bring in:</b> ${miss.join(", ")||": you've covered the main ones!"}.<br><span class="note">This checks which ideas you used, not whether your reasoning is correct, a human reader (you, a partner, your teacher) judges that.</span>`;
   el("sc-"+qid).classList.add("show");
 }
 function pickRung(cid,i){ state.ladders[cid]=i; document.querySelectorAll(`#ladder-${cid} .rung`).forEach((b,bi)=>b.classList.toggle("picked",bi===i)); save(); }
@@ -1423,12 +1422,12 @@ function pickRung(cid,i){ state.ladders[cid]=i; document.querySelectorAll(`#ladd
 /* ---------------- report ---------------- */
 function vHash(s){ let h=5381; for(let i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))>>>0; } return h.toString(36).toUpperCase(); }
 function renderReport(){
-  const name=el("rep-name").value||"—", klass=el("rep-class").value||"—";
+  const name=el("rep-name").value||": ", klass=el("rep-class").value||": ";
   const choiceRows=ERAS.map((e,i)=>{
     const dec=e._activeDecisions||e.decisions; if(!dec.length&&i===0) return `<tr><td>${e.yr} ${esc(e.name)}</td><td>Recorded the baseline</td><td>${(state.consulted[0]||[]).map(k=>ADVISERS.find(a=>a.key===k)?.name).join(", ")||"nobody"}</td></tr>`;
     const cells=dec.map(d=>{
       if(d.pick){ return (state.picks[i]||[]).map(pid=>d.options.find(o=>o.id===pid)?.label).filter(Boolean).join(" + "); }
-      const o=d.options.find(o=>o.id===(state.choices[i][d.id]??d.def)); return o?o.label:"—"; }).join(" · ");
+      const o=d.options.find(o=>o.id===(state.choices[i][d.id]??d.def)); return o?o.label:": "; }).join(" · ");
     const cons=(state.consulted[i]||[]).map(k=>ADVISERS.find(a=>a.key===k)?.name).filter(Boolean).join(", ");
     return `<tr><td>${e.yr} ${esc(e.name)}</td><td>${esc(cells)}</td><td>${esc(cons||"nobody")}</td></tr>`;
   }).join("");
@@ -1437,13 +1436,13 @@ function renderReport(){
   const nb=state.notebook.map(n=>`<tr><td>${n.yr}</td>${trk.map(m=>`<td>${n[m.k]}</td>`).join("")}<td>${esc(n.note)}</td></tr>`).join("");
   const obsRep=state.notebook.map(n=>{ const o=(state.observations[n.era]||"").trim(); return o?`<tr><td>${n.yr}</td><td style="text-align:left">${esc(o)}</td></tr>`:""; }).join("");
   const refl=QUESTIONS.map(q=>{ const t=el("ta-"+q.id)?.value?.trim(); return t?`<div class="rep-sec"><h3>${esc(q.q.slice(0,90))}…</h3><p style="font-size:.85rem;line-height:1.5">${esc(t)}</p></div>`:""; }).join("");
-  const lads=CONTINUUM.map(c=> state.ladders[c.id]!=null?`<tr><td>${c.code} ${esc(c.name)}</td><td><b>${c.rungs[state.ladders[c.id]].l}</b> — ${esc(c.rungs[state.ladders[c.id]].t)}</td></tr>`:"").join("");
+  const lads=CONTINUUM.map(c=> state.ladders[c.id]!=null?`<tr><td>${c.code} ${esc(c.name)}</td><td><b>${c.rungs[state.ladders[c.id]].l}</b>: ${esc(c.rungs[state.ladders[c.id]].t)}</td></tr>`:"").join("");
   const code=vHash(name+"|"+klass+"|"+JSON.stringify(state.choices)+"|"+JSON.stringify(state.notebook.map(n=>n.river)));
   el("report-body").innerHTML=`
-    <h2>💧 Every Drop — 200-year catchment report</h2>
+    <h2>💧 Every Drop: 200-year catchment report</h2>
     <p><b>${esc(name)}</b> · ${esc(klass)} · the catchment of Willow Bend, 1850–2050</p>
     <div class="rep-sec"><h3>My decisions (and who I consulted first)</h3><table class="rep-table"><tr><th>Era</th><th>What I chose</th><th>Consulted before deciding</th></tr>${choiceRows}</table></div>
-    <div class="rep-sec"><h3>Field notebook — the readings I chose to track</h3>${trk.length?`<table class="rep-table">${nbHead}${nb}</table>`:`<p style="font-size:.85rem">I didn't track any readings this time.</p>`}</div>
+    <div class="rep-sec"><h3>Field notebook: the readings I chose to track</h3>${trk.length?`<table class="rep-table">${nbHead}${nb}</table>`:`<p style="font-size:.85rem">I didn't track any readings this time.</p>`}</div>
     ${obsRep?`<div class="rep-sec"><h3>My field observations</h3><table class="rep-table"><tr><th>Era</th><th>What I noticed</th></tr>${obsRep}</table></div>`:""}
     <div class="rep-sec"><h3>How it ended</h3>${verdictParas()}</div>
     ${lads?`<div class="rep-sec"><h3>My self-assessment (school continuum)</h3><table class="rep-table">${lads}</table></div>`:""}

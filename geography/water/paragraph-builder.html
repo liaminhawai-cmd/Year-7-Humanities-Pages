@@ -205,7 +205,7 @@ footer b{color:var(--ink)}
 const el = id => document.getElementById(id);
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
 const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,(_,k,t)=>`<span class="m m-${k}">${t}</span>`);
-/* A frame step can name a key that is not a criterion — PEEL's Link in a
+/* A frame step can name a key that is not a criterion, PEEL's Link in a
    subject with only three criteria is the student's own concluding sentence,
    with nothing on the wall to read off. Everything downstream tolerates it. */
 const critOf = k => CRITERIA.find(c => c.key === k) || null;
@@ -214,7 +214,7 @@ el("kicker").textContent = WALL.title;
 
 /* The frame is switchable: the subject's own letters, or PEEL / TEEL. Every
    frame maps its steps onto the SAME criterion keys, so a student's writing is
-   kept when they switch — the boxes are relabelled, not emptied. */
+   kept when they switch: the boxes are relabelled, not emptied. */
 const ALL_FRAMES = (typeof FRAMES !== "undefined" && FRAMES.length) ? FRAMES : [FRAME];
 let frame = ALL_FRAMES[0];
 try {
@@ -288,7 +288,7 @@ function renderSteps(){
         <span class="chev">▸</span>
       </button>
       <div class="body">
-        <div class="lab">From the wall — ${esc(level)}</div>
+        <div class="lab">From the wall: ${esc(level)}</div>
         <div class="fromwall">${sent.length
             ? sent.map(mark).join(" ")
             : `<span style="color:var(--muted);font-style:italic">${c
@@ -349,7 +349,7 @@ el("verbs").onclick = e => {
   el("verbs").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed", String(!on));
   el("vnote").textContent = on ? "Tap a verb to see what it does."
-    : VERBS.use[+b.dataset.v].w + " — " + VERBS.use[+b.dataset.v].note;
+    : VERBS.use[+b.dataset.v].w + ": " + VERBS.use[+b.dataset.v].note;
 };
 el("avoid").innerHTML = `<div class="lab" style="margin:0 0 2px">Not these</div>` +
   VERBS.avoid.map(a => `<div><s>${esc(a.w)}</s><span>${esc(a.why)}</span></div>`).join("");

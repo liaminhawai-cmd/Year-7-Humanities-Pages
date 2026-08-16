@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<title>Water in the World — Vocab Hub</title>
+<title>Water in the World: Vocab Hub</title>
 <style>
   /* Suite family with the Natural Resources trainer / Grammar Hub: same warm
      paper, same Georgia display face, same two-accent system that encodes the
-     unit — ochre for the earth & its resources, teal for water. Two quieter
+     unit: ochre for the earth & its resources, teal for water. Two quieter
      accents extend it: plum for people & values, storm-red for hazards. */
   :root{
     --bg:#f2ece0; --paper:#fbf7ef; --ink:#211d17; --muted:#6c6353;
@@ -293,12 +293,12 @@
   <div class="homerow">
     <div class="panelcard">
       <div class="t">&#8635; Quick review</div>
-      <div class="d" id="review-desc">A shuffled set of words from the lessons you&rsquo;ve already done &mdash; everyone gets a different mix, so eyes on your own screen.</div>
+      <div class="d" id="review-desc">A shuffled set of words from the lessons you&rsquo;ve already done, everyone gets a different mix, so eyes on your own screen.</div>
       <button class="btn btn-water" id="review-start" onclick="startReviewSetup()">Review earlier words</button>
     </div>
     <div class="panelcard">
       <div class="t">&#9998; My report</div>
-      <div class="d">Everything you&rsquo;ve done &mdash; first-attempt scores lesson by lesson, plus your review history. Save it as a PDF for your teacher at any time.</div>
+      <div class="d">Everything you&rsquo;ve done: first-attempt scores lesson by lesson, plus your review history. Save it as a PDF for your teacher at any time.</div>
       <button class="btn btn-ghost" onclick="go('report')">Open my report</button>
     </div>
   </div>
@@ -361,15 +361,15 @@
 <script>
 "use strict";
 /* ============================================================
-   WATER IN THE WORLD — VOCAB HUB
+   WATER IN THE WORLD: VOCAB HUB
    Companion to the Year 7 Humanities (Geography) unit, Term 3.
 
    Clicking a lesson AUTO-RUNS a 6-word review of earlier lessons
    first (skipped for the very first lesson), then drops into it.
 
    One lesson = one short set of key words (5–7). For each lesson:
-     MEET  — read the words: meaning + the morphemes that build it.
-     BUILD — a single colour-coded morpheme bank (prefix/root/suffix)
+     MEET: read the words: meaning + the morphemes that build it.
+     BUILD: a single colour-coded morpheme bank (prefix/root/suffix)
              above a table of word MEANINGS; drag (or tap) each
              morpheme into the word it belongs to. Morphemes are
              reused across many words, so the bank never depletes.
@@ -377,14 +377,14 @@
              until none remain. Opaque/borrowed words (billabong,
              hazard, El Niño…) can't be cut into parts, so they come
              as honest word-origin questions afterwards.
-     USE   — a mixed bag of tasks (cloze, scenario, description,
+     USE: a mixed bag of tasks (cloze, scenario, description,
              diagram, word-sum, meaning-match, part-meaning) sampled
              and generated so neighbouring students differ.
 
    A persistent MORPHEME TABLE and WORD LIST are always available
    from the top nav as look-ups.
 
-   ADAPTIVE TIERS —
+   ADAPTIVE TIERS: 
      BASE CAMP (support): the same morphemes in everyday primary-
        school words; offered when a lesson is rough, always
        self-selectable.
@@ -461,7 +461,7 @@ const SVG_GROUND = `<svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg
 
 /* ============================================================
    LESSON DATA
-   word types — "morph": build from morpheme tiles (in order);
+   word types: "morph": build from morpheme tiles (in order);
                 "compound": same mechanic, plain-English pieces;
                 "origin": no honest cuts -> word-origin question.
    Each word carries its own APPLY bank; one item per word is
@@ -471,7 +471,7 @@ const LESSONS = [
 
 /* ================= 1.1 THE WATER CYCLE ================= */
 { id:"1.1", topic:"Topic 1 · Natural Resources", title:"The Water Cycle",
-  focus:"What is the water cycle? Water is constantly recycled between the sea, the air and the land — and rain falls in different ways for different reasons.",
+  focus:"What is the water cycle? Water is constantly recycled between the sea, the air and the land, and rain falls in different ways for different reasons.",
   words:[
   { w:"Evaporation", pos:"noun", domain:"water",
     meaning:"The process by which liquid water heats up, turns into invisible water vapour (a gas) and rises into the air.",
@@ -481,7 +481,7 @@ const LESSONS = [
     note:"Latin <i>e-</i> (out) + <i>vapor</i> (steam). The water goes <b>out</b> of the puddle or ocean <b>as vapour</b>. Same <i>vapor</i> in <b>vaporise</b>. It is the exact reverse of condensation.",
     apply:[
       { id:"ap_evap_scn", type:"scenario",
-        q:"On a hot day a puddle slowly shrinks and disappears — the water has turned into vapour and risen into the air. Which process is this?",
+        q:"On a hot day a puddle slowly shrinks and disappears, the water has turned into vapour and risen into the air. Which process is this?",
         a:"Evaporation", opts:["Evaporation","Condensation","Precipitation","Transpiration"],
         explain:"Liquid → gas, driven by heat, rising into the air. <i>e-</i> (out) + <i>vapor</i>: the water goes out as vapour." },
       { id:"ap_evap_diag", type:"diagram", svg:"SVG_EVAP",
@@ -491,7 +491,7 @@ const LESSONS = [
       { id:"ap_evap_cloze", type:"cloze",
         before:"Water in Lake Eildon is warmed by the summer sun, and", after:"moves it into the air as invisible vapour.",
         a:"evaporation", opts:["evaporation","condensation","irrigation","deposition"],
-        explain:"Heat turns liquid water into vapour that rises — <i>e-</i> (out) + <i>vapor</i> (steam) + <i>-ation</i>." } ] },
+        explain:"Heat turns liquid water into vapour that rises, <i>e-</i> (out) + <i>vapor</i> (steam) + <i>-ation</i>." } ] },
 
   { w:"Condensation", pos:"noun", domain:"water",
     meaning:"The process by which water vapour cools and turns back into tiny drops of liquid water, forming clouds or dew.",
@@ -507,42 +507,42 @@ const LESSONS = [
       { id:"ap_cond_scn2", type:"scenario",
         q:"You take a cold water bottle outside on a humid day and drops of water appear on the outside of the bottle. Which process put them there?",
         a:"Condensation", opts:["Condensation","Evaporation","Transpiration","Precipitation"],
-        explain:"Vapour in the warm air cools against the bottle and packs <b>together</b> into liquid drops — condensation in miniature." } ] },
+        explain:"Vapour in the warm air cools against the bottle and packs <b>together</b> into liquid drops: condensation in miniature." } ] },
 
   { w:"Precipitation", pos:"noun", domain:"water",
-    meaning:"Any water that falls from clouds to the ground — rain, hail, sleet or snow.",
+    meaning:"Any water that falls from clouds to the ground, rain, hail, sleet or snow.",
     type:"morph",
     tiles:[["pre-","before, in front"],["cipit","head"],["-ation","the process of"]],
     decoys:[["trans-","across"],["de-","down from"],["-ment","the result of"]],
-    note:"Latin <i>praeceps</i> = “headlong”, from <i>prae</i> (in front) + <i>caput</i> (head): in front + head = head-first. To precipitate is to fall <b>headlong</b> — rain plunges from the sky. Same <i>caput</i> (head) in <b>captain</b> and <b>capital</b>.",
+    note:"Latin <i>praeceps</i> = “headlong”, from <i>prae</i> (in front) + <i>caput</i> (head): in front + head = head-first. To precipitate is to fall <b>headlong</b>: rain plunges from the sky. Same <i>caput</i> (head) in <b>captain</b> and <b>capital</b>.",
     apply:[
       { id:"ap_precip_desc", type:"desc",
         q:"Which single word covers rain, hail, sleet AND snow?",
         a:"Precipitation", opts:["Precipitation","Condensation","Transpiration","Sediment"],
         explain:"All four fall head-first from the clouds. <i>prae-ceps</i> = “headlong”." },
       { id:"ap_precip_cloze", type:"cloze",
-        before:"The weather report says Melbourne will get 20 mm of", after:"tomorrow — mostly as rain, with possible hail in the afternoon.",
+        before:"The weather report says Melbourne will get 20 mm of", after:"tomorrow: mostly as rain, with possible hail in the afternoon.",
         a:"precipitation", opts:["precipitation","evaporation","condensation","distribution"],
-        explain:"Rain and hail are both water falling from clouds — precipitation, the “head-first” word." } ] },
+        explain:"Rain and hail are both water falling from clouds, precipitation, the “head-first” word." } ] },
 
   { w:"Transpiration", pos:"noun", domain:"water",
     meaning:"The release of water vapour from plants into the air, mostly through tiny holes in their leaves.",
     type:"morph",
     tiles:[["tran-","across, through"],["spir","to breathe"],["-ation","the process of"]],
     decoys:[["e-","out, away"],["sub-","under"],["-able","able to be"]],
-    note:"Latin <i>trans-</i> (across) + <i>spirare</i> (to breathe): plants “breathe out” water <b>through</b> their leaves. Where <i>trans-</i> meets <i>spir-</i>, the two s’s blend into one, so we write a single s — <i>tran-</i> + <i>spir</i> + <i>-ation</i>. Same <i>spir</i> (breathe) in <b>respire</b>, <b>inspire</b> and <b>perspire</b>.",
+    note:"Latin <i>trans-</i> (across) + <i>spirare</i> (to breathe): plants “breathe out” water <b>through</b> their leaves. Where <i>trans-</i> meets <i>spir-</i>, the two s’s blend into one, so we write a single s, <i>tran-</i> + <i>spir</i> + <i>-ation</i>. Same <i>spir</i> (breathe) in <b>respire</b>, <b>inspire</b> and <b>perspire</b>.",
     apply:[
       { id:"ap_transp_scn", type:"scenario",
         q:"A gum tree releases water vapour into the air through tiny holes in its leaves. Which process is this?",
         a:"Transpiration", opts:["Transpiration","Evaporation","Precipitation","Condensation"],
-        explain:"Water leaving a <b>plant</b> as vapour is transpiration — <i>trans</i> (through) + <i>spir</i> (breathe). Water leaving a puddle is evaporation." },
+        explain:"Water leaving a <b>plant</b> as vapour is transpiration: <i>trans</i> (through) + <i>spir</i> (breathe). Water leaving a puddle is evaporation." },
       { id:"ap_transp_desc", type:"desc",
         q:"A rainforest makes its own clouds: billions of leaves release water vapour all day. The process supplying that vapour is called…",
         a:"Transpiration", opts:["Transpiration","Condensation","Irrigation","Inundation"],
-        explain:"Plants “breathing out” water through their leaves — <i>spir</i> = breathe, as in <b>respire</b>." } ] },
+        explain:"Plants “breathing out” water through their leaves: <i>spir</i> = breathe, as in <b>respire</b>." } ] },
 
   { w:"Convectional", pos:"adjective", domain:"water",
-    meaning:"Describes rainfall made when the sun heats the ground, warm moist air is carried upward, then cools and dumps rain — often as afternoon storms.",
+    meaning:"Describes rainfall made when the sun heats the ground, warm moist air is carried upward, then cools and dumps rain, often as afternoon storms.",
     type:"morph",
     tiles:[["con-","together"],["vect","to carry"],["-ional","relating to the process of"]],
     decoys:[["e-","out, away"],["flect","to bend"],["-able","able to be"]],
@@ -551,14 +551,14 @@ const LESSONS = [
       { id:"ap_conv_scn", type:"scenario",
         q:"In Darwin’s wet season, the morning sun bakes the ground, warm moist air rises fast, and by 3 pm a huge thunderstorm dumps rain. What type of rainfall is this?",
         a:"Convectional", opts:["Convectional","Frontal","Orographic","Artificial"],
-        explain:"Heated air <b>carried</b> upward → cooling → storm. <i>con-</i> + <i>vect</i> (carry) — the rising air does the carrying." },
+        explain:"Heated air <b>carried</b> upward → cooling → storm. <i>con-</i> + <i>vect</i> (carry): the rising air does the carrying." },
       { id:"ap_conv_desc", type:"desc",
         q:"Which word describes rainfall powered by the sun heating the ground so that warm, moist air is carried upward?",
         a:"Convectional", opts:["Convectional","Frontal","Sustainable","Hydroelectric"],
         explain:"<i>vect</i> = carry: convection is heat being carried up by rising air." } ] },
 
   { w:"Distribution", pos:"noun", domain:"earth",
-    meaning:"The way something is spread out or shared across an area — like where rain falls most and least across Australia.",
+    meaning:"The way something is spread out or shared across an area, like where rain falls most and least across Australia.",
     type:"morph",
     tiles:[["dis-","apart, in different directions"],["tribut","to give, hand out"],["-ion","the process of"]],
     decoys:[["de-","down"],["vect","to carry"],["-ment","the result of"]],
@@ -567,98 +567,97 @@ const LESSONS = [
       { id:"ap_dist_cloze", type:"cloze",
         before:"The map shows Australia’s rainfall", after:": heavy in the tropical north and along the east coast, very light in the dry centre.",
         a:"distribution", opts:["distribution","precipitation","evaporation","transpiration"],
-        explain:"How the rain is <b>handed out across the country</b> — <i>dis-</i> (apart) + <i>tribut</i> (give out)." },
+        explain:"How the rain is <b>handed out across the country</b>: <i>dis-</i> (apart) + <i>tribut</i> (give out)." },
       { id:"ap_dist_desc", type:"desc",
         q:"In a PQE analysis, the P (pattern) asks you to describe how rainfall is spread across the map. The geographical word for that spread is its…",
         a:"Distribution", opts:["Distribution","Condensation","Quantity","Exception"],
-        explain:"The distribution is the way something is given out across an area — <i>dis-</i> + <i>tribut</i> + <i>-ion</i>." } ] },
+        explain:"The distribution is the way something is given out across an area, <i>dis-</i> + <i>tribut</i> + <i>-ion</i>." } ] },
   ],
-  base:{ intro:"The parts inside this lesson’s words — <b>e-/ex-</b> (out), <b>con-</b> (together), <b>pre-</b> (before), <b>trans-</b> (across), <b>-ation</b> (process) — also build easy words you’ve known for years. Get them solid here first.",
+  base:{ intro:"The parts inside this lesson’s words: <b>e-/ex-</b> (out), <b>con-</b> (together), <b>pre-</b> (before), <b>trans-</b> (across), <b>-ation</b> (process): also build easy words you’ve known for years. Get them solid here first.",
     items:[
       { id:"b11_transport", kind:"build", w:"transport", tiles:[["trans-","across"],["port","to carry"]], decoys:[["pre-","before"],["-ment","the result of"]],
-        meaning:"to carry something across from one place to another — trucks, ships and trains do it all day." },
+        meaning:"to carry something across from one place to another, trucks, ships and trains do it all day." },
       { id:"b11_preview", kind:"build", w:"preview", tiles:[["pre-","before"],["view","to look at"]], decoys:[["e-","out"],["con-","together"]],
         meaning:"a look at something before everyone else sees it." },
       { id:"b11_exit", kind:"mcq", q:"An <b>exit</b> is literally the place where you…", a:"go OUT", opts:["go OUT","go IN","go UP","wait"],
-        explain:"<i>ex-</i> = out (+ <i>it</i>, from Latin <i>ire</i>, to go). The same <i>e-/ex-</i> starts <b>evaporation</b> — water going OUT of the sea." },
+        explain:"<i>ex-</i> = out (+ <i>it</i>, from Latin <i>ire</i>, to go). The same <i>e-/ex-</i> starts <b>evaporation</b>: water going OUT of the sea." },
       { id:"b11_connect", kind:"mcq", q:"<b>Connect</b> means to join things…", a:"together", opts:["together","apart","later","underwater"],
         explain:"<i>con-</i> = together. In <b>condensation</b>, vapour packs together into drops." },
       { id:"b11_invitation", kind:"mcq", q:"Invite → invit<b>ation</b>. What does the ending <b>-ation</b> add?", a:"“the process / act of”", opts:["“the process / act of”","“a person who”","“the opposite of”","“very small”"],
         explain:"<i>-ation</i> turns an action into its noun: invite → invitation, evaporate → evaporation." } ] },
-  stretch:{ intro:"Same parts, heavier weather words — plus a little word alchemy.",
+  stretch:{ intro:"Same parts, heavier weather words: plus a little word alchemy.",
     items:[
       { id:"s11_orographic", kind:"build", w:"orographic", tiles:[["oro-","mountain"],["graph","to write, describe"],["-ic","relating to"]], decoys:[["aqua-","water"],["-ation","the process of"]],
-        meaning:"describes rainfall made when mountains force moist air to rise, cool and drop its rain — wet on the windward side, dry “rain shadow” behind.",
+        meaning:"describes rainfall made when mountains force moist air to rise, cool and drop its rain, wet on the windward side, dry “rain shadow” behind.",
         explain:"Greek <i>oros</i> (mountain) + <i>graphein</i> (to write/describe). Orography literally “describes mountains”; orographic rain is mountain-made rain. Tasmania’s wet west coast and dry midlands are Australia’s classic example." },
-      { id:"s11_perspire", kind:"mcq", q:"Word alchemy: you know <b>spir</b> = breathe (transpiration). A runner <b>perspires</b> after a race — literally, their skin is…",
-        a:"“breathing through” — releasing water (sweat)", opts:["“breathing through” — releasing water (sweat)","“breathing before” — warming up","“breathing against” — holding breath","“breathing under” — diving"],
-        explain:"<i>per-</i> (through) + <i>spirare</i> (breathe): sweat “breathes out through” the skin — the human version of transpiration." },
+      { id:"s11_perspire", kind:"mcq", q:"Word alchemy: you know <b>spir</b> = breathe (transpiration). A runner <b>perspires</b> after a race, literally, their skin is…", a:"“breathing through”, releasing water (sweat)", opts:["“breathing through”, releasing water (sweat)","“breathing before”, warming up","“breathing against”, holding breath","“breathing under”, diving"],
+        explain:"<i>per-</i> (through) + <i>spirare</i> (breathe): sweat “breathes out through” the skin: the human version of transpiration." },
       { id:"s11_saturated", kind:"mcq", q:"Word alchemy: <b>satur</b> = full (Latin). When the weather report says the air is <b>saturated</b>, the air is…",
-        a:"holding as much water vapour as it possibly can — any extra must condense", opts:["holding as much water vapour as it possibly can — any extra must condense","completely empty of water vapour","warmer than the ground","about to evaporate"],
-        explain:"<i>saturatus</i> = filled full. Saturated air is “full up” — any extra vapour must condense. Same root in a <b>saturated</b> sponge." } ] },
+        a:"holding as much water vapour as it possibly can, any extra must condense", opts:["holding as much water vapour as it possibly can, any extra must condense","completely empty of water vapour","warmer than the ground","about to evaporate"],
+        explain:"<i>saturatus</i> = filled full. Saturated air is “full up”: any extra vapour must condense. Same root in a <b>saturated</b> sponge." } ] },
 },
 
 /* ================= 1.2 SUSTAINABLE USE OF WATER ================= */
 { id:"1.2", topic:"Topic 1 · Natural Resources", title:"Sustainable Use of Water",
-  focus:"Which resources renew themselves, and which are gone once we use them? Why is water counted as renewable — and what does using it sustainably mean?",
+  focus:"Which resources renew themselves, and which are gone once we use them? Why is water counted as renewable, and what does using it sustainably mean?",
   words:[
   { w:"Resource", pos:"noun", domain:"earth",
-    meaning:"Anything people use to meet their needs and wants — water, minerals, energy, timber, soil.",
+    meaning:"Anything people use to meet their needs and wants, water, minerals, energy, timber, soil.",
     type:"morph",
     tiles:[["re-","again"],["source","a spring; where something rises from"]],
     decoys:[["non-","not"],["-able","able to be"],["sub-","under"]],
-    note:"<i>re-</i> (again) + <i>source</i>. A “source” was originally a <b>spring where water rises from the ground</b> (from Latin <i>surgere</i>, to rise — same root as <b>surge</b>). A re-source is a supply that keeps rising up for us to use — fitting that the word itself begins with water.",
+    note:"<i>re-</i> (again) + <i>source</i>. A “source” was originally a <b>spring where water rises from the ground</b> (from Latin <i>surgere</i>, to rise: same root as <b>surge</b>). A re-source is a supply that keeps rising up for us to use, fitting that the word itself begins with water.",
     apply:[
       { id:"ap_res_desc", type:"desc",
         q:"Water, coal, timber and iron ore are each an example of a…",
         a:"Resource", opts:["Resource","Hazard","Meander","Distribution"],
-        explain:"Anything used to meet human needs and wants — <i>re-</i> + <i>source</i>, a supply that keeps “rising up”." },
+        explain:"Anything used to meet human needs and wants, <i>re-</i> + <i>source</i>, a supply that keeps “rising up”." },
       { id:"ap_res_cloze", type:"cloze",
-        before:"A", after:"is anything people use to meet their needs and wants — such as water, minerals or energy.",
+        before:"A", after:"is anything people use to meet their needs and wants, such as water, minerals or energy.",
         a:"resource", opts:["resource","reservoir","recreation","deposit"],
         explain:"The unit’s foundation word: <i>re-</i> (again) + <i>source</i> (spring)." } ] },
 
   { w:"Natural", pos:"adjective", domain:"earth",
-    meaning:"Made by nature, not by people — a natural resource exists without humans making it.",
+    meaning:"Made by nature, not by people: a natural resource exists without humans making it.",
     type:"morph",
     tiles:[["nat","born"],["-ur(e)","the state or result of"],["-al","relating to"]],
     decoys:[["non-","not"],["-ic","relating to"],["sub-","under"]],
-    note:"Latin <i>nasci/natus</i> (to be born): <b>nature</b> is “what gets born and grows by itself”, and <b>natural</b> means relating to that — not man-made. Same <i>nat</i> in <b>native</b> (born in a place) and <b>nation</b> (the people born together).",
+    note:"Latin <i>nasci/natus</i> (to be born): <b>nature</b> is “what gets born and grows by itself”, and <b>natural</b> means relating to that, not man-made. Same <i>nat</i> in <b>native</b> (born in a place) and <b>nation</b> (the people born together).",
     apply:[
       { id:"ap_nat_scn", type:"scenario",
         q:"Iron ore formed in the ground billions of years ago; a steel beam is made in a factory. Which word describes the iron ore but NOT the beam?",
         a:"Natural", opts:["Natural","Renewable","Recyclable","Domestic"],
         explain:"<i>nat</i> = born: natural things are “born” by the Earth itself, not made by people." },
       { id:"ap_nat_cloze", type:"cloze",
-        before:"Water, sunlight, forests and minerals are", after:"resources — the Earth supplies them without humans making them.",
+        before:"Water, sunlight, forests and minerals are", after:"resources: the Earth supplies them without humans making them.",
         a:"natural", opts:["natural","artificial","industrial","spiritual"],
-        explain:"Born of nature, not built — <i>nat</i> (born) + <i>-ural</i>." } ] },
+        explain:"Born of nature, not built: <i>nat</i> (born) + <i>-ural</i>." } ] },
 
   { w:"Renewable", pos:"adjective", domain:"earth",
-    meaning:"A resource that nature replaces as fast as (or faster than) we use it — such as sunlight, wind or flowing water.",
+    meaning:"A resource that nature replaces as fast as (or faster than) we use it, such as sunlight, wind or flowing water.",
     type:"morph",
     tiles:[["re-","again"],["new","new"],["-able","able to be"]],
     decoys:[["non-","not"],["un-","not"],["-ion","the process of"]],
-    note:"<i>re-</i> (again) + <i>new</i> + <i>-able</i>. Something that can be made <b>new again</b> — the sun rises every day, the wind keeps blowing. Its opposite is <b>non-renewable</b>.",
+    note:"<i>re-</i> (again) + <i>new</i> + <i>-able</i>. Something that can be made <b>new again</b>: the sun rises every day, the wind keeps blowing. Its opposite is <b>non-renewable</b>.",
     apply:[
       { id:"ap_renew_cloze", type:"cloze",
         before:"Sunlight, wind and flowing water are", after:"resources, because nature keeps supplying them.",
         a:"renewable", opts:["renewable","non-renewable","recyclable","sedimentary"],
-        explain:"They are made <b>new again</b> constantly — <i>re-</i> (again) + <i>new</i> + <i>-able</i>." },
+        explain:"They are made <b>new again</b> constantly: <i>re-</i> (again) + <i>new</i> + <i>-able</i>." },
       { id:"ap_renew_scn", type:"scenario",
-        q:"Water is used, evaporates, forms clouds and rains down again — nature keeps re-supplying it through the water cycle. That is why geographers classify water as a…",
+        q:"Water is used, evaporates, forms clouds and rains down again, nature keeps re-supplying it through the water cycle. That is why geographers classify water as a…",
         a:"Renewable resource", opts:["Renewable resource","Non-renewable resource","Mineral resource","Fossil fuel"],
-        explain:"The water cycle keeps making water available <b>again</b> — the key idea connecting lesson 1.1 to this one." } ] },
+        explain:"The water cycle keeps making water available <b>again</b>: the key idea connecting lesson 1.1 to this one." } ] },
 
   { w:"Non-renewable", pos:"adjective", domain:"earth",
-    meaning:"A resource that does not replace itself within a human lifetime — once used, it is gone. Coal, oil and gas are examples.",
+    meaning:"A resource that does not replace itself within a human lifetime, once used, it is gone. Coal, oil and gas are examples.",
     type:"morph",
     tiles:[["non-","not"],["re-","again"],["new","new"],["-able","able to be"]],
     decoys:[["dis-","opposite of"],["-ment","the result of"],["e-","out"]],
     note:"It is just <b>renewable</b> with <i>non-</i> (not) bolted on the front. Coal, oil and gas took millions of years to form, so on a human timescale they are <b>not</b> renewable.",
     apply:[
       { id:"ap_nonrenew_cloze", type:"cloze",
-        before:"Coal, oil and gas are", after:"resources — once burned, they cannot be replaced for millions of years.",
+        before:"Coal, oil and gas are", after:"resources, once burned, they cannot be replaced for millions of years.",
         a:"non-renewable", opts:["non-renewable","renewable","recyclable","hydroelectric"],
         explain:"<i>non-</i> (not) + renewable. They do not come back on any human timescale." },
       { id:"ap_nonrenew_scn", type:"scenario",
@@ -667,36 +666,36 @@ const LESSONS = [
         explain:"Forms over millions of years, used up in decades: <b>not</b> renewable on a human timescale." } ] },
 
   { w:"Recyclable", pos:"adjective", domain:"earth",
-    meaning:"A material that can be processed and used again instead of being thrown away — such as aluminium, glass or paper.",
+    meaning:"A material that can be processed and used again instead of being thrown away, such as aluminium, glass or paper.",
     type:"morph",
     tiles:[["re-","again"],["cycl","circle, wheel"],["-able","able to be"]],
     decoys:[["de-","down"],["-ion","the process of"],["pre-","before"]],
-    note:"<i>re-</i> (again) + <i>cycle</i> (circle — Greek <i>kyklos</i>) + <i>-able</i>. Able to be sent <b>around the circle again</b>. Same <i>cycl</i> in <b>bicycle</b> (two wheels) and <b>cyclone</b> — and in the <b>water cycle</b> itself.",
+    note:"<i>re-</i> (again) + <i>cycle</i> (circle: Greek <i>kyklos</i>) + <i>-able</i>. Able to be sent <b>around the circle again</b>. Same <i>cycl</i> in <b>bicycle</b> (two wheels) and <b>cyclone</b>, and in the <b>water cycle</b> itself.",
     apply:[
       { id:"ap_recyc_desc", type:"desc",
         q:"Aluminium cans can be melted and made into new cans over and over. This makes aluminium a __________ material.",
         a:"Recyclable", opts:["Recyclable","Non-renewable","Hydroelectric","Barren"],
-        explain:"Able to go <b>around the circle again</b> — <i>re-</i> + <i>cycl</i> (circle) + <i>-able</i>." },
+        explain:"Able to go <b>around the circle again</b>: <i>re-</i> + <i>cycl</i> (circle) + <i>-able</i>." },
       { id:"ap_recyc_scn", type:"scenario",
         q:"Melbourne’s Eastern Treatment Plant cleans waste water so it can be used again on gardens and sports fields. The water is being…",
         a:"Recycled", opts:["Recycled","Evaporated","Eroded","Exported"],
-        explain:"Sent <b>around the circle again</b> — the same <i>cycl</i> as in the natural water cycle, but through pipes." } ] },
+        explain:"Sent <b>around the circle again</b>: the same <i>cycl</i> as in the natural water cycle, but through pipes." } ] },
 
   { w:"Sustainable", pos:"adjective", domain:"earth",
     meaning:"Using a resource carefully so that it lasts and is still available for people in the future.",
     type:"morph",
     tiles:[["sus-","up from under"],["tain","to hold"],["-able","able to be"]],
     decoys:[["trans-","across"],["non-","not"],["-ology","the study of"]],
-    note:"Latin <i>sub</i> (up from under) + <i>tenere</i> (to hold). To <b>sustain</b> is to “hold up” — to keep something going. Same <i>tain</i> (hold) in <b>maintain</b>, <b>contain</b> and <b>retain</b>.",
+    note:"Latin <i>sub</i> (up from under) + <i>tenere</i> (to hold). To <b>sustain</b> is to “hold up”: to keep something going. Same <i>tain</i> (hold) in <b>maintain</b>, <b>contain</b> and <b>retain</b>.",
     apply:[
       { id:"ap_sust_scn", type:"scenario",
         q:"A fishing town sets limits so only as many fish are caught as can breed each year, keeping stocks healthy for the future. This approach is best described as…",
         a:"Sustainable", opts:["Sustainable","Wasteful","Short-term","Unlimited"],
-        explain:"Using a resource so it can be <b>held up</b> / kept going into the future — <i>sus-</i> (up) + <i>tain</i> (hold)." },
+        explain:"Using a resource so it can be <b>held up</b> / kept going into the future: <i>sus-</i> (up) + <i>tain</i> (hold)." },
       { id:"ap_sust_scn2", type:"scenario",
         q:"In the Tragedy of the Commons game, the class that took only a few chips each round kept the pool refilling forever. Their strategy was…",
         a:"Sustainable", opts:["Sustainable","Greedy","Wasteful","Short-sighted"],
-        explain:"They used the shared resource so it could <b>keep going</b> — held it up rather than draining it. <i>sus-</i> + <i>tain</i>." } ] },
+        explain:"They used the shared resource so it could <b>keep going</b>: held it up rather than draining it. <i>sus-</i> + <i>tain</i>." } ] },
   ],
   base:{ intro:"This lesson leans on <b>re-</b> (again), <b>non-/un-</b> (not) and <b>-able</b> (able to be). Warm them up in words you already own.",
     items:[
@@ -709,67 +708,67 @@ const LESSONS = [
       { id:"b12_nonstop", kind:"mcq", q:"A <b>non-stop</b> flight is a flight that does…", a:"NOT stop", opts:["NOT stop","stop twice","stop once","stop forever"],
         explain:"<i>non-</i> = not. Non-renewable = NOT renewable. Simple as that." },
       { id:"b12_replay", kind:"mcq", q:"When you <b>replay</b> a video, you play it…", a:"again", opts:["again","backwards","faster","quietly"],
-        explain:"<i>re-</i> = again — the busiest prefix in this whole unit: renewable, recyclable, resource." } ] },
+        explain:"<i>re-</i> = again: the busiest prefix in this whole unit: renewable, recyclable, resource." } ] },
   stretch:{ intro:"Heavier resource words built from parts you now know.",
     items:[
       { id:"s12_conservation", kind:"build", w:"conservation", tiles:[["con-","together, completely"],["serv","to keep, save"],["-ation","the process of"]], decoys:[["dis-","apart"],["-able","able to be"]],
-        meaning:"the careful protection and saving of resources or nature — keeping them safe for the future.",
-        explain:"Latin <i>con-</i> + <i>servare</i> (to keep, guard): conservation is “keeping-safe, completely”. Same <i>serv</i> in <b>reserve</b> and <b>preserve</b> — and in <b>reservoir</b>, coming in lesson 2.2." },
+        meaning:"the careful protection and saving of resources or nature, keeping them safe for the future.",
+        explain:"Latin <i>con-</i> + <i>servare</i> (to keep, guard): conservation is “keeping-safe, completely”. Same <i>serv</i> in <b>reserve</b> and <b>preserve</b>, and in <b>reservoir</b>, coming in lesson 2.2." },
       { id:"s12_deplete", kind:"mcq", q:"Word alchemy: <b>de-</b> = down/away and <b>plere</b> = to fill (as in “com<b>ple</b>te” = filled up). When we <b>deplete</b> a resource, we…",
-        a:"un-fill it — drain it down", opts:["un-fill it — drain it down","fill it up again","move it across","weigh it"],
+        a:"un-fill it, drain it down", opts:["un-fill it, drain it down","fill it up again","move it across","weigh it"],
         explain:"<i>de-</i> + <i>plere</i>: to empty out what was full. A depleted aquifer or fishery has been drained down." },
       { id:"s12_exploit", kind:"mcq", q:"Geographers say a resource is <b>exploited</b> when it is…",
-        a:"used — sometimes used too hard", opts:["used — sometimes used too hard","protected forever","made renewable","discovered by explorers"],
-        explain:"From Latin <i>explicare</i>, to unfold/turn to account: to exploit a resource is to put it to use. In everyday English it often carries the darker sense of using something (or someone) selfishly — both senses appear in geography writing." } ] },
+        a:"used, sometimes used too hard", opts:["used, sometimes used too hard","protected forever","made renewable","discovered by explorers"],
+        explain:"From Latin <i>explicare</i>, to unfold/turn to account: to exploit a resource is to put it to use. In everyday English it often carries the darker sense of using something (or someone) selfishly. Both senses appear in geography writing." } ] },
 },
 
 /* ================= 1.3 AUSTRALIA'S NATURAL RESOURCES ================= */
 { id:"1.3", topic:"Topic 1 · Natural Resources", title:"Australia’s Natural Resources",
-  focus:"Australia has some of the most natural resources per person of any country on Earth — where are they, and why do they matter?",
+  focus:"Australia has some of the most natural resources per person of any country on Earth, where are they, and why do they matter?",
   words:[
   { w:"Mineral", pos:"noun", domain:"earth",
-    meaning:"A useful natural material dug from the ground — iron ore, gold, copper, bauxite.",
+    meaning:"A useful natural material dug from the ground, iron ore, gold, copper, bauxite.",
     type:"morph",
     tiles:[["miner","mine, ore"],["-al","relating to / thing connected with"]],
     decoys:[["-ite","rock or mineral ending"],["re-","again"],["hydro-","water"]],
-    note:"Medieval Latin <i>minerale</i> — “something from a <b>mine</b>” (<i>minera</i> = mine, ore). The <b>miner</b>, the <b>mine</b> and the <b>mineral</b> are one word-family. Australia is one of the world’s great mineral exporters.",
+    note:"Medieval Latin <i>minerale</i>: “something from a <b>mine</b>” (<i>minera</i> = mine, ore). The <b>miner</b>, the <b>mine</b> and the <b>mineral</b> are one word-family. Australia is one of the world’s great mineral exporters.",
     apply:[
       { id:"ap_min_desc", type:"desc",
         q:"Iron ore, gold, copper and bauxite are all examples of…",
         a:"Minerals", opts:["Minerals","Fossil fuels","Crops","Renewables"],
-        explain:"Useful natural materials dug from the ground — literally “mine-stuff”." },
+        explain:"Useful natural materials dug from the ground, literally “mine-stuff”." },
       { id:"ap_min_scn", type:"scenario",
         q:"The Pilbara in Western Australia holds some of the world’s largest iron ore reserves. Iron ore is best classified as which kind of resource?",
         a:"A mineral resource", opts:["A mineral resource","An energy resource","A renewable resource","A water resource"],
-        explain:"Dug from the ground and made into metal — a mineral. (Coal and gas are energy resources; the line matters on resource maps.)" } ] },
+        explain:"Dug from the ground and made into metal: a mineral. (Coal and gas are energy resources; the line matters on resource maps.)" } ] },
 
   { w:"Deposit", pos:"noun", domain:"earth",
-    meaning:"A place where nature has laid down a large concentration of a resource — a coal deposit, a gold deposit.",
+    meaning:"A place where nature has laid down a large concentration of a resource, a coal deposit, a gold deposit.",
     type:"morph",
     tiles:[["de-","down"],["posit","to put, place"]],
     decoys:[["ex-","out"],["-ion","the process of"],["trans-","across"]],
-    note:"Latin <i>de</i> (down) + <i>ponere/positus</i> (to put): a deposit is what nature has <b>put down</b> in one place over millions of years. Same <i>posit</i> in <b>position</b>. Keep this word — next lesson its sibling <b>deposition</b> describes rivers putting down sand.",
+    note:"Latin <i>de</i> (down) + <i>ponere/positus</i> (to put): a deposit is what nature has <b>put down</b> in one place over millions of years. Same <i>posit</i> in <b>position</b>. Keep this word, next lesson its sibling <b>deposition</b> describes rivers putting down sand.",
     apply:[
       { id:"ap_dep_cloze", type:"cloze",
-        before:"Geologists found a huge coal", after:"in the Bowen Basin in Queensland — millions of tonnes concentrated in one place.",
+        before:"Geologists found a huge coal", after:"in the Bowen Basin in Queensland: millions of tonnes concentrated in one place.",
         a:"deposit", opts:["deposit","distribution","deficit","depot"],
-        explain:"What nature has <b>put down</b> in one spot — <i>de-</i> (down) + <i>posit</i> (put)." },
+        explain:"What nature has <b>put down</b> in one spot: <i>de-</i> (down) + <i>posit</i> (put)." },
       { id:"ap_dep_desc", type:"desc",
-        q:"Which word literally means something nature has PUT DOWN in one spot — like “a uranium ______ in the Northern Territory”?",
+        q:"Which word literally means something nature has PUT DOWN in one spot, like “a uranium ______ in the Northern Territory”?",
         a:"Deposit", opts:["Deposit","Bauxite","Export","Sediment"],
-        explain:"<i>de-</i> + <i>posit</i>: put down. Banks borrowed the same word — money you “put down” is a deposit too." } ] },
+        explain:"<i>de-</i> + <i>posit</i>: put down. Banks borrowed the same word, money you “put down” is a deposit too." } ] },
 
   { w:"Export", pos:"noun / verb", domain:"earth",
     meaning:"To send goods out of a country to be sold; or the goods sent. Australia exports iron ore, coal and bauxite around the world.",
     type:"morph",
     tiles:[["ex-","out"],["port","to carry"]],
     decoys:[["aqua","water"],["-ment","the result of"],["-ology","the study of"]],
-    note:"Latin <i>ex-</i> (out) + <i>portare</i> (to carry): to carry goods <b>out</b>. Its mirror-twin is <b>import</b> (carry in), and the same <i>port</i> is in <b>transport</b> and <b>portable</b>. Even <b>port</b> the harbour (Latin <i>portus</i>, “passage, haven”) is a distant cousin from the same ancient root — the place where goods pass in and out.",
+    note:"Latin <i>ex-</i> (out) + <i>portare</i> (to carry): to carry goods <b>out</b>. Its mirror-twin is <b>import</b> (carry in), and the same <i>port</i> is in <b>transport</b> and <b>portable</b>. Even <b>port</b> the harbour (Latin <i>portus</i>, “passage, haven”) is a distant cousin from the same ancient root, the place where goods pass in and out.",
     apply:[
       { id:"ap_exp_cloze", type:"cloze",
-        before:"Australia is the world’s largest", after:"of iron ore — giant ships carry it out from Port Hedland to steelworks in Asia.",
+        before:"Australia is the world’s largest", after:"of iron ore: giant ships carry it out from Port Hedland to steelworks in Asia.",
         a:"exporter", opts:["exporter","importer","transporter","reporter"],
-        explain:"Carrying goods <b>out</b> of the country — <i>ex-</i> + <i>port</i>. (An importer carries them in.)" },
+        explain:"Carrying goods <b>out</b> of the country: <i>ex-</i> + <i>port</i>. (An importer carries them in.)" },
       { id:"ap_exp_scn", type:"scenario",
         q:"Japan buys Australian coal; the coal is loaded at Newcastle and shipped out. From Australia’s point of view, which word describes this coal?",
         a:"Export", opts:["Export","Import","Deposit","Irrigation"],
@@ -785,7 +784,7 @@ const LESSONS = [
       { id:"ap_hydro_desc", type:"desc",
         q:"The Snowy Mountains Scheme uses dams to make falling water spin turbines. The electricity it produces is described as…",
         a:"Hydroelectric", opts:["Hydroelectric","Bauxite","Sediment","Meltwater"],
-        explain:"<i>hydro</i> (water) + <i>electr</i> (electricity). It is also renewable — but the specific word for water-powered electricity is hydroelectric." },
+        explain:"<i>hydro</i> (water) + <i>electr</i> (electricity). It is also renewable, but the specific word for water-powered electricity is hydroelectric." },
       { id:"ap_hydro_scn", type:"scenario",
         q:"Tasmania generates most of its power from dams in its wet western mountains. Which word appears on the map key next to those power stations?",
         a:"Hydroelectric", opts:["Hydroelectric","Geothermal","Non-renewable","Convectional"],
@@ -801,7 +800,7 @@ const LESSONS = [
       "The scientist who first made aluminium",
       "An Aboriginal word for red earth"],
     originA:"A French village (Les Baux) where it was first found, plus -ite, the ending for rocks and minerals",
-    note:"<b>Baux</b> (the village of Les Baux-de-Provence) + <b>-ite</b>. That ending <i>-ite</i> marks rocks and minerals — you also see it in <b>graphite</b> and <b>magnetite</b>. Bauxite is refined into alumina, then into aluminium.",
+    note:"<b>Baux</b> (the village of Les Baux-de-Provence) + <b>-ite</b>. That ending <i>-ite</i> marks rocks and minerals. You also see it in <b>graphite</b> and <b>magnetite</b>. Bauxite is refined into alumina, then into aluminium.",
     apply:[
       { id:"ap_baux_cloze", type:"cloze",
         before:"Australia is one of the world’s biggest producers of", after:", the reddish ore that is refined into aluminium.",
@@ -813,7 +812,7 @@ const LESSONS = [
         explain:"Bauxite → alumina → aluminium. Mined at places like Weipa in far-north Queensland." } ] },
 
   { w:"Basin", pos:"noun", domain:"earth",
-    meaning:"A bowl-shaped dip in the Earth’s surface — where coal collects (a coal basin) or where all rain drains to one river (a river basin).",
+    meaning:"A bowl-shaped dip in the Earth’s surface, where coal collects (a coal basin) or where all rain drains to one river (a river basin).",
     type:"origin",
     originQ:"The geography word <b>basin</b> is borrowed from the name of an everyday object. Which one?",
     originOpts:[
@@ -822,79 +821,77 @@ const LESSONS = [
       "A type of Roman bath house",
       "A ship’s anchor"],
     originA:"A wide bowl for holding water (Old French bacin)",
-    note:"Old French <i>bacin</i>, a wide water-bowl — the same word as a bathroom <b>washbasin</b>. Geographers borrowed it for any bowl-shaped dip in the land: the coal basins of Queensland, and the giant <b>Murray–Darling Basin</b>, the “bowl” that funnels rain into Australia’s biggest river system.",
+    note:"Old French <i>bacin</i>, a wide water-bowl: the same word as a bathroom <b>washbasin</b>. Geographers borrowed it for any bowl-shaped dip in the land: the coal basins of Queensland, and the giant <b>Murray–Darling Basin</b>, the “bowl” that funnels rain into Australia’s biggest river system.",
     apply:[
       { id:"ap_basin_cloze", type:"cloze",
         before:"The Murray–Darling", after:"is the giant bowl-shaped area of land where rainfall drains into Australia’s biggest river system.",
         a:"basin", opts:["basin","deposit","meander","oxbow"],
-        explain:"A bowl in the land — same word as a washbasin. Every drop that falls inside the bowl runs to the Murray or the Darling." },
+        explain:"A bowl in the land: same word as a washbasin. Every drop that falls inside the bowl runs to the Murray or the Darling." },
       { id:"ap_basin_desc", type:"desc",
         q:"Queensland’s coal lies in huge bowl-shaped dips in the Earth’s surface, like the Bowen ______ and the Galilee ______.",
         a:"Basin", opts:["Basin","Billabong","Bauxite","Barrier"],
         explain:"A basin = a bowl-shaped dip where resources (coal, water) collect." } ] },
   ],
-  base:{ intro:"This lesson’s parts — <b>ex-</b> (out), <b>port</b> (carry), <b>de-</b> (down), <b>-al</b> — are all over everyday English. Prove it to yourself.",
+  base:{ intro:"This lesson’s parts: <b>ex-</b> (out), <b>port</b> (carry), <b>de-</b> (down), <b>-al</b>: are all over everyday English. Prove it to yourself.",
     items:[
       { id:"b13_import", kind:"build", w:"import", tiles:[["im-","in (the shape in- takes before p)"],["port","to carry"]], decoys:[["-ation","the process of"],["-ology","the study of"]],
-        meaning:"to carry goods INTO a country — the opposite of export." },
+        meaning:"to carry goods INTO a country: the opposite of export." },
       { id:"b13_portable", kind:"build", w:"portable", tiles:[["port","to carry"],["-able","able to be"]], decoys:[["-ment","the result of"],["-ist","a person who"]],
-        meaning:"able to be carried around — like a portable speaker." },
+        meaning:"able to be carried around: like a portable speaker." },
       { id:"b13_position", kind:"mcq", q:"Your <b>position</b> on the field is literally the place where you have been…", a:"put", opts:["put","paid","born","found"],
         explain:"<i>posit</i> = put, place. A mineral <b>deposit</b> is what nature has <b>put down</b>." },
       { id:"b13_musical", kind:"mcq", q:"Music → music<b>al</b>, nature → natur<b>al</b>, mineral = miner + … What does <b>-al</b> do to a word?", a:"makes it mean “relating to / connected with”", opts:["makes it mean “relating to / connected with”","makes it mean “without”","makes it a person","makes it past tense"],
         explain:"<i>-al</i> builds “relating to” adjectives and nouns: natural, mineral, musical, national." } ] },
-  stretch:{ intro:"Dig deeper — the words that describe getting resources out of the ground.",
+  stretch:{ intro:"Dig deeper: the words that describe getting resources out of the ground.",
     items:[
       { id:"s13_extraction", kind:"build", w:"extraction", tiles:[["ex-","out"],["tract","to pull, drag"],["-ion","the process of"]], decoys:[["aqua","water"],["-ous","full of"]],
-        meaning:"the process of pulling something out — mining is the extraction of minerals from the ground.",
+        meaning:"the process of pulling something out, mining is the extraction of minerals from the ground.",
         explain:"Latin <i>ex-</i> (out) + <i>trahere/tract-</i> (to pull). Same <i>tract</i> in <b>tractor</b> (the puller) and a dentist’s tooth <b>extraction</b>." },
       { id:"s13_refinery", kind:"mcq", q:"Word alchemy: <b>re-</b> + <b>fine</b> (make pure/fine) + <b>-ery</b> (place where). Crude oil goes to a <b>refinery</b> to be…",
         a:"made pure and split into useful fuels", opts:["made pure and split into useful fuels","buried underground again","turned back into crude oil","cooled into a solid"],
-        explain:"A refinery is “the place where things are made fine (pure)” — crude (raw) oil in, petrol and diesel out. That’s exactly what <b>crude</b> means: still raw, not yet refined." },
+        explain:"A refinery is “the place where things are made fine (pure)”: crude (raw) oil in, petrol and diesel out. That’s exactly what <b>crude</b> means: still raw, not yet refined." },
       { id:"s13_geothermal", kind:"mcq", q:"Word alchemy: <b>geo</b> = earth, <b>therm</b> = heat (thermometer!). <b>Geothermal</b> energy comes from…",
         a:"the heat inside the Earth", opts:["the heat inside the Earth","burning coal","the sun’s rays","falling water"],
-        explain:"<i>geo</i> (earth) + <i>therm</i> (heat): energy from the Earth’s own heat — big in New Zealand and Iceland, small but real in Australia." } ] },
+        explain:"<i>geo</i> (earth) + <i>therm</i> (heat): energy from the Earth’s own heat: big in New Zealand and Iceland, small but real in Australia." } ] },
 },
 
 /* ================= 1.4 HOW DOES WATER CHANGE PLACES? ================= */
 { id:"1.4", topic:"Topic 1 · Natural Resources", title:"How Does Water Change Places?",
-  focus:"Moving water reshapes the land — gnawing it away in one place, laying it down in another, until rivers loop, wander and leave lakes behind.",
+  focus:"Moving water reshapes the land, gnawing it away in one place, laying it down in another, until rivers loop, wander and leave lakes behind.",
   words:[
   { w:"Erosion", pos:"noun", domain:"earth",
     meaning:"The wearing away of rock and soil by moving water, wind or ice, which then carries the pieces somewhere else.",
     type:"morph",
     tiles:[["e-","away, out"],["ros","to gnaw"],["-ion","the process of"]],
     decoys:[["de-","down"],["con-","together"],["-ment","the result of"]],
-    note:"Latin <i>e-</i> (away) + <i>rodere</i> (to gnaw). The river <b>gnaws away</b> at the land. Same <i>ros/rod</i> in <b>rodent</b> — an animal that gnaws! The opposite of deposition.",
+    note:"Latin <i>e-</i> (away) + <i>rodere</i> (to gnaw). The river <b>gnaws away</b> at the land. Same <i>ros/rod</i> in <b>rodent</b>: an animal that gnaws! The opposite of deposition.",
     apply:[
       { id:"ap_ero_desc", type:"desc",
         q:"On the fast-flowing outside of a river bend the bank is worn away and the pieces are carried downstream. This wearing-away is called…",
         a:"Erosion", opts:["Erosion","Deposition","Transpiration","Condensation"],
-        explain:"The river <b>gnaws away</b> the bank — <i>e-</i> (away) + <i>ros</i> (gnaw), the same root as <b>rodent</b>." },
+        explain:"The river <b>gnaws away</b> the bank: <i>e-</i> (away) + <i>ros</i> (gnaw), the same root as <b>rodent</b>." },
       { id:"ap_ero_diag", type:"diagram", svg:"SVG_BEND",
-        q:"In the river bend shown, which process is wearing away the bank at the point marked A — the fast, outer edge of the curve?",
-        a:"Erosion", opts:["Erosion","Deposition","Evaporation","Precipitation"],
-        explain:"Fast water on the outside cuts the bank away — erosion. At B, the slow inside, sediment is dropped — deposition." },
+        q:"In the river bend shown, which process is wearing away the bank at the point marked A, the fast, outer edge of the curve?", a:"Erosion", opts:["Erosion","Deposition","Evaporation","Precipitation"], explain:"Fast water on the outside cuts the bank away, erosion. At B, the slow inside, sediment is dropped, deposition." },
       { id:"ap_ero_scn", type:"scenario",
         q:"Over about six million years the Colorado River gnawed the Grand Canyon 1.8 km deep into solid rock. The process that did the cutting is…",
         a:"Erosion", opts:["Erosion","Deposition","Distribution","Stratification"],
-        explain:"Water + sediment grinding away rock for millions of years: erosion — <i>e-</i> + <i>ros</i>, to gnaw away." } ] },
+        explain:"Water + sediment grinding away rock for millions of years: erosion, <i>e-</i> + <i>ros</i>, to gnaw away." } ] },
 
   { w:"Deposition", pos:"noun", domain:"earth",
     meaning:"The dropping or laying down of sediment (sand, mud and rock) that water, wind or ice has been carrying.",
     type:"morph",
     tiles:[["de-","down"],["posit","to put, place"],["-ion","the process of"]],
     decoys:[["e-","out, away"],["-ment","the result of"],["-able","able to be"]],
-    note:"Latin <i>de</i> (down) + <i>ponere/positus</i> (to put). To <b>put down</b> — a river lays its load of sand on the slow inside of a bend. Same <i>posit</i> as last lesson’s <b>deposit</b>: the river makes deposits too. The opposite of erosion.",
+    note:"Latin <i>de</i> (down) + <i>ponere/positus</i> (to put). To <b>put down</b>: a river lays its load of sand on the slow inside of a bend. Same <i>posit</i> as last lesson’s <b>deposit</b>: the river makes deposits too. The opposite of erosion.",
     apply:[
       { id:"ap_depo_desc", type:"desc",
         q:"On the slow-flowing inside of a river bend, sand and mud are dropped, building a curved beach. This dropping is called…",
         a:"Deposition", opts:["Deposition","Erosion","Evaporation","Meander"],
-        explain:"The river <b>puts down</b> its load — <i>de</i> (down) + <i>posit</i> (put). The opposite of erosion." },
+        explain:"The river <b>puts down</b> its load: <i>de</i> (down) + <i>posit</i> (put). The opposite of erosion." },
       { id:"ap_depo_diag", type:"diagram", svg:"SVG_BEND",
-        q:"In the river bend shown, which process is building the sandy bar at the point marked B — the slow, inner edge of the curve?",
+        q:"In the river bend shown, which process is building the sandy bar at the point marked B, the slow, inner edge of the curve?",
         a:"Deposition", opts:["Deposition","Erosion","Evaporation","Condensation"],
-        explain:"Slow water can’t carry its load, so it <b>puts it down</b> — deposition builds the point bar at B while erosion eats the bank at A." } ] },
+        explain:"Slow water can’t carry its load, so it <b>puts it down</b>: deposition builds the point bar at B while erosion eats the bank at A." } ] },
 
   { w:"Sediment", pos:"noun", domain:"earth",
     meaning:"Small pieces of rock, sand and soil that are carried by water and settle to the bottom.",
@@ -906,11 +903,11 @@ const LESSONS = [
       { id:"ap_sed_cloze", type:"cloze",
         before:"The muddy river slows as it reaches the lake, and its load of", after:"settles to the bottom in layers.",
         a:"sediment", opts:["sediment","vapour","bauxite","precipitation"],
-        explain:"The stuff that <b>settles</b> — <i>sedere</i> (to sit). Pressed hard over ages, it becomes sedimentary rock." },
+        explain:"The stuff that <b>settles</b>: <i>sedere</i> (to sit). Pressed hard over ages, it becomes sedimentary rock." },
       { id:"ap_sed_scn", type:"scenario",
         q:"Before Glen Canyon Dam was built in the 1960s, the Colorado River carried about half a million tonnes of sand, mud and ground-up rock through the Grand Canyon every day. That load is called…",
         a:"Sediment", opts:["Sediment","Bauxite","Precipitation","Crude oil"],
-        explain:"Rock pieces in transit that will one day <b>settle</b> — <i>sedi</i> (sit) + <i>-ment</i> (the stuff that)." } ] },
+        explain:"Rock pieces in transit that will one day <b>settle</b>: <i>sedi</i> (sit) + <i>-ment</i> (the stuff that)." } ] },
 
   { w:"Meander", pos:"noun / verb", domain:"water",
     meaning:"A wide, looping bend in a river; or, to follow a slow, winding course.",
@@ -929,7 +926,7 @@ const LESSONS = [
         a:"Meander", opts:["Meander","Delta","Sediment","Basin"],
         explain:"Named after the twisty Maeander River in Turkey. Erosion (outside) + deposition (inside) make meanders loop more over time." },
       { id:"ap_mea_scn", type:"scenario",
-        q:"Seen from a plane, the Murray River doesn’t run straight — it loops back and forth like a dropped rope. The river is said to…",
+        q:"Seen from a plane, the Murray River doesn’t run straight. It loops back and forth like a dropped rope. The river is said to…",
         a:"Meander", opts:["Meander","Evaporate","Deposit","Oscillate"],
         explain:"To meander = to wander in loops, after the famously twisty Maeander River." } ] },
 
@@ -938,19 +935,19 @@ const LESSONS = [
     type:"compound",
     tiles:[["ox","the animal"],["bow","a curved, bent shape"]],
     decoys:[["water","H₂O"],["-ment","the result of"],["-ic","relating to"]],
-    note:"A plain English compound: <b>ox</b> + <b>bow</b>. The lake is shaped like the curved wooden collar (the “bow”) that used to sit around an ox’s neck — a tight U. In Australia an oxbow lake is usually called a <b>billabong</b>.",
+    note:"A plain English compound: <b>ox</b> + <b>bow</b>. The lake is shaped like the curved wooden collar (the “bow”) that used to sit around an ox’s neck: a tight U. In Australia an oxbow lake is usually called a <b>billabong</b>.",
     apply:[
       { id:"ap_ox_diag", type:"diagram", svg:"SVG_OXBOW",
         q:"The river has cut a straighter channel across the neck of a big loop, leaving the curved stretch of water on its own. What is this cut-off lake called?",
         a:"An oxbow lake", opts:["An oxbow lake","A meander","A delta","A basin"],
-        explain:"A U-shaped cut-off bend — an oxbow lake (in Australia, usually a <b>billabong</b>). It grew from an old <b>meander</b> that became too curved." },
+        explain:"A U-shaped cut-off bend: an oxbow lake (in Australia, usually a <b>billabong</b>). It grew from an old <b>meander</b> that became too curved." },
       { id:"ap_ox_desc", type:"desc",
         q:"Which landform is named after the U-shaped wooden collar that once sat around a farm animal’s neck?",
         a:"An oxbow lake", opts:["An oxbow lake","A meander","A moraine","A basin"],
         explain:"Ox + bow: the abandoned river bend curls exactly like that old U-shaped ox collar." } ] },
 
   { w:"Billabong", pos:"noun", domain:"water",
-    meaning:"An Australian name for an oxbow lake — a still pool in a cut-off bend of an old river channel.",
+    meaning:"An Australian name for an oxbow lake: a still pool in a cut-off bend of an old river channel.",
     type:"origin",
     originQ:"The word <b>billabong</b> comes from…",
     originOpts:[
@@ -959,78 +956,78 @@ const LESSONS = [
       "Latin, like most water words",
       "A brand of surfwear"],
     originA:"Wiradjuri, a First Nations language of central New South Wales",
-    note:"From <b>Wiradjuri</b> <i>bilabang</i>: <i>bila</i> (river or creek) + <i>bang</i>. First Nations peoples named and knew these waterholes long before the English words “oxbow lake” existed — Country has been read and mapped here for tens of thousands of years.",
+    note:"From <b>Wiradjuri</b> <i>bilabang</i>: <i>bila</i> (river or creek) + <i>bang</i>. First Nations peoples named and knew these waterholes long before the English words “oxbow lake” existed: Country has been read and mapped here for tens of thousands of years.",
     apply:[
       { id:"ap_bill_desc", type:"desc",
         q:"Which word is the Australian (Wiradjuri) name for a still waterhole in a cut-off river bend?",
         a:"Billabong", opts:["Billabong","Hydroelectric","Transpiration","Ore"],
-        explain:"From Wiradjuri <i>bila</i> (creek) + <i>bang</i> — the same feature as an oxbow lake, named in Country long before the English words existed." },
+        explain:"From Wiradjuri <i>bila</i> (creek) + <i>bang</i>: the same feature as an oxbow lake, named in Country long before the English words existed." },
       { id:"ap_bill_scn", type:"scenario",
         q:"In ‘Waltzing Matilda’, the swagman camps by a still pool in an old cut-off river bend. The song calls it by its Wiradjuri name, a…",
         a:"Billabong", opts:["Billabong","Basin","Bauxite","Bow"],
-        explain:"“Once a jolly swagman camped by a billabong…” — a First Nations word carried into Australia’s most famous song." } ] },
+        explain:"“Once a jolly swagman camped by a billabong…”: a First Nations word carried into Australia’s most famous song." } ] },
   ],
   base:{ intro:"Two suffixes carry this lesson: <b>-ment</b> (the stuff/result of) and <b>-ion</b> (the process of), plus old friends <b>e-</b> and <b>de-</b>. Warm up on home ground.",
     items:[
       { id:"b14_movement", kind:"build", w:"movement", tiles:[["move","to move"],["-ment","the result / act of"]], decoys:[["-ion","the process of"],["pre-","before"]],
-        meaning:"the act of moving — the result of things changing place." },
+        meaning:"the act of moving: the result of things changing place." },
       { id:"b14_settlement", kind:"build", w:"settlement", tiles:[["settle","to sit down, stay"],["-ment","the result / act of"]], decoys:[["de-","down"],["-able","able to be"]],
-        meaning:"a place where people have “settled down” to live — towns began as settlements by rivers.",
-        explain:"Notice: <b>settle</b>ment and <b>sedi</b>ment share an idea — both are about sitting down and staying. People settle; sand settles." },
+        meaning:"a place where people have “settled down” to live: towns began as settlements by rivers.",
+        explain:"Notice: <b>settle</b>ment and <b>sedi</b>ment share an idea. Both are about sitting down and staying. People settle; sand settles." },
       { id:"b14_rodent", kind:"mcq", q:"A <b>rodent</b> (rat, mouse, beaver) is literally “the animal that…”", a:"gnaws", opts:["gnaws","runs","digs","swims"],
-        explain:"Latin <i>rodere</i> = to gnaw — the same root hiding inside <b>erosion</b>, the land being gnawed away." },
+        explain:"Latin <i>rodere</i> = to gnaw: the same root hiding inside <b>erosion</b>, the land being gnawed away." },
       { id:"b14_action", kind:"mcq", q:"Act → act<b>ion</b>, erode → eros<b>ion</b>, deposit → deposit<b>ion</b>. The ending <b>-ion</b> turns a doing-word into…", a:"the name of the process", opts:["the name of the process","a person","a place","an opposite"],
-        explain:"<i>-ion/-ation</i> makes process-nouns — geography is full of them because geography is about processes." } ] },
-  stretch:{ intro:"River words for the long game — including the Grand Canyon’s layer-cake.",
+        explain:"<i>-ion/-ation</i> makes process-nouns: geography is full of them because geography is about processes." } ] },
+  stretch:{ intro:"River words for the long game, including the Grand Canyon’s layer-cake.",
     items:[
       { id:"s14_tributary", kind:"build", w:"tributary", tiles:[["tribut","to give, pay"],["-ary","one that does / connected with"]], decoys:[["-ment","the result of"],["aqua","water"]],
-        meaning:"a smaller river that flows into (“pays into”) a bigger one — the Darling is a tributary of the Murray.",
+        meaning:"a smaller river that flows into (“pays into”) a bigger one: the Darling is a tributary of the Murray.",
         explain:"Latin <i>tribuere</i> (to give, pay): in the ancient world a <i>tributary</i> state paid tribute to a stronger one. A tributary river “pays” its water to the main stream. Same <i>tribut</i> as <b>distribution</b>." },
       { id:"s14_stratification", kind:"build", w:"stratification", tiles:[["strat","layer, spread flat"],["-ific","making"],["-ation","the process of"]], decoys:[["sedi","to settle"],["de-","down"]],
         meaning:"the building-up of visible layers, like the coloured bands of rock in the Grand Canyon’s walls.",
-        explain:"Latin <i>stratum</i> (something spread flat — a layer). Ancient seas, deserts and rivers each left a new layer as they came and went; stratification is the layer-<i>making</i>. Same <i>strat</i> in <b>stratus</b> clouds — the flat, layered ones." },
-      { id:"s14_confluence", kind:"mcq", q:"Word alchemy: <b>con-</b> = together, <b>flu</b> = flow (fluid!). The town of Wentworth sits at the <b>confluence</b> of the Murray and the Darling — the place where the rivers…",
+        explain:"Latin <i>stratum</i> (something spread flat: a layer). Ancient seas, deserts and rivers each left a new layer as they came and went; stratification is the layer-<i>making</i>. Same <i>strat</i> in <b>stratus</b> clouds: the flat, layered ones." },
+      { id:"s14_confluence", kind:"mcq", q:"Word alchemy: <b>con-</b> = together, <b>flu</b> = flow (fluid!). The town of Wentworth sits at the <b>confluence</b> of the Murray and the Darling: the place where the rivers…",
         a:"flow together and join", opts:["flow together and join","dry up completely","flow apart into two","flood every year"],
         explain:"<i>con-</i> + <i>fluere</i>: a confluence is a flowing-together. The same <i>flu</i> gives us <b>fluid</b>, <b>fluent</b> and <b>influence</b> (something that “flows in”)." } ] },
 },
 /* ================= 2.1 WATER USES ================= */
 { id:"2.1", topic:"Topic 2 · Water Uses as a Resource", title:"Water Uses",
-  focus:"How do humans use water? Drinking is only the start — farms, factories, ships, power stations and sports grounds all compete for it.",
+  focus:"How do humans use water? Drinking is only the start, farms, factories, ships, power stations and sports grounds all compete for it.",
   words:[
   { w:"Irrigation", pos:"noun", domain:"people",
-    meaning:"The widespread watering of farmland through channels, pipes or sprays — the biggest use of water in the world and in Australia.",
+    meaning:"The widespread watering of farmland through channels, pipes or sprays, the biggest use of water in the world and in Australia.",
     type:"morph",
     tiles:[["ir-","onto, in (the shape in- takes before r)"],["rig","to water, to wet"],["-ation","the process of"]],
     decoys:[["e-","out, away"],["-ology","the study of"],["hydro-","water"]],
-    note:"Latin <i>irrigare</i> = <i>in-</i> (onto) + <i>rigare</i> (to wet): to lead water <b>onto</b> the land. Before <i>r</i>, the prefix <i>in-</i> changes its spelling to <i>ir-</i> — the same trick as <i>ir</i>regular. Most of the fresh water people use around the world is used this way.",
+    note:"Latin <i>irrigare</i> = <i>in-</i> (onto) + <i>rigare</i> (to wet): to lead water <b>onto</b> the land. Before <i>r</i>, the prefix <i>in-</i> changes its spelling to <i>ir-</i>: the same trick as <i>ir</i>regular. Most of the fresh water people use around the world is used this way.",
     apply:[
       { id:"ap_irr_cloze", type:"cloze",
-        before:"Around 70% of the fresh water people use worldwide goes to", after:"— channels and sprinklers carrying water onto crops and pastures.",
+        before:"Around 70% of the fresh water people use worldwide goes to", after:": channels and sprinklers carrying water onto crops and pastures.",
         a:"irrigation", opts:["irrigation","recreation","navigation","evaporation"],
-        explain:"Leading water <b>onto</b> the land — <i>ir-</i> (onto) + <i>rig</i> (wet) + <i>-ation</i>. Farming is the world’s thirstiest activity." },
+        explain:"Leading water <b>onto</b> the land: <i>ir-</i> (onto) + <i>rig</i> (wet) + <i>-ation</i>. Farming is the world’s thirstiest activity." },
       { id:"ap_irr_scn", type:"scenario",
         q:"Along the Murray, fruit orchards in dry country stay green because channels carry river water onto them. This use of water is called…",
         a:"Irrigation", opts:["Irrigation","Domestic use","Navigation","Transpiration"],
-        explain:"Water led onto farmland = irrigation. It is Australia’s biggest single use of water — far ahead of homes." } ] },
+        explain:"Water led onto farmland = irrigation. It is Australia’s biggest single use of water, far ahead of homes." } ] },
 
   { w:"Domestic", pos:"adjective", domain:"people",
-    meaning:"To do with the home and household — domestic water use covers drinking, cooking, washing, toilets and gardens.",
+    meaning:"To do with the home and household: domestic water use covers drinking, cooking, washing, toilets and gardens.",
     type:"morph",
     tiles:[["dom","house, home"],["-estic","relating to (the shape -ic takes here)"]],
     decoys:[["dis-","apart"],["-able","able to be"],["eco","house, household"]],
-    note:"Latin <i>domus</i> (house): domestic means “of the house”. Same <i>dom</i> in <b>dome</b> (a grand house-roof) and <b>domain</b> (the land a house rules). The average Australian household uses over 350 litres a day — about 40% of it in the bathroom and toilet.",
+    note:"Latin <i>domus</i> (house): domestic means “of the house”. Same <i>dom</i> in <b>dome</b> (a grand house-roof) and <b>domain</b> (the land a house rules). The average Australian household uses over 350 litres a day, about 40% of it in the bathroom and toilet.",
     apply:[
       { id:"ap_dom_desc", type:"desc",
         q:"Showering, cooking, flushing the toilet and watering the garden at home are all examples of which category of water use?",
         a:"Domestic use", opts:["Domestic use","Industrial use","Irrigation","Navigation"],
         explain:"<i>dom</i> = house: domestic use is water used in and around the home." },
       { id:"ap_dom_cloze", type:"cloze",
-        before:"Toilets and bathrooms account for about 40% of", after:"water use — the water used in and around the home.",
+        before:"Toilets and bathrooms account for about 40% of", after:"water use: the water used in and around the home.",
         a:"domestic", opts:["domestic","industrial","spiritual","agricultural"],
-        explain:"Home water = domestic water — from Latin <i>domus</i>, house." } ] },
+        explain:"Home water = domestic water: from Latin <i>domus</i>, house." } ] },
 
   { w:"Consumption", pos:"noun", domain:"people",
-    meaning:"The using-up of something — water consumption is how much water people actually take and use.",
+    meaning:"The using-up of something: water consumption is how much water people actually take and use.",
     type:"morph",
     tiles:[["con-","altogether"],["sumpt","to take, use up"],["-ion","the process of"]],
     decoys:[["de-","down"],["-able","able to be"],["ex-","out"]],
@@ -1039,57 +1036,55 @@ const LESSONS = [
       { id:"ap_cons_cloze", type:"cloze",
         before:"Melbourne’s daily water", after:"rises sharply during heatwaves, as gardens are watered and showers run longer.",
         a:"consumption", opts:["consumption","condensation","conservation","precipitation"],
-        explain:"How much is <b>taken and used up</b> — <i>con-</i> + <i>sumpt</i> (take) + <i>-ion</i>." },
+        explain:"How much is <b>taken and used up</b>: <i>con-</i> + <i>sumpt</i> (take) + <i>-ion</i>." },
       { id:"ap_cons_scn", type:"scenario",
         q:"Your household water bill shows 32,000 litres “used this quarter”. The geographical word for the amount of water a household takes and uses is its…",
         a:"Consumption", opts:["Consumption","Precipitation","Distribution","Deposition"],
-        explain:"Water taken up and used — consumption. Measuring it is the first step of the water-usage worksheet." } ] },
+        explain:"Water taken up and used: consumption. Measuring it is the first step of the water-usage worksheet." } ] },
 
   { w:"Navigation", pos:"noun", domain:"people",
-    meaning:"Travelling by water — steering ships and boats along rivers, lakes and seas to move people and goods.",
+    meaning:"Travelling by water, steering ships and boats along rivers, lakes and seas to move people and goods.",
     type:"morph",
     tiles:[["nav","ship"],["ig","to drive, steer"],["-ation","the process of"]],
     decoys:[["aqua","water"],["-ment","the result of"],["re-","again"]],
-    note:"Latin <i>navis</i> (ship) + <i>agere</i> (to drive): navigation is <b>ship-driving</b>. Same <i>nav</i> in <b>navy</b>. Great rivers like the Nile, the Rhine and the Yangtze have been water highways for thousands of years — today we also “navigate” websites, steering through them like ships.",
+    note:"Latin <i>navis</i> (ship) + <i>agere</i> (to drive): navigation is <b>ship-driving</b>. Same <i>nav</i> in <b>navy</b>. Great rivers like the Nile, the Rhine and the Yangtze have been water highways for thousands of years, today we also “navigate” websites, steering through them like ships.",
     apply:[
       { id:"ap_nav_scn", type:"scenario",
-        q:"For centuries, barges have carried grain and coal along the Rhine River in Europe — the river works as a highway. This use of water is called…",
+        q:"For centuries, barges have carried grain and coal along the Rhine River in Europe, the river works as a highway. This use of water is called…",
         a:"Navigation", opts:["Navigation","Irrigation","Recreation","Consumption"],
         explain:"<i>nav</i> (ship) + <i>ig</i> (drive): using water as a road for ships and boats." },
       { id:"ap_nav_desc", type:"desc",
-        q:"Which water use literally means “ship-driving” — steering vessels to move people and goods along rivers and seas?",
-        a:"Navigation", opts:["Navigation","Irrigation","Aviation","Recreation"],
-        explain:"Navigation — literally ship-driving, from <i>navis</i> (ship, as in navy) + <i>agere</i> (to drive)." } ] },
+        q:"Which water use literally means “ship-driving”, steering vessels to move people and goods along rivers and seas?", a:"Navigation", opts:["Navigation","Irrigation","Aviation","Recreation"], explain:"Navigation, literally ship-driving, from <i>navis</i> (ship, as in navy) + <i>agere</i> (to drive)." } ] },
 
   { w:"Recreation", pos:"noun", domain:"people",
-    meaning:"Activities done for fun and refreshment — swimming, water-skiing, fishing for sport.",
+    meaning:"Activities done for fun and refreshment, swimming, water-skiing, fishing for sport.",
     type:"morph",
     tiles:[["re-","again"],["creat","to make"],["-ion","the process of"]],
     decoys:[["-ment","the result of"],["con-","together"],["-al","relating to"]],
-    note:"<i>re-</i> (again) + <i>creare</i> (to make): recreation literally <b>re-makes</b> you — play that leaves you feeling new again. Same <i>creat</i> in <b>create</b> and <b>creature</b>. Recreational water use takes little water, but it needs the water to be <b>clean</b>.",
+    note:"<i>re-</i> (again) + <i>creare</i> (to make): recreation literally <b>re-makes</b> you: play that leaves you feeling new again. Same <i>creat</i> in <b>create</b> and <b>creature</b>. Recreational water use takes little water, but it needs the water to be <b>clean</b>.",
     apply:[
       { id:"ap_rec_scn", type:"scenario",
         q:"On a summer Saturday, Lake Eppalock fills with swimmers, water-skiers and kayakers. This use of water is classified as…",
         a:"Recreation", opts:["Recreation","Irrigation","Industrial use","Navigation"],
-        explain:"Fun that “re-makes” you — <i>re-</i> (again) + <i>creat</i> (make). It needs clean water more than lots of water." },
+        explain:"Fun that “re-makes” you: <i>re-</i> (again) + <i>creat</i> (make). It needs clean water more than lots of water." },
       { id:"ap_rec_desc", type:"desc",
-        q:"Which word literally means “the process of making yourself again” — play that re-makes you — and covers swimming, fishing for fun and water-skiing?",
+        q:"Which word literally means “the process of making yourself again”, play that re-makes you, and covers swimming, fishing for fun and water-skiing?",
         a:"Recreation", opts:["Recreation","Consumption","Renovation","Restoration"],
         explain:"<i>re-</i> + <i>creat</i> + <i>-ion</i>: play that re-makes you. (Renovation and restoration re-make buildings, not people!)" } ] },
 
   { w:"Industrial", pos:"adjective", domain:"people",
-    meaning:"To do with industry — factories, mining and construction. Industrial water cools machines, mixes concrete and processes minerals.",
+    meaning:"To do with industry: factories, mining and construction. Industrial water cools machines, mixes concrete and processes minerals.",
     type:"morph",
     tiles:[["industri","hard work, busy-ness"],["-al","relating to"]],
     decoys:[["-ic","relating to"],["inter-","between"],["-ation","the process of"]],
-    note:"Latin <i>industria</i> (hard work, diligence) + <i>-al</i>. An <b>industrious</b> student works hard; <b>industry</b> is organised hard work at giant scale. Power stations, mines and construction sites all drink deeply — most of it invisible to us.",
+    note:"Latin <i>industria</i> (hard work, diligence) + <i>-al</i>. An <b>industrious</b> student works hard; <b>industry</b> is organised hard work at giant scale. Power stations, mines and construction sites all drink deeply, most of it invisible to us.",
     apply:[
       { id:"ap_ind_scn", type:"scenario",
         q:"A Gippsland power station uses enormous amounts of water to make steam and cool its machinery. This category of water use is…",
         a:"Industrial", opts:["Industrial","Domestic","Recreational","Spiritual"],
-        explain:"Factory- and machine-water — industrial use, from <i>industria</i>, hard work." },
+        explain:"Factory- and machine-water: industrial use, from <i>industria</i>, hard work." },
       { id:"ap_ind_cloze", type:"cloze",
-        before:"Making one tonne of concrete, cooling a power station, washing iron ore — all count as", after:"water use.",
+        before:"Making one tonne of concrete, cooling a power station, washing iron ore, all count as", after:"water use.",
         a:"industrial", opts:["industrial","domestic","recreational","aesthetic"],
         explain:"The hard-work water: <i>industri</i> (hard work) + <i>-al</i>." } ] },
   ],
@@ -1106,97 +1101,97 @@ const LESSONS = [
   stretch:{ intro:"Water-work words for the specialists.",
     items:[
       { id:"s21_aquaculture", kind:"build", w:"aquaculture", tiles:[["aqua","water"],["cult","to grow, care for"],["-ure","the result / practice of"]], decoys:[["terr","land, earth"],["-al","relating to"]],
-        meaning:"farming that happens in water — raising fish, oysters or seaweed instead of crops in soil.",
-        explain:"Latin <i>aqua</i> (water) + <i>cultura</i> (growing, tending — the same <i>cult</i> as <b>agriculture</b>, field-growing). Tasmania’s salmon farms are aquaculture. You’ll meet <i>cult</i> again in lesson 2.3, inside <b>cultural</b>." },
-      { id:"s21_aqueduct", kind:"mcq", q:"Word alchemy: <b>aqua</b> = water, <b>duct</b> = to lead (like a duct leading air). Two thousand years ago Romans built <b>aqueducts</b> — structures that…",
+        meaning:"farming that happens in water, raising fish, oysters or seaweed instead of crops in soil.",
+        explain:"Latin <i>aqua</i> (water) + <i>cultura</i> (growing, tending: the same <i>cult</i> as <b>agriculture</b>, field-growing). Tasmania’s salmon farms are aquaculture. You’ll meet <i>cult</i> again in lesson 2.3, inside <b>cultural</b>." },
+      { id:"s21_aqueduct", kind:"mcq", q:"Word alchemy: <b>aqua</b> = water, <b>duct</b> = to lead (like a duct leading air). Two thousand years ago Romans built <b>aqueducts</b>: structures that…",
         a:"brought fresh water from distant hills into their cities", opts:["brought fresh water from distant hills into their cities","stored grain for winter","carried ships over mountains","measured rainfall"],
-        explain:"<i>aqua</i> + <i>ducere</i> (to lead): stone channels that led mountain water into Rome — some still stand. Same <i>duct</i> in <b>conduct</b> and <b>viaduct</b>." },
+        explain:"<i>aqua</i> + <i>ducere</i> (to lead): stone channels that led mountain water into Rome, some still stand. Same <i>duct</i> in <b>conduct</b> and <b>viaduct</b>." },
       { id:"s21_potable", kind:"build", w:"potable", tiles:[["pot","to drink"],["-able","able to be"]], decoys:[["aqua","water"],["-ible","able to be"]],
-        meaning:"safe to drink — “potable water” is the water good enough for the tap.",
-        explain:"Latin <i>potare</i> (to drink) + <i>-able</i>: drinkable. Only a sliver of the world’s water is potable — which is why the word matters in every water-scarcity debate." } ] },
+        meaning:"safe to drink: “potable water” is the water good enough for the tap.",
+        explain:"Latin <i>potare</i> (to drink) + <i>-able</i>: drinkable. Only a sliver of the world’s water is potable, which is why the word matters in every water-scarcity debate." } ] },
 },
 
 /* ================= 2.2 THE WORLD'S WATER ================= */
 { id:"2.2", topic:"Topic 2 · Water Uses as a Resource", title:"The World’s Water",
-  focus:"Where is the world’s water? Almost all of it is salty or frozen — the fresh, reachable share is tiny, and it isn’t shared out evenly.",
+  focus:"Where is the world’s water? Almost all of it is salty or frozen, the fresh, reachable share is tiny, and it isn’t shared out evenly.",
   words:[
   { w:"Scarcity", pos:"noun", domain:"water",
-    meaning:"When there is not enough of something for everyone who needs it — water scarcity is the central problem of this unit.",
+    meaning:"When there is not enough of something for everyone who needs it, water scarcity is the central problem of this unit.",
     type:"morph",
     tiles:[["scarce","in short supply, hard to get"],["-ity","the state of being"]],
     decoys:[["-ous","full of"],["in-","not"],["sub-","under"]],
-    note:"<i>scarce</i> + <i>-ity</i> (the state of being) — like pure → pur<b>ity</b> and secure → secur<b>ity</b>. <i>Scarce</i> came through Old Northern French <i>escars</i>, “scanty, sparing” — from a Latin word meaning “plucked out” (the same root as <b>excerpt</b>). Water scarcity = the state of water being scanty, in short supply. This is THE word of your CAT.",
+    note:"<i>scarce</i> + <i>-ity</i> (the state of being): like pure → pur<b>ity</b> and secure → secur<b>ity</b>. <i>Scarce</i> came through Old Northern French <i>escars</i>, “scanty, sparing”: from a Latin word meaning “plucked out” (the same root as <b>excerpt</b>). Water scarcity = the state of water being scanty, in short supply. This is THE word of your CAT.",
     apply:[
       { id:"ap_scar_cloze", type:"cloze",
-        before:"Cape Town nearly reached “Day Zero” in 2018 — a famous case of extreme water", after:", when dam levels fell to around 20% and taps were nearly switched off.",
+        before:"Cape Town nearly reached “Day Zero” in 2018: a famous case of extreme water", after:", when dam levels fell to around 20% and taps were nearly switched off.",
         a:"scarcity", opts:["scarcity","security","salinity","scenery"],
         explain:"Not enough water for everyone who needs it: <i>scarce</i> + <i>-ity</i>, the state of being in short supply." },
       { id:"ap_scar_desc", type:"desc",
         q:"A region has plenty of people but too little usable water to meet their needs. The word for this state is water…",
         a:"Scarcity", opts:["Scarcity","Abundance","Distribution","Consumption"],
-        explain:"The state of being scarce — scanty, in short supply. Its opposite is abundance (overflowing — <i>und</i> = wave!)." } ] },
+        explain:"The state of being scarce: scanty, in short supply. Its opposite is abundance (overflowing, <i>und</i> = wave!)." } ] },
 
   { w:"Accessible", pos:"adjective", domain:"water",
-    meaning:"Able to be reached and used. Much of Earth’s fresh water is NOT accessible — it is frozen in ice caps or buried too deep.",
+    meaning:"Able to be reached and used. Much of Earth’s fresh water is NOT accessible. It is frozen in ice caps or buried too deep.",
     type:"morph",
     tiles:[["ac-","to, toward (the shape ad- takes before c)"],["cess","to go"],["-ible","able to be"]],
     decoys:[["ex-","out"],["-able","able to be"],["re-","again"]],
-    note:"Latin <i>ad-</i> (to) + <i>cedere/cess-</i> (to go) + <i>-ible</i>: able to be <b>gone to</b>. Same <i>cess</i> in <b>access</b> and <b>process</b> (a going-forward). A glacier holds fresh water, but you can’t run a tap from it — fresh isn’t the same as accessible.",
+    note:"Latin <i>ad-</i> (to) + <i>cedere/cess-</i> (to go) + <i>-ible</i>: able to be <b>gone to</b>. Same <i>cess</i> in <b>access</b> and <b>process</b> (a going-forward). A glacier holds fresh water, but you can’t run a tap from it, fresh isn’t the same as accessible.",
     apply:[
       { id:"ap_acc_scn", type:"scenario",
         q:"Antarctica holds most of the world’s fresh water, yet no country can pipe it to farms or cities. That water is fresh but not…",
         a:"Accessible", opts:["Accessible","Renewable","Natural","Frozen"],
         explain:"<i>ac-</i> (to) + <i>cess</i> (go): accessible = able to be gone to and used. Frozen, distant water fails that test." },
       { id:"ap_acc_cloze", type:"cloze",
-        before:"Groundwater close to the surface is", after:"— a well or bore can reach it — but water 3 km down is too deep and costly to use.",
+        before:"Groundwater close to the surface is", after:", a well or bore can reach it, but water 3 km down is too deep and costly to use.",
         a:"accessible", opts:["accessible","recyclable","potable","sustainable"],
-        explain:"Able to be <b>gone to</b> — the difference between water existing and water being usable." } ] },
+        explain:"Able to be <b>gone to</b>: the difference between water existing and water being usable." } ] },
 
   { w:"Groundwater", pos:"noun", domain:"water",
     meaning:"Water stored underground in the gaps and cracks of soil and rock, reached by wells and bores.",
     type:"compound",
     tiles:[["ground","the earth beneath us"],["water","H₂O"]],
     decoys:[["aqua","water (Latin)"],["-ity","the state of"],["basin","a bowl in the land"]],
-    note:"A plain English compound: <b>ground</b> + <b>water</b>. Rain soaks down until it fills the spaces in rock like water fills a sponge. Outback towns and cattle stations often depend on it entirely — Australia’s Great Artesian Basin is one of the largest groundwater stores on Earth.",
+    note:"A plain English compound: <b>ground</b> + <b>water</b>. Rain soaks down until it fills the spaces in rock like water fills a sponge. Outback towns and cattle stations often depend on it entirely, Australia’s Great Artesian Basin is one of the largest groundwater stores on Earth.",
     apply:[
       { id:"ap_gw_diag", type:"diagram", svg:"SVG_GROUND",
         q:"In the cross-section, rain soaks down and is stored in the blue layer, where the well reaches it. That stored water is called…",
         a:"Groundwater", opts:["Groundwater","Surface water","Precipitation","Sediment"],
-        explain:"Water held in the ground’s gaps and cracks — reached by wells and bores rather than seen in rivers." },
+        explain:"Water held in the ground’s gaps and cracks, reached by wells and bores rather than seen in rivers." },
       { id:"ap_gw_scn", type:"scenario",
         q:"An outback cattle station has no river for hundreds of kilometres, yet its troughs stay full from a bore sunk 800 m down. The water it is tapping is…",
         a:"Groundwater", opts:["Groundwater","Rainwater","Recycled water","Sea water"],
-        explain:"Bores and wells reach the water stored underground — in this case the Great Artesian Basin." } ] },
+        explain:"Bores and wells reach the water stored underground, in this case the Great Artesian Basin." } ] },
 
   { w:"Glacier", pos:"noun", domain:"water",
     meaning:"A huge, slow-moving river of ice that stores fresh water in frozen form for centuries.",
     type:"morph",
     tiles:[["glaci","ice"],["-er","a thing that / thing connected with"]],
     decoys:[["glass","glass"],["-ier","more"],["geo-","earth"]],
-    note:"Latin <i>glacies</i> (ice), via French: a glacier is an “ice-thing” — a river of ice that creeps downhill, anywhere from a few metres to hundreds of metres a year. Same <i>glaci</i> in <b>glacial</b> (icy, or icy-slow). Two-thirds of Earth’s fresh water is locked up in glaciers and ice caps.",
+    note:"Latin <i>glacies</i> (ice), via French: a glacier is an “ice-thing”: a river of ice that creeps downhill, anywhere from a few metres to hundreds of metres a year. Same <i>glaci</i> in <b>glacial</b> (icy, or icy-slow). Two-thirds of Earth’s fresh water is locked up in glaciers and ice caps.",
     apply:[
       { id:"ap_glac_cloze", type:"cloze",
-        before:"About two-thirds of the world’s fresh water is frozen inside ice caps and", after:"— slow rivers of ice creeping down mountain valleys.",
+        before:"About two-thirds of the world’s fresh water is frozen inside ice caps and", after:": slow rivers of ice creeping down mountain valleys.",
         a:"glaciers", opts:["glaciers","geysers","aquifers","reservoirs"],
-        explain:"<i>glaci</i> = ice: giant frozen stores of fresh water — real, but hard to access." },
+        explain:"<i>glaci</i> = ice: giant frozen stores of fresh water, real, but hard to access." },
       { id:"ap_glac_scn", type:"scenario",
         q:"Millions of people in South Asia rely on rivers that begin as summer meltwater from Himalayan ice. The frozen “water towers” feeding those rivers are…",
         a:"Glaciers", opts:["Glaciers","Billabongs","Basins","Oxbows"],
-        explain:"Glaciers store snow as ice and release it slowly as melt — natural water towers for the rivers below." } ] },
+        explain:"Glaciers store snow as ice and release it slowly as melt, natural water towers for the rivers below." } ] },
 
   { w:"Finite", pos:"adjective", domain:"water",
-    meaning:"Limited — having an end. The amount of water on Earth is finite: it can be recycled but never increased.",
+    meaning:"Limited, having an end. The amount of water on Earth is finite: it can be recycled but never increased.",
     type:"morph",
     tiles:[["fin","end, limit, boundary"],["-ite","having that quality"]],
     decoys:[["un-","not"],["-ous","full of"],["fine","thin, pure"]],
-    note:"Latin <i>finis</i> (end, boundary): finite = “having an end”. Same <i>fin</i> in <b>finish</b>, <b>final</b> and <b>infinite</b> (<i>in-</i> = not: without end). The water drunk by dinosaurs is the same water in your bottle — cycled endlessly, increased never.",
+    note:"Latin <i>finis</i> (end, boundary): finite = “having an end”. Same <i>fin</i> in <b>finish</b>, <b>final</b> and <b>infinite</b> (<i>in-</i> = not: without end). The water drunk by dinosaurs is the same water in your bottle, cycled endlessly, increased never.",
     apply:[
       { id:"ap_fin_cloze", type:"cloze",
-        before:"The amount of water on Earth is", after:"— it has been cycling between sea, sky and land since before the dinosaurs, and no new water is being made.",
+        before:"The amount of water on Earth is", after:". It has been cycling between sea, sky and land since before the dinosaurs, and no new water is being made.",
         a:"finite", opts:["finite","infinite","increasing","artificial"],
-        explain:"<i>fin</i> = end/limit: a fixed, limited amount. Water is renewable in the cycle but finite in total — both are true, and the difference matters." },
+        explain:"<i>fin</i> = end/limit: a fixed, limited amount. Water is renewable in the cycle but finite in total. Both are true, and the difference matters." },
       { id:"ap_fin_desc", type:"desc",
-        q:"Which word means “limited — having an end”, and is the exact opposite of infinite?",
+        q:"Which word means “limited, having an end”, and is the exact opposite of infinite?",
         a:"Finite", opts:["Finite","Final","Definite","Refined"],
         explain:"<i>fin</i> (end) + <i>-ite</i>: having an end. Infinite just adds <i>in-</i> (not)." } ] },
 
@@ -1205,12 +1200,12 @@ const LESSONS = [
     type:"morph",
     tiles:[["re-","back"],["serv","to keep, save"],["-oir","a place for"]],
     decoys:[["-ory","a place for"],["sub-","under"],["-ary","connected with"]],
-    note:"French <i>réservoir</i>, from Latin <i>reservare</i>: <i>re-</i> (back) + <i>servare</i> (to keep) — a place where water is <b>kept back</b> for later. Same <i>serv</i> in <b>reserve</b>, <b>conserve</b> and <b>preserve</b>. Melbourne’s Thomson Reservoir can hold around 60% of the city’s water storage.",
+    note:"French <i>réservoir</i>, from Latin <i>reservare</i>: <i>re-</i> (back) + <i>servare</i> (to keep): a place where water is <b>kept back</b> for later. Same <i>serv</i> in <b>reserve</b>, <b>conserve</b> and <b>preserve</b>. Melbourne’s Thomson Reservoir can hold around 60% of the city’s water storage.",
     apply:[
       { id:"ap_resv_cloze", type:"cloze",
-        before:"After the dam was built, the valley filled to become a", after:"— a kept-back store of water for the city’s dry years.",
+        before:"After the dam was built, the valley filled to become a", after:": a kept-back store of water for the city’s dry years.",
         a:"reservoir", opts:["reservoir","reservation","billabong","basin"],
-        explain:"A place where water is <b>kept back</b> — <i>re-</i> (back) + <i>serv</i> (keep) + <i>-oir</i> (place for)." },
+        explain:"A place where water is <b>kept back</b>: <i>re-</i> (back) + <i>serv</i> (keep) + <i>-oir</i> (place for)." },
       { id:"ap_resv_desc", type:"desc",
         q:"Melbourne’s water waits in ten huge storage lakes, like the Thomson and Cardinia. The word for such a kept-back water store is a…",
         a:"Reservoir", opts:["Reservoir","Estuary","Aquifer","Meander"],
@@ -1219,64 +1214,64 @@ const LESSONS = [
   base:{ intro:"This lesson runs on <b>-ity</b> (state of), <b>-ible/-able</b> (able to be) and friendly compounds. Prove them on easy ground.",
     items:[
       { id:"b22_playground", kind:"build", w:"playground", tiles:[["play","to play"],["ground","the earth beneath us"]], decoys:[["-ness","the state of being"],["-ity","the state of"]],
-        meaning:"ground set aside for playing — compounds just glue two whole words together, like groundwater." },
+        meaning:"ground set aside for playing: compounds just glue two whole words together, like groundwater." },
       { id:"b22_activity", kind:"build", w:"activity", tiles:[["active","busy, moving"],["-ity","the state of being"]], decoys:[["-able","able to be"],["con-","together"]],
-        meaning:"the state of being active — busy-ness. Pure → purity, scarce → scarcity, active → activity." },
+        meaning:"the state of being active: busy-ness. Pure → purity, scarce → scarcity, active → activity." },
       { id:"b22_flexible", kind:"mcq", q:"A <b>flexible</b> ruler is one that is…", a:"able to be bent", opts:["able to be bent","impossible to bend","already broken","made of metal"],
-        explain:"<i>flex</i> (bend) + <i>-ible</i> (able to be) — the same ending as access<b>ible</b>, able to be reached." },
+        explain:"<i>flex</i> (bend) + <i>-ible</i> (able to be): the same ending as access<b>ible</b>, able to be reached." },
       { id:"b22_underground", kind:"mcq", q:"An <b>underground</b> station is a station that is…", a:"below the ground", opts:["below the ground","above the clouds","under water","outside the city"],
-        explain:"under + ground. Groundwater is water IN the ground — English loves gluing ground into compounds." } ] },
-  stretch:{ intro:"The scarcity-solving words — straight out of the CAT.",
+        explain:"under + ground. Groundwater is water IN the ground, English loves gluing ground into compounds." } ] },
+  stretch:{ intro:"The scarcity-solving words: straight out of the CAT.",
     items:[
       { id:"s22_desalination", kind:"build", w:"desalination", tiles:[["de-","remove, undo"],["salin","salt, salty"],["-ation","the process of"]], decoys:[["dis-","apart"],["-ment","the result of"]],
-        meaning:"the process of removing salt from sea water to make it drinkable — Melbourne’s Wonthaggi plant can supply about a third of the city’s water.",
-        explain:"<i>de-</i> (remove) + Latin <i>sal/salinus</i> (salt) + <i>-ation</i>. Same <i>sal</i> in <b>saline</b> and even <b>salary</b> — Roman soldiers’ pay (<i>salarium</i>) probably got its name from salt! De-salting the sea beats scarcity, but it costs energy and money — perfect CAT evidence." },
+        meaning:"the process of removing salt from sea water to make it drinkable, Melbourne’s Wonthaggi plant can supply about a third of the city’s water.",
+        explain:"<i>de-</i> (remove) + Latin <i>sal/salinus</i> (salt) + <i>-ation</i>. Same <i>sal</i> in <b>saline</b> and even <b>salary</b>: Roman soldiers’ pay (<i>salarium</i>) probably got its name from salt! De-salting the sea beats scarcity, but it costs energy and money, perfect CAT evidence." },
       { id:"s22_aquifer", kind:"build", w:"aquifer", tiles:[["aqui","water"],["-fer","carrying, bearing"]], decoys:[["-er","a thing that"],["ground","the earth beneath us"]],
-        meaning:"a layer of rock or sand that holds and carries groundwater — the underground “sponge” a bore drills into.",
-        explain:"Latin <i>aqua</i> (water) + <i>ferre</i> (to carry, bear) — a water-bearer. Same <i>-fer</i> in <b>transfer</b> (carry across) and <b>conifer</b> (cone-bearer). The Great Artesian Basin is a stack of aquifers under a fifth of Australia." },
+        meaning:"a layer of rock or sand that holds and carries groundwater, the underground “sponge” a bore drills into.",
+        explain:"Latin <i>aqua</i> (water) + <i>ferre</i> (to carry, bear): a water-bearer. Same <i>-fer</i> in <b>transfer</b> (carry across) and <b>conifer</b> (cone-bearer). The Great Artesian Basin is a stack of aquifers under a fifth of Australia." },
       { id:"s22_variability", kind:"mcq", q:"Word alchemy: <b>vari</b> = change (variety!), <b>-able</b> = able to, <b>-ity</b> = state of. When the curriculum says Australia’s rainfall has high <b>variability</b>, it means the rainfall…",
-        a:"changes a lot from year to year — floods then droughts", opts:["changes a lot from year to year — floods then droughts","is the same every year","only falls in summer","cannot be measured"],
-        explain:"vari + able + ity: the state of being changeable. Australia has the most variable rainfall of any inhabited continent — the reason we build so many reservoirs." } ] },
+        a:"changes a lot from year to year, floods then droughts", opts:["changes a lot from year to year, floods then droughts","is the same every year","only falls in summer","cannot be measured"],
+        explain:"vari + able + ity: the state of being changeable. Australia has the most variable rainfall of any inhabited continent, the reason we build so many reservoirs." } ] },
 },
 
 /* ================= 2.3 THE SIGNIFICANCE OF WATER ================= */
 { id:"2.3", topic:"Topic 2 · Water Uses as a Resource", title:"The Significance of Water",
-  focus:"Water is more than a substance — it carries meaning. For First Nations Peoples especially, water and Country hold economic, cultural and spiritual value.",
+  focus:"Water is more than a substance. It carries meaning. For First Nations Peoples especially, water and Country hold economic, cultural and spiritual value.",
   words:[
   { w:"Significance", pos:"noun", domain:"people",
-    meaning:"The importance or deeper meaning of something — why it matters.",
+    meaning:"The importance or deeper meaning of something, why it matters.",
     type:"morph",
     tiles:[["sign","mark, meaning"],["-ific","making"],["-ance","the state of"]],
     decoys:[["-ment","the result of"],["-ous","full of"],["-ible","able to be"]],
-    note:"Latin <i>signum</i> (mark, sign) + <i>-ficare</i> (to make, from <i>facere</i>): something significant <b>makes a mark</b> — it means something. Same <i>sign</i> in <b>signature</b> (your name-mark) and <b>signal</b>. Same <i>fic</i> in <b>terrific</b> and <b>scientific</b>.",
+    note:"Latin <i>signum</i> (mark, sign) + <i>-ficare</i> (to make, from <i>facere</i>): something significant <b>makes a mark</b>. It means something. Same <i>sign</i> in <b>signature</b> (your name-mark) and <b>signal</b>. Same <i>fic</i> in <b>terrific</b> and <b>scientific</b>.",
     apply:[
       { id:"ap_sig_cloze", type:"cloze",
-        before:"The", after:"of the river to the community goes far beyond drinking water — it is meeting place, food source and sacred story at once.",
+        before:"The", after:"of the river to the community goes far beyond drinking water. It is meeting place, food source and sacred story at once.",
         a:"significance", opts:["significance","scarcity","consumption","navigation"],
-        explain:"The mark something makes — its importance and meaning. <i>sign</i> (mark) + <i>-ific</i> (making) + <i>-ance</i>." },
+        explain:"The mark something makes: its importance and meaning. <i>sign</i> (mark) + <i>-ific</i> (making) + <i>-ance</i>." },
       { id:"ap_sig_desc", type:"desc",
-        q:"Which word literally means “the state of making a mark or meaning” — in other words, importance?",
+        q:"Which word literally means “the state of making a mark or meaning”: in other words, importance?",
         a:"Significance", opts:["Significance","Signature","Assignment","Designation"],
         explain:"sign + ific + ance: mark-making. A significant place has made its mark on people." } ] },
 
   { w:"Economic", pos:"adjective", domain:"people",
-    meaning:"To do with money, work and making a living — a river’s economic value includes fishing, farming and tourism.",
+    meaning:"To do with money, work and making a living, a river’s economic value includes fishing, farming and tourism.",
     type:"morph",
     tiles:[["eco","house, household"],["nom","to manage, arrange"],["-ic","relating to"]],
     decoys:[["geo-","earth"],["-ous","full of"],["dom","house, home"]],
-    note:"Greek <i>oikos</i> (house) + <i>nomos</i> (managing, law): economics began as <b>household management</b> — running the family stores — and grew to mean managing the money and resources of nations. Its cousin <b>ecology</b> (<i>eco</i> + <i>logy</i>) is the study of nature’s household.",
+    note:"Greek <i>oikos</i> (house) + <i>nomos</i> (managing, law): economics began as <b>household management</b>, running the family stores, and grew to mean managing the money and resources of nations. Its cousin <b>ecology</b> (<i>eco</i> + <i>logy</i>) is the study of nature’s household.",
     apply:[
       { id:"ap_eco_scn", type:"scenario",
         q:"A fishing charter business on the Fitzroy River employs six local guides and brings tourist dollars into town. The jobs and income it creates show the river holding which type of value?",
         a:"Economic value", opts:["Economic value","Aesthetic value","Spiritual value","Cultural value"],
-        explain:"Jobs, income, livelihoods — <i>eco</i> (household) + <i>nom</i> (manage): the money-and-work side of the river." },
+        explain:"Jobs, income, livelihoods: <i>eco</i> (household) + <i>nom</i> (manage): the money-and-work side of the river." },
       { id:"ap_eco_cloze", type:"cloze",
-        before:"Irrigated farms along the Murray add billions of dollars to Australia’s", after:"output each year — water at work as money.",
+        before:"Irrigated farms along the Murray add billions of dollars to Australia’s", after:"output each year: water at work as money.",
         a:"economic", opts:["economic","aesthetic","spiritual","atmospheric"],
         explain:"Household-management at national scale: <i>eco</i> + <i>nom</i> + <i>-ic</i>." } ] },
 
   { w:"Cultural", pos:"adjective", domain:"people",
-    meaning:"To do with the shared way of life of a people — their stories, languages, customs and knowledge, grown over generations.",
+    meaning:"To do with the shared way of life of a people, their stories, languages, customs and knowledge, grown over generations.",
     type:"morph",
     tiles:[["cult","to grow, care for, till"],["-ure","the result of"],["-al","relating to"]],
     decoys:[["-ance","the state of"],["-ment","the result of"],["-ous","full of"]],
@@ -1285,58 +1280,56 @@ const LESSONS = [
       { id:"ap_cult_scn", type:"scenario",
         q:"Nyikina people teach children the names, stories and fishing knowledge of the Martuwarra (Fitzroy River), passed down over countless generations. The river’s value here is…",
         a:"Cultural", opts:["Cultural","Economic","Industrial","Convectional"],
-        explain:"Shared, grown, passed-on ways of life — <i>cult</i> (grow, tend): culture is what a people cultivates." },
+        explain:"Shared, grown, passed-on ways of life: <i>cult</i> (grow, tend): culture is what a people cultivates." },
       { id:"ap_cult_desc", type:"desc",
         q:"Stories, language, customs and knowledge shared by a people and “grown” over generations make up their…",
         a:"Culture", opts:["Culture","Economy","Industry","Navigation"],
-        explain:"From <i>colere</i>, to till and tend — the same root that grows crops in agri<b>cult</b>ure grows ways of life in <b>cult</b>ure." } ] },
+        explain:"From <i>colere</i>, to till and tend: the same root that grows crops in agri<b>cult</b>ure grows ways of life in <b>cult</b>ure." } ] },
 
   { w:"Spiritual", pos:"adjective", domain:"people",
-    meaning:"To do with the spirit — beliefs, the sacred, and connection to something greater than the everyday.",
+    meaning:"To do with the spirit: beliefs, the sacred, and connection to something greater than the everyday.",
     type:"morph",
     tiles:[["spirit","breath; the unseen life in something"],["-ual","relating to"]],
     decoys:[["aster","star"],["-ic","relating to"],["trans-","across"]],
-    note:"Latin <i>spiritus</i> = breath — from <i>spirare</i>, to breathe, the very same <i>spir</i> you built into <b>transpiration</b>. The “spirit” is the invisible breath of life in things. For many First Nations Peoples, water places hold living spirit: the Rainbow Serpent stories you met in lesson 1.4 are spiritual accounts of how rivers came to be.",
+    note:"Latin <i>spiritus</i> = breath: from <i>spirare</i>, to breathe, the very same <i>spir</i> you built into <b>transpiration</b>. The “spirit” is the invisible breath of life in things. For many First Nations Peoples, water places hold living spirit: the Rainbow Serpent stories you met in lesson 1.4 are spiritual accounts of how rivers came to be.",
     apply:[
       { id:"ap_spir_scn", type:"scenario",
         q:"In the video ‘That’s My Water!’, Traditional Owners describe waterholes as sacred places connected to Dreaming stories. Which type of value is this?",
         a:"Spiritual value", opts:["Spiritual value","Economic value","Industrial value","Recreational value"],
-        explain:"Sacred meaning and connection — <i>spiritus</i>, the breath of life. Water as a living, storied being, not just a substance." },
+        explain:"Sacred meaning and connection: <i>spiritus</i>, the breath of life. Water as a living, storied being, not just a substance." },
       { id:"ap_spir_desc", type:"desc",
         q:"Which word comes from the Latin for “breath” and describes value connected to the sacred and the unseen?",
         a:"Spiritual", opts:["Spiritual","Cultural","Aesthetic","Economic"],
-        explain:"<i>spirare</i> (breathe) → <i>spiritus</i> (breath, spirit) — the same <i>spir</i> as transpiration and inspire." } ] },
+        explain:"<i>spirare</i> (breathe) → <i>spiritus</i> (breath, spirit): the same <i>spir</i> as transpiration and inspire." } ] },
 
   { w:"Aesthetic", pos:"adjective", domain:"people",
-    meaning:"To do with beauty — the value of a place simply looking and feeling wonderful.",
+    meaning:"To do with beauty: the value of a place simply looking and feeling wonderful.",
     type:"origin",
     originQ:"The word <b>aesthetic</b> comes from an ancient Greek word meaning…",
     originOpts:[
-      "“felt through the senses” — beauty you perceive by seeing and feeling",
-      "“expensive” — beauty that costs money",
-      "“ancient” — beauty from the past",
-      "“watery” — beauty of rivers only"],
-    originA:"“felt through the senses” — beauty you perceive by seeing and feeling",
-    note:"Greek <i>aisthanesthai</i>, “to perceive, to feel through the senses”. Aesthetic value is the worth a place has just by being beautiful to our senses — the reason people drive hours to look at a waterfall. Its opposite hides in <b>anaesthetic</b>: <i>an-</i> (without) + feeling — a drug that switches feeling off!",
+      "“felt through the senses”, beauty you perceive by seeing and feeling", "“expensive”, beauty that costs money",
+      "“ancient”, beauty from the past", "“watery”, beauty of rivers only"],
+    originA:"“felt through the senses”: beauty you perceive by seeing and feeling",
+    note:"Greek <i>aisthanesthai</i>, “to perceive, to feel through the senses”. Aesthetic value is the worth a place has just by being beautiful to our senses, the reason people drive hours to look at a waterfall. Its opposite hides in <b>anaesthetic</b>: <i>an-</i> (without) + feeling: a drug that switches feeling off!",
     apply:[
       { id:"ap_aes_scn", type:"scenario",
-        q:"Tourists gather at a lookout above a turquoise bay just to gaze at it — no fishing, no swimming, only the view. The value they are enjoying is…",
+        q:"Tourists gather at a lookout above a turquoise bay just to gaze at it, no fishing, no swimming, only the view. The value they are enjoying is…",
         a:"Aesthetic", opts:["Aesthetic","Economic","Industrial","Hydrological"],
-        explain:"Beauty perceived through the senses — Greek <i>aisthanesthai</i>, to feel/perceive." },
+        explain:"Beauty perceived through the senses: Greek <i>aisthanesthai</i>, to feel/perceive." },
       { id:"ap_aes_cloze", type:"cloze",
-        before:"“The beauty of the beach” is the textbook’s example of", after:"value — the attractiveness of a landscape.",
+        before:"“The beauty of the beach” is the textbook’s example of", after:"value: the attractiveness of a landscape.",
         a:"aesthetic", opts:["aesthetic","economic","spiritual","cultural"],
         explain:"Value felt through the senses. Fun twin: an-aesthetic = without feeling." } ] },
 
   { w:"Custodian", pos:"noun", domain:"people",
-    meaning:"A person who guards and cares for something on behalf of others — First Nations Peoples are custodians of Country, including its waters.",
+    meaning:"A person who guards and cares for something on behalf of others, First Nations Peoples are custodians of Country, including its waters.",
     type:"morph",
     tiles:[["custod","guard, keeper"],["-ian","a person who"]],
     decoys:[["-ist","a person who"],["aqua","water"],["-ary","connected with"]],
-    note:"Latin <i>custos/custodis</i> (guard, keeper) + <i>-ian</i> (person): a keeper-person. Same <i>-ian</i> in <b>librarian</b> and <b>guardian</b>. In the Fitzroy River case study, Traditional Owners describe themselves as custodians: the river is not owned like property — it is <b>cared for</b>, and it cares back.",
+    note:"Latin <i>custos/custodis</i> (guard, keeper) + <i>-ian</i> (person): a keeper-person. Same <i>-ian</i> in <b>librarian</b> and <b>guardian</b>. In the Fitzroy River case study, Traditional Owners describe themselves as custodians: the river is not owned like property. It is <b>cared for</b>, and it cares back.",
     apply:[
       { id:"ap_cust_cloze", type:"cloze",
-        before:"“We don’t own the river — we belong to it.” The Traditional Owners of the Martuwarra describe themselves as its", after:", keeping it healthy for the generations to come.",
+        before:"“We don’t own the river. We belong to it.” The Traditional Owners of the Martuwarra describe themselves as its", after:", keeping it healthy for the generations to come.",
         a:"custodians", opts:["custodians","customers","consumers","competitors"],
         explain:"Keeper-people: <i>custod</i> (guard) + <i>-ian</i> (person who). Caring for, rather than owning." },
       { id:"ap_cust_desc", type:"desc",
@@ -1347,80 +1340,77 @@ const LESSONS = [
   base:{ intro:"The value words are built on <b>sign</b> (mark), <b>cult</b> (grow), <b>-al/-ic/-ual</b> (relating to) and <b>-ian</b> (person who). Start with the everyday versions.",
     items:[
       { id:"b23_signal", kind:"build", w:"signal", tiles:[["sign","mark, meaning"],["-al","relating to / thing that"]], decoys:[["-ic","relating to"],["-ment","the result of"]],
-        meaning:"a mark or action that carries meaning — a traffic light is a signal." },
+        meaning:"a mark or action that carries meaning: a traffic light is a signal." },
       { id:"b23_signature", kind:"mcq", q:"Your <b>signature</b> is literally your…", a:"name-mark", opts:["name-mark","photograph","password","voice"],
-        explain:"<i>sign</i> = mark. A signature is the mark that means YOU — and significant things “make a mark”." },
+        explain:"<i>sign</i> = mark. A signature is the mark that means YOU, and significant things “make a mark”." },
       { id:"b23_librarian", kind:"build", w:"librarian", tiles:[["librar(y)","collection of books"],["-ian","a person who"]], decoys:[["-ist","a person who"],["-al","relating to"]],
-        meaning:"the person who cares for a library — same -ian as guardian and custodian." },
-      { id:"b23_agriculture", kind:"mcq", q:"<b>Agri</b> = field, <b>cult</b> = grow. <b>Agriculture</b> is literally…", a:"field-growing — farming", opts:["field-growing — farming","city-building","water-cleaning","map-making"],
+        meaning:"the person who cares for a library: same -ian as guardian and custodian." },
+      { id:"b23_agriculture", kind:"mcq", q:"<b>Agri</b> = field, <b>cult</b> = grow. <b>Agriculture</b> is literally…", a:"field-growing, farming", opts:["field-growing, farming","city-building","water-cleaning","map-making"],
         explain:"The same <i>cult</i> (grow, tend) inside <b>culture</b>: crops are cultivated in fields, cultures are cultivated in people." } ] },
   stretch:{ intro:"Value words with finer edges.",
     items:[
       { id:"s23_intangible", kind:"build", w:"intangible", tiles:[["in-","not"],["tang","to touch"],["-ible","able to be"]], decoys:[["inter-","between"],["-able","able to be"]],
-        meaning:"not able to be touched — spiritual and cultural value are intangible: real, but not physical.",
+        meaning:"not able to be touched: spiritual and cultural value are intangible: real, but not physical.",
         explain:"Latin <i>tangere</i> (to touch): intangible value can’t be weighed or priced, which is exactly why it’s easy to overlook in water debates. Same <i>tang</i> in <b>tangent</b> (a line that touches a curve)." },
       { id:"s23_sacred", kind:"mcq", q:"Word alchemy: Latin <b>sacrare</b> = to set apart as holy. A <b>sacred</b> site is one that has been…",
-        a:"set apart as holy — not to be treated like ordinary land", opts:["set apart as holy — not to be treated like ordinary land","fenced for farming","sold at a high price","mapped by satellites"],
-        explain:"Sacred places are “set apart”. Same root in <b>sacrifice</b> (to make sacred). Many water places are sacred sites — a key reason water law now consults Traditional Owners." },
-      { id:"s23_monopoly", kind:"mcq", q:"Word alchemy: <b>mono</b> = one, <b>pol</b> = sell (Greek <i>pōlein</i>). When one irrigator’s company controls all the water trading on a river, it holds a <b>monopoly</b> — literally…",
-        a:"“one-seller” — a single controller of the market", opts:["“one-seller” — a single controller of the market","“many buyers” — a crowded market","“no sellers” — a free resource","“first seller” — the oldest business"],
+        a:"set apart as holy, not to be treated like ordinary land", opts:["set apart as holy, not to be treated like ordinary land","fenced for farming","sold at a high price","mapped by satellites"],
+        explain:"Sacred places are “set apart”. Same root in <b>sacrifice</b> (to make sacred). Many water places are sacred sites, a key reason water law now consults Traditional Owners." },
+      { id:"s23_monopoly", kind:"mcq", q:"Word alchemy: <b>mono</b> = one, <b>pol</b> = sell (Greek <i>pōlein</i>). When one irrigator’s company controls all the water trading on a river, it holds a <b>monopoly</b>, literally…", a:"“one-seller”, a single controller of the market", opts:["“one-seller”, a single controller of the market","“many buyers”, a crowded market","“no sellers”, a free resource","“first seller”, the oldest business"],
         explain:"mono + pōlein: one seller. Conflicts over water values often start when one user gains monopoly power over a shared, sacred, finite thing." } ] },
 },
 
 /* ================= 3.1 HAZARDS & DISASTERS ================= */
 { id:"3.1", topic:"Topic 3 · Water-Related Hazards & Disasters", title:"Hazards & Disasters",
-  focus:"A hazard is the potential for harm; a disaster is the harm arrived. Geographers sort hazards into four families — by air, water, earth and life.",
+  focus:"A hazard is the potential for harm; a disaster is the harm arrived. Geographers sort hazards into four families, by air, water, earth and life.",
   words:[
   { w:"Hazard", pos:"noun", domain:"hazard",
-    meaning:"Something with the POTENTIAL to cause harm — a cyclone forming offshore is a hazard even before it touches anyone.",
+    meaning:"Something with the POTENTIAL to cause harm, a cyclone forming offshore is a hazard even before it touches anyone.",
     type:"origin",
     originQ:"The word <b>hazard</b> probably entered English from a game. Which one?",
     originOpts:[
-      "A dice game — from Arabic az-zahr, “the dice”, via Old French hasard",
-      "A jousting game — from Old French joster, “to clash on horseback”",
-      "An ancient Greek board game — from Greek kubos, “the cube”",
-      "A Viking rowing race — from Old Norse kappróðr, “race-rowing”"],
-    originA:"A dice game — from Arabic az-zahr, “the dice”, via Old French hasard",
-    note:"Most likely from Arabic <i>az-zahr</i> (“the dice”) — the story goes that Crusaders picked it up in a dice game called <i>hasard</i>, where fortunes turned on a throw. A hazard is a <b>roll of the dice</b> — harm that MIGHT happen. That “might” is exactly what separates it from a disaster.",
+      "A dice game, from Arabic az-zahr, “the dice”, via Old French hasard", "A jousting game, from Old French joster, “to clash on horseback”",
+      "An ancient Greek board game, from Greek kubos, “the cube”", "A Viking rowing race, from Old Norse kappróðr, “race-rowing”"],
+    originA:"A dice game: from Arabic az-zahr, “the dice”, via Old French hasard",
+    note:"Most likely from Arabic <i>az-zahr</i> (“the dice”): the story goes that Crusaders picked it up in a dice game called <i>hasard</i>, where fortunes turned on a throw. A hazard is a <b>roll of the dice</b>: harm that MIGHT happen. That “might” is exactly what separates it from a disaster.",
     apply:[
       { id:"ap_haz_scn", type:"scenario",
-        q:"A category 4 cyclone is spinning over the Coral Sea, far from land. No one has been hurt and nothing damaged — yet. Right now, the cyclone is best described as a…",
+        q:"A category 4 cyclone is spinning over the Coral Sea, far from land. No one has been hurt and nothing damaged, yet. Right now, the cyclone is best described as a…",
         a:"Natural hazard", opts:["Natural hazard","Natural disaster","Natural resource","Natural feature"],
-        explain:"Potential harm — the dice are still in the air. It only becomes a disaster if it strikes people and damages lives or property." },
+        explain:"Potential harm: the dice are still in the air. It only becomes a disaster if it strikes people and damages lives or property." },
       { id:"ap_haz_cloze", type:"cloze",
         before:"A", after:"is something with the potential to cause harm; it becomes a disaster only when that harm actually strikes people.",
         a:"hazard", opts:["hazard","disaster","resource","deposit"],
-        explain:"From the old dice game: a hazard is a roll of the dice — harm that might land." } ] },
+        explain:"From the old dice game: a hazard is a roll of the dice, harm that might land." } ] },
 
   { w:"Disaster", pos:"noun", domain:"hazard",
-    meaning:"A hazard come true — an event that actually causes major harm to people, property or the environment.",
+    meaning:"A hazard come true: an event that actually causes major harm to people, property or the environment.",
     type:"morph",
     tiles:[["dis-","bad, ill"],["aster","star"]],
     decoys:[["-ly","in a … way"],["de-","down"],["-ion","the process of"]],
-    note:"Italian <i>disastro</i>: <i>dis-</i> (ill) + <i>astro</i> (star, from Greek <i>astron</i>) — an “ill-starred” event. People once blamed catastrophes on unlucky stars! Same <i>aster/astro</i> in <b>astronomy</b> and <b>asteroid</b>. A disaster is a hazard that stopped being potential.",
+    note:"Italian <i>disastro</i>: <i>dis-</i> (ill) + <i>astro</i> (star, from Greek <i>astron</i>): an “ill-starred” event. People once blamed catastrophes on unlucky stars! Same <i>aster/astro</i> in <b>astronomy</b> and <b>asteroid</b>. A disaster is a hazard that stopped being potential.",
     apply:[
       { id:"ap_dis_scn", type:"scenario",
         q:"The cyclone crosses the coast at Townsville: roofs are torn off, floods cut the highway, thousands lose power. The hazard has now become a…",
         a:"Natural disaster", opts:["Natural disaster","Natural hazard","Natural resource","Weather forecast"],
-        explain:"Actual harm to people and property — the “ill star” has struck. Hazard = potential; disaster = arrived." },
+        explain:"Actual harm to people and property: the “ill star” has struck. Hazard = potential; disaster = arrived." },
       { id:"ap_dis_desc", type:"desc",
-        q:"Which word literally means “ill-starred” — from the old belief that unlucky stars caused calamities?",
+        q:"Which word literally means “ill-starred”: from the old belief that unlucky stars caused calamities?",
         a:"Disaster", opts:["Disaster","Hazard","Asteroid","Astronomy"],
         explain:"<i>dis-</i> (ill) + <i>aster</i> (star). Its star-cousins: astronomy (star-law) and asteroid (star-like)." } ] },
 
   { w:"Atmospheric", pos:"adjective", domain:"hazard",
-    meaning:"To do with the atmosphere — the blanket of air around Earth. Atmospheric hazards include storms, cyclones and heatwaves.",
+    meaning:"To do with the atmosphere: the blanket of air around Earth. Atmospheric hazards include storms, cyclones and heatwaves.",
     type:"morph",
     tiles:[["atmo","vapour, steam"],["spher","ball, globe"],["-ic","relating to"]],
     decoys:[["glaci","ice"],["-ous","full of"],["therm","heat"]],
-    note:"Greek <i>atmos</i> (vapour) + <i>sphaira</i> (ball): the atmosphere is the <b>ball of vapour</b> wrapped around the planet. Same <i>spher</i> in <b>hemisphere</b> (half-ball). Thunderstorms, cyclones and tornadoes are all weather — hazards of the vapour-ball.",
+    note:"Greek <i>atmos</i> (vapour) + <i>sphaira</i> (ball): the atmosphere is the <b>ball of vapour</b> wrapped around the planet. Same <i>spher</i> in <b>hemisphere</b> (half-ball). Thunderstorms, cyclones and tornadoes are all weather, hazards of the vapour-ball.",
     apply:[
       { id:"ap_atm_desc", type:"desc",
         q:"Thunderstorms, cyclones, tornadoes and heatwaves all form in the air around Earth. Geographers class them as which type of hazard?",
         a:"Atmospheric", opts:["Atmospheric","Geological","Biological","Hydrological"],
-        explain:"Hazards of the vapour-ball: <i>atmo</i> (vapour) + <i>spher</i> (ball) — the atmosphere." },
+        explain:"Hazards of the vapour-ball: <i>atmo</i> (vapour) + <i>spher</i> (ball): the atmosphere." },
       { id:"ap_atm_cloze", type:"cloze",
-        before:"Tornadoes are", after:"hazards — they are born in the air, the “ball of vapour” surrounding Earth.",
+        before:"Tornadoes are", after:"hazards. They are born in the air, the “ball of vapour” surrounding Earth.",
         a:"atmospheric", opts:["atmospheric","hydrological","geological","biological"],
         explain:"atmo + sphere: the vapour-ball. Air-born hazards are atmospheric." } ] },
 
@@ -1429,30 +1419,30 @@ const LESSONS = [
     type:"morph",
     tiles:[["hydro-","water"],["log","study, word"],["-ical","relating to"]],
     decoys:[["hyper-","over, too much"],["-ous","full of"],["glaci","ice"]],
-    note:"Greek <i>hydōr</i> (water) + <i>logos</i> (study, word): hydrology is the <b>study of water</b> — the same <i>hydro</i> you built into <b>hydroelectric</b>. A flood is a hydrological hazard: water itself is the danger.",
+    note:"Greek <i>hydōr</i> (water) + <i>logos</i> (study, word): hydrology is the <b>study of water</b>: the same <i>hydro</i> you built into <b>hydroelectric</b>. A flood is a hydrological hazard: water itself is the danger.",
     apply:[
       { id:"ap_hyd_scn", type:"scenario",
-        q:"In 2022, record rain sent the Maribyrnong River over its banks and into homes. Water itself did the damage — putting a flood in the __________ hazard family.",
+        q:"In 2022, record rain sent the Maribyrnong River over its banks and into homes. Water itself did the damage, putting a flood in the __________ hazard family.",
         a:"Hydrological", opts:["Hydrological","Atmospheric","Geological","Biological"],
-        explain:"<i>hydro</i> = water: when water is the harmful agent, the hazard is hydrological. (The storm that DROPPED the rain is atmospheric — geographers separate the two.)" },
+        explain:"<i>hydro</i> = water: when water is the harmful agent, the hazard is hydrological. (The storm that DROPPED the rain is atmospheric, geographers separate the two.)" },
       { id:"ap_hyd_desc", type:"desc",
         q:"Which hazard family gets its name from the Greek for “water” + “study”?",
         a:"Hydrological", opts:["Hydrological","Geological","Biological","Astronomical"],
         explain:"hydro (water) + log (study) + -ical: floods and flash floods belong here." } ] },
 
   { w:"Geological", pos:"adjective", domain:"hazard",
-    meaning:"To do with the Earth itself — its rocks and ground. Geological hazards include earthquakes, landslides and volcanic eruptions.",
+    meaning:"To do with the Earth itself: its rocks and ground. Geological hazards include earthquakes, landslides and volcanic eruptions.",
     type:"morph",
     tiles:[["geo","earth"],["log","study, word"],["-ical","relating to"]],
     decoys:[["therm","heat"],["aster","star"],["-ous","full of"]],
-    note:"Greek <i>gē</i> (earth) + <i>logos</i> (study): geology is the study of the Earth. Same <i>geo</i> in <b>geography</b> itself — “earth-writing”! When the ground moves — quake, landslide, eruption — the hazard is geological.",
+    note:"Greek <i>gē</i> (earth) + <i>logos</i> (study): geology is the study of the Earth. Same <i>geo</i> in <b>geography</b> itself, “earth-writing”! When the ground moves, quake, landslide, eruption, the hazard is geological.",
     apply:[
       { id:"ap_geo_scn", type:"scenario",
         q:"After days of rain, a saturated hillside gives way and a landslide buries the road below. The moving ground puts this in the __________ hazard family.",
         a:"Geological", opts:["Geological","Atmospheric","Biological","Recreational"],
-        explain:"<i>geo</i> = earth: when the ground itself moves, the hazard is geological — even if rain helped trigger it." },
+        explain:"<i>geo</i> = earth: when the ground itself moves, the hazard is geological, even if rain helped trigger it." },
       { id:"ap_geo_desc", type:"desc",
-        q:"Earthquakes and volcanic eruptions belong to which hazard family — the one named for the Earth itself?",
+        q:"Earthquakes and volcanic eruptions belong to which hazard family, the one named for the Earth itself?",
         a:"Geological", opts:["Geological","Hydrological","Atmospheric","Biological"],
         explain:"geo (earth) + log (study): hazards of rock and ground." } ] },
 
@@ -1461,12 +1451,12 @@ const LESSONS = [
     type:"morph",
     tiles:[["bio","life"],["log","study, word"],["-ical","relating to"]],
     decoys:[["glaci","ice"],["-ology","the study of"],["-al","relating to"]],
-    note:"Greek <i>bios</i> (life) + <i>logos</i> (study): biology is the study of life. Same <i>bio</i> in <b>biography</b> (life-writing). When the danger is alive — a virus, a locust plague, toxic blue-green algae blooming in a warm river — the hazard is biological.",
+    note:"Greek <i>bios</i> (life) + <i>logos</i> (study): biology is the study of life. Same <i>bio</i> in <b>biography</b> (life-writing). When the danger is alive, a virus, a locust plague, toxic blue-green algae blooming in a warm river, the hazard is biological.",
     apply:[
       { id:"ap_bio_scn", type:"scenario",
         q:"A blue-green algae bloom spreads along the Darling, making the water toxic to stock and swimmers. Because the danger is a living thing, it belongs to the __________ hazard family.",
         a:"Biological", opts:["Biological","Geological","Atmospheric","Astronomical"],
-        explain:"<i>bio</i> = life: living dangers — algae, viruses, plagues — are biological hazards, even when they live in water." },
+        explain:"<i>bio</i> = life: living dangers, algae, viruses, plagues, are biological hazards, even when they live in water." },
       { id:"ap_bio_desc", type:"desc",
         q:"A mosquito-borne disease outbreak after floods belongs to which hazard family?",
         a:"Biological", opts:["Biological","Hydrological","Geological","Atmospheric"],
@@ -1475,29 +1465,29 @@ const LESSONS = [
   base:{ intro:"One tiny Greek machine builds half this lesson: <b>log</b> (study) + <b>-ical</b>. Add <b>dis-</b> (bad) and <b>sphere</b> (ball) and you’re set.",
     items:[
       { id:"b31_dislike", kind:"build", w:"dislike", tiles:[["dis-","bad, opposite of"],["like","to like"]], decoys:[["anti-","against"],["-ment","the result of"]],
-        meaning:"the opposite of liking something — dis- flips a word to its bad side, as in disaster." },
-      { id:"b31_hemisphere", kind:"mcq", q:"<b>Hemi</b> = half, <b>sphere</b> = ball. Australia sits in the Southern <b>Hemisphere</b> — literally the southern…", a:"half of the ball (Earth)", opts:["half of the ball (Earth)","side of the mountain","end of the river","part of the sky"],
-        explain:"sphere = ball, the same ball inside atmo<b>sphere</b> — Earth’s ball of air." },
+        meaning:"the opposite of liking something: dis- flips a word to its bad side, as in disaster." },
+      { id:"b31_hemisphere", kind:"mcq", q:"<b>Hemi</b> = half, <b>sphere</b> = ball. Australia sits in the Southern <b>Hemisphere</b>: literally the southern…", a:"half of the ball (Earth)", opts:["half of the ball (Earth)","side of the mountain","end of the river","part of the sky"],
+        explain:"sphere = ball, the same ball inside atmo<b>sphere</b>: Earth’s ball of air." },
       { id:"b31_biology", kind:"build", w:"biology", tiles:[["bio","life"],["-logy","the study of"]], decoys:[["glaci","ice"],["-ic","relating to"]],
-        meaning:"the study of living things — you do it every week in Science." },
-      { id:"b31_geography", kind:"mcq", q:"<b>Geo</b> = earth, <b>graph</b> = write/draw. Your own subject, <b>geography</b>, literally means…", a:"“earth-writing” — describing the Earth", opts:["“earth-writing” — describing the Earth","“rock-collecting”","“map-folding”","“earth-digging”"],
+        meaning:"the study of living things. You do it every week in Science." },
+      { id:"b31_geography", kind:"mcq", q:"<b>Geo</b> = earth, <b>graph</b> = write/draw. Your own subject, <b>geography</b>, literally means…", a:"“earth-writing”, describing the Earth", opts:["“earth-writing”, describing the Earth","“rock-collecting”","“map-folding”","“earth-digging”"],
         explain:"Geographers write the Earth: its places, patterns and processes. You’ve been doing morphology all along." } ] },
-  stretch:{ intro:"Build the longest word in the curriculum — then take the machinery further.",
+  stretch:{ intro:"Build the longest word in the curriculum: then take the machinery further.",
     items:[
       { id:"s31_hydromet", kind:"build", w:"hydrometeorological", tiles:[["hydro-","water"],["meteor","high in the air"],["-o-","(connector)"],["log","study, word"],["-ical","relating to"]], decoys:[["glaci","ice"],["-ous","full of"]],
-        meaning:"to do with hazards of water AND weather together — the exact word the Victorian Curriculum uses for events like storms and floods.",
+        meaning:"to do with hazards of water AND weather together, the exact word the Victorian Curriculum uses for events like storms and floods.",
         explain:"Greek <i>meteōros</i> = “high in the air” (that’s also why shooting stars are meteors) + <i>hydro</i> (water) + <i>log</i> (study). The Bureau of <b>Meteorology</b> studies the high-air; add water and you get the five-morpheme monster your curriculum document actually uses. You just built it." },
       { id:"s31_seismology", kind:"mcq", q:"Word alchemy: <b>seismo</b> = shaking (Greek), <b>-logy</b> = the study of. A <b>seismologist</b> studies…",
-        a:"earthquakes — the shaking of the ground", opts:["earthquakes — the shaking of the ground","ocean currents","star movements","animal migration"],
+        a:"earthquakes, the shaking of the ground", opts:["earthquakes, the shaking of the ground","ocean currents","star movements","animal migration"],
         explain:"seismo + logy: quake-study. Every -logy you meet is the same machine: bio-, geo-, hydro-, meteoro-, seismo-." },
       { id:"s31_epidemic", kind:"mcq", q:"Word alchemy: <b>epi-</b> = upon, <b>dem</b> = the people (democracy!). An <b>epidemic</b> is a disease that falls…",
-        a:"upon the people — spreading through a whole population", opts:["upon the people — spreading through a whole population","upon the animals only","upon one house","upon the crops"],
+        a:"upon the people, spreading through a whole population", opts:["upon the people, spreading through a whole population","upon the animals only","upon one house","upon the crops"],
         explain:"epi + dēmos: upon-the-people. A biological hazard at full scale. (Pan-demic = upon ALL the people.)" } ] },
 },
 
 /* ================= 3.2 DROUGHTS AND FLOODS ================= */
 { id:"3.2", topic:"Topic 3 · Water-Related Hazards & Disasters", title:"Droughts & Floods",
-  focus:"Australia is the land of “droughts and flooding rains” — driven by a giant Pacific see-saw called ENSO: El Niño, La Niña and the Southern Oscillation.",
+  focus:"Australia is the land of “droughts and flooding rains”: driven by a giant Pacific see-saw called ENSO: El Niño, La Niña and the Southern Oscillation.",
   words:[
   { w:"Drought", pos:"noun", domain:"hazard",
     meaning:"A long period with far less rain than normal, drying out the land, rivers and reservoirs.",
@@ -1509,49 +1499,43 @@ const LESSONS = [
       "A French word for empty rivers",
       "A Greek word for the sun"],
     originA:"The Old English word for “dry”, plus an ancient ending that makes nouns (like warm → warmth)",
-    note:"Old English <i>drūgaþ</i> — “dry-ness” — from the same ancient root as <b>dry</b>, with an old noun-making ending, the way <b>warmth</b> grows from warm and <b>strength</b> from strong. A thousand years later, we still use the Anglo-Saxon farmers’ word for the rain that doesn’t come.",
+    note:"Old English <i>drūgaþ</i>, “dry-ness”, from the same ancient root as <b>dry</b>, with an old noun-making ending, the way <b>warmth</b> grows from warm and <b>strength</b> from strong. A thousand years later, we still use the Anglo-Saxon farmers’ word for the rain that doesn’t come.",
     apply:[
       { id:"ap_dro_scn", type:"scenario",
         q:"From 1997 to 2009, south-east Australia had year after year of far-below-average rain: reservoirs shrank, rivers stopped flowing, farms failed. The “Millennium ______” was Australia’s longest on record.",
         a:"Drought", opts:["Drought","Flood","Oscillation","Erosion"],
-        explain:"A long stretch of missing rain — the old Anglo-Saxon “dry-ness” word. Its slow burn makes it one of Australia’s costliest hazards." },
+        explain:"A long stretch of missing rain: the old Anglo-Saxon “dry-ness” word. Its slow burn makes it one of Australia’s costliest hazards." },
       { id:"ap_dro_desc", type:"desc",
-        q:"Which hazard is the SLOW one — measured in months and years of missing rain rather than minutes of violence?",
+        q:"Which hazard is the SLOW one: measured in months and years of missing rain rather than minutes of violence?",
         a:"Drought", opts:["Drought","Flash flood","Tornado","Earthquake"],
         explain:"Droughts creep. That slowness makes them easy to underestimate and hard to declare over." } ] },
 
   { w:"Flood", pos:"noun", domain:"hazard",
-    meaning:"Water overflowing onto land that is normally dry — from rivers bursting their banks, storm surges or sudden downpours.",
+    meaning:"Water overflowing onto land that is normally dry, from rivers bursting their banks, storm surges or sudden downpours.",
     type:"origin",
     originQ:"The word <b>flood</b> belongs to the same ancient word-family as…",
     originOpts:[
-      "“flow” — both grew from the same old Germanic root for moving water",
-      "“floor” — because floods cover floors",
-      "“flat” — because flood plains are flat",
-      "“flame” — because both floods and fires destroy towns"],
-    originA:"“flow” — both grew from the same old Germanic root for moving water",
-    note:"Old English <i>flōd</i>, sibling of <b>flow</b> — a flood is “a great flowing”. Same family as German <i>Flut</i>. Geographers split floods into <b>slow-onset</b> river floods (days of warning) and <b>flash floods</b> (minutes) — same word, very different dice.",
+      "“flow”, both grew from the same old Germanic root for moving water", "“floor”, because floods cover floors",
+      "“flat”, because flood plains are flat", "“flame”, because both floods and fires destroy towns"],
+    originA:"“flow”. Both grew from the same old Germanic root for moving water",
+    note:"Old English <i>flōd</i>, sibling of <b>flow</b>: a flood is “a great flowing”. Same family as German <i>Flut</i>. Geographers split floods into <b>slow-onset</b> river floods (days of warning) and <b>flash floods</b> (minutes): same word, very different dice.",
     apply:[
       { id:"ap_flo_scn", type:"scenario",
         q:"In 2011, three-quarters of Queensland was declared a disaster zone as rivers spread kilometres beyond their banks onto towns and farms. This hydrological disaster was a…",
         a:"Flood", opts:["Flood","Drought","Cyclone","Landslide"],
-        explain:"Water overflowing onto normally dry land — “a great flowing”, the ancient sibling of the word flow." },
+        explain:"Water overflowing onto normally dry land: “a great flowing”, the ancient sibling of the word flow." },
       { id:"ap_flo_cloze", type:"cloze",
-        before:"A", after:"can be slow — a river rising over days — or a flash event that fills a street in minutes.",
+        before:"A", after:"can be slow, a river rising over days, or a flash event that fills a street in minutes.",
         a:"flood", opts:["flood","drought","meander","reservoir"],
         explain:"One old word, two speeds: slow-onset river floods and flash floods." } ] },
 
   { w:"El Niño", pos:"noun", domain:"hazard",
-    meaning:"The warm phase of the Pacific climate see-saw, which usually brings hotter, drier weather — and drought risk — to eastern Australia.",
+    meaning:"The warm phase of the Pacific climate see-saw, which usually brings hotter, drier weather, and drought risk, to eastern Australia.",
     type:"origin",
     originQ:"<b>El Niño</b> is Spanish. Peruvian fishermen coined it because the warm current arrived near Christmas. It literally means…",
     originOpts:[
-      "“The little boy — the Christ Child”",
-      "“The hot ocean”",
-      "“The bad fishing”",
-      "“The endless summer”"],
-    originA:"“The little boy — the Christ Child”",
-    note:"Spanish <i>El Niño</i> = “the (Christ) Child”, because the warm water tended to appear around Christmas off Peru. Its opposite — the cool phase that soaks eastern Australia — is <b>La Niña</b>, “the girl”. Together with the <b>Southern Oscillation</b> they form ENSO, the Pacific’s great see-saw.",
+      "“The little boy, the Christ Child”", "“The hot ocean”", "“The bad fishing”", "“The endless summer”"], originA:"“The little boy, the Christ Child”",
+    note:"Spanish <i>El Niño</i> = “the (Christ) Child”, because the warm water tended to appear around Christmas off Peru. Its opposite, the cool phase that soaks eastern Australia, is <b>La Niña</b>, “the girl”. Together with the <b>Southern Oscillation</b> they form ENSO, the Pacific’s great see-saw.",
     apply:[
       { id:"ap_nino_scn", type:"scenario",
         q:"The Bureau declares that Pacific waters have entered their WARM phase: eastern Australia should brace for a hot, dry year with rising fire and drought risk. Which climate driver has been declared?",
@@ -1560,19 +1544,19 @@ const LESSONS = [
       { id:"ap_nino_desc", type:"desc",
         q:"Which climate pattern was named by Peruvian fishermen after the Christ Child, because its warm current arrived near Christmas?",
         a:"El Niño", opts:["El Niño","La Niña","The Southern Oscillation","The Gulf Stream"],
-        explain:"Spanish for “the little boy” — the Christmas-time warm current that grew into the name of a global climate driver." } ] },
+        explain:"Spanish for “the little boy”: the Christmas-time warm current that grew into the name of a global climate driver." } ] },
 
   { w:"Oscillation", pos:"noun", domain:"hazard",
-    meaning:"A swinging back and forth between two states — the Southern Oscillation is the see-saw of air pressure across the Pacific.",
+    meaning:"A swinging back and forth between two states, the Southern Oscillation is the see-saw of air pressure across the Pacific.",
     type:"morph",
     tiles:[["oscill","to swing back and forth"],["-ation","the process of"]],
     decoys:[["-ility","the ability to"],["osso","bone"],["circ","around"]],
-    note:"Latin <i>oscillare</i>, to swing — the Romans hung little masks called <i>oscilla</i> in trees, swinging in the wind. The <b>Southern Oscillation</b> is a pressure see-saw between Darwin and Tahiti: one side up, the other down, swinging every few years — the “SO” in ENSO.",
+    note:"Latin <i>oscillare</i>, to swing: the Romans hung little masks called <i>oscilla</i> in trees, swinging in the wind. The <b>Southern Oscillation</b> is a pressure see-saw between Darwin and Tahiti: one side up, the other down, swinging every few years, the “SO” in ENSO.",
     apply:[
       { id:"ap_osc_cloze", type:"cloze",
         before:"Air pressure see-saws between Darwin and Tahiti: when one rises the other falls, swinging back every few years. Scientists call this the Southern", after:".",
         a:"Oscillation", opts:["Oscillation","Circulation","Evaporation","Distribution"],
-        explain:"<i>oscill</i> = swing: a back-and-forth between two states — the SO in ENSO." },
+        explain:"<i>oscill</i> = swing: a back-and-forth between two states, the SO in ENSO." },
       { id:"ap_osc_desc", type:"desc",
         q:"A playground swing, a pendulum, and Pacific air pressure all do the same thing: move back and forth between two states. The process-word for this is…",
         a:"Oscillation", opts:["Oscillation","Rotation","Navigation","Deposition"],
@@ -1583,60 +1567,60 @@ const LESSONS = [
     type:"morph",
     tiles:[["e-","out"],["vacu","empty"],["-ation","the process of"]],
     decoys:[["in-","in"],["vacc","cow (as in vaccine)"],["-ment","the result of"]],
-    note:"Latin <i>e-</i> (out) + <i>vacuus</i> (empty): to evacuate is to <b>empty out</b>. Same <i>vacu</i> in <b>vacuum</b> (empty space) and <b>vacant</b>. In a flood warning, the evacuation order is the sentence that saves lives — the town is emptied before the water arrives.",
+    note:"Latin <i>e-</i> (out) + <i>vacuus</i> (empty): to evacuate is to <b>empty out</b>. Same <i>vacu</i> in <b>vacuum</b> (empty space) and <b>vacant</b>. In a flood warning, the evacuation order is the sentence that saves lives, the town is emptied before the water arrives.",
     apply:[
       { id:"ap_eva_scn", type:"scenario",
         q:"With the river forecast to peak overnight, the SES doorknocks the low-lying streets: “Leave now, before the highway cuts.” The organised emptying-out of residents is an…",
         a:"Evacuation", opts:["Evacuation","Inundation","Oscillation","Irrigation"],
-        explain:"<i>e-</i> (out) + <i>vacu</i> (empty): emptying people out of danger — the response that matters most in a flood." },
+        explain:"<i>e-</i> (out) + <i>vacu</i> (empty): emptying people out of danger: the response that matters most in a flood." },
       { id:"ap_eva_desc", type:"desc",
         q:"Which word shares its root with “vacuum” and “vacant”, and names the emergency process of emptying a town of people?",
         a:"Evacuation", opts:["Evacuation","Vaccination","Ventilation","Navigation"],
-        explain:"All three share <i>vacuus</i>, empty. An evacuated town is a vacant town — on purpose, and alive." } ] },
+        explain:"All three share <i>vacuus</i>, empty. An evacuated town is a vacant town, on purpose, and alive." } ] },
 
   { w:"Inundation", pos:"noun", domain:"hazard",
-    meaning:"The covering of land with water — the formal word for flooding, used on official flood maps and warnings.",
+    meaning:"The covering of land with water: the formal word for flooding, used on official flood maps and warnings.",
     type:"morph",
     tiles:[["in-","in, onto"],["und","wave"],["-ation","the process of"]],
     decoys:[["e-","out"],["und(er)","below"],["-ible","able to be"]],
-    note:"Latin <i>inundare</i>: <i>in-</i> (onto) + <i>unda</i> (wave) — waves rolling onto the land. Same <i>und</i> in <b>undulate</b> (to move in waves), <b>abundant</b> (overflowing) and even <b>surround</b> (originally “to overflow”!). Flood maps mark the “inundation zone”: where the waves will reach.",
+    note:"Latin <i>inundare</i>: <i>in-</i> (onto) + <i>unda</i> (wave): waves rolling onto the land. Same <i>und</i> in <b>undulate</b> (to move in waves), <b>abundant</b> (overflowing) and even <b>surround</b> (originally “to overflow”!). Flood maps mark the “inundation zone”: where the waves will reach.",
     apply:[
       { id:"ap_inu_cloze", type:"cloze",
-        before:"The council’s flood map shades the", after:"zone — every street the water is expected to cover when the river peaks.",
+        before:"The council’s flood map shades the", after:"zone: every street the water is expected to cover when the river peaks.",
         a:"inundation", opts:["inundation","navigation","oscillation","recreation"],
         explain:"Waves onto the land: <i>in-</i> + <i>und</i> (wave). The official map-word for where floodwater reaches." },
       { id:"ap_inu_desc", type:"desc",
-        q:"Which formal word for flooding literally means “waves coming onto the land” — and hides the same root as “undulate” and “abundant”?",
+        q:"Which formal word for flooding literally means “waves coming onto the land”, and hides the same root as “undulate” and “abundant”?",
         a:"Inundation", opts:["Inundation","Saturation","Navigation","Condensation"],
         explain:"<i>unda</i> = wave. Undulating hills move like waves; abundance overflows like them; inundation is them arriving on your street." } ] },
   ],
-  base:{ intro:"Last warm-up: <b>e-/ex-</b> (out) and <b>in-</b> (in) — the tiny direction-arrows English bolts onto words — plus one more spin of <b>-ation</b>.",
+  base:{ intro:"Last warm-up: <b>e-/ex-</b> (out) and <b>in-</b> (in), the tiny direction-arrows English bolts onto words, plus one more spin of <b>-ation</b>.",
     items:[
       { id:"b32_exhale", kind:"build", w:"exhale", tiles:[["ex-","out"],["hale","to breathe"]], decoys:[["en-","in, into"],["-ation","the process of"]],
-        meaning:"to breathe OUT — inhale is its mirror-twin, breathing in.",
+        meaning:"to breathe OUT: inhale is its mirror-twin, breathing in.",
         explain:"ex/in are direction-arrows: exhale/inhale, exit/enter, export/import, evacuate (empty out)/inundate (waves in)." },
       { id:"b32_vacuum", kind:"mcq", q:"A <b>vacuum</b> is literally a space that is completely…", a:"empty", opts:["empty","cold","dark","loud"],
         explain:"<i>vacuus</i> = empty. A vacuum cleaner works by making empty space; an evacuation makes a town empty." },
       { id:"b32_entrance", kind:"build", w:"entrance", tiles:[["entr(y)","to go in"],["-ance","the act / place of"]], decoys:[["ex-","out"],["-ation","the process of"]],
-        meaning:"the way IN — the mirror-twin of the exit." },
+        meaning:"the way IN: the mirror-twin of the exit." },
       { id:"b32_swing", kind:"mcq", q:"Which everyday playground object is basically an <b>oscillation</b> machine?", a:"a swing", opts:["a swing","a slide","a sandpit","a bench"],
-        explain:"Back and forth between two states, over and over — <i>oscillare</i>, to swing. The Pacific does it too, just slower." } ] },
+        explain:"Back and forth between two states, over and over, <i>oscillare</i>, to swing. The Pacific does it too, just slower." } ] },
   stretch:{ intro:"Storm-grade vocabulary for the final stretch.",
     items:[
       { id:"s32_torrential", kind:"build", w:"torrential", tiles:[["torrent","a rushing, roaring stream"],["-ial","relating to"]], decoys:[["-ical","relating to"],["in-","in, onto"]],
-        meaning:"describes violent, rushing rain — “torrential rain” falls like a roaring stream.",
-        explain:"Latin <i>torrens</i>, a rushing stream — oddly, from <i>torrere</i>, “to scorch, boil”: the Romans heard a raging stream as boiling water. Torrential rain is the flash-flood maker." },
-      { id:"s32_abundant", kind:"mcq", q:"Word alchemy: <b>ab-</b> = away + <b>und</b> = wave. Latin <i>abundare</i> = “to overflow — waves running away over the rim”. When La Niña brings <b>abundant</b> rain, the rain is literally…",
-        a:"overflowing — waving over the top", opts:["overflowing — waving over the top","completely absent","exactly average","frozen solid"],
-        explain:"<i>abundare</i> = to overflow. Abundance is water waving over the rim — the generous twin of inundation." },
+        meaning:"describes violent, rushing rain: “torrential rain” falls like a roaring stream.",
+        explain:"Latin <i>torrens</i>, a rushing stream: oddly, from <i>torrere</i>, “to scorch, boil”: the Romans heard a raging stream as boiling water. Torrential rain is the flash-flood maker." },
+      { id:"s32_abundant", kind:"mcq", q:"Word alchemy: <b>ab-</b> = away + <b>und</b> = wave. Latin <i>abundare</i> = “to overflow: waves running away over the rim”. When La Niña brings <b>abundant</b> rain, the rain is literally…",
+        a:"overflowing, waving over the top", opts:["overflowing, waving over the top","completely absent","exactly average","frozen solid"],
+        explain:"<i>abundare</i> = to overflow. Abundance is water waving over the rim, the generous twin of inundation." },
       { id:"s32_mitigation", kind:"build", w:"mitigation", tiles:[["mitig","to soften, make mild"],["-ation","the process of"]], decoys:[["mini","small"],["-ment","the result of"]],
-        meaning:"actions that soften a hazard’s blow before it lands — levees, warning systems, flood-proof building rules.",
-        explain:"Latin <i>mitigare</i>, to make mild or gentle. Preparation-words matter: geographers judge every disaster response by how well the harm was mitigated — softened in advance." } ] },
+        meaning:"actions that soften a hazard’s blow before it lands, levees, warning systems, flood-proof building rules.",
+        explain:"Latin <i>mitigare</i>, to make mild or gentle. Preparation-words matter: geographers judge every disaster response by how well the harm was mitigated, softened in advance." } ] },
 },
 ];
 /* ---------------- KEY-WORD TRANSLATIONS ----------------
    The Year 7 EAL languages. Shown on study cards and build reveals when a
-   language is chosen — preteaching is scaffolded in the home language, but
+   language is chosen, preteaching is scaffolded in the home language, but
    the practice tasks stay in English. Terms aim for the standard school
    geography word in each language. */
 const LANGS = [
@@ -1857,7 +1841,7 @@ function renderHome(){
   btn.disabled = pool.length<4;
   document.getElementById("review-desc").innerHTML = pool.length<4
     ? "A quick look back is <b>baked into the start of every lesson</b> once you’ve done your first one. This button is here for extra practice any time."
-    : `Extra practice — a shuffled set from the <b>${pool.length} words</b> you’ve met so far (this also runs automatically when you open a lesson). Everyone gets a different mix. Done ${S.reviews.length} review${S.reviews.length===1?"":"s"} so far.`;
+    : `Extra practice: a shuffled set from the <b>${pool.length} words</b> you’ve met so far (this also runs automatically when you open a lesson). Everyone gets a different mix. Done ${S.reviews.length} review${S.reviews.length===1?"":"s"} so far.`;
 }
 
 /* ================= LESSON HOME ================= */
@@ -1873,12 +1857,12 @@ function openLesson(id, fromHome){
   const b=buildCounts(l), a=applyCounts(l);
   const rate=lessonCleanRate(l);
   const steps=[
-    { t:"Meet the words", d:`Read this lesson’s ${l.words.length} words — meaning, morphemes and where each came from.`,
+    { t:"Meet the words", d:`Read this lesson’s ${l.words.length} words, meaning, morphemes and where each came from.`,
       done:st.studied, locked:false, fn:()=>renderStudy(l), tag:st.studied?"READ":"" },
     { t:"Build the words", d:"Drag the colour-coded morphemes into the word each one belongs to. Finished words tick off and leave the board.",
       done:st.buildComplete, locked:!st.studied, fn:()=>startBuild(l),
       tag:st.buildComplete?`${b.clean}/${b.total} CLEAN`:(b.done?`${b.done}/${b.total} built`:"") },
-    { t:"Use the words", d:"Your own sample of apply tasks — scenarios, sentences, diagrams. Your neighbour’s set will be different.",
+    { t:"Use the words", d:"Your own sample of apply tasks: scenarios, sentences, diagrams. Your neighbour’s set will be different.",
       done:st.applyDone, locked:!st.buildComplete, fn:()=>startApply(l),
       tag:st.applyDone?`${a.got}/${a.total} FIRST TRY`:(a.ans?`${a.ans}/${a.total} done`:"") },
   ];
@@ -1900,8 +1884,8 @@ function openLesson(id, fromHome){
     const bc=tierCounts(l.base.items, st.baseFirst);
     const struggling = st.buildComplete && rate!==null && rate<0.5 && !st.baseDone;
     const t=document.createElement("div"); t.className="tierbar base";
-    t.innerHTML=`<span class="grow"><b>⛺ Base camp${st.baseDone?` — done (${bc.got}/${bc.total} first try)`:""}</b>
-      ${struggling?"That was a tough climb — these are the same word-parts inside easy words you already know. Five minutes here makes the lesson words much friendlier.":"The same morphemes in everyday words. Start here any time you want a warm-up — it all counts on your report."}</span>
+    t.innerHTML=`<span class="grow"><b>⛺ Base camp${st.baseDone?`, done (${bc.got}/${bc.total} first try)`:""}</b>
+      ${struggling?"That was a tough climb: these are the same word-parts inside easy words you already know. Five minutes here makes the lesson words much friendlier.":"The same morphemes in everyday words. Start here any time you want a warm-up. It all counts on your report."}</span>
       <button class="btn btn-ghost" onclick="startBase('${l.id}')">${st.baseDone?"Do it again":"Warm up"}</button>`;
     tiers.appendChild(t);
   }
@@ -1909,8 +1893,8 @@ function openLesson(id, fromHome){
     const sc=tierCounts(l.stretch.items, st.stretchFirst);
     const unlocked = st.applyDone;
     const t=document.createElement("div"); t.className="tierbar stretch";
-    t.innerHTML=`<span class="grow"><b>⛰ Stretch${st.stretchDone?` — done (${sc.got}/${sc.total} first try)`:""}</b>
-      ${unlocked?(rate!==null&&rate>=0.85?"You cleared this lesson in style. These heavier words are built from parts you now own — go get them.":"Heavier words built from the parts you just learned — including some that show up in the CAT."):"Finish “Use the words” to unlock the heavy gear."}</span>
+    t.innerHTML=`<span class="grow"><b>⛰ Stretch${st.stretchDone?`, done (${sc.got}/${sc.total} first try)`:""}</b>
+      ${unlocked?(rate!==null&&rate>=0.85?"You cleared this lesson in style. These heavier words are built from parts you now own, go get them.":"Heavier words built from the parts you just learned, including some that show up in the CAT."):"Finish “Use the words” to unlock the heavy gear."}</span>
       <button class="btn btn-water" ${unlocked?"":"disabled"} onclick="startStretch('${l.id}')">${st.stretchDone?"Do it again":"Stretch"}</button>`;
     tiers.appendChild(t);
   }
@@ -1921,7 +1905,7 @@ function openLesson(id, fromHome){
 function renderStudy(l){
   const mount=document.getElementById("study-body");
   document.getElementById("study-prog").textContent=`STEP 1 · MEET THE WORDS · ${l.id}`;
-  let html=`<h2>Lesson ${esc(l.id)} — ${esc(l.title)}</h2>
+  let html=`<h2>Lesson ${esc(l.id)}, ${esc(l.title)}</h2>
     <p class="muted" style="margin-bottom:14px">Read each word: its meaning, and how its <b>morphemes</b> build that meaning. Tags show each word’s domain.</p>`;
   mount.innerHTML=html;
   l.words.forEach(v=>{
@@ -1935,7 +1919,7 @@ function renderStudy(l){
     mount.appendChild(d);
   });
   const row=document.createElement("div"); row.className="nextrow noprint";
-  row.innerHTML=`<button class="btn btn-primary">I’ve read them — start building →</button>`;
+  row.innerHTML=`<button class="btn btn-primary">I’ve read them: start building →</button>`;
   row.querySelector("button").onclick=()=>{ L(l.id).studied=true; touchStart(); save(); startBuild(l); };
   mount.appendChild(row);
   go("study");
@@ -1949,7 +1933,7 @@ function renderBuilder(mount, spec, opts){
   let pos=0, errored=false;
   const slotHtml=pieces.map((_,i)=>(i?`<span class="joiner">+</span>`:"")+`<span class="slot">&nbsp;</span>`).join("");
   mount.innerHTML=`${opts.dots||""}
-    <div class="prompt">${opts.prompt||"Build the word — tap the morphemes into place, in order"}</div>
+    <div class="prompt">${opts.prompt||"Build the word: tap the morphemes into place, in order"}</div>
     <div class="buildword" id="bword">? ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""}</div>
     <div class="slots" id="slots">${slotHtml}</div>
     <div class="bank" id="bank"></div>
@@ -1973,7 +1957,7 @@ function renderBuilder(mount, spec, opts){
           mr.innerHTML=spec.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" &nbsp;+&nbsp; ")+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
           const r=mount.querySelector("#reveal");
           r.className="reveal show";
-          r.innerHTML=`<span class="rw">${esc(spec.w)}</span> — ${esc(spec.meaning)}${(spec.note||spec.explain)?`<br><span class="muted">${spec.note||spec.explain}</span>`:""}`;
+          r.innerHTML=`<span class="rw">${esc(spec.w)}</span>: ${esc(spec.meaning)}${(spec.note||spec.explain)?`<br><span class="muted">${spec.note||spec.explain}</span>`:""}`;
           const nb=mount.querySelector("#bnext");
           nb.style.display="inline-block"; nb.onclick=opts.onDone;
           nb.focus();
@@ -1991,7 +1975,7 @@ function renderBuilder(mount, spec, opts){
 /* origin question (used in build step + review) */
 function renderOriginQ(mount, spec, opts){
   mount.innerHTML=`${opts.dots||""}
-    <div class="prompt">Word origin — this one can’t be cut into smaller meaningful parts</div>
+    <div class="prompt">Word origin. This one can’t be cut into smaller meaningful parts</div>
     <div class="buildword">${esc(spec.w)} ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""}</div>
     <div class="qtext" style="text-align:center">${spec.originQ}</div>
     <div class="opts" id="oopts"></div>
@@ -2009,7 +1993,7 @@ function renderOriginQ(mount, spec, opts){
         optsEl.querySelectorAll(".opt").forEach(x=>x.disabled=true);
         const r=mount.querySelector("#reveal");
         r.className="reveal show";
-        r.innerHTML=`<span class="rw">${esc(spec.w)}</span> ${trSpan(spec.w)} — ${esc(spec.meaning)}<br><span class="muted">${spec.note}</span>`;
+        r.innerHTML=`<span class="rw">${esc(spec.w)}</span> ${trSpan(spec.w)}, ${esc(spec.meaning)}<br><span class="muted">${spec.note}</span>`;
         const nb=mount.querySelector("#bnext");
         nb.style.display="inline-block"; nb.onclick=opts.onDone; nb.focus();
       } else {
@@ -2020,7 +2004,7 @@ function renderOriginQ(mount, spec, opts){
   });
 }
 
-/* ================= STEP 2 · BUILD — colour-coded drag-and-drop morpheme table ================= */
+/* ================= STEP 2 · BUILD: colour-coded drag-and-drop morpheme table ================= */
 let buildCtx=null; // {l, tapSel}
 function startBuild(l){
   touchStart();
@@ -2058,14 +2042,14 @@ function renderBuildTable(l, buildable){
   const rowsHtml=active.map(w=>{
     const slots=w.tiles.map((_,si)=>(si?`<span class="wjoin">+</span>`:"")+`<span class="wslot" data-i="${si}"><span class="ph">drop</span></span>`).join("");
     return `<div class="wrow" data-w="${esc(w.w)}">
-      <div class="wmean"><span class="pos">${esc(w.pos)}</span> — ${esc(w.meaning)}</div>
+      <div class="wmean"><span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
       <div class="wslots">${slots}</div>
       <div class="wbuilt"></div></div>`;
   }).join("");
   const mount=document.getElementById("build-body");
   mount.innerHTML=`
-    <h2 style="text-align:center">Build the words — Lesson ${esc(l.id)}</h2>
-    <p class="muted" style="text-align:center;margin-bottom:8px">Drag each morpheme into the word it belongs to — or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left.</p>
+    <h2 style="text-align:center">Build the words: Lesson ${esc(l.id)}</h2>
+    <p class="muted" style="text-align:center;margin-bottom:8px">Drag each morpheme into the word it belongs to, or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left.</p>
     <div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix (start)</span><span><i style="background:var(--mroot)"></i>Root (heart)</span><span><i style="background:var(--msuf)"></i>Suffix (end)</span></div>
     <div class="mbank">${bankHtml}</div>
     <div class="buildhint" id="buildhint"></div>
@@ -2146,8 +2130,8 @@ function checkRow(rowEl){
     const sameSet=[...placed].sort().join("~")===[...answer].sort().join("~");
     rowEl.classList.add("wrong"); setTimeout(()=>rowEl.classList.remove("wrong"),320);
     if(hint) hint.innerHTML = sameSet
-      ? "Right pieces — check the <b>order</b> (prefix → root → suffix). Tap a slot to send its piece back."
-      : "Not a match yet — reread the meaning. Tap any slot to send its piece back.";
+      ? "Right pieces: check the <b>order</b> (prefix → root → suffix). Tap a slot to send its piece back."
+      : "Not a match yet: reread the meaning. Tap any slot to send its piece back.";
   }
 }
 function markRowDone(rowEl, w){
@@ -2172,8 +2156,8 @@ function buildOriginPhase(l){
   if(!origins.length){ finishBuild(l); return; }
   go("build");
   const mount=document.getElementById("build-body");
-  mount.innerHTML=`<h2 style="text-align:center">Word origins — Lesson ${esc(l.id)}</h2>
-    <p class="muted" style="text-align:center;margin-bottom:12px">A few of this lesson’s words come from names or places, not word-parts — so you match their story instead of building them.</p>
+  mount.innerHTML=`<h2 style="text-align:center">Word origins: Lesson ${esc(l.id)}</h2>
+    <p class="muted" style="text-align:center;margin-bottom:12px">A few of this lesson’s words come from names or places, not word-parts, so you match their story instead of building them.</p>
     <div id="origin-slot"></div>`;
   let queue=shuffle(origins.slice());
   function next(){
@@ -2196,9 +2180,9 @@ function finishBuild(l){
   const pct=Math.round(100*b.clean/b.total);
   const cls=pct>=80?"good":(pct>=60?"mid":"low");
   document.getElementById("build-body").innerHTML=`
-    <div class="sumbox"><div class="prompt">Lesson ${esc(l.id)} — clean builds (right first go)</div>
+    <div class="sumbox"><div class="prompt">Lesson ${esc(l.id)}, clean builds (right first go)</div>
     <div class="big ${cls}">${b.clean} / ${b.total}</div>
-    <p class="muted">Every word is built. “Clean” means you placed it correctly on the first full attempt — anything you had to redo still counts as done, just not clean.</p></div>
+    <p class="muted">Every word is built. “Clean” means you placed it correctly on the first full attempt, anything you had to redo still counts as done, just not clean.</p></div>
     <div class="nextrow" style="justify-content:center">
       <button class="btn btn-ghost" onclick="goLesson()">back to lesson</button>
       <button class="btn btn-primary" onclick="startApply(LESSON_BY_ID['${l.id}'])">Use the words →</button></div>`;
@@ -2213,7 +2197,7 @@ function renderTaskItem(mount, it, hooks){
   const isRight=(o)=>o===it.a;
   function finishItem(correct){
     fb.className="feedback "+(correct?"ok":"bad");
-    fb.innerHTML=(correct?"<b>Correct.</b> ":`<b>Not quite — the answer is “${esc(it.a)}”.</b> `)+(it.explain||"");
+    fb.innerHTML=(correct?"<b>Correct.</b> ":`<b>Not quite: the answer is “${esc(it.a)}”.</b> `)+(it.explain||"");
     if(!correct) fb.innerHTML+=" <i>This one will come back around.</i>";
     nextBtn.style.display="inline-block";
     hooks.onAnswer && hooks.onAnswer(correct);
@@ -2231,7 +2215,7 @@ function renderTaskItem(mount, it, hooks){
     box.appendChild(qd);
     box.appendChild(buildOpts(it,isRight,finishItem,()=>nextBtn.style.display==="inline-block",qd.querySelector(".gap")));
   } else {
-    const prompts={scenario:"Read the scenario, then choose",desc:"Match the word",morphmatch:"Read the morphemes, then choose the word they build",alchemy:"Word alchemy — use the parts to work it out",wordsum:"Add the morphemes — which word do they make?",meaningmatch:"Which word fits the meaning?",morphmeaning:"What does the word-part mean?"};
+    const prompts={scenario:"Read the scenario, then choose",desc:"Match the word",morphmatch:"Read the morphemes, then choose the word they build",alchemy:"Word alchemy, use the parts to work it out",wordsum:"Add the morphemes, which word do they make?",meaningmatch:"Which word fits the meaning?",morphmeaning:"What does the word-part mean?"};
     box.innerHTML+=`<div class="prompt">${prompts[kind]||prompts.desc}</div>`;
     const qd=document.createElement("div"); qd.className="qtext"; qd.innerHTML=it.q; box.appendChild(qd);
     box.appendChild(buildOpts(it,isRight,finishItem,()=>nextBtn.style.display==="inline-block",null));
@@ -2334,16 +2318,16 @@ function finishApply(l, recorded){
   const rate=lessonCleanRate(l);
   let follow="";
   if(rate!==null && rate<0.5 && l.base && !st.baseDone){
-    follow=`<div class="tierbar base"><span class="grow"><b>⛺ Base camp?</b> Those words fought back. The same word-parts live inside easy words you already know — a five-minute warm-up there, then this lesson will feel different.</span>
+    follow=`<div class="tierbar base"><span class="grow"><b>⛺ Base camp?</b> Those words fought back. The same word-parts live inside easy words you already know, a five-minute warm-up there, then this lesson will feel different.</span>
       <button class="btn btn-ghost" onclick="startBase('${l.id}')">Warm up</button></div>`;
   } else if(rate!==null && rate>=0.85 && l.stretch && !st.stretchDone){
-    follow=`<div class="tierbar stretch"><span class="grow"><b>⛰ Stretch unlocked.</b> You own these morphemes now — take on the heavier words built from them.</span>
+    follow=`<div class="tierbar stretch"><span class="grow"><b>⛰ Stretch unlocked.</b> You own these morphemes now: take on the heavier words built from them.</span>
       <button class="btn btn-water" onclick="startStretch('${l.id}')">Stretch</button></div>`;
   }
   document.getElementById("apply-body").innerHTML=`
-    <div class="sumbox"><div class="prompt">Lesson ${esc(l.id)} — first attempts</div>
+    <div class="sumbox"><div class="prompt">Lesson ${esc(l.id)}, first attempts</div>
     <div class="big ${cls}">${a.got} / ${a.total}</div>
-    <p class="muted">Every task is mastered — wrong answers looped back until you cleared them. The score above is your FIRST attempt on each.${recorded?"":" (Practice run — your report kept the original scores.)"}</p></div>
+    <p class="muted">Every task is mastered: wrong answers looped back until you cleared them. The score above is your FIRST attempt on each.${recorded?"":" (Practice run: your report kept the original scores.)"}</p></div>
     ${follow}
     <div class="nextrow" style="justify-content:center">
       <button class="btn btn-ghost" onclick="goLesson()">back to lesson</button>
@@ -2376,16 +2360,16 @@ function runTier(lid, tierKey){
       const tc=tierCounts(tier.items, firsts);
       const pct=Math.round(100*tc.got/tc.total);
       const cls=pct>=80?"good":(pct>=60?"mid":"low");
-      mount.innerHTML=`<div class="sumbox"><div class="prompt">${label} · lesson ${esc(lid)} — first attempts</div>
+      mount.innerHTML=`<div class="sumbox"><div class="prompt">${label} · lesson ${esc(lid)}: first attempts</div>
         <div class="big ${cls}">${tc.got} / ${tc.total}</div>
-        <p class="muted">${tierKey==="base"?"Foundations set. Those same parts are waiting inside the lesson words — go back and use them.":"Heavy words carried. These count as bonus territory on your report."}</p></div>
+        <p class="muted">${tierKey==="base"?"Foundations set. Those same parts are waiting inside the lesson words, go back and use them.":"Heavy words carried. These count as bonus territory on your report."}</p></div>
         <div class="nextrow" style="justify-content:center">
         <button class="btn btn-primary" onclick="goLesson()">back to lesson</button></div>`;
       return;
     }
     const it=queue.shift();
     if(it.kind==="build"){
-      renderBuilder(mount, it, { prompt:"Build the word — tap the pieces into place, in order",
+      renderBuilder(mount, it, { prompt:"Build the word: tap the pieces into place, in order",
         onFirst:(clean)=>recFirst(it.id, clean),
         onDone:()=>{ mastered++; next(); } });
     } else {
@@ -2411,7 +2395,7 @@ function latestLessonIdx(){
   return idx;
 }
 function reviewPool(uptoIdx){
-  /* every word from the lessons BEFORE this one in the sequence — a warm-up always
+  /* every word from the lessons BEFORE this one in the sequence, a warm-up always
      looks back over prior lessons, whether or not they were fully finished */
   const pool=[];
   LESSONS.forEach((l,i)=>{ if(uptoIdx>=0 && i>=uptoIdx) return; l.words.forEach(w=>pool.push(w)); });
@@ -2430,7 +2414,7 @@ function startReviewSetup(){
     if(started||i<=idx) opts+=`<option value="${i}"${i===idx?" selected":""}>${l.id} · ${esc(l.title)}</option>`;
   });
   mount.innerHTML=`<h2 style="text-align:center">Quick review</h2>
-    <p class="focusline">Five words drawn from earlier lessons — weighted so the ones you’ve missed before come back more often. Gap-fill or match to meaning. Every run is a different mix.</p>
+    <p class="focusline">Five words drawn from earlier lessons: weighted so the ones you’ve missed before come back more often. Gap-fill or match to meaning. Every run is a different mix.</p>
     <div class="idrow" style="justify-content:center">
       <span><label for="rev-upto">We’re currently learning lesson…</label>
       <select id="rev-upto" class="btn" style="font-weight:600">${opts}</select></span>
@@ -2502,7 +2486,7 @@ function runReview(uptoIdx, opts){
   if(opts.contLesson){
     const mount=document.getElementById("review-body");
     mount.innerHTML=`<div class="sumbox"><div class="prompt">Before Lesson ${esc(opts.contLesson)}</div>
-      <p class="muted" style="margin:6px 0 0">Quick warm-up first — <b>5 words from earlier lessons</b>, drawn at random (ones you’ve missed come back more often). Just gap-fill a sentence or match the word to its meaning. Then we jump into the new lesson.</p></div>
+      <p class="muted" style="margin:6px 0 0">Quick warm-up first: <b>5 words from earlier lessons</b>, drawn at random (ones you’ve missed come back more often). Just gap-fill a sentence or match the word to its meaning. Then we jump into the new lesson.</p></div>
       <div class="nextrow" style="justify-content:center"><button class="btn btn-water" id="rev-begin">Start warm-up →</button>
       <button class="btn btn-ghost" onclick="openLesson('${opts.contLesson}', false)">Skip to lesson</button></div>`;
     mount.querySelector("#rev-begin").onclick=next;
@@ -2512,7 +2496,7 @@ function finishReview(uptoIdx, words, firsts, opts){
   opts=opts||{};
   const got=words.filter(w=>firsts[w.w]===true).length;
   const missed=words.filter(w=>firsts[w.w]===false).map(w=>w.w);
-  S.reviews.push({ when:Date.now(), upTo:LESSONS[uptoIdx]?LESSONS[uptoIdx].id:"—", total:words.length, got, missed });
+  S.reviews.push({ when:Date.now(), upTo:LESSONS[uptoIdx]?LESSONS[uptoIdx].id:": ", total:words.length, got, missed });
   save();
   const pct=Math.round(100*got/words.length);
   const cls=pct>=80?"good":(pct>=60?"mid":"low");
@@ -2523,9 +2507,9 @@ function finishReview(uptoIdx, words, firsts, opts){
        <button class="btn btn-ghost" onclick="go('home')">home</button>
        <button class="btn btn-ghost" onclick="go('report')">my report</button>`;
   document.getElementById("review-body").innerHTML=`
-    <div class="sumbox"><div class="prompt">${opts.contLesson?"Warm-up review":"Review"} — first attempts</div>
+    <div class="sumbox"><div class="prompt">${opts.contLesson?"Warm-up review":"Review"}: first attempts</div>
     <div class="big ${cls}">${got} / ${words.length}</div>
-    <p class="muted">${missed.length?`Back for another visit soon: <b>${esc(missed.join(", "))}</b> — the shuffle remembers.`:"Clean sweep — these words are sticking."}</p></div>
+    <p class="muted">${missed.length?`Back for another visit soon: <b>${esc(missed.join(", "))}</b>: the shuffle remembers.`:"Clean sweep: these words are sticking."}</p></div>
     <div class="nextrow" style="justify-content:center">${buttons}</div>`;
 }
 
@@ -2551,7 +2535,7 @@ function renderMorphTable(){
 function renderGlossary(){
   const m=document.getElementById("glossary-body");
   m.innerHTML=`<h2 style="text-align:center">Word list</h2>
-    <p class="muted" style="text-align:center;margin-bottom:10px">Every key word in the unit — meaning, parts and (if you’ve chosen a language) your translation. Search or scroll.</p>
+    <p class="muted" style="text-align:center;margin-bottom:10px">Every key word in the unit, meaning, parts and (if you’ve chosen a language) your translation. Search or scroll.</p>
     <div class="reffilter"><input id="gloss-search" placeholder="Search a word or meaning…" aria-label="search words"></div>
     <div id="gloss-list"></div>`;
   const input=m.querySelector("#gloss-search");
@@ -2568,7 +2552,7 @@ function drawGloss(q){
     ws.forEach(w=>{
       const map=w.tiles
         ? w.tiles.map(t=>`<span class="mtile ${classifyMorph(t[0])}"><span class="mm">${esc(t[0])}</span><span class="gl">${esc(t[1])}</span></span>`).join(" ")
-        : `<span class="muted">from a name or place — see its story in the lesson</span>`;
+        : `<span class="muted">from a name or place: see its story in the lesson</span>`;
       const domLabel={water:"WATER",earth:"EARTH & RESOURCES",people:"PEOPLE & VALUES",hazard:"HAZARDS"}[w.domain]||w.domain;
       html+=`<div class="vcard"><div class="top"><span class="w">${esc(w.w)}</span><span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
           <span class="dtag ${w.domain}">${domLabel}</span></div>
@@ -2595,14 +2579,14 @@ function renderReport(){
   let rows="", aggFirst=0, aggAtt=0, sig="";
   LESSONS.forEach(l=>{
     const st=S.lessons[l.id];
-    if(!st){ rows+=`<tr><td>${esc(l.id)} ${esc(l.title)}</td><td class="nf">—</td><td class="nf">—</td><td class="nf">—</td><td class="nf">—</td></tr>`; return; }
+    if(!st){ rows+=`<tr><td>${esc(l.id)} ${esc(l.title)}</td><td class="nf">: </td><td class="nf">: </td><td class="nf">: </td><td class="nf">: </td></tr>`; return; }
     const b=buildCounts(l), a=applyCounts(l);
-    const bTxt = b.done? (st.buildComplete?`${b.clean}/${b.total}`:`${b.clean}/${b.done} (${b.done}/${b.total} built)`) : "—";
-    const aTxt = a.ans? (st.applyDone?`${a.got}/${a.total}`:`${a.got}/${a.ans} (unfinished)`) : "—";
+    const bTxt = b.done? (st.buildComplete?`${b.clean}/${b.total}`:`${b.clean}/${b.done} (${b.done}/${b.total} built)`) : ": ";
+    const aTxt = a.ans? (st.applyDone?`${a.got}/${a.total}`:`${a.got}/${a.ans} (unfinished)`) : ": ";
     const bc=l.base?tierCounts(l.base.items, st.baseFirst):null;
     const sc=l.stretch?tierCounts(l.stretch.items, st.stretchFirst):null;
-    const bcTxt = bc&&bc.ans? `${bc.got}/${st.baseDone?bc.total:bc.ans}` : "—";
-    const scTxt = sc&&sc.ans? `${sc.got}/${st.stretchDone?sc.total:sc.ans}` : "—";
+    const bcTxt = bc&&bc.ans? `${bc.got}/${st.baseDone?bc.total:bc.ans}` : ": ";
+    const scTxt = sc&&sc.ans? `${sc.got}/${st.stretchDone?sc.total:sc.ans}` : ": ";
     aggFirst += b.clean + a.got; aggAtt += b.done + a.ans;
     sig += `|${l.id}:${b.clean}.${a.got}`;
     rows+=`<tr><td>${esc(l.id)} ${esc(l.title)}</td>
@@ -2633,21 +2617,21 @@ function renderReport(){
       <span style="align-self:flex-end"><button class="btn btn-primary" onclick="saveIdAndPrint()">Save as PDF</button></span>
     </div>
     <p class="muted noprint" style="margin-bottom:14px">Type your name and ID, click <b>Save as PDF</b>, choose “Save as PDF” as the destination in the print box, then send the file to your teacher.</p>
-    <h2>Water in the World — Vocab Report</h2>
+    <h2>Water in the World: Vocab Report</h2>
     <p class="muted">${name?`<b>${esc(name)}</b>`:"<i>(name not entered)</i>"} · ID ${sid?`<b>${esc(sid)}</b>`:"<i>(not entered)</i>"} · ${dt}</p>
     <table class="repgrid">
       <tr><th>Lesson</th><th>Build (clean)</th><th>Use (1st try)</th><th>Base camp</th><th>Stretch</th></tr>
       ${rows}
-      <tr><td><b>All lesson items attempted</b></td><td class="score" colspan="2"><b>${aggAtt?`${aggFirst}/${aggAtt} (${Math.round(100*aggFirst/aggAtt)}%)`:"—"}</b></td><td colspan="2">first attempts; everything was then mastered via the retry loop</td></tr>
+      <tr><td><b>All lesson items attempted</b></td><td class="score" colspan="2"><b>${aggAtt?`${aggFirst}/${aggAtt} (${Math.round(100*aggFirst/aggAtt)}%)`:": "}</b></td><td colspan="2">first attempts; everything was then mastered via the retry loop</td></tr>
     </table>
     <h3>Review sessions (${S.reviews.length})</h3>
     ${S.reviews.length?`<table class="repgrid"><tr><th>When</th><th>Up to lesson</th><th>First try</th><th>Missed</th></tr>${revRows}</table>
       <p class="muted">Across all reviews: <b>${revFirst}/${revAtt}</b> first-attempt. ${S.reviews.length>12?"(last 12 shown)":""}</p>`
-      :`<p class="muted">No review sessions yet — reviews are the part that makes words stick.</p>`}
+      :`<p class="muted">No review sessions yet: reviews are the part that makes words stick.</p>`}
     <h3>Words needing another go</h3>
-    <p class="muted">${needList.length?needList.map(w=>`${esc(w)}${needs[w]>1?` (×${needs[w]})`:""}`).join(", "):"None recorded — every first attempt so far has landed."}</p>
+    <p class="muted">${needList.length?needList.map(w=>`${esc(w)}${needs[w]>1?` (×${needs[w]})`:""}`).join(", "):"None recorded: every first attempt so far has landed."}</p>
     <h3>Reading this report</h3>
-    <p class="muted">Each lesson runs meet → build (assemble the word from its morphemes) → use (apply tasks sampled from a bank). Base camp is the support tier — the same morphemes in everyday words; Stretch is the extension tier. Reviews shuffle words from earlier lessons, weighted toward ones previously missed. All scores are FIRST attempts; wrong answers loop until mastered, so a rough first-attempt score with everything cleared still shows honest, finished work.</p>
+    <p class="muted">Each lesson runs meet → build (assemble the word from its morphemes) → use (apply tasks sampled from a bank). Base camp is the support tier, the same morphemes in everyday words; Stretch is the extension tier. Reviews shuffle words from earlier lessons, weighted toward ones previously missed. All scores are FIRST attempts; wrong answers loop until mastered, so a rough first-attempt score with everything cleared still shows honest, finished work.</p>
     <p class="muted">Verification code: <span class="vcode">${code}</span> · Water in the World Vocab Hub</p>`;
 }
 function saveIdAndPrint(){

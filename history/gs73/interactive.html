@@ -161,7 +161,7 @@ footer b{color:var(--ink)}
   <section class="card">
     <div class="src" id="srcbox" hidden></div>
     <h2>Mark the example yourself</h2>
-    <p class="hint">Select some words, then tap the criterion they prove. Tap <b>Unmark</b> to take a mark off. Leave the joining words unmarked — only mark the words that are the evidence.</p>
+    <p class="hint">Select some words, then tap the criterion they prove. Tap <b>Unmark</b> to take a mark off. Leave the joining words unmarked, only mark the words that are the evidence.</p>
     <div class="canvas" id="canvas" contenteditable="true" spellcheck="false"></div>
     <div class="tools" id="marktools"></div>
     <div class="model" id="model">
@@ -194,7 +194,7 @@ footer b{color:var(--ink)}
 
 <script src="content.js"></script>
 <script>
-/* All wall text comes from content.js — nothing is duplicated here. */
+/* All wall text comes from content.js, nothing is duplicated here. */
 
 const el = id => document.getElementById(id);
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
@@ -242,7 +242,7 @@ function splitAround(anc, node){
 
 /* Wrap the current selection in a criterion span. Marks inside the selection are
    unwrapped, and marks enclosing it are split, so marks never nest and never
-   overlap — one phrase carries exactly one criterion. */
+   overlap: one phrase carries exactly one criterion. */
 function markSelection(box, key){
   const sel = window.getSelection();
   if (!sel.rangeCount || sel.isCollapsed) return;
@@ -313,7 +313,7 @@ function render(){
     const d = CONTINUUM[c.key][current];
     return `<div class="cr cr-${c.key}${d?"":" gap"}">
       <div class="cn"><span>${c.glyph}</span><span>${c.row}</span></div>
-      <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : "—")}</div></div>`;
+      <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : ": ")}</div></div>`;
   }).join("");
 
   el("provesBox").open = false;
