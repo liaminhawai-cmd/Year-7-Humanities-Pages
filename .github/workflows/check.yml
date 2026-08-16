@@ -48,6 +48,7 @@ jobs:
               | sed 's/^href="//; s/"$//' \
               | grep -v '^https\?:' \
               | grep -v '^mailto:' \
+              | grep -v '^data:' \
               > /tmp/links || true
             while IFS= read -r link; do
               [ -z "$link" ] && continue
