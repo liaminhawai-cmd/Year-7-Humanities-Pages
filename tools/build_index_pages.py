@@ -20,8 +20,27 @@ import html
 import pathlib
 
 WORD_BUILDER = "https://liaminhawai-cmd.github.io/EAL-Vocabulary-Site/"
-HISTORY_WORDS = WORD_BUILDER + "#/l/year-7/humanities-civics/f/history"
-GEOGRAPHY_WORDS = WORD_BUILDER + "#/l/year-7/humanities-civics/f/geography"
+
+
+def words(folder, blurb):
+    """A card linking out to one folder of the Word Builder.
+
+    The folder id is the TOPIC's, not the subject's. Every topic page used to
+    link to f/history or f/geography, which is the shelf the topic sits on: a
+    student on the Ancient Australia page, told these were "the same words",
+    landed on the twenty shared source-analysis words instead of the topic's
+    own seventeen. The Word Builder has a folder per topic, so link to it.
+    """
+    return ("&#127760;", "On the Word Builder",
+            WORD_BUILDER + "#/l/year-7/humanities-civics/f/" + folder, blurb, None)
+
+
+# The shared source-analysis unit, which is a subject-level list on purpose: the
+# same twenty words serve every source-analysis topic. Topics that have their own
+# unit link to that as well, through words() above.
+SOURCE_WORDS = words("history",
+                     "Twenty source-analysis words in eighteen languages, shared by "
+                     "every topic that analyses a source.")
 
 FOOT = ("Year 7 Humanities &middot; Kew High School. Nothing on this site collects "
         "anything: no accounts, no tracking, no analytics.")
@@ -46,10 +65,6 @@ def wagoll(full, screen, single):
              "Answer a round, fill in part of the wall.", None),
         ]
     return cards
-
-SOURCE_WORDS = ("&#127760;", "The words you need", HISTORY_WORDS,
-                "Twenty source-analysis words in eighteen languages, on the Word "
-                "Builder. The same words are tappable inside the tool above.", None)
 
 # The site map -------------------------------------------------------------
 SITE = [
@@ -141,6 +156,9 @@ SITE = [
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
+           words("hist-australia",
+                 "The topic's seventeen words with spaced practice, in up to eighteen "
+                 "languages, eight of them complete across every word."),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -210,6 +228,8 @@ SITE = [
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
+           words("hist-rome",
+                 "The topic's thirty-one words in nine languages, with spaced practice."),
            ("&#127755;", "Pliny on Vesuvius", "../vesuvius/",
             "A Roman source, analysed at every level. Extension. This CAT does not assess "
             "source analysis.", None)]),
@@ -242,6 +262,8 @@ SITE = [
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
+           words("hist-china",
+                 "The topic's twenty words in nine languages, with spaced practice."),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -285,8 +307,8 @@ SITE = [
             "All 54 words, split into the unit's nine lessons. Each lesson has its own morpheme "
             "bank, a warm-up review of earlier lessons, base-camp and stretch tiers, and a "
             "printable report.", None),
-           ("&#127760;", "On the Word Builder", GEOGRAPHY_WORDS,
-            "The same nine lessons with spaced practice, in eighteen languages.", None)]),
+           words("geo-water",
+                 "The same nine lessons with spaced practice, in eighteen languages.")]),
         ("Interactive tasks", "decision-and-consequence simulations, each with a printable report", [
            ("&#128167;", "Every Drop", "every-drop.html",
             "200 years in one catchment. Clearing, sewage, a dam, a sealed city, a changed climate "
@@ -327,9 +349,9 @@ SITE = [
           ("&#9935;", "Kestrel Range mine inquiry", "kestrel-range-mine-inquiry.html",
            "Should the mine be approved? Weigh the evidence and decide.", None)]),
         ("Words", None, [
-          ("&#127760;", "Landform words", WORD_BUILDER,
-           "Archipelago, isthmus, plateau and the rest: 23 terms on the Word Builder, "
-           "with morphology and nine languages.", None)]),
+          words("geo-landforms",
+                "Archipelago, isthmus, plateau and the rest: 23 terms with morphology, "
+                "in nine languages.")]),
       ],
       note="Every duplicate has now been resolved: Wattle Bay v14 and the two other mine-siting builds "
            "were retired on request, leaving one tool per task. They are all still in the git history if "
@@ -364,7 +386,10 @@ SITE = [
           ("&#127919;", "Build the wall", "build-the-wall.html",
            "Answer a round, fill in part of the wall.", None),
           ("&#128424;", "Print-ready set", "../../print/",
-           "The Pigeon Patrol wall, level sheets and editable version.", None)])],
+           "The Pigeon Patrol wall, level sheets and editable version.", None)]),
+        ("Words", None, [
+          words("economics",
+                "The topic's eighteen words in nine languages, with spaced practice.")])],
       note="<b>Check before you teach it:</b> the row wording is the school's own, not Victorian "
            "Curriculum 2.0."),
 

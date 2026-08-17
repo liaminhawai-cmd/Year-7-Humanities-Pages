@@ -4,6 +4,24 @@ Rules for anyone building teaching resources in this repository, human or model.
 Every rule below is here because it was got wrong once. The example that
 produced it is attached, because the example is the part that transfers.
 
+## What each repository is for
+
+Three repositories, and work goes wrong when they are confused for each other.
+
+- **`Year-7-Humanities-Pages`** (this one, public, live) is the student site. Runtime
+  HTML, the walls, the vocab hubs, the simulations, reviewed student-facing data,
+  the print masters that are already cleared for publication.
+- **`Year-7-Humanities`** (private) is the source and decision record. Curriculum
+  documents, assessment booklets, rubrics, unit notebooks, source packs, planning.
+  None of it crosses over.
+- **`EAL-Vocabulary-Site`** (public, live) is the Word Builder: spaced vocabulary
+  practice in eighteen languages, across every year level, not only Humanities. It
+  carries a generated copy of each topic's words, and it is a deployment repo, not
+  a place to author content.
+
+A CAT, a rubric or a booklet belongs in the private repository and nowhere else.
+A word list belongs in this repository, with a generated copy in the Word Builder.
+
 ## The walls
 
 ### 1. The wall teaches the skill. The CAT tests it. They do not share a source.
@@ -19,15 +37,56 @@ student who has worked the wall has rehearsed origin, context, evidence and
 usefulness, and still has to think for themselves on the day.
 
 Ancient China is the standing example of the failure. Its wall is built on Task 3
-of the assessment booklet, on the same painting and the same Peter Bol interview
-the students are marked on, and its `TASK_MAP` points each row at real CAT
-question numbers. It hands out the answers. It needs rebuilding on a rehearsal
-source the booklet does not use.
+of the assessment booklet, and models the thinking on the same painting and the
+same Peter Bol interview the students are marked on. It hands out the answers, and
+it needs rebuilding on a rehearsal source the booklet does not use.
+
+Its `TASK_MAP` is not the problem. The booklet's rubric itself names the task and
+question numbers against each row, "Task 1, Source 1: Q1-3", so the wall is
+quoting the rubric rather than leaking anything. Keep it when the wall is rebuilt:
+it is how a student finds the row they are marked on.
 
 Before you build a wall, ask whether its source appears in the CAT. If it does,
 choose another source.
 
-### 2. Every row is a way of thinking, not a way of presenting.
+### 2. The wall carries the CAT's key skills. Not the topic.
+
+A wall is not a map of the discipline. It is a rehearsal of the two, three or four
+things this CAT actually marks, at every level from Foundation to Year 10. Each
+extra row costs a colour, an underline pattern, a glyph, a rubric line and a
+marked phrase in six worked examples, so a row that is not being assessed makes
+the assessed ones harder to see.
+
+The rubric sets the ceiling, and the rubric is a document you can open.
+`context/UNIT-SKILL-MAP.md` in the private repository names the assessed and
+repeatedly practised skills for every Year 7 unit. Start there, open the rubric it
+points to, and carry what that rubric weights.
+
+Where the walls sit now:
+
+| Wall | Rows | Against its rubric |
+|---|---|---|
+| Ancient Australia | 4 | The rubric's four. Metacognition is written and withdrawn. |
+| Ancient Rome | 3 | Two of the CAT rubric's four, plus continuity and change from Kew's Developmental Rubric. Presentation and metacognition deliberately off. |
+| Ancient Egypt, Vesuvius | 4 | The Ancient Australia four, on an archive source. |
+| Water in the World | 4 | Geographical inquiry, not source analysis. |
+| Pigeon Patrol | 3 | Business success, innovation, decisions. |
+| Ancient China | 6 | Also its rubric's own six, and they are numbered in the rubric itself. |
+
+Three or four rows is the working shape and six is the practical ceiling. Ancient
+China reaches it legitimately: its booklet rubric really does run five numbered
+rows plus significance, so the wall is not over-scoped, it is carrying a wide
+rubric. If you meet another one, prefer a second wall over a wider one, and say in
+the topic note which CAT each rehearses.
+
+The failure this rule guards against is the other direction: a row added because
+it is part of history, or part of geography, rather than because this rubric marks
+it. Wanting a skill taught is not evidence that this CAT marks it. Rome is the
+model, it dropped two rows the rubric does have, because neither was a way of
+thinking about the past. If it is not in the rubric, it does not get a row, and if
+it is in the rubric but is really about formatting, it still does not.
+
+### 3. Every row is a way of thinking, not a way of presenting.
 
 Rome's CAT rubric marks four things: chronology, cause and effect, metacognition
 and presentation. The wall carries the first two and adds continuity and change
@@ -41,13 +100,13 @@ is teaching PowerPoint.
 The test for a row: does climbing it make the student's thinking better, or their
 document tidier?
 
-### 3. Quote rubric wording exactly.
+### 4. Quote rubric wording exactly.
 
 A student is marked against the rubric's own sentence. `CONTINUUM` carries that
 wording verbatim and the comment above it says so. Do not paraphrase it, tighten
 it or improve it. If the wording is poor, say so and leave it alone.
 
-### 4. Say when the curriculum is blank.
+### 5. Say when the curriculum is blank.
 
 Economics has no innovation descriptor below Level 7, so that cell reads "Not on
 the continuum until Level 7" rather than a descriptor written to fill the hole.
@@ -56,7 +115,7 @@ claim fewer codes than the upper ones.
 
 Do not invent a descriptor, a code or a level to make a grid look complete.
 
-### 5. Check a curriculum claim against the document before making it.
+### 6. Check a curriculum claim against the document before making it.
 
 The Economics wall's five single levels are the school's own wording, not
 Victorian Curriculum 2.0, which bands the subject 5 to 6, 7 to 8 and 9 to 10. The
@@ -67,7 +126,7 @@ now names the closest real descriptors.
 Correct the claim rather than the artefact, unless you have been asked to rebuild
 the artefact.
 
-### 6. Measure rather than assert.
+### 7. Measure rather than assert.
 
 Whether one wall works and another does not was settled by counting. China's fact
 load falls across the rungs (4, then +3, +3, +2) while Rome's rises (6, then +6,
@@ -77,18 +136,56 @@ by feel.
 
 If you claim a wall works, produce the number that says so.
 
+## Vocabulary
+
+### 8. Every topic's vocab hub is the Water in the World build.
+
+`geography/water/water-vocab-hub.html` is the format. It is not one long word
+list. It is:
+
+- the words split into the unit's own lessons, 1.1 to 3.2, six per lesson
+- a morpheme bank per lesson, with the word built from tiles against plausible
+  decoys, not typed into a box
+- base-camp and stretch tiers inside each lesson, so one page carries the range
+- a warm-up that reviews earlier lessons before the new ones
+- meaning, example sentence, root and translation on every word
+- a printable report at the end
+
+The five history hubs are not this yet. Each is a 2 KB page over
+`assets/vocab-hub.js`, giving one flat alphabetical list in meet, build and recall
+modes, with no lesson split, no tiers, no review and no report. That is the thing
+to converge on the water build, not the other way round.
+
+Splitting a topic's words across its lessons is a curriculum decision. Bring the
+lesson breakdown, then build. Do not allocate words to lessons by guessing.
+
+### 9. The same words, in both places, generated once, linked both ways.
+
+`eal.js` holds the words. `tools/build_vocab_entries.py` reads it and writes the
+unit into the Word Builder's `data/vocab.json`. Nothing is typed twice, and the
+two sites cannot drift apart because there is only one source.
+
+Both directions carry a link, and the link goes to the topic, not the subject:
+
+- the Word Builder folder for a topic carries `sourceUrl` back to that topic's hub
+- the topic's `index.html` carries a card out to that Word Builder folder,
+  generated from `build_index_pages.py`, never hand-written
+
+Water in the World is the model here too: nine lesson units in the Word Builder,
+matching the nine lessons in the hub, six words each.
+
 ## Writing
 
-### 7. No em dashes. Anywhere.
+### 10. No em dashes. Anywhere.
 
 Use a comma, a colon or a full stop. An en dash between two numbers in a range is
 fine. This applies to code comments as much as to student-facing text.
 
-### 8. Australian spelling.
+### 11. Australian spelling.
 
 organised, behaviour, prioritise, centre, modelled, colour, analyse.
 
-### 9. Write like a teacher, not a content marketer.
+### 12. Write like a teacher, not a content marketer.
 
 Cut on sight:
 
@@ -104,7 +201,7 @@ sentence carry the weight.
 
 ## Structure and generated files
 
-### 10. One file holds the words.
+### 13. One file holds the words.
 
 `content.js` in a topic folder is the only place that topic's wall text lives.
 `tools/build_index_pages.py` is the only place the navigation lives. Edit the
@@ -121,21 +218,36 @@ python3 tools/build_standalone.py <topic>/bump-it-up.html
 The workflow fails the build if an index page differs from what the generator
 produces.
 
-### 11. Arrays paired by position must be spliced together.
+### 14. Arrays paired by position must be spliced together.
 
 `KID.lines` maps to `CRITERIA` by index. Removing a criterion through
 `HIDDEN_CRITERIA` without removing its matching "I can" line shifts every caption
 below it onto the wrong row. That bug shipped once. Withdraw a criterion and you
 splice both arrays at the same index.
 
-### 12. Never change a unit's `path`.
+### 15. Withdraw a criterion, do not delete it.
+
+Metacognition is fully written into `history/gs73/content.js`: a continuum row, an
+explanation at every level, a marked phrase in all six worked examples. It is off
+the wall because it is not being assessed, not because the work was wrong.
+
+`HIDDEN_CRITERIA = ["meta"]` does the withdrawal in one place, and all seven pages
+that read the file agree without any of them knowing about it. It drops the row,
+unwraps `{meta|phrase}` so the reflection still reads as prose, and strips the
+`<!--meta--> … <!--/meta-->` teaching text that only makes sense when the
+criterion is marked. Emptying the list brings it back.
+
+Use that mechanism. Deleting the text loses six levels of authored examples that
+the next rubric change may want, and leaves nothing to bring back.
+
+### 16. Never change a unit's `path`.
 
 `path` is the localStorage key holding a student's saved progress. Civics moved
 from Year 7 to Year 8 and its path still reads
 `year-7/humanities-civics/civics`, because renaming it would wipe the progress of
 every student who had used it. A label that is slightly wrong beats data loss.
 
-### 13. Two channels for every signal.
+### 17. Two channels for every signal.
 
 Each criterion carries a colour and an underline pattern, plus a glyph in the
 explanation band. A wall has to survive a greyscale photocopy and a colour-blind
@@ -143,7 +255,7 @@ reader. Contrast stays above 4.5:1.
 
 ## Publishing
 
-### 14. Check copyright and privacy before every public push.
+### 18. Check copyright and privacy before every public push.
 
 This repository is public and live. The private `Year-7-Humanities` repository
 holds curriculum documents, assessment booklets, source packs and planning. None
@@ -154,12 +266,12 @@ virtue of sitting in the booklet. Find the original, confirm it is public domain
 or licensed, and cite it. GS73 is CC BY 4.0 and carries its attribution, with no
 commercial use without Mirarr consent.
 
-### 15. No student or staff personal information.
+### 19. No student or staff personal information.
 
 No names, emails, IDs, marks, class lists or support notes. No accounts, no
 analytics, no trackers. Student progress stays in `localStorage` in the browser.
 
-### 16. Verify the deploy rather than assuming it.
+### 20. Verify the deploy rather than assuming it.
 
 The site is published by the `Check and publish` workflow in
 `.github/workflows/check.yml`, and Settings > Pages > Source must stay on
@@ -169,12 +281,22 @@ pushing, confirm the run went green and its commit matches yours.
 
 ## Working method
 
-### 17. Do the task that was asked.
+### 21. One branch, folded back in.
+
+Six stale branches across the three repositories were deleted in August 2026. Not
+one held a commit that was not already in `main`: they were leftovers, and they
+made it look as though live work was sitting somewhere unmerged.
+
+Work on the branch you were given, push it, get it into `main`, and let it be
+deleted. Do not leave a branch behind as a record of anything. `main` is the
+record.
+
+### 22. Do the task that was asked.
 
 Not the adjacent one that looks more interesting. If you find a real problem
 somewhere else, name it and finish the asked task first.
 
-### 18. Do not invent curriculum content unprompted.
+### 23. Do not invent curriculum content unprompted.
 
 If a topic has no glossary, report that it has no glossary. Writing one and
 shipping it quietly puts words in front of students that no teacher chose.
