@@ -156,6 +156,17 @@ The five history hubs are not this yet. Each is a 2 KB page over
 modes, with no lesson split, no tiers, no review and no report. That is the thing
 to converge on the water build, not the other way round.
 
+The morpheme bank is the part that has been brought across. The build stage used
+to print the word above its own two tiles, so the answer was in the question and
+the task was to tap in order. It now shows the meaning only, and puts one shared
+bank above the whole board, deduped and grouped prefix, root and suffix, with
+three decoys drawn from real morphemes elsewhere in the topic. A word leaves the
+board once it is built correctly. Words with nothing to cut up fall through to a
+meaning-match round rather than being faked into tiles.
+
+Still missing against the water build: the lesson split, the tiers, the warm-up
+review, an example sentence per word, and the report.
+
 Splitting a topic's words across its lessons is a curriculum decision. Bring the
 lesson breakdown, then build. Do not allocate words to lessons by guessing.
 
