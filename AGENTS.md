@@ -218,6 +218,17 @@ python3 tools/build_standalone.py <topic>/bump-it-up.html
 The workflow fails the build if an index page differs from what the generator
 produces.
 
+`bump-it-up.html` is not one of the generated files, and it is not unique per
+topic either: `gs73`, `rome`, `china`, `egypt`, `vesuvius` and `batman` each
+carry their own copy, and five of those six are byte-identical apart from
+`content.js`. A fix to the shared machinery, the translate popup, the zoom
+viewer, the rubric pane, is a fix that has to be pasted into every copy or the
+topics silently drift apart. When you make one, patch every copy in the same
+change, verify the diff is identical across files before you write it, and say
+in the commit which files got it. There is no generator for this file yet;
+until there is, treat "the same edit in six places" as the job, not a shortcut
+you can take on one file and forget.
+
 ### 14. Arrays paired by position must be spliced together.
 
 `KID.lines` maps to `CRITERIA` by index. Removing a criterion through

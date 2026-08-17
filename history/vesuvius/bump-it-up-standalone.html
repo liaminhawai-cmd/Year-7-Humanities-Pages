@@ -171,15 +171,16 @@ button{font:inherit;cursor:pointer}
 .g3{border-bottom:.14em dotted currentColor}
 /* a word that has a translation waiting says so, rather than hiding behind a
    dropdown the student has to find first */
-.g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
+.g3.tr::after,.g2.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
 /* Inside a marked phrase, a chip's own dotted border stacks on top of the
    criterion's underline and the two patterns become unreadable, and that
    pattern is the channel that survives greyscale. Tint instead. */
 .m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
 /* tier 2 is its own affordance: a soft tint you can always see, and each word
-   opens on its own rather than the whole page flipping at once */
+   opens on its own rather than the whole page flipping at once. It used to
+   toggle an inline synonym and go no further; it now opens the same popup
+   tier 3 does, so a language chosen once covers every glossed word. */
 .g2{background:#e7f0d8;box-shadow:0 0 0 .09em #e7f0d8}
-.g2.on::after{content:" (" attr(data-syn) ")";color:var(--muted);font-size:.82em;font-style:italic}
 .m .g2{background:rgba(21,128,61,.13);box-shadow:none;padding:0 .12em}
 
 /* ---------- full-screen picture ---------- */
@@ -906,7 +907,9 @@ const hasEAL = typeof EAL !== "undefined" && typeof EAL_LANGS !== "undefined";
    not partial support. Shared source-analysis words may have wider coverage in
    the Word Builder; this wall promises complete coverage for what it offers. */
 const UNIT_LANGS = hasEAL ? EAL_LANGS.filter(l => {
-  const tables = (typeof TIER3_T !== "undefined") ? Object.values(TIER3_T) : [];
+  const t3 = (typeof TIER3_T !== "undefined") ? Object.values(TIER3_T) : [];
+  const t2 = (typeof TIER2_T !== "undefined") ? Object.values(TIER2_T) : [];
+  const tables = t3.concat(t2);
   return !tables.length || tables.every(t => t && t[l.code]);
 }) : [];
 let lang = "";
@@ -963,6 +966,20 @@ function ealFor(term){
   if (!t) return null;
   return (!lang || t[lang]) ? { t, en } : null;
 }
+/* Same contract as ealFor, sourced from a unit's own TIER2_T. A unit with
+   no TIER2_T yet simply has no tier-2 translations: the popup still opens,
+   with the English synonym and no globe, same as before this existed. */
+function tier2For(term){
+  if (typeof TIER2_T === "undefined") return null;
+  const k = String(term).toLowerCase();
+  let t = TIER2_T[term];
+  if (!t) {
+    const hit = Object.keys(TIER2_T).find(x => x.toLowerCase() === k);
+    if (hit) t = TIER2_T[hit];
+  }
+  if (!t) return null;
+  return (!lang || t[lang]) ? { t } : null;
+}
 /* Put the globe on every chip whose word has a translation available, so the
    feature is visible without opening anything. */
 function markTranslatable(){
@@ -971,6 +988,12 @@ function markTranslatable(){
     const has = (hasEAL && !!EAL[k]) ||
       (typeof TIER3_T !== "undefined" &&
        Object.keys(TIER3_T).some(x => x.toLowerCase() === k));
+    el.classList.toggle("tr", has);
+  });
+  document.querySelectorAll("[data-t2]").forEach(el => {
+    const k = String(el.dataset.t2).toLowerCase();
+    const has = typeof TIER2_T !== "undefined" &&
+      Object.keys(TIER2_T).some(x => x.toLowerCase() === k);
     el.classList.toggle("tr", has);
   });
 }
@@ -1183,6 +1206,38 @@ el("zoomAll").onclick = ()=> showZoom(0);
 
 /* ---------- popup ---------- */
 const pop = el("pop");
+/* Tier 3 and tier 2 chips share this. Open the meaning, then either the
+   chosen language's translation or a one-tap picker naming every language
+   this WALL has full coverage for. A chip with no `hit` (no translation
+   table entry at all) just shows its meaning, same as before translation
+   existed. */
+function openTranslatable(anchorEl, kind, body, hit){
+  showPop(kind, anchorEl.textContent, body, null, anchorEl);
+  if (!hit || !hasEAL) return;
+  if (lang){
+    const label = UNIT_LANGS.find(l => l.code === lang);
+    el("popBody").insertAdjacentHTML("beforeend",
+      `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+      `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
+    return;
+  }
+  const avail = UNIT_LANGS.filter(l => hit.t[l.code]);
+  if (!avail.length) return;
+  el("popBody").insertAdjacentHTML("beforeend",
+    `<span class="pick"><span>See this in your language:</span>` +
+    avail.map(l => `<button data-l="${l.code}" lang="${l.code}">${esc(l.label)}</button>`).join("") +
+    `</span>`);
+  el("popBody").querySelectorAll("button[data-l]").forEach(btn => btn.onclick = ev => {
+    ev.stopPropagation();
+    lang = btn.dataset.l;
+    const chosen = UNIT_LANGS.find(l => l.code === lang);
+    const languageButton = el("tLangBtn");
+    languageButton.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+    languageButton.dataset.on = chosen ? "1" : "0";
+    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+    openTranslatable(anchorEl, kind, body, hit);
+  });
+}
 function showPop(kind, word, body, key, anchor){
   el("popKind").textContent = kind;
   el("popWord").textContent = word;
@@ -1214,40 +1269,16 @@ document.addEventListener("click", e => {
   if (e.target.closest("#pop")) return;
   const g3 = e.target.closest("[data-t3]");
   if (g3){
-    const term = g3.dataset.t3, hit = ealFor(term);
-    showPop("What it means", g3.textContent, defOf(term), null, g3);
-    if (hit && lang){
-      const label = UNIT_LANGS.find(l => l.code === lang);
-      el("popBody").insertAdjacentHTML("beforeend",
-        `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
-    } else if (hit){
-      /* No language chosen yet. Rather than showing nothing and looking broken,
-         offer the languages here: one tap translates and is remembered. */
-      el("popBody").insertAdjacentHTML("beforeend",
-        `<span class="pick"><span>See this in your language:</span>` +
-        UNIT_LANGS.filter(l => hit.t[l.code])
-          .map(l => `<button data-l="${l.code}" lang="${l.code}">${esc(l.label)}</button>`).join("") +
-        `</span>`);
-      el("popBody").querySelectorAll("button[data-l]").forEach(btn => btn.onclick = ev => {
-        ev.stopPropagation();
-        lang = btn.dataset.l;
-        const chosen = UNIT_LANGS.find(l => l.code === lang);
-        const languageButton = el("tLangBtn");
-        languageButton.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
-        languageButton.dataset.on = chosen ? "1" : "0";
-        try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
-        showPop("What it means", g3.textContent, defOf(term), null, g3);
-        const lb = UNIT_LANGS.find(l => l.code === lang);
-        el("popBody").insertAdjacentHTML("beforeend",
-          `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
-      });
-    }
+    const term = g3.dataset.t3;
+    openTranslatable(g3, "What it means", defOf(term), ealFor(term));
     return;
   }
   const g2 = e.target.closest("[data-t2]");
-  if (g2){ g2.classList.toggle("on"); hidePop(); return; }
+  if (g2){
+    const term = g2.dataset.t2;
+    openTranslatable(g2, "What it means", g2.dataset.syn, tier2For(term));
+    return;
+  }
   const m = e.target.closest("[data-crit]");
   if (m) {
     const c = critOf(m.dataset.crit), lv = LADDER[i];

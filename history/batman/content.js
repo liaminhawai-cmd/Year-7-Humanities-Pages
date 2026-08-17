@@ -83,13 +83,13 @@ const EXAMPLES = {
 `The source is a {source|painting of Batman's meeting with the Kulin Nation}, showing {source|gifts laid out on the ground and people talking}. It was painted to {context|remember an event some colonists were proud of}. {evidence|Batman claimed the Kulin people agreed to sell their land}, but {evidence|the Proclamation says such a sale was never allowed}. The painting is {judge|useful for showing how colonists pictured the meeting}, although {judge|it cannot tell us what the Kulin people actually thought}.`,
 
 "Year 7":
-`The event is {source|Batman's meeting with Kulin leaders in June 1835}. The painting is {source|a later artwork by John Wesley Burtt, made about forty years afterwards to record the meeting}. At this time, {context|Batman wanted land, and colonists were arguing about whether buying land from Aboriginal people was even allowed}. {evidence|Batman's own account says the Kulin people agreed to sell}; {evidence|Bourke's Proclamation says any such sale was ‘void and of no effect’}. The painting is {judge|useful for showing how the meeting was later remembered}, but {judge|it was painted forty years later, by someone who was not there}.`,
+`The event is {source|Batman's meeting with Kulin leaders in June 1835}. The painting is {source|a later artwork by John Wesley Burtt, made about forty years afterwards to record the meeting}. At this time, {context|Batman wanted land, and colonists were arguing about whether buying land from Aboriginal people was even allowed}. {evidence|Batman's own deed, the paper in his hand in the painting, says the Kulin people agreed to sell}; {evidence|Bourke's Proclamation says any such sale was ‘void and of no effect’}. The painting is {judge|useful for showing how the meeting was later remembered}, but {judge|it was painted forty years later, by someone who was not there}.`,
 
 "Year 8":
 `The painting is {source|Burtt's 1875 artwork of Batman's 1835 meeting with the Kulin Nation}, made to {source|show the meeting as calm and friendly}. {context|In the 1830s, Britain claimed Australia belonged to no one, so land could not legally be bought from its people}. {evidence|Batman argued his treaty was a fair purchase}; {evidence|Bourke's Proclamation rejects that, calling every such treaty ‘void’}; {evidence|the painting takes neither side, it simply shows the meeting happening}. The painting is {judge|useful evidence of how the meeting was later pictured}, but {judge|it cannot be trusted as a record of what was said or agreed, because the artist was not there}.`,
 
 "Year 9":
-`The event is {source|Batman's 1835 meeting with Kulin leaders}; the source used here is {source|Burtt's 1875 painting, made forty years later for people who had not seen it happen}. {context|The meeting sits inside a bigger argument: colonists wanted land, while British law increasingly held that Aboriginal people could not sell land they were said not to own}. {evidence|Batman's account presents willing agreement}; {evidence|Bourke's Proclamation presents the opposite, that no agreement could ever be legal}; {evidence|the two documents disagree because they were written for different purposes, one to justify a land claim, one to control it}. The painting is {judge|strong evidence of how colonists wanted the meeting remembered}, but {judge|weak evidence of what actually happened, since no Kulin account of the day survives}.`,
+`The event is {source|Batman's 1835 meeting with Kulin leaders}; the source used here is {source|Burtt's 1875 painting, made forty years later for people who had not seen it happen}. {context|The meeting sits inside a bigger argument: colonists wanted land, while British law increasingly held that Aboriginal people could not sell land they were said not to own}. {evidence|Batman's deed presents willing agreement}; {evidence|Bourke's Proclamation presents the opposite, that no agreement could ever be legal}; {evidence|the two documents disagree because they were written for different purposes, one to justify a land claim, one to control it}. The painting is {judge|strong evidence of how colonists wanted the meeting remembered}, but {judge|weak evidence of what actually happened, since no Kulin account of the day survives}.`,
 
 "Year 10":
 `The source is {source|a colonial painting of a disputed meeting}. Its {source|explicit content is a peaceful exchange of goods}; its {source|implicit message is that Batman's claim to the land was fair and orderly}, aimed at {source|later Australians who wanted to believe the colony began well}. {context|Painted in 1875, it reflects the values of its own time: order, progress, and an easy conscience about how the colony was founded}. {evidence|Batman's treaty and Bourke's Proclamation give opposite answers to one question, could this land be bought}; {evidence|they differ because one argues for private ownership and the other for the Crown's sole authority over the land}. Overall, the painting is {judge|useful evidence of memory and myth-making, but poor evidence of the event itself}: {judge|it was made decades later, by an artist who never saw the meeting, and no Kulin account from the day survives to check it against}.`
@@ -305,4 +305,40 @@ const GLOSS = {
   "justify":"give good reasons for",
   "purpose":"the reason it was made"
  }
+};
+
+/* Translations for this unit's own tier-3 words, in the shape eal.js uses.
+   Machine-drafted, unreviewed, and labelled as such on screen (EAL_NOTE),
+   same as every other translation table on this site. The eight languages
+   below are the ones Year 7 actually has full coverage in: check against
+   geography/water/content.js's TIER3_T before assuming a wider or narrower
+   set, that file is the one other units are drafted against. */
+const TIER3_T = {
+  "Proclamation": {"zh-Hans": "公告", "zh-Hant": "公告", "vi": "tuyên cáo", "ar": "إعلان رسمي", "fa": "اعلامیه", "ur": "اعلان نامہ", "ml": "വിളംബരം", "am": "አዋጅ"},
+  "treaty": {"zh-Hans": "条约", "zh-Hant": "條約", "vi": "hiệp ước", "ar": "معاهدة", "fa": "معاهده", "ur": "معاہدہ", "ml": "ഉടമ്പടി", "am": "ስምምነት"},
+  "Kulin Nation": {"zh-Hans": "库林民族", "zh-Hant": "庫林民族", "vi": "dân tộc Kulin", "ar": "أمة كولين", "fa": "ملت کولین", "ur": "قومِ کولن", "ml": "കുലിൻ ജനത", "am": "የኩሊን ብሔር"},
+  "grazier": {"zh-Hans": "牧场主", "zh-Hant": "牧場主", "vi": "chủ trại chăn nuôi", "ar": "مربي ماشية", "fa": "دامدار", "ur": "مویشی پالنے والا", "ml": "കന്നുകാലി വളർത്തുന്നയാൾ", "am": "የከብት እርባታ ባለቤት"},
+  "void": {"zh-Hans": "无效的", "zh-Hant": "無效的", "vi": "vô hiệu", "ar": "لاغٍ وباطل", "fa": "باطل", "ur": "کالعدم", "ml": "അസാധുവായ", "am": "ውድቅ የሆነ"},
+  "trespasser": {"zh-Hans": "非法占用者", "zh-Hant": "非法佔用者", "vi": "kẻ xâm phạm", "ar": "متعدٍّ على الأرض", "fa": "متجاوز", "ur": "تجاوز کار", "ml": "കടന്നുകയറ്റക്കാരൻ", "am": "ወራሪ"},
+  "vacant": {"zh-Hans": "空置的", "zh-Hant": "空置的", "vi": "bỏ trống", "ar": "شاغر", "fa": "خالی از سکنه", "ur": "خالی", "ml": "ഒഴിഞ്ഞ", "am": "ባዶ"},
+  "Crown": {"zh-Hans": "英国王室", "zh-Hant": "英國王室", "vi": "Vương triều Anh", "ar": "التاج البريطاني", "fa": "تاج بریتانیا", "ur": "برطانوی تاج", "ml": "ബ്രിട്ടീഷ് കിരീടം", "am": "የእንግሊዝ ዘውድ"}
+};
+
+/* Same shape, for the tier-2 words: the general academic vocabulary, not the
+   subject's own terms. Tapping one of these used to only toggle an inline
+   English synonym; it now opens the same translate popup as a tier-3 word,
+   which is what this table is for. */
+const TIER2_T = {
+  "claimed": {"zh-Hans": "声称", "zh-Hant": "聲稱", "vi": "tuyên bố", "ar": "زعم", "fa": "ادعا کرد", "ur": "دعویٰ کیا", "ml": "അവകാശപ്പെട്ടു", "am": "ተናገረ"},
+  "declared": {"zh-Hans": "宣布", "zh-Hant": "宣布", "vi": "tuyên bố chính thức", "ar": "أعلن", "fa": "اعلام کرد", "ur": "اعلان کیا", "ml": "പ്രഖ്യാപിച്ചു", "am": "አወጀ"},
+  "authority": {"zh-Hans": "权力", "zh-Hant": "權力", "vi": "thẩm quyền", "ar": "سلطة", "fa": "اقتدار", "ur": "اختیار", "ml": "അധികാരം", "am": "ስልጣን"},
+  "legal": {"zh-Hans": "合法的", "zh-Hant": "合法的", "vi": "hợp pháp", "ar": "قانوني", "fa": "قانونی", "ur": "قانونی", "ml": "നിയമപരമായ", "am": "ህጋዊ"},
+  "dispute": {"zh-Hans": "争议", "zh-Hant": "爭議", "vi": "tranh chấp", "ar": "نزاع", "fa": "اختلاف", "ur": "تنازع", "ml": "തർക്കം", "am": "ውዝግብ"},
+  "contested": {"zh-Hans": "有争议的", "zh-Hant": "有爭議的", "vi": "bị tranh cãi", "ar": "متنازع عليه", "fa": "مورد مناقشه", "ur": "متنازعہ", "ml": "തർക്കത്തിലുള്ള", "am": "አከራካሪ"},
+  "implicit": {"zh-Hans": "隐含的", "zh-Hant": "隱含的", "vi": "ngầm hiểu", "ar": "ضمني", "fa": "ضمنی", "ur": "مضمر", "ml": "അന്തർലീനമായ", "am": "ስውር"},
+  "explicit": {"zh-Hans": "明确的", "zh-Hant": "明確的", "vi": "rõ ràng", "ar": "صريح", "fa": "صریح", "ur": "واضح", "ml": "വ്യക്തമായ", "am": "ግልጽ"},
+  "myth-making": {"zh-Hans": "神话塑造", "zh-Hant": "神話塑造", "vi": "việc tạo huyền thoại", "ar": "صناعة الأسطورة", "fa": "افسانه‌سازی", "ur": "افسانہ سازی", "ml": "കെട്ടുകഥ നിർമ്മാണം", "am": "ተረት መፍጠር"},
+  "reject": {"zh-Hans": "拒绝", "zh-Hant": "拒絕", "vi": "từ chối", "ar": "يرفض", "fa": "رد کرد", "ur": "مسترد کیا", "ml": "നിരസിക്കുന്നു", "am": "ውድቅ አደረገ"},
+  "justify": {"zh-Hans": "证明合理", "zh-Hant": "證明合理", "vi": "biện minh", "ar": "يبرر", "fa": "توجیه کرد", "ur": "جواز پیش کرنا", "ml": "ന്യായീകരിക്കുന്നു", "am": "አጸደቀ"},
+  "purpose": {"zh-Hans": "目的", "zh-Hant": "目的", "vi": "mục đích", "ar": "الغرض", "fa": "هدف", "ur": "مقصد", "ml": "ഉദ്ദേശ്യം", "am": "ዓላማ"}
 };
