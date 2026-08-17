@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<meta name="description" content="Bump it up: the same source answered from Foundation to Year 10, one rung at a time, sized for the classroom screen.">
+<title>Bump It Up</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#151a19; --ink:#20231f; --muted:#675f54; --line:#d4c8b6;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e;
+  /* criterion colours are not written here. They come from CRITERIA in
+     content.js, so a unit with different criteria needs no CSS edit */
+  /* one knob drives every size on the page, so it scales to any screen */
+  --u: clamp(12px, 1.02vw + 0.5vh, 30px);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);overflow:hidden;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+     font-size:var(--u);line-height:1.45}
+button{font:inherit;cursor:pointer}
+
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto;gap:.6em;padding:.7em .9em}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.title{color:var(--paper);font-weight:800;font-size:1.5em;letter-spacing:-.01em;white-space:nowrap}
+.title small{display:block;font-size:.44em;font-weight:700;letter-spacing:.16em;
+             text-transform:uppercase;opacity:.62}
+.rungs{display:flex;gap:.22em;flex-wrap:wrap;margin-left:auto}
+.rungs button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+              border-radius:2em;padding:.32em .8em;font-size:.9em;font-weight:700}
+.rungs button.done{color:#9fd3b4;border-color:#3f6b52}
+.rungs button[aria-current="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
+.toggles{display:flex;gap:.3em;position:relative}
+.toggles button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+                border-radius:.5em;padding:.38em .85em;font-size:.9em;font-weight:700}
+.toggles button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langbtn{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:.5em;
+         padding:.38em .72em;font-size:.9em;font-weight:700}
+.langbtn[data-on="1"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu{position:absolute;right:0;top:calc(100% + .35em);z-index:40;width:min(34em,92vw);
+          padding:.55em;background:var(--paper);border:1px solid var(--line);border-radius:.6em;
+          box-shadow:0 .5em 1.6em rgba(0,0,0,.35);display:grid;
+          grid-template-columns:repeat(3,minmax(0,1fr));gap:.3em}
+.langmenu[hidden]{display:none}
+.langmenu button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                 border-radius:.4em;padding:.45em .55em;text-align:left;font-size:.78em;line-height:1.25}
+.langmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
+.langmenu .clear{grid-column:1/-1;text-align:center}
+.pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .pick{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .pick span{display:block;font-size:.78em;color:var(--muted);margin-bottom:.3em}
+.pop .pick button{border:1px solid var(--line);background:var(--band);color:var(--ink);
+                  border-radius:.4em;padding:.22em .5em;margin:0 .25em .25em 0;font-size:.86em}
+.pop .pick button:hover{border-color:var(--deep)}
+.pop .tr b{display:block;font-size:1.25em;line-height:1.3;color:var(--deep)}
+.pop .tr .warn{display:block;font-size:.74em;color:var(--muted);margin-top:.25em;font-style:italic}
+
+/* ---------- main split ---------- */
+.main{display:grid;grid-template-columns:minmax(0,31%) minmax(0,1fr);gap:.7em;min-height:0}
+
+/* the rock, always on screen */
+.rock{background:#0e1211;border-radius:.6em;padding:.5em;display:flex;flex-direction:column;
+      gap:.45em;min-height:0}
+/* The hotspots are positioned against this box, so it has to keep the plate's
+   shape even if the image itself never arrives, otherwise the buttons collapse
+   on top of the caption. */
+.plate{position:relative;flex:0 1 auto;min-height:0;background:#0e1211;border-radius:.35em}
+.plate img{width:100%;height:100%;object-fit:contain;display:block;border-radius:.35em}
+.plate .missing{position:absolute;inset:0;display:none;place-items:center;text-align:center;
+                color:#cfc7b8;font-size:.8em;padding:1em;line-height:1.4}
+.plate.noimg .missing{display:grid}
+.plate.noimg button{display:none}
+.plate button{position:absolute;border:2px solid transparent;background:transparent;border-radius:.3em;padding:0}
+.plate button:hover,.plate button:focus-visible{border-color:#f4d98b;background:rgba(244,217,139,.14);outline:none}
+.plate button[aria-pressed="true"]{border-color:#f4d98b;background:rgba(244,217,139,.2)}
+.plate .pin{position:absolute;top:.25em;right:.3em;width:1.5em;height:1.5em;border-radius:50%;
+            background:rgba(15,18,17,.85);color:#f4d98b;font-size:.72em;font-weight:800;
+            display:grid;place-items:center;pointer-events:none}
+/* A written source sits in the same slot the picture would. It scrolls rather
+   than keeping a fixed shape, because a passage has no aspect ratio. */
+.plate.text{flex:1 1 auto;min-height:0;overflow:auto;padding:.7em .85em;
+            background:#141a18;border:1px solid #2b3431}
+.passage{font-family:Georgia,"Times New Roman",serif;color:#eae5db;font-size:1.02em;line-height:1.55}
+.passage p{margin:0 0 .6em}
+.passage .seg{cursor:pointer;border-bottom:.12em solid #6b7d78;border-radius:.1em}
+.passage .seg:hover,.passage .seg:focus-visible{background:rgba(244,217,139,.18);outline:none}
+.passage .seg[aria-pressed="true"]{background:rgba(244,217,139,.28);border-bottom-color:#f4d98b}
+.passage .segno{color:#f4d98b;font-weight:800;font-size:.78em;vertical-align:.35em;padding-left:.1em}
+.passage .cite{display:block;margin-top:.4em;color:#9aa8a3;font-size:.8em;
+               font-family:system-ui,sans-serif;line-height:1.4}
+.zoomall{border:1px solid #3b4442;background:#222927;color:#f4d98b;border-radius:.5em;
+          padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
+.rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
+/* The two panels share the column; only one is on screen, so neither has to
+   fight the other for height, which is what was pushing the "I can" list off
+   the bottom of the screen. */
+.tabs{display:flex;gap:.25em;flex:0 0 auto}
+.tabs button{flex:1;border:1px solid #3b4442;background:#222927;color:#cfc7b8;
+             border-radius:.45em;padding:.35em .5em;font-size:.92em;font-weight:700}
+.tabs button[aria-selected="true"]{background:var(--paper);color:var(--deep);border-color:var(--paper)}
+.pane{display:flex;flex-direction:column;gap:.45em;min-height:0;flex:1 1 auto}
+.pane[hidden]{display:none}
+.rubric{overflow:auto;min-height:0;flex:1 1 auto;display:grid;gap:.4em;align-content:start}
+.rubric .band{font-size:.78em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+              color:#8fa39c}
+.rubric .row{background:#1b2220;border:1px solid #33403c;border-left-width:.3em;
+             border-radius:.45em;padding:.5em .65em}
+.rubric .row h4{font-size:.9em;margin-bottom:.15em;display:flex;gap:.4em;align-items:baseline}
+.rubric .row p{color:#eae5db;font-size:.92em;line-height:1.35}
+.rubric .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78em;
+              color:#8fa39c;margin-top:.25em;display:block}
+.rubric .note{color:#8fa39c;font-size:.82em;line-height:1.4}
+.kid{background:#1b2220;border:1px solid #33403c;border-radius:.5em;padding:.6em .75em;
+     overflow:auto;min-height:0;flex:0 0 auto;max-height:56%;
+     font-size:calc(1em * var(--kk,1))}
+/* flex:0 0 so the passage beside it cannot eat the box's last line, the "I can"
+   list is the thing a student reads to know what they are aiming at */
+.kid .band{display:block;font-size:.72em;font-weight:800;letter-spacing:.12em;
+           text-transform:uppercase;color:#8fa39c;margin-bottom:.35em}
+.kid ul{list-style:none;display:grid;gap:.35em}
+.kid li{color:#eae5db;font-size:.95em;line-height:1.35;padding-left:1.1em;position:relative}
+.kid li::before{content:"✓";position:absolute;left:0;color:#9fd3b4;font-weight:800}
+.rockcap b{color:#f4d98b;display:block;font-size:1.02em}
+.rockcap .idle{opacity:.6}
+
+/* the stage */
+.stage{background:var(--paper);border-radius:.6em;padding:1em 1.2em;overflow:auto;min-height:0;
+       display:flex;flex-direction:column;gap:.7em;font-size:calc(var(--u) * var(--sk,1))}
+.stage h2{color:var(--deep);font-size:1.9em;line-height:1.06;letter-spacing:-.015em}
+.stage h2 .of{color:var(--muted);font-size:.45em;font-weight:700;letter-spacing:.12em;
+              text-transform:uppercase;display:block;margin-bottom:.15em}
+.newbar{background:var(--gold);color:#fff;border-radius:.45em;padding:.5em .8em;font-size:1.02em;font-weight:700}
+.newbar span{display:block;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:800}
+.bg{background:var(--band);border-left:.35em solid var(--deep);border-radius:.4em;
+    padding:.55em .8em;font-size:.98em}
+.bg span{display:block;font-size:.66em;letter-spacing:.13em;text-transform:uppercase;
+         color:var(--muted);font-weight:800;margin-bottom:.1em}
+/* --k is set per rung from how much prose that rung actually has, so Prep
+   fills the screen instead of leaving two thirds of it blank */
+.example{font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+         font-size:calc(1.45em * var(--k,1))}
+.crumbs{font-size:.92em;color:var(--muted)}
+/* the actual curriculum descriptors this rung meets */
+.vc{background:#eef3f3;border-radius:.4em;padding:.5em .8em;font-size:.86em;line-height:1.4}
+.vc span{display:block;font-size:.72em;letter-spacing:.13em;text-transform:uppercase;
+         color:var(--muted);font-weight:800;margin-bottom:.25em}
+.vc li{margin:.18em 0 .18em 1.1em}
+.vc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;
+         color:var(--deep);font-size:.92em}
+.vc .none{color:var(--muted);font-style:italic}
+
+/* the source stage */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:.5em}
+.fact{background:var(--band);border-radius:.45em;padding:.6em .8em;font-size:1.08em;line-height:1.4}
+.fact b{display:block;color:var(--deep);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.15em}
+.inquiry{background:var(--deep);color:var(--on-deep);border-radius:.5em;padding:.7em 1em;
+         font-size:1.35em;font-weight:800;line-height:1.25}
+
+/* ---------- the two channels ---------- */
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:.18em;
+   text-decoration-thickness:.06em;cursor:pointer;border-radius:.15em;padding:0 .06em}
+.m:hover,.m:focus-visible{background:#fff2c9;outline:none}
+/* .m-KEY, .k-KEY and .pop.k-KEY are written at load from CRITERIA */
+
+/* glossary chips */
+.g3,.g2{cursor:pointer;border-radius:.15em}
+.g3{border-bottom:.14em dotted currentColor}
+/* a word that has a translation waiting says so, rather than hiding behind a
+   dropdown the student has to find first */
+.g3.tr::after{content:"\1F310";font-size:.62em;vertical-align:.5em;margin-left:.08em;opacity:.75}
+/* Inside a marked phrase, a chip's own dotted border stacks on top of the
+   criterion's underline and the two patterns become unreadable, and that
+   pattern is the channel that survives greyscale. Tint instead. */
+.m .g3{border-bottom:0;background:rgba(32,35,31,.09);padding:0 .12em}
+/* tier 2 is its own affordance: a soft tint you can always see, and each word
+   opens on its own rather than the whole page flipping at once */
+.g2{background:#e7f0d8;box-shadow:0 0 0 .09em #e7f0d8}
+.g2.on::after{content:" (" attr(data-syn) ")";color:var(--muted);font-size:.82em;font-style:italic}
+.m .g2{background:rgba(21,128,61,.13);box-shadow:none;padding:0 .12em}
+
+/* ---------- full-screen picture ---------- */
+.zoom{position:fixed;inset:0;z-index:60;background:#070a09;display:grid;
+      grid-template-rows:1fr auto;padding:1.2em 1.4em 1em;gap:.6em}
+.zoom[hidden]{display:none}
+.zstage{position:relative;min-height:0;display:grid;place-items:center}
+.zwrap{position:relative;overflow:hidden;border-radius:.4em;background:#000}
+.zwrap[hidden]{display:none}
+.zwrap img{position:absolute;display:block;max-width:none}
+/* the written-source equivalent of the crop box: the passage at reading size
+   for the back of the room, with the segment under discussion lit up */
+.zpass{max-width:46ch;max-height:100%;overflow:auto;color:#f4f0e6;
+       font-family:Georgia,"Times New Roman",serif;font-size:1.42em;line-height:1.5}
+.zpass[hidden]{display:none}
+.zpass p{margin:0 0 .6em}
+.zpass .seg{opacity:.42}
+.zpass .seg.lit{opacity:1;background:rgba(244,217,139,.22);border-radius:.15em;
+                box-shadow:0 0 0 .12em rgba(244,217,139,.22)}
+/* the whole-passage view dims nothing and lights nothing: it is the passage */
+.zpass.all .seg{opacity:1;background:none;box-shadow:none}
+.zpass .cite{display:block;margin-top:.5em;color:#9aa8a3;font-size:.5em;
+             font-family:system-ui,sans-serif;line-height:1.4}
+.zcap{text-align:center;color:#f4f0e6;max-width:60ch;margin:0 auto}
+.zcap b{display:block;color:#f4d98b;font-size:1.9em;line-height:1.15;margin-bottom:.15em}
+.zcap span{font-size:1.25em;line-height:1.4}
+.zclose{position:absolute;top:.5em;right:.7em;z-index:2;border:1px solid #3b4442;
+        background:#161c1a;color:#f4f0e6;border-radius:.5em;padding:.3em .7em;font-size:1.2em}
+.znav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;border:1px solid #3b4442;
+      background:rgba(18,22,21,.85);color:#f4f0e6;border-radius:50%;
+      width:2em;height:2em;font-size:1.8em;line-height:1;display:grid;place-items:center}
+.zprev{left:.3em} .znext{right:.3em}
+.zdots{display:flex;gap:.4em;justify-content:center}
+.zdots button{border:1px solid #3b4442;background:#222927;color:#cfc7b8;border-radius:2em;
+              padding:.3em .9em;font-size:.92em;font-weight:700}
+.zdots button[aria-current="true"]{background:#f4d98b;border-color:#f4d98b;color:#20231f}
+
+/* ---------- popup ---------- */
+.pop{position:fixed;inset:auto;z-index:40;max-width:min(46em,80vw);background:#fff;
+     border-radius:.6em;box-shadow:0 1.2em 3em rgba(0,0,0,.45);padding:.9em 1.1em;display:none}
+.pop.show{display:block}
+.pop .kind{font-size:.72em;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2em}
+.pop .word{font-size:1.35em;font-weight:800;color:var(--deep);line-height:1.15;margin-bottom:.25em}
+.pop .body{font-size:1.02em;line-height:1.45}
+.pop .close{position:absolute;top:.3em;right:.5em;border:0;background:none;font-size:1.2em;color:var(--muted)}
+.pop.k-word .kind{color:var(--gold)}
+
+/* ---------- bottom ---------- */
+.foot{display:flex;align-items:center;gap:.6em}
+.nav{display:flex;gap:.4em}
+.nav button{border:0;background:var(--paper);color:var(--deep);border-radius:.5em;
+            padding:.45em 1.4em;font-weight:800;font-size:1.05em}
+.nav button:disabled{opacity:.35}
+.key{display:flex;gap:.8em;flex-wrap:wrap;margin-left:auto;color:#cfc7b8;font-size:.95em}
+.key i{font-style:normal;font-weight:700}
+
+@media (max-width:900px){
+  body{overflow:auto}
+  .app{height:auto}
+  .main{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="bar">
+    <div class="title"><small id="kicker"></small><span id="rungName"></span></div>
+    <div class="rungs" id="rungs"></div>
+    <div class="toggles">
+      <button id="tBg"  aria-pressed="false">Background</button>
+
+      <button class="langbtn" id="tLangBtn" type="button" aria-expanded="false"
+              aria-controls="langMenu" data-on="0">🌐 Translate</button>
+      <div class="langmenu" id="langMenu" hidden></div>
+      
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="rock">
+      <div class="tabs" id="tabs" role="tablist">
+        <button id="tabSource" role="tab" aria-selected="true">The source</button>
+        <button id="tabRubric" role="tab" aria-selected="false">Rubric</button>
+      </div>
+      <div class="pane" id="paneSource">
+        <div class="plate" id="plate"></div>
+        <button class="zoomall" id="zoomAll">⤢ Open it big</button>
+        <div class="rockcap" id="rockcap"></div>
+      </div>
+      <div class="pane" id="paneRubric" hidden></div>
+    </div>
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <div class="foot">
+    <div class="nav">
+      <button id="prev">← Back</button>
+      <button id="next">Next →</button>
+    </div>
+    <div class="key" id="key"></div>
+  </div>
+</div>
+
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="The source, enlarged">
+  <button class="zclose" id="zClose">✕ Close</button>
+  <button class="znav zprev" id="zPrev" aria-label="Previous view">‹</button>
+  <button class="znav znext" id="zNext" aria-label="Next view">›</button>
+  <div class="zstage">
+    <div class="zwrap" id="zWrap"><img id="zImg" alt=""
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></div>
+    <div class="zpass" id="zPass" hidden></div>
+  </div>
+  <div class="zcap"><b id="zTitle"></b><span id="zText"></span></div>
+  <div class="zdots" id="zDots"></div>
+</div>
+
+<div class="pop" id="pop" role="dialog" aria-live="polite">
+  <button class="close" id="popClose" aria-label="Close">✕</button>
+  <div class="kind" id="popKind"></div>
+  <div class="word" id="popWord"></div>
+  <div class="body" id="popBody"></div>
+</div>
+
+<script>
+/* inlined from ../../eal.js */
+/* =======================================================================
+   EAL SOURCE-ANALYSIS VOCABULARY: the shared table.
+
+   These are the words a student needs in order to do source analysis at
+   all, as opposed to the words of any one unit. All three History units
+   read this file; the unit's own GLOSS.tier3 carries what is specific to
+   that source.
+
+   THE SAME TABLE FEEDS THE VOCABULARY HUB. tools/build_vocab_entries.py
+   turns it into entries for liaminhawai-cmd/EAL-Vocabulary-Site, so the
+   wall and the hub cannot end up teaching different words. Edit here, run
+   that script, and both are updated.
+
+   ---------------------------------------------------------------------
+   TRANSLATION STATUS: MACHINE-DRAFTED, NOT YET REVIEWED.
+
+   The vocabulary site's own rule is that every translation set must
+   include REVIEWED Taiwan Traditional Chinese as its own value, with
+   Taiwan terminology rather than character conversion. These drafts were
+   written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
+   nobody has reviewed them yet. The wall labels them as unreviewed on
+   screen, and they should not be treated as meeting that rule until a
+   speaker of each language has been through them.
+
+   `morph` is the morpheme breakdown, where the word has one. The hub is
+   built on morphology, so this is what lets a word join its family there.
+   ======================================================================= */
+
+const EAL_LANGS = [
+  { code:"zh-Hans", label:"简体中文（中国）", english:"Chinese (China)" },
+  { code:"zh-Hant", label:"繁體中文（台灣）", english:"Chinese (Taiwan)" },
+  { code:"ja",      label:"日本語",           english:"Japanese" },
+  { code:"ko",      label:"한국어",            english:"Korean" },
+  { code:"vi",      label:"Tiếng Việt",       english:"Vietnamese" },
+  { code:"ar",      label:"العربية",           english:"Arabic" },
+  { code:"fa",      label:"فارسی",             english:"Farsi/Dari" },
+  { code:"ur",      label:"اردو",              english:"Urdu" },
+  { code:"ps",      label:"پښتو",              english:"Pashto" },
+  { code:"am",      label:"አማርኛ",             english:"Amharic" },
+  { code:"ml",      label:"മലയാളം",           english:"Malayalam" },
+  { code:"ta",      label:"தமிழ்",             english:"Tamil" },
+  { code:"hi",      label:"हिन्दी",              english:"Hindi" },
+  { code:"tl",      label:"Tagalog",          english:"Tagalog" },
+  { code:"ro",      label:"Română",           english:"Romanian" },
+  { code:"ru",      label:"Русский",          english:"Russian" },
+  { code:"fr",      label:"Français",         english:"French" },
+  { code:"es",      label:"Español",          english:"Spanish" }
+];
+
+const EAL_NOTE = "Machine-drafted. Not yet checked by a speaker of each language.";
+
+const EAL = {
+"source": { en:"Something from the past that we use to find out what happened.",
+  t:{ "zh-Hans":"史料", "zh-Hant":"史料", ja:"史料", ko:"사료", vi:"nguồn sử liệu",
+      ar:"مصدر", fa:"منبع", ur:"ماخذ", ps:"سرچینه", am:"ምንጭ", ml:"സ്രോതസ്സ്",
+      ta:"ஆதாரம்", hi:"स्रोत", tl:"pinagmulan", ro:"sursă", ru:"источник",
+      fr:"source", es:"fuente" }},
+
+"primary source": { en:"A source made at the time by someone who was there.",
+  t:{ "zh-Hans":"第一手史料", "zh-Hant":"第一手史料", ja:"一次史料", ko:"1차 사료",
+      vi:"nguồn sơ cấp", ar:"مصدر أولي", fa:"منبع دست اول", ur:"بنیادی ماخذ",
+      ps:"لومړنۍ سرچینه", am:"ቀዳማይ ምንጭ", ml:"പ്രാഥമിക സ്രോതസ്സ്",
+      ta:"முதன்மை ஆதாரம்", hi:"प्राथमिक स्रोत", tl:"pangunahing pinagmulan",
+      ro:"sursă primară", ru:"первичный источник", fr:"source primaire",
+      es:"fuente primaria" }},
+
+"secondary source": { en:"A source made later by someone studying the past.",
+  t:{ "zh-Hans":"第二手史料", "zh-Hant":"第二手史料", ja:"二次史料", ko:"2차 사료",
+      vi:"nguồn thứ cấp", ar:"مصدر ثانوي", fa:"منبع دست دوم", ur:"ثانوی ماخذ",
+      ps:"دویمنۍ سرچینه", am:"ካልኣይ ምንጭ", ml:"ദ്വിതീയ സ്രോതസ്സ്",
+      ta:"இரண்டாம் நிலை ஆதாரம்", hi:"द्वितीयक स्रोत", tl:"pangalawang pinagmulan",
+      ro:"sursă secundară", ru:"вторичный источник", fr:"source secondaire",
+      es:"fuente secundaria" }},
+
+"evidence": { en:"The part of a source that proves something.",
+  t:{ "zh-Hans":"证据", "zh-Hant":"證據", ja:"証拠", ko:"증거", vi:"bằng chứng",
+      ar:"دليل", fa:"شواهد", ur:"ثبوت", ps:"شواهد", am:"ማስረጃ", ml:"തെളിവ്",
+      ta:"சான்று", hi:"साक्ष्य", tl:"katibayan", ro:"dovadă", ru:"доказательство",
+      fr:"preuve", es:"evidencia" }},
+
+"artefact": { en:"An object made or used by people in the past.",
+  morph:[["arte","skill/craft","root"],["fact","made","root"]],
+  t:{ "zh-Hans":"文物", "zh-Hant":"文物", ja:"遺物", ko:"유물", vi:"hiện vật",
+      ar:"قطعة أثرية", fa:"شیء باستانی", ur:"نوادر", ps:"لرغونی توکی",
+      am:"ቅርስ", ml:"പുരാവസ്തു", ta:"தொல்பொருள்", hi:"कलाकृति",
+      tl:"artepakto", ro:"artefact", ru:"артефакт", fr:"artefact", es:"artefacto" }},
+
+"archaeologist": { en:"Someone who studies the past by digging up what people left behind.",
+  morph:[["archaeo","ancient","root"],["log","study of","root"],["ist","a person who","suffix"]],
+  t:{ "zh-Hans":"考古学家", "zh-Hant":"考古學家", ja:"考古学者", ko:"고고학자",
+      vi:"nhà khảo cổ học", ar:"عالم آثار", fa:"باستان‌شناس", ur:"ماہرِ آثارِ قدیمہ",
+      ps:"لرغون پوه", am:"አርኪኦሎጂስት", ml:"പുരാവസ്തു ഗവേഷകൻ",
+      ta:"தொல்லியலாளர்", hi:"पुरातत्वविद्", tl:"arkeologo", ro:"arheolog",
+      ru:"археолог", fr:"archéologue", es:"arqueólogo" }},
+
+"excavate": { en:"To dig something carefully out of the ground.",
+  morph:[["ex","out","prefix"],["cav","hollow","root"],["ate","to do","suffix"]],
+  t:{ "zh-Hans":"发掘", "zh-Hant":"發掘", ja:"発掘する", ko:"발굴하다",
+      vi:"khai quật", ar:"يُنقّب", fa:"کاوش کردن", ur:"کھدائی کرنا",
+      ps:"کیندل", am:"መቆፈር", ml:"ഖനനം ചെയ്യുക", ta:"அகழ்வாய்வு செய்",
+      hi:"खुदाई करना", tl:"maghukay", ro:"a excava", ru:"раскапывать",
+      fr:"fouiller", es:"excavar" }},
+
+"interpretation": { en:"What someone thinks a source means.",
+  morph:[["inter","between","prefix"],["pret","explain","root"],["ation","the act of","suffix"]],
+  t:{ "zh-Hans":"解释", "zh-Hant":"詮釋", ja:"解釈", ko:"해석", vi:"cách diễn giải",
+      ar:"تفسير", fa:"تفسیر", ur:"تعبیر", ps:"تفسیر", am:"ትርጓሜ",
+      ml:"വ്യാഖ്യാനം", ta:"விளக்கம்", hi:"व्याख्या", tl:"interpretasyon",
+      ro:"interpretare", ru:"интерпретация", fr:"interprétation",
+      es:"interpretación" }},
+
+"perspective": { en:"How something looks from one person's point of view.",
+  morph:[["per","through","prefix"],["spect","look","root"],["ive","having the quality of","suffix"]],
+  t:{ "zh-Hans":"观点", "zh-Hant":"觀點", ja:"視点", ko:"관점", vi:"góc nhìn",
+      ar:"وجهة نظر", fa:"دیدگاه", ur:"نقطۂ نظر", ps:"نظر", am:"አመለካከት",
+      ml:"കാഴ്ചപ്പാട്", ta:"பார்வை", hi:"दृष्टिकोण", tl:"pananaw",
+      ro:"perspectivă", ru:"точка зрения", fr:"point de vue", es:"perspectiva" }},
+
+"context": { en:"What was going on around the source when it was made.",
+  morph:[["con","together","prefix"],["text","woven","root"]],
+  t:{ "zh-Hans":"背景", "zh-Hant":"背景", ja:"背景", ko:"맥락", vi:"bối cảnh",
+      ar:"سياق", fa:"زمینه", ur:"پس منظر", ps:"شالید", am:"አውድ",
+      ml:"സന്ദർഭം", ta:"பின்னணி", hi:"संदर्भ", tl:"konteksto", ro:"context",
+      ru:"контекст", fr:"contexte", es:"contexto" }},
+
+"reliable": { en:"Able to be trusted.",
+  t:{ "zh-Hans":"可靠", "zh-Hant":"可靠", ja:"信頼できる", ko:"신뢰할 수 있는",
+      vi:"đáng tin cậy", ar:"موثوق", fa:"قابل اعتماد", ur:"قابلِ اعتماد",
+      ps:"د باور وړ", am:"አስተማማኝ", ml:"വിശ്വസനീയം", ta:"நம்பகமான",
+      hi:"विश्वसनीय", tl:"maaasahan", ro:"de încredere", ru:"надёжный",
+      fr:"fiable", es:"fiable" }},
+
+"bias": { en:"Leaning towards one side instead of being fair.",
+  t:{ "zh-Hans":"偏见", "zh-Hant":"偏見", ja:"偏り", ko:"편향", vi:"thiên kiến",
+      ar:"تحيّز", fa:"سوگیری", ur:"جانبداری", ps:"تعصب", am:"አድልዎ",
+      ml:"പക്ഷപാതം", ta:"சார்பு", hi:"पूर्वाग्रह", tl:"pagkiling",
+      ro:"părtinire", ru:"предвзятость", fr:"parti pris", es:"sesgo" }},
+
+"purpose": { en:"The reason something was made.",
+  t:{ "zh-Hans":"目的", "zh-Hant":"目的", ja:"目的", ko:"목적", vi:"mục đích",
+      ar:"الغرض", fa:"هدف", ur:"مقصد", ps:"موخه", am:"ዓላማ", ml:"ഉദ്ദേശ്യം",
+      ta:"நோக்கம்", hi:"उद्देश्य", tl:"layunin", ro:"scop", ru:"цель",
+      fr:"but", es:"propósito" }},
+
+"audience": { en:"The people something was made for.",
+  morph:[["audi","hear","root"],["ence","the state of","suffix"]],
+  t:{ "zh-Hans":"受众", "zh-Hant":"讀者群", ja:"読み手", ko:"독자층",
+      vi:"đối tượng người đọc", ar:"الجمهور", fa:"مخاطب", ur:"سامعین",
+      ps:"لوستونکي", am:"አድማጭ", ml:"വായനക്കാർ", ta:"வாசகர்கள்",
+      hi:"पाठक वर्ग", tl:"mambabasa", ro:"public", ru:"аудитория",
+      fr:"public", es:"público" }},
+
+"eyewitness": { en:"Someone who saw it happen with their own eyes.",
+  t:{ "zh-Hans":"目击者", "zh-Hant":"目擊者", ja:"目撃者", ko:"목격자",
+      vi:"nhân chứng tận mắt", ar:"شاهد عيان", fa:"شاهد عینی", ur:"عینی شاہد",
+      ps:"سترګه لیدونکی", am:"የዓይን ምስክር", ml:"ദൃക്‌സാക്ഷി",
+      ta:"நேரில் கண்டவர்", hi:"प्रत्यक्षदर्शी", tl:"saksi", ro:"martor ocular",
+      ru:"очевидец", fr:"témoin oculaire", es:"testigo presencial" }},
+
+"hearsay": { en:"Something you were told, rather than saw yourself.",
+  t:{ "zh-Hans":"传闻", "zh-Hant":"傳聞", ja:"伝聞", ko:"전해 들은 말",
+      vi:"lời đồn", ar:"سماع", fa:"شنیده", ur:"سنی سنائی بات", ps:"اورېدلي",
+      am:"ወሬ", ml:"കേട്ടുകേൾവി", ta:"கேள்விச் செய்தி", hi:"सुनी-सुनाई बात",
+      tl:"sabi-sabi", ro:"din auzite", ru:"слухи", fr:"ouï-dire",
+      es:"de oídas" }},
+
+"corroborate": { en:"To back something up with separate evidence.",
+  morph:[["cor","together","prefix"],["robor","strength","root"],["ate","to do","suffix"]],
+  t:{ "zh-Hans":"佐证", "zh-Hant":"佐證", ja:"裏付ける", ko:"뒷받침하다",
+      vi:"chứng thực", ar:"يؤكّد", fa:"تأیید کردن", ur:"تصدیق کرنا",
+      ps:"تاييدول", am:"ማረጋገጥ", ml:"സ്ഥിരീകരിക്കുക", ta:"உறுதிப்படுத்து",
+      hi:"पुष्टि करना", tl:"patunayan", ro:"a corobora", ru:"подтверждать",
+      fr:"corroborer", es:"corroborar" }},
+
+"chronology": { en:"The order in which things happened.",
+  morph:[["chrono","time","root"],["logy","study of","suffix"]],
+  t:{ "zh-Hans":"年代顺序", "zh-Hant":"年代順序", ja:"年代順", ko:"연대순",
+      vi:"trình tự thời gian", ar:"التسلسل الزمني", fa:"گاه‌شماری",
+      ur:"زمانی ترتیب", ps:"د وخت ترتیب", am:"የጊዜ ቅደም ተከተል",
+      ml:"കാലക്രമം", ta:"காலவரிசை", hi:"कालक्रम", tl:"pagkakasunod-sunod",
+      ro:"cronologie", ru:"хронология", fr:"chronologie", es:"cronología" }},
+
+"translation": { en:"A version of a text put into another language.",
+  morph:[["trans","across","prefix"],["lat","carried","root"],["ion","the act of","suffix"]],
+  t:{ "zh-Hans":"译文", "zh-Hant":"譯文", ja:"翻訳", ko:"번역", vi:"bản dịch",
+      ar:"ترجمة", fa:"ترجمه", ur:"ترجمہ", ps:"ژباړه", am:"ትርጉም",
+      ml:"വിവർത്തനം", ta:"மொழிபெயர்ப்பு", hi:"अनुवाद", tl:"salin",
+      ro:"traducere", ru:"перевод", fr:"traduction", es:"traducción" }},
+
+"manuscript": { en:"A copy of a text written out by hand, before printing existed.",
+  morph:[["manu","hand","root"],["script","written","root"]],
+  t:{ "zh-Hans":"手稿", "zh-Hant":"手稿", ja:"写本", ko:"필사본", vi:"bản chép tay",
+      ar:"مخطوطة", fa:"دست‌نوشته", ur:"مخطوطہ", ps:"لاسي لیکنه", am:"የእጅ ጽሑፍ",
+      ml:"കൈയെഴുത്തുപ്രതി", ta:"கையெழுத்துப் பிரதி", hi:"पांडुलिपि",
+      tl:"manuskrito", ro:"manuscris", ru:"рукопись", fr:"manuscrit",
+      es:"manuscrito" }}
+};
+
+</script>
+<script>
+/* inlined from content.js */
+/* =======================================================================
+   CONTENT BLOCK for the history WAGOLL family.
+   This is the ONLY place the wall text lives. wagoll-wall.html,
+   level-sheets.html and interactive.html all read it, so editing here
+   updates the wall, the per-level A3 sheets and the interactive at once.
+
+   DRAFT. Not linked from the site navigation. Two open items before this
+   can be taught or published: the source image below is a 400x183 web
+   thumbnail (State Library Victoria, accession H92.196) standing in for a
+   proper reproduction, and the framing has not been checked with the
+   Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation. See
+   SOURCE-NOTICE.md.
+
+   Mark evidence in an example with {key|the phrase}, where key is one of
+   the criterion keys in CRITERIA. Anything left unmarked stays black.
+   ======================================================================= */
+
+const WALL = {
+  id: "hist-batman",
+  title: "Two documents, one meeting",
+  expected: "Year 7",
+  inquiry: "A painting says Batman bought this land. A Proclamation says that was never possible. Which do you trust, and why?",
+  foot: "<b>Sources:</b> <i>Batman's Treaty with the Aborigines at Merri Creek</i>, John Wesley Burtt, oil on canvas, circa 1875. State Library of Victoria, Pictures Collection, accession H92.196. Proclamation by Governor Sir Richard Bourke, 26 August 1835, National Archives of Australia. Reproduction terms for the painting have not yet been confirmed; see SOURCE-NOTICE.md."
+};
+
+const FACTS = [
+  ["The painting", "Batman's Treaty with the Aborigines at Merri Creek, painted by John Wesley Burtt about 1875, roughly forty years after the meeting it shows."],
+  ["The document", "A Proclamation signed by Governor Sir Richard Bourke on 26 August 1835, ten weeks after Batman's meeting."],
+  ["What Batman claimed", "That Kulin leaders agreed to a treaty selling him land stretching from Melbourne to Geelong, about 240,000 hectares."],
+  ["What Bourke declared", "That no settler could ever buy land from Aboriginal people. Any such treaty was ‘void and of no effect.’"],
+  ["What's missing", "No Kulin record of the meeting has survived. The painting, the treaty and the Proclamation were all made by colonists."]
+];
+
+/* ink: the colour on paper, all four above 4.5:1 on the wall's cream lamp,
+   the same criterion on the dark bar of the big-screen tool. underline, the
+   second channel, is what survives a greyscale photocopy and a colour-blind
+   reader. Colours and glyphs match the rest of the history family, so a
+   student who knows GS73's wall reads this one the same way. */
+const CRITERIA = [
+  { key:"source",   row:"Origin, features &amp; purpose",        name:"Origin, features &amp; purpose",        glyph:"■",
+    ink:"#176b87", lamp:"#6fc0da", underline:"solid" },
+  { key:"context",  row:"Historical context",                    name:"Historical context",                    glyph:"▲",
+    ink:"#357a46", lamp:"#74c288", underline:"dashed" },
+  { key:"evidence", row:"Historical interpretations",            name:"Historical interpretations",            glyph:"●",
+    ink:"#a34d1d", lamp:"#e89a63", underline:"dotted" },
+  { key:"judge",    row:"Accuracy, usefulness &amp; reliability", name:"Accuracy, usefulness &amp; reliability", glyph:"◆",
+    ink:"#744f91", lamp:"#bda0d8", underline:"double" },
+];
+
+const LEVELS = ["Grade 5","Year 6","Year 7","Year 8","Year 9","Year 10"];
+
+/* Two rungs below Grade 5, matching the Victorian Curriculum's own two-year
+   bands: Foundation to Level 2, then Levels 3 and 4. Criteria appear one at
+   a time on the way up, which is the point of the ladder, not an omission. */
+const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4"];
+
+const EARLY_EXAMPLES = {
+ "Foundation to Level 2":
+`This is a {source|painting}. I can see {source|canoes} and {source|spears}. A man in a {source|white shirt} is standing with {context|Kulin people}.`,
+
+ "Levels 3 and 4":
+`The painting shows {source|a man named Batman meeting Aboriginal people from the Kulin Nation}. On the ground are {source|blankets with mirrors, shirts and beads on them}. Batman said {context|the Kulin people agreed to sell him their land}. A different document called the {evidence|Proclamation says no one could buy Aboriginal land at all}.`
+};
+
+const EARLY_EXPLANATIONS = {
+ "Foundation to Level 2": {
+   source:  "Names three things the child can point to in the painting: it is a painting, and it shows canoes and spears.",
+   context: "Names the group of people in the painting, using their own name rather than a general word." },
+ "Levels 3 and 4": {
+   source:  "Names the source, the event and one visible feature, the gifts on the blankets.",
+   context: "Reports Batman's own claim about what happened.",
+   evidence:"Reports a second document that disagrees with the first, without yet explaining why." }
+};
+
+const EXAMPLES = {
+"Grade 5":
+`This painting is a {source|picture of Batman meeting Kulin people in 1835}. I can see {source|blankets with gifts on them} and {source|men holding spears}. It shows {context|the day Batman said he bought Kulin land}. {evidence|The Proclamation disagrees}: it says no one could buy Aboriginal land. The painting is {judge|useful for showing what people wore and carried}, but it {judge|cannot show me what was really said}.`,
+
+"Year 6":
+`The source is a {source|painting of Batman's meeting with the Kulin Nation}, showing {source|gifts laid out on the ground and people talking}. It was painted to {context|remember an event some colonists were proud of}. {evidence|Batman claimed the Kulin people agreed to sell their land}, but {evidence|the Proclamation says such a sale was never allowed}. The painting is {judge|useful for showing how colonists pictured the meeting}, although {judge|it cannot tell us what the Kulin people actually thought}.`,
+
+"Year 7":
+`The event is {source|Batman's meeting with Kulin leaders in June 1835}. The painting is {source|a later artwork by John Wesley Burtt, made about forty years afterwards to record the meeting}. At this time, {context|Batman wanted land, and colonists were arguing about whether buying land from Aboriginal people was even allowed}. {evidence|Batman's own account says the Kulin people agreed to sell}; {evidence|Bourke's Proclamation says any such sale was ‘void and of no effect’}. The painting is {judge|useful for showing how the meeting was later remembered}, but {judge|it was painted forty years later, by someone who was not there}.`,
+
+"Year 8":
+`The painting is {source|Burtt's 1875 artwork of Batman's 1835 meeting with the Kulin Nation}, made to {source|show the meeting as calm and friendly}. {context|In the 1830s, Britain claimed Australia belonged to no one, so land could not legally be bought from its people}. {evidence|Batman argued his treaty was a fair purchase}; {evidence|Bourke's Proclamation rejects that, calling every such treaty ‘void’}; {evidence|the painting takes neither side, it simply shows the meeting happening}. The painting is {judge|useful evidence of how the meeting was later pictured}, but {judge|it cannot be trusted as a record of what was said or agreed, because the artist was not there}.`,
+
+"Year 9":
+`The event is {source|Batman's 1835 meeting with Kulin leaders}; the source used here is {source|Burtt's 1875 painting, made forty years later for people who had not seen it happen}. {context|The meeting sits inside a bigger argument: colonists wanted land, while British law increasingly held that Aboriginal people could not sell land they were said not to own}. {evidence|Batman's account presents willing agreement}; {evidence|Bourke's Proclamation presents the opposite, that no agreement could ever be legal}; {evidence|the two documents disagree because they were written for different purposes, one to justify a land claim, one to control it}. The painting is {judge|strong evidence of how colonists wanted the meeting remembered}, but {judge|weak evidence of what actually happened, since no Kulin account of the day survives}.`,
+
+"Year 10":
+`The source is {source|a colonial painting of a disputed meeting}. Its {source|explicit content is a peaceful exchange of goods}; its {source|implicit message is that Batman's claim to the land was fair and orderly}, aimed at {source|later Australians who wanted to believe the colony began well}. {context|Painted in 1875, it reflects the values of its own time: order, progress, and an easy conscience about how the colony was founded}. {evidence|Batman's treaty and Bourke's Proclamation give opposite answers to one question, could this land be bought}; {evidence|they differ because one argues for private ownership and the other for the Crown's sole authority over the land}. Overall, the painting is {judge|useful evidence of memory and myth-making, but poor evidence of the event itself}: {judge|it was made decades later, by an artist who never saw the meeting, and no Kulin account from the day survives to check it against}.`
+};
+
+const EXPLANATIONS = {
+"Grade 5": {
+  source:  "The blue phrases name what the picture shows and two things visible in it: gifts, and men with spears.",
+  context: "The green phrase places the painting on the day of Batman's claim, without yet explaining why that claim was disputed.",
+  evidence:"The orange phrase reports the Proclamation's disagreement without yet explaining what either side argues.",
+  judge:   "The purple phrases give one use and one limit: clothing and objects are visible, spoken words are not."
+},
+"Year 6": {
+  source:  "'A painting of Batman's meeting' and 'gifts laid out' identify the source and one feature; purpose is not yet explained.",
+  context: "The green phrase explains why the painting was made: to remember an event, without yet placing it in a wider argument.",
+  evidence:"The answer gives both claims but does not yet say why they conflict.",
+  judge:   "It recognises usefulness for one thing, how colonists pictured the day, and a clear limit: Kulin thoughts are absent.",
+},
+"Year 7": {
+  source:  "The answer separates the 1835 event from the 1875 painting of it, then names when the painting was made and why.",
+  context: "The green sentence places the meeting inside a real argument: whether buying Aboriginal land was legally possible at all.",
+  evidence:"The orange phrases give both documents' claims side by side, quoting the Proclamation's own words.",
+  judge:   "The purple judgement names a use, then bounds it: the artist's absence limits what the painting can prove.",
+},
+"Year 8": {
+  source:  "The blue phrases describe the painting and explain the effect it was made to create: a calm, friendly scene.",
+  context: "The green phrase explains the legal argument of the 1830s that the painting sits inside.",
+  evidence:"The answer shows three positions, Batman's, Bourke's, and the painting's own silence on who was right.",
+  judge:   "It separates what the painting is useful for from what it cannot be trusted for, and gives the reason.",
+},
+"Year 9": {
+  source:  "The blue phrases separate the event from the source, and explain who the painting was really made for.",
+  context: "The green phrases place both documents inside one bigger dispute, then name what each side was arguing for.",
+  evidence:"Each document is explained through its purpose: justifying a claim, or controlling one.",
+  judge:   "The purple comparison names what the painting is strong evidence for, and what it is weak evidence for, and why.",
+},
+"Year 10": {
+  source:  "The blue phrases separate explicit content from implicit message, and name the audience the painting was made for.",
+  context: "The green phrases use the painting's date to explain the values of the people who made and first viewed it.",
+  evidence:"The evaluation explains why the documents disagree: they defend two different sources of authority over the land.",
+  judge:   "The overall judgement holds two different kinds of usefulness apart, evidence of memory, and evidence of fact.",
+}
+};
+
+const CONTINUUM = {
+source:{
+ "Grade 5":"I can name a historical source and a feature I notice.",
+ "Year 6":"I can identify different types of historical sources.",
+ "Year 7":"I can identify the origin, content features and purpose of historical sources.",
+ "Year 8":"I can describe the origin, content features and purpose of historical sources.",
+ "Year 9":"I can explain the origin, content features and purpose of historical sources.",
+ "Year 10":"I can analyse the origin, explicit and implicit meaning, and purpose of historical sources."},
+context:{
+ "Grade 5":"I can say where or when a source comes from.",
+ "Year 6":"I can identify the historical context of a source.",
+ "Year 7":"I can outline the historical context of a source.",
+ "Year 8":"I can describe the historical context of sources.",
+ "Year 9":"I can explain historical context, including important events that influenced a source’s creation.",
+ "Year 10":"I can explain historical context to identify the motivations, values and attitudes of a source’s creator."},
+evidence:{
+ "Grade 5":"I can notice that people may explain the past differently.",
+ "Year 6":"I can recognise that historians may interpret historical events and developments differently.",
+ "Year 7":"I can describe different historical interpretations of the past.",
+ "Year 8":"I can explain different historical interpretations and contested debates about the past.",
+ "Year 9":"I can analyse historical interpretations and contested debates and identify the evidence used to support them.",
+ "Year 10":"I can evaluate historical interpretations and contested debates, including why or how interpretations differ."},
+judge:{
+ "Grade 5":"I can say one thing a source can and cannot tell us.",
+ "Year 6":"I can recognise that some historical sources are more useful than others.",
+ "Year 7":"I can draw conclusions about the usefulness of sources.",
+ "Year 8":"I can compare and contrast historical sources and ask questions about their accuracy, usefulness and reliability.",
+ "Year 9":"I can compare and contrast historical sources and identify their accuracy, usefulness and reliability.",
+ "Year 10":"I can compare and contrast sources and analyse their accuracy, usefulness and reliability."},
+};
+
+const SHEET_IMAGE = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gNzUK/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8AAEQgAtwGQAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A6tENy4CA9OOamXT2jQFTz354p8ISJ8sp3Dg5FWmZAAMDaeSM9a4ErHQ3czvs7Alm5z0xUiQRuDkguR0Az+dWyY5GBLMB/dFP2x9IkVPc9aq4jFe3lhVmycewHH5jrXP6jqDywskUUqyRj5iWycg9fQV3bwI0RDsAe2K4jWrV9OeQQ3ayTuC6oFG4Ak57dO3vUSTGmjk7ovMAkkrAt87Ln+dYN1abp1kktlUElgW/wrtbeKK7sBPJGBdA53DjJBx06Dv+Rrkr4XFxfAyJ+6BwSzduvalHRlbovw6Xa3UaC6mAXGVAXgfp7VpjTIW0rFvMIoVUhggVAwx6/hWOJGmRRFAowMAbcg1Gr3CzNBKzRoMkbWDfzqGm+pV0jN1fTrW0njeOBxvXcrOAAfUj2qCz0/z5Ft5NyQkBgzDg/Tite4jbYqtP5+0dGHP0+nSqolS3Xf5hRwMZ3ZKj0H+FbKTtYltXHW+hQPNIWKhFGADgkemffFU5/slnMsawrLKXIcu+M/TtT59euHiZCSiHI3dOM9qIBazn57Uux53yH8sd6PeWsguJFJc3Tb1jckAYwM4X+eeRzVsXdsWQSIUEa5ZGByT0H4VKLhbQDyliUgenIHemNeJNMkk580qOArZqW79Bj0v7K3tCIrdl5JweMn/A1gwaVfau63jWLvC03LRADHrx+VdFbziGQMkcall3AnqPwq7Nfz29uiwMu3GfkXoPcfjSU3H4UO19zn5dAaB1Y2eQx4XduI5/z0q3aeGLaSU/aZJoLhuR5iggjqPqKupGZf39xl24G7OAQPSoLfS5bjVCxkHlo2XErBcA9TzyaOeT6hYzm8IOzyl5NxHJKqWrRb4dxtYG4Ej7lALDAUDrXUaeufNW1tWu0yPnRSBwP4mPA7Vbt9RkVGFxpkqROvBQCQZHU8Hr0qXWn3HyI43S/CUkLlWWLYGySxGD/jWrdeGxAyfZLD75yrKMg9Pp/k1v219of9n7JpmkJOAfLPykfhjvXRw654ejsoQ8oLIm1Q8ZAP14AqHOTeo7WOO1DVJtN0/+zZdJMTumDvBB6devPIrz6604T3oUp5jk5c7j8or1HxQI9SJnif7QH+7ID8qgdgBXFR2DtKrwAgkkgsc5OOnHtV05qOxLTe5QjtbfeoU9DgLsH51pxRWkEABtC8jMNqtkD3/OtOOCO6SOCO38l0TdLKvT61FEJorqOS93TxYyhkzg9aHO47DtNL6ZqMcyxLbuDlVePr2716jo2o22p24/1fnAfOsecfhmuBm1FZ4EiuUG0MMPgEgdePatnRbiKwYvG7FSCAduN7Z6Z/KpUtRNHdCNScbWzjrTfJBbGwkVTtNXt7pEw+12H3T/ACrRQjGSCa3XK9jN3GNbDbk4HtTjaxHOMk9/arK7APun8aQkKDuOfQCqsTcjS1i6kD8TTjbW6jhVJoD5GQAPQ5pNpZvmI/PNNWJdxhtY8cRoM+/Wk+zRY5RT9KsBVz1FKGUDmquKxVNnb85iBqo9lErHbEoJ65FaRLk/d/OlKhlwwUH0FHMFjJ+zRqOUTPYharhQX2+UjAdytbTRAHA6d8CoDbNvDBePapcylEpGCP8A54oSewWpBYxHH7hFI77RV5bVdxc8H60GPacAE/rRzi5Sr9mVWCmFCSPQYFPNlEwJKIPwFT+VgZGc98mnqnlqCWyfQUc41EojTYmOAFwetWPs1rEBlQzY7ipJGdz8uVHtVchxnqT9apSuJxSJPstsdzFFUkdAvSqUnkoxBh3fUCrA38kvjtioGjIfcACxpvm6AuXqVvPXdkEnIwQxyB9DUq3KBAflLL0FZISQIVB5qZEmwOCc9s1ShF7mbqSRZExEm4hMemKkW7wNpXC+w5qqLaUnhTuPr0prwT5wB+Pah+zQk5stNc9QOnvVCZ4vNDyRRM/94qCfzpTA5PLkimsq4I2Z7c07wtoT719TjdQTU7m4nuNPihCByMKrDcB9Tjqa5adTb3DDG4NxmUdP/rV6yklqm5ZXQBTyK5bxD4dt9Td3tysQCdFGdx+mfQVzScV1OiF2cPHfhrgI11Gm7jC8DHtTrzUbWCc28DMw2kM5OSDRc6IAyh4xsXhHIxk/zFVWsgHWAgB15BzlicdKS5DSzGQyTs3mxsSgyW46CmFbaHJLDPBCuck/SpJLeaSLyi+1FG1ynLN3A9qy57eP7Rj7MzMAOpNaRswLdxKkwRndO3vgUG/8nKLOqqx7cnHtVcxOriONNjNwVUHj61Wn07y2ZmVwqnlhyapKOzDUsNO8u5lDlFOWaXjP0qu93tZggYsTySc1WnulklWOAnbwOVxn8K2LS2s7KAy3HzzBdwjqnaK1EnfYks5Lp0RGcKOfmOOBVkRXCSOy3aGMcN6H8O5qRbq2khIgtjIHOTGy8fhVK+DwBZHtRADxtLEk/h2rHdl7GjA9xM3lTyYjVwOe9S3t0j3QfypGUn7rDPIHXFYJv7iORYIozNLk4BzgE/14rQtddnmnaOZAHAwd3B+gpOm1qHMjah1ma3iANyAnQonGOOhGK1rHxPPdOscEyo3Zuy9q5fUXsTaZZPLBIJHdqn0eTT44m2IY3HO4n1/pWTiuW9iludikdmFzuEU4faJw2PMPuvNaVveB9GDXcULeS22QqvKHPRlz0/2h+QriVwMbrgPGfunuTVuC8G4rIR84+YkZyPesuUq5py273d+0loVspAFaPy8kSA/zH1qO7iu9PcRzQmaEx4I2qcE9xgDHb3qA3SqkMCf6tBgKR1/w+nQVoWusW9xdfZri0CW7YyyMRlgOKANDTYba1lM2pQx24kT5X5I6ex447GkfStPvgq21xLcMSTvAPA/z/OtKLwvLqM8lxvRomb5FYdF9vf8AxrpZvDFrtRrd5baQJtwjHacj07VSi3sS2kcHHoUtiZLm6AW2XlF6k/X2qzbRS6k0jQYKoB8p43Z6nr9P0rVg8HXoJgutREkZbd5iZyeuBg8Vvad4fttPnWaNnWVRg7eh/A01CTYnJI4uzttQS6k8mOWNRhgn94AjJX1HSvQYgyqM8Njmpjbws6yNEC6HIPQ1I2DghDW0IcpnKVyEhurZpi854Jq0qPIc/hTmg2kA1pckqq6rwEJxU4iBTcMjPanKqoSeBTg/UbuPeo1HoNigDHmpGhiUHLY5496bvAHLfrQJYxn5efpSs+o7roSJArpxk4pxWNAcj8MVXacuMK7qOwxSKkzkFtxX16Uct+ouYkdFkGAeO+eKQxqg5PT15ps+2IEIQp65PWqjyySScSoo7k9azsr+6Vdpal4NuKhExj35+tRsQZQv3mB59KqF3yMPn1NPNw8QAC7j1BPQVagyeZFj5C5zJ9Mc1G7DjkYHYUgljUAFRzUMsiMcKOeucVpyWI52x/mEqcISAegpinO4EAenFRtIQnytj6cUwSMQDuI9atJWIcmDtwQevaki3bgDzzTQQzdD9TU0SfMtWrEamdsI+Zg3HrTSzb8CInHfHSr+N5/fbuej5zmmSQHcSkjNnturmtfdnS3bZEG915JAHckcKKxtV123jEfkTCQ5w5MeMf8A16reJZbqBCys4Udlrjp1uhC81zKY94BVQw5H9KznKzsi4xvqz0mxuYdRtVmLbd3AAqLUJYbGILyHYEgsK4CzmvgipFM20f7fcc9a9Fl1XT20mNr622SquDGzc9PWk6srWD2avc5EyXF9hIpCqBwWBGCeO/tV59AefT28i6C3Jba0inK7R6D3qhqGvss7Pb20MKsAMYyemMVhf2jcWx485FYjbtHI/Gs0jT0K9/E9veyWrTCRI23YwW+p/DvWb4ktUsvstzGBuyfk3Zx6GrN3qMUd01wA+8/xE8j2PrWdrF+dQjJJAGc8DkitoJ3TAoi8ZG+0PGfmGAoHB9CauW8EhgNw8bLKecgYGP8APFT/AGe3k0hbZUzIeST2H+f5Vp+HL5Fj/s3UgpQAqGxkr6Eex6VUpaXQrI5+a4tIlkP2d1nIwz457d6ridfs+1bd4yFOWcZxXp+seHYQ2YhBIqQBhIFUblbPT8q8+1eDbG5mViy/dCtgAdD9aITT0Faxg2YtGvhLKoBjb5+4xV5M3yyP8ihDwQOTk/5/OqmnC3xMkgIBGN+QAfStDQ9LurmSOGFWmmmchQD1Hqa2m7ahE3fsFroFqzmQSXjICoPRTkf/AFuO1NtbCwNg15rV6jSOxKW0fLHH69a33+GmrWNukrtbuy/MYnZgv0yKqvazmWFE04RTZCC3RB82Twdx9z/ntzOXmXZHGXu0P5wjcJgkMBjgk+9QLbG5lM6RfIVz8qE5P9K7vW/DFw6QL9jeHC/OoyQx9S1UH0jUUgXyYDFbBQpDYy/Q/l9atVVbQlxOVWJnKQhhKrE8en/16ntjDDLN9oP7wDCiMcfWuttNGWcSWz26OEYncMcDHJrJn8IyWmoyIfnVgNoLbiCe3QdKPaxejEostRCMQxOsfmRj5ySCCPX9KiRoCpd5VA6DLHitjTPBsupzsPOMXlj5oQc719eTWxbfDuVZo0YyG3ywYrwQOxPFY8yKsc5pdik92VmlWFACd7Nxj/IrWzaWpxEEulI3bmYYY+tXI/DNzo+u28LxGWHaW/vK3Xr6dq07z4diSOOayiWN2ILKzkAD0FLdhokLpGs3UmmyHzp7aOHHKRb8jmu202+aexVpd5JPDOoUkfhVXSNLOmafHbyBZCFIZivUVo4+Xpj0rWEWtTOTuOFywc7cD6ilMxJHAyO+OtMEYflcA9xS+W65xWikiWhDOS/r7dKk3ufXFMhQOuT1BI6e9SCNyeCdop3Qhy+ZuHUVKqM4w+Tz60KpJAbAHvUvyhcKc0NoLMiNtuORnFRSIEOF/OrKTEDYagZ0ZuDUwlfcJJ9CDe56D9KCCBndzUhA3dsU12RT/CTTc1shKm9yISShhgA+1WhPkgEFfbFV3mCnj86kF7GkSl/pUSdy4xsJLD5uTu5PU45qs1qF6MXf1PSpJrpAu5WwPeqUd4S5O/A+grNuRXKiYeYrhXII9BVhDCPcnt1xVF7lpn3YbjjPSjzlUHGBzV3fUXKi/tEgZVwG+tRPBsPLD8TVX7U+eG/SkadnPLVSbFyonMJIB4Kn2p4UBTkDjgDFQxXBQc8ipMs3JPXmrUrkONiLepk2ckfTtVmLnG3H41XjOZDgfjirSEJjrnIHStEyLGCbg+WMIw6YzSvcvHDknaAMkitSOCIdUX6VV1OCGa2aEjAYVzuaRqonOarrNtNZvDOCVClkIGSxHauAnuPmjQA/MeFzjAByefTrW1rNibSURW4ZpCpxtycn/CudOrSwqY7q2VYxxkrznHI/Os1d6mqRb+0tPcxAfvBwuAeBjoK7HUdLn+yQSC4PCszgnJXpgA9+9cXaapawmRZogyMMgkAH2xW7N4vnuo4oU2RKgxlOM1MkxleRBYos1wEaVhuRcdB71UkvkmYgytChySW7j0FLqWs3WqJ5M0ce9QcSLjP4msmHbEjGXBkI+8TzmjlBMZctHOMbmCjhWLYz61T1eSzMGFKrIAOTnPuDWz5kclopaJPJUjdkY5qvb6LZavJ5FuI/OPPzSYz+NaQkr6g9B2jXdpaxzSXMPnSSQhIlxwGz/wDqqeLQLnV71I2keC5dcxgrgEZxk+2BU3hjT7eLVYftZDJbTtGyb8Ekfz6V6fLqGhx3ovlt/MuVjwjjkcc8dvxpOVnoLc4Pw7qM2n3kmka7GwQAwOG6YzkMPb/HNVPiRe29jqttFbxpIssHy4fg9hmtnx0bbUtLj1SFfKuoOHUd17ivJb2ae8voRO7sqJsRiew//XV0oqTv0G9i1cW8U0SyoyPg4KJyAe/PevZfhjoFvZaeupTAefLzHn+FBwPzryXTNKGTK6M6oCTsPC+5/IfnXe6Ha6iNIWKO4kVJACQWztHoPSpqzSVrhy3PUNV1jT7QoLo78jICgEViJLpHii3eK5jWMQ/MrbsMBnsetcTdJeG4jt51eRQeNx4z16+uKsadYXVqG3t8rBlxjsfc1zufUrkVjrW0HwnZ25leLzeM/NIZCf8AvomoLb+xLi8WOwja2x0O4Yzj+7yB1rDNm0kXlksI17Z+99aoPFDFKrieR26AR9Bjinz3JtY7hbCNQ8IubZGb7zRw4Jz6kkjn6VQ0y1kt9Qlknht/J5AeXBlOO2ev9Kw4tRit5cvJISSMktu5/Oo59RjmZhJONjcgZABHrS5n2HYt3PiD7JeyGJoEABVSq9Oe1QT+O5pbbyEKYK4dyn61mi2gkZ9ql2JPI9M1VksI7gMwt3VckAjpwaFbqOxbHim5VXU3WE4wzdSR2Fd14c8UQXunxi4mUSKCNx715r/Y5iiVp0wMZ+ZsYqzY20OcJO2M8c8VV0tUDVz0vUdcjjCCCWMqwyWzT7LV4Z7VXncIfrXn4tvs/IfLNwTyQKIrq5tlcSgN83ODx7Uc7FyI9PhvrW4YxxMpZeo71YRsjaFINeZaTqE1pqP2uaKQgZwuTyc+o6V2s3iuy8hniV9wX+Id+9WpdWQ422NeEtHJIhB5OR+P+TTyGzkDA75rn7Dxja3N4AVCs6hTuPAx/wDrroPtETxGTeuMZ61acWS7oUOxP3uKUXAUciue0zUSutTW8oSQNyH38Lz0rfjlgnLCMg7Tg47GqUlIT0GPOsnAHIqH3q1sjzijyYwMgfrTSC5Ubp97j0qPGfWtAxRgcnGaY0aKOM1TjYXOUDkrxUckbyD/ADirxiIBYISv0p4QbQSgx70lbqNt9DJkifZgrVYW7k5Mbbc4yRxW/FJH5pVlXaPanNNbxcbEPoPSs5WvoUmzDdWCgbwoHWnJFxu35Pr2rQkeFn3Dbn0AGKkBX72wEduKtcpLcjPWEuOoyT1p5tcY+YY9cVfKtwRHQyE4wmOOTinp1JvLoymsQTBB/E0+RWjGQMk1Mke5uSOOmRRIMZyRVproS79SkpJcZwBVtBubGRx3NV3hbd8rge3pUsccpUF2AUHtVonUxNU1RLSweaDk4wMHvXGX/ia5SNwZQxYflntmsW51We4t0WUqCo5IPA96pyLFeYwsm1RkKO5781yNX3OhOwttfTW0jXEd0S4YjaRkHnsaz715r6YkxeX5khyzA4Hfr9aYJLiGbMaGN2bGXXKrj0q19uvQEgEvzk5wWJ3nHanazuirjbq2ltIlDQ+aox8yYP8AKoFVJI9025QM7Gxj8Kv2EGoXSs3C4O07wSAcen9afd6SUi3ebJOwzuVSAB+J/CkpW0YWMFLmF3MMBZWOV8xTgE1JakrcfvriPcTxuzgY6/jW6mjMILdriNYUZy/Cg/LjkVzbS/8AE6iiNuBExCkFSfb1rRNSvYNjUu54TH8gMixAZPTv6fjWNJqM6tI8MTxqDj7uAPxrolt7K2RyXk81WyFXjjPX61LJNbSI9s0CkE5y75O71xURml0uOxg6RfzIhcgtJ5u7P1rqYby5uIVk5AGRisgaaqSiQKViOM45rSguZM/IqsM5Ib29sVNRp6oaLHlPJG0cjYR1PHv1rh5IlXUZYFYARuy8j7oyf8K7iW+URu6xhCeCW61xGnSC8vmLEDfluvfNVRvZsHudxpwtoNELhdzOuwZGOvU461s3OuR2v+jQFVYKBvboOOwrA2tJD5bFSAcgDkEjoPpWbfTSRyiVlzLn5s81hyKT1LkdbD4tLzAzRqYujKg+bFRah4kadGSJiqtjbkDIFc7ayXt4WVAIVzlsrjP4CmPZ3FvmTejA9c9fwp+zjcjmZ11hcNLaE3GPlH3zxn/Gpc2EMfnM6KN2Pl9a5SHVriCxaDIZE6oOT6VUW9mnKqN2DztJ59OtL2TuO6OzngSaPCW7lP7wbB/p/WqDaaZHO1di9Mu2ePSobfV5lUJPLGegweMe2a0o79F4MsbZGcJ/+qofNEa5SJLK5ikUQowGOeeCamjtJ4CAyKATk/MTzVS41SGGNpJ50hQcZdqSPUbSSENFciVWP3gwI/OlaVitC/NbCVcyiLA4I3HH86bHPpMI8pbu183dt2BlJH5Gua8U3ssOiv5TEtKfL69B3IqEaRZDRoEttJYzlUZbsy9WJGSB7f1q1T928mC12OzECTJtE+0dNwOP0pr2Qafet3yvQgc5pIPLUZnJynLc1Yg1S2csEYImPmPp+OKy97dCZm6jLaaYoe/1F4xJkgcfNx6DntVa31LTNU22tvqfzHhUZNpPXpxzWL8Q7izulsNrq2Q5UhyDxjmuE0M3Ta7ZRxtudpVPHbB7/gK7KVHmp8zepnKVnY9dj0N4nVlmJycAg9O/P5Voq93EgQMxGOTmob3VbK0VYZrxFnYArEzAE15ivi3Xhdpctdh49+TCF4xn7uCKypwnUuU2kd5Nql7Y3qSnOQSc7etdBo/jC4cMWWKM5+bC/epjLFJAmIt28A/MmOCKrSaTCw/dwBD6h/6GoVRByXO60fxFaarI8SkRuvRWIyfpWwoBXIPfrjivHRY3enTNNb9QMYz/AIVPa+KLy3ZYJ/NQbgzbc8++K3jNMiUWj1pj0OOR6CoPn3lhuFY6eM7BIEZ/MbPG5sfrUknjHT1YqrLkYyQwrS8bGepujzQvLEiqDXsb3z2ZfEkYBORxzWd/wmtgUIy49yOtcnb6v5+ryXMlyYY924gE8+n4UnLsFjv5baXadsiZ9qrixuWyzOD6c4rKt/EqSkHzGZjxgAZqW48Q7IyyxPheuMA/zosnuwTaLrabcZ3jZk+jZpfInU4YhcdM5rIXxLJsLhWXH8LMORTbnxNE1m29cS/wjtn3xSaS2Y+ZvoaMOomS4eCOTzGQZYjotWfNnZORn6ZrkLHV5UuWuIyCxGCo4IrQm8V/uBkkSd0OMH3pWHc11eYnchGOxBpjmU8mQfmK5m/8SzCIhZcFv7vGB6CsxdYntovOZzl/uAnk8U1oF7nYiaPz/L+05kzyoNTSNM6fK7YU9BXnMmrXMd2JWO1ycnIxzU15r91k7ZASGyAvXP19KtEtnIRTFjlHAO7kHrWjAhaMyvJ869Me/pjrUUenRopBQt85IIUd6txwXKyr5dplFI5Hp71lKS6FpFO4lhmMiSSHCrltwOfTpmqNnbHfJdoHbyFDKGYnGWx/X9K6UKd297EuzcbT09KrztcRRXP2a0+zySKq7Q/cHOeenahTVrDSJob65VyRGQrpnOBzx0xUZL3Kq7uVUgkqo5JPWsu/1q7h1CwgIUL8quCFYk5GcntW2l2ERU+yRnb3aokmrMpAjpb2/wC78x26bX52/pxWU1oJZGuDGiSQOpIB6565rde9UwlDBFHuGGAXH9KoFo4raWKEBS6kFypYjjrzSi7A0Q39hPcSeaXiRlYnIG0bT1/D/CsmWaLTpiom3uq5/dqDt/E1sGKUafLEHM8nOz5Su0ZFZUtjLNNJKbc72OdrP3zjnH0q4NdQaK8c9xdQOFlKxn+Jv6CoFQxgMlzJknl1IAx9amnW5bdHJEIQF7KcfnWfHAslsy+b8ikbxnGGI4J9q2VhWLF4955JZnZ1ZSc7s8YrC02fEyIFOcgDbU8M8/lzQyuY/KDZVh6dqradBuuQDjlc/N61tGNotMm+qsdeupvHCZPK2AHCg96htd1xLIzxuwxkIozkjnrVnUoFbSY0DbVXn/eIqpBqIt4owEJkYfKVPX/69cyV1dI0luXpryWJMG1dcDvwcVUOpW8bIRFKJWwTuPFWPtDmMG4VCp5+ZiD9OKR7yylj8sRxIQNoIFJLyII1uoWPyQOrHu2ce9NE0FsTK0jGTrk54pJI5JW2C92qDgjHWqlzapGP3c/mkn5l75qkkwLpvZ42C+V8rL5gkwGyPf0qs99dyvvhchVJ6cVN/pk3k2T21xsU7lAG1duCPz+tVI3uIdUNsXAjThoioG0Y/POTTSRTg0VdamfUBaSTM/lKxDhRyD+NZ58i3kkjVy0O4MEWTOOo64610VzZWesosEcn2aeUBo0PKSHtz1BPofzqhovh+K61NbeV/MJlCyA8Ywcn9BWkJxUdehPK0zrPDGha5q1qkRtP9A2586QfwZ/hB5PHtU0vhHV4NZi0uGdSAS8LmTaCn3sn16da9b0+5itoooQACirwOMA+1cp4l+zWnjHTLmFA0kmRJ6YzgH69a41Vu9jWC1scbqV5K/2qxmjltb1Rjy5R97Hp65rmnt5IYZX37Y0jDMobO4bh94Zz3716t4506DWLKRVTZcwbWilUZK88/Uc9PavIbma+0e6ePUrZTt+7IRlG9CCOv41rRs17pLfcy9U86a5hljg3Iw+QKuMHvxzW7p0Eujra3aELPEp3Z756j2q/o+mwX1nHePtN3IrkBmKgE9Ontz+NVbi4l+wW+lwqrXc0gUnryTyfpWsp83uIIxV22Q+ILTzr2DU4Un23aBwHIOw8dwcYrI0xZ4dbhN4zNZxyhyucggdOK7DUrYWejvCpybcYUA56Yz+FYFhIbq9t7VmkWNk3F8dAAST9OKITfI+wuVNnZ3/jK0sY4juacSdAg5XHrnp1p1541s9OjtXnjlcTjcu1RkD1OcflXDRSJqVxAsgZThgrP1z2P5V19p4fXxFp1qknlIbTEf2naTuIHIxmsXSpxa5hu9tC/eeKoLfU4bE27nzdv7xcAfMeKltryK8tkmmiALL9w/UjOfypmraDpmnWsV5ezyy3CxqgO7YpZe4X2qtpXlXVsyLcOojCKCIWfcMc5AzjnNZuMbaDRLdxWy4KGfa3ALJlfwPeoVCW9pcXMsbM0aM2OgOK19L0+Bo2MlxKCZGA3Q4Xb68nPb0qp4ltra10a5K3TiV0ZI8kgFiPpRF62E0jldN1qe/vFguYQGcF08t93T6Vpz2kxCiKV0f+NTjOf85rnPDbXVve+ZOkcjMuxCzYC49x+Arv4bdHRJo4Y8uODu+YdeP51rVlyy0EkmtTmZftcErO8z4BGO+M9KuyXN89uZY5G3L/AKwdDj1x6f41o3OkGaeORrmJUwNyYJycn/EflSPo0iB2e5t5GZdpZhklfQ4/zxUe0TDlSMgz34BlZ2SIHAO7j25zTmivj+8w64wcsOD9Ku6vphuNHjSJY2fzkCIigbieMYqC3s7i0trVLiXM4XyngzkIOcH1qlLS4uVEJuJ4oipdgzHHHXGep/Kmzi52KqOvIGMt6/8A6qnntEtle+uZB5UaknOcnngD+WKyV1SzllDrASn+0xyeO5z+lXF31QnHoX3ivJFUGTCqP4TkVNHFcPj96WjCnbgZwf8A9eKge9lXYGtRGGXI+bAH41Tj1aRoCy7gqnOf7uTx1601zMhxsT3cEjOBLI/mY54x+lQTmZUCqcBTxxUst5POyzMVMbYHzccgZpxn8+NvMUgKBg1autxM6C2tEkU7nAPXg5q39nCRny5kx/eVs1T8tsEbdxx93pj/ADxVYxXKx4Eabuvv71wvXqbI1cDZl7noPalUeYwIlBTjd0rHlkuDEDHERnrwAD+dY7zaszCNhJguejYGPqO/WiML9QuZ0xu49YnEkQ2LOWIJ7HOP0xXQWXiG1jvbCye1V1lQB5TwVPOOO/Sue1KaW1lmldcu2GXnPbHWsdnL3CzqwJwCpz830/Cuv2amtRnq88tqdyqI8nnkhcfjmmNGsi4Qo/HzbHDYx9M1yNtDdXVskrXUboR82GI/lV2NpYo3hhSGMlSu5GYtz7nOa5XTtpcZqSNZqj7ZsvyCmORiqdvd27yukpOBjLcc8k/1qpHpZyzrcNlxyT2z+VRvo0McZ3TSOO+DjNUlHa4WNPU4YZmKLciFAvI4wfr+XrWM+kxCPzrSWJXfIKox2sCOhB9abDZQyu6mKTYGwzSOVAPrn8R0o1B4LGRY1jzgfdJ3ZHsauKa0TA5vVrW4tIDK86HJ2bRnnv360zR7aaSQZk2owParFhpGqeINTkhaIv5SlxHkKB7D1zVw21xp7/vYGMIA3Ljp711uVo8t9TNK7uamqKi2EYSTGMDJJxk55P6VQhsFFnAwuIwQcZjbkD6Y9zVdrue5umjlDeSo4lHTp3rc0+4uryJYUHnSISgzGDkDoc/Q96wd4RLauyo9jp3+jvcSTNv54OM8j69qs20WnRNGfJY78/eOe/b8auDTb24uFc27N5WcIqAZJ9arxW9vbTO8kPzQ5b5uOvPHb0qOe63CxQ1dPs15bw2Ue7zWwQIyT1GB7d60tMtvs1758iHbGhIJHeq+nX0jSiUwtJht6tjnJB4zSahqk0rzYLI5iO5H4Bb1PX9KHd+6aQSi+ZnSTTIlutyRlQNxA78iqmoXtvBb3+oW+x5XhKeYO47frj8qw9ON9fWUay6iA4UnHkg7vb/PpWXN5zWtwklx/oyA/Jjr7ZqYUrPc0q1FJaIl02402NZJL+F3kRVCDcQDj09619E1KwudRM0cCx3HmhiwblgQcn61k+Hba3j0eWaeEGXPDOuTj2/Cl0uOGHUGlRmxEMrk9M9a3mk+ZHMnpc9flvHTxGmR+6aBAfz5qG4soNRvLaR5Q3kSCMgHluRjn2rKt/FOmX9tFBNIkc8URdZg+Tx/CV9+O9cnP4kvdN1KS7ezEELhThH3bmB4bj1/pXJGnJvzKUmtUdr4i1uCweczBiHTy1x69/0rzXXdQabRnsywcvgq23GQGHrWpb3b+KjdyXXmwpFgxugA2ljyST+HHpWJqOmzWmnPO16zhSERQihck/4V0UoqMknuS9Ua+mgWlpF5syRFEVuTgnC4x71T8Mbb7xNG7x5+zoXc/htH86yE0nVLhFBnjVWGeSeBxXX6FpSaNpsqBvMnkBaV8enQD+dVPlinrdsadxdZIW3vtuMiFiBnsQf6is7SdPlTQrm/k++bZ4ohj6kn+X60+SQrPcggkPbkAHtnIro9SgWHQWt0OBHbFVx/u/41i5cqUe5UddTz9/8AXWhgy0sSL5ijtgck+ma63w3rsgUxNGsUUDY3E7S+4Mckcjr3+lYdvm20+yMFuJdylJAowdwbrWtp6qbqN0jILId4ZcE4OMY/rWlR3Qkani26S+02ZlmhHk42qHBYknkj8KTQ4m0pZlQmRWIC5HOAMjn8ara1qkF94bvI4lO6PAXIxghscfrUWgpPc6nb28xlW2G4sy9SMdj+ArOz5BmndeJYVmlsy5SWPDjH8RGCQD64rG8U3yXulQPFcRuDKGADZxweo/Gt8eHdJhvb66FxKS+WijYhgOmQfrnHtWDJa6ZeRvI1uVdU3NtOzkDuKFyppoNjlIoTBJFPJMypMGEeGOAwwf512Wi+IbVYpkuz8sZDxgjqG5I/Pn8a5O4ht5NKeKUiO4il3IoX7yemfbrWZqsd5bT+XKNinLKo5AB//UK6nBVNGYyk4ptHb6j4lj1E/Y7eQxrKwUshyVFaUNtPFoEyS3hJZCY53Y7lyMY/z615zpMcsax33BiWcIwI6Hr+Rrq/EU1vqF3aPDJIbeNMsFO0AZ5wD37VnUpqLUY7E025bhoNzfWriOeWZ0zld5ztz1xn61oateMt5A1v8snzKpPPbPP5VzsNw0UqTFgUcE4J5A7f0/Ort/HNqeoWhT90yjO5T1Hv/nvSa967NrdiPWp3dEWWV5MAblzwSf8A9dYbzSwERhOg4Ge//wCurmqefPstoWDPESzqDyc9D+pqm1jckBmtnUgDJ65ramklqS9TojNKug24TdI6nLKVBK+mP89qrymS5WdYF3QyKBk9Ae+aigu8SRALKq7PKkDc5561bilntbFXkKW7eZje7fK47ZA5zUbMLESW86RiCVd6BFAKnoR3qdYyI9nYAdB2rYt9SuliAdIwCAcp90+9KLkXgbMPIH92o531JaLNzdqs2d7DPTCk1FNIJVDRyqZPqR/WqayNJ8y4xwM9aneQxoqFFz7LzXPy2KSY9pHjjXcck083AAw9urZ6DP8A9eqTzNjcYmP6VAb24YARoV9CT1o5blJFPWEkuZw6wbP9HkTG7gZqovh+OSBJRK5YgFlAz/StRIrmRm84k55K9Me3+fSrNvHGE2kSHb6njn61rzuKsgJLG0FrapHbqxiPOQpNTnbs/elvQ4UZH5U+3Cj5Y1bI5G0dP0qwJHzgwz+/vWDeo0zJmvra0mSGS7lDSMAEKnA+uTx1q89quzJbdnjb5nA/Cs7xTp9tLp63TgAx4Y8gnGKo6Hr4tplsriTzY2XMUjcFfatOXmhzRC5efS3G7ZeMIt27bwcY/WqksCQozNNvVD82E7+5rfudH1HUUt5bdhF97KmTG7OP8P1qHUtAbS7dBqFtKsUpwHWQFTkdMjNKM+7DUzNJ1+3S58pE2SZU7h90heSck9eTx9K19R1Gy1K/22MZmIAMiheCxz0rkJ4LSDUkhRWNvFlhvIO5uOM9PT8quWupyWd+mzaqyYX5X4698d+a0lBPVDVzd8pEUiezZDnncMfyFULm2ae7i+xt5W0copxvPpmtWXWpWVo3SSfOdrFhke3Hao5b37UkTi1hglUhi4GSSB3wOlZq61HctWXi1NHhktwmyWF8yKxztHTAPfoOnrWne+I9L1fQLi8nt18oJg5IHOcflzXnrXUd9e3c01xDHFE4AQ5Jbv25xTY/KvoltiCI2LFBHgDeOQB6AZyfer9khb6k9/eTpbQomzy0bZmMlXwTgDA4zzUJnmmO6KBGLxEFc5PBGc+9bWnWaWibZD5rdS7JxS3JWO+hkO2JZA8YwoBJIz/ShTWyQjA0ac2eo29y5PkFdjg9BnP+BqhrkpjcLGQ0Imf/AHT6H+dEKtb2t75hCiKZeC3OMn+hqlq0wk82BH3Ksm4EjgYHP6mumMffv/X9akzl7p0mjiJLG2LSOS0XCD6ZJP51QjyZ2beNoJQjGSOhH8yPwrMGqvb2drEqHeIhxnpz1/KobK/e31BxJvlU846EnGf60/ZvVkKS0Ga4qprUuzgYXpxztGf1qRNRvkt1t3mLQsNoDKCcegJ+lO1h7ea/8+In94g3L6HPT8sVXvQ4hilUYWNiv65raNnFXM3dN2O50myks/DaTPny7skqwOd2DtIx/wABqnrG6XQ0OMqsy7uO2P8A9VdP4deG++GJ3YMti7IGPcE7+P1/Kucmtpr+BooiDlgxGeCMmuJO1Rt9zoveKNLTYFkmiaQgRgshXHfj/CpLqLzr5o3nKRNgYHUEVVEvLNbuokZeUJ/i45/HFZU17MvleYS0u0ng9cE1Ki27juaV3CIby3lWUmKRGBJOemDitPxNdrBp0cO4+bORGB6KOSf6fjXMvd+YsFu5DEyEjBqz4gma91mdlz5ELrGh9O5/XNPkvJX6AnoUIr6Wzhcbjt8xiAre47fjVrSNQhF557uVIjZQWOcmsy7MUdtEroS7Ft5X/ePFLbTFAViDqhPzAHI+nStnFOJN9TZjvbQG+tGY/vJX2DbkAepOa07CS+UrNDJBJEDgsrZC5GBkdcVzMrtJdRNK78qVPc9f/rUyCC6spM2d2wU8EOhPXtxUOCaByO0s5NSku0+1MsUSZJaLpLjA6Z+lY+oTbbB2aVirSYK7RjBII5psVtcSWbzzSugVRlATj6DPP/1qg1G8m/sy5gSBNjIC5L/Mox6Y9qziveG3dFK1kgNwsdwvmK0wAA7dOfp1rRisILqJAVDQx3bxpz26EfjkflXPlGNhAUjAAuCd+7k/54rbleKxitBaxysobeyKCc7lxk9a2n5Emtplklnd3EO1RaSZ+VxkEYyP61BrtxZWqLEFjMTgKACcDqKJNQZYFmmhl2LgYClN2BjnI44rG1C90u5cedBMT1byW4/KsoRcpXY9loBu/MzD5atvTEYXO7kY79K09F0+Se4unlafaMRhgeOnI/lWdvtYIo3EMskLjKeYDuA9mH8q1dJuoxHtgjYQkkhGwMkf1q535dBI2D4Vs2Z5ttxMW64mxz+FPi02y0+UOsJRmGNsm5gfwz6VVivrsSMYoIlBGSfPH3h7E1IL67vIFE0I+XkfvFPH58VhafVj0MYyp/wkM12+Qikjy2I2kBelWtWvbG5tYolt9gdsluCAccY/lVxLaxaTzJYMv/EA4+nI71HeaZZTWpMcLqMjDx84q+ZXTYhul6rbR2wguI4yVOxARz7VoQ3AWTCwxoWGMsMDH4Vz91pNukSyRzMHwCAyhcn+dSoZ44l8yY4OCF4JHFDinqhM0vK8uFwIdzBsDB7VHK2EUGI7v72TRHdygKIpCdvXeMUjXUkkm+RA7EdcjistS0hRKh+UqrE5wGbv9DRFKzMEIjVFB44qlJ5hdp44gxPACnO01XV3klfejod3QL+lVy3EbibACVliL/wg4UfnipPOdEY7I+mc+ZuNZLqmQHjZlwOSMflVZjLNJ52QkZBDjf8ApjNJQuPQ2I9RR1KMyKF447mqs87yPvTa4wDnk/pWZutUi+cyM6nIKnbn6dzUH2633CF/OUSHkyO2D/KrVPsK6N1NKtddsxZy32yZwxBUgqMHHNUrTw9b2dyPtELJNGTsbIZf94f/AF6qxakLNlKxswi3KjMgPXrxkVrJq7XjRfZY9rxj5lMZwT7fTj8zQ+dKy2GrG9p8otxFbyFVAbhkHzDnqx6n8xXQHV4JgEZlwhG9nOF+o/T1rI03UJELTvD95QGWVcEEejHqPrz9aurfW99GYyjPkH5DExB/AVyyLuijf3mlRXJnAt2OAS23k5/A1VSeDUJxE+lq6Ej5yMhf0/8Ar1bl0eGcHdYyxqVxkMy4/WiDT5rQPLaxNIwGNvmnn8CKd1Yq67GRrmgFoWFi7QvjqvI/L/DNYK22o25KGMSREgO/3SV/p75xXZTpfSuu6U2j5Iy0RZfzJxWfqOjave27L59vLk4DRKBx+IrSE7KzIfdHC2lvFL4qlBA2AlhuxgkAdasacfsmuPEq43M4wOgP0/CrkPhDVrS6Nw9tNM+D3ByT9Kz7XS9YttaN66xwv82VmOOcY6V1OUZXs+hF7HQGO4eUlWK5HIFVtTtHmjiBuQuxgwBFRE6oxYyBNrDhwcg1l3lvfSB1kuPl4+QYx+FZwjruO5Ymi0e0tJ23tM7HLDfkk9a5mOE3P2ieRgsYXagLZx/nFaE9jGII4w0mzOX2kHJqKW13QCGCGT7x+Z+D24x09e9dULJbkNXMeVmCqrdByD/SrDviEbU/etyWxyBjArQbRJhEs7wsygfc7n3pbCKH+0DHcq5B+6wXkZ9R6da0c4taEqLRkxYjuYWkHGN3P6VqzxomnzwMpL7chh0OADx+lXrjSoG1G1WSMEOH74yR9KsQaUW0rc0Y2gPyPYms5VYuzBQauZ2k6vf6ZpU8FvKv2a4GHQrk5GRx6cGr2m6mySPjJc8qF9MZxTRYWMUezy8OICFxzlzjHX606BPs15bTbCP9HGR/tc9f1qJOMruxcU46MzTqht7mcNGzMxwpX+9x+VKdT8+Z1xtkI2nPY+tRakBJqjS42hZFJU/hUt5ZxjWRMvyqCrYHQ4//AFVpaOgveuWtNsmktrh5CQ5Q+Wfz5pNMLHw9eYbLAoMnsScV1f8AZCoGcBuegDYGKwLaFbOy1eJgMIwIwff/APVWCqc9/kXawW2mm7sraWZdwIPO7nqa17PRIIwURFbI6k8/nTtOzDpVtC3URjkjjp6j61LDcNFLtCrtU59TWU5yd0hE0OlGGXBslmI4Us+cfnVlbSYIQ1nGvOQC3A/Kkiv/ADGLKUCg9Og/lSSXsxJChcA9jWTcmwK8wvLKPdFHCqeiuT+lY0rSz3ZaaHAaJkYgdRjjP5/pWtJdTSHh9pHBCtVK6tJrqPCXMoQk7lXoa0hpuBhW8DyaQ0zo+xF3hhwMggfyBrrbOFBZwSb2+aNeQ3HSsFtKuTbfZYpjHD0K8kEZzir1vps0MYAmnbaAoVR0FaVGpLcEbG9ZEwCzDptJxmq1xpsE4KC3CEnltuM1TijuAf40z0LkVofZ28vfM7EngfNmsfh2Y9Cq3h4pGds5DBdvXOB6dfxqinh6SMExXDbz0yM4rZICMYzI4OBk4/rSAAHAnPPfJqlUkuokkZi6IJZQZ5HdgMbdxGB+FOTw/DuAkdgB2B/xrVeZYCoDFv8AbOOahlY4EgDAerHHNHPLuFkUJtHhR28p2TPU9c0+z+02nEcw54JYdR+dSz3QlAAViT1YGqXntEnMDZbvuz+lUnJrUV7FuWVty+cA+ffof1qCMQyOzkMWLcDtVNp5XuFLKAvsOKvxTxbQzA8nAUjp75zVWsS3ctuiyxFpHVZcfeVSPzqssdskiqZ2yONxpy3MLRsWbae+P61WlNowBjLMT2UHis0mUXZbqKI+XDmQn+IDtQ87DII2jHtzVCKTysvHG5AH97GatIZHCsYo+eodhxScbFIjeUK2+RXcdev9Ko3F2jbn2/KP4Tx/IVbmR0kLPHGi55znbio3uIIlRTBEwZiuAM4qohZmBcXShmIjC5OCMZ/WulsfCaXVqt4btZIwPnSDkr6Gsae7tLeRwLaJXbk/LjA+vrUFjr9xpNwLm1b5F4dCeHX0NbtSkvc0J0W53+k+HNI3+TPA3nkZRpTuRx/snp+FdHFZQWYAhgVeOi8fpXFaf4ninQyQRtLCfmkgY/OjdeM810+meIbK6xEH+c9Ax5B/rXFUjPqWmjcikiKBfLAHdqnCR7iyvgHjLMQf5Vni5jJwWUZGQu3OfwqKZ1uI2iikETtwCfX86xsUifUrqaLZ5dw23cA2z52x7DH0rEg8RXyFo5IVCo2AZiyGTk8g4x0wKpPpfiC3uHWOJ7lX6OhIGe2R/wDrrMaLWJrl4rjb5iMAVaRUUH0wTya1UUaKMbas7GHxRZkKJITvKltmM9PT1rThudEv4hPbNE3rtOxh7GvKLm81COeVLqZvLUYzAMKfxWr1teShd1vGzSvjaQhGQf0P6U5UWtUReD6na3VzY28/lWd3cfaDz5aHzMD1P+HWrNvJNdQEssE68j7m38CKwAumW07T3U5giJ/eIp2Bz64GSPwNWLrxhpVrb+RYeZcMBhEgT5R+NRy32QtEO1LT7NkIm094sH78DsB+lcVr32Ww2fYJ3mldhuQru2j/ABrR1PxddX0PlxQC0BG0k53Z7/54rnrKaKWZo7gNn+B/7vbk1004NayM5PsMTUZpv3bwMzPwpLEEfTAA/U1esUupdyrwi9nI/OoniSRg0MuxR904A/rTbdbq2Zy12jcjG05J+taOzWhKkaBtyCVFw7Erg7T09s0sSxrMqq5aQryQRj/9dVpr2diV2kAj0A/GqbblDfvHJHJ56VCi+o7roT6ukgt4LpmwYZh8zccE4/w/KrmmFW06OSR/lZSCu7Pr/XNYl691cWrQbMKADkdsGl06yuL2B/s9yylH5JA289/51bj7mrH1JtOha7mVgqSNEgHzHGDnGf51staLcBHliUsD/Ce9cxDdXmmOquokYkjb13DPt71uR6zZx4WRHiYqNqlTyaVSMr3QXTMnULOOTxFDAvCSMpIHPTn+lP1uDZqkQQABwq4A9yP60kt4h8QxXRUlBkBe/T/69RXl8s+rW9yqbIkkXkjqQ3rWi5rr0DY6q4e8xtSSJVx0IOfx4rLTTWu/MD53OfmwevvnpWi2sLHII8ZyvXAJ/wA8VYiuIXcsuc/eJYYFcybith6GVHp88B2CRivpxx+VOkspQ277TKPQYGB+XWrV5qKPJ81yDxxiPP8A+qq4nE4VkBAI4bAFUnLdhoWrGCSNcO7uScklavLlwyKFI9TWJFcTh2UXgIzkqSOPzqyuqJCMeYuSMkqQT+VTKLuBfaxJBLLF06AU4W7RwfI+xO/yisu512BkRZpHOeue1U57+NHV47gqrdQWFChJ7k3RutdLGuBIjFhgcjmq4v4PN2eagIB3AMeKxZdQtp0KNMp29yR378VmyvZv+8F43mZP3f8A61aRo9xNnTyItzFuac7BnJQk4pYjthCxX7gJ3ZeMelc2t99mBaTUFfnhAhyfrWpaaglxC6wxQKWxvOVBH4d6bptIE7lx9R2o7eYjjoGAAP4VlXGpywnChwDjJ9Pzpsjzz3HlR3NsqLghioyMD0rNNzcrJia486MuNp/vH6Yq4U0Jmpa6jdtMW+zlkWMDLnj1zzVw3FzeRbIS2DjA6Z9cE1hyLdm5lt5JQgYZztA5PbirMEl+9vG0U2IslOei4pygt0CL8cF2i7Zg+c5A+8CfwqOTUHR9kkQB7lV6VkHW5hvt5I3MyMQpU8AeoxUkjoHWS6mCz8MMhmP55p+z11BSNtZ5pYgU2bV55GAaU3LFV81UJDYwBTLedLmLMBiOMAkvjJ9gaVSJt0jIBtzgg56Vna24MkS0ty2x/MIbod3FLLbW8KlWV2HTcP8A61ZCXTqq5yXHQHPNaK+eQhaMlc7uCB1qXFrdjTQivYxuYzFIxb0yOPzqQGGaMRQQlATy2PmP6/SiWSPYFdZk45GRjpUsV1ZLZsfLZpenU0mO7Ks0eItpRmUHBwCf6VnTta28hZFlaRx0IwFoutQTd+587b3UE8e2apzXDSDP2eWRT1yDWsIPqFyndYkDHliepA9qg88xIFMecLj5jV2KyuTh47Uqp69wfrTptKuxCf3SkD5uMmuhSitGRZvUhj1UyRlGSOI9N653dMZFa9jrxa0Bv9pIONw+9wOpHrWQmkySKTkJjqNpyKnh0pEBE0jlT1I4H+elRJU2Ncx0sHimQQki5WeEHgEHcv8An8KdF4ilN5vabZ0XkBeCckjJ9q5saQ20hCTHnkK3WoTpszOd7upzjHXIrP2dMd2ejXXjFbMCN7mVgw4IcggZ9vxrFvPG1ozRkI7ODlZN+45+pNYT2MKwbJCULfxO33R04rLm0+3TAinEu1iMcYx2qYUaY3J9DfuPFrM8gtbSNvMIJO0cn1wO9QyeI9T3qyQIijBx/kUyG0aO2jCzKABgFdoP5jrSNp75z52cjA3Bif51X7taWFYlmabU2Es98Ec8kEAfhTTviUQxXrqmOCigfrUYssMCNoI4JAJqtJHGjHO4KPYnj2oST0Q2EzxMx8y+LyH1Q5+nWoo5HjBNszsOm5l4NPQWuXyhxjKsV5yKnS7tWjCb49o6KcjB/H8a02JuU5nvCBH9oKr95gijOP8AJqWO4dLZgki4bqGySR6cVK8SKzPGTJEVKgAk/THvUElutuiusTRsw4wVbP4UXT0CyGJLcLCVLbhk5OMH8qng1KWJyxtkkQjB3Njp9KqEAqHbzMHjLkL+gqazWPzGX7QuF6gjrTaVtQVjXh8RoytDNHEYyOQByB9TmiTUbFSzxSuBkdmwKpO2mgkvGrnH8Awas2lnazhtsLLx0LGsXGK1syhpu7WX96Y9wB4kOQact5YxKJltgFPG5iQD+nNWk0WBlY/bGAxyMEc1Vk0545t0DI8Z43EdD+VCcHoDQ3zLO5YyGU7/AHP5Y/Tmlmt1uF2PPABx1b7ooW0fj7Q6RMeOCORQ1tBklJ1Mg6AjP9KenQBEtoftHm+eXwcjb0qbzYbYkHzBxxuOQPwqolu7NGUYn++FPT860Xt4ZYQrRktjks3b8hSl5iM9nYOZVLbep54xg9qZHcM7qTNIkQwI1aUsWB/D8fpUzwW33UxkDAw+aovYxJOqvM5YDAwOAMYwOauNmJ3LKrELcSLcZJbafmBzj/8AXTokgV1+UsepZmBzWZJFa2wCtFJJ23BSvNON6scQRbLjHJbr/Kq5G9hcxemjLuyohZiem/FVvsl2RgoqHvuY1CLu8jyUgJVhxnn9KhL3hYvJFIsbcZwVqlFoTlcuxRTqWXMZx2zzSFI1Yotu49Scbfwqq1xFbgjcQzDG0cHHFNgvbxsrFIAP9oZNPle4X6GpEftLAfZYsHgE8k1KIxGAPKVW6l1Jz7VkC7uAyiS4Ozsqg1ML8oxVm8sE/jUuDGmaUUFrHy7EOfTqadK8CEpHE4PVWJwR/KqkZNwjMZYyrY+Yx8ipvsJ2hReo3GdvQ1FtdWO5W33pcGOYKu7ocfrStuh3PDcbGLbvlYYJPXHpQtqVuPmlDKD35zUri1LYWCHrjJOMVVwKSSvFO8sClhuJ5TH61YVYru4Y3UbKpHyFRkg+9T28j2jERlgh+9s5B/OrKXbjObdWI9eoH0olJ9EFkSiyskaMJuC5ycDBxjmkEfl3WIixhYEg4qG4llKKBGi4PUDFV4JbiSfYZByCME8DvUJNrVilYnW0uTLIowzKcsA2KlEhjUtIXEYXjLbutFFSnd2Y7Ekk8aWySpgM/RGGf1qFtVRVSKGEbSo3EqBzRRTjBNagM/tRJRhSSeMjbjBqxLfvFbAvEqIxwGABJNFFOUEmkNbFK21po12IfKBPJVRz9eKlnmvCyPI+5JThS2MH+oooqpxUWrIEyo95FHOQ0kyAtj5jnj9c1dtTZqh/0mXk44Xgn8qKKJQXKCepauvLtonJmb5cHCjA5/n3rFOohxv8sgD++cg/gKKKVKKcbsJOzBZWmdXEMRJP3+lWDYu7bmREOezE5oopTlyvQcUTC0hQKGLE9eDgUvkPFkbn+paiio5mMx5pHDMPOAXbxgHmmwRWkke+5vJR1+RVP86KK6ktDKTInmjij2o79Pu44PvVINIxJJxxznvRRVpWM2Xra6VCnmNJI2Bxkj8M5qa5eGZlb96uf4C5OKKKlxV7lxehFOYI2UKQX6EEE4qxGtykRZTAyLzhl9KKKmWiRS1uRPqWzPnR4PTEeAB+lI2rGVNnn3QYkdHAGPYY/rRRVqEdzNyd7Fl7DUmjjkkucRyDKsXJP5DvUBDRRmH7XMxxk/5zRRWNOTlubOCRC0yxpjzpGbvkVHFLLIzBJmVduSORn680UVtbQyvd2GxyTROXWR+RkMGxUiT3OA/nkn370UU2kCLUWoIvyC2jUsTucjc3/wBar0WvwxSZa1RgB0K9aKKh04vcfMyGbVIyhMMewHk/IOlUWvWlkLBdwB/iOMUUU1BIHJl+21B2kVUihIzgArz+dVrq/uH5cqkYPKoP8aKKlRXNsDbsV0eN2Z0BJP8AeOcVaSOVdpESJuAJbrxRRTnoC1VxZ5otqlEjaTpuKY+lJJdyMm2WOFnxwdgFFFHKhktrcqFIZY1ZOVZU4FTJe/I5ZMk8bl4xRRUuKuC2Gpv5DTPsI5GM/wBaqOkccuUmK+mMqT+QooojuDLUOrCKMKJrhh1wSOtSHW3IbZGFbpuOW4/OiiqdOIJlaafz5A7qM4wQBgfpUEd0Y5CwQkZz16fnRRQktgZ//9k=";
+
+const SOURCE_PANEL = {
+  kind: "image",
+  file: SHEET_IMAGE,
+  ar:   "400/183",
+  alt:  "Batman's Treaty with the Aborigines at Merri Creek, an 1875 painting by John Wesley Burtt showing Batman and Kulin men beside blankets laid out with trade goods.",
+  missing: "The picture of the painting did not load.<br>Keep <b>batman-treaty-source.jpg</b> in the same folder as this page.",
+  whole: { label:"The whole painting",
+    text:"Everyone in this scene was painted, not photographed, by someone who was born after this meeting happened." }
+};
+
+/* Percentages of the image. Placeholder crops against the 400x183 web
+   thumbnail; recheck against a proper reproduction before this ships. */
+const HOTSPOTS = [
+ { x:4,  y:60, w:34, h:38, label:"The gifts",
+   text:"Blankets laid on the ground, with mirrors, shirts and beads on top: the painting's record of what Batman offered in return for the land." },
+ { x:41, y:30, w:20, h:60, label:"Batman and the man beside him",
+   text:"Batman, in a white shirt, stands with a Kulin man whose hand rests near his arm. No portrait of Batman was painted while he was alive, so this face is the artist's invention." },
+ { x:59, y:22, w:24, h:62, label:"The Kulin men",
+   text:"Men from the Kulin Nation, some in possum-skin cloaks, one holding a long spear. Their names are not recorded in the painting or its caption." },
+ { x:82, y:40, w:17, h:48, label:"The camp",
+   text:"Shelters and more people on the far side of the scene, going on with everyday life while the meeting in the foreground happens." }
+];
+
+/* new: the skill this rung adds that the one below it did not have.
+   background: the outside knowledge a student needs before the example
+   makes sense, named so a teacher can see exactly what is being assumed and
+   check it has actually been taught. Shown on screen as "You need to know". */
+const BUMP = {
+ "Foundation to Level 2": {
+   new:"You name what you can see in the painting.",
+   background:"That a painting is made by a person, and can show things that did not really happen that way." },
+ "Levels 3 and 4": {
+   new:"You say what the painting is claimed to show, and that a second document disagrees with it.",
+   background:"That the Kulin Nation is a group of Aboriginal peoples whose Country this land is, and that Europeans arrived after them." },
+ "Grade 5": {
+   new:"You name the date the painting shows, bring in the Proclamation as a second source, and give one use and one limit.",
+   background:"That Batman said he bought this land, and that the Proclamation is a different, official document that disagreed." },
+ "Year 6": {
+   new:"You explain why the painting was made, not just what it shows, and give both sides' claims.",
+   background:"That paintings can be made to make an event look a certain way, for people who were not there." },
+ "Year 7": {
+   new:"You separate the 1835 event from the 1875 painting of it, and quote the Proclamation's own words.",
+   background:"That the painting was made forty years after 1835, and that colonists were arguing about whether buying Aboriginal land was ever legal." },
+ "Year 8": {
+   new:"You give three positions instead of two, adding what the painting itself does and does not take sides on, and explain why the artist's absence limits it.",
+   background:"That British law in the 1830s treated Australia as belonging to no one, which is why Bourke could declare Batman's treaty void." },
+ "Year 9": {
+   new:"You explain why the two documents disagree, not only that they disagree, by naming what each one was written to achieve.",
+   background:"That no Kulin record of the meeting survives, so every account historians have was written by colonists." },
+ "Year 10": {
+   new:"You separate what a source explicitly shows from what it implies, and name the audience it was really made for.",
+   background:"That the painting was made in 1875, forty years on, when colonists had their own reasons to want the founding of Melbourne remembered as fair." }
+};
+
+/* Tier 3 = the subject's own words, which need a definition.
+   Tier 2 = general academic words, which need a plainer synonym.
+   Matched case-insensitively on whole words wherever they appear. */
+const GLOSS = {
+ tier3: {
+  "Proclamation":"An official public announcement made by a governor, with the force of law.",
+  "treaty":"A formal agreement, usually between two groups or nations.",
+  "Kulin Nation":"Five Aboriginal peoples whose Country covers the area around present-day Melbourne.",
+  "grazier":"A farmer who raises sheep or cattle on open land.",
+  "void":"Having no legal force. A void agreement counts as if it never happened.",
+  "trespasser":"Someone occupying land without legal permission to be there.",
+  "vacant":"Empty, belonging to no one. The Proclamation calls the land 'vacant' while also describing Aboriginal people living on it.",
+  "Crown":"The British monarch, acting as the legal head of the government and its territory."
+ },
+ tier2: {
+  "claimed":"said, without proof",
+  "declared":"announced officially",
+  "authority":"the power to decide",
+  "legal":"allowed by law",
+  "dispute":"disagreement",
+  "contested":"argued about",
+  "implicit":"suggested, not stated directly",
+  "explicit":"stated directly",
+  "myth-making":"turning an event into a story people want to believe",
+  "reject":"refuse to accept",
+  "justify":"give good reasons for",
+  "purpose":"the reason it was made"
+ }
+};
+
+</script>
+<script>
+/* Everything shown here comes from content.js. The ladder is the two early
+   rungs plus the six on the wall; examples are read from whichever object
+   holds them, so no text exists twice. */
+
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const critOf = k => CRITERIA.find(c => c.key === k);
+
+/* Criterion colours live in content.js, so a unit with its own criteria needs
+   no CSS edit here. Each criterion carries ink (on paper), lamp (on the dark
+   bar) and an underline style: the second channel, which is what survives a
+   greyscale photocopy or a colour-blind reader. */
+document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
+.m-${c.key}{color:${c.ink};text-decoration-color:${c.ink};text-decoration-style:${c.underline}${
+  c.weight ? ";text-decoration-thickness:" + c.weight : ""}}
+.k-${c.key}{color:${c.lamp}}
+.pop.k-${c.key} .kind{color:${c.ink}}`).join("") + "</style>");
+
+const LADDER  = EARLY_LEVELS.concat(LEVELS);
+const exOf    = lv => (typeof EARLY_EXAMPLES !== "undefined" && EARLY_EXAMPLES[lv]) || EXAMPLES[lv];
+const explOf  = lv => {
+  const e = (typeof EARLY_EXPLANATIONS !== "undefined" && EARLY_EXPLANATIONS[lv]) || EXPLANATIONS[lv];
+  return e && e.items ? e.items : (e || {});
+};
+let i = -1;                       // -1 is the source stage, which comes first
+
+el("kicker").textContent = WALL.title;
+
+/* ---------- EAL ----------
+   The table is shared across every unit and is the same table the vocabulary
+   hub is built from, so a word cannot mean one thing here and another there.
+   The choice is remembered per browser; nothing leaves the device. */
+const hasEAL = typeof EAL !== "undefined" && typeof EAL_LANGS !== "undefined";
+/* Only offer languages that cover every unit-specific term on this wall.
+   A language choice that leaves some tappable words blank is a broken choice,
+   not partial support. Shared source-analysis words may have wider coverage in
+   the Word Builder; this wall promises complete coverage for what it offers. */
+const UNIT_LANGS = hasEAL ? EAL_LANGS.filter(l => {
+  const tables = (typeof TIER3_T !== "undefined") ? Object.values(TIER3_T) : [];
+  return !tables.length || tables.every(t => t && t[l.code]);
+}) : [];
+let lang = "";
+if (hasEAL){
+  try { lang = localStorage.getItem("wagoll-lang") || ""; } catch (e) { lang = ""; }
+  if (lang && !UNIT_LANGS.some(l => l.code === lang)) lang = "";
+  const btn = el("tLangBtn"), menu = el("langMenu");
+  const languageLabel = () => UNIT_LANGS.find(l => l.code === lang);
+  function syncLanguageButton(){
+    const chosen = languageLabel();
+    btn.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+    btn.dataset.on = chosen ? "1" : "0";
+    menu.querySelectorAll("button[data-l]").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
+  }
+  menu.innerHTML = UNIT_LANGS.map(l =>
+    `<button type="button" data-l="${l.code}" lang="${l.code}" aria-pressed="false">` +
+    `<b>${esc(l.label)}</b><br>${esc(l.english)}</button>`).join("") +
+    '<button type="button" class="clear" data-l="">English only</button>';
+  btn.onclick = ev => {
+    ev.stopPropagation();
+    const open = menu.hidden;
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+  };
+  menu.onclick = ev => {
+    const choice = ev.target.closest("button[data-l]");
+    if (!choice) return;
+    ev.stopPropagation();
+    lang = choice.dataset.l;
+    try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+    menu.hidden = true; btn.setAttribute("aria-expanded", "false");
+    syncLanguageButton(); hidePop(); render();
+  };
+  syncLanguageButton();
+} else {
+  el("tLangBtn").hidden = true;
+}
+
+/* The shared table wins over a unit's own gloss for the words it covers, so
+   the definition a student reads is the one the hub also teaches. */
+/* Two tables, one lookup. eal.js holds the words shared by every unit; the
+   unit's own content.js holds its own, in the same shape. Neither repeats the
+   other, and the tool cannot tell them apart. */
+function ealFor(term){
+  const k = String(term).toLowerCase();
+  let t = null, en = "";
+  if (hasEAL && EAL[k]) { t = EAL[k].t; en = EAL[k].en; }
+  else if (typeof TIER3_T !== "undefined" && TIER3_T[term]) { t = TIER3_T[term]; }
+  else if (typeof TIER3_T !== "undefined") {
+    const hit = Object.keys(TIER3_T).find(x => x.toLowerCase() === k);
+    if (hit) t = TIER3_T[hit];
+  }
+  if (!t) return null;
+  return (!lang || t[lang]) ? { t, en } : null;
+}
+/* Put the globe on every chip whose word has a translation available, so the
+   feature is visible without opening anything. */
+function markTranslatable(){
+  document.querySelectorAll("[data-t3]").forEach(el => {
+    const k = String(el.dataset.t3).toLowerCase();
+    const has = (hasEAL && !!EAL[k]) ||
+      (typeof TIER3_T !== "undefined" &&
+       Object.keys(TIER3_T).some(x => x.toLowerCase() === k));
+    el.classList.toggle("tr", has);
+  });
+}
+document.title = WALL.title + ": bump it up";
+el("key").innerHTML = CRITERIA.map(c =>
+  `<span class="k-${c.key}"><i>${c.glyph}</i> ${c.name}</span>`).join("");
+
+/* ---------- glossary linking ----------
+   Longest terms first so "grinding stone" wins over "stone". Applied to plain
+   text only, never inside a tag. */
+/* The shared source-analysis words are linked in every unit, not only where a
+   unit happened to gloss them. They are the words a student needs to do the
+   task at all. A word the unit already treats as tier 2 keeps its tier-2
+   behaviour rather than being marked twice. */
+const SHARED = (typeof EAL !== "undefined")
+  ? Object.keys(EAL).filter(w => !(w in GLOSS.tier3) && !(w in GLOSS.tier2))
+  : [];
+const T3 = Object.keys(GLOSS.tier3).concat(SHARED).sort((a,b)=>b.length-a.length);
+const T2 = Object.keys(GLOSS.tier2).sort((a,b)=>b.length-a.length);
+const defOf = t => (GLOSS.tier3[t]) || (typeof EAL !== "undefined" && EAL[t] && EAL[t].en) || "";
+const rx = t => new RegExp("\\b(" + t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + ")\\b", "gi");
+
+/* One pass, not one pass per term.
+   The old version replaced each term in turn over a string that already held
+   the spans it had just inserted, so a short term could match INSIDE an
+   attribute written by a longer one: "period" struck inside
+   data-t3="regal period" and broke the tag open, printing the raw
+   `period">regal period` into the passage. Matching every term in a single
+   alternation, longest first, means inserted markup is never rescanned. */
+const GLOSS_TERMS = (() => {
+  const seen = new Map();                       // lowercase -> {term, tier}
+  T2.forEach(t => seen.set(t.toLowerCase(), { term: t, tier: 2 }));
+  T3.forEach(t => seen.set(t.toLowerCase(), { term: t, tier: 3 }));  // tier 3 wins
+  return seen;
+})();
+const GLOSS_RX = GLOSS_TERMS.size
+  ? new RegExp("\\b(" + [...GLOSS_TERMS.values()].map(o => o.term)
+      .sort((a, b) => b.length - a.length)      // longest first: "regal period" beats "period"
+      .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")\\b", "gi")
+  : null;
+
+function linkGloss(html){
+  if (!GLOSS_RX) return html;
+  return html.split(/(<[^>]+>)/).map(part => {
+    if (part.startsWith("<")) return part;
+    return part.replace(GLOSS_RX, m => {
+      const hit = GLOSS_TERMS.get(m.toLowerCase());
+      if (!hit) return m;
+      if (hit.tier === 3) return `<span class="g3" data-t3="${esc(hit.term)}">${m}</span>`;
+      return `<span class="g2" data-t2="${esc(hit.term)}" data-syn="${esc(GLOSS.tier2[hit.term])}">${m}</span>`;
+    });
+  }).join("");
+}
+const marked = text => linkGloss(
+  esc(text).replace(/\{(\w+)\|([^}]*)\}/g,
+    (_,k,t) => `<span class="m m-${k}" data-crit="${k}" tabindex="0">${t}</span>`));
+
+/* ---------- the source panel ----------
+   SOURCE takes one of two shapes. A picture source names a file, its aspect
+   ratio and rectangles to zoom into; a written source names paragraphs and the
+   exact phrases to light up. Everything below branches on SOURCE.kind and
+   nothing else, so a unit built on a letter works the same as one built on a
+   photograph. */
+const SOURCE = (typeof SOURCE_PANEL !== "undefined") ? SOURCE_PANEL : {
+  kind:"image", file:(typeof SHEET_IMAGE !== "undefined" ? SHEET_IMAGE : ""),
+  ar:"4/3", alt:"", missing:"", whole:{ label:"The whole source", text:"" }
+};
+const isText = SOURCE.kind === "text";
+const plate  = el("plate");
+let rockImg = null;
+
+if (isText){
+  plate.classList.add("text");
+  /* Each hotspot names a phrase; wrap that phrase in a button wherever it
+     appears. Longest first so a phrase inside another phrase cannot break it. */
+  const order = HOTSPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
+  const body = SOURCE.paragraphs.map(p => {
+    let s = esc(p);
+    order.forEach(({h,n}) => {
+      const q = esc(h.mark);
+      if (s.includes(q) && !s.includes(`data-h="${n}"`))
+        s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
+              title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
+    });
+    return `<p>${s}</p>`;
+  }).join("");
+  plate.innerHTML = `<div class="passage" id="passage">${body}
+    <span class="cite">${SOURCE.cite}</span></div>`;
+} else {
+  plate.style.aspectRatio = SOURCE.ar;
+  plate.innerHTML =
+    `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
+     <div class="missing">${SOURCE.missing}</div>` +
+    HOTSPOTS.map((h,n)=>
+      `<button data-h="${n}" aria-pressed="false" title="${esc(h.label)}"
+         style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%">
+         <span class="pin">${n+1}</span></button>`).join("");
+  rockImg = el("rockImg");
+  const flagMissing = ()=> plate.classList.add("noimg");
+  rockImg.addEventListener("error", flagMissing);
+  if (rockImg.complete && rockImg.naturalWidth === 0) flagMissing();
+}
+
+const idleCap = `<span class="idle">${isText
+  ? "Tap an underlined part of the passage to open it big."
+  : "Tap a part of the picture to open it big."}</span>`;
+el("rockcap").innerHTML = idleCap;
+el("zoomAll").textContent = isText ? "⤢ Open the passage big" : "⤢ Open the picture big";
+
+/* ---------- tap the source, it fills the screen ----------
+   VIEWS[0] is the whole source; the rest are the hotspots. A picture region is
+   shown by scaling the image inside an overflow box, which keeps the crop exact
+   and the aspect right without touching the file. */
+const VIEWS = [Object.assign({ x:0, y:0, w:100, h:100 }, SOURCE.whole)].concat(HOTSPOTS);
+let zi = 0;
+
+function showZoom(n){
+  zi = (n + VIEWS.length) % VIEWS.length;
+  const v = VIEWS[zi];
+  if (isText) drawZoomText(n); else drawZoomImage(v);
+  el("zTitle").textContent = v.label;
+  el("zText").textContent  = v.text;
+  el("zDots").innerHTML = VIEWS.map((x,i)=>
+    `<button data-z="${i}" aria-current="${i===zi}">${esc(x.label)}</button>`).join("");
+  el("zDots").querySelectorAll("button").forEach(btn =>
+    btn.onclick = ()=> showZoom(+btn.dataset.z));
+  el("zoom").hidden = false;
+  /* Only now does the dialog have layout. A long passage does not fit a screen
+     at reading-from-the-back size, so bring the chosen phrase to the middle
+     rather than leaving it below the fold: scrollIntoView is a no-op while the
+     container is still [hidden]. */
+  if (isText){
+    const lit = el("zPass").querySelector(".lit");
+    if (lit) lit.scrollIntoView({ block: "center" });
+  } else sizeWrap();
+  el("zClose").focus();
+}
+
+function drawZoomImage(v){
+  el("zPass").hidden = true; el("zWrap").hidden = false;
+  const natW = rockImg.naturalWidth || 1200, natH = rockImg.naturalHeight || 900;
+  const wrap = el("zWrap"), img = el("zImg");
+  img.src = rockImg.currentSrc || rockImg.src;
+  /* the box is w% of the image wide, so the image is 100/w times the box */
+  img.style.width = (100 / v.w * 100) + "%";
+  img.style.left  = (-v.x / v.w * 100) + "%";
+  img.style.top   = (-v.y / v.h * 100) + "%";
+  wrap.dataset.ar = ((v.w / 100 * natW) / (v.h / 100 * natH)).toFixed(5);
+  img.alt = v.label + ". " + v.text;
+}
+
+/* n is the VIEWS index: 0 is the whole passage, so hotspot k is at n = k+1.
+   Everything except the chosen segment is dimmed rather than hidden, so the
+   class can still see where in the passage the phrase sits. */
+function drawZoomText(n){
+  el("zWrap").hidden = true;
+  const box = el("zPass");
+  box.hidden = false;
+  box.innerHTML = plate.querySelector(".passage").innerHTML;
+  box.classList.toggle("all", n === 0);
+  box.querySelectorAll("[data-h]").forEach(s => {
+    s.classList.add("seg");
+    if (n > 0 && +s.dataset.h === n - 1) s.classList.add("lit");
+  });
+  box.querySelectorAll(".segno").forEach(x => x.remove());
+  /* A long passage does not fit a screen at reading-from-the-back size, so
+     bring the chosen phrase to the middle rather than leaving it below the fold. */
+  box.scrollTop = 0;
+}
+
+/* Size the crop box in pixels rather than leaning on CSS aspect-ratio: the box
+   has no intrinsic size (the image inside is absolutely positioned), so in a
+   centred grid it collapses to nothing. */
+function sizeWrap(){
+  const wrap = el("zWrap");
+  const ar = parseFloat(wrap.dataset.ar || "1");
+  const box = el("zoom").querySelector(".zstage").getBoundingClientRect();
+  let w = box.width, h = w / ar;
+  if (h > box.height){ h = box.height; w = h * ar; }
+  wrap.style.width  = Math.floor(w) + "px";
+  wrap.style.height = Math.floor(h) + "px";
+}
+window.addEventListener("resize", ()=>{ if (!el("zoom").hidden && !isText) sizeWrap(); });
+const closeZoom = ()=>{ el("zoom").hidden = true; };
+el("zClose").onclick = closeZoom;
+el("zPrev").onclick = ()=> showZoom(zi - 1);
+el("zNext").onclick = ()=> showZoom(zi + 1);
+el("zoom").addEventListener("click", e => {
+  if (e.target === el("zoom") || e.target === el("zWrap") || e.target === el("zPass")) closeZoom();
+});
+
+plate.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const s = e.target.closest(".seg");
+  if (!s) return;
+  e.preventDefault();
+  s.click();
+});
+plate.addEventListener("click", e => {
+  const b = e.target.closest("[data-h]");
+  if (!b) return;
+  const n = +b.dataset.h;
+  const h = HOTSPOTS[n];
+  plate.querySelectorAll("[data-h]").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  el("rockcap").innerHTML = `<b>${esc(h.label)}</b>${esc(h.text)}`;
+  showZoom(n + 1);                    // VIEWS[0] is the whole source
+});
+el("zoomAll").onclick = ()=> showZoom(0);
+
+/* ---------- popup ---------- */
+const pop = el("pop");
+function showPop(kind, word, body, key, anchor){
+  el("popKind").textContent = kind;
+  el("popWord").textContent = word;
+  el("popBody").textContent = body;
+  pop.className = "pop show k-" + (key || "word");
+  const r = anchor.getBoundingClientRect();
+  pop.style.visibility = "hidden"; pop.style.left = "0px"; pop.style.top = "0px";
+  const pr = pop.getBoundingClientRect();
+  let left = Math.min(Math.max(8, r.left), window.innerWidth - pr.width - 8);
+  let top  = r.bottom + 10;
+  if (top + pr.height > window.innerHeight - 8) top = Math.max(8, r.top - pr.height - 10);
+  pop.style.left = left + "px"; pop.style.top = top + "px"; pop.style.visibility = "";
+}
+const hidePop = () => pop.classList.remove("show");
+el("popClose").onclick = hidePop;
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape"){ hidePop(); closeZoom(); }
+  if (!el("zoom").hidden){
+    if (e.key === "ArrowRight"){ e.preventDefault(); showZoom(zi + 1); }
+    if (e.key === "ArrowLeft"){  e.preventDefault(); showZoom(zi - 1); }
+  }
+});
+
+document.addEventListener("click", e => {
+  if (hasEAL && !e.target.closest("#langMenu") && !e.target.closest("#tLangBtn")){
+    el("langMenu").hidden = true;
+    el("tLangBtn").setAttribute("aria-expanded", "false");
+  }
+  if (e.target.closest("#pop")) return;
+  const g3 = e.target.closest("[data-t3]");
+  if (g3){
+    const term = g3.dataset.t3, hit = ealFor(term);
+    showPop("What it means", g3.textContent, defOf(term), null, g3);
+    if (hit && lang){
+      const label = UNIT_LANGS.find(l => l.code === lang);
+      el("popBody").insertAdjacentHTML("beforeend",
+        `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
+    } else if (hit){
+      /* No language chosen yet. Rather than showing nothing and looking broken,
+         offer the languages here: one tap translates and is remembered. */
+      el("popBody").insertAdjacentHTML("beforeend",
+        `<span class="pick"><span>See this in your language:</span>` +
+        UNIT_LANGS.filter(l => hit.t[l.code])
+          .map(l => `<button data-l="${l.code}" lang="${l.code}">${esc(l.label)}</button>`).join("") +
+        `</span>`);
+      el("popBody").querySelectorAll("button[data-l]").forEach(btn => btn.onclick = ev => {
+        ev.stopPropagation();
+        lang = btn.dataset.l;
+        const chosen = UNIT_LANGS.find(l => l.code === lang);
+        const languageButton = el("tLangBtn");
+        languageButton.textContent = chosen ? `🌐 ${chosen.label}` : "🌐 Translate";
+        languageButton.dataset.on = chosen ? "1" : "0";
+        try { localStorage.setItem("wagoll-lang", lang); } catch (e) {}
+        showPop("What it means", g3.textContent, defOf(term), null, g3);
+        const lb = UNIT_LANGS.find(l => l.code === lang);
+        el("popBody").insertAdjacentHTML("beforeend",
+          `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
+          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
+      });
+    }
+    return;
+  }
+  const g2 = e.target.closest("[data-t2]");
+  if (g2){ g2.classList.toggle("on"); hidePop(); return; }
+  const m = e.target.closest("[data-crit]");
+  if (m) {
+    const c = critOf(m.dataset.crit), lv = LADDER[i];
+    const why = explOf(lv)[c.key];
+    return showPop(c.glyph + "  " + c.name.replace(/&amp;/g,"&"), m.textContent,
+      why || "This phrase is the evidence for " + c.name.replace(/&amp;/g,"&") + " at " + lv + ".",
+      c.key, m);
+  }
+  hidePop();
+});
+
+/* ---------- stages ---------- */
+function drawRungs(){
+  el("rungs").innerHTML =
+    `<button data-i="-1" ${i===-1?'aria-current="true"':""}>The source</button>` +
+    LADDER.map((lv,n)=>`<button data-i="${n}" class="${n<i?"done":""}" ${n===i?'aria-current="true"':""}>${esc(lv)}</button>`).join("");
+  el("rungs").querySelectorAll("button").forEach(b => b.onclick = ()=>{ i = +b.dataset.i; render(); });
+  el("prev").disabled = i <= -1;
+  el("next").disabled = i >= LADDER.length - 1;
+}
+
+function render(){
+  hidePop();
+  drawRungs();
+  if (pane === "rubric") renderRubric();
+  const stage = el("stage");
+  if (i === -1){
+    el("rungName").textContent = "The source";
+    stage.classList.remove("small");
+    stage.innerHTML =
+      `<div class="inquiry">${esc(WALL.inquiry)}</div>
+       <p class="crumbs">Everything underlined can be tapped. Dotted words are subject words with a
+          definition; the green words open an everyday meaning when you tap them.</p>
+       <div class="facts">${FACTS.map(([h,t])=>
+          `<div class="fact"><b>${esc(h)}</b>${linkGloss(t)}</div>`).join("")}</div>`;
+    /* the source stage has no worked example to shrink, but it still has to
+       fit. It is the first thing on the screen and the class reads it cold */
+    fit();
+    markTranslatable();
+    return;
+  }
+  const lv = LADDER[i];
+  el("rungName").textContent = lv;
+  const ex = exOf(lv);
+  const plain = ex.replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+  baseK = Math.min(2.4, Math.max(0.92, Math.sqrt(950 / plain.length)));
+  const b = BUMP[lv] || {};
+  stage.innerHTML =
+    `<h2><span class="of">Rung ${i+1} of ${LADDER.length}</span>${esc(lv)}</h2>
+     ${b.new ? `<div class="newbar"><span>New at this rung</span>${esc(b.new)}</div>` : ""}
+     ${b.background ? `<div class="bg" id="bgBox" hidden><span>You need to know</span>${esc(b.background)}</div>` : ""}
+     <p class="example">${marked(ex)}</p>
+     <p class="crumbs">Tap any underlined phrase to see what it proves.</p>`;
+  syncBg();
+  markTranslatable();
+}
+
+/* Opening the Background or Curriculum panel eats vertical room. Rather than
+   guess a smaller size for those cases, shrink the example until it actually
+   fits: the stage must never scroll on a screen at the front of a room. */
+let baseK = 1;
+function fit(){
+  const st = el("stage");
+  st.style.setProperty("--sk", "1");
+  const over = ()=> st.scrollHeight > st.clientHeight;
+  /* the source stage has no worked example, but it still has to fit */
+  if (!st.querySelector(".example")){
+    let s0 = 1;
+    for (let g = 0; g < 40 && over() && s0 > 0.6; g++){
+      s0 *= 0.96;
+      st.style.setProperty("--sk", s0.toFixed(3));
+    }
+    return;
+  }
+  /* first shrink just the worked example, which is the part with slack */
+  let k = baseK;
+  st.style.setProperty("--k", k.toFixed(3));
+  for (let g = 0; g < 60 && over() && k > 0.60; g++){
+    k *= 0.94;
+    st.style.setProperty("--k", k.toFixed(3));
+  }
+  /* then, if the fixed panels are still too tall on their own, shrink the
+     whole stage together, everything inside is sized in em */
+  let sk = 1;
+  for (let g = 0; g < 60 && over() && sk > 0.5; g++){
+    sk *= 0.96;
+    st.style.setProperty("--sk", sk.toFixed(3));
+  }
+}
+
+function syncBg(){
+  const box = el("bgBox");
+  if (box) box.hidden = el("tBg").getAttribute("aria-pressed") !== "true";
+  fit();
+}
+
+/* ---------- the rubric panel ----------
+   The left column shows either the source or the rubric for the rung on
+   screen. They swap rather than stack: when both were in the column at once
+   the picture took the height it wanted and pushed the descriptors off the
+   bottom of the screen, which is how a student ended up reading half a list.
+
+   The rubric is the school's learning continuum, straight out of content.js.
+   It is deliberately the only rubric shown here. */
+function renderRubric(){
+  const lv = LADDER[i];
+  const box = el("paneRubric");
+  if (i === -1){
+    box.innerHTML = `<div class="rubric"><p class="note">Pick a rung to see what is
+      being asked for at that level.</p></div>`;
+    return;
+  }
+  const rows = CRITERIA.map(c => {
+    const wall = (typeof CONTINUUM !== "undefined" && CONTINUUM[c.key] && CONTINUUM[c.key][lv]) || "";
+    if (!wall) return "";
+    return `<div class="row" style="border-left-color:${c.lamp}">
+      <h4 style="color:${c.lamp}">${c.glyph} ${c.name.replace(/&amp;/g,"&")}</h4>
+      <p>${esc(wall)}</p>
+    </div>`;
+  }).join("");
+  if (!rows) {
+    box.innerHTML = `<div class="rubric"><p class="note">This access rung sits below the Grade 5–Year 10 learning continuum. Move to Grade 5 to see the first continuum column.</p></div>`;
+    return;
+  }
+  box.innerHTML = `<div class="rubric">
+      <span class="band">Learning continuum · ${esc(lv)}</span>
+      ${rows}
+    </div>`;
+}
+
+let pane = "source";
+function showPane(which){
+  pane = which;
+  el("paneSource").hidden = which !== "source";
+  el("paneRubric").hidden = which !== "rubric";
+  el("tabSource").setAttribute("aria-selected", String(which === "source"));
+  el("tabRubric").setAttribute("aria-selected", String(which === "rubric"));
+  if (which === "rubric") renderRubric();
+}
+el("tabSource").onclick = () => showPane("source");
+el("tabRubric").onclick = () => showPane("rubric");
+
+el("tBg").onclick = ()=>{
+  const on = el("tBg").getAttribute("aria-pressed") === "true";
+  el("tBg").setAttribute("aria-pressed", String(!on));
+  syncBg();
+};
+
+
+el("prev").onclick = ()=>{ if (i > -1){ i--; render(); } };
+el("next").onclick = ()=>{ if (i < LADDER.length-1){ i++; render(); } };
+document.addEventListener("keydown", e => {
+  if (e.target.closest("button") || !el("zoom").hidden) return;
+  if (e.key === "ArrowRight") el("next").click();
+  if (e.key === "ArrowLeft")  el("prev").click();
+});
+
+render();
+</script>
+</body>
+</html>
