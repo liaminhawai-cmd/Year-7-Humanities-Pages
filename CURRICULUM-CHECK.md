@@ -1,4 +1,4 @@
-# Curriculum check — the wall against Kew's continuum against VC 2.0
+# Curriculum check: the wall against Kew's continuum against VC 2.0
 
 Checked 14 August 2026 against:
 
@@ -26,7 +26,7 @@ spreadsheet:
 | Accuracy, usefulness & reliability | draw conclusions about the usefulness of sources | ✅ identical |
 
 The same holds at Years 6, 8, 9 and 10. Grade 5 is a bridging column written for
-this wall — Kew's History continuum starts at Level 6, so there is nothing to
+this wall: Kew's History continuum starts at Level 6, so there is nothing to
 transcribe there, and that column is ours.
 
 ## 2. Is Kew's continuum accurate to the Victorian Curriculum?
@@ -58,7 +58,7 @@ students to **analyse** accuracy and reliability where VC2HH10S04 asks them to
 "evaluate", so the school ladder reaches it a year later.
 
 **The narrowing is worth more attention than the verb.** VC2HH8S04 and
-VC2HH10S04 are not about accuracy in the abstract — they ask what a source is
+VC2HH10S04 are not about accuracy in the abstract. They ask what a source is
 worth *for explaining historical significance, continuity and change, and causes
 and consequences*. Kew's row asks about accuracy, usefulness and reliability
 without tying them to anything. A student can satisfy Kew's row and still not
@@ -76,8 +76,7 @@ have done what the curriculum descriptor asks.
 | Historical interpretations (secondary sources) | ✅ |
 | Accuracy, usefulness and reliability | ✅ |
 
-The perspectives row — "I can identify / describe / explain / compare / analyse
-different points of view in primary sources" — is the one VC codes as S05, and
+The perspectives row, "I can identify / describe / explain / compare / analyse different points of view in primary sources", is the one VC codes as S05, and
 it is the only one of the five with no colour, no underline pattern and no
 column on the wall.
 
@@ -88,7 +87,7 @@ and that is a statement about values, not about context. The same happens in the
 Egypt and Vesuvius units.
 
 **This is the one substantive change still to make.** Adding it means a fifth
-criterion — a fifth colour, a fifth underline pattern, a fifth glyph — and
+criterion, a fifth colour, a fifth underline pattern, a fifth glyph, and
 re-marking twenty-four worked examples across the three units. It is a
 deliberate decision, not a tidy-up, so it has not been made unilaterally.
 
@@ -98,7 +97,7 @@ deliberate decision, not a tidy-up, so it has not been made unilaterally.
 
 - Every rung now carries its real VC 2.0 descriptor and code, Foundation to
   Level 10. Before this check the wall carried codes to Level 6 only and
-  described everything above it as "the school's own continuum" — which was
+  described everything above it as "the school's own continuum", which was
   true, but left the impression the school wording had no curriculum behind it.
 - `VC_NOTE` now states that the wall shows two layers, and names the gap.
 - The row wording itself is **unchanged**, because it was right.

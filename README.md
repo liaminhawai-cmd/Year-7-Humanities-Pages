@@ -1,4 +1,4 @@
-# Year 7 Humanities — the live site
+# Year 7 Humanities: the live site
 
 **[Open the site →](https://liaminhawai-cmd.github.io/Year-7-Humanities-Pages/)**
 
@@ -28,8 +28,7 @@ Each topic folder holds a single `content.js` with every word of that topic's
 wall. The pages in that folder read it, and so do the PDF, Word and standalone
 builders in `tools/`. **Edit there and it changes everywhere at once.**
 
-`eal.js` at the root holds the source-analysis vocabulary shared by every topic —
-twenty words with a definition and eighteen translations — and the same file
+`eal.js` at the root holds the source-analysis vocabulary shared by every topic, twenty words with a definition and eighteen translations, and the same file
 generates the Year 7 unit on the
 [EAL Word Builder](https://liaminhawai-cmd.github.io/EAL-Vocabulary-Site/):
 
@@ -81,7 +80,7 @@ says which to retire.
    metadata.
 2. **Nothing is collected.** No accounts, no tracking, no analytics.
    `localStorage` only, and the pages say so.
-3. **No gates.** Nothing is locked behind finishing something else — teachers
+3. **No gates.** Nothing is locked behind finishing something else, teachers
    jump around mid-lesson.
 4. **No filler.** No points, badges or streaks. If a line does not teach,
    instruct, or report a real state, it should not be there.
@@ -94,14 +93,14 @@ says which to retire.
 ## Curriculum
 
 `CURRICULUM-CHECK.md` records how the walls line up against Kew High's own
-learning continuum and against Victorian Curriculum 2.0 — including where the
+learning continuum and against Victorian Curriculum 2.0, including where the
 two disagree, and the one row of Kew's continuum the History wall is still
 missing.
 
 ## GS73 and Mirarr Country
 
 The source images in `history/gs73/` come from Figure 3 of Hayes, E. H. et al.
-(2022), *Scientific Reports* 12, 11747 — open access under CC BY 4.0. The
+(2022), *Scientific Reports* 12, 11747: open access under CC BY 4.0. The
 research was conducted with permission from the custodians of Madjedbebe, May
 Nango and Djaykuk Djandjomerr, and Mirarr Senior Traditional Owner Yvonne
 Margarula, with Gundjeihmi Aboriginal Corporation facilitating the work. The
