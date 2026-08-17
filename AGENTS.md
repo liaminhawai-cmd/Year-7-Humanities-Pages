@@ -283,13 +283,20 @@ pushing, confirm the run went green and its commit matches yours.
 
 ### 21. One branch, folded back in.
 
-Six stale branches across the three repositories were deleted in August 2026. Not
-one held a commit that was not already in `main`: they were leftovers, and they
-made it look as though live work was sitting somewhere unmerged.
+Six stale branches sat across the three repositories in August 2026, and not one
+held a commit that was not already in `main`. They were leftovers. Four of them,
+in `Year-7-Humanities`, pointed at the same commit as each other, because a
+workflow force-pushed one orphan commit over all four branch names every time it
+ran. The effect was that superseded work looked as though it were live somewhere
+unmerged, which is expensive to check and impossible to trust.
 
-Work on the branch you were given, push it, get it into `main`, and let it be
-deleted. Do not leave a branch behind as a record of anything. `main` is the
-record.
+Work on the branch you were given, push it, get it into `main`, then delete the
+branch. Do not leave one behind as a record of anything, `main` is the record.
+
+Deleting a branch is a thing to do from the GitHub UI or a local clone. The
+sandbox these sessions run in can push new refs but not delete them, the proxy
+returns 403, so a model cannot tidy this up for you and should say so plainly
+rather than report a deletion that did not happen.
 
 ### 22. Do the task that was asked.
 
