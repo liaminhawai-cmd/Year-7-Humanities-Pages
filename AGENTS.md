@@ -271,7 +271,31 @@ commercial use without Mirarr consent.
 No names, emails, IDs, marks, class lists or support notes. No accounts, no
 analytics, no trackers. Student progress stays in `localStorage` in the browser.
 
-### 20. Verify the deploy rather than assuming it.
+### 20. A push to `main` is a publication. Draft on a branch.
+
+There is no staging site. `.github/workflows/check.yml` fires on every push to
+`main` and deploys, so merging is publishing, in front of students, immediately.
+
+So a resource that is not ready does not go on `main`. It goes on a branch, and
+it stays there until the things that are open have actually been closed. While it
+is a draft:
+
+- do not add it to `SITE` in `tools/build_index_pages.py`, because that is what
+  puts a card on a page a student can reach
+- say what is unfinished at the top of its `content.js`, not only in the commit
+  message, because the next person opens the file and not the log
+- state it in the topic note too, the way the Rome and Vesuvius notes do:
+  "**Draft.** Written and levelled but not yet taught."
+
+Three separate green lights, and they are not the same conversation: the wording
+is right, then the page may go up as a draft, then it may go into the navigation.
+Do not treat approval of one as approval of the next.
+
+The Batman wall is the worked example. It sits in `history/batman/` on a branch,
+absent from the site map, with an unresolved cultural-consultation item named in
+its header, and it will not be linked until that is closed.
+
+### 21. Verify the deploy rather than assuming it.
 
 The site is published by the `Check and publish` workflow in
 `.github/workflows/check.yml`, and Settings > Pages > Source must stay on
@@ -281,7 +305,7 @@ pushing, confirm the run went green and its commit matches yours.
 
 ## Working method
 
-### 21. One branch, folded back in.
+### 22. One branch, folded back in.
 
 Six stale branches sat across the three repositories in August 2026, and not one
 held a commit that was not already in `main`. They were leftovers. Four of them,
@@ -298,12 +322,12 @@ sandbox these sessions run in can push new refs but not delete them, the proxy
 returns 403, so a model cannot tidy this up for you and should say so plainly
 rather than report a deletion that did not happen.
 
-### 22. Do the task that was asked.
+### 23. Do the task that was asked.
 
 Not the adjacent one that looks more interesting. If you find a real problem
 somewhere else, name it and finish the asked task first.
 
-### 23. Do not invent curriculum content unprompted.
+### 24. Do not invent curriculum content unprompted.
 
 If a topic has no glossary, report that it has no glossary. Writing one and
 shipping it quietly puts words in front of students that no teacher chose.

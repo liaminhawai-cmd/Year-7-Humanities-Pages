@@ -4,12 +4,15 @@
    level-sheets.html and interactive.html all read it, so editing here
    updates the wall, the per-level A3 sheets and the interactive at once.
 
-   DRAFT. Not linked from the site navigation. Two open items before this
-   can be taught or published: the source image below is a 400x183 web
-   thumbnail (State Library Victoria, accession H92.196) standing in for a
-   proper reproduction, and the framing has not been checked with the
-   Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation. See
-   SOURCE-NOTICE.md.
+   DRAFT. Not linked from the site navigation. One open item before this can
+   be taught or published: the framing has not been checked with the
+   Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation.
+
+   The painting is reproduced at 1600x800 from the file supplied for this
+   build. It is John Wesley Burtt, circa 1875, State Library of Victoria
+   accession H92.196. The painting itself is long out of copyright; the
+   reproduction's own terms still need confirming with SLV before print.
+   See SOURCE-NOTICE.md.
 
    Mark evidence in an example with {key|the phrase}, where key is one of
    the criterion keys in CRITERIA. Anything left unmarked stays black.
@@ -56,7 +59,7 @@ const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4"];
 
 const EARLY_EXAMPLES = {
  "Foundation to Level 2":
-`This is a {source|painting}. I can see {source|canoes} and {source|spears}. A man in a {source|white shirt} is standing with {context|Kulin people}.`,
+`This is a {source|painting}. I can see {source|a big tree} and {source|long spears}. A man in a {source|white shirt} is standing with {context|Kulin people}.`,
 
  "Levels 3 and 4":
 `The painting shows {source|a man named Batman meeting Aboriginal people from the Kulin Nation}. On the ground are {source|blankets with mirrors, shirts and beads on them}. Batman said {context|the Kulin people agreed to sell him their land}. A different document called the {evidence|Proclamation says no one could buy Aboriginal land at all}.`
@@ -64,7 +67,7 @@ const EARLY_EXAMPLES = {
 
 const EARLY_EXPLANATIONS = {
  "Foundation to Level 2": {
-   source:  "Names three things the child can point to in the painting: it is a painting, and it shows canoes and spears.",
+   source:  "Names three things the child can point to in the painting: that it is a painting, the tree, and the spears.",
    context: "Names the group of people in the painting, using their own name rather than a general word." },
  "Levels 3 and 4": {
    source:  "Names the source, the event and one visible feature, the gifts on the blankets.",
@@ -164,58 +167,114 @@ judge:{
 
 const SHEET_IMAGE = "batman-treaty-source.jpg";
 
-const SOURCE_PANEL = {
+/* ---------------------------------------------------------------------------
+   TWO sources, not one. The whole point of this wall is that they disagree:
+   the painting shows a bargain being struck, the Proclamation says no such
+   bargain was ever possible. A student cannot compare interpretations from a
+   single source, which is what the interpretations row asks for.
+
+   SOURCES drives the tab strip on bump-it-up.html. Each entry carries its own
+   hotspots, so a picture source and a written source behave identically.
+   --------------------------------------------------------------------------- */
+const SOURCES = [
+ {
+  id: "painting",
+  tab: "A · The painting",
   kind: "image",
   file: SHEET_IMAGE,
-  ar:   "400/183",
-  alt:  "Batman's Treaty with the Aborigines at Merri Creek, an 1875 painting by John Wesley Burtt showing Batman and Kulin men beside blankets laid out with trade goods.",
+  ar:   "1600/800",
+  alt:  "Batman's Treaty with the Aborigines at Merri Creek, an oil painting of about 1875 by John Wesley Burtt. Batman stands in a white shirt holding a document, facing a Kulin man in a possum-skin cloak, with Kulin men holding spears and a shield behind them, two white cloths spread on the grass with trade goods on them, and a camp with bark shelters to the right.",
   missing: "The picture of the painting did not load.<br>Keep <b>batman-treaty-source.jpg</b> in the same folder as this page.",
+  cite: "John Wesley Burtt, circa 1875. State Library of Victoria, H92.196.",
   whole: { label:"The whole painting",
-    text:"Everyone in this scene was painted, not photographed, by someone who was born after this meeting happened." }
-};
-
-/* Percentages of the image. Placeholder crops against the 400x183 web
-   thumbnail; recheck against a proper reproduction before this ships. */
-const HOTSPOTS = [
- { x:4,  y:60, w:34, h:38, label:"The gifts",
-   text:"Blankets laid on the ground, with mirrors, shirts and beads on top: the painting's record of what Batman offered in return for the land." },
- { x:41, y:30, w:20, h:60, label:"Batman and the man beside him",
-   text:"Batman, in a white shirt, stands with a Kulin man whose hand rests near his arm. No portrait of Batman was painted while he was alive, so this face is the artist's invention." },
- { x:59, y:22, w:24, h:62, label:"The Kulin men",
-   text:"Men from the Kulin Nation, some in possum-skin cloaks, one holding a long spear. Their names are not recorded in the painting or its caption." },
- { x:82, y:40, w:17, h:48, label:"The camp",
-   text:"Shelters and more people on the far side of the scene, going on with everyday life while the meeting in the foreground happens." }
+    text:"Painted about 1875, roughly forty years after the meeting it shows, by an artist who was not there. No portrait of Batman was made while he was alive, so his face here is invented." },
+  /* Percentages of the 1600x800 reproduction, read off the image. Nudge them
+     if the plate is ever replaced with a different crop. */
+  hotspots: [
+   { x:12, y:66, w:30, h:22, label:"The goods on the cloth",
+     text:"Two white cloths spread on the grass, with red cloth, small mirrors and beads laid out. This is the painting's record of what was offered for about 240,000 hectares of land." },
+   { x:21, y:47, w:22, h:18, label:"The men laying them out",
+     text:"Colonists kneeling over the cloths, arranging the goods. One stands behind them with a gun. The painting puts armed men at a meeting it otherwise shows as friendly." },
+   { x:45, y:36, w:17, h:52, label:"Batman, and the paper in his hand",
+     text:"Batman in a white shirt and red tie, holding a document: the deed itself, inside the picture. The Kulin man facing him rests a hand on his shoulder. Neither man's face was painted from life." },
+   { x:62, y:36, w:18, h:44, label:"The Kulin men",
+     text:"Men of the Kulin Nation in possum-skin cloaks, holding long spears and an oval shield. Not one of them is named in the painting or in its catalogue record." },
+   { x:80, y:42, w:19, h:38, label:"The camp",
+     text:"Bark shelters, women, children and people seated on the ground, carrying on while the meeting happens. The painting shows a place already lived in." }
+  ]
+ },
+ {
+  id: "proclamation",
+  tab: "B · The Proclamation",
+  kind: "text",
+  cite: "Proclamation of Governor Sir Richard Bourke, 26 August 1835. Abridged; spelling and capitals as written.",
+  whole: { label:"The whole Proclamation",
+    text:"Ten weeks after the meeting in the painting, the Governor of New South Wales declared that no settler could buy land from Aboriginal people, and that Batman's treaty was worth nothing." },
+  paragraphs: [
+   "Whereas, it has been represented to me, that divers of His Majesty's Subjects have taken possession of vacant Lands of the Crown within the limits of this Colony, under the pretence of a treaty, bargain, or contract, for the purchase thereof, with the Aboriginal Natives;",
+   "Now therefore, I the Governor, in virtue and in exercise of the power and authority in me vested, do hereby proclaim and notify to all His Majesty's Subjects, and others whom it may concern, that every such treaty, bargain, and contract with the Aboriginal Natives, as aforesaid, for the possession, title, or claim to any Lands lying and being within the limits of the Government of the Colony of New South Wales, is void and of no effect against the rights of the Crown;",
+   "and that all Persons who shall be found in possession of any such Lands as aforesaid, without the license or authority of His Majesty's Government, for such purpose first had and obtained, will be considered as trespassers, and liable to be dealt with in like manner as other intruders upon the vacant Lands of the Crown within the said Colony.",
+   "Given under my Hand and Seal, at Government House, Sydney, this twenty sixth Day of August, One thousand eight hundred and thirty five. (signed) Richard Bourke."
+  ],
+  hotspots: [
+   { mark:"vacant Lands of the Crown", label:"‘vacant Lands of the Crown’",
+     text:"The land is called empty and the Crown's. Read on: the same sentence admits there were Aboriginal people there to make a treaty with. The document contradicts itself in four lines." },
+   { mark:"under the pretence of a treaty", label:"‘under the pretence of a treaty’",
+     text:"‘Pretence’ decides the question before it is argued. To Bourke, Batman's deed is not a treaty that failed, it is an excuse." },
+   { mark:"is void and of no effect against the rights of the Crown", label:"‘void and of no effect’",
+     text:"The ruling. Not that this particular treaty was unfair, but that no such treaty could ever count, because only the Crown could grant land." },
+   { mark:"will be considered as trespassers", label:"‘considered as trespassers’",
+     text:"The consequence. A settler holding land bought from Aboriginal people is not an owner but an intruder." },
+   { mark:"twenty sixth Day of August, One thousand eight hundred and thirty five", label:"The date",
+     text:"26 August 1835, about ten weeks after the June meeting the painting shows. The painting was made forty years after both." }
+  ]
+ }
 ];
 
-/* new: the skill this rung adds that the one below it did not have.
-   background: the outside knowledge a student needs before the example
-   makes sense, named so a teacher can see exactly what is being assumed and
-   check it has actually been taught. Shown on screen as "You need to know". */
+/* Anything that reads a single source, the A3 sheet and the poster builders,
+   still gets one. bump-it-up.html prefers SOURCES when it is defined. */
+const SOURCE_PANEL = Object.assign({}, SOURCES[0]);
+const HOTSPOTS = SOURCES[0].hotspots;
+
+/* Two different things climb this wall at once, and a student who cannot tell
+   them apart reads their own year level as "too hard" rather than "not taught
+   yet".
+
+   new:        the SKILL this rung adds that the rung below did not have.
+   background: the KNOWLEDGE a student at this level has already been taught,
+               which is what makes the inference above available to them.
+
+   So background is written as a statement about what the year level knows, not
+   as a warning about what the reader is missing. On screen the panel is
+   labelled with the level's own name: "A Year 9 student already knows". Read
+   down the column and you can see exactly which rungs are harder because the
+   thinking got harder, and which are harder because they lean on history that
+   is taught later. */
 const BUMP = {
  "Foundation to Level 2": {
    new:"You name what you can see in the painting.",
-   background:"That a painting is made by a person, and can show things that did not really happen that way." },
+   background:"that pictures are made by people, and that a picture can show something that did not happen quite that way." },
  "Levels 3 and 4": {
    new:"You say what the painting is claimed to show, and that a second document disagrees with it.",
-   background:"That the Kulin Nation is a group of Aboriginal peoples whose Country this land is, and that Europeans arrived after them." },
+   background:"that Aboriginal peoples were here first, and that this land is the Country of the Kulin Nation." },
  "Grade 5": {
    new:"You name the date the painting shows, bring in the Proclamation as a second source, and give one use and one limit.",
-   background:"That Batman said he bought this land, and that the Proclamation is a different, official document that disagreed." },
+   background:"that Europeans came to Australia and took land, and that governments make written rules about who owns what." },
  "Year 6": {
    new:"You explain why the painting was made, not just what it shows, and give both sides' claims.",
-   background:"That paintings can be made to make an event look a certain way, for people who were not there." },
+   background:"that Australia was colonised by Britain, and that people who write about an event often want it remembered a particular way." },
  "Year 7": {
    new:"You separate the 1835 event from the 1875 painting of it, and quote the Proclamation's own words.",
-   background:"That the painting was made forty years after 1835, and that colonists were arguing about whether buying Aboriginal land was ever legal." },
+   background:"that colonisation happened over a long period, place by place, and that Melbourne was founded in the 1830s, decades after Sydney." },
  "Year 8": {
    new:"You give three positions instead of two, adding what the painting itself does and does not take sides on, and explain why the artist's absence limits it.",
-   background:"That British law in the 1830s treated Australia as belonging to no one, which is why Bourke could declare Batman's treaty void." },
+   background:"that Britain claimed Australia as land belonging to no one, which is the idea that let a Governor rule that Aboriginal people had no land to sell." },
  "Year 9": {
    new:"You explain why the two documents disagree, not only that they disagree, by naming what each one was written to achieve.",
-   background:"That no Kulin record of the meeting survives, so every account historians have was written by colonists." },
+   background:"that colonisation dispossessed Aboriginal peoples, that this was contested at the time, and that almost all surviving written records of it were made by colonists." },
  "Year 10": {
    new:"You separate what a source explicitly shows from what it implies, and name the audience it was really made for.",
-   background:"That the painting was made in 1875, forty years on, when colonists had their own reasons to want the founding of Melbourne remembered as fair." }
+   background:"that later generations retell their own founding stories to suit themselves, and that Australia argued about the truth of its settlement long after 1835." }
 };
 
 /* Tier 3 = the subject's own words, which need a definition.
