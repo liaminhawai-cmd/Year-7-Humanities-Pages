@@ -332,10 +332,29 @@ split conflated the two, so running it for "history" silently failed once GS73
 moved into `history/gs73/`. Add a topic to `SUBJECTS` when you give it a wall; do
 not reintroduce the folder-name shortcut.
 
-Every `build-pdf.mjs` writes its output beside itself, but the copies that ship
-are in `print/`. Those topic-folder PDFs are gitignored scratch: move the ones you
-mean to publish into `print/` and add them to the print pack in
-`tools/build_index_pages.py`, or they exist and nobody can reach them.
+Every `build-pdf.mjs` writes its output beside itself, but the copy that ships
+is in `print/`. Those topic-folder PDFs are gitignored scratch, and for most
+topics the move to `print/` is just that, a move: run `build-pdf.mjs`, move the
+named files, done. Batman's is not a move, it is a merge: `build-pdf.mjs`
+produces two separate PDFs (the sources, the level sheets), and
+`tools/merge_pdfs.py` concatenates them into the one file `print/` actually
+carries and the site links to, preserving each source's own page size, an A3
+landscape page sitting next to an A4 portrait one in the same file. Regenerate
+the HTML without also running the merge and the shipped PDF goes stale while
+looking untouched, because nothing about the topic folder's own files changed.
+Add whichever step your topic needs to `tools/build_index_pages.py`'s print
+pack entry, or the output exists and nobody can reach it.
+
+Do not add a second nav card for `bump-it-up-standalone.html`. It used to get
+one, "single file" beside `bump-it-up.html`'s "big screen", and both opened
+the identical interactive: the only difference is whether `content.js` and the
+source image are inlined, which nobody clicking a card can see. The file still
+exists, `tools/build_standalone.py` still builds it, and it still works for
+the USB-stick case the landing page promises; it is just not a second thing to
+click. `wagoll()` in `tools/build_index_pages.py` takes one blurb now, not a
+`screen`/`single` pair, and mentions the download inside it. If a resource
+looks the same to whoever clicks it, it gets one card, not one per way of
+serving it.
 
 ### 15. Arrays paired by position must be spliced together.
 

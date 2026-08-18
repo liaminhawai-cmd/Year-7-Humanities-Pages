@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<meta name="description" content="One A3 source sheet per source: Burtt's painting of Batman's Treaty and Governor Bourke's Proclamation, each reproduced in full with its details numbered and explained.">
+<meta name="description" content="One A3 landscape source sheet per source: Burtt's painting of Batman's Treaty and Governor Bourke's Proclamation, each reproduced in full with its details numbered and explained.">
 <title>Batman's Treaty Source Sheets</title>
 <style>
 :root{
@@ -29,75 +29,90 @@
 body{background:var(--bg);color:var(--ink);
      font-family:Georgia,"Times New Roman",serif;line-height:1.5}
 
-.sheet{width:297mm;min-height:420mm;margin:14px auto;background:var(--paper);
+/* Landscape: 420 x 297, so the layout runs side by side rather than stacked.
+   The plate takes the left column at roughly its own aspect; the standfirst
+   and the numbered details take the right, because that is where the
+   vertical room to list them actually is. */
+.sheet{width:420mm;height:297mm;margin:14px auto;background:var(--paper);
        border:1px solid var(--line);box-shadow:var(--shadow);
-       padding:15mm 15mm 11mm;display:flex;flex-direction:column}
+       padding:11mm 13mm 9mm;display:flex;flex-direction:column;overflow:hidden}
 
 .kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-        text-transform:uppercase;letter-spacing:.2em;font-size:9.5pt;font-weight:700;color:var(--muted)}
-h1{font-size:52pt;line-height:.94;color:var(--deep);letter-spacing:-.02em;margin:1mm 0 0;font-weight:700}
-.standfirst{font-size:14.5pt;line-height:1.4;color:var(--ink);max-width:66ch;margin-top:4mm;font-style:italic}
-.rule{height:2.5px;background:var(--deep);margin:5mm 0 5mm}
+        text-transform:uppercase;letter-spacing:.18em;font-size:8.5pt;font-weight:700;color:var(--muted)}
+h1{font-size:30pt;line-height:.98;color:var(--deep);letter-spacing:-.015em;margin:1mm 0 0;font-weight:700}
+.rule{height:2.2px;background:var(--deep);margin:3.5mm 0}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:10mm;flex:1;min-height:0}
+.left{display:flex;flex-direction:column;justify-content:center;min-height:0}
+.right{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+
+.standfirst{font-size:11.5pt;line-height:1.4;color:var(--ink);font-style:italic;margin-bottom:4mm}
 
 /* ---------- the plate: a picture source ----------
-   The numbered pins sit on the same percentage rectangles the interactive
-   uses, so a student who has tapped region 3 on screen finds region 3 in the
-   same place on paper. */
-.plate{position:relative;margin:0 0 4mm}
+   .plate is sized by the image itself (width:100%, height:auto), never
+   stretched to fill the column: the pins are positioned as plain CSS
+   percentages, which is only correct while this box IS the image's own
+   rendered box. Whatever vertical room is left over sits above and below as
+   margin, which reads as a plate laid on a page rather than a defect; the
+   alternative, stretching the box and using object-fit:contain to fit the
+   image inside it, was tried and rejected, because it letterboxes a 2:1
+   painting inside a taller box and shows as black bars top and bottom. */
+.plate{position:relative;width:100%}
 .plate img{width:100%;height:auto;display:block;border:1px solid var(--line);background:#111}
 .plate .pin{position:absolute;display:flex;align-items:center;justify-content:center;
-            border:2.5px solid var(--pin);border-radius:4px;background:rgba(255,255,255,.06)}
+            border:2px solid var(--pin);border-radius:3px;background:rgba(255,255,255,.06)}
 .plate .pin span{position:absolute;top:-1px;left:-1px;background:var(--pin);color:#fff;
                  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-                 font-size:10pt;font-weight:800;line-height:1;padding:2.5px 5px;border-radius:3px 0 4px 0}
+                 font-size:8.5pt;font-weight:800;line-height:1;padding:2px 4.5px;border-radius:2.5px 0 3px 0}
 
-/* ---------- the plate: a written source ---------- */
-.doc{border:1px solid var(--line);background:var(--band);border-radius:3px;
-     padding:8mm 9mm;margin:0 0 5mm;columns:2;column-gap:9mm;column-rule:1px solid var(--line);
-     font-size:12.8pt;line-height:1.52;text-align:justify;hyphens:auto}
-.doc p{margin-bottom:3mm;break-inside:avoid-column}
+/* ---------- the plate: a written source ----------
+   Unlike the picture plate, the document has no fixed aspect ratio to
+   preserve, so it is the one element in .left allowed to stretch and fill
+   whatever room the column has. */
+.doc{flex:1;min-height:0;border:1px solid var(--line);background:var(--band);border-radius:3px;
+     padding:6mm 7mm;overflow:auto;font-size:10.6pt;line-height:1.46;text-align:justify;hyphens:auto}
+.doc p{margin-bottom:2.6mm}
 .doc .num{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-          font-size:8pt;font-weight:800;color:#fff;background:var(--pin);
+          font-size:7.4pt;font-weight:800;color:#fff;background:var(--pin);
           padding:1px 4px;border-radius:3px;margin-right:2px;vertical-align:2px}
 .doc .hit{text-decoration:underline;text-decoration-color:var(--pin);
-          text-decoration-thickness:1.6px;text-underline-offset:2.5px;font-weight:700}
+          text-decoration-thickness:1.5px;text-underline-offset:2px;font-weight:700}
 
-.platecap{font-size:10.4pt;line-height:1.4;color:var(--muted);margin-bottom:5mm;
-          padding-left:4mm;border-left:2px solid var(--rule)}
+.platecap{font-size:8.6pt;line-height:1.35;color:var(--muted);margin-top:2.5mm;
+          padding-left:3.5mm;border-left:2px solid var(--rule)}
 
 /* ---------- the numbered details ---------- */
 h2{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-   font-size:11.5pt;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
-   color:var(--deep);border-bottom:1.5px solid var(--line);padding-bottom:2mm;margin-bottom:4mm}
-.details{columns:2;column-gap:10mm;column-rule:1px solid var(--line)}
-.d{display:grid;grid-template-columns:auto 1fr;gap:0 4mm;margin-bottom:5.5mm;break-inside:avoid}
+   font-size:9.2pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--deep);border-bottom:1.5px solid var(--line);padding-bottom:1.6mm;margin-bottom:2.8mm}
+.details{display:flex;flex-direction:column;gap:2.6mm;overflow:auto;flex:1;min-height:0}
+.d{display:grid;grid-template-columns:auto 1fr;gap:0 3mm}
 .d .n{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-      font-size:11pt;font-weight:800;color:#fff;background:var(--pin);border-radius:4px;
-      width:8mm;height:8mm;display:flex;align-items:center;justify-content:center;line-height:1}
+      font-size:9pt;font-weight:800;color:#fff;background:var(--pin);border-radius:3px;
+      width:6.4mm;height:6.4mm;display:flex;align-items:center;justify-content:center;line-height:1}
 .d h3{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-      font-size:12.8pt;font-weight:800;color:var(--deep);line-height:1.25;align-self:center}
-.d p{grid-column:2;font-size:12.6pt;line-height:1.48;margin-top:1.8mm}
+      font-size:10.2pt;font-weight:800;color:var(--deep);line-height:1.2;align-self:center}
+.d p{grid-column:2;font-size:10pt;line-height:1.4;margin-top:1mm}
 
-.close{margin-top:6mm;padding-top:5mm;border-top:2px solid var(--deep);
-       font-size:14pt;line-height:1.45;color:var(--deep)}
-.foot{margin-top:auto;padding-top:5mm;
+.foot{margin-top:3mm;padding-top:2.5mm;border-top:1px solid var(--line);
       font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-      font-size:8pt;color:var(--muted);line-height:1.45}
+      font-size:7.2pt;color:var(--muted);line-height:1.4}
 .foot b{color:var(--ink)}
 
-@media screen and (max-width:860px){
-  .sheet{width:auto;min-height:0;padding:16px;margin:0;border:0}
-  h1{font-size:38pt}.doc,.details{columns:1}
+@media screen and (max-width:900px){
+  .sheet{width:auto;height:auto;padding:16px;margin:0;border:0}
+  .grid{grid-template-columns:1fr;overflow:visible}
+  .details,.doc{overflow:visible}
 }
 
-@page{size:A3 portrait;margin:12mm}
+@page{size:A3 landscape;margin:9mm}
 @media print{
   :root{--paper:#fff;--bg:#fff;--ink:#000;--muted:#4a463d;--line:#c3b8a4;--rule:#9c9382;--band:#f5f0e6}
   body{background:#fff}
-  .sheet{width:auto;min-height:0;margin:0;padding:0;border:0;box-shadow:none;
-         break-after:page;min-height:calc(420mm - 24mm)}
+  .sheet{width:auto;height:auto;margin:0;padding:0;border:0;box-shadow:none;
+         break-after:page;min-height:calc(297mm - 18mm);max-height:calc(297mm - 18mm)}
   .sheet:last-of-type{break-after:auto}
-  .plate,.d,.close{break-inside:avoid}
+  .d{break-inside:avoid}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -107,10 +122,10 @@ h2{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
 
 <script src="content.js"></script>
 <script>
-/* One A3 sheet per entry in SOURCES. Everything on it, the plate, the pins,
-   the numbered notes, the citation, is already authored in content.js for the
-   interactive: this page just lays the same material out for paper. Nothing
-   here holds any wording of its own. */
+/* One A3 landscape sheet per entry in SOURCES. Everything on it, the plate,
+   the pins, the numbered notes, the citation, is already authored in
+   content.js for the interactive: this page just lays the same material out
+   for paper. Nothing here holds any wording of its own. */
 
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
 const LETTERS = ["A","B","C","D"];
@@ -149,22 +164,26 @@ document.getElementById("out").innerHTML = SOURCES.map((s,i)=>`
     <header>
       <div class="kicker">Ancient Australia &middot; Source ${LETTERS[i] || i+1} of ${SOURCES.length}</div>
       <h1>${esc(plainName(s))}</h1>
-      <p class="standfirst">${esc(s.whole.text)}</p>
     </header>
     <div class="rule"></div>
 
-    ${plate(s)}
-    <p class="platecap">${esc(s.cite)}</p>
+    <div class="grid">
+      <div class="left">
+        ${plate(s)}
+        <p class="platecap">${esc(s.cite)}</p>
+      </div>
+      <div class="right">
+        <p class="standfirst">${esc(s.whole.text)}</p>
+        <h2>${s.kind === "text" ? "The phrases to look at" : "What to look at"}</h2>
+        <div class="details">${s.hotspots.map((h,n)=>`
+          <div class="d">
+            <div class="n">${n+1}</div>
+            <h3>${esc(h.label)}</h3>
+            <p>${esc(h.text)}</p>
+          </div>`).join("")}</div>
+      </div>
+    </div>
 
-    <h2>${s.kind === "text" ? "The phrases to look at" : "What to look at"}</h2>
-    <div class="details">${s.hotspots.map((h,n)=>`
-      <div class="d">
-        <div class="n">${n+1}</div>
-        <h3>${esc(h.label)}</h3>
-        <p>${esc(h.text)}</p>
-      </div>`).join("")}</div>
-
-    <p class="close">${esc(WALL.inquiry)}</p>
     <p class="foot">${WALL.foot}</p>
   </section>`).join("");
 </script>

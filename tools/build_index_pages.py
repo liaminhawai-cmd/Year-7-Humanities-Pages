@@ -46,10 +46,19 @@ FOOT = ("Year 7 Humanities &middot; Kew High School. Nothing on this site collec
         "anything: no accounts, no tracking, no analytics.")
 
 # Shared card sets ---------------------------------------------------------
-def wagoll(full, screen, single):
+def wagoll(full, blurb):
+    """One card for the interactive wall, not two.
+
+    bump-it-up.html and bump-it-up-standalone.html used to get a card each,
+    "big screen" and "single file", and open the identical interactive: the
+    only difference is whether content.js and the source image are inlined,
+    which is invisible to whoever clicked. bump-it-up-standalone.html still
+    exists, still gets built by tools/build_standalone.py, and still works
+    for the USB-stick, no-internet case the landing page promises. It is just
+    not a second nav card any more; the blurb below says it downloads.
+    """
     cards = [
-        ("&#128250;", "Bump it up", "bump-it-up.html", screen, "big screen"),
-        ("&#128190;", "Bump it up", "bump-it-up-standalone.html", single, "single file"),
+        ("&#128250;", "Bump it up", "bump-it-up.html", blurb, None),
     ]
     if full:
         cards += [
@@ -155,18 +164,18 @@ SITE = [
       back=("../", "History"),
       sections=[
         ("Resources", None, wagoll(False,
-           "Foundation to Year 10. Tap between the two sources, tap any phrase.",
-           "The same page with both sources built in. Download to use offline.") + [
+           "Foundation to Year 10. Tap between the two sources, tap any phrase. "
+           "Downloads as one file for offline use.") + [
            ("&#128202;", "The wall", "wagoll-wall.html",
-            "The whole continuum on one surface. Prints as a single A2 sheet.", None),
+            "The whole continuum on one surface, every level side by side for comparison.", None),
            ("&#128269;", "The sources", "source-sheet.html",
             "The painting and the Proclamation, one A3 sheet each, with every detail "
             "numbered and explained.", None),
            ("&#128196;", "Level sheets", "level-sheets.html",
             "One A4 anchor sheet per level, ready to print.", None),
-           ("&#128424;", "Print-ready set", "../../print/",
-            "The A2 wall, the two A3 source sheets, the six A4 level sheets and the "
-            "editable Word wall.", None)]),
+           ("&#128424;", "Print pack", "../../print/Batman-Treaty-Print-Pack.pdf",
+            "One PDF: the two A3 source sheets, then an A4 level sheet per year. The editable "
+            "Word wall sits alongside it in the print folder.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -197,8 +206,8 @@ SITE = [
       back=("../", "History"),
       sections=[
         ("Resources", None, wagoll(False,
-           "Foundation to Year 10. Tap any part of the letter, tap any phrase.",
-           "The same page with everything built in. Download to use offline.")),
+           "Foundation to Year 10. Tap any part of the letter, tap any phrase. "
+           "Downloads as one file for offline use.")),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -222,12 +231,9 @@ SITE = [
             "argued. Task 3 of the CAT booklet asks you to weigh him.",
       back=("../", "History"),
       sections=[
-        ("Resources", None, [
-           ("&#128250;", "Bump it up", "bump-it-up.html",
-            "Level 6 to Level 9: the CAT rubric's own bands. Tap the painting, tap any phrase.",
-            "big screen"),
-           ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
-            "The same page with the painting built in. Download to use offline.", "single file")]),
+        ("Resources", None, wagoll(False,
+           "Level 6 to Level 9: the CAT rubric's own bands. Tap the painting, tap any phrase. "
+           "Downloads as one file for offline use.")),
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -258,12 +264,13 @@ SITE = [
       back=("../", "History"),
       sections=[
         ("Resources", None, wagoll(True,
-           "Foundation to Year 10, one rung at a time. Tap the rock, tap any phrase.",
-           "The same page with the picture built in. Download to use offline.") + [
+           "Foundation to Year 10, one rung at a time. Tap the rock, tap any phrase. "
+           "Downloads as one file for offline use.") + [
            ("&#129704;", "The source", "source-sheet.html",
             "What GS73 is, where it was found, and how it became evidence.", None),
-           ("&#128424;", "Print-ready set", "../../print/",
-            "The A2 poster set, six A3 year-level sheets and the compact A4 WAGOLL.", None)]),
+           ("&#128424;", "The year-by-year wall", "../../print/Ancient-Australia-WAGOLL-Wall-Grade5-Year10-A3.pdf",
+            "A3 portrait, 6 pages. The A2 poster set, the compact A4 WAGOLL and the editable "
+            "Word wall sit alongside it in the print folder.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -292,8 +299,8 @@ SITE = [
       back=("../", "History"),
       sections=[
         ("Resources", None, wagoll(False,
-           "Foundation to Year 10. Tap any part of the passage, tap any phrase.",
-           "The same page with everything built in. Download to use offline.")),
+           "Foundation to Year 10. Tap any part of the passage, tap any phrase. "
+           "Downloads as one file for offline use.")),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -332,8 +339,8 @@ SITE = [
       back=("../", "Geography"),
       sections=[
         ("Resources", None, wagoll(False,
-           "Foundation to Year 10, one rung at a time. Tap the figure, tap any phrase.",
-           "The same page with the figure built in. Download to use offline.") + [
+           "Foundation to Year 10, one rung at a time. Tap the figure, tap any phrase. "
+           "Downloads as one file for offline use.") + [
            ("&#129521;", "Paragraph builder", "paragraph-builder.html",
             "D &middot; P &middot; I &middot; U, one card per sentence. Switch to PEEL or TEEL.", None)]),
         ("Words", "kept in this browser, nothing sent anywhere", [
@@ -437,25 +444,10 @@ SITE = [
           ("&#128214;", "What is source analysis?", "What-is-source-analysis-A5.pdf",
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
         ("History: Batman's Treaty", "the taught Ancient Australia wall", [
-          ("&#128202;", "The wall", "Batman-Treaty-WAGOLL-Wall-A2.pdf",
-           "A2 landscape, 1 page: the whole continuum, both sources named.", None),
-          ("&#128269;", "The sources", "Batman-Treaty-Source-Sheets-A3.pdf",
-           "A3 portrait, 2 pages: the painting, then the Proclamation, each with its details "
-           "numbered.", None),
-          ("&#128196;", "Level sheets", "Batman-Treaty-Level-Sheets-A4.pdf",
-           "A4 portrait, 6 pages: one per year level.", None),
+          ("&#128424;", "Print pack", "Batman-Treaty-Print-Pack.pdf",
+           "8 pages, one file: the two A3 landscape source sheets, then an A4 portrait anchor "
+           "sheet per year level, Grade 5 to Year 10.", None),
           ("&#128221;", "Editable wall", "Batman-Treaty-WAGOLL-Wall.docx",
-           "A3 landscape, opens in Word.", None)]),
-        ("History: GS73, the grinding stone", "the archived Ancient Australia wall", [
-          ("&#128202;", "Poster set", "Ancient-Australia-History-Wall-Posters-A2.pdf",
-           "A2 landscape, 4 pages: source, method, continuum and contested claim.", None),
-          ("&#128196;", "Year-by-year wall", "Ancient-Australia-WAGOLL-Wall-Grade5-Year10-A3.pdf",
-           "A3 portrait, 6 pages: worked example above, matching continuum below.", None),
-          ("&#128221;", "Student WAGOLL", "Ancient-Australia-Source-WAGOLL-A4.pdf",
-           "A4 portrait, 1 page: the dense Year 7 model and colour-keyed continuum.", None),
-          ("&#129704;", "The source", "GS73-Source-Sheet-A3.pdf",
-           "A3 portrait, 1 page: the source, described.", None),
-          ("&#128221;", "Editable wall", "GS73-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
         ("Economics: Pigeon Patrol", None, [
           ("&#128202;", "The wall", "Pigeon-Patrol-WAGOLL-Wall-A3.pdf", "A3 landscape, 1 page.", None),
@@ -464,20 +456,17 @@ SITE = [
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
-      note="<b>Batman's Treaty splits three ways.</b> One A2 sheet carries the whole continuum. Each "
-           "source then gets an A3 of its own, the reproduction running the full width of the sheet, "
-           "with the same "
-           "numbered details the on-screen version opens: region 3 on the painting is region 3 on paper. "
-           "The per-level anchor sheets are A4, so a class set is half the paper the A3 ones were. Its "
-           "cultural-consultation item is still open; see "
-           "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes beyond "
-           "the classroom.<br><br>"
-           "<b>The GS73 sheets below are the older four-poster set</b>, made before the current wall "
-           "builder existed, kept archived alongside the wall they illustrate. The six A3 sheets are the "
-           "12-month increments from Grade 5 to Year 10; each keeps the worked example directly above its "
-           "matching, colour-coded continuum cells. The A4 page is the compact student model. Ancient "
-           "Australia is now taught from Batman's Treaty, so check which pack you meant before you send 30 "
-           "copies."),
+      note="<b>Batman's Treaty is one PDF.</b> Pages 1 and 2 are the sources, A3 landscape, "
+           "reproduced full width with the same numbered details the on-screen version opens: "
+           "region 3 on the painting is region 3 on paper. Pages 3 to 8 are the level sheets, A4 "
+           "portrait, one per year from Grade 5 to Year 10. Print the whole file and you have "
+           "everything; there is nothing else to hunt down. Its cultural-consultation item is "
+           "still open; see "
+           "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes "
+           "beyond the classroom.<br><br>"
+           "GS73's own print set, the older four-poster wall Ancient Australia used to be taught "
+           "from, still exists but has moved off this page: it sits with the wall it illustrates, "
+           "on <a href=\"../history/gs73/\">the GS73 topic page</a> itself."),
 ]
 
 
