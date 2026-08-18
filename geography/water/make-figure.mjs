@@ -2,7 +2,7 @@
  *
  * The numbers are the United States Geological Survey's summary of global
  * water storage (after Shiklomanov, "World fresh water resources", 1993).
- * USGS material is public domain. The DRAWING is ours — this script is the
+ * USGS material is public domain. The DRAWING is ours, and this script is the
  * only place it exists, so the figure and the wall text cannot drift apart,
  * and the wall is honest with students that the display is a classroom redraw
  * of someone else's estimates rather than a published figure.
@@ -69,8 +69,8 @@ function bar(p, i) {
     `<rect x="${g.x.toFixed(1)}" y="${top}" width="${g.w.toFixed(1)}" height="${hgt}" fill="${g.colour}"/>`
   ).join("");
 
-  /* Wide slices are labelled where they sit. Narrow ones cannot be — the text
-     is many times wider than the slice — so they go to a legend row beneath,
+  /* Wide slices are labelled where they sit. Narrow ones cannot be, because the
+     text is many times wider than the slice, so they go to a legend row beneath,
      which is also the only place a 0.49% river is legible at all. */
   const wide = geom.filter(g => g.w >= WIDE);
   const thin = geom.filter(g => g.w <  WIDE);

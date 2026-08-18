@@ -10,8 +10,8 @@ year-7 › Humanities & Civics › Source analysis. Run it again after editing
 eal.js and the hub catches up; nothing is typed twice.
 
 Morpheme translations are NOT invented here. The hub already carries reviewed
-translations for common morphemes — `con` meaning together, `trans` meaning
-across — so this reuses those by matching on the morpheme and its meaning. A
+translations for common morphemes, `con` meaning together and `trans` meaning
+across, so this reuses those by matching on the morpheme and its meaning. A
 morpheme the hub has never seen is emitted with its English meaning and no
 translations, which is what the hub already does elsewhere and is honest about
 what has and has not been checked.
@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 UNIT_ID = "source-analysis"
-UNIT_NAME = "Source analysis — the words you need"
+UNIT_NAME = "Source analysis: the words you need"
 UNIT_PATH = "year-7/humanities-civics/source-analysis"
 
 
@@ -48,8 +48,8 @@ def index_morphemes(hub: dict) -> dict:
     meaning together, so a known morpheme keeps the wording students have seen.
 
     Deliberately not keyed by surface alone. The same letters carry different
-    morphemes — the hub's `ist` meaning "to stand" is not the `ist` in
-    archaeologist — and a surface-only match silently attaches the wrong
+    morphemes: the hub's `ist` meaning "to stand" is not the `ist` in
+    archaeologist, and a surface-only match silently attaches the wrong
     translation in eighteen languages at once. If the meaning does not match,
     the part ships with its English meaning and no translations.
     """

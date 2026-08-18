@@ -139,7 +139,7 @@ SITE = [
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
            "is a complete second-hand-report source and works as extra practice.", "archived")])],
-      note="<b>The three units are not assessed on the same skill.</b> "
+      note="The three units are not assessed on the same skill. "
            "<b>CAT 1: Ancient Australia</b> is a source-analysis test: primary and secondary "
            "sources, reliability and accuracy, and First Nations beliefs, values and lives. The "
            "wall on that page rehearses it, and does it with two sources that disagree, which is "
@@ -150,7 +150,7 @@ SITE = [
            "<b>CAT 3: Ancient China</b> is two booklets, chronology skills and source analysis, and "
            "adds historical perspectives and historical significance. Its wall is that booklet's "
            "own rubric, level for level.<br><br>"
-           "<b>Both archive walls are finished, levelled and teachable.</b> "
+           "Both archive walls are finished, levelled and teachable. "
            "They are down there because they are not the source the unit in front of a "
            "class is built on, and a student looking for their own topic should not have to step "
            "past them.<br><br>"
@@ -168,6 +168,9 @@ SITE = [
            "Downloads as one file for offline use.") + [
            ("&#128202;", "The wall", "wagoll-wall.html",
             "The whole continuum on one surface, every level side by side for comparison.", None),
+           ("&#129513;", "Strand by strand", "rubric-tour.html",
+            "Teach one strand of the rubric across five levels, then the class sorts the "
+            "phrases back into the wall.", None),
            ("&#128269;", "The sources", "source-sheet.html",
             "The painting and the Proclamation, one A3 sheet each, as large as the page "
             "allows, with who made it and when.", None),
@@ -183,16 +186,17 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>Two sources, because they disagree.</b> The painting shows a treaty being agreed; the "
-           "Proclamation, signed ten weeks later, declares that no settler could buy land from "
-           "Aboriginal people and that any such treaty was &ldquo;void and of no effect.&rdquo; A "
+      note="The painting shows a treaty being agreed. The Proclamation, signed ten weeks later, "
+           "declares that no settler could buy land from "
+           "Aboriginal people and that any such treaty was &ldquo;void and of no effect.&rdquo; Both "
+           "are here because a "
            "student cannot compare interpretations from one source, and comparing interpretations "
            "is what CAT 1 marks.<br><br>"
-           "<b>Both sources were made by colonists.</b> No Kulin record of the meeting at Merri "
+           "Both were made by colonists. No Kulin record of the meeting at Merri "
            "Creek has survived. The painting was made about forty years afterwards by an artist who "
            "was not there, and no portrait of Batman was taken from life, so even his face is "
            "invented. The wall says all of this rather than working around it.<br><br>"
-           "<b>One item is still open.</b> The framing of this wall has not been checked with the "
+           "The framing of this wall has not been checked with the "
            "Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation, and closing that may "
            "change the wording here. The painting is John Wesley Burtt, circa 1875, State Library of "
            "Victoria H92.196: out of copyright itself, with the terms on this reproduction of it "
@@ -456,15 +460,13 @@ SITE = [
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
-      note="<b>Batman's Treaty is one PDF.</b> Pages 1 and 2 are the sources, A3 landscape, each "
+      note="Pages 1 and 2 of the Batman's Treaty PDF are the sources, A3 landscape, each "
            "run to the full width of the sheet, with who made it, when, and how long after the "
            "event. What is not on them is any note on what the picture contains: reading the source "
            "is the task, and a sheet that hands the reading over has done it for the student. "
            "Pages 3 to 10 are the level sheets, A4 "
-           "portrait, one per rung, opening at Foundation to Level 2 and closing at Year 10. Print "
-           "the whole file and you have "
-           "everything; there is nothing else to hunt down. Its cultural-consultation item is "
-           "still open; see "
+           "portrait, one per rung, opening at Foundation to Level 2 and closing at Year 10. The "
+           "cultural-consultation item is still open; see "
            "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes "
            "beyond the classroom.<br><br>"
            "GS73's own print set, the older four-poster wall Ancient Australia used to be taught "

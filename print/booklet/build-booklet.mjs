@@ -3,8 +3,8 @@
  *   node booklet/build-booklet.mjs
  *
  * Paper size comes from the pdf() call, not from CSS. Chromium does not honour
- * `@page { size: A5 }` — with preferCSSPageSize it silently falls back to US
- * Letter — so the size is set here and the stylesheet only has to lay out one
+ * `@page { size: A5 }`: with preferCSSPageSize it silently falls back to US
+ * Letter, so the size is set here and the stylesheet only has to lay out one
  * A5 page without overflowing it.
  *
  * Every page is measured against the A5 box before the PDF is written. A
@@ -33,7 +33,7 @@ const over = await page.evaluate((h) =>
 const count = await page.$$eval(".page", n => n.length);
 
 if (over.length) {
-  console.error("A5 booklet — CONTENT OVERFLOWS:");
+  console.error("A5 booklet, CONTENT OVERFLOWS:");
   for (const p of over) {
     console.error(`  page ${p.n}: ${(p.overflow / MM).toFixed(1)}mm too tall`);
   }
@@ -52,5 +52,5 @@ await page.pdf({
 });
 await browser.close();
 
-console.log(`What-is-source-analysis-A5.pdf — ${count} A5 pages, all fit`);
+console.log(`What-is-source-analysis-A5.pdf: ${count} A5 pages, all fit`);
 console.log("Print double-sided on A4 at 2-up, short-edge binding, then fold.");
