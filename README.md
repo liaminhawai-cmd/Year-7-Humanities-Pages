@@ -43,12 +43,13 @@ So a word cannot mean one thing on a wall and another in the Word Builder.
 ```
 npm i playwright                              # once
 node history/gs73/build-pdf.mjs               # A2 wall, A3 sheets, source sheet
+node history/batman/build-pdf.mjs             # two A2 wall sheets, A3 level sheets
 node economics/pigeon-patrol/build-pdf.mjs    # A3 wall, A3 sheets
 node geography/water/make-figure.mjs          # redraw the water figure
 node print/booklet/build-booklet.mjs          # the A5 student booklet
 
 pip install python-docx
-python3 tools/build_docx.py history economics # editable Word walls
+python3 tools/build_docx.py                   # editable Word walls, every topic in SUBJECTS
 python3 tools/build_standalone.py history/gs73/bump-it-up.html   # …and the rest
 ```
 
@@ -104,15 +105,15 @@ Three folders in `history/` carry a source image, and each has a
 not. Read the notice before reusing a plate anywhere, and especially before
 print.
 
-- `history/batman/` — the Burtt painting is out of copyright; the State Library
+- `history/batman/`: the Burtt painting is out of copyright; the State Library
   of Victoria's terms on this reproduction are not yet confirmed, and **the
   framing of that wall has not been checked with the Wurundjeri Woi Wurrung
   Cultural Heritage Aboriginal Corporation.** That item is open and is named on
   the topic page.
-- `history/china/` — the booklet does not record the painting's artist, date or
+- `history/china/`: the booklet does not record the painting's artist, date or
   holding collection, so the page dates it no more precisely than the evidence
   allows.
-- `history/gs73/` — below.
+- `history/gs73/`: below.
 
 ## GS73 and Mirarr Country
 

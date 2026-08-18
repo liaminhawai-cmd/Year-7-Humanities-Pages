@@ -156,7 +156,13 @@ SITE = [
       sections=[
         ("Resources", None, wagoll(False,
            "Foundation to Year 10. Tap between the two sources, tap any phrase.",
-           "The same page with both sources built in. Download to use offline.")),
+           "The same page with both sources built in. Download to use offline.") + [
+           ("&#128202;", "The wall", "wagoll-wall.html",
+            "The whole continuum, printable as two A2 sheets: the painting, then the Proclamation.", None),
+           ("&#128196;", "Level sheets", "level-sheets.html",
+            "One anchor sheet per level, ready to print.", None),
+           ("&#128424;", "Print-ready set", "../../print/",
+            "Both A2 wall sheets, the six A3 level sheets and the editable Word wall.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -426,6 +432,13 @@ SITE = [
         ("Student booklet", None, [
           ("&#128214;", "What is source analysis?", "What-is-source-analysis-A5.pdf",
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
+        ("History: Batman's Treaty", "the taught Ancient Australia wall", [
+          ("&#128202;", "Wall, two sheets", "Batman-Treaty-WAGOLL-Wall-A2.pdf",
+           "A2 landscape, 2 pages: the painting, then the Proclamation, each with the full continuum.", None),
+          ("&#128196;", "Level sheets", "Batman-Treaty-Level-Sheets-A3.pdf",
+           "A3 portrait, 6 pages: one per year level.", None),
+          ("&#128221;", "Editable wall", "Batman-Treaty-WAGOLL-Wall.docx",
+           "A3 landscape, opens in Word.", None)]),
         ("History: GS73, the grinding stone", "the archived Ancient Australia wall", [
           ("&#128202;", "Poster set", "Ancient-Australia-History-Wall-Posters-A2.pdf",
            "A2 landscape, 4 pages: source, method, continuum and contested claim.", None),
@@ -444,14 +457,19 @@ SITE = [
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
-      note="The four A2 sheets make the teaching sequence visible across the wall. The six A3 sheets "
-           "are the 12-month increments from Grade 5 to Year 10; each keeps the worked example directly "
-           "above its matching, colour-coded continuum cells. The A4 page is the compact student model."
-           "<br><br>"
-           "<b>Every History sheet here is the GS73 wall</b>, which is now archived: Ancient Australia is "
-           "taught from Batman's Treaty. The GS73 pack still prints and still teaches source analysis, but "
-           "it is not the source the current unit is built on, so check which one you meant before you "
-           "send 30 copies. There is no print pack for the Batman wall yet."),
+      note="<b>Batman's Treaty prints as two sheets, not one.</b> The wall has two sources that disagree, "
+           "so each gets its own A2 poster: the painting on the first page, the Proclamation on the second. "
+           "Both carry the same worked-example continuum underneath, because the worked examples compare "
+           "the two documents inside a single paragraph rather than splitting by source, so either sheet "
+           "reads on its own if you only pin up one. Its cultural-consultation item is still open; see "
+           "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes beyond "
+           "the classroom.<br><br>"
+           "<b>The GS73 sheets below are the older four-poster set</b>, made before the current wall "
+           "builder existed, kept archived alongside the wall they illustrate. The six A3 sheets are the "
+           "12-month increments from Grade 5 to Year 10; each keeps the worked example directly above its "
+           "matching, colour-coded continuum cells. The A4 page is the compact student model. Ancient "
+           "Australia is now taught from Batman's Treaty, so check which pack you meant before you send 30 "
+           "copies."),
 ]
 
 
