@@ -23,7 +23,7 @@
    CONTINUUM rows map to VC2HE6/8/10 K01-K04 and S03/S05.
    ======================================================================= */const WALL = {
   id: "econ-pigeon",
-  title: "Pigeon Patrol: one business, five levels",
+  title: "Pigeon Patrol",
   expected: "Level 7",
   task: "<b>The task:</b> students plan, run and evaluate a small business for the school. Every worked example below describes the <b>same</b> student business, Pigeon Patrol, a service that clears pigeons from school eating areas, written five times, once at each level of the continuum.",
   foot: "<b>The row wording below is the school’s own, not the Victorian Curriculum.</b> Checked against the Victorian Curriculum 2.0 Economics and Business Levels 5–10 scope and sequence: that document bands the subject 5&ndash;6, 7&ndash;8 and 9&ndash;10 rather than by single level, and none of the wording below appears in it. The closest real descriptors are VC2HE8K01 (scarcity, costs and benefits, incentives, opportunity cost), VC2HE8K03 (purposes and goals of businesses, and taking advantage of market opportunity), VC2HE8K04 (entrepreneurship and the link to business success), VC2HE8S03 (draw conclusions from graphs, models and text to identify cause-and-effect relationships) and VC2HE8S05 (analyse a response, identifying costs and benefits). <b>Level 7 is the expected level for Year 7</b> and is boxed in gold. Each criterion carries two signals, a colour <i>and</i> an underline pattern, so the wall still works photocopied in black and white. Marked with ■ ▲ ● in the explanation band for the same reason."
