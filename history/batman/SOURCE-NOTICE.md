@@ -7,7 +7,14 @@ Creek*, John Wesley Burtt, oil on canvas, circa 1875. State Library of Victoria,
 Pictures Collection, accession H92.196. It is reproduced here at 1600x800.
 
 The painting is long out of copyright. What has **not** been confirmed is the
-State Library's own terms for this reproduction of it. That is a question about
+State Library's own terms for this reproduction of it.
+
+The file carries 61px of black letterbox padding, 30 rows at the top and 31 at
+the bottom of its 800: the painting itself occupies rows 30 to 768. Nothing has
+been cropped from the file, because `bump-it-up.html` positions its hotspots as
+percentages of the full 1600x800 frame. The printed source sheet hides the
+padding in CSS so it does not print as two black bands. No part of the painting
+is cropped by that, and nothing else about the image is altered. That is a question about
 the photograph, not the painting, and it needs answering before this image is
 used in print or anywhere commercial.
 
