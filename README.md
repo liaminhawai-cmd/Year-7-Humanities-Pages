@@ -12,7 +12,7 @@ repository, and only student-facing runtime files live here.
 ```
 index.html            four areas
 ├── civics/           (nothing built yet)
-├── history/          gs73 · egypt · vesuvius
+├── history/          batman · vesuvius · china · gs73 · egypt
 ├── geography/        water · landforms
 ├── economics/        pigeon-patrol
 ├── vocab/            word hubs and trainers
@@ -96,6 +96,23 @@ says which to retire.
 learning continuum and against Victorian Curriculum 2.0, including where the
 two disagree, and the one row of Kew's continuum the History wall is still
 missing.
+
+## Source notices
+
+Three folders in `history/` carry a source image, and each has a
+`SOURCE-NOTICE.md` beside it saying what is settled about that image and what is
+not. Read the notice before reusing a plate anywhere, and especially before
+print.
+
+- `history/batman/` — the Burtt painting is out of copyright; the State Library
+  of Victoria's terms on this reproduction are not yet confirmed, and **the
+  framing of that wall has not been checked with the Wurundjeri Woi Wurrung
+  Cultural Heritage Aboriginal Corporation.** That item is open and is named on
+  the topic page.
+- `history/china/` — the booklet does not record the painting's artist, date or
+  holding collection, so the page dates it no more precisely than the evidence
+  allows.
+- `history/gs73/` — below.
 
 ## GS73 and Mirarr Country
 

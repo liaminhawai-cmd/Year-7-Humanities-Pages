@@ -14,6 +14,12 @@
    Source Analysis Booklet rubric runs, and the point of this wall is that a
    student can see their own CAT band on it.
 
+   Source 1 is the painting itself, not a line of text describing it. The
+   rubric's first row marks origin, features and purpose, and a student cannot
+   describe the features of a picture they have not been shown. The plate came
+   out of the booklet and its artist, date and holding collection are not
+   recorded there; see SOURCE-NOTICE.md.
+
    The six criteria are the rubric's own rows, in the rubric's own words:
    its five numbered source-analysis rows plus the significance strand that
    Task 3 adds. The wall is built on Task 3, Qin Shi Huang, because it is
@@ -157,32 +163,72 @@ const TASK_MAP = {
   significance:   "Task 3: Qin Shi Huang: Q3, Q5"
 };
 
-const SHEET_IMAGE = "";
+const SHEET_IMAGE = "qin-burning-books-source.jpg";
 
-const SOURCE_PANEL = {
+/* ---------------------------------------------------------------------------
+   TWO sources, the pair the booklet puts on the page, and the painting is now
+   the painting rather than a sentence describing it. Origin, features and
+   purpose is the rubric's first row, and a student cannot describe the features
+   of a picture they have never seen. It used to sit here as one line of text.
+
+   SOURCES drives the tab strip on bump-it-up.html. Each entry carries its own
+   hotspots, so a picture source and a written source behave identically.
+   --------------------------------------------------------------------------- */
+const SOURCES = [
+ {
+  id: "painting",
+  tab: "A · The painting",
+  kind: "image",
+  file: SHEET_IMAGE,
+  ar:   "1089/805",
+  alt:  "A Chinese painting of the burning of the books and the execution of the scholars. The First Emperor sits in white robes inside a red hall, watching. Guards in red drag men in blue scholars' robes across the courtyard, bound volumes burn in flames along the bottom edge, and scholars lie half buried in a pit of yellow earth.",
+  missing: "The picture of the painting did not load.<br>Keep <b>qin-burning-books-source.jpg</b> in the same folder as this page.",
+  cite: "Source 1, Task 3 of the Year 7 Ancient China Source Analysis Booklet. A later Chinese painting; the artist and date are not recorded in the booklet. See SOURCE-NOTICE.md.",
+  whole: { label:"The whole painting",
+    text:"Painted centuries after the events it shows, by someone who could not have been there. Every choice in it, who is at the centre, who is on the ground, is a later judgement about how the First Emperor should be remembered." },
+  /* Percentages of the 1089x805 reproduction, read off the image. Nudge them if
+     the plate is ever replaced with a different crop. */
+  hotspots: [
+   { x:63, y:16, w:20, h:22, label:"The emperor, watching",
+     text:"Qin Shi Huang in white, seated inside the hall with an attendant, at a distance from the killing. The painter puts him above it and in charge of it at the same time." },
+   { x:56, y:38, w:13, h:15, label:"The man on the steps",
+     text:"A figure in a scholar's blue robe and black cap, alone on the empty terrace between the emperor and the courtyard. He is the only one still being heard." },
+   { x:28, y:66, w:30, h:24, label:"The scholars taken",
+     text:"Guards in red seize men in blue robes and pull them down the steps. Red is the soldiers throughout this painting and blue is the scholars, which is how the picture tells you who is doing what to whom." },
+   { x:4, y:87, w:36, h:13, label:"The books burning",
+     text:"Bound volumes stacked in the flames along the bottom edge. This is the other half of the event named in the source: the books and the people who knew them destroyed together." },
+   { x:55, y:78, w:29, h:20, label:"The pit",
+     text:"Scholars lying half covered in yellow earth. The tradition the painter is following says 460 of them were buried alive, and the painting shows it as fact rather than as a claim." }
+  ]
+ },
+ {
+  id: "bol",
+  tab: "B · Bol for the BBC",
   kind: "text",
+  cite: "Source 3, Task 3 of the Year 7 Ancient China Source Analysis Booklet. Carry Grace and Peter Bol of Harvard University, for the BBC.",
+  whole: { label:"The whole interview",
+    text:"A modern historian explaining how the Qin state worked. He is answering a different question from the painting's, which is why the two sources can both be right and still disagree." },
   paragraphs: [
-    "SOURCE 1: A Chinese painting illustrating Qin Shi Huang's burning of the books and execution of 460 scholars.",
-    "SOURCE 3: Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
+    "Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
     "\"The Qin was really the first state to go into total mobilisation for war. It really saw the work of its population being fighting and soldiering to win wars and expand. One by one, Qin Shi Huang defeated neighbouring states, swallowed their territory into his growing empire and enslaved and castrated their citizens.\"",
     "\"Qin Shi Huang is credited not only with creating China, but with establishing the world's first truly centralised bureaucratic empire. He set out to unify the procedures and customs and policies of all the states.\"",
     "\"He collected taxes, he administered justice and he had trained bureaucrats all over China. That's an extraordinary achievement.\""
   ],
-  cite: "Task 3 of the Year 7 Ancient China Source Analysis Booklet. Source 1 is a later painting; Source 3 is Carry Grace and Peter Bol of Harvard University, for the BBC.",
-  whole: { label:"Both sources together",
-    text:"A painting that condemns him and a historian who explains him, on the same page. The booklet puts them together on purpose: the gap between them is the task." }
-};
-
-const HOTSPOTS = [
- { mark:"burning of the books and execution of 460 scholars", label:"What the painting chooses to show",
-   text:"Of everything Qin Shi Huang did, the painter picked this. That choice is the point of view. Ask what the same painter left out, the roads, the single script, the canals." },
- { mark:"We wouldn't have a China without Qin Shi Huang", label:"An interpretation, stated flat",
-   text:"This is a historian's claim, not a fact you can look up. It is exactly the kind of sentence the interpretations row is asking you to describe, explain, or analyse." },
- { mark:"enslaved and castrated their citizens", label:"Bol does not soften it",
-   text:"Notice that the historian who calls him extraordinary also records the cruelty in the same breath. Significance is not the same as approval, and this sentence is where students usually see that." },
- { mark:"That's an extraordinary achievement", label:"The word to argue with",
-   text:"Achievement for whom? A Level 9 answer weighs this against the previous sentence rather than choosing one and ignoring the other." }
+  hotspots: [
+   { mark:"We wouldn't have a China without Qin Shi Huang", label:"An interpretation, stated flat",
+     text:"This is a historian's claim, not a fact you can look up. It is exactly the kind of sentence the interpretations row is asking you to describe, explain, or analyse." },
+   { mark:"enslaved and castrated their citizens", label:"Bol does not soften it",
+     text:"Notice that the historian who calls him extraordinary also records the cruelty in the same breath. Significance is not the same as approval, and this sentence is where students usually see that." },
+   { mark:"That's an extraordinary achievement", label:"The word to argue with",
+     text:"Achievement for whom? A Level 9 answer weighs this against the previous sentence rather than choosing one and ignoring the other." }
+  ]
+ }
 ];
+
+/* Anything that reads a single source still gets one. bump-it-up.html prefers
+   SOURCES when it is defined. */
+const SOURCE_PANEL = Object.assign({}, SOURCES[0]);
+const HOTSPOTS = SOURCES[0].hotspots;
 
 /* This wall has no rungs below Level 6: the CAT rubric it mirrors starts at
    Level 6 and its lowest band is "Not shown". Declared empty rather than

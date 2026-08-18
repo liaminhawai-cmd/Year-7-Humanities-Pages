@@ -30,16 +30,25 @@ A WAGOLL wall models better thinking on a source the student will not be
 assessed on. The CAT then asks for the same thinking on material they have not
 seen.
 
-Ancient Australia does this correctly. The wall is built on GS73, a grinding
-stone from Madjedbebe. CAT 1 tests source analysis on a woomera, an eel trap, a
-boomerang and a Joseph Lycett painting. GS73 appears nowhere in that CAT. A
-student who has worked the wall has rehearsed origin, context, evidence and
-usefulness, and still has to think for themselves on the day.
+Ancient Australia does this correctly, and has done it twice. CAT 1 tests source
+analysis on a woomera, an eel trap, a boomerang and a Joseph Lycett painting. The
+wall taught from is now Batman's Treaty: Burtt's painting of the meeting at Merri
+Creek and Governor Bourke's Proclamation, neither of which is in that CAT. The
+GS73 wall it replaced cleared the same bar, on a grinding stone from Madjedbebe.
+Either way a student who has worked the wall has rehearsed origin, context,
+evidence and usefulness, and still has to think for themselves on the day.
 
 Ancient China is the standing example of the failure. Its wall is built on Task 3
 of the assessment booklet, and models the thinking on the same painting and the
 same Peter Bol interview the students are marked on. It hands out the answers, and
 it needs rebuilding on a rehearsal source the booklet does not use.
+
+That got worse before it gets better. In August 2026 the painting was put on the
+page as a picture rather than as a line of text describing it, because a student
+cannot describe the features of a source they have not been shown. It is the
+right fix for the source panel and the wrong source to be showing, and the two
+are separate jobs: keep the picture, move the wall onto a painting the booklet
+does not mark.
 
 Its `TASK_MAP` is not the problem. The booklet's rubric itself names the task and
 question numbers against each row, "Task 1, Source 1: Q1-3", so the wall is
@@ -66,12 +75,18 @@ Where the walls sit now:
 
 | Wall | Rows | Against its rubric |
 |---|---|---|
-| Ancient Australia | 4 | The rubric's four. Metacognition is written and withdrawn. |
-| Ancient Rome | 3 | Two of the CAT rubric's four, plus continuity and change from Kew's Developmental Rubric. Presentation and metacognition deliberately off. |
-| Ancient Egypt, Vesuvius | 4 | The Ancient Australia four, on an archive source. |
+| Ancient Australia (Batman) | 4 | CAT 1's four, on two sources that disagree. |
+| GS73 | 4 | The same four, archived. Metacognition is written and withdrawn. |
+| Ancient Rome (Vesuvius) | 4 | Not CAT 2's rubric at all: Rome's CAT is a guidebook and marks no source analysis. This wall carries the source-analysis four, as a source for the unit rather than a model of its task. |
+| Ancient Egypt | 4 | The same four, archived. |
 | Water in the World | 4 | Geographical inquiry, not source analysis. |
 | Pigeon Patrol | 3 | Business success, innovation, decisions. |
-| Ancient China | 6 | Also its rubric's own six, and they are numbered in the rubric itself. |
+| Ancient China | 6 | Its rubric's own six, and they are numbered in the rubric itself. |
+
+A wall built for CAT 2 existed and was deleted in August 2026: three rows,
+chronology and cause and effect from the CAT rubric plus continuity and change
+from Kew's Developmental Rubric. It is in the git history if the guidebook task
+needs a wall again.
 
 Three or four rows is the working shape and six is the practical ceiling. Ancient
 China reaches it legitimately: its booklet rubric really does run five numbered
@@ -89,8 +104,10 @@ it is in the rubric but is really about formatting, it still does not.
 ### 3. Every row is a way of thinking, not a way of presenting.
 
 Rome's CAT rubric marks four things: chronology, cause and effect, metacognition
-and presentation. The wall carries the first two and adds continuity and change
-from Kew's Developmental Rubric. The other two are off it.
+and presentation. The wall built on it carried the first two and added continuity
+and change from Kew's Developmental Rubric. The other two were deliberately left
+off. That wall has since been deleted, but the decision is the clearest example
+on the site of this rule being applied, which is why it is still written here.
 
 "I can present information creatively" teaches a student to improve their
 formatting. Metacognition is about managing your own learning. Both can be worth
@@ -230,15 +247,24 @@ The workflow fails the build if an index page differs from what the generator
 produces.
 
 `bump-it-up.html` is not one of the generated files, and it is not unique per
-topic either: `gs73`, `rome`, `china`, `egypt`, `vesuvius` and `batman` each
-carry their own copy, and five of those six are byte-identical apart from
-`content.js`. A fix to the shared machinery, the translate popup, the zoom
-viewer, the rubric pane, is a fix that has to be pasted into every copy or the
-topics silently drift apart. When you make one, patch every copy in the same
-change, verify the diff is identical across files before you write it, and say
-in the commit which files got it. There is no generator for this file yet;
-until there is, treat "the same edit in six places" as the job, not a shortcut
+topic either: `gs73`, `china`, `egypt`, `vesuvius` and `batman` each carry their
+own copy. A fix to the shared machinery, the translate popup, the zoom viewer,
+the source panel, the rubric pane, is a fix that has to be pasted into every copy
+or the topics silently drift apart. When you make one, patch every copy in the
+same change, verify the diff is identical across files before you write it, and
+say in the commit which files got it. There is no generator for this file yet;
+until there is, treat "the same edit in five places" as the job, not a shortcut
 you can take on one file and forget.
+
+The five copies are not identical, and it is worth knowing on which axis they
+differ before you patch. The **source panel** is now the same in all five: a
+`SOURCES` list, a tab per source, and a fallback that wraps an older single
+`SOURCE_PANEL` into a one-item list, so a wall with one source renders exactly as
+it did. What still differs is the **rubric pane**: `china`, `egypt` and
+`vesuvius` show the school continuum with the Victorian Curriculum codes and the
+`KID` band underneath, and `gs73` and `batman` show the continuum alone. That is
+a real difference in what those walls are for, not drift, but check which side
+you are on before you edit that function.
 
 ### 14. Arrays paired by position must be spliced together.
 
@@ -306,16 +332,25 @@ is a draft:
   puts a card on a page a student can reach
 - say what is unfinished at the top of its `content.js`, not only in the commit
   message, because the next person opens the file and not the log
-- state it in the topic note too, the way the Rome and Vesuvius notes do:
+- state it in the topic note too, the way the Vesuvius and China notes do:
   "**Draft.** Written and levelled but not yet taught."
 
 Three separate green lights, and they are not the same conversation: the wording
 is right, then the page may go up as a draft, then it may go into the navigation.
 Do not treat approval of one as approval of the next.
 
-The Batman wall is the worked example. It sits in `history/batman/` on a branch,
-absent from the site map, with an unresolved cultural-consultation item named in
-its header, and it will not be linked until that is closed.
+The Batman wall was the worked example, and in August 2026 it went the rest of
+the way: it is now History 1, Ancient Australia, in the site map and on the page
+a student reaches. That was a teacher's decision, made knowing the third light
+had not been given.
+
+**Its cultural-consultation item is still open.** The framing has not been
+checked with the Wurundjeri Woi Wurrung Cultural Heritage Aboriginal
+Corporation. Publishing did not close it; it moved it into public view, which is
+why the item is now stated on the topic page and in
+`history/batman/SOURCE-NOTICE.md` rather than only in a comment. Do not quietly
+drop that paragraph because the page looks finished, and expect the wording to
+change when the consultation happens.
 
 ### 21. Verify the deploy rather than assuming it.
 
