@@ -334,15 +334,34 @@ it catches overflow, never underflow.
 topic's own file names and citations. Build a new one by adapting the closest
 existing copy, not by assuming the file is generic.
 
-`source-sheet.html` is per topic for the same reason, but the Batman one is worth
-copying from when a topic has more than one source: it renders one A3 per entry
-in `SOURCES`, and reads the plate, the hotspot rectangles, the numbered notes and
-the citation straight out of `content.js`. The numbered regions are the same
-percentages the interactive uses, so region 3 on screen is region 3 on paper.
+`source-sheet.html` is per topic, and the Batman one is worth copying from when a
+topic has more than one source: it renders one A3 landscape sheet per entry in
+`SOURCES`, taking the plate, the citation and the standfirst from `content.js`.
+
+**It prints the source and its provenance, and nothing else.** The hotspots are
+deliberately left off. They are the reading of the source, and the reading is
+what the wall and the interactive are for; a source sheet that hands it over has
+done the student's task for them. What does belong is who made it, when, and how
+long after the event, because that is what a student needs BEFORE they can weigh
+anything. It is also why the plate gets the full width of the page: at 400mm on
+A3 landscape a 2:1 painting is already at its maximum, and the only way to make
+it larger is a larger sheet.
+
+One trap in that file. `batman-treaty-source.jpg` is 1600x800, but the painting
+occupies rows 30 to 768: 61px of black letterbox padding that prints as two black
+bands. The file cannot simply be cropped, because `bump-it-up.html` positions its
+hotspots as percentages of the full 1600x800 frame and every one would shift. The
+crop is done in CSS on the print sheet, where there are no hotspots to break.
+Check any new plate for baked-in padding before trusting its aspect ratio.
 
 `build-pdf.mjs` is per topic: each names its own jobs, paper sizes and `expect`
-page count. Trust the fit check over guessing, and note it only catches overflow
-and page count, not a layout that silently collapsed but still fits.
+page count. It checks three things and you should know what each cannot see. The
+**fit** check catches a sheet taller than its page, and never underflow: a sheet
+printing at half its height passes silently, which is how the Foundation rung got
+to production at 46% fill. The **clipped** check catches content a fixed-height
+sheet swallowed, because `.sheet{overflow:hidden}` means overgrown content goes
+missing rather than making the page taller, and the PDF still looks fine. Neither
+catches a layout that collapsed to one column but still fits. Look at the render.
 
 `tools/build_docx.py` takes a `SUBJECTS` registry, not a folder name: a topic's
 `content.js` path differs from where the finished `.docx` lands (`print/`, not

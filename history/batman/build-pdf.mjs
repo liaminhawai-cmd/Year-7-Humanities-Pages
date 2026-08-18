@@ -76,7 +76,13 @@ for (const job of JOBS) {
     const sheets = [...document.querySelectorAll(".sheet")];
     return { count: sheets.length,
              over: sheets.map((s, i) => ({ i, over: Math.round(s.getBoundingClientRect().height - limit) }))
-                         .filter(x => x.over > 0) };
+                         .filter(x => x.over > 0),
+             /* A fixed-height sheet clips rather than grows, so content that
+                outgrows it never shows up as an over-tall page: it just goes
+                missing, and the PDF looks fine. Compare what the sheet WANTS
+                against what it got. */
+             clipped: sheets.map((s, i) => ({ i, by: Math.round(s.scrollHeight - s.clientHeight) }))
+                            .filter(x => x.by > 2) };
   }, px(box.h));
   /* Do NOT switch the media emulation back to "screen" here. Doing so leaves
      the page in a state that makes the following pdf() lay out differently and
@@ -108,7 +114,13 @@ for (const job of JOBS) {
       + ". Shorten the text or reduce the type size.");
     failed = true;
   }
-  if (!problems.length && !fit.over.length && fit.count === job.expect) {
+  if (fit.clipped.length) {
+    console.error(`${job.out}: content clipped off the sheet: `
+      + fit.clipped.map(x => `#${x.i + 1} by ${x.by}px`).join(", ")
+      + ". It will be missing from the PDF, not spilled onto a second page.");
+    failed = true;
+  }
+  if (!problems.length && !fit.over.length && !fit.clipped.length && fit.count === job.expect) {
     console.log(`${job.out}  :  ${job.note}  (${fit.count} page(s), fits)`);
   }
 }

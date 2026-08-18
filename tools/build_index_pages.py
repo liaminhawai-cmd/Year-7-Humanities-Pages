@@ -169,8 +169,8 @@ SITE = [
            ("&#128202;", "The wall", "wagoll-wall.html",
             "The whole continuum on one surface, every level side by side for comparison.", None),
            ("&#128269;", "The sources", "source-sheet.html",
-            "The painting and the Proclamation, one A3 sheet each, with every detail "
-            "numbered and explained.", None),
+            "The painting and the Proclamation, one A3 sheet each, as large as the page "
+            "allows, with who made it and when.", None),
            ("&#128196;", "Level sheets", "level-sheets.html",
             "One A4 anchor sheet per rung, Foundation to Year 10, ready to print.", None),
            ("&#128424;", "Print pack", "../../print/Batman-Treaty-Print-Pack.pdf",
@@ -456,9 +456,11 @@ SITE = [
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
-      note="<b>Batman's Treaty is one PDF.</b> Pages 1 and 2 are the sources, A3 landscape, "
-           "reproduced full width with the same numbered details the on-screen version opens: "
-           "region 3 on the painting is region 3 on paper. Pages 3 to 10 are the level sheets, A4 "
+      note="<b>Batman's Treaty is one PDF.</b> Pages 1 and 2 are the sources, A3 landscape, each "
+           "run to the full width of the sheet, with who made it, when, and how long after the "
+           "event. What is not on them is any note on what the picture contains: reading the source "
+           "is the task, and a sheet that hands the reading over has done it for the student. "
+           "Pages 3 to 10 are the level sheets, A4 "
            "portrait, one per rung, opening at Foundation to Level 2 and closing at Year 10. Print "
            "the whole file and you have "
            "everything; there is nothing else to hunt down. Its cultural-consultation item is "
