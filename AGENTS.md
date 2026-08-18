@@ -266,14 +266,45 @@ it did. What still differs is the **rubric pane**: `china`, `egypt` and
 a real difference in what those walls are for, not drift, but check which side
 you are on before you edit that function.
 
-### 14. Arrays paired by position must be spliced together.
+### 14. `level-sheets.html` is shared machinery too; `wagoll-wall.html` is not.
+
+`level-sheets.html` reads nothing but `WALL`, `CRITERIA`, `LEVELS`, `EXAMPLES`,
+`EXPLANATIONS` and `CONTINUUM` from `content.js`. Copy it into a new topic folder,
+change the `<title>`, and it renders that topic's own anchor sheets, because the
+CSS already carries colour variables for every criterion key in use across the
+site (`source`/`context`/`evidence`/`judge` and `success`/`innovation`/
+`decisions`). Confirm the new topic's `CRITERIA` keys already have colours
+defined before assuming this; add them if not.
+
+`wagoll-wall.html` is not this simple. It hand-codes the source band, one
+`<img>` or one text panel, wired to that topic's own file name and citation. A
+topic with two sources that disagree, like Batman's Treaty, needs two full
+sheets rather than one, each self-contained (own masthead, own source, own full
+continuum table) so either can be pinned up alone, because the worked examples
+compare the two sources inside a single paragraph rather than splitting cleanly
+by source. Build it by adapting the closest existing `wagoll-wall.html`, not by
+assuming the file is generic.
+
+`build-pdf.mjs` is per topic, not shared: each one names its own jobs, its own
+paper sizes, and its own `expect` page count. Batman's carries `expect: 2` for
+the wall because it renders two sheets; every other topic's wall job expects 1.
+The fit check fails loudly if that number is wrong, so trust it over guessing.
+
+`tools/build_docx.py` takes a `SUBJECTS` registry, not a folder name: a topic's
+`content.js` path differs from where the finished `.docx` lands (`print/`, not
+the topic folder), and the version of this script that predates the topic-folder
+split conflated the two, so running it for "history" silently failed once GS73
+moved into `history/gs73/`. Add a topic to `SUBJECTS` when you give it a wall; do
+not reintroduce the folder-name shortcut.
+
+### 15. Arrays paired by position must be spliced together.
 
 `KID.lines` maps to `CRITERIA` by index. Removing a criterion through
 `HIDDEN_CRITERIA` without removing its matching "I can" line shifts every caption
 below it onto the wrong row. That bug shipped once. Withdraw a criterion and you
 splice both arrays at the same index.
 
-### 15. Withdraw a criterion, do not delete it.
+### 16. Withdraw a criterion, do not delete it.
 
 Metacognition is fully written into `history/gs73/content.js`: a continuum row, an
 explanation at every level, a marked phrase in all six worked examples. It is off
@@ -288,14 +319,14 @@ criterion is marked. Emptying the list brings it back.
 Use that mechanism. Deleting the text loses six levels of authored examples that
 the next rubric change may want, and leaves nothing to bring back.
 
-### 16. Never change a unit's `path`.
+### 17. Never change a unit's `path`.
 
 `path` is the localStorage key holding a student's saved progress. Civics moved
 from Year 7 to Year 8 and its path still reads
 `year-7/humanities-civics/civics`, because renaming it would wipe the progress of
 every student who had used it. A label that is slightly wrong beats data loss.
 
-### 17. Two channels for every signal.
+### 18. Two channels for every signal.
 
 Each criterion carries a colour and an underline pattern, plus a glyph in the
 explanation band. A wall has to survive a greyscale photocopy and a colour-blind
@@ -303,7 +334,7 @@ reader. Contrast stays above 4.5:1.
 
 ## Publishing
 
-### 18. Check copyright and privacy before every public push.
+### 19. Check copyright and privacy before every public push.
 
 This repository is public and live. The private `Year-7-Humanities` repository
 holds curriculum documents, assessment booklets, source packs and planning. None
@@ -314,12 +345,12 @@ virtue of sitting in the booklet. Find the original, confirm it is public domain
 or licensed, and cite it. GS73 is CC BY 4.0 and carries its attribution, with no
 commercial use without Mirarr consent.
 
-### 19. No student or staff personal information.
+### 20. No student or staff personal information.
 
 No names, emails, IDs, marks, class lists or support notes. No accounts, no
 analytics, no trackers. Student progress stays in `localStorage` in the browser.
 
-### 20. A push to `main` is a publication. Draft on a branch.
+### 21. A push to `main` is a publication. Draft on a branch.
 
 There is no staging site. `.github/workflows/check.yml` fires on every push to
 `main` and deploys, so merging is publishing, in front of students, immediately.
@@ -352,7 +383,7 @@ why the item is now stated on the topic page and in
 drop that paragraph because the page looks finished, and expect the wording to
 change when the consultation happens.
 
-### 21. Verify the deploy rather than assuming it.
+### 22. Verify the deploy rather than assuming it.
 
 The site is published by the `Check and publish` workflow in
 `.github/workflows/check.yml`, and Settings > Pages > Source must stay on
@@ -362,7 +393,7 @@ pushing, confirm the run went green and its commit matches yours.
 
 ## Working method
 
-### 22. One branch, folded back in.
+### 23. One branch, folded back in.
 
 Six stale branches sat across the three repositories in August 2026, and not one
 held a commit that was not already in `main`. They were leftovers. Four of them,
@@ -379,12 +410,12 @@ sandbox these sessions run in can push new refs but not delete them, the proxy
 returns 403, so a model cannot tidy this up for you and should say so plainly
 rather than report a deletion that did not happen.
 
-### 23. Do the task that was asked.
+### 24. Do the task that was asked.
 
 Not the adjacent one that looks more interesting. If you find a real problem
 somewhere else, name it and finish the asked task first.
 
-### 24. Do not invent curriculum content unprompted.
+### 25. Do not invent curriculum content unprompted.
 
 If a topic has no glossary, report that it has no glossary. Writing one and
 shipping it quietly puts words in front of students that no teacher chose.

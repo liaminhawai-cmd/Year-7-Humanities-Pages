@@ -2,12 +2,17 @@
 """Builds the editable Word version of a WAGOLL wall.
 
     pip install python-docx
-    python3 tools/build_docx.py economics
-    python3 tools/build_docx.py history
+    python3 tools/build_docx.py pigeon-patrol
+    python3 tools/build_docx.py gs73 batman
 
-The wall text is read straight out of that subject's content.js — the same file
+The wall text is read straight out of that topic's content.js — the same file
 the web pages and the PDFs use — so the Word document can never drift from
 them. Nothing here holds a copy of the wording.
+
+Each argument is a key into SUBJECTS below, not a folder path: the topics live
+several directories deep (history/gs73, history/batman, economics/pigeon-patrol)
+and every output lands in print/ alongside the PDFs, so neither end of the job
+is "the subject's own folder" any more. Add a topic here when it gets a wall.
 
 The layout deliberately mirrors the original Year 7 Economics WAGOLL .docx:
 landscape, one table, criterion colours applied to runs, so it opens looking
@@ -30,6 +35,18 @@ from docx.shared import Pt, RGBColor, Mm
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Every topic that has a wall. "content" is relative to the repo root; every
+# output is written to print/, alongside the PDFs build-pdf.mjs makes for the
+# same topic.
+SUBJECTS = {
+    "gs73":          {"content": "history/gs73/content.js",
+                       "out": "GS73-WAGOLL-Wall.docx"},
+    "batman":        {"content": "history/batman/content.js",
+                       "out": "Batman-Treaty-WAGOLL-Wall.docx"},
+    "pigeon-patrol": {"content": "economics/pigeon-patrol/content.js",
+                       "out": "Pigeon-Patrol-WAGOLL-Wall.docx"},
+}
+
 # Criterion colours, matched to the web pages. These are the print/light values.
 INK = RGBColor(0x20, 0x23, 0x1F)
 COLOURS = {
@@ -37,8 +54,8 @@ COLOURS = {
     "source":     "176B87", "context":    "357A46", "evidence":  "A34D1D",
     "judge":      "744F91", "meta":       "7C3AED",
 }
-# history's metacognition is the grey-blue, economics' is the violet above
-META_BY_SUBJECT = {"history": "53666B", "economics": "7C3AED"}
+# gs73's metacognition is the grey-blue, pigeon-patrol's is the violet above
+META_BY_SUBJECT = {"gs73": "53666B", "pigeon-patrol": "7C3AED"}
 FILLS = {
     "success":   "E4EBFE", "innovation": "FCEEE6", "decisions": "E2F4E8",
     "source":    "D8EDF4", "context":    "DFF0DF", "evidence":  "F7E3D4",
@@ -57,11 +74,11 @@ UNDERLINES = {
 }
 
 
-def read_content(subject: str) -> dict:
+def read_content(content_path: str) -> dict:
     """Evaluate content.js in node and hand the data back as JSON."""
-    js = ROOT / subject / "content.js"
+    js = ROOT / content_path
     if not js.exists():
-        sys.exit(f"no content.js for '{subject}' — expected {js}")
+        sys.exit(f"no content.js at {js}")
     script = (
         f"const fs=require('fs'),vm=require('vm');const c={{}};vm.createContext(c);"
         f"vm.runInContext(fs.readFileSync({json.dumps(str(js))},'utf8')"
@@ -112,7 +129,11 @@ def plain(text):
 
 
 def build(subject: str) -> Path:
-    d = read_content(subject)
+    if subject not in SUBJECTS:
+        sys.exit(f"unknown subject '{subject}': add it to SUBJECTS in this file. "
+                  f"Known: {', '.join(sorted(SUBJECTS))}")
+    subj = SUBJECTS[subject]
+    d = read_content(subj["content"])
     wall, crits, levels = d["WALL"], d["CRITERIA"], d["LEVELS"]
     colours = dict(COLOURS)
     colours["meta"] = META_BY_SUBJECT.get(subject, COLOURS["meta"])
@@ -221,14 +242,12 @@ def build(subject: str) -> Path:
     fr.font.size = Pt(6.5)
     fr.font.color.rgb = RGBColor(0x67, 0x5F, 0x54)
 
-    name = {"economics": "Pigeon-Patrol-WAGOLL-Wall.docx",
-            "history":   "GS73-WAGOLL-Wall.docx"}.get(subject, f"{subject}-wall.docx")
-    out = ROOT / subject / name
+    out = ROOT / "print" / subj["out"]
     doc.save(out)
     return out
 
 
 if __name__ == "__main__":
-    targets = sys.argv[1:] or ["history"]
+    targets = sys.argv[1:] or list(SUBJECTS)
     for t in targets:
         print("wrote", build(t).relative_to(ROOT))
