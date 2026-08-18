@@ -158,11 +158,15 @@ SITE = [
            "Foundation to Year 10. Tap between the two sources, tap any phrase.",
            "The same page with both sources built in. Download to use offline.") + [
            ("&#128202;", "The wall", "wagoll-wall.html",
-            "The whole continuum, printable as two A2 sheets: the painting, then the Proclamation.", None),
+            "The whole continuum on one surface. Prints as a single A2 sheet.", None),
+           ("&#128269;", "The sources", "source-sheet.html",
+            "The painting and the Proclamation, one A3 sheet each, with every detail "
+            "numbered and explained.", None),
            ("&#128196;", "Level sheets", "level-sheets.html",
-            "One anchor sheet per level, ready to print.", None),
+            "One A4 anchor sheet per level, ready to print.", None),
            ("&#128424;", "Print-ready set", "../../print/",
-            "Both A2 wall sheets, the six A3 level sheets and the editable Word wall.", None)]),
+            "The A2 wall, the two A3 source sheets, the six A4 level sheets and the "
+            "editable Word wall.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -433,10 +437,13 @@ SITE = [
           ("&#128214;", "What is source analysis?", "What-is-source-analysis-A5.pdf",
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
         ("History: Batman's Treaty", "the taught Ancient Australia wall", [
-          ("&#128202;", "Wall, two sheets", "Batman-Treaty-WAGOLL-Wall-A2.pdf",
-           "A2 landscape, 2 pages: the painting, then the Proclamation, each with the full continuum.", None),
-          ("&#128196;", "Level sheets", "Batman-Treaty-Level-Sheets-A3.pdf",
-           "A3 portrait, 6 pages: one per year level.", None),
+          ("&#128202;", "The wall", "Batman-Treaty-WAGOLL-Wall-A2.pdf",
+           "A2 landscape, 1 page: the whole continuum, both sources named.", None),
+          ("&#128269;", "The sources", "Batman-Treaty-Source-Sheets-A3.pdf",
+           "A3 portrait, 2 pages: the painting, then the Proclamation, each with its details "
+           "numbered.", None),
+          ("&#128196;", "Level sheets", "Batman-Treaty-Level-Sheets-A4.pdf",
+           "A4 portrait, 6 pages: one per year level.", None),
           ("&#128221;", "Editable wall", "Batman-Treaty-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
         ("History: GS73, the grinding stone", "the archived Ancient Australia wall", [
@@ -457,11 +464,11 @@ SITE = [
           ("&#128221;", "Editable wall", "Pigeon-Patrol-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
       ],
-      note="<b>Batman's Treaty prints as two sheets, not one.</b> The wall has two sources that disagree, "
-           "so each gets its own A2 poster: the painting on the first page, the Proclamation on the second. "
-           "Both carry the same worked-example continuum underneath, because the worked examples compare "
-           "the two documents inside a single paragraph rather than splitting by source, so either sheet "
-           "reads on its own if you only pin up one. Its cultural-consultation item is still open; see "
+      note="<b>Batman's Treaty splits three ways.</b> One A2 sheet carries the whole continuum. Each "
+           "source then gets an A3 of its own, reproduced large enough to actually read, with the same "
+           "numbered details the on-screen version opens: region 3 on the painting is region 3 on paper. "
+           "The per-level anchor sheets are A4, so a class set is half the paper the A3 ones were. Its "
+           "cultural-consultation item is still open; see "
            "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes beyond "
            "the classroom.<br><br>"
            "<b>The GS73 sheets below are the older four-poster set</b>, made before the current wall "

@@ -1,2 +1,7 @@
 node_modules
 __pycache__/
+
+# build-pdf.mjs writes its masters beside itself; the copies that ship
+# live in print/, so the topic-folder ones are scratch.
+history/*/*.pdf
+economics/*/*.pdf

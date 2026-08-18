@@ -40,7 +40,7 @@ figure{margin:0 0 5mm;display:grid;grid-template-columns:1fr 74mm;gap:8mm;align-
 figure img{width:100%;max-height:130mm;height:auto;display:block;background:#111;object-fit:contain}
 figcaption{font-size:10.6pt;line-height:1.45;color:var(--muted);
            padding-left:5mm;border-left:2px solid var(--rule)}
-@media (max-width:860px){figure{grid-template-columns:1fr}figure img{max-height:none}}
+@media screen and (max-width:860px){figure{grid-template-columns:1fr}figure img{max-height:none}}
 
 .body{columns:2;column-gap:11mm;column-rule:1px solid var(--line);font-size:12.6pt;line-height:1.52;
       text-align:justify;hyphens:auto}
@@ -56,7 +56,7 @@ figcaption{font-size:10.6pt;line-height:1.45;color:var(--muted);
       font-size:8pt;color:var(--muted);line-height:1.45}
 .foot b{color:var(--ink)}
 
-@media (max-width:860px){
+@media screen and (max-width:860px){
   .sheet{width:auto;min-height:0;padding:16px;margin:0;border:0}
   h1{font-size:46pt}.body{columns:1}
 }
