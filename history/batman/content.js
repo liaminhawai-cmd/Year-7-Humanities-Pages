@@ -4,9 +4,14 @@
    level-sheets.html and interactive.html all read it, so editing here
    updates the wall, the per-level A3 sheets and the interactive at once.
 
-   DRAFT. Not linked from the site navigation. One open item before this can
-   be taught or published: the framing has not been checked with the
-   Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation.
+   This is the wall for History 1, Ancient Australia, and it is on the site.
+
+   ONE ITEM IS STILL OPEN: the framing has not been checked with the Wurundjeri
+   Woi Wurrung Cultural Heritage Aboriginal Corporation. Both sources here were
+   made by colonists and no Kulin record of the meeting survives, which the wall
+   states, but stating it is not the same as having the framing reviewed. The
+   item is named on the topic page as well as here, and closing it may change
+   the wording.
 
    The painting is reproduced at 1600x800 from the file supplied for this
    build. It is John Wesley Burtt, circa 1875, State Library of Victoria

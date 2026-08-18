@@ -77,7 +77,7 @@ SITE = [
           ("&#127963;", "Civics &amp; Citizenship", "civics/",
            "Government, democracy, law and citizenship. Nothing built yet.", "empty"),
           ("\U0001F3FA", "History", "history/",
-           "Ancient Australia, Rome and China. Each unit rehearsing its own CAT.", None),
+           "Ancient Australia, Rome and China, and the source each unit is built on.", None),
           ("&#127759;", "Geography", "geography/",
            "Water in the World, and Landscapes &amp; Landforms.", None),
           ("&#128188;", "Economics &amp; Business", "economics/",
@@ -111,37 +111,138 @@ SITE = [
       back=("../", "All four areas"),
       sections=[
         ("Topics", "the units being taught", [
-          ("&#129704;", "1 &middot; Ancient Australia", "gs73/",
-           "GS73, a grinding stone from Madjedbebe. An excavated object with no author.", None),
-          ("&#127963;", "2 &middot; Ancient Rome", "rome/",
-           "Origins, social groups, citizens, religion, law, army, and a guidebook for a "
-           "traveller arriving in 300 CE.", "draft"),
+          ("&#128220;", "1 &middot; Ancient Australia", "batman/",
+           "Batman's Treaty at Merri Creek. A painting showing a bargain being struck, and a "
+           "Proclamation saying no such bargain was ever possible.", None),
+          ("&#127963;", "2 &middot; Ancient Rome", "vesuvius/",
+           "Pliny the Younger on the eruption of Vesuvius, written twenty-five years after it "
+           "happened.", "draft"),
           ("&#127772;", "3 &middot; Ancient China", "china/",
-           "Chronology, social groups, the Great Wall and Terracotta Warriors, Qin Shi Huang.", "draft")]),
-        ("Archive", "written and levelled, but not rehearsing a CAT", [
-          ("&#127755;", "Pliny on Vesuvius", "vesuvius/",
-           "A source-analysis wall built for Rome before the CAT was checked. Rome's CAT is a "
-           "guidebook and assesses no source analysis, so this rehearses nothing a student is "
-           "marked on. Kept because Pliny is a real Roman source and works as extension.", "archived"),
+           "The First Emperor weighed: the painting of the burning of the books, and a historian "
+           "who calls him the founder of China.", "draft")]),
+        ("Archive", "written and levelled, but not the source a unit is now built on", [
+          ("&#129704;", "GS73, the grinding stone", "gs73/",
+           "An excavated object from Madjedbebe on Mirarr Country, with no author, answered from "
+           "Foundation to Year 10. The fullest resource set on the site: a wall, level sheets, a "
+           "paragraph builder and the print pack. Kept because it is the one source here that is "
+           "an object rather than a document.", "archived"),
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
            "is a complete second-hand-report source and works as extra practice.", "archived")])],
       note="<b>The three units are not assessed on the same skill.</b> "
            "<b>CAT 1: Ancient Australia</b> is a source-analysis test: primary and secondary "
-           "sources, reliability and accuracy, and First Nations beliefs, values and lives. "
-           "<b>CAT 2: Ancient Rome</b> is a tourist guidebook for a traveller arriving in "
-           "300 CE. Its wall carries the historical thinking that task needs: chronology, cause and "
-           "effect, and continuity and change: no source analysis at all. <b>CAT 3: Ancient China</b> is two booklets, chronology "
-           "skills and source analysis, and adds historical perspectives and historical "
-           "significance.<br><br>"
-           "So the wall on Ancient Australia rehearses its CAT, and the Vesuvius wall does not "
-           "rehearse Rome's. It is a source for the unit, not a model of its task.<br><br>"
+           "sources, reliability and accuracy, and First Nations beliefs, values and lives. The "
+           "wall on that page rehearses it, and does it with two sources that disagree, which is "
+           "what comparing interpretations needs. "
+           "<b>CAT 2: Ancient Rome</b> is a tourist guidebook for a traveller arriving in 300 CE, "
+           "and assesses no source analysis at all. So the Rome page holds a Roman source read at "
+           "every level: a source for the unit, not a model of its task. "
+           "<b>CAT 3: Ancient China</b> is two booklets, chronology skills and source analysis, and "
+           "adds historical perspectives and historical significance. Its wall is that booklet's "
+           "own rubric, level for level.<br><br>"
+           "<b>The archive is not a scrap heap.</b> Both walls in it are finished, levelled and "
+           "teachable. They are down there because they are not the source the unit in front of a "
+           "class is built on, and a student looking for their own topic should not have to step "
+           "past them.<br><br>"
            "The booklet and the word list are the same for every topic, so they sit on each topic "
            "page rather than here."),
 
- dict(path="history/gs73/index.html", cls="history", depth=2, kicker="History &middot; Topic 1",
+ dict(path="history/batman/index.html", cls="history", depth=2, kicker="History &middot; Topic 1",
       title="Ancient Australia",
+      intro="A painting says John Batman bought this land. A Proclamation says that was never "
+            "possible. Which do you trust, and why?",
+      back=("../", "History"),
+      sections=[
+        ("Resources", None, wagoll(False,
+           "Foundation to Year 10. Tap between the two sources, tap any phrase.",
+           "The same page with both sources built in. Download to use offline.")),
+        ("Words &amp; booklet", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Meet, build and recall every word this topic marks.", None),
+           SOURCE_WORDS,
+           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
+            "The nine-page student booklet, ready to print.", None)]),
+      ],
+      note="<b>Two sources, because they disagree.</b> The painting shows a treaty being agreed; the "
+           "Proclamation, signed ten weeks later, declares that no settler could buy land from "
+           "Aboriginal people and that any such treaty was &ldquo;void and of no effect.&rdquo; A "
+           "student cannot compare interpretations from one source, and comparing interpretations "
+           "is what CAT 1 marks.<br><br>"
+           "<b>Both sources were made by colonists.</b> No Kulin record of the meeting at Merri "
+           "Creek has survived. The painting was made about forty years afterwards by an artist who "
+           "was not there, and no portrait of Batman was taken from life, so even his face is "
+           "invented. The wall says all of this rather than working around it.<br><br>"
+           "<b>One item is still open.</b> The framing of this wall has not been checked with the "
+           "Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation, and closing that may "
+           "change the wording here. The painting is John Wesley Burtt, circa 1875, State Library of "
+           "Victoria H92.196: out of copyright itself, with the terms on this reproduction of it "
+           "still to be confirmed before print. See <a href=\"SOURCE-NOTICE.md\">the source "
+           "notice</a>."),
+
+ dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
+      title="Ancient Rome",
+      intro="Pliny the Younger's letter to Tacitus on the eruption of Vesuvius, written twenty-five "
+            "years after it happened.",
+      back=("../", "History"),
+      sections=[
+        ("Resources", None, wagoll(False,
+           "Foundation to Year 10. Tap any part of the letter, tap any phrase.",
+           "The same page with everything built in. Download to use offline.")),
+        ("Words &amp; booklet", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Meet, build and recall every word this topic marks.", None),
+           words("hist-rome",
+                 "The Ancient Rome unit's thirty-one words in nine languages, with spaced practice."),
+           SOURCE_WORDS,
+           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
+            "The nine-page student booklet, ready to print.", None)]),
+      ],
+      note="<b>This wall does not rehearse CAT 2, and is not pretending to.</b> Rome's CAT is a "
+           "tourist guidebook for a traveller arriving in 300 CE, and it assesses no source analysis "
+           "at all. What sits here is a real Roman source read from Foundation to Year 10: a way "
+           "into the unit, and the source-analysis skill the other two units are marked on.<br><br>"
+           "<b>Draft.</b> Written and levelled but not yet taught. The traditional 24 August date is "
+           "disputed, an inscription found at Pompeii in 2018 points to autumn, and the "
+           "wall treats that disagreement as part of what there is to analyse."),
+
+ dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
+      title="Ancient China",
+      intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
+            "argued. Task 3 of the CAT booklet asks you to weigh him.",
+      back=("../", "History"),
+      sections=[
+        ("Resources", None, [
+           ("&#128250;", "Bump it up", "bump-it-up.html",
+            "Level 6 to Level 9: the CAT rubric's own bands. Tap the painting, tap any phrase.",
+            "big screen"),
+           ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
+            "The same page with the painting built in. Download to use offline.", "single file")]),
+        ("Words", None, [
+           ("&#128218;", "Vocab hub", "vocab-hub.html",
+            "Meet, build and recall every word this topic marks.", None),
+           words("hist-china",
+                 "The topic's twenty words in nine languages, with spaced practice."),
+           SOURCE_WORDS,
+           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
+            "The nine-page student booklet, ready to print.", None)]),
+      ],
+      note="<b>This wall rehearses CAT 3.</b> Every other wall on this site runs Foundation to Year 10, "
+           "because it is showing a skill grow across a whole school. This one runs <b>Level 6 to "
+           "Level 9</b>, because that is what the Ancient China Source Analysis Booklet rubric runs, and "
+           "a student should be able to find their own CAT band on it.<br><br>"
+           "<b>Six rows, not four.</b> They are the booklet's five numbered source-analysis rows plus the "
+           "significance strand Task 3 adds, including <b>historical perspectives</b>, which the "
+           "other walls on this site do not have. Each row also names the question it is marked from.<br><br>"
+           "<b>The painting is on the page, not described on it.</b> Source 1 used to be one line of "
+           "text saying a painting existed. It is now the painting, with the emperor, the men taken "
+           "from the courtyard, the burning books and the pit each openable on their own. The "
+           "booklet does not record the artist, the date or the collection that holds it; see "
+           "<a href=\"SOURCE-NOTICE.md\">the source notice</a>.<br><br>"
+           "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
+
+ dict(path="history/gs73/index.html", cls="history", depth=2, kicker="History &middot; Archive",
+      title="GS73, the grinding stone",
       intro="GS73, a broken grinding stone from Madjedbebe on Mirarr Country, and the long journey by "
             "which it became evidence.",
       back=("../", "History"),
@@ -163,7 +264,13 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>GS73 and Mirarr Country.</b> The source images come from Hayes et al. (2022), open access "
+      note="<b>Archived, and still the fullest thing here.</b> Ancient Australia is now taught from "
+           "Batman's Treaty and Governor Bourke's Proclamation, so this is no longer the source in "
+           "front of a class. Nothing on it stopped being true: it is a complete resource set, a "
+           "wall, level sheets, a paragraph builder, an interactive and the whole print pack, and it "
+           "is the only source on this site that is an <i>object</i> rather than a document, with no "
+           "author to weigh and no point of view to name.<br><br>"
+           "<b>GS73 and Mirarr Country.</b> The source images come from Hayes et al. (2022), open access "
            "under CC BY 4.0, published with the consent of Gundjeihmi Aboriginal Corporation for general "
            "educational purposes. No commercial use is authorised without prior Mirarr consent. See "
            "<a href=\"SOURCE-NOTICE.md\">the source notice</a>."),
@@ -193,90 +300,7 @@ SITE = [
            "or a relief lesson. The worked examples are written and levelled but have never been taught, "
            "and there is no wall, level sheets or print pack."),
 
- dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Archive",
-      title="Ancient Rome",
-      intro="Pliny the Younger's letter to Tacitus on the eruption of Vesuvius, written twenty-five "
-            "years after it happened.",
-      back=("../", "History"),
-      sections=[
-        ("Resources", None, wagoll(False,
-           "Foundation to Year 10. Tap any part of the letter, tap any phrase.",
-           "The same page with everything built in. Download to use offline.")),
-        ("Words &amp; booklet", None, [
-           ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
-           SOURCE_WORDS,
-           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
-            "The nine-page student booklet, ready to print.", None)]),
-      ],
-      note="<b>Draft.</b> Written and levelled but not yet taught. The traditional 24 August date is "
-           "disputed, an inscription found at Pompeii in 2018 points to autumn, and the "
-           "wall treats that disagreement as part of what there is to analyse."),
-
  # ---------------- Geography ----------------
- dict(path="history/rome/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
-      title="Ancient Rome",
-      intro="A traveller is coming to Rome from the far edge of the empire and has never seen the "
-            "city. CAT 2 asks you to write the guidebook they need.",
-      back=("../", "History"),
-      sections=[
-        ("Resources", None, [
-           ("&#128250;", "Bump it up", "bump-it-up.html",
-            "Level 6 to Level 9: the CAT rubric's own bands. Tap any phrase.", "big screen"),
-           ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
-            "The same page with everything built in. Download to use offline.", "single file")]),
-        ("Words", None, [
-           ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
-           words("hist-rome",
-                 "The topic's thirty-one words in nine languages, with spaced practice."),
-           ("&#127755;", "Pliny on Vesuvius", "../vesuvius/",
-            "A Roman source, analysed at every level. Extension. This CAT does not assess "
-            "source analysis.", None)]),
-      ],
-      note="<b>Three historical thinking skills, not a formatting checklist.</b> Ancient Rome does not "
-           "assess source analysis. That is CAT 1 and CAT 3. Its CAT is a tourist guidebook, and "
-           "this wall carries the thinking that has to happen inside it: <b>chronology</b> and "
-           "<b>cause and effect</b> from the CAT rubric, plus <b>continuity and change</b> from Kew's "
-           "own Developmental Rubric.<br><br>"
-           "<b>The CAT's other two rows are deliberately not here.</b> Presentation is about laying a "
-           "document out; metacognition is about managing your own learning. Both may be worth marking, "
-           "but neither is a way of thinking about the past, and a wall modelling &ldquo;present "
-           "information creatively&rdquo; would teach formatting rather than history.<br><br>"
-           "<b>Continuity and change earns its place</b> because the genre demands it: a traveller "
-           "arriving in 300 CE walks into a city already a thousand years old. Some of what they meet "
-           "has never changed and some of it just has, saying which, and why, is the skill.<br><br>"
-           "<b>Draft.</b> Written and levelled against both rubrics, but not yet taught."),
-
- dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
-      title="Ancient China",
-      intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
-            "argued. Task 3 of the CAT booklet asks you to weigh him.",
-      back=("../", "History"),
-      sections=[
-        ("Resources", None, [
-           ("&#128250;", "Bump it up", "bump-it-up.html",
-            "Level 6 to Level 9: the CAT rubric's own bands. Tap any phrase.", "big screen"),
-           ("&#128190;", "Bump it up", "bump-it-up-standalone.html",
-            "The same page with everything built in. Download to use offline.", "single file")]),
-        ("Words", None, [
-           ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
-           words("hist-china",
-                 "The topic's twenty words in nine languages, with spaced practice."),
-           SOURCE_WORDS,
-           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
-            "The nine-page student booklet, ready to print.", None)]),
-      ],
-      note="<b>This wall rehearses CAT 3.</b> Every other wall on this site runs Foundation to Year 10, "
-           "because it is showing a skill grow across a whole school. This one runs <b>Level 6 to "
-           "Level 9</b>, because that is what the Ancient China Source Analysis Booklet rubric runs, and "
-           "a student should be able to find their own CAT band on it.<br><br>"
-           "<b>Six rows, not four.</b> They are the booklet's five numbered source-analysis rows plus the "
-           "significance strand Task 3 adds, including <b>historical perspectives</b>, which the "
-           "other walls on this site do not have. Each row also names the question it is marked from.<br><br>"
-           "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
-
  dict(path="geography/index.html", cls="geography", depth=1, kicker="Year 7 Humanities",
       title="Geography",
       intro="Two topics: where the world's water is, and how landscapes are shaped and argued over.",
@@ -402,7 +426,7 @@ SITE = [
         ("Student booklet", None, [
           ("&#128214;", "What is source analysis?", "What-is-source-analysis-A5.pdf",
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
-        ("History: Ancient Australia", None, [
+        ("History: GS73, the grinding stone", "the archived Ancient Australia wall", [
           ("&#128202;", "Poster set", "Ancient-Australia-History-Wall-Posters-A2.pdf",
            "A2 landscape, 4 pages: source, method, continuum and contested claim.", None),
           ("&#128196;", "Year-by-year wall", "Ancient-Australia-WAGOLL-Wall-Grade5-Year10-A3.pdf",
@@ -422,7 +446,12 @@ SITE = [
       ],
       note="The four A2 sheets make the teaching sequence visible across the wall. The six A3 sheets "
            "are the 12-month increments from Grade 5 to Year 10; each keeps the worked example directly "
-           "above its matching, colour-coded continuum cells. The A4 page is the compact student model."),
+           "above its matching, colour-coded continuum cells. The A4 page is the compact student model."
+           "<br><br>"
+           "<b>Every History sheet here is the GS73 wall</b>, which is now archived: Ancient Australia is "
+           "taught from Batman's Treaty. The GS73 pack still prints and still teaches source analysis, but "
+           "it is not the source the current unit is built on, so check which one you meant before you "
+           "send 30 copies. There is no print pack for the Batman wall yet."),
 ]
 
 

@@ -261,10 +261,8 @@ button{font:inherit;cursor:pointer}
 
   <div class="main">
     <div class="rock">
-      <div class="tabs" id="tabs" role="tablist">
-        <button id="tabSource" role="tab" aria-selected="true">The source</button>
-        <button id="tabRubric" role="tab" aria-selected="false">Rubric</button>
-      </div>
+      <!-- Built in JS: one tab per source in SOURCES, then Rubric. -->
+      <div class="tabs" id="tabs" role="tablist"></div>
       <div class="pane" id="paneSource">
         <div class="plate" id="plate"></div>
         <button class="zoomall" id="zoomAll">⤢ Open it big</button>
@@ -495,57 +493,108 @@ const marked = text => linkGloss(
    exact phrases to light up. Everything below branches on SOURCE.kind and
    nothing else, so a unit built on a letter works the same as one built on a
    photograph. */
-const SOURCE = (typeof SOURCE_PANEL !== "undefined") ? SOURCE_PANEL : {
-  kind:"image", file:(typeof SHEET_IMAGE !== "undefined" ? SHEET_IMAGE : ""),
-  ar:"4/3", alt:"", missing:"", whole:{ label:"The whole source", text:"" }
-};
-const isText = SOURCE.kind === "text";
-const plate  = el("plate");
-let rockImg = null;
+/* A wall may carry more than one source. When two sources disagree, comparing
+   them IS the interpretations row, so the panel has to hold both rather than
+   mention the second one only inside the worked examples.
 
-if (isText){
-  plate.classList.add("text");
-  /* Each hotspot names a phrase; wrap that phrase in a button wherever it
-     appears. Longest first so a phrase inside another phrase cannot break it. */
-  const order = HOTSPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
-  const body = SOURCE.paragraphs.map(p => {
-    let s = esc(p);
-    order.forEach(({h,n}) => {
-      const q = esc(h.mark);
-      if (s.includes(q) && !s.includes(`data-h="${n}"`))
-        s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
-              title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
-    });
-    return `<p>${s}</p>`;
-  }).join("");
-  plate.innerHTML = `<div class="passage" id="passage">${body}
-    <span class="cite">${SOURCE.cite}</span></div>`;
-} else {
-  plate.style.aspectRatio = SOURCE.ar;
-  plate.innerHTML =
-    `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
-     <div class="missing">${SOURCE.missing}</div>` +
-    HOTSPOTS.map((h,n)=>
-      `<button data-h="${n}" aria-pressed="false" title="${esc(h.label)}"
-         style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%">
-         <span class="pin">${n+1}</span></button>`).join("");
-  rockImg = el("rockImg");
-  const flagMissing = ()=> plate.classList.add("noimg");
-  rockImg.addEventListener("error", flagMissing);
-  if (rockImg.complete && rockImg.naturalWidth === 0) flagMissing();
+   SOURCES is the list. Older units define a single SOURCE_PANEL and are
+   wrapped into a one-item list here, so nothing else in this file needs to
+   know which shape a unit used. */
+const SRC_LIST = (typeof SOURCES !== "undefined" && Array.isArray(SOURCES) && SOURCES.length)
+  ? SOURCES
+  : [(typeof SOURCE_PANEL !== "undefined") ? SOURCE_PANEL : {
+      kind:"image", file:(typeof SHEET_IMAGE !== "undefined" ? SHEET_IMAGE : ""),
+      ar:"4/3", alt:"", missing:"", whole:{ label:"The whole source", text:"" },
+      hotspots:(typeof HOTSPOTS !== "undefined" ? HOTSPOTS : [])
+    }];
+
+/* Each source carries its own hotspots. Fall back to a top-level HOTSPOTS for
+   the single-source units that predate this. */
+SRC_LIST.forEach(s => {
+  if (!s.hotspots) s.hotspots = (typeof HOTSPOTS !== "undefined") ? HOTSPOTS : [];
+});
+
+const plate = el("plate");
+let paneNow = "source";       // "source" or "rubric"
+let srcI = 0;                 // which source is showing
+let SOURCE = SRC_LIST[0];
+let SPOTS  = SOURCE.hotspots;
+let isText = SOURCE.kind === "text";
+let rockImg = null;
+let VIEWS = [];
+
+function mountSource(i){
+  srcI   = (i + SRC_LIST.length) % SRC_LIST.length;
+  SOURCE = SRC_LIST[srcI];
+  SPOTS  = SOURCE.hotspots;
+  isText = SOURCE.kind === "text";
+  rockImg = null;
+
+  plate.classList.toggle("text", isText);
+  plate.style.aspectRatio = isText ? "" : SOURCE.ar;
+
+  if (isText){
+    /* Each hotspot names a phrase; wrap that phrase in a button wherever it
+       appears. Longest first so a phrase inside another phrase cannot break it. */
+    const order = SPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
+    const body = SOURCE.paragraphs.map(p => {
+      let s = esc(p);
+      order.forEach(({h,n}) => {
+        const q = esc(h.mark);
+        if (s.includes(q) && !s.includes(`data-h="${n}"`))
+          s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
+                title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
+      });
+      return `<p>${s}</p>`;
+    }).join("");
+    plate.innerHTML = `<div class="passage" id="passage">${body}
+      <span class="cite">${esc(SOURCE.cite || "")}</span></div>`;
+  } else {
+    plate.innerHTML =
+      `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
+       <div class="missing">${SOURCE.missing || ""}</div>` +
+      SPOTS.map((h,n)=>
+        `<button data-h="${n}" aria-pressed="false" title="${esc(h.label)}"
+           style="left:${h.x}%;top:${h.y}%;width:${h.w}%;height:${h.h}%">
+           <span class="pin">${n+1}</span></button>`).join("");
+    rockImg = el("rockImg");
+    const flagMissing = ()=> plate.classList.add("noimg");
+    plate.classList.remove("noimg");
+    rockImg.addEventListener("error", flagMissing);
+    if (rockImg.complete && rockImg.naturalWidth === 0) flagMissing();
+  }
+
+  VIEWS = [Object.assign({ x:0, y:0, w:100, h:100 }, SOURCE.whole)].concat(SPOTS);
+
+  el("rockcap").innerHTML = `<span class="idle">${isText
+    ? "Tap an underlined part of the passage to open it big."
+    : "Tap a part of the picture to open it big."}</span>`;
+  el("zoomAll").textContent = isText ? "⤢ Open the passage big" : "⤢ Open the picture big";
+  buildTabs();
 }
 
-const idleCap = `<span class="idle">${isText
-  ? "Tap an underlined part of the passage to open it big."
-  : "Tap a part of the picture to open it big."}</span>`;
-el("rockcap").innerHTML = idleCap;
-el("zoomAll").textContent = isText ? "⤢ Open the passage big" : "⤢ Open the picture big";
+/* One tab per source, then the rubric. With a single source the strip reads
+   exactly as it did before: "The source" and "Rubric". */
+function buildTabs(){
+  const many = SRC_LIST.length > 1;
+  const srcTabs = SRC_LIST.map((s,n) =>
+    `<button role="tab" data-src="${n}" aria-selected="${n===srcI && paneNow==='source'}">${
+       esc(many ? (s.tab || `Source ${n+1}`) : "The source")}</button>`).join("");
+  el("tabs").innerHTML = srcTabs +
+    `<button role="tab" data-rubric="1" aria-selected="${paneNow==='rubric'}">Rubric</button>`;
+  el("tabs").querySelectorAll("[data-src]").forEach(b =>
+    b.onclick = ()=>{ mountSource(+b.dataset.src); showPane("source"); });
+  const rb = el("tabs").querySelector("[data-rubric]");
+  if (rb) rb.onclick = ()=> showPane("rubric");
+}
+
+mountSource(0);
 
 /* ---------- tap the source, it fills the screen ----------
-   VIEWS[0] is the whole source; the rest are the hotspots. A picture region is
-   shown by scaling the image inside an overflow box, which keeps the crop exact
-   and the aspect right without touching the file. */
-const VIEWS = [Object.assign({ x:0, y:0, w:100, h:100 }, SOURCE.whole)].concat(HOTSPOTS);
+   VIEWS[0] is the whole source; the rest are the hotspots. VIEWS is rebuilt by
+   mountSource, because each source has its own. A picture region is shown by
+   scaling the image inside an overflow box, which keeps the crop exact and the
+   aspect right without touching the file. */
 let zi = 0;
 
 function showZoom(n){
@@ -634,7 +683,7 @@ plate.addEventListener("click", e => {
   const b = e.target.closest("[data-h]");
   if (!b) return;
   const n = +b.dataset.h;
-  const h = HOTSPOTS[n];
+  const h = SPOTS[n];
   plate.querySelectorAll("[data-h]").forEach(x => x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true");
   el("rockcap").innerHTML = `<b>${esc(h.label)}</b>${esc(h.text)}`;
@@ -741,7 +790,7 @@ function drawRungs(){
 function render(){
   hidePop();
   drawRungs();
-  if (pane === "rubric") renderRubric();
+  if (paneNow === "rubric") renderRubric();
   const stage = el("stage");
   if (i === -1){
     el("rungName").textContent = "The source";
@@ -853,17 +902,13 @@ function renderRubric(){
     </div>`;
 }
 
-let pane = "source";
 function showPane(which){
-  pane = which;
+  paneNow = which;
   el("paneSource").hidden = which !== "source";
   el("paneRubric").hidden = which !== "rubric";
-  el("tabSource").setAttribute("aria-selected", String(which === "source"));
-  el("tabRubric").setAttribute("aria-selected", String(which === "rubric"));
+  buildTabs();                       // repaints which tab reads as selected
   if (which === "rubric") renderRubric();
 }
-el("tabSource").onclick = () => showPane("source");
-el("tabRubric").onclick = () => showPane("rubric");
 
 el("tBg").onclick = ()=>{
   const on = el("tBg").getAttribute("aria-pressed") === "true";
