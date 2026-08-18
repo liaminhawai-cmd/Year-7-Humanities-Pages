@@ -70,6 +70,12 @@ h1{font-size:calc(44pt * var(--paper-k));line-height:.98;color:var(--deep);lette
         border-radius:7px;padding:5px 8px;background:var(--band)}
 .k .kh{font-weight:800;font-size:calc(10.5pt * var(--paper-k));display:flex;gap:5px;align-items:baseline;line-height:1.2}
 
+.bg{background:var(--band);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:7px;padding:calc(3.5mm * var(--paper-k)) calc(5mm * var(--paper-k));
+    margin-bottom:calc(5mm * var(--paper-k));font-size:calc(12.5pt * var(--paper-k));line-height:1.4}
+.bg span{display:block;font-weight:800;color:var(--gold);letter-spacing:.05em;
+    text-transform:uppercase;font-size:calc(9pt * var(--paper-k));margin-bottom:calc(1.5mm * var(--paper-k))}
+
 .sec{margin-bottom:calc(6mm * var(--paper-k))}
 .sec>h2{font-size:calc(10.5pt * var(--paper-k));font-weight:800;letter-spacing:.11em;text-transform:uppercase;
         color:var(--deep);border-bottom:1.5px solid var(--line);padding-bottom:calc(2mm * var(--paper-k));margin-bottom:calc(3.5mm * var(--paper-k))}
@@ -87,9 +93,6 @@ h1{font-size:calc(44pt * var(--paper-k));line-height:.98;color:var(--deep);lette
         display:flex;align-items:center;gap:6px}
 .cr .cd{padding:calc(4mm * var(--paper-k));font-size:calc(13.5pt * var(--paper-k) * var(--k2,1));line-height:1.4}
 .cr.gap .cd{color:var(--muted);font-style:italic}
-.belowcont{border:1px solid var(--line);border-radius:7px;background:var(--band);
-           padding:calc(4mm * var(--paper-k));color:var(--muted);font-style:italic;
-           font-size:calc(13pt * var(--paper-k))}
 
 .foot{margin-top:auto;padding-top:calc(5mm * var(--paper-k));border-top:1px solid var(--line);
       font-size:calc(8pt * var(--paper-k));color:var(--muted);line-height:1.45}
@@ -187,23 +190,46 @@ function proves(lv){
 }
 
 /* CONTINUUM is written against LEVELS only, so an access rung has no column of
-   its own. Say that, in the same words bump-it-up.html uses, rather than
-   printing a row of blanks that reads like missing work. */
+   its own and the whole section is dropped for it, heading and all. The sheet
+   used to print the heading and then a line explaining why nothing was under
+   it, which is the sheet talking about itself: the teacher covers that. */
 const onContinuum = lv => CRITERIA.some(c => CONTINUUM[c.key] && CONTINUUM[c.key][lv]);
+
+/* What a student at this rung has already been taught, which is what makes the
+   thinking above available to them. Same wording as bump-it-up.html, and only
+   where the topic wrote one: Pigeon Patrol has no BUMP at all. */
+const bgOf = lv => (typeof BUMP !== "undefined" && BUMP[lv] && BUMP[lv].background) || "";
+const bgLabel = lv => /^(Foundation|Levels)/.test(lv)
+  ? `Students at ${lv} already know` : `A ${lv} student already knows`;
 
 const intro = WALL.task || WALL.inquiry || "";
 
 /* Each level has a different amount of prose. Scale the type so every sheet
-   fills its page rather than leaving the short levels two-thirds empty. */
-const plain = lv => exOf(lv).replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+   fills its page rather than leaving the short levels two-thirds empty.
+
+   The measure is every run of prose the scale actually stretches, which is the
+   worked example AND the background panel: sizing on the example alone pushed
+   four sheets off the page the day the panel was added. */
+const plain = lv => exOf(lv).replace(/\{(\w+)\|([^}]*)\}/g,"$2") + " " + bgOf(lv);
 const clamp = (lo,v,hi) => Math.min(hi, Math.max(lo, v));
 function scale(lv){
   /* The ceiling used to be 1.5, set when the shortest sheet was Grade 5. The
      access rungs are far shorter than that (Foundation to Level 2 is about a
      hundred characters against Year 10's eight hundred), so 1.5 left them
      printing at under half a page. They are also the sheets whose readers
-     most want big type. */
-  const k  = clamp(0.86, Math.sqrt(700 / plain(lv).length), 2.35);
+     most want big type.
+
+     The FLOOR matters as much. It was 0.86, and GS73's Year 10 sheet, the
+     longest on the site at about 1200 characters, sits hard against it: no
+     change to the target above can shrink that sheet, because it is already
+     clamped. When the background panel was added it went 17px over the page
+     and stayed there while the target was walked from 700 down to 600. The
+     floor is what had to move. Check the clamp before tuning the target. */
+  /* A rung below the continuum has no continuum section, so it has a whole
+     block of page the others spend. Give it a bigger target so it fills the
+     sheet instead of trailing off half way down. */
+  const target = onContinuum(lv) ? 660 : 1500;
+  const k  = clamp(0.78, Math.sqrt(target / plain(lv).length), 2.35);
   const k2 = clamp(0.94, Math.pow(k, 0.45), 1.4);
   return `--k:${k.toFixed(3)};--k2:${k2.toFixed(3)}`;
 }
@@ -212,10 +238,12 @@ document.getElementById("out").innerHTML = LADDER.map(lv=>{
   const expected = lv === WALL.expected;
   return `<section class="sheet" style="${scale(lv)}">
     <header class="head">
-      <div class="kicker">${strip(document.title)} · ${esc(WALL.title)}</div>
+      <div class="kicker">${esc(WALL.title)}</div>
       <div class="lvline"><h1>${esc(lv)}</h1>${expected?'<span class="badge">Expected</span>':''}</div>
       <p class="intro">${intro}</p>
     </header>
+
+    ${bgOf(lv) ? `<div class="bg"><span>${esc(bgLabel(lv))}</span>${esc(bgOf(lv))}</div>` : ""}
 
     <div class="key">${CRITERIA.map(c=>
       `<div class="k k-${c.key}"><div class="kh"><span>${c.glyph}</span><span>${c.name}</span></div></div>`).join("")}</div>
@@ -232,16 +260,15 @@ document.getElementById("out").innerHTML = LADDER.map(lv=>{
           p.label?`<b>${p.label}:</b> `:""}${esc(p.text)}</span></div>`).join("")}</div>
     </section>
 
-    <section class="sec">
+    ${onContinuum(lv) ? `<section class="sec">
       <h2>Learning continuum at ${esc(lv)}</h2>
-      ${onContinuum(lv) ? `<div class="cont">${CRITERIA.map(c=>{
+      <div class="cont">${CRITERIA.map(c=>{
         const d = CONTINUUM[c.key][lv];
         return `<div class="cr cr-${c.key}${d?"":" gap"}">
           <div class="cn"><span>${c.glyph}</span><span>${c.row}</span></div>
           <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : ": ")}</div>
-        </div>`;}).join("")}</div>`
-      : `<p class="belowcont">This access rung sits below the ${esc(LEVELS[0])}&ndash;${esc(LEVELS[LEVELS.length-1])} learning continuum. ${esc(LEVELS[0])} is the first column it describes.</p>`}
-    </section>
+        </div>`;}).join("")}</div>
+    </section>` : ""}
 
     <p class="foot">${WALL.foot}</p>
   </section>`;
