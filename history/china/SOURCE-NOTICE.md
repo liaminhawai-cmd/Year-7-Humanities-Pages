@@ -1,4 +1,4 @@
-# Source notice — the Ancient China painting
+# Source notice: the Ancient China painting
 
 `qin-burning-books-source.jpg` is Source 1 of Task 3 in the Year 7 Ancient
 China Source Analysis Booklet: a Chinese painting of the burning of the books

@@ -5,8 +5,8 @@
     python3 tools/build_docx.py pigeon-patrol
     python3 tools/build_docx.py gs73 batman
 
-The wall text is read straight out of that topic's content.js — the same file
-the web pages and the PDFs use — so the Word document can never drift from
+The wall text is read straight out of that topic's content.js, the same file
+the web pages and the PDFs use, so the Word document can never drift from
 them. Nothing here holds a copy of the wording.
 
 Each argument is a key into SUBJECTS below, not a folder path: the topics live
@@ -109,7 +109,7 @@ def set_col_widths(table, widths_mm):
 
 def write_marked(par, text, colours, size, base=INK):
     """Render {key|phrase} as a coloured, underlined run; everything else stays
-    black. The black text is the glue — that is the whole point of the wall."""
+    black. The black text is the glue, which is the whole point of the wall."""
     for chunk in re.split(r"(\{\w+\|[^}]*\})", text):
         if not chunk:
             continue
@@ -227,7 +227,7 @@ def build(subject: str) -> Path:
         for i, lv in enumerate(levels, start=1):
             cell = row.cells[i]
             shade(cell, FILLS[c["key"]])
-            text = d["CONTINUUM"][c["key"]].get(lv) or d.get("GAP") or "—"
+            text = d["CONTINUUM"][c["key"]].get(lv) or d.get("GAP") or ":"
             run = cell.paragraphs[0].add_run(text)
             run.font.size = Pt(7.5)
             run.font.color.rgb = INK

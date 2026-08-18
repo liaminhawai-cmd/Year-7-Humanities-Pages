@@ -7,7 +7,7 @@
  *
  *   npm i -D playwright   &&   node economics/build-pdf.mjs
  *
- * You do not need this to print — opening either page in Chrome and choosing
+ * You do not need this to print: opening either page in Chrome and choosing
  * Print with the paper size below produces the same output. This just makes it
  * repeatable.
  */
@@ -63,7 +63,7 @@ for (const job of JOBS) {
      the page in a state that makes the following pdf() lay out differently and
      silently spill onto an extra page. The page is closed straight after. */
 
-  /* Paper size and margin both come from here — Chromium does not honour
+  /* Paper size and margin both come from here. Chromium does not honour
      `@page { size: A2 landscape }`, so preferCSSPageSize silently falls back to
      US Letter. job.margin is kept equal to the page's own @page margin so the
      box measured above matches the box actually printed. */
@@ -84,13 +84,13 @@ for (const job of JOBS) {
     failed = true;
   }
   if (fit.over.length) {
-    console.error(`${job.out}: sheet(s) taller than the page — `
+    console.error(`${job.out}: sheet(s) taller than the page: `
       + fit.over.map(x => `#${x.i + 1} by ${x.over}px`).join(", ")
       + ". Shorten the text or reduce the type size.");
     failed = true;
   }
   if (!problems.length && !fit.over.length && fit.count === job.expect) {
-    console.log(`${job.out}  —  ${job.note}  (${fit.count} page(s), fits)`);
+    console.log(`${job.out}  :  ${job.note}  (${fit.count} page(s), fits)`);
   }
 }
 
