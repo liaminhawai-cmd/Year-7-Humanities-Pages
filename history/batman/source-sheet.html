@@ -35,7 +35,11 @@ body{background:var(--bg);color:var(--ink);
    task the wall sets, and a sheet that hands the reading over has done the
    task for the student. Provenance is different: who made it, when, and how
    long after the event, is what a student needs BEFORE they can weigh it. */
-.sheet{width:420mm;height:297mm;margin:14px auto;background:var(--paper);
+/* On screen the sheet is fluid up to its paper width: 420mm is 1587px, and a
+   school ThinkPad's window is about 1366, so a fixed-width sheet forced 221px
+   of horizontal scrolling on the machines students actually hold. Print gets
+   its exact dimensions from the print block below either way. */
+.sheet{width:min(100%,420mm);height:auto;margin:14px auto;background:var(--paper);
        border:1px solid var(--line);box-shadow:var(--shadow);
        padding:9mm 10mm 7mm;display:flex;flex-direction:column;overflow:hidden}
 

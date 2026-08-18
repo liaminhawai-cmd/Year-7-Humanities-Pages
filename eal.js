@@ -73,7 +73,7 @@ const EAL = {
       es:"fuente secundaria" }},
 
 "evidence": { en:"The part of a source that proves something.",
-  t:{ "zh-Hans":"证据", "zh-Hant":"證據", ja:"証拠", ko:"증거", vi:"bằng chứng",
+  t:{ "zh-Hans":"证据", "zh-Hant":"證據", ja:"根拠", ko:"증거", vi:"bằng chứng",
       ar:"دليل", fa:"شواهد", ur:"ثبوت", ps:"شواهد", am:"ማስረጃ", ml:"തെളിവ്",
       ta:"சான்று", hi:"साक्ष्य", tl:"katibayan", ro:"dovadă", ru:"доказательство",
       fr:"preuve", es:"evidencia" }},
@@ -144,7 +144,7 @@ const EAL = {
 
 "audience": { en:"The people something was made for.",
   morph:[["audi","hear","root"],["ence","the state of","suffix"]],
-  t:{ "zh-Hans":"受众", "zh-Hant":"讀者群", ja:"読み手", ko:"독자층",
+  t:{ "zh-Hans":"受众", "zh-Hant":"讀者群", ja:"受け手", ko:"독자층",
       vi:"đối tượng người đọc", ar:"الجمهور", fa:"مخاطب", ur:"سامعین",
       ps:"لوستونکي", am:"አድማጭ", ml:"വായനക്കാർ", ta:"வாசகர்கள்",
       hi:"पाठक वर्ग", tl:"mambabasa", ro:"public", ru:"аудитория",
