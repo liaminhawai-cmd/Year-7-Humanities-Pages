@@ -266,29 +266,49 @@ it did. What still differs is the **rubric pane**: `china`, `egypt` and
 a real difference in what those walls are for, not drift, but check which side
 you are on before you edit that function.
 
-### 14. `level-sheets.html` is shared machinery too; `wagoll-wall.html` is not.
+### 14. Paper size is one block. The phone layout must never reach paper.
 
-`level-sheets.html` reads nothing but `WALL`, `CRITERIA`, `LEVELS`, `EXAMPLES`,
-`EXPLANATIONS` and `CONTINUUM` from `content.js`. Copy it into a new topic folder,
-change the `<title>`, and it renders that topic's own anchor sheets, because the
-CSS already carries colour variables for every criterion key in use across the
-site (`source`/`context`/`evidence`/`judge` and `success`/`innovation`/
-`decisions`). Confirm the new topic's `CRITERIA` keys already have colours
-defined before assuming this; add them if not.
+`level-sheets.html` is shared machinery: it reads nothing but `WALL`, `CRITERIA`,
+`LEVELS`, `EXAMPLES`, `EXPLANATIONS` and `CONTINUUM` from `content.js`. The three
+copies (`history/gs73`, `history/batman`, `economics/pigeon-patrol`) differ in
+exactly two places, the `<title>` and the **PAPER** block at the top of the
+`<style>`:
 
-`wagoll-wall.html` is not this simple. It hand-codes the source band, one
-`<img>` or one text panel, wired to that topic's own file name and citation. A
-topic with two sources that disagree, like Batman's Treaty, needs two full
-sheets rather than one, each self-contained (own masthead, own source, own full
-continuum table) so either can be pinned up alone, because the worked examples
-compare the two sources inside a single paragraph rather than splitting cleanly
-by source. Build it by adapting the closest existing `wagoll-wall.html`, not by
-assuming the file is generic.
+```
+:root{ --sheet-w; --sheet-h; --sheet-pad; --sheet-bleed; --paper-k; }
+@page{ size: ...; margin: ... }
+```
 
-`build-pdf.mjs` is per topic, not shared: each one names its own jobs, its own
-paper sizes, and its own `expect` page count. Batman's carries `expect: 2` for
-the wall because it renders two sheets; every other topic's wall job expects 1.
-The fit check fails loudly if that number is wrong, so trust it over guessing.
+Every size in the file is `calc(X * var(--paper-k))`, so A3 to A4 is those values
+and nothing else. A3 is the reference at `--paper-k:1`, where `calc(44pt * 1)` is
+exactly 44pt: the GS73 and Pigeon Patrol sheets were pixel-compared before and
+after this refactor and are byte-identical renders. Keep it that way. If you edit
+anything outside the PAPER block, paste the same edit into all three copies.
+
+**The trap this rule exists for.** Every one of these print pages carries a
+phone-layout override, `@media screen and (max-width:860px)`, that collapses
+multi-column grids to one column. It was written as `@media (max-width:860px)`,
+and that was silently wrong: **A4 portrait is 794px**, under the breakpoint, so
+the first A4 sheet built came out of `page.pdf()` with its continuum rows
+collapsed. A3 is 1123px and A2 landscape is 2245px, which is the only reason it
+had never bitten. Print media does not match `screen`, so the `screen and` prefix
+is what keeps a phone rule off paper. Any new print page needs it, and any new
+paper size needs checking against the breakpoint before you trust the output.
+
+`wagoll-wall.html` is NOT shared. It hand-codes its source band, wired to that
+topic's own file names and citations. Build a new one by adapting the closest
+existing copy, not by assuming the file is generic.
+
+`source-sheet.html` is per topic for the same reason, but the Batman one is worth
+copying from when a topic has more than one source: it renders one A3 per entry
+in `SOURCES`, and reads the plate, the hotspot rectangles, the numbered notes and
+the citation straight out of `content.js`. The numbered regions are the same
+percentages the interactive uses, so region 3 on screen is region 3 on paper.
+That is deliberate, and it is why nothing on that sheet is authored twice.
+
+`build-pdf.mjs` is per topic: each names its own jobs, paper sizes and `expect`
+page count. Trust the fit check over guessing, and note it only catches overflow
+and page count, not a layout that silently collapsed but still fits.
 
 `tools/build_docx.py` takes a `SUBJECTS` registry, not a folder name: a topic's
 `content.js` path differs from where the finished `.docx` lands (`print/`, not
@@ -296,6 +316,11 @@ the topic folder), and the version of this script that predates the topic-folder
 split conflated the two, so running it for "history" silently failed once GS73
 moved into `history/gs73/`. Add a topic to `SUBJECTS` when you give it a wall; do
 not reintroduce the folder-name shortcut.
+
+Every `build-pdf.mjs` writes its output beside itself, but the copies that ship
+are in `print/`. Those topic-folder PDFs are gitignored scratch: move the ones you
+mean to publish into `print/` and add them to the print pack in
+`tools/build_index_pages.py`, or they exist and nobody can reach them.
 
 ### 15. Arrays paired by position must be spliced together.
 

@@ -19,11 +19,14 @@ const here = dirname(fileURLToPath(import.meta.url));
 
 const JOBS = [
   { src: "wagoll-wall.html",   out: "Batman-Treaty-WAGOLL-Wall-A2.pdf",
-    opts: { width: "594mm", height: "420mm" }, margin: "8mm",  expect: 2,
-    note: "two A2 landscape sheets, one per source: the painting, then the Proclamation" },
-  { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A3.pdf",
-    opts: { format: "A3" },                    margin: "11mm", expect: 6,
-    note: "one A3 portrait anchor sheet per year level" }
+    opts: { width: "594mm", height: "420mm" }, margin: "8mm",  expect: 1,
+    note: "the whole continuum on one A2 landscape sheet" },
+  { src: "source-sheet.html",  out: "Batman-Treaty-Source-Sheets-A3.pdf",
+    opts: { format: "A3" },                    margin: "12mm", expect: 2,
+    note: "one A3 portrait sheet per source: the painting, then the Proclamation" },
+  { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A4.pdf",
+    opts: { format: "A4" },                    margin: "9mm",  expect: 6,
+    note: "one A4 portrait anchor sheet per year level" }
 ];
 
 /* Set CHROMIUM_PATH if Playwright's own browser download is unavailable and you

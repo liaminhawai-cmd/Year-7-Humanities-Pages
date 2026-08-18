@@ -43,7 +43,7 @@ So a word cannot mean one thing on a wall and another in the Word Builder.
 ```
 npm i playwright                              # once
 node history/gs73/build-pdf.mjs               # A2 wall, A3 sheets, source sheet
-node history/batman/build-pdf.mjs             # two A2 wall sheets, A3 level sheets
+node history/batman/build-pdf.mjs             # A2 wall, two A3 source sheets, A4 level sheets
 node economics/pigeon-patrol/build-pdf.mjs    # A3 wall, A3 sheets
 node geography/water/make-figure.mjs          # redraw the water figure
 node print/booklet/build-booklet.mjs          # the A5 student booklet
