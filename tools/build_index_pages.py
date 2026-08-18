@@ -127,8 +127,8 @@ SITE = [
            "Pliny the Younger on the eruption of Vesuvius, written twenty-five years after it "
            "happened.", "draft"),
           ("&#127772;", "3 &middot; Ancient China", "china/",
-           "The First Emperor weighed: the painting of the burning of the books, and a historian "
-           "who calls him the founder of China.", "draft")]),
+           "Qin Shi Huang, in a painting of the burning of the books and in a historian who "
+           "calls him the founder of China.", "draft")]),
         ("Archive", "written and levelled, but not the source a unit is now built on", [
           ("&#129704;", "GS73, the grinding stone", "gs73/",
            "An excavated object from Madjedbebe on Mirarr Country, with no author, answered from "

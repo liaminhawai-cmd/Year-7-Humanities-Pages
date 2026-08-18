@@ -29,7 +29,7 @@
 
 const WALL = {
   id: "hist-china",
-  title: "The First Emperor, weighed",
+  title: "Qin Shi Huang",
   expected: "Level 7",
   inquiry: "Qin Shi Huang made China one country. He also burned the books and killed the scholars who argued. How do you weigh a person like that?",
   foot: "<b>Sources:</b> a later Chinese painting of the burning of the books and the execution of 460 scholars, and an interview with <b>Peter Bol</b> of Harvard University, recorded by the BBC. Both appear in Task 3 of the Year 7 Ancient China Source Analysis Booklet, and the rows on this wall are that booklet's rubric, level for level. The painting is not contemporary with Qin Shi Huang, and that is part of what there is to analyse."

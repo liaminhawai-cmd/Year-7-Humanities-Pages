@@ -25,7 +25,7 @@
 
 const WALL = {
   id: "hist-batman",
-  title: "Two documents, one meeting",
+  title: "Batman's Treaty",
   expected: "Year 7",
   inquiry: "A painting says Batman bought this land. A Proclamation says that was never possible. Which do you trust, and why?",
   foot: "<b>Sources:</b> <i>Batman's Treaty with the Aborigines at Merri Creek</i>, John Wesley Burtt, oil on canvas, circa 1875. State Library of Victoria, Pictures Collection, accession H92.196. Proclamation by Governor Sir Richard Bourke, 26 August 1835, National Archives of Australia. Reproduction terms for the painting have not yet been confirmed; see SOURCE-NOTICE.md."
