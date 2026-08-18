@@ -129,9 +129,11 @@ h1{font-size:38pt;line-height:.96;color:var(--deep);letter-spacing:-.015em;margi
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
 const LETTERS = ["A","B","C","D"];
 
-/* Strip the "A · " the tab strip carries, so the sheet's own heading is just
-   the source's name and the letter appears once, in the kicker. */
-const plainName = s => s.tab.replace(/^[A-Z]\s*·\s*/,"");
+/* Head with the work's own title where the topic gives one, falling back to
+   the tab label with its "A · " stripped. "The painting" is what this sheet
+   is; "Batman's Treaty with the Aborigines at Merri Creek" is what the thing
+   on it is called, which is the half a student needs. */
+const heading = s => s.title || s.tab.replace(/^[A-Z]\s*·\s*/,"");
 
 const plate = s => s.kind === "text"
   ? `<div class="doc">${s.paragraphs.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`
@@ -141,8 +143,8 @@ document.getElementById("out").innerHTML = SOURCES.map((s,i)=>`
   <section class="sheet">
     <header class="head">
       <div>
-        <div class="kicker">Ancient Australia &middot; Source ${LETTERS[i] || i+1} of ${SOURCES.length}</div>
-        <h1>${esc(plainName(s))}</h1>
+        <div class="kicker">Ancient Australia &middot; Source ${LETTERS[i] || i+1}</div>
+        <h1>${esc(heading(s))}</h1>
       </div>
       <p class="prov">${esc(s.whole.text)}
         <span class="cite">${esc(s.cite)}</span></p>

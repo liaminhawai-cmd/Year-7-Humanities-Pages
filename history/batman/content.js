@@ -185,6 +185,7 @@ const SOURCES = [
  {
   id: "painting",
   tab: "A · The painting",
+  title: "Batman's Treaty with the Aborigines at Merri Creek",
   kind: "image",
   file: SHEET_IMAGE,
   ar:   "1600/800",
@@ -211,6 +212,7 @@ const SOURCES = [
  {
   id: "proclamation",
   tab: "B · The Proclamation",
+  title: "Proclamation of Governor Sir Richard Bourke",
   kind: "text",
   cite: "Proclamation of Governor Sir Richard Bourke, 26 August 1835. Abridged; spelling and capitals as written.",
   whole: { label:"The whole Proclamation",
