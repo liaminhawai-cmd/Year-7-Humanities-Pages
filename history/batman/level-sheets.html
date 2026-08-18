@@ -90,6 +90,9 @@ h1{font-size:calc(44pt * var(--paper-k));line-height:.98;color:var(--deep);lette
         display:flex;align-items:center;gap:6px}
 .cr .cd{padding:calc(4mm * var(--paper-k));font-size:calc(13.5pt * var(--paper-k) * var(--k2,1));line-height:1.4}
 .cr.gap .cd{color:var(--muted);font-style:italic}
+.belowcont{border:1px solid var(--line);border-radius:7px;background:var(--band);
+           padding:calc(4mm * var(--paper-k));color:var(--muted);font-style:italic;
+           font-size:calc(13pt * var(--paper-k))}
 
 .foot{margin-top:auto;padding-top:calc(5mm * var(--paper-k));border-top:1px solid var(--line);
       font-size:calc(8pt * var(--paper-k));color:var(--muted);line-height:1.45}
@@ -163,10 +166,21 @@ const mark = s => esc(s).replace(/\{(\w+)\|([^}]*)\}/g,
   (_,k,t)=>`<span class="m m-${k}">${t}</span>`);
 const strip = s => String(s).replace(/<[^>]+>/g,"");
 
+/* The full ladder, access rungs first, exactly as bump-it-up.html builds it.
+   A topic with no rungs below the continuum (Pigeon Patrol, Ancient China)
+   declares EARLY_LEVELS empty or not at all, and gets LEVELS unchanged. */
+const LADDER = ((typeof EARLY_LEVELS !== "undefined" && EARLY_LEVELS) || []).concat(LEVELS);
+const exOf   = lv => (typeof EARLY_EXAMPLES !== "undefined" && EARLY_EXAMPLES[lv]) || EXAMPLES[lv];
+
 /* The two subjects store explanations slightly differently, economics keeps a
-   short label per criterion, history does not. Normalise to one shape. */
+   short label per criterion, history does not. Normalise to one shape.
+
+   An access rung names fewer criteria than the wall does, on purpose: the
+   criteria appear one at a time on the way up, so a missing key here is the
+   ladder working rather than a hole to fill. */
 function proves(lv){
-  const e = EXPLANATIONS[lv];
+  const e = (typeof EARLY_EXPLANATIONS !== "undefined" && EARLY_EXPLANATIONS[lv])
+            || EXPLANATIONS[lv];
   const src = e && e.items ? e.items : e;
   return CRITERIA.map(c=>{
     const v = src[c.key];
@@ -175,19 +189,29 @@ function proves(lv){
   }).filter(Boolean);
 }
 
+/* CONTINUUM is written against LEVELS only, so an access rung has no column of
+   its own. Say that, in the same words bump-it-up.html uses, rather than
+   printing a row of blanks that reads like missing work. */
+const onContinuum = lv => CRITERIA.some(c => CONTINUUM[c.key] && CONTINUUM[c.key][lv]);
+
 const intro = WALL.task || WALL.inquiry || "";
 
 /* Each level has a different amount of prose. Scale the type so every sheet
    fills its page rather than leaving the short levels two-thirds empty. */
-const plain = lv => EXAMPLES[lv].replace(/\{(\w+)\|([^}]*)\}/g,"$2");
+const plain = lv => exOf(lv).replace(/\{(\w+)\|([^}]*)\}/g,"$2");
 const clamp = (lo,v,hi) => Math.min(hi, Math.max(lo, v));
 function scale(lv){
-  const k  = clamp(0.86, Math.sqrt(700 / plain(lv).length), 1.5);
-  const k2 = clamp(0.94, Math.pow(k, 0.45), 1.22);
+  /* The ceiling used to be 1.5, set when the shortest sheet was Grade 5. The
+     access rungs are far shorter than that (Foundation to Level 2 is about a
+     hundred characters against Year 10's eight hundred), so 1.5 left them
+     printing at under half a page. They are also the sheets whose readers
+     most want big type. */
+  const k  = clamp(0.86, Math.sqrt(700 / plain(lv).length), 2.35);
+  const k2 = clamp(0.94, Math.pow(k, 0.45), 1.4);
   return `--k:${k.toFixed(3)};--k2:${k2.toFixed(3)}`;
 }
 
-document.getElementById("out").innerHTML = LEVELS.map(lv=>{
+document.getElementById("out").innerHTML = LADDER.map(lv=>{
   const expected = lv === WALL.expected;
   return `<section class="sheet" style="${scale(lv)}">
     <header class="head">
@@ -201,7 +225,7 @@ document.getElementById("out").innerHTML = LEVELS.map(lv=>{
 
     <section class="sec">
       <h2>Worked example</h2>
-      <p class="example">${mark(EXAMPLES[lv])}</p>
+      <p class="example">${mark(exOf(lv))}</p>
     </section>
 
     <section class="sec">
@@ -213,12 +237,13 @@ document.getElementById("out").innerHTML = LEVELS.map(lv=>{
 
     <section class="sec">
       <h2>Learning continuum at ${esc(lv)}</h2>
-      <div class="cont">${CRITERIA.map(c=>{
+      ${onContinuum(lv) ? `<div class="cont">${CRITERIA.map(c=>{
         const d = CONTINUUM[c.key][lv];
         return `<div class="cr cr-${c.key}${d?"":" gap"}">
           <div class="cn"><span>${c.glyph}</span><span>${c.row}</span></div>
           <div class="cd">${d ? esc(d) : (typeof GAP_TEXT!=="undefined" ? GAP_TEXT : ": ")}</div>
-        </div>`;}).join("")}</div>
+        </div>`;}).join("")}</div>`
+      : `<p class="belowcont">This access rung sits below the ${esc(LEVELS[0])}&ndash;${esc(LEVELS[LEVELS.length-1])} learning continuum. ${esc(LEVELS[0])} is the first column it describes.</p>`}
     </section>
 
     <p class="foot">${WALL.foot}</p>

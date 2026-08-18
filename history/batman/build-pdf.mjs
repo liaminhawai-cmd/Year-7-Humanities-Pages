@@ -35,8 +35,8 @@ const JOBS = [
     opts: { format: "A3", landscape: true },   margin: "9mm",  expect: 2,
     note: "one A3 landscape sheet per source: the painting, then the Proclamation" },
   { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A4.pdf",
-    opts: { format: "A4" },                    margin: "9mm",  expect: 6,
-    note: "one A4 portrait anchor sheet per year level" }
+    opts: { format: "A4" },                    margin: "9mm",  expect: 8,
+    note: "one A4 portrait anchor sheet per rung, Foundation to Year 10" }
 ];
 
 /* Set CHROMIUM_PATH if Playwright's own browser download is unavailable and you

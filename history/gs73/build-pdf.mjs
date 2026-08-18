@@ -22,8 +22,8 @@ const JOBS = [
     opts: { width: "594mm", height: "420mm" }, margin: "8mm",  expect: 1,
     note: "the whole continuum on one A2 landscape sheet" },
   { src: "level-sheets.html",  out: "GS73-Level-Sheets-A3.pdf",
-    opts: { format: "A3" },                    margin: "11mm", expect: 6,
-    note: "one A3 portrait anchor sheet per year level" },
+    opts: { format: "A3" },                    margin: "11mm", expect: 8,
+    note: "one A3 portrait anchor sheet per rung, Foundation to Year 10" },
   { src: "source-sheet.html",  out: "GS73-Source-Sheet-A3.pdf",
     opts: { format: "A3" },                    margin: "12mm", expect: 1,
     note: "the source itself, described, on one A3 portrait sheet" }
