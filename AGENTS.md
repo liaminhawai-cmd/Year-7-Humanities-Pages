@@ -227,6 +227,22 @@ Cut on sight:
 Name the specific thing. Attach a number where one exists. Let a short flat
 sentence carry the weight.
 
+Explain an outcome by the mechanism that produced it, and let the reader infer
+the disposition. "The generator rebuilds every index page from one site map"
+says more than "we care about consistency", because a reader can check the
+first claim and can only take the second on trust.
+
+These rules govern the teacher-facing layer: the topic notes, this file, the
+README, the source notices and commit messages. The levelled text inside
+`content.js` is a different register with different duties, and much of it is
+imperfect on purpose. A Grade 5 worked example says "very old" because that is
+what Grade 5 writing sounds like; a `warn:` line models a weak answer so a
+student can see why it is weak; an EAL gloss defines "ancient" as "very old"
+because a gloss must be plainer than the word it explains. Seventeen of the
+nineteen "very"s in the topics' `content.js` files sit in that layer, and each
+is doing a job. Do not tighten levelled student text to make it read like this
+file.
+
 ## Structure and generated files
 
 ### 13. One file holds the words.
@@ -256,8 +272,8 @@ say in the commit which files got it. There is no generator for this file yet;
 until there is, treat "the same edit in five places" as the job, not a shortcut
 you can take on one file and forget.
 
-The five copies are not identical, and it is worth knowing on which axis they
-differ before you patch. The **source panel** is now the same in all five: a
+The five copies are not identical. Check which axis they differ on before you
+patch. The **source panel** is now the same in all five: a
 `SOURCES` list, a tab per source, and a fallback that wraps an older single
 `SOURCE_PANEL` into a one-item list, so a wall with one source renders exactly as
 it did. What still differs is the **rubric pane**: `china`, `egypt` and
@@ -304,7 +320,6 @@ copying from when a topic has more than one source: it renders one A3 per entry
 in `SOURCES`, and reads the plate, the hotspot rectangles, the numbered notes and
 the citation straight out of `content.js`. The numbered regions are the same
 percentages the interactive uses, so region 3 on screen is region 3 on paper.
-That is deliberate, and it is why nothing on that sheet is authored twice.
 
 `build-pdf.mjs` is per topic: each names its own jobs, paper sizes and `expect`
 page count. Trust the fit check over guessing, and note it only catches overflow
