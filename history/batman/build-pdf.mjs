@@ -1,15 +1,22 @@
 /**
- * Regenerates every print master in this folder from the HTML.
+ * Regenerates the two print masters this topic merges into one shipped file.
  *
  * All wall text lives in content.js. The HTML pages read it, and these PDFs are
  * renders of those pages, so there is never a second copy of the wording to
  * keep in sync.
  *
  *   npm i -D playwright   &&   node history/batman/build-pdf.mjs
+ *   pip install pypdf     &&   python3 tools/merge_pdfs.py print/Batman-Treaty-Print-Pack.pdf \
+ *       history/batman/Batman-Treaty-Source-Sheets-A3.pdf history/batman/Batman-Treaty-Level-Sheets-A4.pdf
+ *
+ * The two PDFs land beside this script (gitignored scratch, see .gitignore),
+ * and the merge step is what actually produces print/Batman-Treaty-Print-Pack.pdf,
+ * the one file the site links to. Regenerating the HTML without also running
+ * the merge leaves the shipped PDF stale.
  *
  * You do not need this to print: opening either page in Chrome and choosing
- * Print with the paper size below produces the same output. This just makes it
- * repeatable.
+ * Print with the paper size below produces the same output, and you can merge
+ * saved PDFs with any tool you like. This just makes the whole thing repeatable.
  */
 import { chromium } from "playwright";
 import { fileURLToPath } from "node:url";
@@ -17,13 +24,16 @@ import { dirname, join } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
+/* No separate wall PDF. wagoll-wall.html still exists as an on-screen view of
+   the whole continuum, but its content is the same worked examples and
+   continuum the level sheets already carry one-per-page, so printing it too
+   was a third redundant copy. What ships is these two, merged into one file
+   by merge-print-pack.mjs below: the sources first (they are what a student
+   reads before anything else), then a level sheet per year. */
 const JOBS = [
-  { src: "wagoll-wall.html",   out: "Batman-Treaty-WAGOLL-Wall-A2.pdf",
-    opts: { width: "594mm", height: "420mm" }, margin: "8mm",  expect: 1,
-    note: "the whole continuum on one A2 landscape sheet" },
   { src: "source-sheet.html",  out: "Batman-Treaty-Source-Sheets-A3.pdf",
-    opts: { format: "A3" },                    margin: "12mm", expect: 2,
-    note: "one A3 portrait sheet per source: the painting, then the Proclamation" },
+    opts: { format: "A3", landscape: true },   margin: "9mm",  expect: 2,
+    note: "one A3 landscape sheet per source: the painting, then the Proclamation" },
   { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A4.pdf",
     opts: { format: "A4" },                    margin: "9mm",  expect: 6,
     note: "one A4 portrait anchor sheet per year level" }
@@ -42,6 +52,12 @@ for (const job of JOBS) {
 
   await page.goto("file://" + join(here, job.src), { waitUntil: "load" });
   await page.waitForSelector(".sheet");
+  /* Pins on an image plate are positioned in JS against the loaded image's
+     rendered rect (see source-sheet.html), which is not guaranteed by
+     waitUntil:"load" once the images are inserted via innerHTML afterwards.
+     Wait for every image on the page to actually finish before measuring or
+     printing, or a pin can render at its pre-layout default position. */
+  await page.waitForFunction(() => [...document.images].every(img => img.complete));
 
   /* Measure against the printable box before rendering. Editing content.js is
      what makes a sheet outgrow its page, and a silent extra page is easy to

@@ -227,6 +227,22 @@ Cut on sight:
 Name the specific thing. Attach a number where one exists. Let a short flat
 sentence carry the weight.
 
+Explain an outcome by the mechanism that produced it, and let the reader infer
+the disposition. "The generator rebuilds every index page from one site map"
+says more than "we care about consistency", because a reader can check the
+first claim and can only take the second on trust.
+
+These rules govern the teacher-facing layer: the topic notes, this file, the
+README, the source notices and commit messages. The levelled text inside
+`content.js` is a different register with different duties, and much of it is
+imperfect on purpose. A Grade 5 worked example says "very old" because that is
+what Grade 5 writing sounds like; a `warn:` line models a weak answer so a
+student can see why it is weak; an EAL gloss defines "ancient" as "very old"
+because a gloss must be plainer than the word it explains. Seventeen of the
+nineteen "very"s in the topics' `content.js` files sit in that layer, and each
+is doing a job. Do not tighten levelled student text to make it read like this
+file.
+
 ## Structure and generated files
 
 ### 13. One file holds the words.
@@ -256,8 +272,8 @@ say in the commit which files got it. There is no generator for this file yet;
 until there is, treat "the same edit in five places" as the job, not a shortcut
 you can take on one file and forget.
 
-The five copies are not identical, and it is worth knowing on which axis they
-differ before you patch. The **source panel** is now the same in all five: a
+The five copies are not identical. Check which axis they differ on before you
+patch. The **source panel** is now the same in all five: a
 `SOURCES` list, a tab per source, and a fallback that wraps an older single
 `SOURCE_PANEL` into a one-item list, so a wall with one source renders exactly as
 it did. What still differs is the **rubric pane**: `china`, `egypt` and
@@ -304,7 +320,6 @@ copying from when a topic has more than one source: it renders one A3 per entry
 in `SOURCES`, and reads the plate, the hotspot rectangles, the numbered notes and
 the citation straight out of `content.js`. The numbered regions are the same
 percentages the interactive uses, so region 3 on screen is region 3 on paper.
-That is deliberate, and it is why nothing on that sheet is authored twice.
 
 `build-pdf.mjs` is per topic: each names its own jobs, paper sizes and `expect`
 page count. Trust the fit check over guessing, and note it only catches overflow
@@ -317,10 +332,29 @@ split conflated the two, so running it for "history" silently failed once GS73
 moved into `history/gs73/`. Add a topic to `SUBJECTS` when you give it a wall; do
 not reintroduce the folder-name shortcut.
 
-Every `build-pdf.mjs` writes its output beside itself, but the copies that ship
-are in `print/`. Those topic-folder PDFs are gitignored scratch: move the ones you
-mean to publish into `print/` and add them to the print pack in
-`tools/build_index_pages.py`, or they exist and nobody can reach them.
+Every `build-pdf.mjs` writes its output beside itself, but the copy that ships
+is in `print/`. Those topic-folder PDFs are gitignored scratch, and for most
+topics the move to `print/` is just that, a move: run `build-pdf.mjs`, move the
+named files, done. Batman's is not a move, it is a merge: `build-pdf.mjs`
+produces two separate PDFs (the sources, the level sheets), and
+`tools/merge_pdfs.py` concatenates them into the one file `print/` actually
+carries and the site links to, preserving each source's own page size, an A3
+landscape page sitting next to an A4 portrait one in the same file. Regenerate
+the HTML without also running the merge and the shipped PDF goes stale while
+looking untouched, because nothing about the topic folder's own files changed.
+Add whichever step your topic needs to `tools/build_index_pages.py`'s print
+pack entry, or the output exists and nobody can reach it.
+
+Do not add a second nav card for `bump-it-up-standalone.html`. It used to get
+one, "single file" beside `bump-it-up.html`'s "big screen", and both opened
+the identical interactive: the only difference is whether `content.js` and the
+source image are inlined, which nobody clicking a card can see. The file still
+exists, `tools/build_standalone.py` still builds it, and it still works for
+the USB-stick case the landing page promises; it is just not a second thing to
+click. `wagoll()` in `tools/build_index_pages.py` takes one blurb now, not a
+`screen`/`single` pair, and mentions the download inside it. If a resource
+looks the same to whoever clicks it, it gets one card, not one per way of
+serving it.
 
 ### 15. Arrays paired by position must be spliced together.
 
