@@ -284,11 +284,11 @@ you are on before you edit that function.
 
 ### 14. Paper size is one block. The phone layout must never reach paper.
 
-`level-sheets.html` is shared machinery: it reads nothing but `WALL`, `CRITERIA`,
-`LEVELS`, `EXAMPLES`, `EXPLANATIONS` and `CONTINUUM` from `content.js`. The three
-copies (`history/gs73`, `history/batman`, `economics/pigeon-patrol`) differ in
-exactly two places, the `<title>` and the **PAPER** block at the top of the
-`<style>`:
+`level-sheets.html` is shared machinery: it reads `WALL`, `CRITERIA`, `LEVELS`,
+`EXAMPLES`, `EXPLANATIONS` and `CONTINUUM` from `content.js`, plus the three
+optional `EARLY_*` globals below. The three copies (`history/gs73`,
+`history/batman`, `economics/pigeon-patrol`) differ in exactly two places, the
+`<title>` and the **PAPER** block at the top of the `<style>`:
 
 ```
 :root{ --sheet-w; --sheet-h; --sheet-pad; --sheet-bleed; --paper-k; }
@@ -310,6 +310,25 @@ collapsed. A3 is 1123px and A2 landscape is 2245px, which is the only reason it
 had never bitten. Print media does not match `screen`, so the `screen and` prefix
 is what keeps a phone rule off paper. Any new print page needs it, and any new
 paper size needs checking against the breakpoint before you trust the output.
+
+It prints the **whole ladder**, not just `LEVELS`: `EARLY_LEVELS` first, then
+`LEVELS`, the same order `bump-it-up.html` climbs. A topic with no rungs below
+the continuum declares `EARLY_LEVELS` empty (Ancient China) or not at all
+(Pigeon Patrol) and gets `LEVELS` unchanged, so Pigeon Patrol stayed at five
+sheets while Batman and GS73 went from six to eight. Two things about an access
+rung are deliberate and must not be "fixed": it names **fewer criteria** than
+the wall does, because the criteria appear one at a time on the way up, and it
+has **no continuum column at all**, because `CONTINUUM` is written against
+`LEVELS` only. The sheet says so in the same words the interactive uses rather
+than printing a row of blanks, which reads like missing work.
+
+The per-sheet type scale is the other thing to know. `scale()` sizes the worked
+example against a 700-character target so a short level still fills its page.
+Its ceiling was 1.5, set when the shortest sheet was Grade 5; Foundation to
+Level 2 is about a hundred characters and printed at under half a page until the
+ceiling went to 2.35. If you add a rung shorter than the current shortest, check
+the fill before assuming the formula covers it. The fit check will not tell you:
+it catches overflow, never underflow.
 
 `wagoll-wall.html` is NOT shared. It hand-codes its source band, wired to that
 topic's own file names and citations. Build a new one by adapting the closest

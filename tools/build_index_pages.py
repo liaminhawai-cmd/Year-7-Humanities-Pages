@@ -172,9 +172,9 @@ SITE = [
             "The painting and the Proclamation, one A3 sheet each, with every detail "
             "numbered and explained.", None),
            ("&#128196;", "Level sheets", "level-sheets.html",
-            "One A4 anchor sheet per level, ready to print.", None),
+            "One A4 anchor sheet per rung, Foundation to Year 10, ready to print.", None),
            ("&#128424;", "Print pack", "../../print/Batman-Treaty-Print-Pack.pdf",
-            "One PDF: the two A3 source sheets, then an A4 level sheet per year. The editable "
+            "One PDF: the two A3 source sheets, then an A4 level sheet per rung. The editable "
             "Word wall sits alongside it in the print folder.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
@@ -269,8 +269,8 @@ SITE = [
            ("&#129704;", "The source", "source-sheet.html",
             "What GS73 is, where it was found, and how it became evidence.", None),
            ("&#128424;", "The year-by-year wall", "../../print/Ancient-Australia-WAGOLL-Wall-Grade5-Year10-A3.pdf",
-            "A3 portrait, 6 pages. The A2 poster set, the compact A4 WAGOLL and the editable "
-            "Word wall sit alongside it in the print folder.", None)]),
+            "A3 portrait, 6 pages, Grade 5 to Year 10. The A2 poster set, the compact A4 WAGOLL "
+            "and the editable Word wall sit alongside it in the print folder.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -445,8 +445,8 @@ SITE = [
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
         ("History: Batman's Treaty", "the taught Ancient Australia wall", [
           ("&#128424;", "Print pack", "Batman-Treaty-Print-Pack.pdf",
-           "8 pages, one file: the two A3 landscape source sheets, then an A4 portrait anchor "
-           "sheet per year level, Grade 5 to Year 10.", None),
+           "10 pages, one file: the two A3 landscape source sheets, then an A4 portrait anchor "
+           "sheet per rung, Foundation to Year 10.", None),
           ("&#128221;", "Editable wall", "Batman-Treaty-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
         ("Economics: Pigeon Patrol", None, [
@@ -458,8 +458,9 @@ SITE = [
       ],
       note="<b>Batman's Treaty is one PDF.</b> Pages 1 and 2 are the sources, A3 landscape, "
            "reproduced full width with the same numbered details the on-screen version opens: "
-           "region 3 on the painting is region 3 on paper. Pages 3 to 8 are the level sheets, A4 "
-           "portrait, one per year from Grade 5 to Year 10. Print the whole file and you have "
+           "region 3 on the painting is region 3 on paper. Pages 3 to 10 are the level sheets, A4 "
+           "portrait, one per rung, opening at Foundation to Level 2 and closing at Year 10. Print "
+           "the whole file and you have "
            "everything; there is nothing else to hunt down. Its cultural-consultation item is "
            "still open; see "
            "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes "
