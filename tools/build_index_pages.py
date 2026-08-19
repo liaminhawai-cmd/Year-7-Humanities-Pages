@@ -179,6 +179,14 @@ SITE = [
            ("&#128424;", "Print pack", "../../print/Batman-Treaty-Print-Pack.pdf",
             "One PDF, A3 throughout: the two source sheets, then a level sheet per rung. The editable "
             "Word wall sits alongside it in the print folder.", None)]),
+      ("Cut and paste", "the same sorting activity, off the screen",
+       [("&#9986;", "The board", "sort-wall.html",
+         "One A3 landscape sheet per pair: both sources small, then the empty wall with the "
+         "rubric printed in all twenty boxes.", None),
+        ("&#128196;", "Sentences to cut out", "sort-cards.html",
+         "Twenty numbered sentences, ten to an A4 page. Print one set per pair.", None),
+        ("&#128273;", "Answer key", "sort-key.html",
+         "One A4 for the teacher: which number belongs in which box.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
@@ -453,6 +461,14 @@ SITE = [
            "sheet per rung, Foundation to Year 10.", None),
           ("&#128221;", "Editable wall", "Batman-Treaty-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
+        ("Cut and paste", "one board and one set of cards per pair",
+         [("&#9986;", "The board", "Batman-Treaty-Sort-Wall-A3.pdf",
+           "1 A3 landscape page. The empty wall, the rubric in all twenty boxes, both "
+           "sources small at the top.", None),
+          ("&#128196;", "Sentences to cut out", "Batman-Treaty-Sort-Cards-A4.pdf",
+           "2 A4 pages, ten numbered sentences each.", None),
+          ("&#128273;", "Answer key", "Batman-Treaty-Sort-Key-A4.pdf",
+           "1 A4 page for the teacher.", None)]),
         ("Economics: Pigeon Patrol", None, [
           ("&#128202;", "The wall", "Pigeon-Patrol-WAGOLL-Wall-A3.pdf", "A3 landscape, 1 page.", None),
           ("&#128196;", "Level sheets", "Pigeon-Patrol-Level-Sheets-A3.pdf",
@@ -469,6 +485,10 @@ SITE = [
            "cultural-consultation item is still open; see "
            "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes "
            "beyond the classroom.<br><br>"
+           "The cut and paste set is three files rather than one because each holds a single "
+"paper size. A print dialog handed a mixture will offer to scale a page to fit, and a "
+"card that has been scaled no longer fits the box it was measured against. Print the "
+"board on A3 and the cards on A4, both at 100 per cent.<br><br>"
            "GS73's own print set, the older four-poster wall Ancient Australia used to be taught "
            "from, still exists but has moved off this page: it sits with the wall it illustrates, "
            "on <a href=\"../history/gs73/\">the GS73 topic page</a> itself."),

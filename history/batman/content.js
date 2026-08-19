@@ -249,6 +249,38 @@ const SORT_SET = {
   }
 };
 
+/* The order the twenty sentences are printed in on the cut-out sheet, and so
+   the number each one carries. Pinned here rather than shuffled at build time
+   for two reasons: the PDF is committed, so a fresh shuffle would rewrite the
+   binary on every rebuild, and a teacher holding last term's key would find it
+   no longer matched this term's cards.
+
+   No two neighbours share a strand or a level, so a run of cards down the sheet
+   never hints at where they belong. sort-cards.html and sort-key.html both read
+   this, which is what keeps a card and its number on the key in agreement. */
+const SORT_DECK = [
+  ["evidence", "Year 9"],             // 1
+  ["judge", "Grade 5"],               // 2
+  ["source", "Year 9"],               // 3
+  ["judge", "Year 6"],                // 4
+  ["context", "Year 8"],              // 5
+  ["source", "Year 6"],               // 6
+  ["context", "Year 9"],              // 7
+  ["evidence", "Year 7"],             // 8
+  ["judge", "Year 8"],                // 9
+  ["context", "Grade 5"],             // 10
+  ["source", "Year 7"],               // 11
+  ["evidence", "Grade 5"],            // 12
+  ["judge", "Year 7"],                // 13
+  ["evidence", "Year 6"],             // 14
+  ["context", "Year 7"],              // 15
+  ["source", "Year 8"],               // 16
+  ["context", "Year 6"],              // 17
+  ["judge", "Year 9"],                // 18
+  ["source", "Grade 5"],              // 19
+  ["evidence", "Year 8"],             // 20
+];
+
 const SHEET_IMAGE = "batman-treaty-source.jpg";
 
 /* ---------------------------------------------------------------------------

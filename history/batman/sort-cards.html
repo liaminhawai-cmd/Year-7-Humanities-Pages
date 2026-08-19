@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<meta name="description" content="The twenty sentences to cut out for the Batman's Treaty sorting wall, ten to an A4 page, numbered, ready to cut along the dashed lines.">
+<title>Batman's Treaty Sorting Cards</title>
+<style>
+/* Paper first. See AGENTS.md rule 14. A4 here rather than the A3 the board is
+   printed on. Each file holds one paper size only: a PDF that mixed them would
+   invite the print dialog to scale a page to fit, and a card that has been
+   scaled no longer fits the box it was measured against. */
+:root{
+  --sheet-w:210mm; --sheet-h:297mm; --sheet-pad:11mm 10mm 9mm;
+  --sheet-bleed:20mm;
+  --paper:#fff; --bg:#e9e2d6; --ink:#20231f; --muted:#5f584e; --line:#c3b8a4;
+  --deep:#223f43; --band:#f5f0e6; --rule:#9c9382;
+}
+@page{size:A4 portrait;margin:10mm}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);
+     font-family:Georgia,"Times New Roman",serif;line-height:1.4}
+
+.sheet{width:min(100%,var(--sheet-w));height:auto;margin:14px auto;background:var(--paper);
+       border:1px solid var(--line);padding:var(--sheet-pad);
+       display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(48,39,24,.1)}
+
+.head{border-bottom:1.8px solid var(--deep);padding-bottom:2mm;margin-bottom:4mm}
+.head h1{font-size:14pt;color:var(--deep);letter-spacing:-.01em;font-weight:700;line-height:1.1}
+.kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+        text-transform:uppercase;letter-spacing:.16em;font-size:7pt;font-weight:700;color:var(--muted)}
+.head p{font-size:8.6pt;color:var(--muted);margin-top:1.2mm;line-height:1.35}
+
+/* ---------- the cards ----------
+   Two columns of 62mm, which is what the paste boxes on the A3 board are wide
+   enough to take once a Year 7 has cut it out somewhere near the line. The
+   sheet has room for wider cards; they would not fit the board. */
+.cards{flex:1;display:grid;grid-template-columns:repeat(2,62mm);
+       justify-content:space-evenly;align-content:space-evenly;gap:4mm 0}
+.card{width:62mm;min-height:31mm;border:1.1px dashed var(--rule);border-radius:1.5px;
+      padding:2.6mm 3mm;display:flex;gap:2.2mm;align-items:flex-start;background:#fff}
+.card .n{flex:none;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+         font-size:7.4pt;font-weight:700;color:var(--muted);min-width:4.6mm;
+         padding-top:.3mm}
+.card .t{flex:1;font-size:8.8pt;line-height:1.34}
+
+.foot{margin-top:3mm;padding-top:2mm;border-top:1px solid var(--line);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      font-size:6.4pt;color:var(--muted);line-height:1.36}
+.foot b{color:var(--ink)}
+
+@media screen and (max-width:760px){
+  .sheet{width:auto;padding:14px;margin:0;border:0}
+  .cards{grid-template-columns:1fr;justify-content:stretch}
+  .card{width:auto}
+}
+
+@media print{
+  body{background:#fff}
+  .sheet{width:auto;margin:0;padding:0;border:0;box-shadow:none;break-after:page;
+         min-height:calc(var(--sheet-h) - var(--sheet-bleed));
+         max-height:calc(var(--sheet-h) - var(--sheet-bleed))}
+  .sheet:last-of-type{break-after:auto}
+  .card{break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<main id="out"></main>
+
+<script src="content.js"></script>
+<script>
+/* The twenty sentences to cut out, for the board printed by sort-wall.html.
+   Both read content.js, so the paper activity and the on-screen one are the
+   same twenty sentences and the same wall. */
+
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const STEPS = LEVELS.slice(0, 5);
+const PER_PAGE = 10;
+
+/* The printed order and the numbering both come from SORT_DECK in content.js,
+   so this sheet and the teacher's key on sort-key.html can never disagree about
+   which sentence is number nine. */
+const DECK = SORT_DECK.map(([key, lv], i) => ({
+  n: i + 1, c: CRITERIA.find(c => c.key === key), lv, text: (SORT_SET[key] || {})[lv]
+}));
+
+const bad = DECK.filter(d => !d.c || !d.text);
+const pages = [];
+for (let i = 0; i < DECK.length; i += PER_PAGE) pages.push(DECK.slice(i, i + PER_PAGE));
+
+const cardSheet = (cards, page) => `
+  <section class="sheet">
+    <header class="head">
+      <div class="kicker">Ancient Australia &middot; Cut and paste</div>
+      <h1>${esc(WALL.title)}: sentences to cut out</h1>
+      <p>Sheet ${page} of ${pages.length}. Cut along the dashed lines. Keep the numbers,
+         they are how a mistake gets found later.</p>
+    </header>
+    <div class="cards">${cards.map(d => `
+      <div class="card"><span class="n">${d.n}</span><span class="t">${esc(d.text)}</span></div>`).join("")}
+    </div>
+    <p class="foot">${WALL.foot}</p>
+  </section>`;
+
+document.getElementById("out").innerHTML = bad.length
+  ? `<p style="padding:20px">SORT_DECK in content.js names ${bad.length} cell(s) with no
+     sentence behind them. Fix it before printing.</p>`
+  : pages.map((c, i) => cardSheet(c, i + 1)).join("");
+</script>
+</body>
+</html>

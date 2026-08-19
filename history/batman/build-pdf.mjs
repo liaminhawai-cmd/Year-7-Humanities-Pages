@@ -36,7 +36,20 @@ const JOBS = [
     note: "one A3 landscape sheet per source: the painting, then the Proclamation" },
   { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A3.pdf",
     opts: { format: "A3" },                    margin: "11mm", expect: 8,
-    note: "one A3 portrait anchor sheet per rung, Foundation to Year 10" }
+    note: "one A3 portrait anchor sheet per rung, Foundation to Year 10" },
+
+  /* The cut and paste activity, which is its own print run rather than part of
+     the pack above: a class needs one board and one set of cards per pair, and
+     the two are different paper sizes. Merged into its own file below. */
+  { src: "sort-wall.html",     out: "Batman-Treaty-Sort-Wall-A3.pdf",
+    opts: { format: "A3", landscape: true },   margin: "10mm", expect: 1,
+    note: "the empty wall on one A3 landscape sheet, both sources in miniature" },
+  { src: "sort-cards.html",    out: "Batman-Treaty-Sort-Cards-A4.pdf",
+    opts: { format: "A4" },                    margin: "10mm", expect: 2,
+    note: "twenty sentences to cut out, ten to an A4 page" },
+  { src: "sort-key.html",      out: "Batman-Treaty-Sort-Key-A4.pdf",
+    opts: { format: "A4" },                    margin: "10mm", expect: 1,
+    note: "the teacher's key: which number goes in which box" }
 ];
 
 /* Set CHROMIUM_PATH if Playwright's own browser download is unavailable and you
