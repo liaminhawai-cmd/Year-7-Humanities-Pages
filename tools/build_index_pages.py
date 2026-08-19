@@ -175,9 +175,9 @@ SITE = [
             "The painting and the Proclamation, one A3 sheet each, as large as the page "
             "allows, with who made it and when.", None),
            ("&#128196;", "Level sheets", "level-sheets.html",
-            "One A4 anchor sheet per rung, Foundation to Year 10, ready to print.", None),
+            "One A3 anchor sheet per rung, Foundation to Year 10, ready to print.", None),
            ("&#128424;", "Print pack", "../../print/Batman-Treaty-Print-Pack.pdf",
-            "One PDF: the two A3 source sheets, then an A4 level sheet per rung. The editable "
+            "One PDF, A3 throughout: the two source sheets, then a level sheet per rung. The editable "
             "Word wall sits alongside it in the print folder.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
@@ -449,7 +449,7 @@ SITE = [
            "9 A5 pages. Print 2-up on A4, short-edge binding, then fold.", None)]),
         ("History: Batman's Treaty", "the taught Ancient Australia wall", [
           ("&#128424;", "Print pack", "Batman-Treaty-Print-Pack.pdf",
-           "10 pages, one file: the two A3 landscape source sheets, then an A4 portrait anchor "
+           "10 pages, one file, A3 throughout: two landscape source sheets, then a portrait anchor "
            "sheet per rung, Foundation to Year 10.", None),
           ("&#128221;", "Editable wall", "Batman-Treaty-WAGOLL-Wall.docx",
            "A3 landscape, opens in Word.", None)]),
@@ -464,7 +464,7 @@ SITE = [
            "run to the full width of the sheet, with who made it, when, and how long after the "
            "event. What is not on them is any note on what the picture contains: reading the source "
            "is the task, and a sheet that hands the reading over has done it for the student. "
-           "Pages 3 to 10 are the level sheets, A4 "
+           "Pages 3 to 10 are the level sheets, A3 "
            "portrait, one per rung, opening at Foundation to Level 2 and closing at Year 10. The "
            "cultural-consultation item is still open; see "
            "<a href=\"../history/batman/SOURCE-NOTICE.md\">the source notice</a> before this goes "

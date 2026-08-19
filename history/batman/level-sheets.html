@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<meta name="description" content="One A4 anchor sheet per level: the worked example comparing the painting and the Proclamation, what each marked phrase proves, and that level's continuum descriptors.">
+<meta name="description" content="One A3 anchor sheet per level: the worked example comparing the painting and the Proclamation, what each marked phrase proves, and that level's continuum descriptors.">
 <title>Batman's Treaty Level Anchor Sheets</title>
 <style>
 :root{
@@ -39,17 +39,14 @@
 /* ---------- PAPER ----------
    The ONLY block that differs between the copies of this file. Every size
    below is calc()'d against --paper-k, so moving a topic from A3 to A4 is
-   these five values and nothing else in the file.
-
-   A4 is 1/sqrt(2) of A3 in each direction, so --paper-k is .707 and the type
-   shrinks with the page rather than overflowing it. The per-level --k scaling
-   in the script still applies on top, so a short level still fills its sheet. */
+   these five values and nothing else in the file. A3 is the reference, so
+   --paper-k is 1 here and calc(44pt * 1) is exactly 44pt. */
 :root{
-  --sheet-w:210mm; --sheet-h:297mm; --sheet-pad:10mm 9mm 8mm;
-  --sheet-bleed:18mm;   /* twice the @page margin, for the print min-height */
-  --paper-k:.707;
+  --sheet-w:297mm; --sheet-h:420mm; --sheet-pad:14mm 13mm 11mm;
+  --sheet-bleed:22mm;   /* twice the @page margin, for the print min-height */
+  --paper-k:1;
 }
-@page{size:A4 portrait;margin:9mm}
+@page{size:A3 portrait;margin:11mm}
 
 *{box-sizing:border-box;margin:0}
 body{background:var(--bg);color:var(--ink);line-height:1.5;
