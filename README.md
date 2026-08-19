@@ -43,10 +43,11 @@ So a word cannot mean one thing on a wall and another in the Word Builder.
 ```
 npm i playwright                              # once
 node history/gs73/build-pdf.mjs               # A2 wall, A3 sheets, source sheet
-node history/batman/build-pdf.mjs             # two A3 source sheets, A3 level sheets
+node history/batman/build-pdf.mjs             # source + level sheets, and the cut-and-paste set
 pip install pypdf
 python3 tools/merge_pdfs.py print/Batman-Treaty-Print-Pack.pdf \
     history/batman/Batman-Treaty-Source-Sheets-A3.pdf history/batman/Batman-Treaty-Level-Sheets-A3.pdf
+cp history/batman/Batman-Treaty-Sort-{Wall-A3,Cards-A4,Key-A4}.pdf print/   # not merged: one paper size per file
 node economics/pigeon-patrol/build-pdf.mjs    # A3 wall, A3 sheets
 node geography/water/make-figure.mjs          # redraw the water figure
 node print/booklet/build-booklet.mjs          # the A5 student booklet

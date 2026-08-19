@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<meta name="description" content="The teacher's copy for the Batman's Treaty cut and paste wall: which numbered sentence belongs in which box, on one A4 page.">
+<title>Batman's Treaty Sorting Key</title>
+<style>
+/* Paper first. See AGENTS.md rule 14. One A4, and its own file rather than a
+   page of the card sheet: the cards get run off once per pair and the key gets
+   printed once, for the teacher. A key stapled to the class set is a key that
+   ends up on a desk. */
+:root{
+  --sheet-w:210mm; --sheet-h:297mm; --sheet-pad:11mm 10mm 9mm;
+  --sheet-bleed:20mm;
+  --paper:#fff; --bg:#e9e2d6; --ink:#20231f; --muted:#5f584e; --line:#c3b8a4;
+  --deep:#223f43; --flag:#8b2f22;
+}
+@page{size:A4 portrait;margin:10mm}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);
+     font-family:Georgia,"Times New Roman",serif;line-height:1.4}
+
+.sheet{width:min(100%,var(--sheet-w));height:auto;margin:14px auto;background:var(--paper);
+       border:1px solid var(--line);padding:var(--sheet-pad);
+       display:flex;flex-direction:column;box-shadow:0 4px 14px rgba(48,39,24,.1)}
+
+.head{border-bottom:1.8px solid var(--flag);padding-bottom:2mm;margin-bottom:4.5mm}
+.head h1{font-size:14pt;color:var(--flag);letter-spacing:-.01em;font-weight:700;line-height:1.1}
+.kicker{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+        text-transform:uppercase;letter-spacing:.16em;font-size:7pt;font-weight:700;color:var(--flag)}
+.head p{font-size:8.6pt;color:var(--muted);margin-top:1.2mm;line-height:1.35}
+
+/* A grid of numbers, not a filled wall. Checking twenty positions from across a
+   room is faster reading twenty numbers than twenty sentences. */
+.keygrid{display:grid;grid-template-columns:27mm repeat(5,minmax(0,1fr));gap:1.2mm;margin-bottom:5mm}
+.kh{background:var(--deep);color:#fff;border-radius:2px;padding:1.4mm;text-align:center;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    font-size:7.2pt;font-weight:700;line-height:1.15}
+.kh.corner{background:transparent}
+.krow{border:1px solid var(--line);border-radius:2px;padding:1.6mm;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      font-size:6.8pt;font-weight:700;line-height:1.15;display:flex;align-items:center;gap:1.4mm}
+.kcell{border:1px solid var(--line);border-radius:2px;padding:2.6mm 1mm;text-align:center;
+       font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+       font-size:14pt;font-weight:700;color:var(--deep)}
+.list{flex:1;columns:2;column-gap:7mm;font-size:7.6pt;line-height:1.34}
+.list div{break-inside:avoid;margin-bottom:1.6mm;padding-left:6.5mm;text-indent:-6.5mm}
+.list b{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+        font-size:7pt;color:var(--muted);margin-right:1.6mm}
+
+.foot{margin-top:3mm;padding-top:2mm;border-top:1px solid var(--line);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      font-size:6.4pt;color:var(--muted);line-height:1.36}
+.foot b{color:var(--ink)}
+
+@media screen and (max-width:760px){
+  .sheet{width:auto;padding:14px;margin:0;border:0}
+  .keygrid{grid-template-columns:1fr}
+  .list{columns:1}
+}
+@media print{
+  body{background:#fff}
+  .sheet{width:auto;margin:0;padding:0;border:0;box-shadow:none;
+         min-height:calc(var(--sheet-h) - var(--sheet-bleed));
+         max-height:calc(var(--sheet-h) - var(--sheet-bleed))}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<main id="out"></main>
+
+<script src="content.js"></script>
+<script>
+/* The numbering is SORT_DECK's order in content.js, the same list sort-cards.html
+   prints from, so the number on a card and the number in this grid are the same
+   number by construction rather than by anyone remembering to update both. */
+
+const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
+const STEPS = LEVELS.slice(0, 5);
+
+const DECK = SORT_DECK.map(([key, lv], i) => ({ n: i + 1, key, lv, text: (SORT_SET[key] || {})[lv] }));
+const at = {};
+DECK.forEach(d => { at[d.key + "|" + d.lv] = d.n; });
+
+const missing = CRITERIA.flatMap(c => STEPS.filter(lv => !at[c.key + "|" + lv]).map(lv => c.key + "/" + lv));
+
+document.getElementById("out").innerHTML = missing.length
+  ? `<p style="padding:20px">SORT_DECK in content.js does not cover every box:
+      ${esc(missing.join(", "))}. Fix it before printing.</p>`
+  : `<section class="sheet">
+    <header class="head">
+      <div class="kicker">Teacher's copy &middot; not for students</div>
+      <h1>${esc(WALL.title)}: where each number goes</h1>
+      <p>The board is one A3 sheet per pair, the cards two A4 sheets per pair. The same
+         twenty sentences are listed underneath in number order.</p>
+    </header>
+    <div class="keygrid">
+      <div class="kh corner"></div>
+      ${STEPS.map(lv => `<div class="kh">${esc(lv)}</div>`).join("")}
+      ${CRITERIA.map(c => `
+        <div class="krow" style="color:${c.ink};border-color:${c.ink}66;background:${c.ink}12">
+          <span>${c.glyph}</span>${esc(c.name)}</div>
+        ${STEPS.map(lv => `<div class="kcell" style="border-color:${c.ink}55;background:${c.ink}09"
+          >${at[c.key + "|" + lv]}</div>`).join("")}`).join("")}
+    </div>
+    <div class="list">${DECK.map(d => `<div><b>${d.n}</b>${esc(d.text)}</div>`).join("")}</div>
+    <p class="foot">${WALL.foot}</p>
+  </section>`;
+</script>
+</body>
+</html>
