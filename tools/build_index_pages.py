@@ -169,8 +169,8 @@ SITE = [
            ("&#128202;", "The wall", "wagoll-wall.html",
             "The whole continuum on one surface, every level side by side for comparison.", None),
            ("&#129513;", "Strand by strand", "rubric-tour.html",
-            "Teach one strand of the rubric across five levels, then the class sorts the "
-            "phrases back into the wall.", None),
+            "Teach what each strand of the rubric asks for, one strand at a time, then "
+            "the class sorts twenty sentences into the wall and checks them.", None),
            ("&#128269;", "The sources", "source-sheet.html",
             "The painting and the Proclamation, one A3 sheet each, as large as the page "
             "allows, with who made it and when.", None),
