@@ -52,7 +52,7 @@ def bundle(src: Path) -> Path:
 
     # The page now names its picture in content.js rather than in the markup, so
     # the attribute pass above finds nothing. Swap any quoted filename that is a
-    # real image sitting beside the page — that is where SHEET_IMAGE lives.
+    # real image sitting beside the page, which is where SHEET_IMAGE lives.
     def inline_named(m):
         quote, ref = m.group(1), m.group(2)
         path = folder / ref

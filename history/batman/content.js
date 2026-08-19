@@ -170,6 +170,85 @@ judge:{
  "Year 10":"I can compare and contrast sources and analyse their accuracy, usefulness and reliability."},
 };
 
+/* =======================================================================
+   For rubric-tour.html, the screen that teaches the rubric itself.
+
+   STRAND_NOTES says what each strand of the wall is asking a student to think
+   about. It is written about the skill, not about this painting: a student who
+   has understood these four paragraphs can read a source they have never seen.
+   Nothing here names an answer, because the screen that shows it is the screen
+   a student sees BEFORE they sort anything.
+
+   `grows` describes what changes as the strand is read left to right. It is a
+   gloss on the rubric wording in CONTINUUM above, not a replacement for it:
+   the rubric is quoted exactly on screen and this sits underneath.
+   ======================================================================= */
+const STRAND_NOTES = {
+  source: {
+    is: "Where a source came from, what is actually in it, and why it was made.",
+    why: "Every source was made by somebody, at some time, for a reason. That reason shapes what went into it and what was left out, so who made it is itself a piece of evidence.",
+    grows: "At the start of the strand you name what is in front of you. Further along you say what it was made for. At the end you work out what it implies but never states, which is the part a maker almost never writes down."
+  },
+  context: {
+    is: "What was going on around the source at the time it was made.",
+    why: "A source does not simply show its own age. It was made inside an argument that was already running, by somebody who had a side, and that argument stays invisible unless you go looking for it.",
+    grows: "At the start of the strand you place the source in time. Further along you name the events pressing on the person who made it. At the end you use those events to get at what they wanted."
+  },
+  evidence: {
+    is: "The different ways people have explained the same past.",
+    why: "People at the time told the story differently, and so do historians now. When two accounts disagree, the disagreement is itself something to explain rather than something to settle by picking a side.",
+    grows: "At the start of the strand you notice that people disagree. Further along you set two accounts beside each other and say what each one rests on. At the end you say why they differ."
+  },
+  judge: {
+    is: "Whether a source can be trusted, and what it is good for.",
+    why: "Useful and reliable are not the same test. A source can be wrong about what happened and still be excellent evidence of what somebody wanted people to believe, which is why a historian rarely throws one out.",
+    grows: "At the start of the strand you say one thing the source can and cannot tell you. Further along you weigh it against another source. At the end you give a verdict and say what it rests on."
+  }
+};
+
+/* The twenty sentences students sort, one per cell of the five-by-four grid
+   rubric-tour.html builds. Every one is quoted from EXAMPLES above, and
+   rubric-tour.html checks at load that each still appears there verbatim, so
+   editing an example can never leave this list quietly out of date.
+
+   Why a list at all, rather than taking the first or the longest marked phrase
+   in each example: several cells mark two or three phrases, and picking
+   mechanically produced pairs a student could not separate. "picture of Batman
+   meeting Kulin people in 1835" and "painting of Batman's meeting with the
+   Kulin Nation" differ by no skill anyone is being marked on. These twenty are
+   chosen so that each one is separable from its neighbours by reading the
+   rubric, which is the only thing the activity is trying to teach. */
+const SORT_SET = {
+  source: {
+    "Grade 5": "blankets with gifts on them",
+    "Year 6":  "painting of Batman's meeting with the Kulin Nation",
+    "Year 7":  "a later artwork by John Wesley Burtt, made about forty years afterwards to record the meeting",
+    "Year 8":  "Burtt's 1875 artwork of Batman's 1835 meeting with the Kulin Nation",
+    "Year 9":  "Burtt's 1875 painting, made forty years later for people who had not seen it happen"
+  },
+  context: {
+    "Grade 5": "the day Batman said he bought Kulin land",
+    "Year 6":  "remember an event some colonists were proud of",
+    "Year 7":  "Batman wanted land, and colonists were arguing about whether buying land from Aboriginal people was even allowed",
+    "Year 8":  "In the 1830s, Britain claimed Australia belonged to no one, so land could not legally be bought from its people",
+    "Year 9":  "The meeting sits inside a bigger argument: colonists wanted land, while British law increasingly held that Aboriginal people could not sell land they were said not to own"
+  },
+  evidence: {
+    "Grade 5": "The Proclamation disagrees",
+    "Year 6":  "Batman claimed the Kulin people agreed to sell their land",
+    "Year 7":  "Batman's own deed, the paper in his hand in the painting, says the Kulin people agreed to sell",
+    "Year 8":  "the painting takes neither side, it simply shows the meeting happening",
+    "Year 9":  "the two documents disagree because they were written for different purposes, one to justify a land claim, one to control it"
+  },
+  judge: {
+    "Grade 5": "useful for showing what people wore and carried",
+    "Year 6":  "it cannot tell us what the Kulin people actually thought",
+    "Year 7":  "it was painted forty years later, by someone who was not there",
+    "Year 8":  "it cannot be trusted as a record of what was said or agreed, because the artist was not there",
+    "Year 9":  "weak evidence of what actually happened, since no Kulin account of the day survives"
+  }
+};
+
 const SHEET_IMAGE = "batman-treaty-source.jpg";
 
 /* ---------------------------------------------------------------------------

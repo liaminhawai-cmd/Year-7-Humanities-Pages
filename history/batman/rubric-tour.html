@@ -4,19 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<meta name="description" content="Teach one strand of the rubric at a time across five year levels, then have students sort the worked-example phrases back into the wall.">
+<meta name="description" content="Teach what each row of the source-analysis rubric asks for, one row at a time across the year levels, then have students sort twenty sentences into the right box of the wall and check their work.">
 <title>Strand by strand</title>
 <style>
 :root{
-  --paper:#fbf7ee; --bg:#141715; --panel:#1b1e1c; --ink:#20231f; --on-dark:#eae5db;
-  --muted:#675f54; --muted-dark:#a49a8b; --line:#d4c8b6; --line-dark:#3a4038;
-  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6;
+  --paper:#fbf7ee; --bg:#141715; --panel:#1b1e1c; --sink:#0f1211; --ink:#20231f;
+  --on-dark:#eae5db; --muted-dark:#a49a8b; --line-dark:#3a4038;
   --gold:#c99a2e; --gold-soft:#f6e7c2; --gold-deep:#8b681e;
-  --ok:#2f6b3f; --ok-soft:#dff0df; --no:#9b2f22; --no-soft:#f7ddd8;
-  --source:#176b87; --source-soft:#d8edf4;
-  --context:#357a46; --context-soft:#dff0df;
-  --evidence:#a34d1d; --evidence-soft:#f7e3d4;
-  --judge:#744f91; --judge-soft:#eadff2;
+  --ok:#4c9a63; --ok-bg:#16241a; --no:#c9584a; --no-bg:#2a1512;
 }
 *{box-sizing:border-box;margin:0}
 body{background:var(--bg);color:var(--on-dark);line-height:1.5;
@@ -24,103 +19,138 @@ body{background:var(--bg);color:var(--on-dark);line-height:1.5;
      height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
 /* ---------- top bar ----------
-   Fixed height so the board below can own everything else. A school laptop
-   gives this page about 1366x650 once the browser and taskbar have taken
-   their share, and the board has to fit inside whatever is left without the
+   Fixed height so the board below can own everything else. A school ThinkPad
+   gives this page about 1366x650 once the browser and the taskbar have taken
+   their share, and the whole board has to fit inside what is left without the
    teacher scrolling in front of a class. */
-.bar{flex:none;display:flex;align-items:center;gap:14px;padding:10px 18px;
+.bar{flex:none;display:flex;align-items:center;gap:14px;padding:9px 16px;
      border-bottom:1px solid var(--line-dark);background:var(--panel)}
-.bar h1{font-size:1rem;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
-.bar .sub{font-size:.72rem;color:var(--muted-dark);text-transform:uppercase;letter-spacing:.13em;font-weight:700}
+.bar h1{font-size:.98rem;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+.sub{font-size:.68rem;color:var(--muted-dark);text-transform:uppercase;
+     letter-spacing:.13em;font-weight:700}
 .spacer{flex:1}
-.modes{display:flex;gap:4px;background:#0f1211;border-radius:999px;padding:3px}
-.modes button{font:inherit;font-size:.82rem;font-weight:700;padding:5px 15px;border:0;
+.modes{display:flex;gap:4px;background:var(--sink);border-radius:999px;padding:3px}
+.modes button{font:inherit;font-size:.8rem;font-weight:700;padding:5px 14px;border:0;
               border-radius:999px;background:transparent;color:var(--muted-dark);cursor:pointer}
 .modes button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
 .pips{display:flex;gap:5px;align-items:center}
-.pip{width:11px;height:11px;border-radius:50%;border:2px solid var(--line-dark);background:transparent}
+.pip{width:10px;height:10px;border-radius:50%;border:2px solid var(--line-dark)}
 .pip.on{background:var(--gold);border-color:var(--gold)}
-.pip.done{background:var(--ok);border-color:var(--ok)}
-.btn{font:inherit;font-size:.82rem;font-weight:700;padding:7px 15px;border-radius:8px;
+.btn{font:inherit;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:8px;
      border:1px solid var(--line-dark);background:var(--panel);color:var(--on-dark);cursor:pointer}
 .btn:hover:not(:disabled){border-color:var(--gold)}
 .btn:disabled{opacity:.35;cursor:default}
 .btn.go{background:var(--gold);border-color:var(--gold);color:#241c06}
+.score{font-size:.8rem;font-weight:700;color:var(--muted-dark);white-space:nowrap}
+.score b{color:var(--gold);font-size:.95rem}
 
-main{flex:1;min-height:0;padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+main{flex:1;min-height:0;padding:12px 16px 14px;display:flex;flex-direction:column;gap:9px}
 
-/* ---------- the strand header, shared by both modes ---------- */
+/* ---------- TEACH ---------- */
 .strand{flex:none;display:flex;align-items:baseline;gap:12px}
-.strand .g{font-size:1.5rem;line-height:1}
-.strand h2{font-size:1.35rem;letter-spacing:-.015em}
-.strand .of{font-size:.75rem;color:var(--muted-dark);font-weight:700;
+.strand .g{font-size:1.35rem;line-height:1}
+.strand h2{font-size:1.28rem;letter-spacing:-.015em}
+.strand .of{font-size:.7rem;color:var(--muted-dark);font-weight:700;
             text-transform:uppercase;letter-spacing:.12em}
-.s-source h2,.s-source .g{color:#6fc0da}
-.s-context h2,.s-context .g{color:#74c288}
-.s-evidence h2,.s-evidence .g{color:#e89a63}
-.s-judge h2,.s-judge .g{color:#bda0d8}
 
-.lead{flex:none;font-size:.92rem;color:var(--muted-dark);max-width:120ch}
+/* What the strand is, why it matters, what changes along it. This is the whole of
+   what Teach says. There is no worked example anywhere on this mode: a class
+   that has been shown the sentences has nothing left to work out. */
+.notes{flex:none;display:grid;grid-template-columns:1.1fr 1.5fr 1.5fr;gap:10px}
+.note{background:var(--panel);border:1px solid var(--line-dark);border-radius:10px;
+      padding:9px 12px;font-size:.86rem;line-height:1.5}
+.note b{display:block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+        color:var(--muted-dark);margin-bottom:4px}
+.note.lead{font-family:Georgia,"Times New Roman",serif;font-size:1rem}
 
-/* ---------- the board: five level columns ---------- */
-.board{flex:1;min-height:0;display:grid;gap:8px}
-.col{display:flex;flex-direction:column;min-height:0;min-width:0;
-     border:1px solid var(--line-dark);border-radius:10px;background:var(--panel);overflow:hidden}
+.board{flex:1;min-height:0;display:grid;gap:7px}
+.col{display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden;
+     border:1px solid var(--line-dark);border-radius:10px;background:var(--panel)}
 .col.expected{border-color:var(--gold)}
-.col > h3{flex:none;background:#0f1211;padding:6px 10px;font-size:.86rem;font-weight:800;
+.col > h3{flex:none;background:var(--sink);padding:5px 8px;font-size:.8rem;font-weight:800;
           text-align:center;border-bottom:1px solid var(--line-dark)}
 .col.expected > h3{background:var(--gold-deep);color:#fff}
-.col > h3 small{display:block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.col > h3 small{display:block;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
 
-/* the rubric descriptor: this is the thing a student is sent back to */
-.rub{flex:none;padding:8px 10px;font-size:.8rem;line-height:1.42;color:var(--on-dark);
-     background:#22261f;border-bottom:1px solid var(--line-dark)}
-.rub b{display:block;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
-       color:var(--muted-dark);margin-bottom:3px}
+/* The rubric, quoted exactly, with the verb marked. The verb is what actually
+   changes from one column to the next, and a class that sees name, identify,
+   describe, explain, analyse in a line has seen the point of the strand. */
+.rub{flex:1;min-height:0;overflow:auto;padding:9px 10px;font-size:.83rem;line-height:1.45}
+.rub em{font-style:normal;font-weight:800;color:var(--gold);
+        border-bottom:2px solid var(--gold);padding-bottom:1px}
+.rub.blank{color:var(--muted-dark);font-style:italic}
 
-/* the phrase from the worked example */
-.slot{flex:1;min-height:0;margin:8px;border-radius:8px;display:flex;align-items:center;
-      justify-content:center;padding:8px;overflow:auto}
-.slot.drop{border:2px dashed var(--line-dark);background:#181b19}
-.slot.drop.over{border-color:var(--gold);background:#241f10}
-.slot.drop.wrong{border-color:var(--no);background:#2a1512;animation:shake .3s}
+/* ---------- YOU DO ----------
+   The whole wall at once: four rows, five levels, twenty boxes, twenty
+   sentences. The tray sits alongside rather than underneath so a sentence and
+   the box it is going into are on screen together on a laptop. */
+.doing{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.doing > *{min-width:0}
+
+.wall{min-height:0;overflow:auto;display:grid;gap:5px;align-content:start;
+      grid-template-columns:122px repeat(5, minmax(0,1fr))}
+.hcell{position:sticky;top:0;z-index:2;background:var(--sink);border:1px solid var(--line-dark);
+       border-radius:7px;padding:4px 6px;text-align:center;font-size:.76rem;font-weight:800}
+.hcell.expected{background:var(--gold-deep);color:#fff;border-color:var(--gold)}
+.hcell small{display:block;font-size:.53rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.hcell.corner{background:transparent;border-color:transparent}
+
+.rowlab{border:1px solid var(--line-dark);border-radius:7px;padding:6px 7px;
+        background:var(--panel);font-size:.72rem;font-weight:800;line-height:1.3}
+.rowlab .g{display:block;font-size:1rem;margin-bottom:2px}
+
+/* The slot carries the colour, the sentence does not. A student has to work
+   out which row a sentence belongs to by reading it against the rubric, and
+   the colour is there to keep the four rows apart on screen, not to tell them
+   the answer. */
+.cell{border-radius:7px;padding:5px 6px;display:flex;flex-direction:column;gap:4px;
+      min-height:88px;border:1px solid var(--line-dark)}
+.crub{flex:none;font-size:.63rem;line-height:1.33;color:var(--muted-dark)}
+.slot{flex:1;min-height:44px;border-radius:6px;display:flex;align-items:center;
+      padding:3px;border:2px dashed}
+.slot.over{background:#241f10 !important;border-color:var(--gold) !important;border-style:solid}
+.slot.locked{border-style:solid;border-color:var(--ok) !important;background:var(--ok-bg) !important}
+.slot.wrong{border-style:solid;border-color:var(--no) !important;background:var(--no-bg) !important;
+            animation:shake .3s}
 @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.phrase{font-family:Georgia,"Times New Roman",serif;font-size:.94rem;line-height:1.5;
-        background:var(--paper);color:var(--ink);border-radius:7px;padding:9px 11px;width:100%}
-.phrase.placed{box-shadow:inset 4px 0 0 var(--ok)}
-.p-source{box-shadow:inset 4px 0 0 var(--source)}
-.p-context{box-shadow:inset 4px 0 0 var(--context)}
-.p-evidence{box-shadow:inset 4px 0 0 var(--evidence)}
-.p-judge{box-shadow:inset 4px 0 0 var(--judge)}
 
-/* ---------- the tray of chunks to place ---------- */
-.tray{flex:none;border-top:1px solid var(--line-dark);padding-top:9px;
-      display:flex;gap:8px;align-items:stretch;overflow-x:auto}
-.tray .hint{flex:none;width:118px;font-size:.72rem;color:var(--muted-dark);line-height:1.35;
-            align-self:center}
-.chunk{flex:1 1 0;min-width:150px;font-family:Georgia,"Times New Roman",serif;font-size:.88rem;
-       line-height:1.45;background:var(--paper);color:var(--ink);border:2px solid transparent;
-       border-radius:8px;padding:9px 11px;cursor:grab;text-align:left}
-.chunk:hover{border-color:var(--gold)}
-.chunk[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
-.chunk.gone{display:none}
+.chip{font-family:Georgia,"Times New Roman",serif;font-size:.72rem;line-height:1.36;
+      background:var(--paper);color:var(--ink);border-radius:5px;padding:5px 7px;width:100%;
+      border:0;text-align:left;font-weight:400;cursor:grab;display:block}
+.slot.locked .chip{cursor:default;box-shadow:inset 3px 0 0 var(--ok)}
+.slot.wrong .chip{box-shadow:inset 3px 0 0 var(--no)}
 
-/* ---------- feedback ---------- */
-.say{flex:none;min-height:2.6em;display:flex;align-items:center;gap:9px;font-size:.9rem;
-     padding:7px 11px;border-radius:8px;background:var(--panel);border:1px solid var(--line-dark)}
-.say.ok{border-color:var(--ok);background:#16241a}
-.say.no{border-color:var(--no);background:#2a1512}
-.say .mark{font-weight:800}
+/* ---------- the tray ---------- */
+.tray{min-height:0;display:flex;flex-direction:column;border:1px solid var(--line-dark);
+      border-radius:10px;background:var(--panel);overflow:hidden}
+.tray > h3{flex:none;background:var(--sink);padding:6px 10px;font-size:.72rem;font-weight:800;
+           letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--line-dark);
+           color:var(--muted-dark)}
+.tray .list{flex:1;min-height:0;overflow:auto;padding:7px;display:flex;flex-direction:column;gap:6px}
+.tray .chip{border:2px solid transparent}
+.tray .chip:hover{border-color:var(--gold)}
+.tray .chip[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.tray .empty{padding:14px;font-size:.8rem;color:var(--muted-dark);text-align:center}
 
-.done{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:14px;text-align:center}
-.done h2{font-size:1.6rem}
-.done p{color:var(--muted-dark);max-width:60ch}
+.say{flex:none;font-size:.84rem;padding:6px 11px;border-radius:8px;background:var(--panel);
+     border:1px solid var(--line-dark)}
+.say.ok{border-color:var(--ok);background:var(--ok-bg)}
+.say.no{border-color:var(--no);background:var(--no-bg)}
+.say.win{border-color:var(--gold);background:#241f10;font-weight:700}
 
+.oops{margin:auto;max-width:60ch;text-align:center;color:var(--muted-dark);font-size:.9rem}
+
+/* A phone gets the same content stacked. The wall keeps five level columns and
+   scrolls sideways inside its own box, because collapsing it to one column
+   would throw away the comparison the whole activity is built on. */
 @media (max-width:900px){
   body{height:auto;overflow:auto}
-  .board{grid-template-columns:1fr!important}
-  .tray{flex-wrap:wrap}
+  .bar{flex-wrap:wrap;row-gap:8px}
+  .bar h1{white-space:normal}
+  .notes{grid-template-columns:1fr}
+  .board{grid-template-columns:1fr !important}
+  .doing{grid-template-columns:1fr}
+  .tray{max-height:52vh}
 }
 </style>
 </head>
@@ -132,198 +162,282 @@ main{flex:1;min-height:0;padding:14px 18px;display:flex;flex-direction:column;ga
     <h1 id="title"></h1>
   </div>
   <div class="spacer"></div>
-  <div class="pips" id="pips"></div>
+  <div id="tools" style="display:flex;align-items:center;gap:12px"></div>
   <div class="modes">
-    <button id="mTour" aria-pressed="true">Teach</button>
-    <button id="mSort" aria-pressed="false">Sort</button>
+    <button id="mTeach" aria-pressed="true">Teach</button>
+    <button id="mDo" aria-pressed="false">You do</button>
   </div>
-  <button class="btn" id="prev">&larr; Back</button>
-  <button class="btn go" id="next">Next &rarr;</button>
 </div>
 
 <main id="out"></main>
 
 <script src="content.js"></script>
 <script>
-/* Two things in one page, both built from content.js and nothing else.
+/* Two screens, both built from content.js and nothing else.
 
-   TEACH is the front-of-room walk: one strand at a time, the same strand read
-   across five year levels, so a class can see what actually changes between
-   Year 7 and Year 8 instead of being told the levels are different.
+   TEACH is the front-of-room walk. One strand of the wall at a time: what it
+   asks a student to think about, why a historian bothers with it, and what
+   changes as the strand is read from Grade 5 across to Year 10, with the rubric
+   quoted exactly underneath each level. It shows no worked example and names no
+   answer, because it runs before the sort and a class that has been shown the
+   sentences has nothing left to work out.
 
-   SORT is what the class does next: the same five phrases, shuffled, back into
-   the same five columns. The rubric descriptor stays on screen the whole time,
-   because being sent back to the rubric is the point of getting one wrong. */
+   YOU DO is the whole wall at once. Twenty boxes, twenty sentences, no decoys.
+   The sentences carry no colour; the boxes do, so the four rows stay apart on
+   screen without the colour handing over which row a sentence belongs to. Check
+   turns the wrong ones red and locks the right ones in place. The rubric stays
+   in every box the entire time, because being sent back to the rubric is the
+   only thing a wrong answer is for. */
 
 const esc = s => String(s).replace(/&(?!amp;|lt;|gt;|#\d+;|[a-z]+;)/g,"&amp;");
 const el  = id => document.getElementById(id);
 
-/* Five levels, not the whole ladder. Year 10 is left off because five columns
-   is what fits across a laptop at a readable size, and because the five that
-   remain bracket the expected level. Change the slice to move the window. */
+/* Five levels for the sort, six for the teach. The sort grid is five wide
+   because twenty sentences is what a class can hold in one sitting; the teach
+   walk shows the whole continuum because the top of the strand is part of
+   seeing where it is going. */
 const STEPS = LEVELS.slice(0, 5);
 
-/* One phrase per cell: the longest phrase that criterion marks at that level.
-   Longest rather than first because it is the one carrying the most of what
-   changed, and a sort where two options read alike teaches nothing. */
-function phraseFor(lv, key){
-  const out = [...EXAMPLES[lv].matchAll(/\{(\w+)\|([^}]*)\}/g)]
-    .filter(m => m[1] === key).map(m => m[2]);
-  return out.sort((a,b) => b.length - a.length)[0] || "";
+/* Every sentence in SORT_SET has to still exist, word for word, inside the
+   worked example it was taken from. If someone edits an example and forgets
+   this list, the activity would quietly start marking students against wording
+   that is no longer on the wall, so it says so instead of running. */
+function verify(){
+  const bad = [];
+  for (const c of CRITERIA) for (const lv of STEPS){
+    const want = (SORT_SET[c.key] || {})[lv];
+    const have = [...(EXAMPLES[lv] || "").matchAll(/\{(\w+)\|([^}]*)\}/g)]
+      .filter(m => m[1] === c.key).map(m => m[2]);
+    if (!want || !have.includes(want)) bad.push(c.key + " / " + lv);
+  }
+  return bad;
 }
 
-const CELLS = CRITERIA.map(c => ({
-  c, items: STEPS.map(lv => ({ lv, text: phraseFor(lv, c.key) }))
-}));
+const SENTENCES = [];
+CRITERIA.forEach(c => STEPS.forEach(lv => SENTENCES.push({
+  id: c.key + "|" + lv, key: c.key, lv, text: SORT_SET[c.key][lv]
+})));
 
 const shuffle = a => a.map(v => [Math.random(), v]).sort((x,y) => x[0]-y[0]).map(p => p[1]);
+const ORDER = shuffle(SENTENCES.map(s => s.id));
+const byId  = Object.fromEntries(SENTENCES.map(s => [s.id, s]));
 
-let mode = "tour";           // "tour" or "sort"
-let step = 0;                // which strand, 0..CRITERIA.length-1
-let placed = {};             // "critKey|level" -> true, survives a mode switch
-let picked = null;           // the chunk waiting for a slot, in tap-to-place
+let mode   = "teach";
+let step   = 0;                 // which row of the wall, Teach only
+let at     = {};                // slot id -> sentence id
+let locked = {};                // slot id -> true, set by Check
+let wrong  = {};                // slot id -> true, cleared as soon as it moves
+let picked = null;              // sentence id waiting for a box, tap to place
 
 el("title").textContent = WALL.title;
-
-const cols = () => `repeat(${STEPS.length}, minmax(0,1fr))`;
 const isExp = lv => lv === WALL.expected;
+const rubric = (key, lv) => (CONTINUUM[key] || {})[lv] || "";
 
-function head(c){
-  return `<div class="strand s-${c.key}">
-    <span class="g">${c.glyph}</span>
-    <h2>${c.name}</h2>
-    <span class="of">Strand ${step+1} of ${CRITERIA.length}</span>
-  </div>`;
-}
+/* The verb is the first word after "I can", and "compare and contrast" is one
+   verb in two halves. A descriptor that does not start that way just renders
+   without a mark rather than guessing. */
+const markVerb = t => esc(t).replace(/^(I can )(\w+(?: and \w+)?)/, "$1<em>$2</em>");
 
 /* ---------- TEACH ---------- */
-function renderTour(){
-  const {c, items} = CELLS[step];
-  el("kicker").textContent = "Teach the strand";
-  el("out").innerHTML = head(c) +
-    `<p class="lead">Read the top row across: that is what this strand asks for at each
-      level. Read the bottom row across: that is the same idea written by a student at
-      that level. The question for the class is what changed between one column and the
-      next.</p>
-     <div class="board" style="grid-template-columns:${cols()}">${
-      items.map(({lv,text}) => `
-        <div class="col${isExp(lv)?" expected":""}">
-          <h3>${esc(lv)}${isExp(lv)?"<small>Expected</small>":""}</h3>
-          <div class="rub"><b>The rubric asks</b>${esc((CONTINUUM[c.key]||{})[lv] || "")}</div>
-          <div class="slot"><span class="phrase p-${c.key}">${esc(text)}</span></div>
-        </div>`).join("")}
-     </div>`;
-}
+function renderTeach(){
+  const c = CRITERIA[step], n = STRAND_NOTES[c.key] || {};
+  el("kicker").textContent = "What this strand asks for";
+  el("tools").innerHTML =
+    `<div class="pips">${CRITERIA.map((_,i) =>
+       `<span class="pip${i===step?" on":""}"></span>`).join("")}</div>
+     <button class="btn" id="prev"${step===0?" disabled":""}>&larr; Back</button>
+     <button class="btn go" id="next"${step===CRITERIA.length-1?" disabled":""}>Next &rarr;</button>`;
+  el("prev").onclick = () => { if (step > 0){ step--; render(); } };
+  el("next").onclick = () => { if (step < CRITERIA.length-1){ step++; render(); } };
 
-/* ---------- SORT ---------- */
-function renderSort(){
-  const {c, items} = CELLS[step];
-  el("kicker").textContent = "Sort them back";
-  const left = shuffle(items.filter(it => !placed[c.key+"|"+it.lv]));
-
-  el("out").innerHTML = head(c) +
-    `<div class="say" id="say">Put each phrase in the column whose rubric it matches.
-       Drag it, or tap the phrase and then tap a column.</div>
-     <div class="board" style="grid-template-columns:${cols()}">${
-      items.map(({lv,text}) => {
-        const done = placed[c.key+"|"+lv];
+  el("out").innerHTML = `
+    <div class="strand" style="color:${c.lamp}">
+      <span class="g">${c.glyph}</span>
+      <h2>${esc(c.name)}</h2>
+      <span class="of">Strand ${step+1} of ${CRITERIA.length}</span>
+    </div>
+    <div class="notes">
+      <div class="note lead"><b>What this strand is</b>${esc(n.is || "")}</div>
+      <div class="note"><b>Why it matters</b>${esc(n.why || "")}</div>
+      <div class="note"><b>What changes across the strand</b>${esc(n.grows || "")}</div>
+    </div>
+    <div class="board" style="grid-template-columns:repeat(${LEVELS.length},minmax(0,1fr))">${
+      LEVELS.map(lv => {
+        const r = rubric(c.key, lv);
         return `<div class="col${isExp(lv)?" expected":""}">
           <h3>${esc(lv)}${isExp(lv)?"<small>Expected</small>":""}</h3>
-          <div class="rub"><b>The rubric asks</b>${esc((CONTINUUM[c.key]||{})[lv] || "")}</div>
-          <div class="slot${done?"":" drop"}" data-lv="${esc(lv)}">${
-            done ? `<span class="phrase placed p-${c.key}">${esc(text)}</span>` : ""}</div>
+          <div class="rub${r?"":" blank"}">${r ? markVerb(r) : "The curriculum says nothing here."}</div>
         </div>`;}).join("")}
-     </div>
-     <div class="tray" id="tray">${
-       left.length
-         ? `<span class="hint">${left.length} to place</span>` +
-           left.map(it => `<button class="chunk" aria-pressed="false"
-              draggable="true" data-lv="${esc(it.lv)}">${esc(it.text)}</button>`).join("")
-         : `<span class="hint">Strand done.</span>`}
-     </div>`;
-
-  wireSort(c);
+    </div>`;
 }
 
-function wireSort(c){
-  const say = (msg, cls) => { const s = el("say"); s.textContent = msg; s.className = "say " + (cls||""); };
+/* ---------- YOU DO ---------- */
+function counts(){
+  const done = Object.keys(locked).length;
+  return { done, placed: Object.keys(at).length, total: SENTENCES.length,
+           red: Object.keys(wrong).length };
+}
 
-  const drop = (slot, lv) => {
-    const want = slot.dataset.lv;
-    if (lv === want){
-      placed[c.key+"|"+lv] = true;
-      picked = null;
-      renderSort();
-      const total = STEPS.length, got = STEPS.filter(l => placed[c.key+"|"+l]).length;
-      say(got === total
-            ? "That is the whole strand. Read it across before you move on."
-            : `Yes. ${total-got} to go.`, "ok");
-      paintPips();
-      if (got === total) el("next").focus();
-    } else {
-      /* Name the column they chose and send them back to ITS rubric. Naming the
-         column the phrase actually belongs to would hand over the answer, which
-         is the one thing this screen must not do. */
-      slot.classList.add("wrong");
-      setTimeout(() => slot.classList.remove("wrong"), 320);
-      say(`Not ${want}. Read what the rubric asks for at ${want} again, then read the phrase again.`, "no");
-    }
+function renderDo(msg, cls){
+  const c = counts();
+  el("kicker").textContent = "Build the wall";
+  el("tools").innerHTML =
+    `<span class="score"><b>${c.done}</b> of ${c.total} locked in</span>
+     <button class="btn" id="reset">Start again</button>
+     <button class="btn go" id="check"${c.placed===c.done?" disabled":""}>Check</button>`;
+  el("check").onclick = check;
+  el("reset").onclick = () => {
+    at = {}; locked = {}; wrong = {}; picked = null;
+    lastMsg = "Cleared. Every sentence is back in the list."; lastCls = "";
+    renderDo(lastMsg, lastCls);
   };
 
-  document.querySelectorAll(".chunk").forEach(ch => {
-    ch.onclick = () => {
-      const on = ch.getAttribute("aria-pressed") === "true";
-      document.querySelectorAll(".chunk").forEach(o => o.setAttribute("aria-pressed","false"));
-      ch.setAttribute("aria-pressed", String(!on));
-      picked = on ? null : ch;
+  const loose = ORDER.filter(id => !Object.values(at).includes(id));
+
+  el("out").innerHTML = `
+    <div class="say${cls?" "+cls:""}">${msg || "Drag each sentence into the box whose rubric it matches, or tap the sentence and then tap a box. Put all twenty somewhere, then press Check."}</div>
+    <div class="doing">
+      <div class="wall">
+        <div class="hcell corner"></div>
+        ${STEPS.map(lv => `<div class="hcell${isExp(lv)?" expected":""}">${esc(lv)}${
+            isExp(lv)?"<small>Expected</small>":""}</div>`).join("")}
+        ${CRITERIA.map(c => `
+          <div class="rowlab" style="color:${c.lamp}">
+            <span class="g">${c.glyph}</span>${esc(c.name)}</div>
+          ${STEPS.map(lv => {
+            const id = c.key + "|" + lv, here = at[id];
+            const state = locked[id] ? " locked" : wrong[id] ? " wrong" : "";
+            return `<div class="cell" style="background:${c.lamp}0f;border-color:${c.lamp}33">
+              <div class="crub">${esc(rubric(c.key, lv))}</div>
+              <div class="slot${state}" data-slot="${id}"
+                   style="border-color:${c.lamp}66;background:${c.lamp}14">${
+                here ? `<button class="chip" data-take="${here}"${
+                          locked[id] ? " disabled" : ' draggable="true"'
+                        }>${esc(byId[here].text)}</button>` : ""}</div>
+            </div>`;}).join("")}`).join("")}
+      </div>
+      <div class="tray">
+        <h3>${loose.length} left to place</h3>
+        <div class="list">${
+          loose.length
+            ? loose.map(id => `<button class="chip" draggable="true" aria-pressed="${
+                String(picked===id)}" data-take="${id}">${esc(byId[id].text)}</button>`).join("")
+            : `<p class="empty">All twenty are on the wall. Press Check.</p>`}
+        </div>
+      </div>
+    </div>`;
+
+  wire();
+}
+
+function wire(){
+  /* One handler for a sentence wherever it is sitting, in the tray or already
+     in a box. Picking up a sentence that has been marked wrong clears the mark,
+     so red always means "still wrong where it is", never "was wrong once". */
+  document.querySelectorAll(".chip[data-take]").forEach(ch => {
+    const id = ch.dataset.take;
+    if (ch.disabled) return;
+    /* stopPropagation matters for a chip already sitting in a box: the click
+       would otherwise bubble to that box's own handler, which would place the
+       sentence it had just picked up straight back where it came from, so a
+       student could never move one without dragging it. */
+    ch.onclick = e => {
+      e.stopPropagation();
+      /* A filled box is covered by its own sentence, so a tap meant for the box
+         lands on the sentence instead. Holding one and tapping another trades
+         them, which is what a student tapping a full box is asking for. */
+      const box = ch.closest(".slot[data-slot]");
+      if (box && picked && picked !== id){ place(box.dataset.slot, picked); return; }
+      picked = picked === id ? null : id;
+      renderDo(lastMsg, lastCls);
     };
     ch.addEventListener("dragstart", e => {
-      picked = ch; e.dataTransfer.setData("text/plain", ch.dataset.lv);
+      picked = id;
+      e.dataTransfer.setData("text/plain", id);
       e.dataTransfer.effectAllowed = "move";
     });
   });
 
-  document.querySelectorAll(".slot.drop").forEach(slot => {
+  document.querySelectorAll(".slot[data-slot]").forEach(slot => {
+    const id = slot.dataset.slot;
+    if (locked[id]) return;
     slot.addEventListener("dragover", e => { e.preventDefault(); slot.classList.add("over"); });
     slot.addEventListener("dragleave", () => slot.classList.remove("over"));
     slot.addEventListener("drop", e => {
       e.preventDefault(); slot.classList.remove("over");
-      drop(slot, e.dataTransfer.getData("text/plain"));
+      place(id, e.dataTransfer.getData("text/plain"));
     });
-    slot.onclick = () => { if (picked) drop(slot, picked.dataset.lv); };
+    slot.onclick = () => { if (picked) place(id, picked); };
   });
 }
 
+/* Dropping onto a box that already holds something swaps them rather than
+   refusing, so a student can rearrange a row without emptying it first. */
+function place(slotId, sentId){
+  if (!sentId || locked[slotId]) return;
+  const from = Object.keys(at).find(k => at[k] === sentId);
+  const had  = at[slotId];
+  if (from) delete at[from];
+  at[slotId] = sentId;
+  if (from && had) at[from] = had;
+  delete wrong[slotId];
+  if (from) delete wrong[from];
+  picked = null;
+  renderDo(lastMsg, lastCls);
+}
+
+let lastMsg = "", lastCls = "";
+
+function check(){
+  let right = 0, red = 0;
+  for (const [slotId, sentId] of Object.entries(at)){
+    if (locked[slotId]) continue;
+    if (slotId === sentId){ locked[slotId] = true; delete wrong[slotId]; right++; }
+    else { wrong[slotId] = true; red++; }
+  }
+  const c = counts();
+  if (c.done === c.total){
+    lastMsg = "That is the whole wall. Read any row across now and you can see what the next level asks you to add.";
+    lastCls = "win";
+  } else if (!red){
+    lastMsg = right + (right === 1 ? " sentence is" : " sentences are") + " locked in. Place the rest and check again.";
+    lastCls = "ok";
+  } else {
+    lastMsg = (right ? right + " locked in. " : "") + red +
+      (red === 1 ? " sentence is" : " sentences are") +
+      " in the wrong box. Read what the rubric asks for in each red box, then read the sentence sitting in it.";
+    lastCls = "no";
+  }
+  renderDo(lastMsg, lastCls);
+}
+
 /* ---------- chrome ---------- */
-function paintPips(){
-  el("pips").innerHTML = CRITERIA.map((c,i) => {
-    const full = STEPS.every(lv => placed[c.key+"|"+lv]);
-    return `<span class="pip${full?" done":i===step?" on":""}" title="${esc(c.name)}"></span>`;
-  }).join("");
-}
-
 function render(){
-  el("mTour").setAttribute("aria-pressed", String(mode === "tour"));
-  el("mSort").setAttribute("aria-pressed", String(mode === "sort"));
-  el("prev").disabled = step === 0;
-  el("next").disabled = step === CRITERIA.length - 1;
-  paintPips();
-  mode === "tour" ? renderTour() : renderSort();
+  el("mTeach").setAttribute("aria-pressed", String(mode === "teach"));
+  el("mDo").setAttribute("aria-pressed", String(mode === "do"));
+  mode === "teach" ? renderTeach() : renderDo(lastMsg, lastCls);
 }
 
-el("mTour").onclick = () => { mode = "tour"; render(); };
-el("mSort").onclick = () => { mode = "sort"; render(); };
-el("prev").onclick  = () => { if (step > 0) { step--; picked = null; render(); } };
-el("next").onclick  = () => { if (step < CRITERIA.length-1) { step++; picked = null; render(); } };
+el("mTeach").onclick = () => { mode = "teach"; render(); };
+el("mDo").onclick    = () => { mode = "do";    render(); };
 
-/* Arrow keys drive the strand, so the teacher can present from a clicker. */
+/* Arrow keys drive the teach walk, so it can be presented from a clicker. They
+   are left alone in the sort, where there is nothing to step through. */
 addEventListener("keydown", e => {
-  if (e.target.matches("button") && (e.key === " " || e.key === "Enter")) return;
-  if (e.key === "ArrowRight") el("next").click();
-  if (e.key === "ArrowLeft")  el("prev").click();
+  if (mode !== "teach") return;
+  if (e.target.matches("button, [contenteditable]")) return;
+  if (e.key === "ArrowRight") el("next")?.click();
+  if (e.key === "ArrowLeft")  el("prev")?.click();
 });
 
-render();
+const broken = verify();
+if (broken.length){
+  el("out").innerHTML = `<p class="oops">The sort list in content.js no longer matches the
+    worked examples it quotes: ${esc(broken.join(", "))}. Fix SORT_SET before using this
+    with a class.</p>`;
+} else {
+  render();
+}
 </script>
 </body>
 </html>
