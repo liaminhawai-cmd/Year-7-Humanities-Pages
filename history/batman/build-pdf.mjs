@@ -7,7 +7,7 @@
  *
  *   npm i -D playwright   &&   node history/batman/build-pdf.mjs
  *   pip install pypdf     &&   python3 tools/merge_pdfs.py print/Batman-Treaty-Print-Pack.pdf \
- *       history/batman/Batman-Treaty-Source-Sheets-A3.pdf history/batman/Batman-Treaty-Level-Sheets-A4.pdf
+ *       history/batman/Batman-Treaty-Source-Sheets-A3.pdf history/batman/Batman-Treaty-Level-Sheets-A3.pdf
  *
  * The two PDFs land beside this script (gitignored scratch, see .gitignore),
  * and the merge step is what actually produces print/Batman-Treaty-Print-Pack.pdf,
@@ -34,9 +34,9 @@ const JOBS = [
   { src: "source-sheet.html",  out: "Batman-Treaty-Source-Sheets-A3.pdf",
     opts: { format: "A3", landscape: true },   margin: "9mm",  expect: 2,
     note: "one A3 landscape sheet per source: the painting, then the Proclamation" },
-  { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A4.pdf",
-    opts: { format: "A4" },                    margin: "9mm",  expect: 8,
-    note: "one A4 portrait anchor sheet per rung, Foundation to Year 10" }
+  { src: "level-sheets.html",  out: "Batman-Treaty-Level-Sheets-A3.pdf",
+    opts: { format: "A3" },                    margin: "11mm", expect: 8,
+    note: "one A3 portrait anchor sheet per rung, Foundation to Year 10" }
 ];
 
 /* Set CHROMIUM_PATH if Playwright's own browser download is unavailable and you
