@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vocabulary homework</title>
+<meta name="description" content="Three worksheets covering the unit's eight lessons: the words, a paper morphology task and a WAGOLL-style upgrade rewrite each week.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<link rel="stylesheet" href="../../assets/hub.css">
+<!-- Content page, not one of the generated index pages, so tools/build_index_pages.py
+     never touches it. It links assets/hub.css for the palette and the header/note
+     patterns, and carries a small extra stylesheet below for the widgets that page
+     does not have: the word-pill list, the weak-sentence quote, the rubric-row chips
+     and the per-lesson worksheet cards.
+
+     Source of record for the content is
+     curriculum/history/ancient-australia/vocabulary-homework/ in the private
+     Year-7-Humanities repository. Edit there first, then bring the change across;
+     this page does not read from that repository at build time. -->
+<style>
+:root{
+  --warn-bg:#fff7ed; --warn-line:#f59e0b; --warn-ink:#7c2d12;
+  --src:#176b87; --ctx:#357a46; --evi:#a34d1d; --jdg:#744f91;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --warn-bg:#2a1c08; --warn-line:#f59e0b; --warn-ink:#fcd9a8;
+         --src:#6fc0da; --ctx:#74c288; --evi:#e89a63; --jdg:#bda0d8; }
+}
+h3{font-size:1.02rem;margin:20px 0 6px}
+code{background:var(--accent-soft);border-radius:4px;padding:1px 5px;font-size:.86em}
+
+.open{background:var(--warn-bg);border:1px solid var(--warn-line);border-left-width:5px;
+      border-radius:var(--radius);padding:15px 17px;color:var(--warn-ink);margin-top:8px}
+.open b{display:block;margin-bottom:4px}
+.open p{color:inherit;margin:6px 0}
+.open a{color:inherit;text-decoration:underline}
+
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+     padding:16px 18px;box-shadow:var(--shadow);margin-top:14px}
+.box.wk{border-left:5px solid var(--history)}
+
+table{border-collapse:collapse;width:100%;margin-top:12px;font-size:.9rem}
+.scroll{overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);font-size:.8rem;letter-spacing:.02em}
+tbody tr:nth-child(even){background:rgba(127,127,127,.05)}
+
+.words{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.w{background:var(--accent-soft);border:1px solid var(--line);border-radius:999px;
+   padding:3px 11px;font-size:.86rem}
+.w.star{border-color:var(--history);font-weight:700}
+.w.star::after{content:" \2605";font-size:.75em;opacity:.7}
+.w.stretch{background:transparent;border-style:dashed;opacity:.8}
+
+.weak{border-left:4px solid var(--muted);padding:8px 0 8px 14px;margin:10px 0;
+      color:var(--muted);font-style:italic}
+.row{display:inline-block;font-size:.76rem;font-weight:800;letter-spacing:.06em;
+     text-transform:uppercase;border-radius:5px;padding:2px 8px;color:#fff;margin:2px 4px 2px 0}
+.row.src{background:var(--src)} .row.ctx{background:var(--ctx)}
+.row.evi{background:var(--evi)} .row.jdg{background:var(--jdg)}
+.row.none{background:var(--muted)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .row{color:#0f1420} }
+:root[data-theme="dark"] .row{color:#0f1420}
+</style>
+</head>
+<body>
+<header class="history">
+  <div class="kicker">History &middot; Ancient Australia &middot; Words</div>
+  <h1>Vocabulary homework</h1>
+  <p>Three worksheets, one for each week of the unit, covering all eight lessons. About fifty minutes each, the same five parts every time.</p>
+  <a class="back" href="./">&larr; Ancient Australia</a>
+</header>
+
+<main>
+
+<div class="open">
+  <b>Draft content. Not yet taught, not proofread, no answer key.</b>
+  <p>This page is on the site so it can be read and argued with, not because it is finished. Three things need a teacher before anything is printed for a class: the word sets have not been corroborated against Liam's own list, the dates in Worksheet 1 and the ochre claim in Worksheet 2 are not confirmed, and Lessons 3, 6 and 8 need the same cultural check that is still open on this topic's wall, with the Wurundjeri Woi Wurrung Cultural Heritage Aboriginal Corporation. See <a href="SOURCE-NOTICE.md">the source notice</a>.</p>
+</div>
+
+<section>
+<h2>What the set is for</h2>
+<p>One job: students know the words. The morphology, the cloze and the upgrade task are three ways of handling the same words, not three skills being taught at once.</p>
+<p>The unit runs eight lessons at about three lessons a week, so homework goes out three times, not eight, matching the real teaching cadence rather than one sheet per lesson. Worksheet 1 covers Lessons 1 to 3, Worksheet 2 covers Lessons 4 to 6, Worksheet 3 covers Lessons 7 and 8 plus a review of all forty-five words.</p>
+<p>The words come from the key words gathered across the eight lessons, checked against the Year 7 History Tier 2 master list so nothing is taught twice under two headings. Where the two disagree, the master list wins on placement: <code>civilisation</code> and <code>fertile</code> are on the Lesson 2 list but the master list teaches them in Ancient China, so this set flags them and moves on.</p>
+</section>
+
+<section>
+<h2>Why nobody can spend three hours on it</h2>
+<p>Two things do that work, and neither is a rule about effort.</p>
+<p><b>The worksheet is fixed.</b> Five parts in the same order every time, split into a short block per lesson where the part needs it, minutes printed on each block. A student who has done Worksheet 1 knows what Worksheet 3 will ask, so the time goes into the words rather than into working out the task.</p>
+<p><b>The only open-ended part has a word cap.</b> The Upgrade task is one rewrite of no more than 50 words, once per lesson. A capped rewrite cannot become an essay, and a student who writes two or three sentences has finished it properly rather than skipped it. Thirty-five was drafted first and rejected: it is a stronger time constraint, but a cap that is hard to hit with two prescribed words in the sentence stops being a constraint and starts being a trap.</p>
+<p>Every block also carries a stop instruction: if it runs past its minutes, draw a line under where you got to, move on, and hand the sheet in with the line on it. The line is information, not a failure. It is the only way to find out which part is mis-timed.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Part</th><th>Min (WS1 / WS2 / WS3)</th><th>What it is</th></tr></thead>
+<tbody>
+<tr><td><b>A. Match</b></td><td>10 / 10 / 8</td><td>Every lesson's words to their meanings, one small table per lesson.</td></tr>
+<tr><td><b>B. Break it up</b></td><td>10 / 10 / 8</td><td>The vocab hub's morphology task on paper. One word built per lesson from a shared morpheme bank with decoys in it, plus a word family line. Words that do not divide get a word family round instead.</td></tr>
+<tr><td><b>C. Use it</b></td><td>10 / 10 / 6</td><td>Two gap sentences per lesson, word bank supplied, one spare word so the last gap cannot be filled by elimination.</td></tr>
+<tr><td><b>D. Upgrade it</b></td><td>15 / 15 / 15</td><td>A weak sentence to rewrite per lesson, no more than 50 words, using that lesson's two starred words, against one named rubric row.</td></tr>
+<tr><td><b>E. Cover and write</b></td><td>5 / 5 / 5</td><td>Cover the sheet, write the lesson's starred words from memory, tick a confidence box.</td></tr>
+<tr><td><b>F. Unit review</b></td><td>&mdash; / &mdash; / 8</td><td>All forty-five words in one grid. Tick what you know, circle five to revise. Worksheet 3 only.</td></tr>
+</tbody>
+</table>
+</div>
+<p>About fifty minutes a worksheet, which is roughly what eight separate thirty-minute weekly sheets already added up to across three real teaching weeks, just delivered on the cadence lessons actually run at.</p>
+</section>
+
+<section>
+<h2>How the Upgrade task uses the wall</h2>
+<p>The Upgrade task is the wall's move, not the wall's source. A student is given a weak sentence in the Grade 5 register the wall already models, and upgrades it. Two things keep it on rails.</p>
+<ul>
+  <li><b>The words are given.</b> Two starred words from that lesson. Not "use some good vocabulary".</li>
+  <li><b>One rubric row is named, and only one.</b> The row rotates so each of the CAT's four criteria is rehearsed twice across the eight lessons, and no lesson asks for all four at once except the last. Lesson 1 names no row, because in Lesson 1 the task is the words.</li>
+</ul>
+<p>All eight lessons upgrade a sentence about that lesson's own content, not about the wall's sources. An earlier draft put Lessons 2 and 7 on the Burtt painting so that the wall's source stayed in view across the term; that was reversed. <span class="w">Funerary</span>, <span class="w">ritual</span> and <span class="w">Songlines</span> have nowhere natural to sit in a sentence about 1835.</p>
+<p>The move still transfers to the wall, because it is the same move and the rubric row is named on the sheet. What the homework no longer does is rehearse it on the source students will actually see. That is the cost of the decision, and it is the thing to watch for when the first worksheets come back.</p>
+<p>Worked example, Lesson 4. The student is given this:</p>
+<div class="weak">Aboriginal people got food from plants. They looked after the land.</div>
+<p>with <span class="row evi">Historical interpretations</span> named, and <span class="w star">reciprocal</span> <span class="w star">sustainable</span> prescribed. One possible upgrade, at 34 words, comfortably inside the cap:</p>
+<div class="box">Evidence of replanted tubers and managed grasslands suggests a <b>reciprocal</b> relationship with Country: what was taken was returned. That is what made the food supply <b>sustainable</b> across thousands of years.</div>
+</section>
+
+<section>
+<h2>Worksheet 1. Lessons 1 to 3: first peoples, sources, Country</h2>
+
+<div class="box wk">
+<h3>Lesson 1. First Nations peoples and deep time</h3>
+<div class="words"><span class="w">Aboriginal</span><span class="w star">First Nations</span><span class="w">Indigenous</span><span class="w star">migration</span><span class="w">the Dreaming</span><span class="w">Mungo Man</span></div>
+<p><b>Morphology:</b> <code>migr</code> + <code>ation</code>, and <code>indi</code> + <code>gen</code> + <code>ous</code>. Word family: migrate, migrant, immigrate, emigrate.</p>
+<p><b>Upgrade:</b> <span class="row none">No rubric row</span> This lesson the task is the words.</p>
+<div class="weak">Aboriginal people have been here a really long time. Mungo Man is old.</div>
+</div>
+
+<div class="box wk">
+<h3>Lesson 2. Sources and the ancient past</h3>
+<div class="words"><span class="w star">primary source</span><span class="w star">secondary source</span><span class="w">archaeology</span><span class="w">ancient</span><span class="w">customs</span><span class="w">forcibly</span><span class="w stretch">civilisation</span><span class="w stretch">fertile</span></div>
+<p>The two dashed words are notice-only. They are on the Lesson 2 list but the master list teaches them in Ancient China.</p>
+<p><b>Morphology:</b> <code>archaeo</code> + <code>log</code> + <code>y</code>, then <code>ist</code> added, so a student sees a suffix change what the word is.</p>
+<p><b>Upgrade:</b> <span class="row src">Origin, features and purpose</span></p>
+<div class="weak">People found old things at Madjedbebe. A book says they are really old.</div>
+</div>
+
+<div class="box wk">
+<h3>Lesson 3. The Dreaming and Country</h3>
+<div class="words"><span class="w star">Country</span><span class="w">ancestors</span><span class="w star">custodian</span><span class="w">spiritual</span><span class="w">creation</span><span class="w">morality</span></div>
+<p><b>Country takes a capital letter</b>, and the sheet says why in one line. Written lower case it means a nation like France, which is a different word.</p>
+<p><b>Upgrade:</b> <span class="row ctx">Historical context</span></p>
+<div class="weak">Aboriginal people care about the land. Their stories are important.</div>
+</div>
+</section>
+
+<section>
+<h2>Worksheet 2. Lessons 4 to 6: living on Country, kinship, ritual</h2>
+
+<div class="box wk">
+<h3>Lesson 4. Living with Country</h3>
+<div class="words"><span class="w">significance</span><span class="w">interdependent</span><span class="w star">reciprocal</span><span class="w">roots</span><span class="w">tubers</span><span class="w star">sustainable</span></div>
+<p><code>roots</code> and <code>tubers</code> are the concrete pair on an abstract lesson. They are what the reciprocal relationship is actually about, and a student who can point at a yam daisy can hold the abstraction.</p>
+<p><b>Upgrade:</b> <span class="row evi">Historical interpretations</span> Worked above.</p>
+</div>
+
+<div class="box wk">
+<h3>Lesson 5. Kinship and community</h3>
+<div class="words"><span class="w star">kinship</span><span class="w">alliance</span><span class="w">Elder</span><span class="w">initiation</span><span class="w star">obligation</span></div>
+<p>Five new words, not six, plus <span class="w">reciprocal</span> back from Lesson 4. Lesson 5 has four topic words worth teaching and padding it to six meant inventing a word the lesson does not use. <b>Elder takes a capital letter</b>: it does not mean an old person.</p>
+<p><b>Upgrade:</b> <span class="row ctx">Historical context</span></p>
+<div class="weak">Aboriginal groups knew each other and had rules about who could marry.</div>
+</div>
+
+<div class="box wk">
+<h3>Lesson 6. Death, ritual and Songlines</h3>
+<div class="words"><span class="w">clan</span><span class="w">Songlines</span><span class="w star">ritual</span><span class="w star">funerary</span><span class="w">mourn</span><span class="w">deterrent</span><span class="w stretch">cremation</span><span class="w stretch">desiccation</span></div>
+<p>The stretch pair is given rather than asked for: the morphemes are printed and the student writes one sentence with either, if they want it.</p>
+<p><b>Upgrade:</b> <span class="row evi">Historical interpretations</span></p>
+<div class="weak">They buried people in special ways. The bodies were treated differently.</div>
+</div>
+</section>
+
+<section>
+<h2>Worksheet 3. Lessons 7 and 8: evidence, heritage, ceremony</h2>
+
+<div class="box wk">
+<h3>Lesson 7. Evidence, heritage and conservation</h3>
+<div class="words"><span class="w star">arthritis</span><span class="w">geology</span><span class="w star">heritage</span><span class="w">conservation</span><span class="w">preservation</span><span class="w">continuity</span></div>
+<p>The richest morphology lesson. <code>conservation</code> and <code>preservation</code> share <code>serv</code>, <code>geology</code> shares <code>log</code> with Lesson 2, and <code>arthr</code> + <code>itis</code> opens the whole medical family: the sheet asks what tonsillitis and dermatitis must mean.</p>
+<p><b>Upgrade:</b> <span class="row jdg">Accuracy, usefulness and reliability</span></p>
+<div class="weak">The bones tell us stuff about the person. Old sites should be looked after.</div>
+</div>
+
+<div class="box wk">
+<h3>Lesson 8. Ceremony and significance</h3>
+<div class="words"><span class="w">ceremonial</span><span class="w star">sacred</span><span class="w">culture</span><span class="w star">significance</span><span class="w">initiation</span><span class="w">legacy</span></div>
+<p>Half review on purpose. <code>significance</code> returns from Lesson 4 and <code>initiation</code> from Lesson 5, because the unit ends here and those two are what the assessment needs most.</p>
+<p><b>Upgrade:</b> all four rows, one clause each, capped at 60 words. <span class="row src">Origin</span><span class="row ctx">Context</span><span class="row evi">Interpretations</span><span class="row jdg">Usefulness</span></p>
+<div class="weak">The paintings are important to Aboriginal people. They still do ceremonies.</div>
+</div>
+
+<p>Worksheet 3 ends with a review grid, not a ninth lesson: all forty-five words in one table, one instruction. Tick every word you could use correctly in a sentence today, circle the five you are least sure of, and revise those five. That grid is also what the vocab hub's printable report should produce, so a student who works online and a student who works on paper hand in the same thing.</p>
+</section>
+
+<section>
+<h2>What is left out</h2>
+<p>Fourteen words from the master list's Unit 1 have no home in these worksheets: <code>adapt</code>, <code>theory</code>, <code>era</code>, <code>chronological</code>, <code>resource</code>, <code>technique</code>, <code>innovation</code>, <code>environment</code>, <code>authentic</code>, <code>cause</code>, <code>consequence</code>, <code>impact</code>, <code>document</code>, <code>reveal</code>. Three worksheets across eight lessons has no room for them. Either the unit runs a consolidation lesson, or they stay with the wall and the Word Builder rather than the homework.</p>
+<p>The rest of the master list's Unit 1 is already taught elsewhere and was left alone on purpose: <code>source</code>, <code>evidence</code>, <code>interpretation</code>, <code>artefact</code>, <code>archaeologist</code> and <code>excavate</code> are in the shared source-analysis table that every topic on this site reads, and <code>context</code>, <code>perspective</code>, <code>contested</code> and <code>purpose</code> are in the Batman wall's own glossary.</p>
+</section>
+
+<section>
+<h2>What would be useful to hear back</h2>
+
+<div class="box">
+<h3>1. Are these the right forty-five words?</h3>
+<p>This is the corroboration step, and it is the one thing that could change every worksheet. Lesson 5 in particular is thin.</p>
+</div>
+
+<div class="box">
+<h3>2. Is fifty minutes right for one sitting?</h3>
+<p>Each worksheet now covers two or three lessons at once. Nothing has been timed with a class yet, and Part B is the one most likely to run over, because a student who has never split a word before will not do it in a minute or two.</p>
+</div>
+
+<div class="box">
+<h3>3. Are the fourteen homeless Tier 2 words a problem?</h3>
+<p>They can have a consolidation lesson, or they can stay with the wall. Both are defensible and it is a teacher's call.</p>
+</div>
+
+<div class="box">
+<h3>4. What has to happen before Lessons 3, 6 and 8 go anywhere near a class?</h3>
+<p>They name the Dreaming, funerary practice and sacred sites. The Wurundjeri Woi Wurrung consultation item on the wall is still open and this material sits closer to it than the wall does.</p>
+</div>
+</section>
+
+</main>
+<footer>Year 7 Humanities &middot; Kew High School. Nothing on this site collects anything: no accounts, no tracking, no analytics.</footer>
+</body>
+</html>

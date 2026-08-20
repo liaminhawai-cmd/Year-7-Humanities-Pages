@@ -190,6 +190,9 @@ SITE = [
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
             "Meet, build and recall every word this topic marks.", None),
+           ("&#128221;", "Vocabulary homework", "vocab-homework.html",
+            "Three worksheets covering the unit's eight lessons: the words, a paper "
+            "morphology task and a WAGOLL-style upgrade rewrite each week.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
