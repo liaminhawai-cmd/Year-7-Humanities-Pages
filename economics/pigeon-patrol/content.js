@@ -198,7 +198,7 @@ const VERBS = {
 };
 
 const BUILD = {
-  intro: "The wall is empty. Each round you answer fills part of it in. Nothing is locked. You can leave a round and come back.",
+  intro: "Each round you answer fills part of the wall. You can leave and come back.",
   stages: [
     { id:"phrase", title:"Which criterion does this phrase prove?", short:"Phrases",
       teach:"Every marked phrase on the wall is marked because it <b>proves one criterion</b>. The unmarked words around it are the glue that holds the sentence together.<br><br>Ask: <i>what is this phrase doing?</i> Naming what the business does is not the same as weighing what a decision cost. Having an idea is not the same as testing one.",

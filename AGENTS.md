@@ -22,6 +22,38 @@ Three repositories, and work goes wrong when they are confused for each other.
 A CAT, a rubric or a booklet belongs in the private repository and nowhere else.
 A word list belongs in this repository, with a generated copy in the Word Builder.
 
+## The core rule
+
+### 0. The resource is a tool a teacher uses. It is not the teacher.
+
+Everything a page could say about itself, the teacher says better, in the room,
+to that class. So a page never explains what it is for, never justifies its own
+existence, never describes its own design, and never narrates what the user is
+about to do. It presents the work and gets out of the way.
+
+The failure is easy to miss because each instance reads like helpfulness. A
+builder's empty cell said "this is what we are building, watch the banks below".
+A print pack said "The colours mark the parts doing analytical work. Read what
+each coloured phrase does, not how many there are." A deck slide was headed "One
+sentence, four colours". Every one of those is the resource doing the teacher's
+job, badly, in writing, to a student who has a teacher standing in front of them.
+All three were cut and nothing was lost.
+
+What stays is the work itself and the instruction needed to act on it. "Cut along
+the dashes" stays: a student cannot do the task without it. "Drag a tile into the
+sentence" stays. "Read what each coloured phrase does, not how many there are"
+goes: that is a teaching point, and it belongs to a person.
+
+The same discipline governs the shape of a page. No punchy subheadings. No
+slogans, no three-part rhythms, no flourishes. A micro-heading over a
+one-sentence block is clutter twice over, once for the heading and once for the
+white space around it. Minimalism here is not a taste, it is the rule: if a
+line, a heading, a legend or a note is not carrying work, cut it.
+
+This applies to every student-facing and teacher-facing surface: page text,
+headings, button labels, empty states, feedback strings, printed sheets. It does
+not apply to code comments, which exist precisely to explain, or to this file.
+
 ## The walls
 
 ### 1. The wall teaches the skill. The CAT tests it. They do not share a source.

@@ -289,7 +289,7 @@
 
 <div class="screen active" id="scr-home">
   <h1>Water in the World</h1>
-  <p class="subtitle">Vocab Hub &middot; build each lesson&rsquo;s words from their morphemes, then keep them alive with quick reviews</p>
+  <p class="subtitle">Vocab Hub</p>
   <div id="home-map"></div>
   <div class="homerow">
     <div class="panelcard">
@@ -1895,7 +1895,7 @@ function openLesson(id, fromHome){
     const unlocked = st.applyDone;
     const t=document.createElement("div"); t.className="tierbar stretch";
     t.innerHTML=`<span class="grow"><b>⛰ Stretch${st.stretchDone?`, done (${sc.got}/${sc.total} first try)`:""}</b>
-      ${unlocked?(rate!==null&&rate>=0.85?"You cleared this lesson in style. These heavier words are built from parts you now own, go get them.":"Heavier words built from the parts you just learned, including some that show up in the CAT."):"Finish “Use the words” to unlock the heavy gear."}</span>
+      ${unlocked?(rate!==null&&rate>=0.85?"Stretch words for this lesson.":"Heavier words built from the parts you just learned, including some that show up in the CAT."):"Finish “Use the words” first."}</span>
       <button class="btn btn-water" ${unlocked?"":"disabled"} onclick="startStretch('${l.id}')">${st.stretchDone?"Do it again":"Stretch"}</button>`;
     tiers.appendChild(t);
   }
@@ -2462,7 +2462,7 @@ function runTier(lid, tierKey){
       const cls=pct>=80?"good":(pct>=60?"mid":"low");
       mount.innerHTML=`<div class="sumbox"><div class="prompt">${label} · lesson ${esc(lid)}: first attempts</div>
         <div class="big ${cls}">${tc.got} / ${tc.total}</div>
-        <p class="muted">${tierKey==="base"?"Foundations set. Those same parts are waiting inside the lesson words, go back and use them.":"Heavy words carried. These count as bonus territory on your report."}</p></div>
+        <p class="muted">${tierKey==="base"?"The same parts appear in this lesson's words.":"Recorded on your report as extension."}</p></div>
         <div class="nextrow" style="justify-content:center">
         <button class="btn btn-primary" onclick="goLesson()">back to lesson</button></div>`;
       return;
@@ -2608,7 +2608,7 @@ function finishReview(uptoIdx, words, firsts, opts){
   document.getElementById("review-body").innerHTML=`
     <div class="sumbox"><div class="prompt">${opts.contLesson?"Warm-up review":"Review"}: first attempts</div>
     <div class="big ${cls}">${got} / ${words.length}</div>
-    <p class="muted">${missed.length?`Back for another visit soon: <b>${esc(missed.join(", "))}</b>: the shuffle remembers.`:"Clean sweep: these words are sticking."}</p></div>
+    <p class="muted">${missed.length?`Back for another visit soon: <b>${esc(missed.join(", "))}</b>: the shuffle remembers.`:"All correct first try."}</p></div>
     <div class="nextrow" style="justify-content:center">${buttons}</div>`;
 }
 
@@ -2616,7 +2616,7 @@ function finishReview(uptoIdx, words, firsts, opts){
 function renderMorphTable(){
   const m=document.getElementById("morphtable-body");
   let html=`<h2 style="text-align:center">Morpheme table</h2>
-    <p class="muted" style="text-align:center;margin-bottom:6px">Every word-part in the unit, colour-coded. Learn a part once and you can read it inside dozens of words.</p>
+    <p class="muted" style="text-align:center;margin-bottom:6px">Every word-part in the unit, colour-coded. </p>
     <div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix</span><span><i style="background:var(--mroot)"></i>Root / base</span><span><i style="background:var(--msuf)"></i>Suffix</span></div>`;
   MTYPE_ORDER.forEach(type=>{
     const group=MORPHS.filter(mm=>mm.type===type).slice().sort((a,b)=>a.piece.replace(/-/g,"").localeCompare(b.piece.replace(/-/g,"")));
@@ -2726,7 +2726,7 @@ function renderReport(){
     <h3>Review sessions (${S.reviews.length})</h3>
     ${S.reviews.length?`<table class="repgrid"><tr><th>When</th><th>Up to lesson</th><th>First try</th><th>Missed</th></tr>${revRows}</table>
       <p class="muted">Across all reviews: <b>${revFirst}/${revAtt}</b> first-attempt. ${S.reviews.length>12?"(last 12 shown)":""}</p>`
-      :`<p class="muted">No review sessions yet: reviews are the part that makes words stick.</p>`}
+      :`<p class="muted">No review sessions yet.</p>`}
     <h3>Words needing another go</h3>
     <p class="muted">${needList.length?needList.map(w=>`${esc(w)}${needs[w]>1?` (×${needs[w]})`:""}`).join(", "):"None recorded: every first attempt so far has landed."}</p>
     <h3>Reading this report</h3>

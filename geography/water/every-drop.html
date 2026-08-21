@@ -233,9 +233,9 @@ details.reflect .inner{padding:2px 16px 14px}
   <section id="scr-intro" class="screen on">
     <div class="intro-hero">
       <h2>💧 Every Drop</h2>
-      <p>One catchment. Two hundred years. Every drop of rain goes <b>somewhere</b>, sky, ground or river, and every choice you make re-routes it. You're the keeper, 1850 → 2050.</p>
+      <p>You manage one catchment from 1850 to 2050. Every choice changes where the rain goes.</p>
       <p class="note">Talk to people before you decide: some choices only appear once you've listened.
-        Some damage doesn't come back.</p>
+       </p>
     </div>
     <div style="text-align:center;margin:10px 0 26px">
       <button class="btn btn-primary" style="font-size:1.05rem;padding:11px 26px" onclick="beginGame()">Begin: 1850, Country</button>
@@ -1398,11 +1398,11 @@ function renderEnd(){
     </div>`).join("");
   el("endzone").innerHTML=`
     <div class="verdict"><h3>What 200 years made</h3>${verdictParas()}
-      <p class="note">No score. A catchment isn't a level you beat, it's a place you leave to someone.</p></div>
+      <p class="note">No score.</p></div>
     <div class="card"><b style="font-size:.85rem">The catchment's people, 2050:</b><div class="advisers" style="margin-top:8px">${finals}</div></div>
     <div class="epilogue"><h3>🌏 What actually happened: the real versions of your choices</h3>
       ${EPILOGUE.map(e=>`<div class="epi-item"><b>${esc(e.t)}</b>${esc(e.d)}</div>`).join("")}</div>
-    <details class="reflect"><summary>🧭 Reflect like a geographer (optional: uses your notebook &amp; the Factfile)</summary><div class="inner">${saqs}</div></details>
+    <details class="reflect"><summary>🧭 Reflect (optional: uses your notebook &amp; the Factfile)</summary><div class="inner">${saqs}</div></details>
     <details class="reflect"><summary>🪜 Rate yourself on the continuum (optional)</summary><div class="inner">${ladders}</div></details>
     <div class="card noprint"><h3 style="font-size:.95rem">Make my report</h3>
       <div class="repform"><input id="rep-name" placeholder="Name"><input id="rep-class" placeholder="Class"></div>

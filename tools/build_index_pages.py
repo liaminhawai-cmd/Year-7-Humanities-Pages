@@ -92,9 +92,7 @@ SITE = [
           ("&#128188;", "Economics &amp; Business", "economics/",
            "Pigeon Patrol: one student business at every level of the continuum.", None)]),
       ],
-      note="<b>Everything here is a plain HTML file.</b> No login, no install, and no internet needed "
-           "once a page has loaded. The single-file versions download and run from a USB stick.<br><br>"
-           "<b>The words for each topic sit with that topic</b>, not in a pile at the front: "
+      note="<b>The words for each topic sit with that topic.</b> "
            "Water in the World has a lesson-by-lesson vocab hub, History has its own word list, and both "
            "appear on the <a href=\"" + WORD_BUILDER + "\">EAL Word Builder</a>.<br><br>"
            "<b>Teacher context</b>, curriculum documents, source files, planning, lives in "
@@ -103,7 +101,7 @@ SITE = [
  # ---------------- Civics ----------------
  dict(path="civics/index.html", cls="civics", depth=1, kicker="Year 7 Humanities",
       title="Civics &amp; Citizenship",
-      intro="Nothing has been built for Civics yet. The curriculum is checked and the shelf is ready for it.",
+      intro="Nothing has been built for Civics yet.",
       back=("../", "All four areas"),
       sections=[("Topics", None, [
           ("&#128499;", "Government &amp; democracy", "#", "Ready to build.", "not built"),
@@ -133,7 +131,7 @@ SITE = [
           ("&#129704;", "GS73, the grinding stone", "gs73/",
            "An excavated object from Madjedbebe on Mirarr Country, with no author, answered from "
            "Foundation to Year 10. The fullest resource set on the site: a wall, level sheets, a "
-           "paragraph builder and the print pack. Kept because it is the one source here that is "
+           "paragraph builder and the print pack. "
            "an object rather than a document.", "archived"),
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
@@ -150,10 +148,6 @@ SITE = [
            "<b>CAT 3: Ancient China</b> is two booklets, chronology skills and source analysis, and "
            "adds historical perspectives and historical significance. Its wall is that booklet's "
            "own rubric, level for level.<br><br>"
-           "Both archive walls are finished, levelled and teachable. "
-           "They are down there because they are not the source the unit in front of a "
-           "class is built on, and a student looking for their own topic should not have to step "
-           "past them.<br><br>"
            "The booklet and the word list are the same for every topic, so they sit on each topic "
            "page rather than here."),
 
@@ -229,7 +223,7 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>This wall does not rehearse CAT 2, and is not pretending to.</b> Rome's CAT is a "
+      note="<b>This wall does not rehearse CAT 2.</b> Rome's CAT is a "
            "tourist guidebook for a traveller arriving in 300 CE, and it assesses no source analysis "
            "at all. What sits here is a real Roman source read from Foundation to Year 10: a way "
            "into the unit, and the source-analysis skill the other two units are marked on.<br><br>"
@@ -259,10 +253,10 @@ SITE = [
            "because it is showing a skill grow across a whole school. This one runs <b>Level 6 to "
            "Level 9</b>, because that is what the Ancient China Source Analysis Booklet rubric runs, and "
            "a student should be able to find their own CAT band on it.<br><br>"
-           "<b>Six rows, not four.</b> They are the booklet's five numbered source-analysis rows plus the "
+           "<b>Six rows.</b> They are the booklet's five numbered source-analysis rows plus the "
            "significance strand Task 3 adds, including <b>historical perspectives</b>, which the "
            "other walls on this site do not have. Each row also names the question it is marked from.<br><br>"
-           "<b>The painting is on the page.</b> Source 1 used to be one line of "
+           "<b>Source 1 is the painting itself.</b> It used to be one line of "
            "text saying a painting existed. It is now the painting, with the emperor, the men taken "
            "from the courtyard, the burning books and the pit each openable on their own. The "
            "booklet does not record the artist, the date or the collection that holds it; see "
@@ -293,12 +287,9 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>Archived, and still the fullest thing here.</b> Ancient Australia is now taught from "
+      note="<b>Archived.</b> Ancient Australia is now taught from "
            "Batman's Treaty and Governor Bourke's Proclamation, so this is no longer the source in "
-           "front of a class. Nothing on it stopped being true: it is a complete resource set, a "
-           "wall, level sheets, a paragraph builder, an interactive and the whole print pack, and it "
-           "is the only source on this site that is an <i>object</i> rather than a document, with no "
-           "author to weigh and no point of view to name.<br><br>"
+           "front of a class.<br><br>"
            "<b>GS73 and Mirarr Country.</b> The source images come from Hayes et al. (2022), open access "
            "under CC BY 4.0, published with the consent of Gundjeihmi Aboriginal Corporation for general "
            "educational purposes. No commercial use is authorised without prior Mirarr consent. See "
@@ -355,14 +346,14 @@ SITE = [
            "Downloads as one file for offline use.") + [
            ("&#129521;", "Paragraph builder", "paragraph-builder.html",
             "D &middot; P &middot; I &middot; U, one card per sentence. Switch to PEEL or TEEL.", None)]),
-        ("Words", "kept in this browser, nothing sent anywhere", [
+        ("Words", None, [
            ("&#128218;", "Vocab hub", "water-vocab-hub.html",
             "All 54 words, split into the unit's nine lessons. Each lesson has its own morpheme "
             "bank, a warm-up review of earlier lessons, base-camp and stretch tiers, and a "
             "printable report.", None),
            words("geo-water",
                  "The same nine lessons with spaced practice, in eighteen languages.")]),
-        ("Interactive tasks", "decision-and-consequence simulations, each with a printable report", [
+        ("Interactive tasks", None, [
            ("&#128167;", "Every Drop", "every-drop.html",
             "200 years in one catchment. Clearing, sewage, a dam, a sealed city, a changed climate "
             ": watch your decisions re-plumb the water cycle itself.", None),
@@ -380,10 +371,8 @@ SITE = [
       note="<b>Draft.</b> Checked against Victorian Curriculum 2.0 Geography F&ndash;10; the unit sits on "
            "VC2HG8K01, K03 and K04. <b>The figure is a classroom redraw</b> of U.S. Geological Survey "
            "public-domain estimates. Who made a display and why is half the source analysis.<br><br>"
-           "<b>Everything below the first two rows</b> was found on an unmerged branch in a different "
-           "repository: built for this unit, working, and never linked from it. Nothing here can "
-           "drift from the shared vocab hub or the Word Builder: the words are the same words. The "
-           "interactive tasks and the 2.1&ndash;2.3 materials exist nowhere else on this site."),
+           "Nothing here can drift from the shared vocab hub or the Word Builder: the words are "
+           "the same words."),
 
  dict(path="geography/landforms/index.html", cls="geography", depth=2, kicker="Geography &middot; Topic 2",
       title="Landscapes &amp; Landforms",
@@ -406,9 +395,7 @@ SITE = [
                 "Archipelago, isthmus, plateau and the rest: 23 terms with morphology, "
                 "in nine languages.")]),
       ],
-      note="Every duplicate has now been resolved: Wattle Bay v14 and the two other mine-siting builds "
-           "were retired on request, leaving one tool per task. They are all still in the git history if "
-           "any is ever wanted back."),
+      note=""),
 
  # ---------------- Economics ----------------
  dict(path="economics/index.html", cls="economics", depth=1, kicker="Year 7 Humanities",
@@ -448,8 +435,7 @@ SITE = [
 
  # ---------------- print ----------------
  dict(path="print/index.html", cls="", depth=1, kicker="Year 7 Humanities", title="Print pack",
-      intro="Everything you print, pin up or hand out. Print at 100%, actual size, with background "
-            "graphics on.",
+      intro="Print at 100%, actual size, with background graphics on.",
       back=("../", "All four areas"),
       sections=[
         ("Student booklet", None, [
@@ -478,8 +464,7 @@ SITE = [
       ],
       note="Pages 1 and 2 of the Batman's Treaty PDF are the sources, A3 landscape, each "
            "run to the full width of the sheet, with who made it, when, and how long after the "
-           "event. What is not on them is any note on what the picture contains: reading the source "
-           "is the task, and a sheet that hands the reading over has done it for the student. "
+           "event. "
            "Pages 3 to 10 are the level sheets, A3 "
            "portrait, one per rung, opening at Foundation to Level 2 and closing at Year 10. The "
            "cultural-consultation item is still open; see "

@@ -504,14 +504,14 @@ function renderAdvisers(){
   return hydro+`<div class="advisers">${cards}</div>`;
 }
 function toggleConsult(k){ state.consult[k]=!state.consult[k];
-  if(k==="culture" && state.consult[k] && state.stage==="plan" && !state.consultEarly){ state.consultEarly=true; flash("You sat down with Aunty Marion before deciding. If your plan now delivers what she actually asked for, it lands as partnership, not tokenism."); }
+  if(k==="culture" && state.consult[k] && state.stage==="plan" && !state.consultEarly){ state.consultEarly=true; flash("You consulted Aunty Marion before deciding."); }
   document.getElementById("advzone").innerHTML=renderAdvisers(); }
 
 /* ================= INTRO ================= */
 function renderIntro(){
   document.getElementById("scr-game").innerHTML=`
     <h1>Share the River</h1>
-    <p class="subtitle">The Big Dry. You manage a catchment through a five-year drought, never dialling amounts, only setting policy, and live with what the climate does.</p>
+    <p class="subtitle">The Big Dry.</p>
     <div class="maparea"><div><div class="layerbtns" id="layerbtns"></div><div class="mapframe" id="mapframe">${drawMap()}</div><div class="mapcap" id="mapcap">${LAYERS.water.cap}</div></div>
       <div><div class="brief"><b>You are the water manager.</b> Each year you don't hand out litres. You choose a <b>policy</b>: how hard to farm, whether to bank or release the dam, whether to modernise or restrict, and where the river and the sacred billabong sit in your priorities. Then the <b>climate resolves</b>, the forecast is only odds, and the drought's damage builds up: salt, an emptying aquifer, a shrinking town, a billabong that can dry for good. Consult your advisers, then commit the year.</div>
       <div id="advzone">${renderAdvisers()}</div></div></div>
@@ -620,7 +620,7 @@ function verdict(){
   if(vals.every(v=>v>=50)&&scars.length===0) return {cls:"good",h:"You brought the catchment through",p:"Five years of drought, and you kept the farms, the town, the river and Country all standing, with the salt held down and the billabong alive. Real managers rarely do this well. You used your whole toolkit: the dam, efficiency, restraint, and water for Country as a genuine partner, not an afterthought."};
   if(M.farm>=60&&scars.length>=2) return {cls:"bad",h:"A district kept afloat on lasting damage",p:`The farms mostly survived, but the drought left ${scars.join(", ")} behind, and those don't heal when the rain returns. Could drip, restraint in the worst years, or protecting Country earlier have carried the district through with less permanent loss?`};
   if((M.river>=55||M.culture>=55)&&(M.farm<40||state.townSize<70)) return {cls:"mixed",h:"You held the river; the community frayed",p:"You protected the environment and Country through the drought, genuinely hard, genuinely valuable. But the town and farms wore it, and a hollowed-out community is its own kind of loss. The art is doing both, and it's brutally hard in a five-year dry."};
-  if(low<30||scars.length>=3) return {cls:"bad",h:"The drought broke the system",p:`By the end, ${scars.length?scars.join(", "):"one value"}, and it won't come back with the rain. That's the hardest lesson of the Big Dry: some damage is permanent, and it's decided years earlier than it shows.`};
+  if(low<30||scars.length>=3) return {cls:"bad",h:"The drought broke the system",p:`By the end, ${scars.length?scars.join(", "):"one value"}, and it won't come back with the rain. `};
   return {cls:"mixed",h:"A hard-fought, mixed drought",p:"You got the catchment through, but with real costs. Trace each fallen bar and each scar back to a year and a bet, that's where the geography lives."};
 }
 function renderEnd(){
@@ -636,7 +636,7 @@ function renderEnd(){
     <div class="verdict ${v.cls}"><h3>${v.h}</h3><p>${v.p}</p></div>
     <h3>How your advisers feel now</h3><div class="react">${feelings}</div>
     <div class="epilogue"><h3>What actually happened</h3><p class="muted" style="margin-bottom:8px">Your Big Dry was fiction. Australia's was real, and your choices echo live questions in Australian water management.</p>${epi}</div>
-    <details class="reflect noprint"><summary>Reflect like a geographer</summary><div class="reflect-body"><p class="muted">Answer using what you decided and what happened. The check only tells you which <b>ideas</b> you used, not whether your reasoning is right; that's for you and your teacher. Tap <b>Sentence starter</b> for a way in, or <b>Stretch</b> to push further.</p>${qs}</div></details>
+    <details class="reflect noprint"><summary>Reflect</summary><div class="reflect-body"><p class="muted">Answer using what you decided and what happened. The check only tells you which <b>ideas</b> you used, not whether your reasoning is right; that's for you and your teacher. Tap <b>Sentence starter</b> for a way in, or <b>Stretch</b> to push further.</p>${qs}</div></details>
     <details class="reflect noprint"><summary>Rate yourself on our Geography continuum</summary><div class="reflect-body"><p class="muted">Which statement best matches what <b>you</b> did? These are the same “I can…” statements your teacher uses; the year band is a guide, not a grade.</p>${ladders}</div></details>
     <div class="runrow noprint" style="justify-content:center"><button class="btn btn-primary" onclick="go('report')">Make my plan &amp; report →</button></div>`;
   window.scrollTo(0,0);
