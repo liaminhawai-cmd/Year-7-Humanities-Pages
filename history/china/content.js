@@ -180,24 +180,26 @@ const SOURCES = [
   tab: "A · The painting",
   kind: "image",
   file: SHEET_IMAGE,
-  ar:   "1089/805",
-  alt:  "A Chinese painting of the burning of the books and the execution of the scholars. The First Emperor sits in white robes inside a red hall, watching. Guards in red drag men in blue scholars' robes across the courtyard, bound volumes burn in flames along the bottom edge, and scholars lie half buried in a pit of yellow earth.",
+  ar:   "960/1254",
+  alt:  "A Chinese painting of the burning of the books and the execution of the scholars. The First Emperor sits in cream robes inside a red hall, watching, an attendant beside him. A scholar in a green robe kneels on the terrace below, holding up a document. Guards in red drag men in blue-grey robes across the lawn, bound volumes burn in flames at the bottom edge, and scholars lie half buried in a pit of yellow earth.",
   missing: "The picture of the painting did not load.<br>Keep <b>qin-burning-books-source.jpg</b> in the same folder as this page.",
   cite: "Source 1, Task 3 of the Year 7 Ancient China Source Analysis Booklet. A later Chinese painting; the artist and date are not recorded in the booklet. See SOURCE-NOTICE.md.",
   whole: { label:"The whole painting",
     text:"Painted centuries after the events it shows, by someone who could not have been there. Every choice in it, who is at the centre, who is on the ground, is a later judgement about how the First Emperor should be remembered." },
-  /* Percentages of the 1089x805 reproduction, read off the image. Nudge them if
-     the plate is ever replaced with a different crop. */
+  /* Percentages of the 960x1254 reproduction, read off the image by cropping
+     each region and checking it against the description before committing to
+     the numbers. Nudge them if the plate is ever replaced with a different
+     crop; do not guess coordinates by eye against a thumbnail. */
   hotspots: [
-   { x:63, y:16, w:20, h:22, label:"The emperor, watching",
-     text:"Qin Shi Huang in white, seated inside the hall with an attendant, at a distance from the killing. The painter puts him above it and in charge of it at the same time." },
-   { x:56, y:38, w:13, h:15, label:"The man on the steps",
-     text:"A figure in a scholar's blue robe and black cap, alone on the empty terrace between the emperor and the courtyard. He is the only one still being heard." },
-   { x:28, y:66, w:30, h:24, label:"The scholars taken",
-     text:"Guards in red seize men in blue robes and pull them down the steps. Red is the soldiers throughout this painting and blue is the scholars, which is how the picture tells you who is doing what to whom." },
-   { x:4, y:87, w:36, h:13, label:"The books burning",
-     text:"Bound volumes stacked in the flames along the bottom edge. This is the other half of the event named in the source: the books and the people who knew them destroyed together." },
-   { x:55, y:78, w:29, h:20, label:"The pit",
+   { x:64, y:20, w:34, h:21, label:"The emperor, watching",
+     text:"Qin Shi Huang in cream, seated inside the hall with an attendant, at a distance from the killing. The painter puts him above it and in charge of it at the same time." },
+   { x:57, y:43, w:19, h:18, label:"The man on the steps",
+     text:"A figure in a scholar's green robe and black cap, alone on the terrace between the emperor and the courtyard, holding up a document. He is the only one still being heard." },
+   { x:1, y:70, w:79, h:20, label:"The scholars taken",
+     text:"Guards in red seize men in blue-grey robes and pull them across the lawn from the steps. Red is the soldiers throughout this painting and blue is the scholars, which is how the picture tells you who is doing what to whom." },
+   { x:0, y:86, w:33, h:14, label:"The books burning",
+     text:"Bound volumes stacked in the flames at the bottom edge. This is the other half of the event named in the source: the books and the people who knew them destroyed together." },
+   { x:61, y:77, w:36, h:20, label:"The pit",
      text:"Scholars lying half covered in yellow earth. The tradition the painter is following says 460 of them were buried alive, and the painting shows it as fact rather than as a claim." }
   ]
  },
