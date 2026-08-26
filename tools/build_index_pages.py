@@ -123,10 +123,7 @@ SITE = [
           ("&#128220;", "1 &middot; Ancient Australia", "batman/",
            "Batman's Treaty at Merri Creek. A painting showing a bargain being struck, and a "
            "Proclamation saying no such bargain was ever possible.", None),
-          ("&#127963;", "2 &middot; Ancient Rome", "vesuvius/",
-           "Pliny the Younger on the eruption of Vesuvius, written twenty-five years after it "
-           "happened.", "draft"),
-          ("&#127772;", "3 &middot; Ancient China", "china/",
+          ("&#127772;", "2 &middot; Ancient China", "china/",
            "Qin Shi Huang, in a painting of the burning of the books and in a historian who "
            "calls him the founder of China.", "draft")]),
         ("Archive", "written and levelled, but not the source a unit is now built on", [
@@ -135,27 +132,14 @@ SITE = [
            "Foundation to Year 10. The fullest resource set on the site: a wall, level sheets, a "
            "paragraph builder and the print pack. Kept because it is the one source here that is "
            "an object rather than a document.", "archived"),
+          ("&#127963;", "Ancient Rome", "vesuvius/",
+           "Pliny the Younger on the eruption of Vesuvius, written twenty-five years after it "
+           "happened. Built as History 2 before the unit list was revised; Year 7 does not now "
+           "teach a Rome unit using this source. Kept as a complete ancient source.", "archived"),
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
-           "is a complete second-hand-report source and works as extra practice.", "archived")])],
-      note="The three units are not assessed on the same skill. "
-           "<b>CAT 1: Ancient Australia</b> is a source-analysis test: primary and secondary "
-           "sources, reliability and accuracy, and First Nations beliefs, values and lives. The "
-           "wall on that page rehearses it, and does it with two sources that disagree, which is "
-           "what comparing interpretations needs. "
-           "<b>CAT 2: Ancient Rome</b> is a tourist guidebook for a traveller arriving in 300 CE, "
-           "and assesses no source analysis at all. So the Rome page holds a Roman source read at "
-           "every level: a source for the unit, not a model of its task. "
-           "<b>CAT 3: Ancient China</b> is two booklets, chronology skills and source analysis, and "
-           "adds historical perspectives and historical significance. Its wall is that booklet's "
-           "own rubric, level for level.<br><br>"
-           "Both archive walls are finished, levelled and teachable. "
-           "They are down there because they are not the source the unit in front of a "
-           "class is built on, and a student looking for their own topic should not have to step "
-           "past them.<br><br>"
-           "The booklet and the word list are the same for every topic, so they sit on each topic "
-           "page rather than here."),
+           "is a complete second-hand-report source and works as extra practice.", "archived")])]),
 
  dict(path="history/batman/index.html", cls="history", depth=2, kicker="History &middot; Topic 1",
       title="Ancient Australia",
@@ -189,7 +173,8 @@ SITE = [
          "One A4 for the teacher: which number belongs in which box.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
+            "Module 1: Migration to Australia. Build each word from its morphemes, then use it, "
+            "with base camp and stretch tiers.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
@@ -211,7 +196,7 @@ SITE = [
            "still to be confirmed before print. See <a href=\"SOURCE-NOTICE.md\">the source "
            "notice</a>."),
 
- dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
+ dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Archive",
       title="Ancient Rome",
       intro="Pliny the Younger's letter to Tacitus on the eruption of Vesuvius, written twenty-five "
             "years after it happened.",
@@ -229,19 +214,25 @@ SITE = [
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
       ],
-      note="<b>This wall does not rehearse CAT 2, and is not pretending to.</b> Rome's CAT is a "
-           "tourist guidebook for a traveller arriving in 300 CE, and it assesses no source analysis "
-           "at all. What sits here is a real Roman source read from Foundation to Year 10: a way "
-           "into the unit, and the source-analysis skill the other two units are marked on.<br><br>"
+      note="<b>Archived.</b> Built as History 2 before the unit list was revised; Year 7 does not now "
+           "teach a Rome unit using this source. Kept as a complete ancient source, read from "
+           "Foundation to Year 10, rather than deleted.<br><br>"
+           "<b>This wall does not rehearse a CAT.</b> A tourist-guidebook task for a traveller "
+           "arriving in 300 CE would assess no source analysis at all, so what sits here is instead "
+           "a real Roman source read at every level: the source-analysis skill the taught units are "
+           "marked on.<br><br>"
            "<b>Draft.</b> Written and levelled but not yet taught. The traditional 24 August date is "
            "disputed, an inscription found at Pompeii in 2018 points to autumn, and the "
            "wall treats that disagreement as part of what there is to analyse."),
 
- dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
+ dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
       title="Ancient China",
       intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
             "argued. Task 3 of the CAT booklet asks you to weigh him.",
       back=("../", "History"),
+      hero_image=("qin-burning-books-source.jpg",
+                   "Qin Shi Huang, with ministers and courtiers, books burning, and the pit of "
+                   "executed scholars"),
       sections=[
         ("Resources", None, wagoll(False,
            "Level 6 to Level 9: the CAT rubric's own bands. Tap the painting, tap any phrase. "
@@ -531,6 +522,16 @@ def build(spec):
         href, label = spec["back"]
         back = f'<a class="back" href="{href}">&larr; {label}</a>'
     note = f'<p class="note">{spec["note"]}</p>' if spec.get("note") else ""
+    # An optional hero image (a source reproduced on its own topic page),
+    # rendered above the sections. Not a card grid, so it gets its own key
+    # rather than being forced into the (emoji, title, href, desc, tag) shape.
+    hero = ""
+    if spec.get("hero_image"):
+        src, alt = spec["hero_image"]
+        hero = (f'<figure style="text-align:center;margin:0 0 24px">'
+                f'<img src="{src}" alt="{html.escape(alt)}" style="max-width:100%;height:auto">'
+                f'<figcaption style="font-size:.9em;color:#666;margin-top:8px">{alt}</figcaption>'
+                f'</figure>\n')
     doc = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -549,7 +550,7 @@ def build(spec):
   {back}
 </header>
 <main>
-{secs}{note}
+{hero}{secs}{note}
 </main>
 <footer>{FOOT}</footer>
 </body>
