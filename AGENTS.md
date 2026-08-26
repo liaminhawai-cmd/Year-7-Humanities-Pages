@@ -4,6 +4,10 @@ Rules for anyone building teaching resources in this repository, human or model.
 Every rule below is here because it was got wrong once. The example that
 produced it is attached, because the example is the part that transfers.
 
+Read `STYLE_GUIDE.md` first — the portable build principles behind everything
+below. Rule 0 here is that guide's minimalism principle, made specific to this
+repo's failures.
+
 ## What each repository is for
 
 Three repositories, and work goes wrong when they are confused for each other.
