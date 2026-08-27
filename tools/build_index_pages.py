@@ -173,8 +173,8 @@ SITE = [
          "One A4 for the teacher: which number belongs in which box.", None)]),
         ("Words &amp; booklet", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Module 1: Migration to Australia. Build each word from its morphemes, then use it, "
-            "with base camp and stretch tiers.", None),
+            "The full unit, lesson by lesson: build each word from its morphemes, then use it, "
+            "with base camp and stretch tiers and a printable report.", None),
            SOURCE_WORDS,
            ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
             "The nine-page student booklet, ready to print.", None)]),
