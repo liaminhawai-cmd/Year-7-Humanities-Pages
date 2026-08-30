@@ -23,6 +23,26 @@ function toggleAccess(){
   if(mode==="build") start("build");
 }
 
+/* Read-aloud: the browser's own speech engine, so nothing leaves the device.
+   The icons are always on show, not gated behind Access mode: a student who
+   needs text read aloud does not necessarily need the motor scaffold. */
+const TTS_OK="speechSynthesis" in window;
+let VOICE=null;
+if(TTS_OK){
+  const pick=()=>{const vs=speechSynthesis.getVoices();
+    VOICE=vs.find(v=>v.lang==="en-AU")||vs.find(v=>v.lang&&v.lang.startsWith("en"))||null};
+  pick();speechSynthesis.onvoiceschanged=pick;
+}
+function speak(text){
+  if(!TTS_OK)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(VOICE)u.voice=VOICE;u.lang=(VOICE&&VOICE.lang)||"en-AU";u.rate=.95;
+  speechSynthesis.speak(u);
+}
+const sayBtn=text=>TTS_OK?`<button class="say" type="button" data-say="${esc(text)}" aria-label="Read aloud" title="Read aloud">\u{1F50A}</button>`:"";
+function wireSay(root){root.querySelectorAll(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)})}
+
 const WORDS=(()=>{
   const out=new Map();
   for(const [word,def] of Object.entries((typeof GLOSS!=="undefined"&&GLOSS.tier3)||{})){
@@ -66,11 +86,12 @@ function drawMeet(){
     const morph=w.morph?.length?`<div class="morphs">${w.morph.map(p=>`<span class="morph ${esc(p[2]||"root")}">${esc(p[0])} · ${esc(p[1])}</span>`).join("")}</div>`:"";
     return `<article class="card ${w.shared?"shared":""} ${k?"known":""}">
       <div class="wordrow"><h3>${esc(w.word)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
-      <button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>
+      ${sayBtn(w.word+". "+w.def)}<button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>
       <p class="definition">${esc(w.def)}</p>
       ${tr?`<span class="translation" lang="${esc(lang)}">${esc(tr)}<span class="note">${esc(languageLabel()?.label)} · machine-drafted, not yet speaker-reviewed</span></span>`:""}${morph}</article>`;
   }).join("");
   $("cards").querySelectorAll(".star").forEach(b=>b.onclick=()=>{const key=b.dataset.word.toLowerCase();mark(key,!known.has(key));drawMeet()});
+  wireSay($("cards"));
   count(`${shown.length} showing`);
 }
 const distractors=(correct,n=3)=>shuffle(WORDS.filter(w=>w!==correct)).slice(0,Math.min(n,WORDS.length-1));
@@ -140,7 +161,7 @@ function renderBoard(){
   const rows=shuffle(board).map(w=>{
     const tr=translation(w);
     return `<div class="wrow" data-word="${esc(w.word)}">
-      <div class="wmean">${esc(w.def)}${tr?`<span class="wtr" lang="${esc(lang)}">${esc(tr)}</span>`:""}</div>
+      <div class="wmean">${sayBtn(w.def)}${esc(w.def)}${tr?`<span class="wtr" lang="${esc(lang)}">${esc(tr)}</span>`:""}</div>
       <div class="wslots">${w.morph.map((_,i)=>(i?'<span class="wjoin">+</span>':"")+`<span class="wslot" data-i="${i}"></span>`).join("")}</div>
       <div class="wbuilt"></div></div>`;
   }).join("");
@@ -152,6 +173,7 @@ function renderBoard(){
     <div class="mbank">${bank}</div>
     <p class="feedback" id="feedback"></p>
     <div class="wtable">${rows}</div>`;
+  wireSay(box());
   box().querySelectorAll(".mtile").forEach(t=>t.onclick=()=>{
     sel=sel&&sel.el===t?null:{piece:t.dataset.piece,el:t};
     box().querySelectorAll(".mtile").forEach(o=>o.classList.toggle("sel",!!sel&&sel.el===o));
@@ -203,8 +225,9 @@ function checkRow(row){
 
 function renderMatch(w,tr){
   const opts=shuffle([w,...distractors(w)]);
-  $("task").innerHTML=`<p class="prompt">${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
+  $("task").innerHTML=`<p class="prompt">${sayBtn(w.def)}${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
     <div class="options">${opts.map(o=>`<button data-word="${esc(o.word)}">${esc(o.word)}</button>`).join("")}</div><p class="feedback" id="feedback"></p>`;
+  wireSay($("task"));
   $("task").querySelectorAll(".options button").forEach(b=>b.onclick=()=>{
     if(answered)return;answered=true;const ok=b.dataset.word.toLowerCase()===w.word.toLowerCase();
     b.classList.add(ok?"right":"wrong");if(ok)mark(w.word);
@@ -213,13 +236,14 @@ function renderMatch(w,tr){
   });
 }
 function renderRecall(w,tr){
-  $("task").innerHTML=`<p class="prompt">${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
+  $("task").innerHTML=`<p class="prompt">${sayBtn(w.def)}${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
     <label for="answer"><b>Type the English Humanities word</b></label><input class="recall" id="answer" autocomplete="off" autocapitalize="none">
     <p class="feedback" id="feedback"></p><div class="actions"><button class="primary" id="check">Check</button><button class="secondary hidden" id="reveal">Show answer</button></div>`;
   let misses=0;
   const check=()=>{if(answered)return;const given=$("answer").value.trim().toLowerCase();
     if(given===w.word.toLowerCase()){answered=true;mark(w.word);$("feedback").className="feedback ok";$("feedback").textContent="Correct.";setTimeout(next,850)}
     else{misses++;$("feedback").className="feedback bad";$("feedback").textContent=misses===1?`Try again. It begins with “${w.word[0]}”.`:"Try once more, or show the answer.";if(misses>1)$("reveal").classList.remove("hidden")}};
+  wireSay($("task"));
   $("check").onclick=check;$("answer").onkeydown=e=>{if(e.key==="Enter")check()};
   $("reveal").onclick=()=>{answered=true;$("feedback").className="feedback bad";$("feedback").innerHTML=`The answer is <b>${esc(w.word)}</b>.`;setTimeout(next,1200)};$("answer").focus();
 }

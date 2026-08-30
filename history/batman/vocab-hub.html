@@ -238,6 +238,9 @@
   body.access .wrow{padding:14px}
   body.access .wmean{font-size:17px}
   body.access .mbank{position:static}
+  .say{border:0;background:none;font-size:15px;cursor:pointer;padding:2px 5px;border-radius:6px;line-height:1;vertical-align:middle}
+  .say:hover{background:var(--bg)}
+  body.access .say{font-size:26px;padding:5px 8px}
   body.access .tile{padding:16px 22px;font-size:24px;border-radius:12px}
   body.access .tile .mm{font-size:24px}
   body.access .opt{padding:16px 18px;font-size:17px}
@@ -393,6 +396,25 @@ try{
   ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
 }catch(e){}
 if(ACCESS) document.addEventListener("DOMContentLoaded",()=>document.body.classList.add("access"));
+/* Read-aloud: the browser's own speech engine, nothing leaves the device.
+   Always on show, not gated behind Access mode: a student who needs text read
+   aloud does not necessarily need the motor scaffold. */
+const TTS_OK="speechSynthesis" in window;
+let VOICE=null;
+if(TTS_OK){
+  const pick=()=>{const vs=speechSynthesis.getVoices();
+    VOICE=vs.find(v=>v.lang==="en-AU")||vs.find(v=>v.lang&&v.lang.startsWith("en"))||null};
+  pick();speechSynthesis.onvoiceschanged=pick;
+}
+function speak(text){
+  if(!TTS_OK)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(VOICE)u.voice=VOICE;u.lang=(VOICE&&VOICE.lang)||"en-AU";u.rate=.95;
+  speechSynthesis.speak(u);
+}
+function sayBtn(text){return TTS_OK?`<button class="say" type="button" data-say="${esc(text)}" aria-label="Read aloud" title="Read aloud">\u{1F50A}</button>`:""}
+function wireSay(root){root.querySelectorAll(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)})}
 function toggleAccess(){
   ACCESS=!ACCESS;
   try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
@@ -1532,7 +1554,7 @@ function renderBuildTable(l, buildable){
   const rowsHtml=active.map(w=>{
     const slots=w.tiles.map((_,si)=>(si?`<span class="wjoin">+</span>`:"")+`<span class="wslot" data-i="${si}"><span class="ph">drop</span></span>`).join("");
     return `<div class="wrow" data-w="${esc(w.w)}">
-      <div class="wmean"><span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
+      <div class="wmean">${sayBtn(w.meaning)}<span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
       <div class="wslots">${slots}</div>
       <div class="wbuilt"></div></div>`;
   }).join("");
@@ -1548,6 +1570,7 @@ function renderBuildTable(l, buildable){
     <div class="wtable" id="wtable">${rowsHtml}</div>`;
   buildProgressText(l);
   wireBuildDnD(mount);
+  wireSay(mount);
 }
 function wireBuildDnD(mount){
   mount.querySelectorAll(".mtile").forEach(tile=>{
@@ -2079,13 +2102,14 @@ function drawGloss(q){
         ? w.tiles.map(t=>`<span class="mtile ${classifyMorph(t[0])}"><span class="mm">${esc(t[0])}</span><span class="gl">${esc(t[1])}</span></span>`).join(" ")
         : `<span class="muted">from a name or idea: see its story in the lesson</span>`;
       const domLabel={water:"EVIDENCE & SOURCES",earth:"LAND & MOVEMENT",people:"BELIEFS & VALUES",hazard:"LAW & CUSTOM"}[w.domain]||w.domain;
-      html+=`<div class="vcard"><div class="top"><span class="w">${esc(w.w)}</span><span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
+      html+=`<div class="vcard"><div class="top"><span class="w">${esc(w.w)}</span>${sayBtn(w.w+". "+w.meaning)}<span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
           <span class="dtag ${w.domain}">${domLabel}</span></div>
         <div class="meaning">${esc(w.meaning)}</div>
         <div class="morph" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px dashed var(--line-soft);padding-top:8px">${map}</div></div>`;
     });
   });
   wrap.innerHTML=html || `<p class="muted" style="text-align:center">No words match “${esc(q)}”.</p>`;
+  wireSay(wrap);
 }
 
 /* ================= REPORT ================= */
