@@ -219,6 +219,28 @@
   .mtile.sel{outline:3px solid var(--ink);outline-offset:2px}
   .mtile.dragging{opacity:.35}
   .drag-ghost{position:fixed;transform:translate(-50%,-50%);z-index:999;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  /* ---- Access mode: big tap targets, tap-only, most slots prefilled ----
+     A persistent per-device profile (localStorage "y7h-access"), for students
+     for whom fine pointer control is the barrier: every target is large, a
+     tapped tile enlarges so the current selection is unmissable, dragging is
+     off so a tremor cannot yank a tile, and each word starts with every slot
+     but one already placed and locked, so one accurate tap finishes a word. */
+  body.access .topnav #accessToggle{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  body.access .mtile{padding:16px 22px;border-radius:12px;border-width:2px}
+  body.access .mtile .mm{font-size:26px}
+  body.access .mtile .gl{font-size:15px}
+  body.access .mtile.sel{transform:scale(1.45);z-index:20;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3);outline-width:4px}
+  body.access .mtiles{gap:14px}
+  body.access .wslot{min-width:110px;min-height:74px;border-width:3px;border-radius:12px;font-size:24px}
+  body.access .wslot .mm{font-size:24px}
+  body.access .wslot .ph{font-size:15px}
+  body.access .wslot.locked{border-style:solid;cursor:default;opacity:.9}
+  body.access .wrow{padding:14px}
+  body.access .wmean{font-size:17px}
+  body.access .mbank{position:static}
+  body.access .tile{padding:16px 22px;font-size:24px;border-radius:12px}
+  body.access .tile .mm{font-size:24px}
+  body.access .opt{padding:16px 18px;font-size:17px}
   /* colour the tap-tile builder used by the tiers, too */
   .tile.prefix .mm{color:var(--mpre)} .tile.root .mm{color:var(--mroot)} .tile.suffix .mm{color:var(--msuf)} .tile.connector .mm{color:var(--mcon)}
 
@@ -285,6 +307,7 @@
   <button data-scr="morphtable" onclick="go('morphtable')">Morpheme table</button>
   <button data-scr="glossary" onclick="go('glossary')">Word list</button>
   <button data-scr="report" onclick="go('report')">My report</button>
+  <button id="accessToggle" onclick="toggleAccess()" title="Bigger tiles, tap only, most pieces already placed">Access</button>
 </div>
 
 <div class="screen active" id="scr-home">
@@ -360,6 +383,23 @@
 
 </div>
 <script>
+/* Access mode: persistent across every page on this site that supports it
+   (one localStorage key), and switchable on first visit by a ?access link so
+   a teacher can hand a student a URL that opens ready. */
+const ACCESS_KEY="y7h-access";
+let ACCESS=false;
+try{
+  if(new URLSearchParams(location.search).has("access")) localStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
+}catch(e){}
+if(ACCESS) document.addEventListener("DOMContentLoaded",()=>document.body.classList.add("access"));
+function toggleAccess(){
+  ACCESS=!ACCESS;
+  try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
+  document.body.classList.toggle("access",ACCESS);
+  const row=document.querySelector("#wtable .wrow");
+  if(row && buildCtx) renderBuildTable(buildCtx.l, buildCtx.l.words.filter(w=>w.type==="morph"||w.type==="compound"));
+}
 "use strict";
 /* ============================================================
    ANCIENT AUSTRALIA: VOCAB HUB
@@ -1499,7 +1539,9 @@ function renderBuildTable(l, buildable){
   const mount=document.getElementById("build-body");
   mount.innerHTML=`
     <h2 style="text-align:center">Build the words: Lesson ${esc(l.id)}</h2>
-    <p class="muted" style="text-align:center;margin-bottom:8px">Drag each morpheme into the word it belongs to, or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left.</p>
+    <p class="muted" style="text-align:center;margin-bottom:8px">${ACCESS
+      ? "Most pieces are placed for you. Read the meaning, tap the missing morpheme, then tap the empty slot. A finished word ticks off and leaves the board."
+      : "Drag each morpheme into the word it belongs to, or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left."}</p>
     <div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix (start)</span><span><i style="background:var(--mroot)"></i>Root (heart)</span><span><i style="background:var(--msuf)"></i>Suffix (end)</span></div>
     <div class="mbank">${bankHtml}</div>
     <div class="buildhint" id="buildhint"></div>
@@ -1510,12 +1552,42 @@ function renderBuildTable(l, buildable){
 function wireBuildDnD(mount){
   mount.querySelectorAll(".mtile").forEach(tile=>{
     const info={piece:tile.dataset.piece, gloss:tile.dataset.gloss, type:tile.dataset.type};
-    tile.addEventListener("pointerdown", e=>startTileDrag(e, tile, info));
+    if(ACCESS){
+      /* Tap only. A drag threshold of six pixels reads a tremor as a drag,
+         so in access mode the pointer never drags: tap selects (and the tile
+         grows), tap again deselects. */
+      tile.addEventListener("click", ()=>{
+        const same=buildCtx.tapSel && buildCtx.tapSel.piece===info.piece && buildCtx.tapSel.type===info.type;
+        setTapSel(same ? null : info);
+      });
+    } else {
+      tile.addEventListener("pointerdown", e=>startTileDrag(e, tile, info));
+    }
   });
   mount.querySelectorAll(".wslot").forEach(slot=>{
     slot.addEventListener("click", ()=>{
+      if(slot.classList.contains("locked")) return;
       if(slot.dataset.piece){ clearSlot(slot); return; }
       if(buildCtx.tapSel){ const s=buildCtx.tapSel; setTapSel(null); fillSlot(slot, s); }
+    });
+  });
+  if(ACCESS) prefillBoard(mount);
+}
+/* Access mode: pre-place every slot but one per word, and lock what is
+   pre-placed. The open slot varies by word, so the student still reads the
+   meaning and still chooses the piece; what falls away is the tap count. */
+function prefillBoard(mount){
+  mount.querySelectorAll(".wrow").forEach(row=>{
+    const w=WORD_BY_NAME[row.dataset.w];
+    if(!w || w.tiles.length<2) return;
+    const open=Math.floor(Math.random()*w.tiles.length);
+    row.querySelectorAll(".wslot").forEach((slot,si)=>{
+      if(si===open) return;
+      const [piece]=w.tiles[si];
+      const m=MORPH_BY_PIECE[piece]||{};
+      slot.dataset.piece=piece; slot.dataset.type=m.type||classifyMorph(piece);
+      slot.className="wslot filled locked "+(m.type||classifyMorph(piece));
+      slot.innerHTML=`<span class="mm">${esc(piece)}</span>`;
     });
   });
 }
@@ -1579,7 +1651,10 @@ function checkRow(rowEl){
     if(st.buildFirst[w.w]===undefined){ st.buildFirst[w.w]=false; WS(w.w).wrong++; save(); }
     const sameSet=[...placed].sort().join("~")===[...answer].sort().join("~");
     rowEl.classList.add("wrong"); setTimeout(()=>rowEl.classList.remove("wrong"),320);
-    if(hint) hint.innerHTML = sameSet
+    if(ACCESS){
+      slots.forEach(s=>{ if(!s.classList.contains("locked")) clearSlot(s); });
+      if(hint) hint.innerHTML="Not that piece: reread the meaning and pick again.";
+    } else if(hint) hint.innerHTML = sameSet
       ? "Right pieces: check the <b>order</b> (prefix → root → suffix). Tap a slot to send its piece back."
       : "Not a match yet: reread the meaning. Tap any slot to send its piece back.";
   }

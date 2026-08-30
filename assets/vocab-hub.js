@@ -3,6 +3,26 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const shuffle=a=>{const b=[...a];for(let i=b.length-1;i;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
 
+/* Access mode: a persistent per-device profile (localStorage "y7h-access",
+   the same key the Ancient Australia hub uses, so it follows the student
+   between topics) for students for whom fine pointer control is the barrier.
+   Bigger targets, the selected tile enlarges, and each word starts with every
+   slot but one already placed and locked. A ?access link switches it on. */
+const ACCESS_KEY="y7h-access";
+let ACCESS=false;
+try{
+  if(new URLSearchParams(location.search).has("access")) localStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
+}catch(e){}
+if(ACCESS) document.body.classList.add("access");
+function toggleAccess(){
+  ACCESS=!ACCESS;
+  try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
+  document.body.classList.toggle("access",ACCESS);
+  $("accessToggle").setAttribute("aria-pressed",String(ACCESS));
+  if(mode==="build") start("build");
+}
+
 const WORDS=(()=>{
   const out=new Map();
   for(const [word,def] of Object.entries((typeof GLOSS!=="undefined"&&GLOSS.tier3)||{})){
@@ -125,7 +145,9 @@ function renderBoard(){
       <div class="wbuilt"></div></div>`;
   }).join("");
   box().innerHTML=`<div class="progress">Build the words · ${board.length} left</div>
-    <p class="boardhint">Read a meaning and work out which word it is. Tap a morpheme, then tap a slot. Build <b>prefix, root, suffix</b>, left to right. Tap a filled slot to take it back. A word you finish correctly leaves the board.</p>
+    <p class="boardhint">${ACCESS
+      ?"Most pieces are placed for you. Read the meaning, tap the missing morpheme, then tap the empty slot. A word you finish correctly leaves the board."
+      :"Read a meaning and work out which word it is. Tap a morpheme, then tap a slot. Build <b>prefix, root, suffix</b>, left to right. Tap a filled slot to take it back. A word you finish correctly leaves the board."}</p>
     <div class="mlegend"><span class="prefix">prefix</span><span class="root">root</span><span class="suffix">suffix</span></div>
     <div class="mbank">${bank}</div>
     <p class="feedback" id="feedback"></p>
@@ -135,11 +157,21 @@ function renderBoard(){
     box().querySelectorAll(".mtile").forEach(o=>o.classList.toggle("sel",!!sel&&sel.el===o));
   });
   box().querySelectorAll(".wslot").forEach(s=>s.onclick=()=>{
+    if(s.classList.contains("locked"))return;
     if(s.dataset.piece){s.removeAttribute("data-piece");s.textContent="";s.classList.remove("filled");return}
     if(!sel)return;
     s.dataset.piece=sel.piece;s.textContent=sel.piece;s.classList.add("filled");
     sel=null;box().querySelectorAll(".mtile").forEach(o=>o.classList.remove("sel"));
     checkRow(s.closest(".wrow"));
+  });
+  if(ACCESS)box().querySelectorAll(".wrow").forEach(row=>{
+    const w=board.find(x=>x.word===row.dataset.word);
+    if(!w||w.morph.length<2)return;
+    const open=Math.floor(Math.random()*w.morph.length);
+    row.querySelectorAll(".wslot").forEach((s,si)=>{
+      if(si===open)return;
+      s.dataset.piece=w.morph[si][0];s.textContent=w.morph[si][0];s.classList.add("filled","locked");
+    });
   });
   count(`${board.length} to build`);
 }
@@ -153,7 +185,7 @@ function checkRow(row){
   if(given!==want){
     row.classList.add("wrong");fb.className="feedback bad";
     fb.textContent="Not that combination. Read the meaning again, and check the order runs prefix, root, suffix.";
-    setTimeout(()=>{row.classList.remove("wrong");slots.forEach(s=>{s.removeAttribute("data-piece");s.textContent="";s.classList.remove("filled")})},900);
+    setTimeout(()=>{row.classList.remove("wrong");slots.forEach(s=>{if(s.classList.contains("locked"))return;s.removeAttribute("data-piece");s.textContent="";s.classList.remove("filled")})},900);
     return;
   }
   mark(w.word);
@@ -201,4 +233,9 @@ $("lang").innerHTML='<option value="">English only</option>'+LANGS.map(l=>{
   const n=COVER.get(l.code)||0,part=n<WORDS.length?` · ${n} of ${WORDS.length} words`:"";
   return `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}${part}</option>`}).join("");
 $("lang").value=lang;$("lang").onchange=()=>{lang=$("lang").value;save();mode==="meet"?drawMeet():start(mode)};
+const accBtn=document.createElement("button");
+accBtn.id="accessToggle";accBtn.className="accessToggle";accBtn.type="button";
+accBtn.textContent="Access";accBtn.title="Bigger tiles, most pieces already placed";
+accBtn.setAttribute("aria-pressed",String(ACCESS));accBtn.onclick=toggleAccess;
+document.querySelector(".tools").appendChild(accBtn);
 $("search").oninput=drawMeet;$("left").onchange=drawMeet;document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>show(b.dataset.mode));drawMeet();

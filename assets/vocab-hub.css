@@ -34,4 +34,17 @@ main{padding:18px 20px 64px}.tools,.tabs,.actions{display:flex;gap:.55rem;flex-w
 .wslot{min-width:4.5rem;min-height:2.3rem;border:2px dashed var(--line);border-radius:8px;display:grid;place-items:center;padding:.25rem .4rem;font-weight:800}
 .wslot.filled{border-style:solid;border-color:var(--deep);background:var(--band)}
 .wjoin{color:var(--muted);font-weight:800}.wbuilt{margin-top:.35rem;font-family:Georgia,serif;font-size:1.15rem;color:var(--ok)}
+.accessToggle{border:1px solid var(--line);border-radius:999px;padding:.5rem .9rem;background:var(--paper);color:var(--ink);font-weight:800}
+.accessToggle[aria-pressed=true],body.access .accessToggle{background:var(--gold);border-color:var(--gold);color:#fff}
+/* Access mode: big tap targets, selection you cannot lose, one open slot per
+   word. Same localStorage profile as the Ancient Australia hub. */
+body.access .mtile{padding:1rem 1.4rem;border-radius:12px}
+body.access .mtile b{font-size:1.5rem}
+body.access .mtile small{font-size:.95rem}
+body.access .mtile.sel{transform:scale(1.45);z-index:20;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3);outline-width:4px}
+body.access .mtiles{gap:.9rem}
+body.access .wslot{min-width:7rem;min-height:4.2rem;border-width:3px;border-radius:12px;font-size:1.4rem}
+body.access .wslot.locked{border-style:solid;cursor:default;opacity:.9}
+body.access .wmean{font-size:1.1rem}
+body.access .options button{padding:1.1rem 1.2rem;font-size:1.1rem}
 @media(max-width:600px){.count{width:100%;margin:0}.grid{grid-template-columns:1fr}}@media print{body{background:#fff}header{background:#fff;color:#000}.tools,.tabs,.back,.star,.intro{display:none}.panel{display:block!important}.practice{display:none}.grid{grid-template-columns:repeat(2,1fr)}.card{break-inside:avoid}}
