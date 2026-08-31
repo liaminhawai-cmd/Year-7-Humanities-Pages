@@ -100,7 +100,7 @@ function drawMeet(){
     <span style="font-weight:400;text-transform:none;color:var(--muted)">— the same colours mark each word's parts below</span></div>`;
   $("cards").innerHTML=legend+shown.map(w=>{
     const k=known.has(w.word.toLowerCase()),tr=translation(w);
-    const morph=w.morph?.length?`<div class="morphs">${w.morph.map(p=>`<span class="morph ${esc(p[2]||"root")}">${esc(p[0])} · ${esc(p[1])}</span>`).join("")}</div>`:"";
+    const morph=w.morph?.length?`<div class="morphline">${w.morph.map(p=>`<code class="${esc(p[2]||"root")}">${esc(p[0])}</code> <i>${esc(p[1])}</i>`).join(" + ")}</div>`:"";
     return `<article class="card ${w.shared?"shared":""} ${k?"known":""}">
       <div class="wordrow"><h3>${colourWord(w)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
       ${sayBtn(w.word+". "+w.def)}<button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>

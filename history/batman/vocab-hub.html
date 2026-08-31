@@ -118,8 +118,8 @@
   .vcard .meaning{font-size:14px;margin:6px 0;line-height:1.5}
   .vcard .morph{font-size:13.5px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--line-soft);padding-top:6px;margin-top:6px}
   .vcard .morph b,.vcard .morph i{color:var(--ink)}
-  .vcard .morph code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:15px}
-  .vcard .morph code.mp{color:var(--mpre)} .vcard .morph code.mr{color:var(--mroot)} .vcard .morph code.ms{color:var(--msuf)} .vcard .morph code.mc{color:var(--mcon)}
+  code.mp,code.mr,code.ms,code.mc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:16px}
+  code.mp{color:var(--mpre)} code.mr{color:var(--mroot)} code.ms{color:var(--msuf)} code.mc{color:var(--mcon)}
   .dtag{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;flex-shrink:0}
   .dtag.water{color:var(--water-d);background:var(--waterbg)}
   .dtag.earth{color:var(--earth-d);background:var(--earthbg)}
@@ -1491,7 +1491,7 @@ function renderBuilder(mount, spec, opts){
           mount.querySelector("#bword").innerHTML=`${esc(spec.w)} ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""} ${trSpan(spec.w)}`;
           opts.onFirst && opts.onFirst(!errored);
           const mr=mount.querySelector("#maprow");
-          mr.innerHTML=spec.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" &nbsp;+&nbsp; ")+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
+          mr.innerHTML=morphChips(spec.tiles)+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
           const r=mount.querySelector("#reveal");
           r.className="reveal show";
           r.innerHTML=`<span class="rw">${esc(spec.w)}</span>: ${esc(spec.meaning)}${(spec.note||spec.explain)?`<br><span class="muted">${spec.note||spec.explain}</span>`:""}`;
@@ -1826,7 +1826,7 @@ function sameLessonDistractors(word, n){
   return shuffle(l.words.filter(x=>x.w!==word.w).map(x=>x.w)).slice(0,n);
 }
 function morphMap(word){
-  return word.tiles ? word.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" + ")+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
+  return word.tiles ? morphChips(word.tiles)+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
 }
 function genTypesFor(word){ return word.tiles ? ["meaningmatch","wordsum","morphmeaning"] : ["meaningmatch"]; }
 function genTask(gtype, word){
@@ -2125,13 +2125,13 @@ function drawGloss(q){
     html+=`<div class="topichead">Lesson ${esc(l.id)} · ${esc(l.title)}</div>`;
     ws.forEach(w=>{
       const map=w.tiles
-        ? w.tiles.map(t=>`<span class="mtile ${classifyMorph(t[0])}"><span class="mm">${esc(t[0])}</span><span class="gl">${esc(t[1])}</span></span>`).join(" ")
+        ? morphChips(w.tiles)+" &nbsp;→&nbsp; <b>"+esc(w.w)+"</b>"
         : `<span class="muted">from a name or idea: see its story in the lesson</span>`;
       const domLabel={water:"EVIDENCE & SOURCES",earth:"LAND & MOVEMENT",people:"BELIEFS & VALUES",hazard:"LAW & CUSTOM"}[w.domain]||w.domain;
       html+=`<div class="vcard"><div class="top"><span class="w">${colourWord(w)}</span>${sayBtn(w.w+". "+w.meaning)}<span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
           <span class="dtag ${w.domain}">${domLabel}</span></div>
         <div class="meaning">${esc(w.meaning)}</div>
-        <div class="morph" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px dashed var(--line-soft);padding-top:8px">${map}</div></div>`;
+        <div class="morph">${map}</div></div>`;
     });
   });
   wrap.innerHTML=html || `<p class="muted" style="text-align:center">No words match “${esc(q)}”.</p>`;
