@@ -78,14 +78,31 @@ function save(){try{localStorage.setItem(STORE,JSON.stringify([...known]));local
 function mark(word,on=true){on?known.add(word.toLowerCase()):known.delete(word.toLowerCase());save()}
 function count(extra=""){$("count").textContent=`${known.size} of ${WORDS.length} secure${extra?" · "+extra:""}`}
 
+/* Colour the headword's own spelling by morpheme role, not just the
+   breakdown line below it — the purple-lab word-list treatment. Falls
+   back to the plain word wherever a piece cannot be found inside it
+   (tier-2/tier-3 words with no morph data, or an odd spelling match). */
+function colourWord(w){
+  if(!w.morph?.length)return esc(w.word);
+  let out="",rest=w.word;
+  for(const [piece,,type] of w.morph){
+    const idx=rest.toLowerCase().indexOf(piece.toLowerCase());
+    if(idx===-1)return esc(w.word);
+    out+=esc(rest.slice(0,idx))+`<span class="${esc(type||"root")}">${esc(rest.slice(idx,idx+piece.length))}</span>`;
+    rest=rest.slice(idx+piece.length);
+  }
+  return out+esc(rest);
+}
 function drawMeet(){
   const q=$("search").value.trim().toLowerCase(),left=$("left").checked;
   const shown=WORDS.filter(w=>(!q||w.word.toLowerCase().includes(q)||w.def.toLowerCase().includes(q))&&(!left||!known.has(w.word.toLowerCase())));
-  $("cards").innerHTML=shown.map(w=>{
+  const legend=`<div class="mlegend"><span class="prefix">prefix</span><span class="root">root</span><span class="suffix">suffix</span>
+    <span style="font-weight:400;text-transform:none;color:var(--muted)">— the same colours mark each word's parts below</span></div>`;
+  $("cards").innerHTML=legend+shown.map(w=>{
     const k=known.has(w.word.toLowerCase()),tr=translation(w);
     const morph=w.morph?.length?`<div class="morphs">${w.morph.map(p=>`<span class="morph ${esc(p[2]||"root")}">${esc(p[0])} · ${esc(p[1])}</span>`).join("")}</div>`:"";
     return `<article class="card ${w.shared?"shared":""} ${k?"known":""}">
-      <div class="wordrow"><h3>${esc(w.word)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
+      <div class="wordrow"><h3>${colourWord(w)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
       ${sayBtn(w.word+". "+w.def)}<button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>
       <p class="definition">${esc(w.def)}</p>
       ${tr?`<span class="translation" lang="${esc(lang)}">${esc(tr)}<span class="note">${esc(languageLabel()?.label)} · machine-drafted, not yet speaker-reviewed</span></span>`:""}${morph}</article>`;
