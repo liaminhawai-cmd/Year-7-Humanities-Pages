@@ -111,11 +111,14 @@
   /* ---- study list ---- */
   .vcard{border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;margin-bottom:10px;background:var(--paper)}
   .vcard .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-  .vcard .w{font-family:Georgia,serif;font-size:17px;font-weight:700}
+  .vcard .w{font-family:Georgia,serif;font-size:23px;font-weight:700}
+  .vcard .w .mp{color:var(--mpre)} .vcard .w .mr{color:var(--mroot)} .vcard .w .ms{color:var(--msuf)} .vcard .w .mc{color:var(--mcon)}
   .vcard .pos{font-size:12px;color:var(--muted);font-style:italic}
   .vcard .meaning{font-size:14px;margin:6px 0;line-height:1.5}
-  .vcard .morph{font-size:12.5px;color:var(--muted);line-height:1.6;border-top:1px dashed var(--line-soft);padding-top:6px;margin-top:6px}
+  .vcard .morph{font-size:13.5px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--line-soft);padding-top:6px;margin-top:6px}
   .vcard .morph b,.vcard .morph i{color:var(--ink)}
+  code.mp,code.mr,code.ms,code.mc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:16px}
+  code.mp{color:var(--mpre)} code.mr{color:var(--mroot)} code.ms{color:var(--msuf)} code.mc{color:var(--mcon)}
   .dtag{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;flex-shrink:0}
   .dtag.water{color:var(--water-d);background:var(--waterbg)}
   .dtag.earth{color:var(--earth-d);background:var(--earthbg)}
@@ -1716,6 +1719,27 @@ LESSONS.forEach(l=>l.words.forEach(w=>(w.tiles||[]).forEach(([p,g])=>{
 const ALL_GLOSSES = [...new Set(MORPHS.map(m=>m.gloss))];
 const MTYPE_LABEL = {prefix:"Prefixes", root:"Roots & base words", suffix:"Suffixes", connector:"Joiners"};
 const MTYPE_ORDER = ["prefix","root","suffix","connector"];
+const MTYPE_LETTER = {prefix:"mp", root:"mr", suffix:"ms", connector:"mc"};
+
+/* Colour a word's own spelling by morpheme role, matching the coloured
+   code-chips in its morph line below — the purple-lab word-list treatment.
+   Falls back to the plain word if a tile can't be found inside it. */
+function colourWord(v){
+  if(v.type==="origin"||!v.tiles?.length) return esc(v.w);
+  let out="", rest=v.w;
+  for(const [piece] of v.tiles){
+    const clean=piece.replace(/-/g,"");
+    const idx=rest.toLowerCase().indexOf(clean.toLowerCase());
+    if(idx===-1) return esc(v.w);
+    out+=esc(rest.slice(0,idx))+`<span class="${MTYPE_LETTER[classifyMorph(piece)]}">${esc(rest.slice(idx,idx+clean.length))}</span>`;
+    rest=rest.slice(idx+clean.length);
+  }
+  return out+esc(rest);
+}
+function morphChips(tiles){
+  return tiles.map(t=>`<code class="${MTYPE_LETTER[classifyMorph(t[0])]}">${esc(t[0])}</code> <i>${esc(t[1])}</i>`).join(" + ");
+}
+const MLEGEND=`<div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix</span><span><i style="background:var(--mroot)"></i>Root</span><span><i style="background:var(--msuf)"></i>Suffix</span><span><i style="background:var(--mcon)"></i>Joiner</span></div>`;
 
 /* ================= STATE ================= */
 /* storage shim: real localStorage as a standalone file / on GitHub Pages;
@@ -1906,13 +1930,14 @@ function renderStudy(l){
   const mount=document.getElementById("study-body");
   document.getElementById("study-prog").textContent=`STEP 1 · MEET THE WORDS · ${l.id}`;
   let html=`<h2>Lesson ${esc(l.id)}, ${esc(l.title)}</h2>
-    <p class="muted" style="margin-bottom:14px">Read each word: its meaning, and how its <b>morphemes</b> build that meaning. Tags show each word’s domain.</p>`;
+    <p class="muted" style="margin-bottom:14px">Read each word: its meaning, and how its <b>morphemes</b> build that meaning. Tags show each word’s domain.</p>
+    ${MLEGEND}`;
   mount.innerHTML=html;
   l.words.forEach(v=>{
-    const map=(v.type==="origin")?"":v.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" &nbsp;+&nbsp; ");
+    const map=(v.type==="origin")?"":morphChips(v.tiles);
     const d=document.createElement("div"); d.className="vcard";
     const domLabel={water:"WATER",earth:"EARTH & RESOURCES",people:"PEOPLE & VALUES",hazard:"HAZARDS"}[v.domain]||v.domain;
-    d.innerHTML=`<div class="top"><span class="w">${esc(v.w)}</span><span class="pos">${esc(v.pos)}</span>${trSpan(v.w)}
+    d.innerHTML=`<div class="top"><span class="w">${colourWord(v)}</span><span class="pos">${esc(v.pos)}</span>${trSpan(v.w)}
         <span class="dtag ${v.domain}">${domLabel}</span></div>
       <div class="meaning">${esc(v.meaning)}</div>
       <div class="morph">${ v.type==="origin" ? v.note : (map+" &nbsp;→&nbsp; "+esc(v.w)+"<br>"+v.note) }</div>`;
@@ -1954,7 +1979,7 @@ function renderBuilder(mount, spec, opts){
           mount.querySelector("#bword").innerHTML=`${esc(spec.w)} ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""} ${trSpan(spec.w)}`;
           opts.onFirst && opts.onFirst(!errored);
           const mr=mount.querySelector("#maprow");
-          mr.innerHTML=spec.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" &nbsp;+&nbsp; ")+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
+          mr.innerHTML=morphChips(spec.tiles)+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
           const r=mount.querySelector("#reveal");
           r.className="reveal show";
           r.innerHTML=`<span class="rw">${esc(spec.w)}</span>: ${esc(spec.meaning)}${(spec.note||spec.explain)?`<br><span class="muted">${spec.note||spec.explain}</span>`:""}`;
@@ -2253,7 +2278,7 @@ function sameLessonDistractors(word, n){
   return shuffle(l.words.filter(x=>x.w!==word.w).map(x=>x.w)).slice(0,n);
 }
 function morphMap(word){
-  return word.tiles ? word.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" + ")+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
+  return word.tiles ? morphChips(word.tiles)+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
 }
 function genTypesFor(word){ return word.tiles ? ["meaningmatch","wordsum","morphmeaning"] : ["meaningmatch"]; }
 function genTask(gtype, word){
@@ -2536,6 +2561,7 @@ function renderGlossary(){
   const m=document.getElementById("glossary-body");
   m.innerHTML=`<h2 style="text-align:center">Word list</h2>
     <p class="muted" style="text-align:center;margin-bottom:10px">Every key word in the unit, meaning, parts and (if you’ve chosen a language) your translation. Search or scroll.</p>
+    ${MLEGEND}
     <div class="reffilter"><input id="gloss-search" placeholder="Search a word or meaning…" aria-label="search words"></div>
     <div id="gloss-list"></div>`;
   const input=m.querySelector("#gloss-search");
@@ -2551,13 +2577,13 @@ function drawGloss(q){
     html+=`<div class="topichead">Lesson ${esc(l.id)} · ${esc(l.title)}</div>`;
     ws.forEach(w=>{
       const map=w.tiles
-        ? w.tiles.map(t=>`<span class="mtile ${classifyMorph(t[0])}"><span class="mm">${esc(t[0])}</span><span class="gl">${esc(t[1])}</span></span>`).join(" ")
+        ? morphChips(w.tiles)+" &nbsp;→&nbsp; <b>"+esc(w.w)+"</b>"
         : `<span class="muted">from a name or place: see its story in the lesson</span>`;
       const domLabel={water:"WATER",earth:"EARTH & RESOURCES",people:"PEOPLE & VALUES",hazard:"HAZARDS"}[w.domain]||w.domain;
-      html+=`<div class="vcard"><div class="top"><span class="w">${esc(w.w)}</span><span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
+      html+=`<div class="vcard"><div class="top"><span class="w">${colourWord(w)}</span><span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
           <span class="dtag ${w.domain}">${domLabel}</span></div>
         <div class="meaning">${esc(w.meaning)}</div>
-        <div class="morph" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px dashed var(--line-soft);padding-top:8px">${map}</div></div>`;
+        <div class="morph">${map}</div></div>`;
     });
   });
   wrap.innerHTML=html || `<p class="muted" style="text-align:center">No words match “${esc(q)}”.</p>`;

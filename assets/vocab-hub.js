@@ -3,6 +3,46 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const shuffle=a=>{const b=[...a];for(let i=b.length-1;i;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
 
+/* Access mode: a persistent per-device profile (localStorage "y7h-access",
+   the same key the Ancient Australia hub uses, so it follows the student
+   between topics) for students for whom fine pointer control is the barrier.
+   Bigger targets, the selected tile enlarges, and each word starts with every
+   slot but one already placed and locked. A ?access link switches it on. */
+const ACCESS_KEY="y7h-access";
+let ACCESS=false;
+try{
+  if(new URLSearchParams(location.search).has("access")) localStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
+}catch(e){}
+if(ACCESS) document.body.classList.add("access");
+function toggleAccess(){
+  ACCESS=!ACCESS;
+  try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
+  document.body.classList.toggle("access",ACCESS);
+  $("accessToggle").setAttribute("aria-pressed",String(ACCESS));
+  if(mode==="build") start("build");
+}
+
+/* Read-aloud: the browser's own speech engine, so nothing leaves the device.
+   The icons are always on show, not gated behind Access mode: a student who
+   needs text read aloud does not necessarily need the motor scaffold. */
+const TTS_OK="speechSynthesis" in window;
+let VOICE=null;
+if(TTS_OK){
+  const pick=()=>{const vs=speechSynthesis.getVoices();
+    VOICE=vs.find(v=>v.lang==="en-AU")||vs.find(v=>v.lang&&v.lang.startsWith("en"))||null};
+  pick();speechSynthesis.onvoiceschanged=pick;
+}
+function speak(text){
+  if(!TTS_OK)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(VOICE)u.voice=VOICE;u.lang=(VOICE&&VOICE.lang)||"en-AU";u.rate=.95;
+  speechSynthesis.speak(u);
+}
+const sayBtn=text=>TTS_OK?`<button class="say" type="button" data-say="${esc(text)}" aria-label="Read aloud" title="Read aloud">\u{1F50A}</button>`:"";
+function wireSay(root){root.querySelectorAll(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)})}
+
 const WORDS=(()=>{
   const out=new Map();
   for(const [word,def] of Object.entries((typeof GLOSS!=="undefined"&&GLOSS.tier3)||{})){
@@ -38,19 +78,37 @@ function save(){try{localStorage.setItem(STORE,JSON.stringify([...known]));local
 function mark(word,on=true){on?known.add(word.toLowerCase()):known.delete(word.toLowerCase());save()}
 function count(extra=""){$("count").textContent=`${known.size} of ${WORDS.length} secure${extra?" · "+extra:""}`}
 
+/* Colour the headword's own spelling by morpheme role, not just the
+   breakdown line below it — the purple-lab word-list treatment. Falls
+   back to the plain word wherever a piece cannot be found inside it
+   (tier-2/tier-3 words with no morph data, or an odd spelling match). */
+function colourWord(w){
+  if(!w.morph?.length)return esc(w.word);
+  let out="",rest=w.word;
+  for(const [piece,,type] of w.morph){
+    const idx=rest.toLowerCase().indexOf(piece.toLowerCase());
+    if(idx===-1)return esc(w.word);
+    out+=esc(rest.slice(0,idx))+`<span class="${esc(type||"root")}">${esc(rest.slice(idx,idx+piece.length))}</span>`;
+    rest=rest.slice(idx+piece.length);
+  }
+  return out+esc(rest);
+}
 function drawMeet(){
   const q=$("search").value.trim().toLowerCase(),left=$("left").checked;
   const shown=WORDS.filter(w=>(!q||w.word.toLowerCase().includes(q)||w.def.toLowerCase().includes(q))&&(!left||!known.has(w.word.toLowerCase())));
-  $("cards").innerHTML=shown.map(w=>{
+  const legend=`<div class="mlegend"><span class="prefix">prefix</span><span class="root">root</span><span class="suffix">suffix</span>
+    <span style="font-weight:400;text-transform:none;color:var(--muted)">— the same colours mark each word's parts below</span></div>`;
+  $("cards").innerHTML=legend+shown.map(w=>{
     const k=known.has(w.word.toLowerCase()),tr=translation(w);
-    const morph=w.morph?.length?`<div class="morphs">${w.morph.map(p=>`<span class="morph ${esc(p[2]||"root")}">${esc(p[0])} · ${esc(p[1])}</span>`).join("")}</div>`:"";
+    const morph=w.morph?.length?`<div class="morphline">${w.morph.map(p=>`<code class="${esc(p[2]||"root")}">${esc(p[0])}</code> <i>${esc(p[1])}</i>`).join(" + ")}</div>`:"";
     return `<article class="card ${w.shared?"shared":""} ${k?"known":""}">
-      <div class="wordrow"><h3>${esc(w.word)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
-      <button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>
+      <div class="wordrow"><h3>${colourWord(w)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
+      ${sayBtn(w.word+". "+w.def)}<button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>
       <p class="definition">${esc(w.def)}</p>
       ${tr?`<span class="translation" lang="${esc(lang)}">${esc(tr)}<span class="note">${esc(languageLabel()?.label)} · machine-drafted, not yet speaker-reviewed</span></span>`:""}${morph}</article>`;
   }).join("");
   $("cards").querySelectorAll(".star").forEach(b=>b.onclick=()=>{const key=b.dataset.word.toLowerCase();mark(key,!known.has(key));drawMeet()});
+  wireSay($("cards"));
   count(`${shown.length} showing`);
 }
 const distractors=(correct,n=3)=>shuffle(WORDS.filter(w=>w!==correct)).slice(0,Math.min(n,WORDS.length-1));
@@ -120,26 +178,39 @@ function renderBoard(){
   const rows=shuffle(board).map(w=>{
     const tr=translation(w);
     return `<div class="wrow" data-word="${esc(w.word)}">
-      <div class="wmean">${esc(w.def)}${tr?`<span class="wtr" lang="${esc(lang)}">${esc(tr)}</span>`:""}</div>
+      <div class="wmean">${sayBtn(w.def)}${esc(w.def)}${tr?`<span class="wtr" lang="${esc(lang)}">${esc(tr)}</span>`:""}</div>
       <div class="wslots">${w.morph.map((_,i)=>(i?'<span class="wjoin">+</span>':"")+`<span class="wslot" data-i="${i}"></span>`).join("")}</div>
       <div class="wbuilt"></div></div>`;
   }).join("");
   box().innerHTML=`<div class="progress">Build the words · ${board.length} left</div>
-    <p class="boardhint">Read a meaning and work out which word it is. Tap a morpheme, then tap a slot. Build <b>prefix, root, suffix</b>, left to right. Tap a filled slot to take it back. A word you finish correctly leaves the board.</p>
+    <p class="boardhint">${ACCESS
+      ?"Most pieces are placed for you. Read the meaning, tap the missing morpheme, then tap the empty slot. A word you finish correctly leaves the board."
+      :"Read a meaning and work out which word it is. Tap a morpheme, then tap a slot. Build <b>prefix, root, suffix</b>, left to right. Tap a filled slot to take it back. A word you finish correctly leaves the board."}</p>
     <div class="mlegend"><span class="prefix">prefix</span><span class="root">root</span><span class="suffix">suffix</span></div>
     <div class="mbank">${bank}</div>
     <p class="feedback" id="feedback"></p>
     <div class="wtable">${rows}</div>`;
+  wireSay(box());
   box().querySelectorAll(".mtile").forEach(t=>t.onclick=()=>{
     sel=sel&&sel.el===t?null:{piece:t.dataset.piece,el:t};
     box().querySelectorAll(".mtile").forEach(o=>o.classList.toggle("sel",!!sel&&sel.el===o));
   });
   box().querySelectorAll(".wslot").forEach(s=>s.onclick=()=>{
+    if(s.classList.contains("locked"))return;
     if(s.dataset.piece){s.removeAttribute("data-piece");s.textContent="";s.classList.remove("filled");return}
     if(!sel)return;
     s.dataset.piece=sel.piece;s.textContent=sel.piece;s.classList.add("filled");
     sel=null;box().querySelectorAll(".mtile").forEach(o=>o.classList.remove("sel"));
     checkRow(s.closest(".wrow"));
+  });
+  if(ACCESS)box().querySelectorAll(".wrow").forEach(row=>{
+    const w=board.find(x=>x.word===row.dataset.word);
+    if(!w||w.morph.length<2)return;
+    const open=Math.floor(Math.random()*w.morph.length);
+    row.querySelectorAll(".wslot").forEach((s,si)=>{
+      if(si===open)return;
+      s.dataset.piece=w.morph[si][0];s.textContent=w.morph[si][0];s.classList.add("filled","locked");
+    });
   });
   count(`${board.length} to build`);
 }
@@ -153,7 +224,7 @@ function checkRow(row){
   if(given!==want){
     row.classList.add("wrong");fb.className="feedback bad";
     fb.textContent="Not that combination. Read the meaning again, and check the order runs prefix, root, suffix.";
-    setTimeout(()=>{row.classList.remove("wrong");slots.forEach(s=>{s.removeAttribute("data-piece");s.textContent="";s.classList.remove("filled")})},900);
+    setTimeout(()=>{row.classList.remove("wrong");slots.forEach(s=>{if(s.classList.contains("locked"))return;s.removeAttribute("data-piece");s.textContent="";s.classList.remove("filled")})},900);
     return;
   }
   mark(w.word);
@@ -171,8 +242,9 @@ function checkRow(row){
 
 function renderMatch(w,tr){
   const opts=shuffle([w,...distractors(w)]);
-  $("task").innerHTML=`<p class="prompt">${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
+  $("task").innerHTML=`<p class="prompt">${sayBtn(w.def)}${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
     <div class="options">${opts.map(o=>`<button data-word="${esc(o.word)}">${esc(o.word)}</button>`).join("")}</div><p class="feedback" id="feedback"></p>`;
+  wireSay($("task"));
   $("task").querySelectorAll(".options button").forEach(b=>b.onclick=()=>{
     if(answered)return;answered=true;const ok=b.dataset.word.toLowerCase()===w.word.toLowerCase();
     b.classList.add(ok?"right":"wrong");if(ok)mark(w.word);
@@ -181,13 +253,14 @@ function renderMatch(w,tr){
   });
 }
 function renderRecall(w,tr){
-  $("task").innerHTML=`<p class="prompt">${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
+  $("task").innerHTML=`<p class="prompt">${sayBtn(w.def)}${esc(w.def)}</p>${tr?`<p class="translation" lang="${esc(lang)}">${esc(tr)}</p>`:""}
     <label for="answer"><b>Type the English Humanities word</b></label><input class="recall" id="answer" autocomplete="off" autocapitalize="none">
     <p class="feedback" id="feedback"></p><div class="actions"><button class="primary" id="check">Check</button><button class="secondary hidden" id="reveal">Show answer</button></div>`;
   let misses=0;
   const check=()=>{if(answered)return;const given=$("answer").value.trim().toLowerCase();
     if(given===w.word.toLowerCase()){answered=true;mark(w.word);$("feedback").className="feedback ok";$("feedback").textContent="Correct.";setTimeout(next,850)}
     else{misses++;$("feedback").className="feedback bad";$("feedback").textContent=misses===1?`Try again. It begins with “${w.word[0]}”.`:"Try once more, or show the answer.";if(misses>1)$("reveal").classList.remove("hidden")}};
+  wireSay($("task"));
   $("check").onclick=check;$("answer").onkeydown=e=>{if(e.key==="Enter")check()};
   $("reveal").onclick=()=>{answered=true;$("feedback").className="feedback bad";$("feedback").innerHTML=`The answer is <b>${esc(w.word)}</b>.`;setTimeout(next,1200)};$("answer").focus();
 }
@@ -201,4 +274,9 @@ $("lang").innerHTML='<option value="">English only</option>'+LANGS.map(l=>{
   const n=COVER.get(l.code)||0,part=n<WORDS.length?` · ${n} of ${WORDS.length} words`:"";
   return `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}${part}</option>`}).join("");
 $("lang").value=lang;$("lang").onchange=()=>{lang=$("lang").value;save();mode==="meet"?drawMeet():start(mode)};
+const accBtn=document.createElement("button");
+accBtn.id="accessToggle";accBtn.className="accessToggle";accBtn.type="button";
+accBtn.textContent="Access";accBtn.title="Bigger tiles, most pieces already placed";
+accBtn.setAttribute("aria-pressed",String(ACCESS));accBtn.onclick=toggleAccess;
+document.querySelector(".tools").appendChild(accBtn);
 $("search").oninput=drawMeet;$("left").onchange=drawMeet;document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>show(b.dataset.mode));drawMeet();

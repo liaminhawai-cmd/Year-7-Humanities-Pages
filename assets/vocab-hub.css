@@ -5,20 +5,28 @@ h1{font-size:clamp(1.5rem,4vw,2.35rem);line-height:1.05;margin:.2rem 0}header p{
 main{padding:18px 20px 64px}.tools,.tabs,.actions{display:flex;gap:.55rem;flex-wrap:wrap;align-items:center}.tools{margin-bottom:14px}.tools select,.tools input{border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;background:var(--paper);color:var(--ink)}.tools input{flex:1 1 15rem}.count{margin-left:auto;color:#d7cebe;font-size:.86rem}
 .tabs{background:#202725;padding:.35rem;border-radius:12px;margin-bottom:14px}.tabs button{flex:1 1 10rem;border:0;border-radius:8px;padding:.7rem .8rem;background:transparent;color:#d7cebe;font-weight:800}.tabs button[aria-selected=true]{background:var(--paper);color:var(--deep)}
 .panel{display:none}.panel.on{display:block}.intro{background:#1d2422;border:1px solid #35403d;color:#d7cebe;border-radius:10px;padding:.8rem 1rem;margin-bottom:12px}
-.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}.card,.practice{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}.card{border-left:5px solid var(--deep)}.card.shared{border-left-color:var(--gold)}.card.known{border-left-color:var(--ok);opacity:.68}
-.wordrow{display:flex;gap:.5rem;align-items:flex-start}.wordrow h3{font-family:Georgia,serif;font-size:1.2rem;margin:0}.star{margin-left:auto;border:0;background:none;font-size:1.25rem;color:var(--muted)}.known .star{color:var(--ok)}.tag{font-size:.62rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;background:var(--band);border-radius:4px;padding:.1rem .35rem;color:var(--muted)}
+.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}.grid .mlegend{grid-column:1/-1}.card,.practice{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}.card{border-left:5px solid var(--deep)}.card.shared{border-left-color:var(--gold)}.card.known{border-left-color:var(--ok);opacity:.68}
+.wordrow{display:flex;gap:.5rem;align-items:flex-start}.wordrow h3{font-family:Georgia,serif;font-size:1.45rem;margin:0}
+.wordrow h3 .prefix{color:#2c6fa8}.wordrow h3 .root{color:#9a5518}.wordrow h3 .suffix{color:#3f7a4a}.wordrow h3 .connector{color:var(--muted)}
+.star{margin-left:auto;border:0;background:none;font-size:1.25rem;color:var(--muted)}.known .star{color:var(--ok)}.tag{font-size:.62rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;background:var(--band);border-radius:4px;padding:.1rem .35rem;color:var(--muted)}
 .definition{margin:.35rem 0 0}.translation{display:block;margin-top:.6rem;padding-top:.55rem;border-top:1px solid var(--line);font-size:1.1rem;font-weight:800;color:var(--deep)}.note{display:block;font-size:.72rem;font-weight:400;color:var(--muted);font-style:italic}
-.morphs,.bank,.built{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.65rem}.morph{border-radius:7px;padding:.28rem .48rem;background:#e5eef5;color:#2c6fa8;font-weight:800;font-size:.82rem}.morph:nth-child(2n){background:#f5e7d8;color:#9a5518}.morph:nth-child(3n){background:#e6f1e8;color:#3f7a4a}
+.bank,.built{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.65rem}
+/* The word-list morph line: a coloured monospace morpheme + its italic gloss,
+   the purple-lab treatment. Pills are kept for the tap/build tiles only. */
+.morphline{font-size:.84rem;color:var(--muted);line-height:1.7;border-top:1px dashed var(--line);padding-top:.4rem;margin-top:.65rem}
+.morphline i{color:var(--ink)}
+.morphline code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:1rem}
+.morphline code.prefix{color:#2c6fa8}.morphline code.root{color:#9a5518}.morphline code.suffix{color:#3f7a4a}.morphline code.connector{color:var(--muted)}
 .practice{max-width:720px;margin:0 auto;min-height:330px}.progress{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.prompt{font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.35;margin:1rem 0}
 .options{display:grid;gap:.55rem}.options button,.piece,.primary,.secondary{border:1px solid var(--line);border-radius:9px;padding:.7rem .85rem;background:var(--paper);color:var(--ink);text-align:left}.options button:hover,.piece:hover{border-color:var(--gold)}.options button.right{background:#e8f2eb;border-color:var(--ok);color:var(--ok);font-weight:800}.options button.wrong{background:#f7e9e6;border-color:var(--bad);color:var(--bad)}
 .bank,.built{min-height:3.2rem;align-items:center;margin:.8rem 0}.piece{font-weight:800;background:var(--band)}.piece:disabled{opacity:.35}.slot{min-width:5rem;min-height:2.8rem;border:2px dashed var(--line);border-radius:9px;display:grid;place-items:center;padding:.35rem}.slot.filled{border-style:solid;border-color:var(--ok);background:#e8f2eb;color:var(--ok);font-weight:800}
 .feedback{min-height:2.2rem;margin:.8rem 0;color:var(--muted)}.feedback.ok{color:var(--ok);font-weight:700}.feedback.bad{color:var(--bad);font-weight:700}.primary{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:800;text-align:center}.secondary{background:var(--band);font-weight:700;text-align:center}.recall{width:100%;border:1px solid var(--line);border-radius:9px;padding:.75rem .85rem}.hidden{display:none!important}
 /* The build board. Prefix, root and suffix each carry a colour AND a word, so
    the grouping survives a colour-blind reader and a greyscale print. */
-.mtile.prefix,.morph.prefix,.mlegend .prefix{background:#e5eef5;color:#2c6fa8}
-.mtile.root,.morph.root,.mlegend .root{background:#f5e7d8;color:#9a5518}
-.mtile.suffix,.morph.suffix,.mlegend .suffix{background:#e6f1e8;color:#3f7a4a}
-.mtile.connector,.morph.connector,.mlegend .connector{background:var(--band);color:var(--muted)}
+.mtile.prefix,.mlegend .prefix{background:#e5eef5;color:#2c6fa8}
+.mtile.root,.mlegend .root{background:#f5e7d8;color:#9a5518}
+.mtile.suffix,.mlegend .suffix{background:#e6f1e8;color:#3f7a4a}
+.mtile.connector,.mlegend .connector{background:var(--band);color:var(--muted)}
 .boardhint{color:var(--muted);font-size:.92rem;margin:.6rem 0}
 .mlegend{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0}.mlegend span{border-radius:5px;padding:.1rem .45rem;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .mbank{background:var(--band);border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;display:grid;gap:.5rem}
@@ -34,4 +42,20 @@ main{padding:18px 20px 64px}.tools,.tabs,.actions{display:flex;gap:.55rem;flex-w
 .wslot{min-width:4.5rem;min-height:2.3rem;border:2px dashed var(--line);border-radius:8px;display:grid;place-items:center;padding:.25rem .4rem;font-weight:800}
 .wslot.filled{border-style:solid;border-color:var(--deep);background:var(--band)}
 .wjoin{color:var(--muted);font-weight:800}.wbuilt{margin-top:.35rem;font-family:Georgia,serif;font-size:1.15rem;color:var(--ok)}
+.say{border:0;background:none;font-size:1.05rem;cursor:pointer;padding:.1rem .3rem;border-radius:6px;line-height:1;vertical-align:middle}
+.say:hover{background:var(--band)}
+body.access .say{font-size:1.7rem;padding:.3rem .5rem}
+.accessToggle{border:1px solid var(--line);border-radius:999px;padding:.5rem .9rem;background:var(--paper);color:var(--ink);font-weight:800}
+.accessToggle[aria-pressed=true],body.access .accessToggle{background:var(--gold);border-color:var(--gold);color:#fff}
+/* Access mode: big tap targets, selection you cannot lose, one open slot per
+   word. Same localStorage profile as the Ancient Australia hub. */
+body.access .mtile{padding:1rem 1.4rem;border-radius:12px}
+body.access .mtile b{font-size:1.5rem}
+body.access .mtile small{font-size:.95rem}
+body.access .mtile.sel{transform:scale(1.45);z-index:20;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3);outline-width:4px}
+body.access .mtiles{gap:.9rem}
+body.access .wslot{min-width:7rem;min-height:4.2rem;border-width:3px;border-radius:12px;font-size:1.4rem}
+body.access .wslot.locked{border-style:solid;cursor:default;opacity:.9}
+body.access .wmean{font-size:1.1rem}
+body.access .options button{padding:1.1rem 1.2rem;font-size:1.1rem}
 @media(max-width:600px){.count{width:100%;margin:0}.grid{grid-template-columns:1fr}}@media print{body{background:#fff}header{background:#fff;color:#000}.tools,.tabs,.back,.star,.intro{display:none}.panel{display:block!important}.practice{display:none}.grid{grid-template-columns:repeat(2,1fr)}.card{break-inside:avoid}}

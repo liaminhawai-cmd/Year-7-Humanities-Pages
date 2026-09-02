@@ -112,11 +112,14 @@
   /* ---- study list ---- */
   .vcard{border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;margin-bottom:10px;background:var(--paper)}
   .vcard .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-  .vcard .w{font-family:Georgia,serif;font-size:17px;font-weight:700}
+  .vcard .w{font-family:Georgia,serif;font-size:23px;font-weight:700}
+  .vcard .w .mp{color:var(--mpre)} .vcard .w .mr{color:var(--mroot)} .vcard .w .ms{color:var(--msuf)} .vcard .w .mc{color:var(--mcon)}
   .vcard .pos{font-size:12px;color:var(--muted);font-style:italic}
   .vcard .meaning{font-size:14px;margin:6px 0;line-height:1.5}
-  .vcard .morph{font-size:12.5px;color:var(--muted);line-height:1.6;border-top:1px dashed var(--line-soft);padding-top:6px;margin-top:6px}
+  .vcard .morph{font-size:13.5px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--line-soft);padding-top:6px;margin-top:6px}
   .vcard .morph b,.vcard .morph i{color:var(--ink)}
+  code.mp,code.mr,code.ms,code.mc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:16px}
+  code.mp{color:var(--mpre)} code.mr{color:var(--mroot)} code.ms{color:var(--msuf)} code.mc{color:var(--mcon)}
   .dtag{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;flex-shrink:0}
   .dtag.water{color:var(--water-d);background:var(--waterbg)}
   .dtag.earth{color:var(--earth-d);background:var(--earthbg)}
@@ -219,6 +222,31 @@
   .mtile.sel{outline:3px solid var(--ink);outline-offset:2px}
   .mtile.dragging{opacity:.35}
   .drag-ghost{position:fixed;transform:translate(-50%,-50%);z-index:999;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  /* ---- Access mode: big tap targets, tap-only, most slots prefilled ----
+     A persistent per-device profile (localStorage "y7h-access"), for students
+     for whom fine pointer control is the barrier: every target is large, a
+     tapped tile enlarges so the current selection is unmissable, dragging is
+     off so a tremor cannot yank a tile, and each word starts with every slot
+     but one already placed and locked, so one accurate tap finishes a word. */
+  body.access .topnav #accessToggle{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  body.access .mtile{padding:16px 22px;border-radius:12px;border-width:2px}
+  body.access .mtile .mm{font-size:26px}
+  body.access .mtile .gl{font-size:15px}
+  body.access .mtile.sel{transform:scale(1.45);z-index:20;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3);outline-width:4px}
+  body.access .mtiles{gap:14px}
+  body.access .wslot{min-width:110px;min-height:74px;border-width:3px;border-radius:12px;font-size:24px}
+  body.access .wslot .mm{font-size:24px}
+  body.access .wslot .ph{font-size:15px}
+  body.access .wslot.locked{border-style:solid;cursor:default;opacity:.9}
+  body.access .wrow{padding:14px}
+  body.access .wmean{font-size:17px}
+  body.access .mbank{position:static}
+  .say{border:0;background:none;font-size:15px;cursor:pointer;padding:2px 5px;border-radius:6px;line-height:1;vertical-align:middle}
+  .say:hover{background:var(--bg)}
+  body.access .say{font-size:26px;padding:5px 8px}
+  body.access .tile{padding:16px 22px;font-size:24px;border-radius:12px}
+  body.access .tile .mm{font-size:24px}
+  body.access .opt{padding:16px 18px;font-size:17px}
   /* colour the tap-tile builder used by the tiers, too */
   .tile.prefix .mm{color:var(--mpre)} .tile.root .mm{color:var(--mroot)} .tile.suffix .mm{color:var(--msuf)} .tile.connector .mm{color:var(--mcon)}
 
@@ -285,11 +313,12 @@
   <button data-scr="morphtable" onclick="go('morphtable')">Morpheme table</button>
   <button data-scr="glossary" onclick="go('glossary')">Word list</button>
   <button data-scr="report" onclick="go('report')">My report</button>
+  <button id="accessToggle" onclick="toggleAccess()" title="Bigger tiles, tap only, most pieces already placed">Access</button>
 </div>
 
 <div class="screen active" id="scr-home">
   <h1>Ancient Australia</h1>
-  <p class="subtitle">Vocab Hub &middot; the full unit plus the tier-2 general words &middot; build each lesson&rsquo;s words from their morphemes, then keep them alive with quick reviews</p>
+  <p class="subtitle">Vocab Hub &middot; the full unit, from the first migration to conserving the past, plus the historian&rsquo;s own toolkit of general history words &middot; build each lesson&rsquo;s words from their morphemes, then keep them alive with quick reviews</p>
   <div id="home-map"></div>
   <div class="homerow">
     <div class="panelcard">
@@ -360,6 +389,42 @@
 
 </div>
 <script>
+/* Access mode: persistent across every page on this site that supports it
+   (one localStorage key), and switchable on first visit by a ?access link so
+   a teacher can hand a student a URL that opens ready. */
+const ACCESS_KEY="y7h-access";
+let ACCESS=false;
+try{
+  if(new URLSearchParams(location.search).has("access")) localStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
+}catch(e){}
+if(ACCESS) document.addEventListener("DOMContentLoaded",()=>document.body.classList.add("access"));
+/* Read-aloud: the browser's own speech engine, nothing leaves the device.
+   Always on show, not gated behind Access mode: a student who needs text read
+   aloud does not necessarily need the motor scaffold. */
+const TTS_OK="speechSynthesis" in window;
+let VOICE=null;
+if(TTS_OK){
+  const pick=()=>{const vs=speechSynthesis.getVoices();
+    VOICE=vs.find(v=>v.lang==="en-AU")||vs.find(v=>v.lang&&v.lang.startsWith("en"))||null};
+  pick();speechSynthesis.onvoiceschanged=pick;
+}
+function speak(text){
+  if(!TTS_OK)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(VOICE)u.voice=VOICE;u.lang=(VOICE&&VOICE.lang)||"en-AU";u.rate=.95;
+  speechSynthesis.speak(u);
+}
+function sayBtn(text){return TTS_OK?`<button class="say" type="button" data-say="${esc(text)}" aria-label="Read aloud" title="Read aloud">\u{1F50A}</button>`:""}
+function wireSay(root){root.querySelectorAll(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)})}
+function toggleAccess(){
+  ACCESS=!ACCESS;
+  try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
+  document.body.classList.toggle("access",ACCESS);
+  const row=document.querySelector("#wtable .wrow");
+  if(row && buildCtx) renderBuildTable(buildCtx.l, buildCtx.l.words.filter(w=>w.type==="morph"||w.type==="compound"));
+}
 "use strict";
 /* ============================================================
    ANCIENT AUSTRALIA: VOCAB HUB
@@ -368,10 +433,7 @@
    1.2 geography and sources, 1.3 the Dreaming) and Module 2 ·
    Living on Country (2.1 living off the land, 2.2 kinship,
    2.3 trade, warfare & funerary customs, 2.4 Lake Mungo,
-   2.5 conserving the past), from the unit's own lesson sheets,
-   plus Module 3 · the tier-2 general words: the homework book's
-   own marked vocabulary (content.js GLOSS.tier2) and the CAT's
-   source-weighing scaffold.
+   2.5 conserving the past), from the unit's own lesson sheets.
 
    Engine shared with the Water in the World Vocab Hub. Clicking a
    lesson AUTO-RUNS a short review of earlier lessons first (skipped
@@ -1095,8 +1157,493 @@ const LESSONS = [
         explain:"Undoing the holy: what Juukan Gorge's destruction was, even though it was legal." } ] },
 },
 
-/* ================= 3.1 WEIGHING A SOURCE (TIER-2) ================= */
-{ id:"3.1", topic:"Module 3 · The tier-2 general words", title:"Weighing a Source",
+/* ================= MODULE 3 · THE HISTORIAN'S TOOLKIT =================
+   The general Tier 2 history words from the unit's master vocabulary
+   list that the lesson sheets above don't already carry. These words
+   follow the student into Ancient China, Ancient Rome and every history
+   unit after: they are the discipline's own vocabulary rather than this
+   unit's. Same mechanics as every other lesson. */
+
+/* ================= 3.1 READING A SOURCE ================= */
+{ id:"3.1", topic:"Module 3 · The Historian's Toolkit", title:"Reading a Source",
+  focus:"The five words historians reach for before they trust anything: where information rises from, how to explain it, whose eyes shaped it, what surrounds it, and whether to believe it.",
+  words:[
+  { w:"Source", pos:"noun", domain:"water",
+    meaning:"A document, object or person that provides information about the past.",
+    type:"origin",
+    originQ:"The word &lsquo;source&rsquo; comes from a Latin word meaning&hellip;",
+    originOpts:["to rise, like water springing from the ground","to write neatly","to dig downwards","to keep a secret"],
+    originA:"to rise, like water springing from the ground",
+    note:"Latin <i>surgere</i>, to rise, the same root as <b>surge</b>. A river's source is the spring it rises from; a historian's source is where information rises from. GS73, a rock painting and an Elder's account are all sources.",
+    apply:[
+      { id:"ap_gsrc_desc", type:"desc",
+        q:"A grinding stone, an oral history and a painting can all provide information about the past. Each one is a&hellip;",
+        a:"Source", opts:["Source","Theory","Context","Consequence"],
+        explain:"Latin <i>surgere</i>, to rise: the spring that information rises from. Sources need not be written." },
+      { id:"ap_gsrc_cloze", type:"cloze",
+        before:"Because so little of ancient Australia was written down, historians treat objects, art and oral traditions as every kind of", after:"they can find.",
+        a:"source", opts:["source","era","technique","legacy"],
+        explain:"Anything information rises from: document, object or person." } ] },
+
+  { w:"Interpret", pos:"verb", domain:"water",
+    meaning:"To explain the meaning of something, especially when it isn't stated directly.",
+    type:"morph",
+    tiles:[["inter-","between"],["pret","to trade, to negotiate"]],
+    decoys:[["intra-","within"],["-ation","the process of"],["post-","after"]],
+    note:"Latin <i>interpres</i>, a go-between in a deal. An interpreter stands <i>between</i> two speakers; a historian stands between a source and its meaning, negotiating what it says without ever being told directly.",
+    apply:[
+      { id:"ap_gint_scn", type:"scenario",
+        q:"GS73's surface shows worn-flat grains and traces of starch. The stone never says what it was for, so archaeologists must work out its meaning from these clues. They are doing what historians call&hellip;",
+        a:"Interpreting the source", opts:["Interpreting the source","Excavating the source","Preserving the source","Contesting the source"],
+        explain:"<i>inter-</i> (between) + <i>pret</i> (negotiate): standing between the evidence and its meaning, working out what isn't stated." },
+      { id:"ap_gint_cloze", type:"cloze",
+        before:"Rock art rarely explains itself, so historians must", after:"its meaning from clues like where it was painted and what it shows.",
+        a:"interpret", opts:["interpret","migrate","document","adapt"],
+        explain:"To explain a meaning that isn't stated directly: the go-between's job." } ] },
+
+  { w:"Perspective", pos:"noun", domain:"water",
+    meaning:"A particular way of viewing or thinking about something, shaped by someone's experience.",
+    type:"morph",
+    tiles:[["per-","through"],["spect","to look"],["-ive","relating to"]],
+    decoys:[["pro-","forward"],["-or","one who"],["circum-","around"]],
+    note:"Latin <i>specere</i>, to look, the same <i>spect</i> as <b>spectator</b> and <b>inspect</b>. A perspective is what you see looking <i>through</i> your own experience. British journals and Aboriginal oral histories give different perspectives on the same events.",
+    apply:[
+      { id:"ap_gper_scn", type:"scenario",
+        q:"An 1830s colonist's journal describes a 'new land'; a Kulin account describes the same place as Country cared for over countless generations. The two accounts differ because each was written from a different&hellip;",
+        a:"Perspective", opts:["Perspective","Consequence","Excavation","Era"],
+        explain:"<i>per-</i> (through) + <i>spect</i> (look): each writer looks through their own experience. Neither account is 'no perspective'." },
+      { id:"ap_gper_cloze", type:"cloze",
+        before:"A source always shows events from its maker's", after:", so historians look for other voices before deciding what happened.",
+        a:"perspective", opts:["perspective","obligation","resource","continuity"],
+        explain:"Looking through one person's experience: <i>per-</i> + <i>spect</i> + <i>-ive</i>." } ] },
+
+  { w:"Context", pos:"noun", domain:"water",
+    meaning:"The circumstances or background that help explain an event or piece of information.",
+    type:"morph",
+    tiles:[["con-","together"],["text","to weave"]],
+    decoys:[["contra-","against"],["-ure","the result of"],["-ology","the study of"]],
+    note:"Latin <i>texere</i>, to weave, the same root as <b>textile</b> and <b>text</b>. Context is everything woven together around a source. GS73 means little on a shelf; found in a dated layer at Madjedbebe, on Mirarr Country, it rewrites the story of Australia.",
+    apply:[
+      { id:"ap_gcon_scn", type:"scenario",
+        q:"On its own, GS73 is just a broken stone. Knowing it came from square B5/52 at Madjedbebe, in a layer up to 65,000 years old, is what gives it meaning. That surrounding information is the stone's&hellip;",
+        a:"Context", opts:["Context","Perspective","Legacy","Innovation"],
+        explain:"<i>con-</i> (together) + <i>text</i> (weave): everything woven around a source. Strip the context and the evidence unravels." },
+      { id:"ap_gcon_cloze", type:"cloze",
+        before:"Before trusting a source, check its", after:": who made it, when, where, and what was happening around it.",
+        a:"context", opts:["context","conflict","technique","theory"],
+        explain:"The background woven together around a source, which explains it." } ] },
+
+  { w:"Credible", pos:"adjective", domain:"water",
+    meaning:"Able to be believed or trusted.",
+    type:"morph",
+    tiles:[["cred","to believe, to trust"],["-ible","able to be"]],
+    decoys:[["in-","not"],["-or","one who"],["-ence","state, quality of"]],
+    note:"Latin <i>credere</i>, to believe. Same root in <b>credit</b> (trusting someone to pay later) and <b>incredible</b> (not able to be believed). A source made close to an event, by someone who was there, is usually more credible.",
+    apply:[
+      { id:"ap_gcred_desc", type:"desc",
+        q:"Which account of the Madjedbebe excavation would historians usually treat as most credible?",
+        a:"The excavation report written by the researchers who dug there, checked by other scientists",
+        opts:["The excavation report written by the researchers who dug there, checked by other scientists","A social media post summarising a headline about it","A story written fifty years later by someone who never visited","An advertisement using the site's name"],
+        explain:"<i>cred</i> (believe) + <i>-ible</i> (able to be): closest to the evidence, and checked, is easiest to believe." },
+      { id:"ap_gcred_cloze", type:"cloze",
+        before:"Because the dating was done independently by two different methods, researchers argue the 65,000-year figure is", after:".",
+        a:"credible", opts:["credible","chronological","sustainable","contested"],
+        explain:"Able to be believed: two independent methods pointing the same way earns trust." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson&rsquo;s words: <b>spect</b> (look), <b>cred</b> (believe), <b>inter-</b> (between), also build easy words you already know.",
+    items:[
+      { id:"b31_spectator", kind:"build", w:"spectator", tiles:[["spect","to look"],["-ator","one who"]], decoys:[["per-","through"],["-ible","able to be"]],
+        meaning:"someone who watches: the look-root doing its everyday job." },
+      { id:"b31_cred", kind:"mcq", q:"A bank gives you <b>credit</b> when it&hellip;", a:"believes you will pay it back", opts:["believes you will pay it back","gives you a free gift","looks at you closely","weaves your account together"],
+        explain:"<i>cred</i> = believe: credit is trust, credible is believable." },
+      { id:"b31_inter", kind:"mcq", q:"<b>Inter-</b> in &lsquo;international&rsquo; and &lsquo;interval&rsquo; means&hellip;", a:"between", opts:["between","inside","above","after"],
+        explain:"Between nations; between two moments. An interpreter stands between speakers." } ] },
+  stretch:{ intro:"Same parts, heavier history words: plus a little word alchemy.",
+    items:[
+      { id:"s31_retrospective", kind:"build", w:"retrospective", tiles:[["retro-","backwards"],["spect","to look"],["-ive","relating to"]], decoys:[["per-","through"],["-or","one who"]],
+        meaning:"looking backwards over the past: every history book is a retrospective act.",
+        explain:"<i>retro-</i> (backwards) + <i>spect</i> (look): the historian's habitual direction of gaze." },
+      { id:"s31_discredit", kind:"mcq", q:"Word alchemy: <b>dis-</b> (apart, undoing) + <b>cred</b> (believe). To &lsquo;discredit&rsquo; a source is to&hellip;", a:"give reasons why it should no longer be believed", opts:["give reasons why it should no longer be believed","copy it carefully","translate it","store it in an archive"],
+        explain:"Undoing belief: what Bourke's Proclamation tried to do to Batman's treaty." } ] },
+},
+
+/* ================= 3.2 TIME AND CHANGE ================= */
+{ id:"3.2", topic:"Module 3 · The Historian's Toolkit", title:"Time and Change",
+  focus:"History's clock words: naming long stretches of time, putting events in order, and tracking what changes, what adapts and what is handed on.",
+  words:[
+  { w:"Era", pos:"noun", domain:"water",
+    meaning:"A long and distinct period of time, often marked by particular events or features.",
+    type:"origin",
+    originQ:"&lsquo;Era&rsquo; comes from Latin <i>aera</i>, which originally meant&hellip;",
+    originOpts:["brass counters used for calculating: a number you count from","a kind of bird","a royal crown","a stone tablet"],
+    originA:"brass counters used for calculating: a number you count from",
+    note:"Latin <i>aera</i>, counters used in reckoning: an era began as the number you counted years from, and grew to mean the stretch of time itself. Archaeologists divide Australia's deep-time history into eras.",
+    apply:[
+      { id:"ap_gera_desc", type:"desc",
+        q:"The tens of thousands of years before European colonisation, marked by its own tools, trade routes and land management, is best described as a distinct&hellip;",
+        a:"Era", opts:["Era","Excavation","Consequence","Perspective"],
+        explain:"A long, distinct stretch of time with its own character: something you count from." },
+      { id:"ap_gera_cloze", type:"cloze",
+        before:"The arrival of the First Fleet in 1788 marks the end of one", after:"and the violent beginning of another.",
+        a:"era", opts:["era","source","technique","obligation"],
+        explain:"A long and distinct period of time, marked by particular events." } ] },
+
+  { w:"Chronological", pos:"adjective", domain:"water",
+    meaning:"Arranged in the order in which events occurred.",
+    type:"morph",
+    tiles:[["chron","time"],["-o-","(joins the parts)"],["log","word, study"],["-ical","relating to"]],
+    decoys:[["geo","earth"],["-ist","one who"],["micro-","small"]],
+    note:"Greek <i>chronos</i>, time, + <i>logos</i>, word or study. Same time-root in <b>chronic</b> and <b>synchronise</b>. A timeline is history told in chronological order: Mungo Man before GS73's layer? Check the dates.",
+    apply:[
+      { id:"ap_gchr_scn", type:"scenario",
+        q:"A student lists: humans reach Australia, Mungo Man is buried, the First Fleet arrives, Mungo Man is returned to Country. The list runs in the order events happened, so it is in&hellip;",
+        a:"Chronological order", opts:["Chronological order","Alphabetical order","Order of importance","Reverse order"],
+        explain:"<i>chron</i> (time) + <i>log</i> (study): ordered by time, earliest first." },
+      { id:"ap_gchr_cloze", type:"cloze",
+        before:"Timelines present events in", after:"order, so causes sit to the left of their consequences.",
+        a:"chronological", opts:["chronological","credible","sustainable","authentic"],
+        explain:"In the order events occurred: time's own order." } ] },
+
+  { w:"Adapt", pos:"verb", domain:"earth",
+    meaning:"To change in order to suit new conditions.",
+    type:"morph",
+    tiles:[["ad-","to, towards"],["apt","fitted, suited"]],
+    decoys:[["ab-","from, away from"],["-ation","the process of"],["-ive","relating to"]],
+    note:"Latin <i>aptus</i>, fitted. To adapt is to fit yourself <i>towards</i> new conditions. As Australia's climate changed over tens of thousands of years, communities adapted their tools, diets and movements.",
+    apply:[
+      { id:"ap_gadp_scn", type:"scenario",
+        q:"When the last ice age ended and the seas rose, coastal communities changed their tools and diets to suit the new shorelines. They&hellip;",
+        a:"Adapted to the new conditions", opts:["Adapted to the new conditions","Interpreted the new conditions","Documented the new conditions","Contested the new conditions"],
+        explain:"<i>ad-</i> (towards) + <i>apt</i> (fitted): changing to fit what the world has become." },
+      { id:"ap_gadp_cloze", type:"cloze",
+        before:"Desert peoples", after:"to some of the driest country on Earth, developing deep knowledge of hidden water.",
+        a:"adapted", opts:["adapted","migrated","preserved","revealed"],
+        explain:"Changed to suit new conditions: fitted themselves towards the desert." } ] },
+
+  { w:"Continuity", pos:"noun", domain:"people",
+    meaning:"The state of continuing without interruption; things staying connected over time.",
+    type:"morph",
+    tiles:[["con-","together"],["tinu","to hold"],["-ity","the state of"]],
+    decoys:[["dis-","apart, not"],["-able","able to be"],["-or","one who"]],
+    note:"Latin <i>tenere</i>, to hold: continuity is a holding-together across time. Historians weigh continuity against change: despite enormous change, ceremony at Lake Mungo 42,000 years ago and ceremony there in 2017 is continuity.",
+    apply:[
+      { id:"ap_gcty_desc", type:"desc",
+        q:"Mungo Man was buried with ceremony 42,000 years ago; in 2017 his descendants welcomed him home with ceremony, smoke and song. For historians this pairing is powerful evidence of cultural&hellip;",
+        a:"Continuity", opts:["Continuity","Conflict","Innovation","Isolation"],
+        explain:"<i>con-</i> + <i>tinu</i> (hold together) + <i>-ity</i>: the same practice held across an almost unimaginable stretch of time." },
+      { id:"ap_gcty_cloze", type:"cloze",
+        before:"Historians study both change and", after:": what shifted between eras, and what held on without interruption.",
+        a:"continuity", opts:["continuity","chronology","credibility","consequence"],
+        explain:"Things staying connected over time: history's other half, alongside change." } ] },
+
+  { w:"Legacy", pos:"noun", domain:"people",
+    meaning:"Something handed down from the past; a lasting effect of earlier events or people.",
+    type:"morph",
+    tiles:[["leg","to send, to entrust"],["-acy","the state or result of"]],
+    decoys:[["re-","again, back"],["-ology","the study of"],["il-","not"]],
+    note:"Latin <i>legare</i>, to send or entrust, the same root as <b>delegate</b>: a legacy is what the past sends forward to us. The open, park-like country the first colonists described was a legacy of fire-stick farming.",
+    apply:[
+      { id:"ap_gleg_desc", type:"desc",
+        q:"Explorers in the 1800s described land 'like a gentleman's park': open grass, spaced trees. That landscape was not accident but the lasting result of generations of fire management: in other words, its&hellip;",
+        a:"Legacy", opts:["Legacy","Context","Theory","Excavation"],
+        explain:"<i>leg</i> (entrust, send) + <i>-acy</i>: what earlier generations' work sent forward into the present." },
+      { id:"ap_gleg_cloze", type:"cloze",
+        before:"The", after:"of ancient land management can still be read in the Australian landscape today.",
+        a:"legacy", opts:["legacy","era","perspective","resource"],
+        explain:"A lasting effect handed down from the past." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson&rsquo;s words: <b>chron</b> (time), <b>apt</b> (fitted), <b>tinu/tain</b> (hold), also build easy words you already know.",
+    items:[
+      { id:"b32_adaptor", kind:"build", w:"adaptor", tiles:[["ad-","to, towards"],["apt","fitted, suited"],["-or","one who"]], decoys:[["chron","time"],["-acy","the state or result of"]],
+        meaning:"the plug that fits one thing to another: the fit-root at the power point." },
+      { id:"b32_chronic", kind:"mcq", q:"A <b>chronic</b> illness is one that&hellip;", a:"lasts a long time", opts:["lasts a long time","is easily cured","affects the lungs","comes from bad food"],
+        explain:"<i>chron</i> = time: chronic means stretched out in time." },
+      { id:"b32_apt", kind:"mcq", q:"&ldquo;An <b>apt</b> description&rdquo; is one that&hellip;", a:"fits perfectly", opts:["fits perfectly","is too long","is written down","comes first"],
+        explain:"<i>aptus</i> = fitted: apt, adapt and aptitude all carry the fit." } ] },
+  stretch:{ intro:"Same parts, heavier history words: plus a little word alchemy.",
+    items:[
+      { id:"s32_synchronise", kind:"build", w:"synchronise", tiles:[["syn-","together with"],["chron","time"],["-ise","to make"]], decoys:[["-ical","relating to"],["-o-","(joins the parts)"]],
+        meaning:"to make things happen at the same time: watches, dancers, dating methods.",
+        explain:"<i>syn-</i> (together) + <i>chron</i> (time): archaeologists synchronise dating methods to check each other." },
+      { id:"s32_anachronism", kind:"mcq", q:"Word alchemy: <b>ana-</b> (against) + <b>chron</b> (time). A film showing Mungo Man's people using metal axes would contain an &lsquo;anachronism&rsquo;, meaning&hellip;", a:"something placed in the wrong time period", opts:["something placed in the wrong time period","a very old artefact","a repeated scene","a respectful ceremony"],
+        explain:"Against time's order: metal axes belong to a different era entirely." } ] },
+},
+
+/* ================= 3.3 LAND, SKILL AND INNOVATION ================= */
+{ id:"3.3", topic:"Module 3 · The Historian's Toolkit", title:"Land, Skill and Innovation",
+  focus:"The words for how people live well in a place: what the land supplies, the skills that put it to work, the new ideas that change everything, and keeping it all going.",
+  words:[
+  { w:"Sustainable", pos:"adjective", domain:"earth",
+    meaning:"Able to be maintained over time without depleting resources.",
+    type:"morph",
+    tiles:[["sus-","from below, up"],["tain","to hold"],["-able","able to be"]],
+    decoys:[["super-","above"],["-ation","the process of"],["-ist","one who"]],
+    note:"Latin <i>tenere</i>, to hold, the same <i>tain</i> as <b>contain</b> and <b>maintain</b>: able to be held up over time. Fire-stick farming and eel aquaculture ran for thousands of years without exhausting the land, the definition of sustainable.",
+    apply:[
+      { id:"ap_gsus_desc", type:"desc",
+        q:"A harvesting practice that leaves enough behind for next season, every season, for thousands of years, is best described as&hellip;",
+        a:"Sustainable", opts:["Sustainable","Chronological","Contested","Secondary"],
+        explain:"<i>sus-</i> (up) + <i>tain</i> (hold) + <i>-able</i>: able to be held up indefinitely, because nothing is used faster than it returns." },
+      { id:"ap_gsus_cloze", type:"cloze",
+        before:"Aboriginal land management practices such as fire-stick farming were highly", after:", maintaining the land's productivity over enormous spans of time.",
+        a:"sustainable", opts:["sustainable","credible","authentic","significant"],
+        explain:"Able to be maintained without depleting resources." } ] },
+
+  { w:"Resource", pos:"noun", domain:"earth",
+    meaning:"A supply of something useful, such as materials, food or energy.",
+    type:"morph",
+    tiles:[["re-","again, back"],["source","to rise, to spring"]],
+    decoys:[["de-","down from"],["-ment","the result of"],["pro-","forward"]],
+    note:"The spring-root again: a resource is a supply that rises up <i>again</i> when drawn on, like a spring refilling. Coastal communities relied on marine resources; desert communities knew exactly where scarce ones rose.",
+    apply:[
+      { id:"ap_gres_desc", type:"desc",
+        q:"Fish, shellfish, fresh water, stone for tools and ochre for ceremony are all examples of what historians call&hellip;",
+        a:"Resources", opts:["Resources","Legacies","Perspectives","Eras"],
+        explain:"<i>re-</i> + <i>source</i>: supplies that rise again when managed well, which is exactly what sustainable practice protects." },
+      { id:"ap_gres_cloze", type:"cloze",
+        before:"Trade routes carried scarce", after:"such as ochre and stone hundreds of kilometres across the continent.",
+        a:"resources", opts:["resources","consequences","contexts","theories"],
+        explain:"Supplies of useful things: materials, food, energy." } ] },
+
+  { w:"Technique", pos:"noun", domain:"earth",
+    meaning:"A particular way of carrying out a task, especially one requiring skill.",
+    type:"morph",
+    tiles:[["techn","skill, craft"],["-ique","relating to"]],
+    decoys:[["tele-","far away"],["-ology","the study of"],["-ician","one skilled in"]],
+    note:"Greek <i>techne</i>, skill or craft, the same root as <b>technology</b> and <b>technician</b>. Different groups developed their own techniques for working stone: the way GS73's maker shaped sandstone was a technique refined over generations.",
+    apply:[
+      { id:"ap_gtec_scn", type:"scenario",
+        q:"Pressure-flaking a stone tool takes years to learn: the angle, the force, the choice of stone. This skilled, particular way of doing the task is a&hellip;",
+        a:"Technique", opts:["Technique","Resource","Consequence","Context"],
+        explain:"Greek <i>techne</i>, craft: a skilled way of carrying out a task, learned and taught." },
+      { id:"ap_gtec_cloze", type:"cloze",
+        before:"Different groups developed their own", after:"for making tools, which lets archaeologists trace where an artefact was made.",
+        a:"techniques", opts:["techniques","obligations","perspectives","legacies"],
+        explain:"Particular skilled ways of carrying out a task." } ] },
+
+  { w:"Innovation", pos:"noun", domain:"earth",
+    meaning:"A new idea, method or invention.",
+    type:"morph",
+    tiles:[["in-","into"],["nov","new"],["-ation","the process of"]],
+    decoys:[["e-","out"],["-ible","able to be"],["-ist","one who"]],
+    note:"Latin <i>novus</i>, new, the same root as <b>novel</b> and <b>renovate</b>. The returning boomerang, specialised fishing hooks and Budj Bim's engineered channels were innovations: new methods brought <i>into</i> use.",
+    apply:[
+      { id:"ap_gino_desc", type:"desc",
+        q:"Shell fishing hooks appear in the archaeological record where none existed before: a genuinely new method of catching fish. Archaeologists call such a development an&hellip;",
+        a:"Innovation", opts:["Innovation","Interpretation","Obligation","Excavation"],
+        explain:"<i>in-</i> (into) + <i>nov</i> (new) + <i>-ation</i>: newness brought into use." },
+      { id:"ap_gino_cloze", type:"cloze",
+        before:"The development of specialised fishing tools was an important", after:"that changed what coastal communities could harvest.",
+        a:"innovation", opts:["innovation","continuity","era","context"],
+        explain:"A new idea, method or invention." } ] },
+
+  { w:"Environment", pos:"noun", domain:"earth",
+    meaning:"The natural surroundings in which people, animals and plants live.",
+    type:"morph",
+    tiles:[["en-","in"],["viron","a circle, around"],["-ment","the result of"]],
+    decoys:[["ex-","out of"],["-able","able to be"],["sub-","under"]],
+    note:"Old French <i>virer</i>, to turn: your environment is everything circling around you. Communities developed deep knowledge of their local environment, knowledge that let them adapt when it changed.",
+    apply:[
+      { id:"ap_genv_desc", type:"desc",
+        q:"The rivers, dunes, plants, animals and weather surrounding the people of Lake Mungo made up their&hellip;",
+        a:"Environment", opts:["Environment","Heritage","Bureaucracy","Legacy"],
+        explain:"<i>en-</i> (in) + <i>viron</i> (circle): the natural world circling the people who live in it." },
+      { id:"ap_genv_cloze", type:"cloze",
+        before:"When the lakes dried out, the", after:"changed completely, and the people who lived there adapted or moved.",
+        a:"environment", opts:["environment","technique","perspective","source"],
+        explain:"The natural surroundings people live in." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson&rsquo;s words: <b>tain</b> (hold), <b>nov</b> (new), <b>techn</b> (skill), also build easy words you already know.",
+    items:[
+      { id:"b33_contain", kind:"build", w:"contain", tiles:[["con-","together"],["tain","to hold"]], decoys:[["nov","new"],["-able","able to be"]],
+        meaning:"to hold things together inside: the hold-root at its plainest." },
+      { id:"b33_novel", kind:"mcq", q:"A <b>novel</b> idea is one that is&hellip;", a:"new", opts:["new","old","borrowed","secret"],
+        explain:"<i>nov</i> = new: novel, novice and innovation all carry it." },
+      { id:"b33_techno", kind:"mcq", q:"<b>Technology</b> literally means&hellip;", a:"the study of skill and craft", opts:["the study of skill and craft","electric machines only","new phones","the study of time"],
+        explain:"<i>techne</i> (craft) + <i>-ology</i> (study): a stone tool is technology too." } ] },
+  stretch:{ intro:"Same parts, heavier history words: plus a little word alchemy.",
+    items:[
+      { id:"s33_renovation", kind:"build", w:"renovation", tiles:[["re-","again, back"],["nov","new"],["-ation","the process of"]], decoys:[["en-","in"],["-ique","relating to"]],
+        meaning:"making something new again: the new-root recycled.",
+        explain:"<i>re-</i> (again) + <i>nov</i> (new): renewal, restoration, making-new-again." },
+      { id:"s33_untenable", kind:"mcq", q:"Word alchemy: <b>un-</b> (not) + <b>ten</b> (hold) + <b>-able</b>. If new evidence makes a theory &lsquo;untenable&rsquo;, the theory&hellip;", a:"can no longer be held", opts:["can no longer be held","becomes stronger","becomes older","is proven true"],
+        explain:"Not holdable: the same hold-root as sustain and contain, turned against a failed idea." } ] },
+},
+
+/* ================= 3.4 CAUSE AND CONSEQUENCE ================= */
+{ id:"3.4", topic:"Module 3 · The Historian's Toolkit", title:"Cause and Consequence",
+  focus:"History's engine room: what makes events happen, what follows from them, the force they land with, and how the record catches it, sometimes revealing more than its makers meant.",
+  words:[
+  { w:"Cause", pos:"noun", domain:"water",
+    meaning:"Something that makes an event or situation happen.",
+    type:"origin",
+    originQ:"&lsquo;Cause&rsquo; comes from Latin <i>causa</i>, which meant a reason, and also&hellip;",
+    originOpts:["a court case: the argument you make for why something happened","a type of sail","a farming tool","a long journey"],
+    originA:"a court case: the argument you make for why something happened",
+    note:"Latin <i>causa</i>: a reason, and a case argued in court, the same word hiding inside <b>because</b> and <b>accuse</b>. Historians argue causes like lawyers: climate change was one cause of shifting settlement patterns, and the case must be made with evidence.",
+    apply:[
+      { id:"ap_gcau_desc", type:"desc",
+        q:"Rising seas cut Tasmania off from the mainland about 12,000 years ago, which is why its peoples developed separately afterwards. In that sentence, the rising seas are the&hellip;",
+        a:"Cause", opts:["Cause","Consequence","Context","Technique"],
+        explain:"<i>causa</i>: what makes the event happen. The separate development is the consequence." },
+      { id:"ap_gcau_cloze", type:"cloze",
+        before:"Historians rarely settle for one", after:"of a great change; most events have several, tangled together.",
+        a:"cause", opts:["cause","era","source","legacy"],
+        explain:"Something that makes an event happen: the argued-for reason." } ] },
+
+  { w:"Consequence", pos:"noun", domain:"water",
+    meaning:"A result or effect of an action or condition.",
+    type:"morph",
+    tiles:[["con-","together, with"],["sequ","to follow"],["-ence","state, quality of"]],
+    decoys:[["pre-","before"],["-or","one who"],["anti-","against"]],
+    note:"Latin <i>sequi</i>, to follow, the same root as <b>sequence</b> and <b>sequel</b>. A consequence follows its cause the way a sequel follows a film. One consequence of long isolation was the development of unique tools and customs.",
+    apply:[
+      { id:"ap_gcsq_scn", type:"scenario",
+        q:"Because Bourke's Proclamation declared every treaty void, Kulin land could afterwards be taken without any agreement at all. The taking of land without agreement was a&hellip;",
+        a:"Consequence of the Proclamation", opts:["Consequence of the Proclamation","Cause of the Proclamation","Translation of the Proclamation","Source of the Proclamation"],
+        explain:"<i>sequ</i> = follow: it came after and because of the ruling. Causes push; consequences follow." },
+      { id:"ap_gcsq_cloze", type:"cloze",
+        before:"One", after:"of the rising seas was that coastal peoples' old lands, and their stories about them, now lie underwater.",
+        a:"consequence", opts:["consequence","cause","innovation","obligation"],
+        explain:"A result that follows from an action or condition." } ] },
+
+  { w:"Impact", pos:"noun", domain:"water",
+    meaning:"A powerful effect or influence.",
+    type:"morph",
+    tiles:[["im-","into, against"],["pact","struck, fastened"]],
+    decoys:[["ex-","out of"],["-ion","the process of"],["inter-","between"]],
+    note:"Latin <i>impingere</i>, to strike against. An impact is history's dent: not just any effect, a forceful one. Colonisation had a devastating impact on Aboriginal and Torres Strait Islander communities, and the word should be kept for effects of that force.",
+    apply:[
+      { id:"ap_gimp_desc", type:"desc",
+        q:"&lsquo;Effect&rsquo; is any result; which word does a historian choose for an effect so forceful it reshapes whole communities?",
+        a:"Impact", opts:["Impact","Continuity","Technique","Context"],
+        explain:"<i>im-</i> (against) + <i>pact</i> (struck): an effect that lands like a blow. Choose it when the force is the point." },
+      { id:"ap_gimp_cloze", type:"cloze",
+        before:"Frontier violence and disease had a devastating", after:"on First Nations communities across the continent.",
+        a:"impact", opts:["impact","era","resource","perspective"],
+        explain:"A powerful effect: struck against, not merely touched." } ] },
+
+  { w:"Reveal", pos:"verb", domain:"water",
+    meaning:"To make something previously unknown or hidden known.",
+    type:"morph",
+    tiles:[["re-","back, away"],["veal","a veil, a covering"]],
+    decoys:[["con-","together"],["-ation","the process of"],["sub-","under"]],
+    note:"Latin <i>velum</i>, a veil: to reveal is to pull the covering back. New dating techniques revealed that Australia was settled far earlier than once thought, and a source can reveal things its maker never intended.",
+    apply:[
+      { id:"ap_grev_scn", type:"scenario",
+        q:"Bourke's Proclamation calls the land 'vacant' in the same sentence that describes people living on it. The author never meant to expose that contradiction; the document does it anyway. Historians say the source&hellip;",
+        a:"Reveals more than its maker intended", opts:["Reveals more than its maker intended","Preserves its maker's wishes","Adapts to its readers","Sustains its own argument"],
+        explain:"<i>re-</i> + <i>veal</i> (veil): the veil pulled back, sometimes by the source's own hand." },
+      { id:"ap_grev_cloze", type:"cloze",
+        before:"New dating of the Madjedbebe layers", after:"that people had reached Australia thousands of years earlier than anyone had proven before.",
+        a:"revealed", opts:["revealed","contested","preserved","migrated"],
+        explain:"Made known what was hidden: pulled the veil back from the date." } ] },
+
+  { w:"Document", pos:"verb", domain:"water",
+    meaning:"To record details of something, often in writing.",
+    type:"morph",
+    tiles:[["doc","to teach, to show"],["-u-","(joins the parts)"],["-ment","the result of"]],
+    decoys:[["dis-","apart, not"],["-able","able to be"],["tele-","far away"]],
+    note:"Latin <i>docere</i>, to teach, the same root as <b>doctor</b>, originally a teacher. A document is a record that can teach; to document is to make one. Researchers document every find at a site before anything is moved.",
+    apply:[
+      { id:"ap_gdoc_scn", type:"scenario",
+        q:"Before lifting GS73 from square B5/52, the team photographed it in place, measured its depth and logged its position. They were careful to&hellip;",
+        a:"Document the find before moving it", opts:["Document the find before moving it","Interpret the find before moving it","Contest the find before moving it","Adapt the find before moving it"],
+        explain:"<i>doc</i> = teach: recording the details so the find can teach later, even after the site is changed forever." },
+      { id:"ap_gdoc_cloze", type:"cloze",
+        before:"Researchers carefully", after:"new archaeological finds, because an artefact removed without records loses most of its meaning.",
+        a:"document", opts:["document","reveal","exploit","migrate"],
+        explain:"To record details: making the record that teaches." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson&rsquo;s words: <b>sequ</b> (follow), <b>doc</b> (teach), <b>pact</b> (struck), also build easy words you already know.",
+    items:[
+      { id:"b34_sequel", kind:"build", w:"sequel", tiles:[["sequ","to follow"],["-el","little thing that"]], decoys:[["doc","to teach, to show"],["-ence","state, quality of"]],
+        meaning:"the film or book that follows the first one: the follow-root at the movies." },
+      { id:"b34_doctor", kind:"mcq", q:"<b>Doctor</b> originally meant&hellip;", a:"a teacher", opts:["a teacher","a healer of horses","a judge","a builder"],
+        explain:"<i>docere</i> = to teach: a doctor was one learned enough to teach; documents teach too." },
+      { id:"b34_because", kind:"mcq", q:"Hiding inside the everyday word <b>because</b> is&hellip;", a:"cause: 'by cause of'", opts:["cause: 'by cause of'","case: 'in the case of'","court: 'by order of'","curse: 'under a curse'"],
+        explain:"Be + cause: every time you say 'because', you are naming a cause." } ] },
+  stretch:{ intro:"Same parts, heavier history words: plus a little word alchemy.",
+    items:[
+      { id:"s34_documentary", kind:"build", w:"documentary", tiles:[["doc","to teach, to show"],["-u-","(joins the parts)"],["-ment","the result of"],["-ary","relating to"]], decoys:[["sequ","to follow"],["-el","little thing that"]],
+        meaning:"a film built from records that teach: primary sources with a soundtrack.",
+        explain:"<i>doc</i> + <i>-ment</i> + <i>-ary</i>: a work made of teaching-records. Whether it is credible still has to be judged." },
+      { id:"s34_inconsequential", kind:"mcq", q:"Word alchemy: <b>in-</b> (not) + <b>consequence</b> + <b>-ial</b>. Calling a detail &lsquo;inconsequential&rsquo; means&hellip;", a:"nothing important follows from it", opts:["nothing important follows from it","it caused everything","it cannot be dated","it was written down"],
+        explain:"Not-following: no consequences flow from it. Historians must decide which details are inconsequential, and they sometimes decide wrongly." } ] },
+},
+
+/* ================= 3.5 TESTING THE PAST ================= */
+{ id:"3.5", topic:"Module 3 · The Historian's Toolkit", title:"Testing the Past",
+  focus:"The courtroom words: is this source genuine, is that claim still being argued over, and how do we guard the evidence so the argument can go on?",
+  words:[
+  { w:"Contested", pos:"adjective", domain:"hazard",
+    meaning:"Disputed; argued about by people with different views.",
+    type:"morph",
+    tiles:[["con-","together"],["test","a witness"],["-ed","having been"]],
+    decoys:[["pro-","forward"],["-able","able to be"],["un-","not"]],
+    note:"Latin <i>testis</i>, a witness, the same root as <b>testify</b> and <b>protest</b>. A contest originally called witnesses against each other. The exact date of first arrival in Australia is still contested: researchers bring rival evidence, like witnesses in a long trial.",
+    apply:[
+      { id:"ap_gcts_desc", type:"desc",
+        q:"Clarkson's team argues the Madjedbebe artefacts stayed where they were dropped; Williams's team argues termites may have shifted them. While both sides argue from evidence, the site's earliest date remains&hellip;",
+        a:"Contested", opts:["Contested","Authentic","Sustainable","Chronological"],
+        explain:"<i>con-</i> + <i>test</i> (witness): witnesses called against each other. Contested does not mean worthless, it means the trial is still running." },
+      { id:"ap_gcts_cloze", type:"cloze",
+        before:"The exact route of the first migration to Australia is still", after:"by researchers, with several theories in play.",
+        a:"contested", opts:["contested","documented","preserved","adapted"],
+        explain:"Argued about by people with different views." } ] },
+
+  { w:"Authentic", pos:"adjective", domain:"water",
+    meaning:"Genuine; true to its original nature.",
+    type:"origin",
+    originQ:"&lsquo;Authentic&rsquo; comes from Greek <i>authentes</i>, meaning&hellip;",
+    originOpts:["one who acts on their own authority: the real doer of a deed","a gold coin","a temple guard","an old manuscript"],
+    originA:"one who acts on their own authority: the real doer of a deed",
+    note:"Greek <i>authentes</i>: the real doer, acting on their own authority, the same root as <b>author</b> and <b>authority</b>. An authentic artefact really is what it claims to be. Historians work hard to determine whether an artefact is authentic before building anything on it.",
+    apply:[
+      { id:"ap_gaut_desc", type:"desc",
+        q:"Before the 65,000-year claim could be published, GS73 had to be shown to be a real grinding stone, really from that layer, and not a later intrusion or a fake. The team was testing whether the evidence was&hellip;",
+        a:"Authentic", opts:["Authentic","Sustainable","Inconsequential","Secondary"],
+        explain:"Greek <i>authentes</i>, the real doer: genuine, really what it claims to be. Everything else is built on this test." },
+      { id:"ap_gaut_cloze", type:"cloze",
+        before:"Museums test artefacts carefully, because an object that is not", after:"can poison every conclusion drawn from it.",
+        a:"authentic", opts:["authentic","chronological","contested","credible"],
+        explain:"Genuine, true to its original nature: the real thing." } ] },
+
+  { w:"Preserve", pos:"verb", domain:"hazard",
+    meaning:"To keep something safe from harm, damage or loss.",
+    type:"morph",
+    tiles:[["pre-","before"],["serve","to keep, to guard"]],
+    decoys:[["post-","after"],["-ation","the process of"],["ob-","to, towards"]],
+    note:"Latin <i>servare</i>, to guard, the same keep-root as <b>conservation</b> and <b>reserve</b>: to guard something <i>before</i> it can be harmed. Laws now exist to preserve sites like Lake Mungo, laws that came too late for Juukan Gorge.",
+    apply:[
+      { id:"ap_gpre_scn", type:"scenario",
+        q:"The Willandra Lakes region is protected by law so its burials, middens and footprints survive for future generations to study and for traditional owners to care for. The purpose of the law is to&hellip;",
+        a:"Preserve the sites", opts:["Preserve the sites","Contest the sites","Excavate the sites","Interpret the sites"],
+        explain:"<i>pre-</i> (before) + <i>serv</i> (guard): guarding ahead of harm, so the evidence and the Country it belongs to survive." },
+      { id:"ap_gpre_cloze", type:"cloze",
+        before:"Elders and archaeologists worked together to", after:"the Mungo footprints, reburying them under protective sand.",
+        a:"preserve", opts:["preserve","reveal","contest","document"],
+        explain:"To keep safe from harm: guarded before damage could reach them." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson&rsquo;s words: <b>test</b> (witness), <b>serv</b> (keep, guard), <b>pre-</b> (before), also build easy words you already know.",
+    items:[
+      { id:"b35_protest", kind:"build", w:"protest", tiles:[["pro-","forward"],["test","a witness"]], decoys:[["pre-","before"],["-ed","having been"]],
+        meaning:"to stand forward as a witness against something: the witness-root in the street." },
+      { id:"b35_serv", kind:"mcq", q:"A nature <b>reserve</b> is land that is&hellip;", a:"kept back and guarded from harm", opts:["kept back and guarded from harm","sold to farmers","left unnamed","used for sport"],
+        explain:"<i>serv</i> = keep, guard: reserve, preserve and conservation all guard something." },
+      { id:"b35_pre", kind:"mcq", q:"<b>Pre-</b> in &lsquo;prepare&rsquo;, &lsquo;prehistoric&rsquo; and &lsquo;preserve&rsquo; means&hellip;", a:"before", opts:["before","after","against","under"],
+        explain:"Before: get ready before, the time before writing, guard before harm." } ] },
+  stretch:{ intro:"Same parts, heavier history words: plus a little word alchemy.",
+    items:[
+      { id:"s35_testimony", kind:"build", w:"testimony", tiles:[["test","a witness"],["-imony","the state or act of"]], decoys:[["pro-","forward"],["-ed","having been"]],
+        meaning:"what a witness formally states: oral history is testimony, and historians treat it as evidence.",
+        explain:"<i>testis</i> (witness): a witness's account. The 2017 return of Mungo Man honoured decades of Elders' testimony." },
+      { id:"s35_incontestable", kind:"mcq", q:"Word alchemy: <b>in-</b> (not) + <b>contest</b> + <b>-able</b>. Evidence described as &lsquo;incontestable&rsquo; is&hellip;", a:"impossible to argue against", opts:["impossible to argue against","not yet examined","found underwater","recently faked"],
+        explain:"Not-contestable: no witness can be called against it. Historians use the word sparingly, and usually too soon." } ] },
+},
+
+/* ================= 4.1 WEIGHING A SOURCE (TIER-2) ================= */
+{ id:"4.1", topic:"Module 4 · The homework book’s tier-2 words", title:"Weighing a Source",
   focus:"The CAT's own scaffold: every source is weighed by its origin, its purpose, its reliability and its accuracy. These four do that weighing, on any topic, in any subject.",
   words:[
   { w:"Purpose", pos:"noun", domain:"water",
@@ -1183,8 +1730,8 @@ const LESSONS = [
         explain:"The bind-root <i>lig</i> again: obligation, ligament, rely, reliable." } ] },
 },
 
-/* ================= 3.2 WHAT THE SOURCE SAYS (TIER-2) ================= */
-{ id:"3.2", topic:"Module 3 · The tier-2 general words", title:"What the Source Says",
+/* ================= 4.2 WHAT THE SOURCE SAYS (TIER-2) ================= */
+{ id:"4.2", topic:"Module 4 · The homework book’s tier-2 words", title:"What the Source Says",
   focus:"A source states some things openly and folds others into the picture. These words name the difference, and what the Batman painting is really doing.",
   words:[
   { w:"Explicit", pos:"adjective", domain:"water",
@@ -1286,8 +1833,8 @@ const LESSONS = [
         explain:"The same <i>log</i> you built in archaeologist and genealogy." } ] },
 },
 
-/* ================= 3.3 ARGUING ABOUT THE PAST (TIER-2) ================= */
-{ id:"3.3", topic:"Module 3 · The tier-2 general words", title:"Arguing About the Past",
+/* ================= 4.3 ARGUING ABOUT THE PAST (TIER-2) ================= */
+{ id:"4.3", topic:"Module 4 · The homework book’s tier-2 words", title:"Arguing About the Past",
   focus:"History is argued, not just remembered. These are the words the argument is conducted in: who has authority, what is disputed, what can be justified and what must be rejected.",
   words:[
   { w:"Dispute", pos:"noun", domain:"hazard",
@@ -1306,21 +1853,6 @@ const LESSONS = [
         a:"dispute", opts:["dispute","authority","heritage","excavation"],
         explain:"Reckoned apart: <i>dis-</i> + <i>putare</i>, the same reckon-root as computer." } ] },
 
-  { w:"Contested", pos:"adjective", domain:"hazard",
-    meaning:"Argued about; challenged, with more than one side calling evidence against the other.",
-    type:"morph",
-    tiles:[["con-","together"],["test","to witness, to call witness"],["-ed","made, having been"]],
-    decoys:[["dis-","apart, in different directions"],["-ing","in the process of"],["pute","to think, to reckon"]],
-    note:"Latin <i>contestari</i>, to call witnesses together: <i>con-</i> (together) + <i>testis</i> (a witness). Same <i>test</i> in <b>testify</b> and <b>testament</b>. A contested claim is one both sides have summoned their witnesses over, which is precisely what the painting and the Proclamation are: two witnesses that disagree.",
-    apply:[
-      { id:"ap_cont_scn", type:"scenario",
-        q:"One source shows a fair bargain; another declares no bargain was possible. Between them, the story of the treaty is…",
-        a:"Contested", opts:["Contested","Explicit","Reliable","Conserved"],
-        explain:"<i>con-</i> (together) + <i>test</i> (witness): witnesses called against each other." },
-      { id:"ap_cont_cloze", type:"cloze",
-        before:"The wall marks the treaty story as", after:", because the two sources call their evidence against each other.",
-        a:"contested", opts:["contested","declared","implicit","seasonal"],
-        explain:"Witnessed against: <i>con-</i> + <i>test</i> + <i>-ed</i>." } ] },
 
   { w:"Authority", pos:"noun", domain:"hazard",
     meaning:"The power to decide, and the standing that makes others accept the decision.",
@@ -1437,6 +1969,29 @@ const TR = {
 "Heritage":{zh:"遗产",yue:"遺產",vi:"di sản",ar:"تراث",fa:"میراث",ur:"ورثہ",am:"ቅርስ",ml:"പൈതൃകം"},
 "Sacred":{zh:"神圣的",yue:"神聖的",vi:"thiêng liêng",ar:"مقدّس",fa:"مقدس",ur:"مقدس",am:"ቅዱስ",ml:"പവിത്രമായ"},
 "Site":{zh:"遗址（地点）",yue:"遺址（地點）",vi:"địa điểm (di chỉ)",ar:"موقع",fa:"محوطه (مکان)",ur:"مقام (جگہ)",am:"ቦታ (ስፍራ)",ml:"സ്ഥലം (പുരാവസ്തു കേന്ദ്രം)"},
+"Source":{zh:"来源（史料）",yue:"來源（史料）",vi:"nguồn (sử liệu)",ar:"مصدر",fa:"منبع",ur:"ماخذ",am:"ምንጭ",ml:"സ്രോതസ്സ്"},
+"Interpret":{zh:"解释（诠释）",yue:"解釋（詮釋）",vi:"diễn giải",ar:"يفسّر",fa:"تفسیر کردن",ur:"تشریح کرنا",am:"መተርጎም",ml:"വ്യാഖ്യാനിക്കുക"},
+"Perspective":{zh:"视角（观点）",yue:"視角（觀點）",vi:"góc nhìn",ar:"منظور (وجهة نظر)",fa:"دیدگاه",ur:"نقطۂ نظر",am:"አመለካከት",ml:"കാഴ്ചപ്പാട്"},
+"Context":{zh:"背景（语境）",yue:"背景（語境）",vi:"bối cảnh",ar:"سياق",fa:"بافتار (زمینه)",ur:"سیاق و سباق",am:"አውድ",ml:"സന്ദർഭം"},
+"Credible":{zh:"可信的",yue:"可信的",vi:"đáng tin cậy",ar:"موثوق (جدير بالتصديق)",fa:"معتبر",ur:"قابلِ اعتبار",am:"ታማኝ",ml:"വിശ്വസനീയമായ"},
+"Era":{zh:"时代",yue:"時代",vi:"thời đại",ar:"حقبة (عصر)",fa:"دوران (عصر)",ur:"عہد (دور)",am:"ዘመን",ml:"യുഗം"},
+"Chronological":{zh:"按时间顺序的",yue:"按時間順序的",vi:"theo trình tự thời gian",ar:"بالترتيب الزمني",fa:"به ترتیب زمانی",ur:"زمانی ترتیب سے",am:"በጊዜ ቅደም ተከተል",ml:"കാലക്രമത്തിലുള്ള"},
+"Adapt":{zh:"适应",yue:"適應",vi:"thích nghi",ar:"يتكيّف",fa:"سازگار شدن",ur:"ڈھلنا (موافقت کرنا)",am:"መላመድ",ml:"പൊരുത്തപ്പെടുക"},
+"Continuity":{zh:"连续性（延续）",yue:"連續性（延續）",vi:"tính liên tục",ar:"استمرارية",fa:"پیوستگی",ur:"تسلسل",am:"ቀጣይነት",ml:"തുടർച്ച"},
+"Legacy":{zh:"遗产（传承）",yue:"遺產（傳承）",vi:"di sản (để lại)",ar:"إرث",fa:"میراث (ماترک)",ur:"وراثت (ورثہ)",am:"ውርስ",ml:"പാരമ്പര്യം (ശേഷിപ്പ്)"},
+"Sustainable":{zh:"可持续的",yue:"可持續的",vi:"bền vững",ar:"مستدام",fa:"پایدار",ur:"پائیدار",am:"ዘላቂ",ml:"സുസ്ഥിരമായ"},
+"Resource":{zh:"资源",yue:"資源",vi:"tài nguyên",ar:"مورد",fa:"منبع (سرمایه)",ur:"وسیلہ",am:"ሀብት",ml:"വിഭവം"},
+"Technique":{zh:"技巧（技法）",yue:"技巧（技法）",vi:"kỹ thuật",ar:"تقنية (أسلوب)",fa:"فن (شیوه)",ur:"تکنیک (طریقہ)",am:"ዘዴ",ml:"സങ്കേതം (രീതി)"},
+"Innovation":{zh:"创新",yue:"創新",vi:"sự đổi mới",ar:"ابتكار",fa:"نوآوری",ur:"جدت (نئی ایجاد)",am:"ፈጠራ",ml:"നൂതനാശയം"},
+"Environment":{zh:"环境",yue:"環境",vi:"môi trường",ar:"بيئة",fa:"محیط زیست",ur:"ماحول",am:"አካባቢ",ml:"പരിസ്ഥിതി"},
+"Cause":{zh:"原因",yue:"原因",vi:"nguyên nhân",ar:"سبب",fa:"علت",ur:"سبب",am:"ምክንያት",ml:"കാരണം"},
+"Consequence":{zh:"后果（结果）",yue:"後果（結果）",vi:"hậu quả",ar:"عاقبة (نتيجة)",fa:"پیامد",ur:"نتیجہ",am:"መዘዝ (ውጤት)",ml:"അനന്തരഫലം"},
+"Impact":{zh:"影响（冲击）",yue:"影響（衝擊）",vi:"tác động",ar:"أثر (تأثير قوي)",fa:"تأثیر (ضربه)",ur:"اثر",am:"ተፅዕኖ",ml:"ആഘാതം (സ്വാധീനം)"},
+"Reveal":{zh:"揭示",yue:"揭示",vi:"tiết lộ",ar:"يكشف",fa:"آشکار کردن",ur:"ظاہر کرنا",am:"መግለጥ",ml:"വെളിപ്പെടുത്തുക"},
+"Document":{zh:"记录（文献）",yue:"記錄（文獻）",vi:"ghi chép (tài liệu)",ar:"يوثّق (وثيقة)",fa:"مستندسازی (سند)",ur:"دستاویز (درج کرنا)",am:"መዝገብ (መመዝገብ)",ml:"രേഖപ്പെടുത്തുക (രേഖ)"},
+"Contested":{zh:"有争议的",yue:"有爭議的",vi:"bị tranh cãi",ar:"متنازع عليه",fa:"مورد مناقشه",ur:"متنازعہ",am:"አከራካሪ",ml:"തർക്കവിഷയമായ"},
+"Authentic":{zh:"真实的（真品）",yue:"真實的（真品）",vi:"xác thực (chính gốc)",ar:"أصيل (حقيقي)",fa:"اصیل",ur:"اصلی (مستند)",am:"እውነተኛ (ትክክለኛ)",ml:"യഥാർത്ഥമായ"},
+"Preserve":{zh:"保存（保护）",yue:"保存（保護）",vi:"bảo tồn (gìn giữ)",ar:"يحافظ على",fa:"حفظ کردن",ur:"محفوظ رکھنا",am:"መጠበቅ",ml:"സംരക്ഷിക്കുക"},
 "Purpose":{zh:"目的",yue:"目的",vi:"mục đích",ar:"الغرض",fa:"هدف",ur:"مقصد",am:"ዓላማ",ml:"ഉദ്ദേശ്യം"},
 "Origin":{zh:"来源（出处）",yue:"來源（出處）",vi:"nguồn gốc",ar:"أصل (مصدر)",fa:"خاستگاه (منشأ)",ur:"ماخذ (اصل)",am:"ምንጭ",ml:"ഉത്ഭവം"},
 "Reliable":{zh:"可靠的",yue:"可靠的",vi:"đáng tin cậy",ar:"موثوق",fa:"قابل اعتماد",ur:"قابلِ اعتماد",am:"አስተማማኝ",ml:"വിശ്വസനീയമായ"},
@@ -1447,7 +2002,6 @@ const TR = {
 "Declared":{zh:"宣布",yue:"宣布",vi:"tuyên bố chính thức",ar:"أعلن",fa:"اعلام کرد",ur:"اعلان کیا",am:"አወጀ",ml:"പ്രഖ്യാപിച്ചു"},
 "Myth-making":{zh:"神话塑造",yue:"神話塑造",vi:"việc tạo huyền thoại",ar:"صناعة الأسطورة",fa:"افسانه‌سازی",ur:"افسانہ سازی",am:"ተረት መፍጠር",ml:"കെട്ടുകഥ നിർമ്മാണം"},
 "Dispute":{zh:"争议",yue:"爭議",vi:"tranh chấp",ar:"نزاع",fa:"اختلاف",ur:"تنازع",am:"ውዝግብ",ml:"തർക്കം"},
-"Contested":{zh:"有争议的",yue:"有爭議的",vi:"bị tranh cãi",ar:"متنازع عليه",fa:"مورد مناقشه",ur:"متنازعہ",am:"አከራካሪ",ml:"തർക്കത്തിലുള്ള"},
 "Authority":{zh:"权力",yue:"權力",vi:"thẩm quyền",ar:"سلطة",fa:"اقتدار",ur:"اختیار",am:"ስልጣን",ml:"അധികാരം"},
 "Justify":{zh:"证明合理",yue:"證明合理",vi:"biện minh",ar:"يبرر",fa:"توجیه کرد",ur:"جواز پیش کرنا",am:"አጸደቀ",ml:"ന്യായീകരിക്കുന്നു"},
 "Reject":{zh:"拒绝",yue:"拒絕",vi:"từ chối",ar:"يرفض",fa:"رد کرد",ur:"مسترد کیا",am:"ውድቅ አደረገ",ml:"നിരസിക്കുന്നു"},
@@ -1477,6 +2031,27 @@ LESSONS.forEach(l=>l.words.forEach(w=>(w.tiles||[]).forEach(([p,g])=>{
 const ALL_GLOSSES = [...new Set(MORPHS.map(m=>m.gloss))];
 const MTYPE_LABEL = {prefix:"Prefixes", root:"Roots & base words", suffix:"Suffixes", connector:"Joiners"};
 const MTYPE_ORDER = ["prefix","root","suffix","connector"];
+const MTYPE_LETTER = {prefix:"mp", root:"mr", suffix:"ms", connector:"mc"};
+
+/* Colour a word's own spelling by morpheme role, matching the coloured
+   code-chips in its morph line below — the purple-lab word-list treatment.
+   Falls back to the plain word if a tile can't be found inside it. */
+function colourWord(v){
+  if(v.type==="origin"||!v.tiles?.length) return esc(v.w);
+  let out="", rest=v.w;
+  for(const [piece] of v.tiles){
+    const clean=piece.replace(/-/g,"");
+    const idx=rest.toLowerCase().indexOf(clean.toLowerCase());
+    if(idx===-1) return esc(v.w);
+    out+=esc(rest.slice(0,idx))+`<span class="${MTYPE_LETTER[classifyMorph(piece)]}">${esc(rest.slice(idx,idx+clean.length))}</span>`;
+    rest=rest.slice(idx+clean.length);
+  }
+  return out+esc(rest);
+}
+function morphChips(tiles){
+  return tiles.map(t=>`<code class="${MTYPE_LETTER[classifyMorph(t[0])]}">${esc(t[0])}</code> <i>${esc(t[1])}</i>`).join(" + ");
+}
+const MLEGEND=`<div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix</span><span><i style="background:var(--mroot)"></i>Root</span><span><i style="background:var(--msuf)"></i>Suffix</span><span><i style="background:var(--mcon)"></i>Joiner</span></div>`;
 
 /* ================= STATE ================= */
 /* storage shim: real localStorage as a standalone file / on GitHub Pages;
@@ -1667,13 +2242,14 @@ function renderStudy(l){
   const mount=document.getElementById("study-body");
   document.getElementById("study-prog").textContent=`STEP 1 · MEET THE WORDS · ${l.id}`;
   let html=`<h2>Lesson ${esc(l.id)}, ${esc(l.title)}</h2>
-    <p class="muted" style="margin-bottom:14px">Read each word: its meaning, and how its <b>morphemes</b> build that meaning. Tags show each word’s domain.</p>`;
+    <p class="muted" style="margin-bottom:14px">Read each word: its meaning, and how its <b>morphemes</b> build that meaning. Tags show each word’s domain.</p>
+    ${MLEGEND}`;
   mount.innerHTML=html;
   l.words.forEach(v=>{
-    const map=(v.type==="origin")?"":v.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" &nbsp;+&nbsp; ");
+    const map=(v.type==="origin")?"":morphChips(v.tiles);
     const d=document.createElement("div"); d.className="vcard";
     const domLabel={water:"EVIDENCE & SOURCES",earth:"LAND & MOVEMENT",people:"BELIEFS & VALUES",hazard:"LAW & CUSTOM"}[v.domain]||v.domain;
-    d.innerHTML=`<div class="top"><span class="w">${esc(v.w)}</span><span class="pos">${esc(v.pos)}</span>${trSpan(v.w)}
+    d.innerHTML=`<div class="top"><span class="w">${colourWord(v)}</span><span class="pos">${esc(v.pos)}</span>${trSpan(v.w)}
         <span class="dtag ${v.domain}">${domLabel}</span></div>
       <div class="meaning">${esc(v.meaning)}</div>
       <div class="morph">${ v.type==="origin" ? v.note : (map+" &nbsp;→&nbsp; "+esc(v.w)+"<br>"+v.note) }</div>`;
@@ -1715,7 +2291,7 @@ function renderBuilder(mount, spec, opts){
           mount.querySelector("#bword").innerHTML=`${esc(spec.w)} ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""} ${trSpan(spec.w)}`;
           opts.onFirst && opts.onFirst(!errored);
           const mr=mount.querySelector("#maprow");
-          mr.innerHTML=spec.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" &nbsp;+&nbsp; ")+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
+          mr.innerHTML=morphChips(spec.tiles)+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
           const r=mount.querySelector("#reveal");
           r.className="reveal show";
           r.innerHTML=`<span class="rw">${esc(spec.w)}</span>: ${esc(spec.meaning)}${(spec.note||spec.explain)?`<br><span class="muted">${spec.note||spec.explain}</span>`:""}`;
@@ -1803,30 +2379,63 @@ function renderBuildTable(l, buildable){
   const rowsHtml=active.map(w=>{
     const slots=w.tiles.map((_,si)=>(si?`<span class="wjoin">+</span>`:"")+`<span class="wslot" data-i="${si}"><span class="ph">drop</span></span>`).join("");
     return `<div class="wrow" data-w="${esc(w.w)}">
-      <div class="wmean"><span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
+      <div class="wmean">${sayBtn(w.meaning)}<span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
       <div class="wslots">${slots}</div>
       <div class="wbuilt"></div></div>`;
   }).join("");
   const mount=document.getElementById("build-body");
   mount.innerHTML=`
     <h2 style="text-align:center">Build the words: Lesson ${esc(l.id)}</h2>
-    <p class="muted" style="text-align:center;margin-bottom:8px">Drag each morpheme into the word it belongs to, or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left.</p>
+    <p class="muted" style="text-align:center;margin-bottom:8px">${ACCESS
+      ? "Most pieces are placed for you. Read the meaning, tap the missing morpheme, then tap the empty slot. A finished word ticks off and leaves the board."
+      : "Drag each morpheme into the word it belongs to, or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left."}</p>
     <div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix (start)</span><span><i style="background:var(--mroot)"></i>Root (heart)</span><span><i style="background:var(--msuf)"></i>Suffix (end)</span></div>
     <div class="mbank">${bankHtml}</div>
     <div class="buildhint" id="buildhint"></div>
     <div class="wtable" id="wtable">${rowsHtml}</div>`;
   buildProgressText(l);
   wireBuildDnD(mount);
+  wireSay(mount);
 }
 function wireBuildDnD(mount){
   mount.querySelectorAll(".mtile").forEach(tile=>{
     const info={piece:tile.dataset.piece, gloss:tile.dataset.gloss, type:tile.dataset.type};
-    tile.addEventListener("pointerdown", e=>startTileDrag(e, tile, info));
+    if(ACCESS){
+      /* Tap only. A drag threshold of six pixels reads a tremor as a drag,
+         so in access mode the pointer never drags: tap selects (and the tile
+         grows), tap again deselects. */
+      tile.addEventListener("click", ()=>{
+        const same=buildCtx.tapSel && buildCtx.tapSel.piece===info.piece && buildCtx.tapSel.type===info.type;
+        setTapSel(same ? null : info);
+      });
+    } else {
+      tile.addEventListener("pointerdown", e=>startTileDrag(e, tile, info));
+    }
   });
   mount.querySelectorAll(".wslot").forEach(slot=>{
     slot.addEventListener("click", ()=>{
+      if(slot.classList.contains("locked")) return;
       if(slot.dataset.piece){ clearSlot(slot); return; }
       if(buildCtx.tapSel){ const s=buildCtx.tapSel; setTapSel(null); fillSlot(slot, s); }
+    });
+  });
+  if(ACCESS) prefillBoard(mount);
+}
+/* Access mode: pre-place every slot but one per word, and lock what is
+   pre-placed. The open slot varies by word, so the student still reads the
+   meaning and still chooses the piece; what falls away is the tap count. */
+function prefillBoard(mount){
+  mount.querySelectorAll(".wrow").forEach(row=>{
+    const w=WORD_BY_NAME[row.dataset.w];
+    if(!w || w.tiles.length<2) return;
+    const open=Math.floor(Math.random()*w.tiles.length);
+    row.querySelectorAll(".wslot").forEach((slot,si)=>{
+      if(si===open) return;
+      const [piece]=w.tiles[si];
+      const m=MORPH_BY_PIECE[piece]||{};
+      slot.dataset.piece=piece; slot.dataset.type=m.type||classifyMorph(piece);
+      slot.className="wslot filled locked "+(m.type||classifyMorph(piece));
+      slot.innerHTML=`<span class="mm">${esc(piece)}</span>`;
     });
   });
 }
@@ -1890,7 +2499,10 @@ function checkRow(rowEl){
     if(st.buildFirst[w.w]===undefined){ st.buildFirst[w.w]=false; WS(w.w).wrong++; save(); }
     const sameSet=[...placed].sort().join("~")===[...answer].sort().join("~");
     rowEl.classList.add("wrong"); setTimeout(()=>rowEl.classList.remove("wrong"),320);
-    if(hint) hint.innerHTML = sameSet
+    if(ACCESS){
+      slots.forEach(s=>{ if(!s.classList.contains("locked")) clearSlot(s); });
+      if(hint) hint.innerHTML="Not that piece: reread the meaning and pick again.";
+    } else if(hint) hint.innerHTML = sameSet
       ? "Right pieces: check the <b>order</b> (prefix → root → suffix). Tap a slot to send its piece back."
       : "Not a match yet: reread the meaning. Tap any slot to send its piece back.";
   }
@@ -2014,7 +2626,7 @@ function sameLessonDistractors(word, n){
   return shuffle(l.words.filter(x=>x.w!==word.w).map(x=>x.w)).slice(0,n);
 }
 function morphMap(word){
-  return word.tiles ? word.tiles.map(t=>`<b>${esc(t[0])}</b> ${esc(t[1])}`).join(" + ")+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
+  return word.tiles ? morphChips(word.tiles)+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
 }
 function genTypesFor(word){ return word.tiles ? ["meaningmatch","wordsum","morphmeaning"] : ["meaningmatch"]; }
 function genTask(gtype, word){
@@ -2297,6 +2909,7 @@ function renderGlossary(){
   const m=document.getElementById("glossary-body");
   m.innerHTML=`<h2 style="text-align:center">Word list</h2>
     <p class="muted" style="text-align:center;margin-bottom:10px">Every key word in the module, meaning, parts and (if you’ve chosen a language) your translation. Search or scroll.</p>
+    ${MLEGEND}
     <div class="reffilter"><input id="gloss-search" placeholder="Search a word or meaning…" aria-label="search words"></div>
     <div id="gloss-list"></div>`;
   const input=m.querySelector("#gloss-search");
@@ -2312,16 +2925,17 @@ function drawGloss(q){
     html+=`<div class="topichead">Lesson ${esc(l.id)} · ${esc(l.title)}</div>`;
     ws.forEach(w=>{
       const map=w.tiles
-        ? w.tiles.map(t=>`<span class="mtile ${classifyMorph(t[0])}"><span class="mm">${esc(t[0])}</span><span class="gl">${esc(t[1])}</span></span>`).join(" ")
+        ? morphChips(w.tiles)+" &nbsp;→&nbsp; <b>"+esc(w.w)+"</b>"
         : `<span class="muted">from a name or idea: see its story in the lesson</span>`;
       const domLabel={water:"EVIDENCE & SOURCES",earth:"LAND & MOVEMENT",people:"BELIEFS & VALUES",hazard:"LAW & CUSTOM"}[w.domain]||w.domain;
-      html+=`<div class="vcard"><div class="top"><span class="w">${esc(w.w)}</span><span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
+      html+=`<div class="vcard"><div class="top"><span class="w">${colourWord(w)}</span>${sayBtn(w.w+". "+w.meaning)}<span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
           <span class="dtag ${w.domain}">${domLabel}</span></div>
         <div class="meaning">${esc(w.meaning)}</div>
-        <div class="morph" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1px dashed var(--line-soft);padding-top:8px">${map}</div></div>`;
+        <div class="morph">${map}</div></div>`;
     });
   });
   wrap.innerHTML=html || `<p class="muted" style="text-align:center">No words match “${esc(q)}”.</p>`;
+  wireSay(wrap);
 }
 
 /* ================= REPORT ================= */

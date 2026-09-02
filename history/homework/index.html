@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<meta name="description" content="Weekly vocabulary homework for Ancient Australia: build the words from their morphemes, meet one source, and answer a Grade 4 source-analysis table, then bump one row up.">
+<title>Ancient Australia Vocabulary Homework</title>
+<style>
+:root{
+  --paper:#fbf7ee; --bg:#efe8dc; --ink:#20231f; --muted:#675f54; --line:#d4c8b6; --line-soft:#e2d9c9;
+  --deep:#223f43; --on-deep:#fbf7ee; --band:#f5f0e6; --gold:#8b681e; --gold-soft:#f6e7c2;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --correct:#357a46; --okbg:#e6f1e8; --wrong:#a03c2e;
+  /* the wall's criterion colours, unchanged from the history family */
+  --source:#176b87; --source-soft:#d8edf4;
+  --context:#357a46; --context-soft:#dff0df;
+  --evidence:#a34d1d; --evidence-soft:#f7e3d4;
+  --judge:#744f91; --judge-soft:#eadff2;
+  /* the morpheme taxonomy, unchanged from the Vocab Hub / EAL book */
+  --mpre:#2c6fa8; --mpre-bg:#e5eef5;
+  --mroot:#9a5518; --mroot-bg:#f5e7d8;
+  --msuf:#3f7a4a; --msuf-bg:#e6f1e8;
+  --mcon:#6c6353; --mcon-bg:#ece7db;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);line-height:1.55;
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:14px}
+.container{max-width:880px;margin:0 auto;background:var(--paper);border:1px solid var(--line);
+     border-radius:14px;box-shadow:var(--shadow);padding:26px 28px 20px}
+header.top{border-bottom:3px solid var(--deep);padding-bottom:14px;margin-bottom:14px}
+.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:800;color:var(--muted)}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:30px;color:var(--deep);letter-spacing:-.01em;margin:2px 0 4px}
+.lede{color:var(--muted);font-size:14px}
+a.back{color:var(--muted);font-size:12.5px;text-decoration:none;font-weight:700}
+a.back:hover{color:var(--deep)}
+
+.weektabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 6px}
+.weektabs button{font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--bg);
+     border:1px solid var(--line-soft);border-radius:20px;padding:8px 16px;cursor:pointer}
+.weektabs button:hover{border-color:var(--gold);color:var(--gold)}
+.weektabs button.on{background:var(--deep);color:var(--on-deep);border-color:var(--deep)}
+.weektabs .print{margin-left:auto}
+.namebar{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 16px;font-size:13px;color:var(--muted)}
+.namebar label{display:flex;align-items:baseline;gap:6px}
+.namebar input{border:0;border-bottom:1px solid var(--line);background:transparent;font-family:inherit;
+     font-size:13px;color:var(--ink);padding:2px 4px;min-width:150px}
+
+.wkhead{margin:6px 0 14px}
+.wkhead h2{font-family:Georgia,serif;font-size:23px;color:var(--deep)}
+.wkhead .sub{color:var(--muted);font-size:13.5px}
+
+/* -------- accordion modules; small on screen, everything open on paper -------- */
+.mod{border:1px solid var(--line);border-radius:11px;margin-bottom:12px;background:var(--paper);
+     position:relative;overflow:hidden}
+.mod>h3{margin:0}
+.mod>h3 button{all:unset;display:flex;width:100%;align-items:baseline;gap:10px;cursor:pointer;
+     padding:13px 16px;font-weight:800;font-size:15px;color:var(--deep);box-sizing:border-box}
+.mod>h3 button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.mod>h3 .tag{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+     color:var(--gold);background:var(--gold-soft);border-radius:999px;padding:2px 9px;flex:none}
+.mod>h3 .arrow{margin-left:auto;color:var(--muted);font-size:12px}
+.mod .body{padding:2px 16px 16px;display:none;position:relative}
+.mod.open .body{display:block}
+.mod .micro{font-size:4.5px;letter-spacing:.03em;color:var(--muted);opacity:.16;line-height:1;
+     padding:0 16px 4px;user-select:none}
+.wm{position:absolute;inset:-40px;pointer-events:none;user-select:none;opacity:.015;overflow:hidden;
+    transform:rotate(-16deg);font-size:13px;font-weight:700;line-height:3.4;color:var(--deep);
+    word-spacing:10px;z-index:0}
+.mod .body>*{position:relative;z-index:1}
+/* invisible on screen and in a screenshot, present in the DOM, in copied
+   text and in a PDF's text layer. Never absolute-positioned: it must ride
+   inside the selection flow. aria-hidden keeps screen readers clear of it. */
+.hx{font-size:1px;color:transparent;letter-spacing:0;user-select:text;speak:never}
+
+.note{font-size:12.5px;color:var(--muted);margin:8px 0}
+.rule{background:var(--band);border:1px solid var(--line-soft);border-left:5px solid var(--gold);
+      border-radius:8px;padding:9px 13px;font-size:13.5px;margin:10px 0}
+
+/* -------- word bank -------- */
+.bank{width:100%;border-collapse:collapse;margin:8px 0}
+.bank th,.bank td{border:1px solid var(--line-soft);padding:7px 10px;font-size:13.5px;text-align:left;vertical-align:top}
+.bank th{background:var(--band);font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.bank td.w{font-weight:800;white-space:nowrap}
+.bank tr.always td{color:var(--muted)}
+.bank tr.always td.w{color:var(--gold)}
+.say{border:0;background:none;font-size:14px;cursor:pointer;padding:1px 4px;border-radius:6px;line-height:1}
+.say:hover{background:var(--bg)}
+
+/* -------- morphemes -------- */
+.mlegend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 12px;font-size:12px}
+.mlegend span{display:inline-flex;align-items:center;gap:5px;font-weight:700}
+.mlegend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+.mlegend .pre i{background:var(--mpre-bg);border:1.5px solid var(--mpre)}
+.mlegend .root i{background:var(--mroot-bg);border:1.5px solid var(--mroot)}
+.mlegend .suf i{background:var(--msuf-bg);border:1.5px solid var(--msuf)}
+.mlegend .con i{background:var(--mcon-bg);border:1.5px solid var(--mcon)}
+.mbank{background:var(--bg);border:1px solid var(--line-soft);border-radius:10px;padding:11px;margin-bottom:12px}
+.mbank .glabel{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin:6px 0 5px}
+.mbank .glabel.prefix{color:var(--mpre)} .mbank .glabel.root{color:var(--mroot)}
+.mbank .glabel.suffix{color:var(--msuf)} .mbank .glabel.connector{color:var(--mcon)}
+.mtiles{display:flex;flex-wrap:wrap;gap:7px}
+.mtile{border-radius:9px;padding:7px 11px;display:inline-flex;flex-direction:column;align-items:center;gap:1px;
+     line-height:1.15;font-family:inherit;cursor:pointer;user-select:none;border:1.5px solid;background:var(--paper)}
+.mtile .mm{font-weight:800;font-size:15px}
+.mtile .gl{font-size:10.5px;opacity:.85}
+.mtile.prefix{color:var(--mpre);background:var(--mpre-bg);border-color:var(--mpre)}
+.mtile.root{color:var(--mroot);background:var(--mroot-bg);border-color:var(--mroot)}
+.mtile.suffix{color:var(--msuf);background:var(--msuf-bg);border-color:var(--msuf)}
+.mtile.connector{color:var(--mcon);background:var(--mcon-bg);border-color:var(--mcon)}
+.mtile.sel{outline:3px solid var(--ink);outline-offset:2px}
+.mtile:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrow{border:1px solid var(--line-soft);border-radius:10px;padding:10px 12px;margin-bottom:9px;
+     display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--paper)}
+.wrow.done{border-color:var(--correct);background:var(--okbg)}
+.wmean{flex:1 1 46%;min-width:200px;font-size:13.5px}
+.wslots{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.wslot{min-width:58px;min-height:44px;border:2px dashed var(--line);border-radius:8px;display:inline-flex;
+     align-items:center;justify-content:center;background:var(--bg);cursor:pointer;padding:4px 8px;
+     font-family:inherit;font-weight:800;font-size:14px;color:var(--muted)}
+.wslot:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wslot.filled{border-style:solid}
+.wslot.filled.prefix{border-color:var(--mpre);background:var(--mpre-bg);color:var(--mpre)}
+.wslot.filled.root{border-color:var(--mroot);background:var(--mroot-bg);color:var(--mroot)}
+.wslot.filled.suffix{border-color:var(--msuf);background:var(--msuf-bg);color:var(--msuf)}
+.wslot.filled.connector{border-color:var(--mcon);background:var(--mcon-bg);color:var(--mcon)}
+.wslot .ph{font-size:9.5px;font-weight:600;letter-spacing:.2px;line-height:1.2;max-width:110px}
+.wbuilt{font-family:Georgia,serif;font-weight:700;font-size:16px;color:var(--correct)}
+.wnote{flex:1 1 100%;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line-soft);padding-top:6px}
+.buildhint{font-size:12.5px;color:var(--wrong);min-height:17px;margin:2px 0 8px;font-weight:600}
+@media (prefers-reduced-motion:no-preference){
+  .wrow.wrong{animation:shake .3s}
+  @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+}
+
+.family{width:100%;border-collapse:collapse;margin:6px 0}
+.family th,.family td{border:1px solid var(--line-soft);padding:7px 10px;font-size:13.5px;text-align:left;vertical-align:middle}
+.family th{background:var(--band);font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.family .eqn{font-family:Georgia,serif;font-size:14.5px;white-space:nowrap}
+.family .eqn b.prefix{color:var(--mpre)} .family .eqn b.root{color:var(--mroot)}
+.family .eqn b.suffix{color:var(--msuf)} .family .eqn b.connector{color:var(--mcon)}
+.family input{font-family:inherit;font-size:14px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;
+     background:var(--paper);color:var(--ink);width:150px}
+.family .fb{font-size:12px;min-height:15px}
+.family .fb.ok{color:var(--correct);font-weight:700}
+.family .fb.no{color:var(--wrong)}
+.origin{border:1px dashed var(--line);border-radius:9px;padding:10px 13px;font-size:13.5px;background:var(--band);margin-top:10px}
+
+/* -------- source -------- */
+.srcpanel{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:8px 0;background:var(--band)}
+.srcpanel img{width:100%;display:block}
+.srcpanel .quote{padding:13px 16px;font-family:Georgia,serif;font-size:15px;line-height:1.65}
+.srcpanel .quote p{margin-bottom:9px}
+.srcpanel .cite{padding:8px 14px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line-soft)}
+.facts{margin:10px 0 4px;padding-left:0;list-style:none}
+.facts li{font-size:13px;padding:4px 0 4px 20px;position:relative}
+.facts li::before{content:"›";position:absolute;left:6px;color:var(--gold);font-weight:800}
+.psrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0 6px}
+.psrow .q{font-weight:800;font-size:14px}
+.psbtn{font-family:inherit;font-size:14px;font-weight:800;padding:9px 20px;border-radius:9px;cursor:pointer;
+     border:2px solid var(--line);background:var(--paper);color:var(--ink)}
+.psbtn:hover{border-color:var(--deep)}
+.psbtn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.psbtn.pick{border-color:var(--deep);background:var(--deep);color:var(--on-deep)}
+.psfb{font-size:13.5px;border-radius:8px;padding:9px 13px;margin-top:6px;display:none}
+.psfb.show{display:block}
+.psfb.ok{background:var(--okbg);border:1px solid var(--correct)}
+.psfb.no{background:var(--evidence-soft);border:1px solid var(--evidence)}
+
+/* -------- analysis table -------- */
+table.an{width:100%;border-collapse:collapse;margin:8px 0}
+table.an th,table.an td{border:1px solid var(--line-soft);padding:9px 11px;font-size:13.5px;text-align:left;vertical-align:top}
+table.an th{background:var(--band);font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+table.an td.rowhead{width:24%;font-weight:800;line-height:1.35}
+table.an td.rowhead .g{margin-right:5px}
+table.an td.rowhead .ask{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:3px}
+.rh-source{border-left:5px solid var(--source)} .rh-source b{color:var(--source)}
+.rh-context{border-left:5px solid var(--context)} .rh-context b{color:var(--context)}
+.rh-evidence{border-left:5px solid var(--evidence)} .rh-evidence b{color:var(--evidence)}
+.rh-judge{border-left:5px solid var(--judge)} .rh-judge b{color:var(--judge)}
+.rh-ps{border-left:5px solid var(--gold)} .rh-ps b{color:var(--gold)}
+.stems{width:30%;font-family:Georgia,serif;font-size:13.5px;color:var(--muted)}
+.stems div{margin-bottom:5px}
+td.write{padding:6px}
+td.write textarea{width:100%;min-height:74px;border:1px solid var(--line-soft);border-radius:7px;resize:vertical;
+     font-family:inherit;font-size:13.5px;line-height:1.5;padding:8px 10px;background:var(--paper);color:var(--ink)}
+td.write textarea:focus{outline:2px solid var(--gold)}
+.chips{margin-top:6px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.chips .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.chip{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 10px;border:1px solid var(--line);color:var(--muted);background:var(--bg)}
+.chip.hit{border-color:var(--correct);color:var(--correct);background:var(--okbg)}
+.printtext{display:none}
+
+/* -------- bump it up -------- */
+.bumpwrap{display:grid;gap:12px}
+.bcard{border:1px solid var(--line-soft);border-radius:10px;padding:12px 15px}
+.bcard .lv{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px}
+.bcard .lv b{color:var(--gold)}
+.bex{font-family:Georgia,serif;font-size:15.5px;line-height:1.7}
+.m{font-weight:600;text-decoration-line:underline;text-underline-offset:3px;text-decoration-thickness:1.6px}
+.m-source{color:var(--source);text-decoration-color:var(--source);text-decoration-style:solid}
+.m-context{color:var(--context);text-decoration-color:var(--context);text-decoration-style:dashed}
+.m-evidence{color:var(--evidence);text-decoration-color:var(--evidence);text-decoration-style:dotted}
+.m-judge{color:var(--judge);text-decoration-color:var(--judge);text-decoration-style:double}
+select.gap{font-family:Georgia,serif;font-size:14.5px;font-weight:700;padding:3px 6px;border-radius:7px;
+     border:2px dashed var(--line);background:var(--bg);color:var(--ink)}
+select.gap.ok{border-style:solid;border-color:var(--correct);color:var(--correct);background:var(--okbg)}
+select.gap.no{border-color:var(--wrong);color:var(--wrong)}
+.bumpwhy{display:none;margin-top:4px}
+.bumpwhy.show{display:block}
+.gapfb{font-size:12.5px;color:var(--wrong);min-height:16px;font-weight:600;margin-top:6px}
+
+footer{max-width:880px;margin:14px auto 4px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.5}
+
+/* -------- paper: the whole week, open, clean -------- */
+@media print{
+  :root{--paper:#fff;--bg:#fff;--band:#f5f0e6}
+  body{padding:0}
+  .container{border:0;box-shadow:none;max-width:100%;padding:4px}
+  .weektabs,.namebar input:placeholder-shown~span,.wm,.micro,.say,.buildhint{display:none !important}
+  .weektabs{display:none !important}
+  .mod{break-inside:avoid;overflow:visible}
+  .mod .body{display:block !important}
+  .mod>h3 .arrow{display:none}
+  .mbank{display:none}
+  td.write textarea{display:none}
+  .printtext{display:block;font-family:Georgia,serif;font-size:13px;min-height:70px;white-space:pre-wrap}
+  .printtext.empty{background:repeating-linear-gradient(#fff 0 22px,#999 22px 23px);min-height:92px}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="top">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="unit-title"></h1>
+    <p class="lede" id="unit-intro"></p>
+    <p style="margin-top:6px"><a class="back" href="../batman/">&larr; Ancient Australia</a></p>
+  </header>
+
+  <div class="weektabs" id="weektabs" role="tablist"></div>
+
+  <div class="namebar">
+    <label>Name <input id="nm" autocomplete="off"></label>
+    <label>Class <input id="cl" size="6" style="min-width:60px" autocomplete="off"></label>
+    <span style="margin-left:auto;font-size:12px">Everything you type saves on this device.</span>
+  </div>
+
+  <div id="week"></div>
+</div>
+<footer id="foot"></footer>
+
+<script src="content.js"></script>
+<script>
+"use strict";
+/* =======================================================================
+   Engine for the weekly homework. All content lives in content.js.
+
+   The page checks what a machine can honestly check: morpheme placement,
+   word-family spellings, the primary/secondary call, the cloze gaps, and
+   COVERAGE of the required words in the written rows. Coverage is not
+   correctness and the chip strip says so; the sentences are read by a
+   teacher, on screen or on the printout.
+
+   Integrity: see the note in content.js. Three mechanisms:
+     1. each week's canary is sprinkled through the DOM in 1px transparent
+        aria-hidden spans, invisible on screen and in screenshots but
+        present in copied text, "select all", and any PDF's text layer;
+     2. the copy event rewrites the clipboard so even a partial selection
+        carries the whole canary at both ends;
+     3. each module carries a faint rotated watermark repeating a short
+        canary line, so a photographed or snipped module still shows it
+        to an OCR pass at a level human eyes read as paper texture.
+   The footer states openly that markers exist.
+   ======================================================================= */
+
+const $ = (s,el)=>(el||document).querySelector(s);
+const $$ = (s,el)=>Array.from((el||document).querySelectorAll(s));
+const esc = s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* ---------- persistence: one JSON blob per week ---------- */
+const store = {
+  key: id=>"y7hw-"+id,
+  load(id){ try{ return JSON.parse(localStorage.getItem(this.key(id))||"{}"); }catch(e){ return {}; } },
+  save(id,data){ try{ localStorage.setItem(this.key(id), JSON.stringify(data)); }catch(e){} }
+};
+let S = {};           // state of the current week
+let W = null;         // current week object
+function persist(){ store.save(W.id, S); }
+try{
+  $("#nm").value = localStorage.getItem("y7hw-name")||"";
+  $("#cl").value = localStorage.getItem("y7hw-class")||"";
+}catch(e){}
+$("#nm").oninput = e=>{ try{localStorage.setItem("y7hw-name",e.target.value)}catch(_){} };
+$("#cl").oninput = e=>{ try{localStorage.setItem("y7hw-class",e.target.value)}catch(_){} };
+
+/* ---------- read-aloud (device speech engine only) ---------- */
+const TTS = "speechSynthesis" in window;
+function speak(t){ if(!TTS) return; speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.lang="en-AU"; u.rate=.95; speechSynthesis.speak(u); }
+const sayBtn = t=>TTS?`<button class="say" type="button" data-say="${esc(t)}" aria-label="Read aloud" title="Read aloud">\u{1F50A}</button>`:"";
+
+/* ---------- integrity markers ---------- */
+let hxChunks=[], hxI=0;
+function hxInit(canary){
+  const words = canary.split(" "); hxChunks=[]; hxI=0;
+  for(let i=0;i<words.length;i+=7) hxChunks.push(words.slice(i,i+7).join(" "));
+}
+/* next fragment of the canary, in order, looping, as an invisible in-flow span */
+function hx(){ if(!hxChunks.length) return "";
+  const c = hxChunks[hxI++ % hxChunks.length];
+  return `<span class="hx" aria-hidden="true"> ${esc(c)} </span>`; }
+function wm(){ const line = W ? W.canary : "";
+  return `<div class="wm" aria-hidden="true">${(esc(line)+" · ").repeat(6)}</div>`; }
+function micro(){ return `<div class="micro" aria-hidden="true">${esc(W.canary)}</div>`; }
+document.addEventListener("copy", e=>{
+  if(!W) return;
+  const sel = String(document.getSelection());
+  if(!sel) return;
+  const t = e.target;
+  if(t && (t.tagName==="TEXTAREA"||t.tagName==="INPUT")) return; /* students copying their own writing keep it clean */
+  e.clipboardData.setData("text/plain", W.canary+"\n\n"+sel+"\n\n"+W.canary);
+  e.preventDefault();
+});
+
+/* ---------- shell ---------- */
+$("#kicker").textContent = UNIT.kicker;
+$("#unit-title").textContent = UNIT.title;
+$("#unit-intro").textContent = UNIT.intro;
+$("#foot").textContent = UNIT.foot;
+$("#weektabs").innerHTML = WEEKS.map(w=>
+  `<button role="tab" id="tab-${w.id}" onclick="go('${w.id}')">Week ${w.n}</button>`).join("")
+  + `<button class="print" onclick="window.print()" title="Print this week / save as PDF">Print &#128424;</button>`;
+
+function go(id){
+  W = WEEKS.find(w=>w.id===id) || WEEKS[0];
+  S = store.load(W.id);
+  hxInit(W.canary);
+  history.replaceState(null,"","#"+W.id);
+  $$("#weektabs button").forEach(b=>b.classList.toggle("on", b.id==="tab-"+W.id));
+  renderWeek();
+}
+
+/* ---------- modules ---------- */
+function mod(id,tag,title,inner,open){
+  return `<section class="mod${open?" open":""}" id="mod-${id}">
+    ${wm()}
+    <h3><button type="button" aria-expanded="${!!open}" onclick="toggleMod('${id}')">
+      <span class="tag">${tag}</span> ${title} ${hx()}<span class="arrow">▾</span></button></h3>
+    ${micro()}
+    <div class="body">${inner}</div>
+  </section>`;
+}
+function toggleMod(id){
+  const el = $("#mod-"+id); const was = el.classList.contains("open");
+  $$(".mod").forEach(m=>m.classList.remove("open"));
+  $$(".mod>h3 button").forEach(b=>b.setAttribute("aria-expanded","false"));
+  if(!was){ el.classList.add("open"); $("h3 button",el).setAttribute("aria-expanded","true");
+    el.scrollIntoView({block:"nearest"}); }
+}
+
+function renderWeek(){
+  const bank = W.bank.concat(ALWAYS.map(a=>Object.assign({always:true},a)));
+  const bankHTML = `
+    <p class="note">This week's words. The two gold ones travel with every week, because every source asks for them.</p>
+    <table class="bank"><tr><th>Word</th><th>Definition</th></tr>
+    ${bank.map(b=>`<tr${b.always?' class="always"':''}><td class="w">${esc(b.w)} ${sayBtn(b.w+". "+b.d)}</td><td>${esc(b.d)}${hx()}</td></tr>`).join("")}
+    </table>`;
+
+  const morphHTML = renderMorph();
+  const sourceHTML = renderSource();
+  const anHTML = renderAnalysis();
+  const bumpHTML = renderBump();
+
+  $("#week").innerHTML = `
+    <div class="wkhead"><h2>Week ${W.n} · ${esc(W.title)}</h2>
+    <div class="sub">${esc(W.sub)}${hx()}</div></div>
+    ${mod("bank","Words","Word bank",bankHTML,true)}
+    ${mod("morph","Part A","Build the words",morphHTML)}
+    ${mod("source","Part B","Meet the source",sourceHTML)}
+    ${mod("an","Part C","Source analysis · the Grade 4 table",anHTML)}
+    ${mod("bump","Part D","Bump it up",bumpHTML)}`;
+
+  wireMorph(); wireSource(); wireAnalysis(); wireBump();
+  $$(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)});
+}
+
+/* ================= PART A: morphemes ================= */
+function tileHTML(m,g,type,idx){
+  return `<button type="button" class="mtile ${type}" data-m="${esc(m)}" data-type="${type}" data-i="${idx}">
+    <span class="mm">${esc(m)}</span><span class="gl">${esc(g)}</span></button>`;
+}
+function renderMorph(){
+  const done = S.morphDone||[];
+  /* one shared bank: every tile of every build word, plus decoys, deduped */
+  const tiles=[]; const seen=new Set();
+  W.morph.build.forEach(b=>b.tiles.forEach(t=>{ if(!seen.has(t[0])){seen.add(t[0]);tiles.push([t[0],t[1],t[2]]);} }));
+  (W.morph.decoys||[]).forEach(t=>{ if(!seen.has(t[0])){seen.add(t[0]);tiles.push(t);} });
+  const groups={prefix:[],root:[],suffix:[],connector:[]};
+  tiles.forEach((t,i)=>groups[t[2]].push(tileHTML(t[0],t[1],t[2],i)));
+  const plural={prefix:"prefixes",root:"roots",suffix:"suffixes",connector:"connectors"};
+  const bank = `<div class="mbank" id="mbank">${["prefix","root","suffix","connector"].map(g=>
+    groups[g].length?`<div class="glabel ${g}">${plural[g]}</div><div class="mtiles">${groups[g].join("")}</div>`:"").join("")}</div>`;
+
+  const rows = W.morph.build.map((b,bi)=>{
+    const isDone = done.includes(b.w);
+    return `<div class="wrow${isDone?" done":""}" data-w="${esc(b.w)}" data-bi="${bi}">
+      <div class="wmean">${esc(b.meaning)} ${sayBtn(b.meaning)}${hx()}</div>
+      <div class="wslots">${isDone
+        ? `<span class="wbuilt">${esc(b.w)} ✓</span>`
+        : b.tiles.map((t,ti)=>`<button type="button" class="wslot" data-bi="${bi}" data-ti="${ti}"><span class="ph">${esc(t[1])}</span></button>`).join(`<span aria-hidden="true">+</span>`)}
+      </div>
+      ${isDone?`<div class="wnote">${b.note}</div>`:""}
+    </div>`;
+  }).join("");
+
+  const fam = `<table class="family"><tr><th>Base word</th><th>Make</th><th>Morphemes</th><th>Your word</th><th></th></tr>
+    ${W.morph.family.map((f,fi)=>{
+      const savedVal = (S.family&&S.family[fi])||"";
+      return `<tr><td><b>${esc(f.base)}</b> <span style="color:var(--muted);font-style:italic">(${esc(f.pos)})</span>${hx()}</td>
+      <td>${esc(f.want)}</td>
+      <td class="eqn">${f.hint.map(h=>`<b class="${h[1]}">${esc(h[0])}</b>`).join(" + ")}<br>
+          <span style="font-size:11px;color:var(--muted)">${esc(f.gloss)}</span></td>
+      <td><input data-fi="${fi}" value="${esc(savedVal)}" autocomplete="off" autocapitalize="off" spellcheck="false"></td>
+      <td class="fb" data-fbi="${fi}"></td></tr>`;}).join("")}
+  </table>`;
+
+  const origin = W.morph.origin?`<div class="origin"><b>${esc(W.morph.origin.w)}.</b> ${W.morph.origin.note}</div>`:"";
+
+  return `<p class="note">Tap a morpheme tile, then tap the slot it belongs in. Slots name the <i>meaning</i> they need; the colours are the taxonomy, not the answer.</p>
+    <div class="mlegend" aria-label="Morpheme colour legend">
+      <span class="pre"><i></i>prefix</span><span class="root"><i></i>root</span>
+      <span class="suf"><i></i>suffix</span><span class="con"><i></i>connector</span></div>
+    ${bank}<div class="buildhint" id="buildhint" role="status"></div>${rows}
+    <h4 style="margin:16px 0 4px">Word families</h4>
+    <p class="note">Grow each base word into the form asked for. Type it, then press Enter or the tick.</p>
+    ${fam}${origin}`;
+}
+let selTile=null;
+function wireMorph(){
+  const hint=$("#buildhint");
+  $$("#mbank .mtile").forEach(t=>t.onclick=()=>{
+    if(selTile) selTile.classList.remove("sel");
+    if(selTile===t){selTile=null;return;}
+    selTile=t; t.classList.add("sel");
+    if(hint) hint.textContent="";
+  });
+  $$(".wslot").forEach(sl=>sl.onclick=()=>{
+    if(!selTile){ if(hint) hint.textContent="Pick a tile from the bank first."; return; }
+    const b = W.morph.build[+sl.dataset.bi];
+    const want = b.tiles[+sl.dataset.ti];
+    const got = selTile.dataset.m;
+    if(got===want[0]){
+      sl.classList.add("filled",want[2]); sl.innerHTML=`<span class="mm">${esc(got)}</span>`;
+      sl.dataset.ok="1"; sl.onclick=null;
+      selTile.classList.remove("sel"); selTile=null;
+      const row = sl.closest(".wrow");
+      if($$(".wslot",row).every(s=>s.dataset.ok==="1")) finishWord(row,b);
+      if(hint) hint.textContent="";
+    }else{
+      const row = sl.closest(".wrow");
+      row.classList.add("wrong"); setTimeout(()=>row.classList.remove("wrong"),350);
+      if(hint) hint.textContent=`Not that one: “${got}” means “${$( ".gl",selTile).textContent}”. This slot needs the piece meaning “${want[1]}”.`;
+    }
+  });
+  $$(".family input").forEach(inp=>{
+    inp.onkeydown=e=>{ if(e.key==="Enter"){e.preventDefault();checkFam(inp);} };
+    inp.onblur=()=>{ if(inp.value.trim()) checkFam(inp); };
+    inp.oninput=()=>{ S.family=S.family||{}; S.family[inp.dataset.fi]=inp.value; persist(); };
+    if(inp.value.trim()) checkFam(inp,true);
+  });
+}
+function finishWord(row,b){
+  row.classList.add("done");
+  $(".wslots",row).innerHTML=`<span class="wbuilt">${esc(b.w)} ✓</span>`;
+  row.insertAdjacentHTML("beforeend",`<div class="wnote">${b.note}</div>`);
+  S.morphDone=(S.morphDone||[]); if(!S.morphDone.includes(b.w)) S.morphDone.push(b.w); persist();
+}
+function checkFam(inp,quiet){
+  const f=W.morph.family[+inp.dataset.fi];
+  const fb=$(`.fb[data-fbi="${inp.dataset.fi}"]`);
+  const v=inp.value.trim().toLowerCase();
+  if(!v){ fb.textContent=""; fb.className="fb"; return; }
+  if(f.ans.some(a=>a.toLowerCase()===v)){ fb.textContent="✓"; fb.className="fb ok"; }
+  else if(!quiet){ fb.textContent="Check the morphemes: "+f.gloss; fb.className="fb no"; }
+}
+
+/* ================= PART B: the source ================= */
+function renderSource(){
+  const s=W.source;
+  const panel = s.kind==="image"
+    ? `<div class="srcpanel"><img src="${esc(s.file)}" alt="${esc(s.alt)}" style="aspect-ratio:${s.ar}">
+       <div class="cite">${esc(s.cite)}</div></div>`
+    : `<div class="srcpanel"><div class="quote">${s.paras.map(p=>`<p>${esc(p)}${hx()}</p>`).join("")}</div>
+       <div class="cite">${esc(s.cite)}</div></div>`;
+  const pick = S.ps||"";
+  return `<h4 style="margin:4px 0 6px">${esc(s.label)} ${sayBtn(s.label)}</h4>
+    ${panel}
+    <ul class="facts">${s.facts.map(f=>`<li>${esc(f)}${hx()}</li>`).join("")}</ul>
+    <div class="psrow"><span class="q">Your call:</span>
+      <button type="button" class="psbtn${pick==="primary"?" pick":""}" data-ps="primary">Primary</button>
+      <button type="button" class="psbtn${pick==="secondary"?" pick":""}" data-ps="secondary">Secondary</button></div>
+    <div class="psfb" id="psfb" role="status"></div>`;
+}
+function wireSource(){
+  $$(".psbtn").forEach(b=>b.onclick=()=>{
+    $$(".psbtn").forEach(x=>x.classList.remove("pick")); b.classList.add("pick");
+    S.ps=b.dataset.ps; persist();
+    const fb=$("#psfb"); const right = b.dataset.ps===W.source.ps.answer;
+    fb.className="psfb show "+(right?"ok":"no");
+    fb.innerHTML = right?W.source.ps.right:W.source.ps.wrong;
+  });
+  if(S.ps){ const b=$(`.psbtn[data-ps="${S.ps}"]`); if(b) b.onclick(); }
+}
+
+/* ================= PART C: the Grade 4 table ================= */
+const stemMatch = (word,text)=>{
+  /* coverage by stem so "migrate" also catches "migrated"/"migration".
+     Capital-C words (Country, Dreaming) must keep their capital. */
+  const t=text||"";
+  if(/^[A-Z]/.test(word)) return t.includes(word.slice(0,Math.min(word.length,6)));
+  const stem=word.toLowerCase().slice(0, Math.max(4,word.length-2));
+  return t.toLowerCase().includes(stem);
+};
+function renderAnalysis(){
+  return `<p class="note">One or two sentences per row. Start from a stem if you want it; the chips below each box track whether this week's words made it in.</p>
+  <div class="rule">The chips check <b>coverage, not correctness</b>: they light up when a word appears, and that is all a page can honestly check. Your teacher reads the sentences themselves.</div>
+  <table class="an"><tr><th>Skill</th><th>Sentence starters</th><th>Your 1–2 sentences</th></tr>
+  ${W.analysis.map((r,ri)=>{
+    const c = CRITERIA[r.key];
+    const cls = "rh-"+r.key;
+    const saved = (S.writing&&S.writing[ri])||"";
+    return `<tr>
+      <td class="rowhead ${cls}"><b>${c?`<span class="g">${c.glyph}</span>`:""}${esc(r.head)}</b>
+        <span class="ask">${esc(r.ask)}${hx()}</span></td>
+      <td class="stems">${r.stems.map(s=>`<div>${esc(s)}</div>`).join("")}${hx()}</td>
+      <td class="write"><textarea data-ri="${ri}" aria-label="${esc(r.head)}">${esc(saved)}</textarea>
+        <div class="printtext${saved.trim()?"":" empty"}" data-pi="${ri}">${esc(saved)}</div>
+        <div class="chips"><span class="lbl">use:</span>${r.vocab.map(v=>`<span class="chip" data-w="${esc(v)}">${esc(v)}</span>`).join("")}</div>
+      </td></tr>`;}).join("")}
+  </table>`;
+}
+function wireAnalysis(){
+  $$("td.write textarea").forEach(ta=>{
+    const upd=()=>{
+      S.writing=S.writing||{}; S.writing[ta.dataset.ri]=ta.value; persist();
+      const cell=ta.closest("td");
+      $$(".chip",cell).forEach(ch=>ch.classList.toggle("hit", stemMatch(ch.dataset.w, ta.value)));
+      const pt=$(`.printtext[data-pi="${ta.dataset.ri}"]`,cell);
+      pt.textContent=ta.value; pt.classList.toggle("empty",!ta.value.trim());
+    };
+    ta.oninput=upd; upd();
+  });
+}
+
+/* ================= PART D: bump it up ================= */
+function renderBump(){
+  const b=W.bump; const c=CRITERIA[b.key];
+  const gaps=[]; let gi=0;
+  const cloze = b.to.map(part=>{
+    if(typeof part==="string") return esc(part)+hx();
+    gaps.push(part);
+    const saved=(S.bump&&S.bump[gi])||"";
+    const opts=part.opts.slice().sort();
+    const sel=`<select class="gap" data-gi="${gi}" aria-label="missing word ${gi+1}">
+      <option value="">______</option>${opts.map(o=>`<option${o===saved?" selected":""}>${esc(o)}</option>`).join("")}</select>`;
+    gi++; return sel;
+  }).join("");
+  return `<p class="note">The <b>${b.fromLevel}</b> row below is finished. Your job is the ${b.toLevel} version of the same
+    <span class="m m-${b.key}">${c.glyph} ${c.name}</span> row: same idea, one rung stronger. The missing words are this week's vocabulary.</p>
+    <div class="bumpwrap">
+      <div class="bcard"><div class="lv">${esc(b.fromLevel)} · done</div>
+        <div class="bex"><span class="m m-${b.key}">${esc(b.from)}</span>${hx()}</div></div>
+      <div class="bcard"><div class="lv"><b>${esc(b.toLevel)} · yours</b></div>
+        <div class="bex">${cloze}</div>
+        <div class="gapfb" id="gapfb" role="status"></div>
+        <div class="rule bumpwhy" id="bumpwhy">${b.why}</div></div>
+    </div>`;
+}
+function wireBump(){
+  const b=W.bump; const gaps=b.to.filter(p=>typeof p!=="string");
+  const check=()=>{
+    const sels=$$("select.gap");
+    if(sels.every(s=>s.classList.contains("ok"))){ $("#bumpwhy").classList.add("show"); }
+  };
+  $$("select.gap").forEach(sel=>{
+    const judge=()=>{
+      const g=gaps[+sel.dataset.gi]; const v=sel.value;
+      S.bump=S.bump||{}; S.bump[sel.dataset.gi]=v; persist();
+      if(!v){ sel.className="gap"; return; }
+      if(v===g.gap){ sel.className="gap ok"; $("#gapfb").textContent=""; check(); }
+      else{ sel.className="gap no";
+        $("#gapfb").textContent=`“${v}” doesn't fit here: re-read the sentence around the gap and check that word's definition in the bank.`; }
+    };
+    sel.onchange=judge; if(sel.value) judge();
+  });
+}
+
+/* ---------- boot ---------- */
+window.addEventListener("hashchange",()=>{
+  const id=(location.hash||"#w1").slice(1);
+  if(!W || W.id!==id) go(id);
+});
+go((location.hash||"#w1").slice(1));
+</script>
+</body>
+</html>
