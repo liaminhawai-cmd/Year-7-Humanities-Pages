@@ -123,6 +123,9 @@ SITE = [
           ("&#128220;", "1 &middot; Ancient Australia", "batman/",
            "Batman's Treaty at Merri Creek. A painting showing a bargain being struck, and a "
            "Proclamation saying no such bargain was ever possible.", None),
+          ("&#128221;", "Vocabulary homework", "homework/",
+           "Four weekly rounds for Ancient Australia: build the words from their morphemes, "
+           "meet one source, answer the Grade 4 table, bump one row up.", "weekly"),
           ("&#127772;", "2 &middot; Ancient China", "china/",
            "Qin Shi Huang, in a painting of the burning of the books and in a historian who "
            "calls him the founder of China.", "draft")]),
