@@ -116,7 +116,12 @@ const WEEKS = [
       { base:"theory", pos:"noun", want:"the verb (to form a theory)", ans:["theorise","theorize"],
         hint:[["theor","root"],["-ise","suffix"]],
         gloss:"a viewing + to make" }
-    ]
+    ],
+    alchemy:[
+      { parts:[["in-","not","prefix"],["vis","to see","root"],["-ible","able to be","suffix"]], word:"invisible" },
+      { parts:[["in-","not","prefix"],["cred","to believe","root"],["-ible","able to be","suffix"]], word:"incredible" },
+      { parts:[["e-","out","prefix"],["migr","to move","root"],["-ate","to make, to do","suffix"]], word:"emigrate" }
+    ],
   },
   source:{
     kind:"image", file:"../gs73/gs73-source-panel.jpg", ar:"1272/968",
@@ -221,6 +226,11 @@ const WEEKS = [
       { base:"environment", pos:"noun", want:"the adjective", ans:["environmental"],
         hint:[["en-","prefix"],["viron","root"],["-mental","suffix"]],
         gloss:"in + circle + relating to the result of" }
+    ],
+    alchemy:[
+      { parts:[["nov","new","root"],["-ice","one who is","suffix"]], word:"novice" },
+      { parts:[["chron","time","root"],["-ic","relating to","suffix"]], word:"chronic" },
+      { parts:[["main","hand","root"],["tain","to hold","root"]], word:"maintain" }
     ],
     origin:{ w:"Country", note:"No morpheme cuts here. In Aboriginal English, <b>Country</b> with a capital C is not the same word as lowercase 'country': it names land, water, sky, ancestors and law together, belonged to rather than owned. The capital letter is doing real work, like the capital in a person's name." }
   },
@@ -331,6 +341,11 @@ const WEEKS = [
         hint:[["gener","root"],["-ate","suffix"]],
         gloss:"to produce + to make" }
     ],
+    alchemy:[
+      { parts:[["gener","to produce","root"],["-ate","to make, to do","suffix"]], word:"generate" },
+      { parts:[["con-","together","prefix"],["tinu","to hold","root"],["-ous","full of","suffix"]], word:"continuous" },
+      { parts:[["re-","back","prefix"],["serv","to keep, to guard","root"]], word:"reserve" }
+    ],
     origin:{ w:"Dreaming", note:"No morpheme cuts here either. <b>The Dreaming</b> is an ordinary English word given a new, specific job: it translates ideas from Aboriginal languages (like the Arrernte word <i>altyerrenge</i>) naming the spirit ancestors, the shaping of the land, and the law that flows from them. It is not about sleep, and many communities prefer their own language's word." }
   },
   source:{
@@ -437,7 +452,12 @@ const WEEKS = [
       { base:"impact", pos:"noun", want:"the adjective (having a strong effect)", ans:["impactful"],
         hint:[["im-","prefix"],["pact","root"],["-ful","suffix"]],
         gloss:"against + struck + full of" }
-    ]
+    ],
+    alchemy:[
+      { parts:[["sequ","to follow","root"],["-el","little thing that","suffix"]], word:"sequel" },
+      { parts:[["in-","into, against","prefix"],["flict","to strike","root"]], word:"inflict" },
+      { parts:[["un-","undo, remove","prefix"],["veil","a covering","root"]], word:"unveil" }
+    ],
   },
   source:{
     kind:"text",

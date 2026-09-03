@@ -226,18 +226,18 @@ footer{max-width:880px;margin:14px auto 4px;font-size:11.5px;color:var(--muted);
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .side{position:relative}
   .side2{break-before:page}
-  .ph1{font-family:Georgia,serif;font-size:19pt;font-weight:400;color:#1f2b33;margin:0}
-  .ph2{font-size:10.5pt;font-weight:700;color:#233c46;margin:1px 0 5px}
-  .pname{font-size:9pt;margin:4px 0 6px;color:#333}
+  .ph1{font-family:Georgia,serif;font-size:16pt;font-weight:400;color:#1f2b33;margin:0}
+  .ph2{font-size:10pt;font-weight:700;color:#233c46;margin:0 0 3px}
+  .pname{font-size:9pt;margin:2px 0 3px;color:#333}
   .pname span{display:inline-block;margin-right:14px}
   .pname i{display:inline-block;border-bottom:1px solid #444;min-width:150px;height:9pt;vertical-align:bottom;margin-left:4px}
   .pname i.s{min-width:70px}
-  .pk{font-size:11.5pt;font-weight:700;color:#2b6a8a;margin:8px 0 2px;font-family:Georgia,serif}
+  .pk{font-size:11pt;font-weight:700;color:#2b6a8a;margin:5px 0 1px;font-family:Georgia,serif}
   .pk small{font-weight:400;color:#555;font-size:9pt;font-family:system-ui,sans-serif}
-  .pi{font-style:italic;color:#444;font-size:8.8pt;margin:0 0 4px}
-  table.pt{width:100%;border-collapse:collapse;margin:2px 0 4px;page-break-inside:auto}
-  table.pt th{background:#233c46;color:#fff;font-size:8.2pt;text-align:left;padding:3px 6px;font-weight:700}
-  table.pt td{border:1px solid #bbb;padding:3px 6px;vertical-align:top;font-size:9pt}
+  .pi{font-style:italic;color:#444;font-size:8.6pt;margin:0 0 2px}
+  table.pt{width:100%;border-collapse:collapse;margin:1px 0 3px;page-break-inside:auto}
+  table.pt th{background:#233c46;color:#fff;font-size:8pt;text-align:left;padding:2px 6px;font-weight:700}
+  table.pt td{border:1px solid #bbb;padding:1px 5px;vertical-align:top;font-size:8.6pt}
   table.pt tr:nth-child(even) td{background:#f4f4f4}
   table.pt td.w{font-weight:700;white-space:nowrap;width:22%}
   table.pt td.gold{color:#8b681e}
@@ -247,11 +247,20 @@ footer{max-width:880px;margin:14px auto 4px;font-size:11.5px;color:var(--muted);
   .pmorph b.suffix{color:#3f7a4a;background:#e6f1e8}
   .pmorph b.connector{color:#6c6353;background:#ece7db}
   .pmorph small{color:#555;font-size:7.8pt}
+  .pbank{border:1px solid #bbb;background:#fafafa;padding:2px 6px;margin:1px 0 3px;font-size:8.2pt;line-height:1.65}
+  .pbank .pg{display:block}
+  .pbank .pgl{display:inline-block;width:64px;font-size:7.4pt;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .pbank .pgl.prefix{color:#2c6fa8}.pbank .pgl.root{color:#9a5518}.pbank .pgl.suffix{color:#3f7a4a}.pbank .pgl.connector{color:#6c6353}
+  .pbank b{margin-right:1px}.pbank small{margin-right:7px}
+  .pslot{display:inline-block;text-align:center;vertical-align:bottom;margin:0 2px}
+  .pslot .pblank{display:block;border-bottom:1px solid #444;min-width:44px;height:10pt}
+  .pslot small{display:block;font-size:7.2pt;color:#555;line-height:1.1;max-width:90px}
+  .plus{font-weight:700;margin:0 3px;vertical-align:bottom;line-height:2.4}
   .plegend{font-size:7.8pt;color:#444;margin:0 0 3px}
   .plegend b{padding:0 4px;border-radius:3px;font-weight:700}
   td.ans{min-width:110px}
   td.ans.wide{width:44%}
-  .pline{display:block;border-bottom:1px solid #777;height:14pt}
+  .pline{display:block;border-bottom:1px solid #777;height:13pt}
   td.ans .txt{font-family:Georgia,serif;font-size:9pt;white-space:pre-wrap;min-height:14pt}
   /* side 2 */
   .psrc{display:flex;gap:8px;align-items:flex-start;margin:2px 0 4px}
@@ -442,6 +451,15 @@ function renderWeek(){
 
 /* ================= PAPER: the two-sided A4 sheet ================= */
 const ptile = t=>`<b class="${t[2]||"root"}">${esc(t[0])}</b> <small>(${esc(t[1])})</small>`;
+function pbank(){
+  const tiles=[]; const seen=new Set();
+  W.morph.build.forEach(b=>b.tiles.forEach(t=>{ if(!seen.has(t[0])){seen.add(t[0]);tiles.push(t);} }));
+  (W.morph.decoys||[]).forEach(t=>{ if(!seen.has(t[0])){seen.add(t[0]);tiles.push(t);} });
+  const g={prefix:[],root:[],suffix:[],connector:[]}; tiles.forEach(t=>g[t[2]].push(t));
+  const lab={prefix:"prefixes",root:"roots",suffix:"suffixes",connector:"joiners"};
+  return ["prefix","root","suffix","connector"].filter(k=>g[k].length).map(k=>
+    `<span class="pg"><span class="pgl ${k}">${lab[k]}</span> ${g[k].map(t=>`<b class="${k}">${esc(t[0])}</b><small>${esc(t[1])}</small>`).join(" ")}</span>`).join("");
+}
 const plines = n=>Array(n).fill('<span class="pline"></span>').join("");
 function renderPrint(){
   const bank = W.bank.concat(ALWAYS.map(a=>Object.assign({always:true},a)));
@@ -462,10 +480,10 @@ function renderPrint(){
       ${bank.map(x=>`<tr><td class="w${x.always?" gold":""}">${esc(x.w)}</td><td>${esc(x.d)}${hx()}</td></tr>`).join("")}
     </table>
     <div class="pk">Part A: Morphology, build the words <small>(about 12 minutes)</small></div>
-    <p class="pi">Each row gives a word's morphemes in order, with what each part means. Write the word they build, then its meaning in your own words.${hx()}</p>
-    <div class="plegend pmorph"><b class="prefix">prefix</b> <b class="root">root</b> <b class="suffix">suffix</b> <b class="connector">connector</b></div>
-    <table class="pt pmorph"><tr><th>Morphemes</th><th>The word</th><th>What it means</th></tr>
-      ${W.morph.build.map(m=>`<tr><td>${m.tiles.map(ptile).join(" + ")}${hx()}</td><td class="ans">${plines(1)}</td><td class="ans wide">${plines(1)}</td></tr>`).join("")}
+    <p class="pi">The bank holds every word part you need, plus a few you don't. Each slot names the <i>meaning</i> it needs: write the matching part in colour order, then the word they build.${hx()}</p>
+    <div class="pbank pmorph">${pbank()}</div>
+    <table class="pt pmorph"><tr><th>Slots (each slot tells you the meaning of the part it needs)</th><th>The word</th></tr>
+      ${W.morph.build.map(m=>`<tr><td>${m.tiles.map(t=>`<span class="pslot"><span class="pblank"></span><small>${esc(t[1])}</small></span>`).join('<span class="plus">+</span>')}${hx()}</td><td class="ans">${plines(1)}</td></tr>`).join("")}
     </table>
     <p class="pi">Word families: grow each base word into the form asked for. The morphemes are the hint.</p>
     <table class="pt pmorph"><tr><th>Base word</th><th>Make</th><th>Morphemes</th><th>Your word</th></tr>
@@ -474,7 +492,12 @@ function renderPrint(){
         <td>${f.hint.map(h=>`<b class="${h[1]}">${esc(h[0])}</b>`).join(" + ")} <small>${esc(f.gloss)}</small></td>
         <td class="ans">${v?`<div class="txt">${esc(v)}</div>`:plines(1)}</td></tr>`;}).join("")}
     </table>
-    ${W.morph.origin?`<p class="pi"><b>${esc(W.morph.origin.w)}.</b> ${W.morph.origin.note}</p>`:""}
+    <p class="pi">Word alchemy: three words you were never taught. Use the parts to work out what each one must mean.</p>
+    <table class="pt pmorph"><tr><th>New word</th><th>Its parts</th><th>So it must mean…</th></tr>
+      ${W.morph.alchemy.map((a,ai)=>{const v=(S.alchemy&&S.alchemy[ai])||"";
+        return `<tr><td><b>${esc(a.word)}</b></td><td>${a.parts.map(ptile).join(" + ")}${hx()}</td>
+        <td class="ans wide">${v?`<div class="txt">${esc(v)}</div>`:plines(1)}</td></tr>`;}).join("")}
+    </table>
   </div>`;
   const panel = s.kind==="image"
     ? `<img src="${esc(s.file)}" alt="${esc(s.alt)}"><div class="side-notes"><b>${esc(s.label)}</b><div class="pcite">${esc(s.cite)}</div><ul class="pfacts">${s.facts.map(f=>`<li>${esc(f)}${hx()}</li>`).join("")}</ul></div>`
@@ -552,7 +575,14 @@ function renderMorph(){
     ${bank}<div class="buildhint" id="buildhint" role="status"></div>${rows}
     <h4 style="margin:16px 0 4px">Word families</h4>
     <p class="note">Grow each base word into the form asked for. Type it, then press Enter or the tick.</p>
-    ${fam}${origin}`;
+    ${fam}
+    <h4 style="margin:16px 0 4px">Word alchemy</h4>
+    <p class="note">Three words you were never taught. Use the parts to write what each one must mean; your teacher reads these.</p>
+    <table class="family"><tr><th>New word</th><th>Its parts</th><th>So it must mean…</th></tr>
+    ${W.morph.alchemy.map((a,ai)=>`<tr><td><b>${esc(a.word)}</b></td>
+      <td class="eqn">${a.parts.map(p=>`<b class="${p[2]}">${esc(p[0])}</b>`).join(" + ")}<br><span style="font-size:11px;color:var(--muted)">${a.parts.map(p=>esc(p[1])).join(" + ")}</span></td>
+      <td><input class="alch" data-ai="${ai}" value="${esc((S.alchemy&&S.alchemy[ai])||"")}" style="width:100%" autocomplete="off"></td></tr>`).join("")}
+    </table>${origin}`;
 }
 let selTile=null;
 function wireMorph(){
@@ -587,6 +617,7 @@ function wireMorph(){
     inp.oninput=()=>{ S.family=S.family||{}; S.family[inp.dataset.fi]=inp.value; persist(); renderPrint(); };
     if(inp.value.trim()) checkFam(inp,true);
   });
+  $$("input.alch").forEach(inp=>inp.oninput=()=>{ S.alchemy=S.alchemy||{}; S.alchemy[inp.dataset.ai]=inp.value; persist(); renderPrint(); });
 }
 function finishWord(row,b){
   row.classList.add("done");
