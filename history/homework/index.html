@@ -189,7 +189,6 @@ td.write textarea:focus{outline:2px solid var(--gold)}
 .chips .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
 .chip{font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 10px;border:1px solid var(--line);color:var(--muted);background:var(--bg)}
 .chip.hit{border-color:var(--correct);color:var(--correct);background:var(--okbg)}
-.printtext{display:none}
 
 /* -------- bump it up -------- */
 .bumpwrap{display:grid;gap:12px}
@@ -212,21 +211,74 @@ select.gap.no{border-color:var(--wrong);color:var(--wrong)}
 
 footer{max-width:880px;margin:14px auto 4px;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.5}
 
-/* -------- paper: the whole week, open, clean -------- */
+/* -------- paper: one A4 sheet, two sides, its own DOM (#print-sheet) --------
+   The screen page is interactive and modular; the paper version is the
+   original homework sheet: side 1 word bank + morphology, side 2 source,
+   the Grade 4 table and the bump-it-up. Rendered by renderPrint() from the
+   same content, never from the screen DOM. */
+#print-sheet{display:none}
 @media print{
-  :root{--paper:#fff;--bg:#fff;--band:#f5f0e6}
-  body{padding:0}
-  .container{border:0;box-shadow:none;max-width:100%;padding:4px}
-  .weektabs,.namebar input:placeholder-shown~span,.wm,.micro,.say,.buildhint{display:none !important}
-  .weektabs{display:none !important}
-  .mod{break-inside:avoid;overflow:visible}
-  .mod .body{display:block !important}
-  .mod>h3 .arrow{display:none}
-  .mbank{display:none}
-  td.write textarea{display:none}
-  .printtext{display:block;font-family:Georgia,serif;font-size:13px;min-height:70px;white-space:pre-wrap}
-  .printtext.empty{background:repeating-linear-gradient(#fff 0 22px,#999 22px 23px);min-height:92px}
+  @page{size:A4;margin:10mm 11mm}
+  html,body{background:#fff;padding:0;margin:0}
+  .container>*:not(#print-sheet),footer{display:none !important}
+  .container{border:0;box-shadow:none;max-width:none;padding:0;margin:0;background:#fff;border-radius:0}
+  #print-sheet{display:block;font-size:9.6pt;line-height:1.3;color:#111;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .side{position:relative}
+  .side2{break-before:page}
+  .ph1{font-family:Georgia,serif;font-size:19pt;font-weight:400;color:#1f2b33;margin:0}
+  .ph2{font-size:10.5pt;font-weight:700;color:#233c46;margin:1px 0 5px}
+  .pname{font-size:9pt;margin:4px 0 6px;color:#333}
+  .pname span{display:inline-block;margin-right:14px}
+  .pname i{display:inline-block;border-bottom:1px solid #444;min-width:150px;height:9pt;vertical-align:bottom;margin-left:4px}
+  .pname i.s{min-width:70px}
+  .pk{font-size:11.5pt;font-weight:700;color:#2b6a8a;margin:8px 0 2px;font-family:Georgia,serif}
+  .pk small{font-weight:400;color:#555;font-size:9pt;font-family:system-ui,sans-serif}
+  .pi{font-style:italic;color:#444;font-size:8.8pt;margin:0 0 4px}
+  table.pt{width:100%;border-collapse:collapse;margin:2px 0 4px;page-break-inside:auto}
+  table.pt th{background:#233c46;color:#fff;font-size:8.2pt;text-align:left;padding:3px 6px;font-weight:700}
+  table.pt td{border:1px solid #bbb;padding:3px 6px;vertical-align:top;font-size:9pt}
+  table.pt tr:nth-child(even) td{background:#f4f4f4}
+  table.pt td.w{font-weight:700;white-space:nowrap;width:22%}
+  table.pt td.gold{color:#8b681e}
+  .pmorph b{font-family:Georgia,serif;font-size:9.5pt;padding:0 2px;border-radius:3px}
+  .pmorph b.prefix{color:#2c6fa8;background:#e5eef5}
+  .pmorph b.root{color:#9a5518;background:#f5e7d8}
+  .pmorph b.suffix{color:#3f7a4a;background:#e6f1e8}
+  .pmorph b.connector{color:#6c6353;background:#ece7db}
+  .pmorph small{color:#555;font-size:7.8pt}
+  .plegend{font-size:7.8pt;color:#444;margin:0 0 3px}
+  .plegend b{padding:0 4px;border-radius:3px;font-weight:700}
+  td.ans{min-width:110px}
+  td.ans.wide{width:44%}
+  .pline{display:block;border-bottom:1px solid #777;height:14pt}
+  td.ans .txt{font-family:Georgia,serif;font-size:9pt;white-space:pre-wrap;min-height:14pt}
+  /* side 2 */
+  .psrc{display:flex;gap:8px;align-items:flex-start;margin:2px 0 4px}
+  .psrc img{width:46%;max-height:62mm;object-fit:cover;border:1px solid #999}
+  .psrc .q{font-family:Georgia,serif;font-size:9pt;line-height:1.35;border:1px solid #999;padding:5px 8px;background:#fafafa}
+  .psrc .q p{margin:0 0 3px}
+  .psrc .side-notes{flex:1}
+  .pcite{font-size:7.8pt;color:#444;margin:1px 0 2px}
+  ul.pfacts{margin:2px 0 3px;padding-left:14px;font-size:8.6pt}
+  ul.pfacts li{margin:0 0 1px}
+  .pcall{font-size:9.5pt;margin:3px 0 2px}
+  .pcall b{display:inline-block;border:1.5px solid #333;border-radius:12px;padding:0 10px;margin:0 4px;font-weight:700}
+  .pcall b.pick{background:#233c46;color:#fff}
+  table.pan td.rh{width:24%}
+  table.pan td.rh b{display:block}
+  table.pan td.rh .g{font-size:10pt;margin-right:3px}
+  table.pan td.rh .ask{display:block;color:#444;font-size:8pt;font-weight:400}
+  table.pan td.rh .use{display:block;color:#8b681e;font-size:7.8pt;margin-top:2px}
+  table.pan td.st{width:27%;font-family:Georgia,serif;font-style:italic;color:#333;font-size:8.8pt}
+  .rh.source{border-left:4px solid #176b87}.rh.context{border-left:4px solid #357a46}
+  .rh.evidence{border-left:4px solid #a34d1d}.rh.judge{border-left:4px solid #744f91}.rh.ps{border-left:4px solid #8b681e}
+  .pbump{border:1px solid #999;padding:5px 8px;margin-top:3px;font-family:Georgia,serif;font-size:9.6pt;line-height:1.7}
+  .pbump .lv{font-family:system-ui,sans-serif;font-size:7.8pt;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#555;margin:2px 0 0}
+  .pbump .gap{display:inline-block;border-bottom:1px solid #333;min-width:26mm;text-align:center;font-weight:700}
+  .pbump .box{font-family:system-ui,sans-serif;font-size:8.6pt;color:#333;margin-top:3px}
+  .pbump .box b{display:inline-block;border:1px solid #999;border-radius:10px;padding:0 7px;margin:1px 2px}
+  .pfoot{font-size:7.4pt;color:#666;margin-top:6px;border-top:1px solid #ccc;padding-top:2px}
 }
 </style>
 </head>
@@ -248,6 +300,7 @@ footer{max-width:880px;margin:14px auto 4px;font-size:11.5px;color:var(--muted);
   </div>
 
   <div id="week"></div>
+  <div id="print-sheet" aria-hidden="true"></div>
 </div>
 <footer id="foot"></footer>
 
@@ -384,6 +437,70 @@ function renderWeek(){
 
   wireMorph(); wireSource(); wireAnalysis(); wireBump();
   $$(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)});
+  renderPrint();
+}
+
+/* ================= PAPER: the two-sided A4 sheet ================= */
+const ptile = t=>`<b class="${t[2]||"root"}">${esc(t[0])}</b> <small>(${esc(t[1])})</small>`;
+const plines = n=>Array(n).fill('<span class="pline"></span>').join("");
+function renderPrint(){
+  const bank = W.bank.concat(ALWAYS.map(a=>Object.assign({always:true},a)));
+  const s=W.source, b=W.bump;
+  const gapOpts=[...new Set(b.to.filter(p=>typeof p!=="string").flatMap(p=>p.opts))].sort();
+  let gi=0;
+  const cloze=b.to.map(part=>{
+    if(typeof part==="string") return esc(part);
+    const v=(S.bump&&S.bump[gi])||""; gi++;
+    return `<span class="gap">${esc(v)}</span>`;
+  }).join("");
+  const side1=`<div class="side side1">
+    <h1 class="ph1">${esc(UNIT.title)}: Vocabulary Homework ${W.n}</h1>
+    <div class="ph2">${esc(W.title)} · ${esc(W.sub)}${hx()}</div>
+    <div class="pname"><span>Name<i></i></span><span>Class<i class="s"></i></span><span>Date<i class="s"></i></span></div>
+    <div class="pk">Word bank</div>
+    <table class="pt"><tr><th>Word</th><th>Definition</th></tr>
+      ${bank.map(x=>`<tr><td class="w${x.always?" gold":""}">${esc(x.w)}</td><td>${esc(x.d)}${hx()}</td></tr>`).join("")}
+    </table>
+    <div class="pk">Part A: Morphology, build the words <small>(about 12 minutes)</small></div>
+    <p class="pi">Each row gives a word's morphemes in order, with what each part means. Write the word they build, then its meaning in your own words.${hx()}</p>
+    <div class="plegend pmorph"><b class="prefix">prefix</b> <b class="root">root</b> <b class="suffix">suffix</b> <b class="connector">connector</b></div>
+    <table class="pt pmorph"><tr><th>Morphemes</th><th>The word</th><th>What it means</th></tr>
+      ${W.morph.build.map(m=>`<tr><td>${m.tiles.map(ptile).join(" + ")}${hx()}</td><td class="ans">${plines(1)}</td><td class="ans wide">${plines(1)}</td></tr>`).join("")}
+    </table>
+    <p class="pi">Word families: grow each base word into the form asked for. The morphemes are the hint.</p>
+    <table class="pt pmorph"><tr><th>Base word</th><th>Make</th><th>Morphemes</th><th>Your word</th></tr>
+      ${W.morph.family.map((f,fi)=>{const v=(S.family&&S.family[fi])||"";
+        return `<tr><td><b>${esc(f.base)}</b> <i>(${esc(f.pos)})</i></td><td>${esc(f.want)}${hx()}</td>
+        <td>${f.hint.map(h=>`<b class="${h[1]}">${esc(h[0])}</b>`).join(" + ")} <small>${esc(f.gloss)}</small></td>
+        <td class="ans">${v?`<div class="txt">${esc(v)}</div>`:plines(1)}</td></tr>`;}).join("")}
+    </table>
+    ${W.morph.origin?`<p class="pi"><b>${esc(W.morph.origin.w)}.</b> ${W.morph.origin.note}</p>`:""}
+  </div>`;
+  const panel = s.kind==="image"
+    ? `<img src="${esc(s.file)}" alt="${esc(s.alt)}"><div class="side-notes"><b>${esc(s.label)}</b><div class="pcite">${esc(s.cite)}</div><ul class="pfacts">${s.facts.map(f=>`<li>${esc(f)}${hx()}</li>`).join("")}</ul></div>`
+    : `<div class="q" style="width:54%">${s.paras.map(p=>`<p>${esc(p)}${hx()}</p>`).join("")}</div><div class="side-notes"><b>${esc(s.label)}</b><div class="pcite">${esc(s.cite)}</div><ul class="pfacts">${s.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>`;
+  const side2=`<div class="side side2">
+    <div class="pk">Part B: Meet the source${hx()}</div>
+    <div class="psrc">${panel}</div>
+    <div class="pcall">Primary or secondary? Circle one: <b class="${S.ps==="primary"?"pick":""}">Primary</b> <b class="${S.ps==="secondary"?"pick":""}">Secondary</b> then defend it in the table below.</div>
+    <div class="pk">Part C: Source analysis <small>(one or two sentences per row, using the words shown)</small></div>
+    <table class="pt pan"><tr><th>Skill</th><th>Sentence starters</th><th>Your 1–2 sentences</th></tr>
+      ${W.analysis.map((r,ri)=>{const c=CRITERIA[r.key]; const v=(S.writing&&S.writing[ri])||"";
+        return `<tr><td class="rh ${r.key}"><b>${c?`<span class="g">${c.glyph}</span>`:""}${esc(r.head)}</b><span class="ask">${esc(r.ask)}${hx()}</span><span class="use">use: ${r.vocab.join(", ")}</span></td>
+        <td class="st">${r.stems.map(esc).join("<br>")}</td>
+        <td class="ans">${v?`<div class="txt">${esc(v)}</div>`:plines(3)}</td></tr>`;}).join("")}
+    </table>
+    <div class="pk">Part D: Bump it up${hx()}</div>
+    <div class="pbump">
+      <div class="lv">${esc(b.fromLevel)} · done · ${CRITERIA[b.key].glyph} ${CRITERIA[b.key].name}</div>
+      <div>${esc(b.from)}</div>
+      <div class="lv">${esc(b.toLevel)} · yours: the same row, one rung stronger. Fill the gaps with this week's words.</div>
+      <div>${cloze}</div>
+      <div class="box">Choose from: ${gapOpts.map(o=>`<b>${esc(o)}</b>`).join(" ")}</div>
+    </div>
+    <div class="pfoot">${esc(UNIT.foot)}</div>
+  </div>`;
+  $("#print-sheet").innerHTML=side1+side2;
 }
 
 /* ================= PART A: morphemes ================= */
@@ -467,7 +584,7 @@ function wireMorph(){
   $$(".family input").forEach(inp=>{
     inp.onkeydown=e=>{ if(e.key==="Enter"){e.preventDefault();checkFam(inp);} };
     inp.onblur=()=>{ if(inp.value.trim()) checkFam(inp); };
-    inp.oninput=()=>{ S.family=S.family||{}; S.family[inp.dataset.fi]=inp.value; persist(); };
+    inp.oninput=()=>{ S.family=S.family||{}; S.family[inp.dataset.fi]=inp.value; persist(); renderPrint(); };
     if(inp.value.trim()) checkFam(inp,true);
   });
 }
@@ -506,7 +623,7 @@ function renderSource(){
 function wireSource(){
   $$(".psbtn").forEach(b=>b.onclick=()=>{
     $$(".psbtn").forEach(x=>x.classList.remove("pick")); b.classList.add("pick");
-    S.ps=b.dataset.ps; persist();
+    S.ps=b.dataset.ps; persist(); renderPrint();
     const fb=$("#psfb"); const right = b.dataset.ps===W.source.ps.answer;
     fb.className="psfb show "+(right?"ok":"no");
     fb.innerHTML = right?W.source.ps.right:W.source.ps.wrong;
@@ -536,7 +653,6 @@ function renderAnalysis(){
         <span class="ask">${esc(r.ask)}${hx()}</span></td>
       <td class="stems">${r.stems.map(s=>`<div>${esc(s)}</div>`).join("")}${hx()}</td>
       <td class="write"><textarea data-ri="${ri}" aria-label="${esc(r.head)}">${esc(saved)}</textarea>
-        <div class="printtext${saved.trim()?"":" empty"}" data-pi="${ri}">${esc(saved)}</div>
         <div class="chips"><span class="lbl">use:</span>${r.vocab.map(v=>`<span class="chip" data-w="${esc(v)}">${esc(v)}</span>`).join("")}</div>
       </td></tr>`;}).join("")}
   </table>`;
@@ -547,10 +663,8 @@ function wireAnalysis(){
       S.writing=S.writing||{}; S.writing[ta.dataset.ri]=ta.value; persist();
       const cell=ta.closest("td");
       $$(".chip",cell).forEach(ch=>ch.classList.toggle("hit", stemMatch(ch.dataset.w, ta.value)));
-      const pt=$(`.printtext[data-pi="${ta.dataset.ri}"]`,cell);
-      pt.textContent=ta.value; pt.classList.toggle("empty",!ta.value.trim());
     };
-    ta.oninput=upd; upd();
+    ta.oninput=()=>{upd();renderPrint();}; upd();
   });
 }
 
@@ -587,7 +701,7 @@ function wireBump(){
   $$("select.gap").forEach(sel=>{
     const judge=()=>{
       const g=gaps[+sel.dataset.gi]; const v=sel.value;
-      S.bump=S.bump||{}; S.bump[sel.dataset.gi]=v; persist();
+      S.bump=S.bump||{}; S.bump[sel.dataset.gi]=v; persist(); renderPrint();
       if(!v){ sel.className="gap"; return; }
       if(v===g.gap){ sel.className="gap ok"; $("#gapfb").textContent=""; check(); }
       else{ sel.className="gap no";
