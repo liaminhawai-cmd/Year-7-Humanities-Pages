@@ -228,7 +228,10 @@
      tapped tile enlarges so the current selection is unmissable, dragging is
      off so a tremor cannot yank a tile, and each word starts with every slot
      but one already placed and locked, so one accurate tap finishes a word. */
-  body.access .topnav #accessToggle{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .accessrow{text-align:center;margin-top:26px;border-top:1px solid var(--line-soft);padding-top:8px}
+  .accessrow button{background:none;border:none;font-family:inherit;font-size:10.5px;color:var(--muted);cursor:pointer;padding:4px 8px;letter-spacing:.3px}
+  .accessrow button:hover{color:var(--ink);text-decoration:underline}
+  body.access .accessrow button{color:var(--earth-d);font-weight:800;font-size:13px}
   body.access .mtile{padding:16px 22px;border-radius:12px;border-width:2px}
   body.access .mtile .mm{font-size:26px}
   body.access .mtile .gl{font-size:15px}
@@ -313,7 +316,6 @@
   <button data-scr="morphtable" onclick="go('morphtable')">Morpheme table</button>
   <button data-scr="glossary" onclick="go('glossary')">Word list</button>
   <button data-scr="report" onclick="go('report')">My report</button>
-  <button id="accessToggle" onclick="toggleAccess()" title="Bigger tiles, tap only, most pieces already placed">Access</button>
 </div>
 
 <div class="screen active" id="scr-home">
@@ -387,18 +389,26 @@
   <div id="glossary-body"></div>
 </div>
 
+<div class="accessrow noprint"><button id="accessToggle" onclick="toggleAccess()" aria-pressed="false" title="Bigger tiles, tap only, most pieces already placed">Access mode: off</button></div>
 </div>
 <script>
-/* Access mode: persistent across every page on this site that supports it
-   (one localStorage key), and switchable on first visit by a ?access link so
-   a teacher can hand a student a URL that opens ready. */
+/* Access mode: regular mode is the default, always. A ?access link switches
+   it on for that sitting only (sessionStorage, so it follows the student
+   between this site's pages in the tab and then lapses), and the small
+   toggle at the foot of the page makes it stick on this device
+   (localStorage) until it is switched off again. Nothing else turns it on,
+   so a shared laptop always opens in regular mode. */
 const ACCESS_KEY="y7h-access";
 let ACCESS=false;
 try{
-  if(new URLSearchParams(location.search).has("access")) localStorage.setItem(ACCESS_KEY,"on");
-  ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
+  if(new URLSearchParams(location.search).has("access")) sessionStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on"||sessionStorage.getItem(ACCESS_KEY)==="on";
 }catch(e){}
-if(ACCESS) document.addEventListener("DOMContentLoaded",()=>document.body.classList.add("access"));
+function accessLabel(){
+  const b=document.getElementById("accessToggle");
+  if(b){ b.textContent="Access mode: "+(ACCESS?"on":"off"); b.setAttribute("aria-pressed",String(ACCESS)); }
+}
+document.addEventListener("DOMContentLoaded",()=>{ if(ACCESS) document.body.classList.add("access"); accessLabel(); });
 /* Read-aloud: the browser's own speech engine, nothing leaves the device.
    Always on show, not gated behind Access mode: a student who needs text read
    aloud does not necessarily need the motor scaffold. */
@@ -420,8 +430,12 @@ function sayBtn(text){return TTS_OK?`<button class="say" type="button" data-say=
 function wireSay(root){root.querySelectorAll(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)})}
 function toggleAccess(){
   ACCESS=!ACCESS;
-  try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
+  try{
+    if(ACCESS) localStorage.setItem(ACCESS_KEY,"on");
+    else { localStorage.removeItem(ACCESS_KEY); sessionStorage.removeItem(ACCESS_KEY); }
+  }catch(e){}
   document.body.classList.toggle("access",ACCESS);
+  accessLabel();
   const row=document.querySelector("#wtable .wrow");
   if(row && buildCtx) renderBuildTable(buildCtx.l, buildCtx.l.words.filter(w=>w.type==="morph"||w.type==="compound"));
 }
