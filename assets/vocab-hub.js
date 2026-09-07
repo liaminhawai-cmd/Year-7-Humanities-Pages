@@ -3,23 +3,32 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const shuffle=a=>{const b=[...a];for(let i=b.length-1;i;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
 
-/* Access mode: a persistent per-device profile (localStorage "y7h-access",
-   the same key the Ancient Australia hub uses, so it follows the student
-   between topics) for students for whom fine pointer control is the barrier.
-   Bigger targets, the selected tile enlarges, and each word starts with every
-   slot but one already placed and locked. A ?access link switches it on. */
+/* Access mode: regular mode is the default, always (same key as the Ancient
+   Australia hub, "y7h-access", so the states agree between topics). A ?access
+   link switches it on for that sitting only (sessionStorage), and the small
+   toggle at the foot of the page makes it stick on this device (localStorage)
+   until switched off. Nothing else turns it on, so a shared laptop always
+   opens in regular mode. Bigger targets, the selected tile enlarges, and each
+   word starts with every slot but one already placed and locked. */
 const ACCESS_KEY="y7h-access";
 let ACCESS=false;
 try{
-  if(new URLSearchParams(location.search).has("access")) localStorage.setItem(ACCESS_KEY,"on");
-  ACCESS=localStorage.getItem(ACCESS_KEY)==="on";
+  if(new URLSearchParams(location.search).has("access")) sessionStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on"||sessionStorage.getItem(ACCESS_KEY)==="on";
 }catch(e){}
 if(ACCESS) document.body.classList.add("access");
+function accessLabel(){
+  const b=$("accessToggle");
+  if(b){ b.textContent="Access mode: "+(ACCESS?"on":"off"); b.setAttribute("aria-pressed",String(ACCESS)); }
+}
 function toggleAccess(){
   ACCESS=!ACCESS;
-  try{ ACCESS?localStorage.setItem(ACCESS_KEY,"on"):localStorage.removeItem(ACCESS_KEY); }catch(e){}
+  try{
+    if(ACCESS) localStorage.setItem(ACCESS_KEY,"on");
+    else { localStorage.removeItem(ACCESS_KEY); sessionStorage.removeItem(ACCESS_KEY); }
+  }catch(e){}
   document.body.classList.toggle("access",ACCESS);
-  $("accessToggle").setAttribute("aria-pressed",String(ACCESS));
+  accessLabel();
   if(mode==="build") start("build");
 }
 
@@ -274,9 +283,15 @@ $("lang").innerHTML='<option value="">English only</option>'+LANGS.map(l=>{
   const n=COVER.get(l.code)||0,part=n<WORDS.length?` · ${n} of ${WORDS.length} words`:"";
   return `<option value="${l.code}">${esc(l.label)} · ${esc(l.english)}${part}</option>`}).join("");
 $("lang").value=lang;$("lang").onchange=()=>{lang=$("lang").value;save();mode==="meet"?drawMeet():start(mode)};
+/* The Access toggle sits small at the foot of the page, not in the tools row:
+   regular mode is the default and the switch should not compete for attention. */
+const accRow=document.createElement("div");
+accRow.className="accessrow";
 const accBtn=document.createElement("button");
 accBtn.id="accessToggle";accBtn.className="accessToggle";accBtn.type="button";
-accBtn.textContent="Access";accBtn.title="Bigger tiles, most pieces already placed";
-accBtn.setAttribute("aria-pressed",String(ACCESS));accBtn.onclick=toggleAccess;
-document.querySelector(".tools").appendChild(accBtn);
+accBtn.title="Bigger tiles, most pieces already placed";
+accBtn.onclick=toggleAccess;
+accRow.appendChild(accBtn);
+(document.querySelector("main")||document.body).appendChild(accRow);
+accessLabel();
 $("search").oninput=drawMeet;$("left").onchange=drawMeet;document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>show(b.dataset.mode));drawMeet();
