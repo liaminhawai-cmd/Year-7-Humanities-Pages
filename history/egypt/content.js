@@ -151,7 +151,7 @@ const SOURCE_PANEL = {
     "The Nile begins to rise at the summer solstice and keeps rising for a hundred days. Then it falls again and runs low all winter, until the next solstice. About why it does this, no Egyptian, Libyan or Greek I have spoken with could tell me anything.",
     "Up to this point what I have written is what I saw, what I judged, and what I found out by asking. From here on I set down the accounts the Egyptians gave me, as I heard them."
   ],
-  cite: "Herodotus, <i>Histories</i>, Book II, sections 5, 14, 19 and 99 (c. 430 BCE). Wording adapted from George Rawlinson's public-domain translation of 1858&ndash;60.",
+  cite: "Herodotus, Histories, Book II, sections 5, 14, 19 and 99 (c. 430 BCE). Wording adapted from George Rawlinson's public-domain translation of 1858&ndash;60.",
   whole: { label:"The whole passage",
     text:"Four short extracts, in the order Herodotus wrote them. The last one is the one historians reach for first." }
 };

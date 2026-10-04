@@ -787,6 +787,15 @@ function drawRungs(){
   el("next").disabled = i >= LADDER.length - 1;
 }
 
+/* The background panel is knowledge, not skill: it names what a student at
+   this level has already been taught, which is what makes the rung's thinking
+   available to them. Labelling it with the level's own name keeps that
+   separate from the gold bar above, which is the skill that actually grew. */
+function bgLabel(lv){
+  const band = /^(Foundation|Levels)/.test(lv);
+  return band ? `Students at ${lv} already know` : `A ${lv} student already knows`;
+}
+
 function render(){
   hidePop();
   drawRungs();
@@ -815,8 +824,8 @@ function render(){
   const b = BUMP[lv] || {};
   stage.innerHTML =
     `<h2><span class="of">Rung ${i+1} of ${LADDER.length}</span>${esc(lv)}</h2>
-     ${b.new ? `<div class="newbar"><span>New at this rung</span>${esc(b.new)}</div>` : ""}
-     ${b.background ? `<div class="bg" id="bgBox" hidden><span>You need to know</span>${esc(b.background)}</div>` : ""}
+     ${b.new ? `<div class="newbar"><span>New skill at this rung</span>${esc(b.new)}</div>` : ""}
+     ${b.background ? `<div class="bg" id="bgBox" hidden><span>${esc(bgLabel(lv))}</span>${esc(b.background)}</div>` : ""}
      <p class="example">${marked(ex)}</p>
      <p class="crumbs">Tap any underlined phrase to see what it proves.</p>`;
   syncBg();

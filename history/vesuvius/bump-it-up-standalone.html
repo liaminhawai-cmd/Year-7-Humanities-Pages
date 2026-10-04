@@ -379,7 +379,7 @@ const EAL = {
       es:"fuente secundaria" }},
 
 "evidence": { en:"The part of a source that proves something.",
-  t:{ "zh-Hans":"证据", "zh-Hant":"證據", ja:"根拠", ko:"증거", vi:"bằng chứng",
+  t:{ "zh-Hans":"证据", "zh-Hant":"證據", ja:"証拠", ko:"증거", vi:"bằng chứng",
       ar:"دليل", fa:"شواهد", ur:"ثبوت", ps:"شواهد", am:"ማስረጃ", ml:"തെളിവ്",
       ta:"சான்று", hi:"साक्ष्य", tl:"katibayan", ro:"dovadă", ru:"доказательство",
       fr:"preuve", es:"evidencia" }},
@@ -450,7 +450,7 @@ const EAL = {
 
 "audience": { en:"The people something was made for.",
   morph:[["audi","hear","root"],["ence","the state of","suffix"]],
-  t:{ "zh-Hans":"受众", "zh-Hant":"讀者群", ja:"受け手", ko:"독자층",
+  t:{ "zh-Hans":"受众", "zh-Hant":"讀者群", ja:"読み手", ko:"독자층",
       vi:"đối tượng người đọc", ar:"الجمهور", fa:"مخاطب", ur:"سامعین",
       ps:"لوستونکي", am:"አድማጭ", ml:"വായനക്കാർ", ta:"வாசகர்கள்",
       hi:"पाठक वर्ग", tl:"mambabasa", ro:"public", ru:"аудитория",
@@ -506,363 +506,360 @@ const EAL = {
 <script>
 /* inlined from content.js */
 /* =======================================================================
-   CONTENT BLOCK for the Vesuvius WAGOLL family.
+   CONTENT BLOCK for the Ancient Rome wall, built on Pliny's two letters.
    This is the ONLY place the wall text lives.
 
    Mark evidence in an example with {key|the phrase}, where key is one of
    the criterion keys in CRITERIA. Anything left unmarked stays black.
 
    ------------------------------------------------------------------
-   DRAFT. The worked examples have been written and levelled but have not
-   been taught yet. The curriculum block below is real: the "Using
-   historical sources" descriptors do not change with the topic, so all
-   three History units meet the same ones.
+   DRAFT. Written and levelled, not yet taught.
 
-   Sequenced third on purpose. Unit 1 is an object with no author, unit 2
-   is a written source by an outsider at second hand, and this one is a
-   written source by a participant, who is nonetheless not an eyewitness
-   to the part of it that matters most.
+   What this wall rehearses. CAT 2 (2025) is a guidebook for a traveller
+   arriving in Rome in 300 CE, with a timeline of Rome's history and a
+   one-page history outline. Its rubric marks four rows: chronology, cause
+   and effect, metacognition and presentation. The first two are ways of
+   thinking about the past and are on this wall, in the rubric's own words.
+   The other two are not (AGENTS.md rules 2 and 3).
+
+   Pliny is not in CAT 2, so he is a rehearsal source (rule 1). He suits
+   these two rows because the times, the days and the reasons are all in the
+   letters themselves, so a student can sequence events and name causes
+   without first learning a body of outside content.
+
+   The source text is given in full and unchanged, apart from paragraph
+   breaks and the cleaning listed in WALL.foot. Do not insert notes, dates or
+   explanations into SOURCES[].paragraphs. Commentary belongs in hotspots.
+
+   An earlier wall on this folder read an extract of the first letter for
+   source analysis. It is in git history at a9f1f4a if it is ever wanted.
    ======================================================================= */
 
 const WALL = {
   id: "hist-vesuvius",
-  title: "A letter about a mountain",
-  expected: "Year 7",
-  inquiry: "Pliny watched the eruption from thirty kilometres away and wrote about it twenty-five years later. How far can we trust him?",
-  foot: "<b>Source:</b> Pliny the Younger, <i>Letters</i> 6.16, to the historian Tacitus, written c. 106 CE about the eruption of Vesuvius in 79 CE. English wording adapted from the public-domain translation of William Melmoth (1746); sentence length and spelling modernised for classroom reading. <b>The traditional date of 24 August is disputed:</b> a charcoal inscription uncovered at Pompeii in 2018, together with the autumn fruit and heavier clothing found in the deposits, has moved many archaeologists to an October eruption. The passage keeps the date the manuscripts give, because the disagreement is part of what there is to analyse."
+  title: "Two letters about Vesuvius",
+  expected: "Level 7",
+  inquiry: "What happened at Vesuvius, in what order, and why did people do what they did?",
+  foot: "<b>Sources:</b> Pliny the Younger, Letters 6.16 and 6.20, to Tacitus, written about 106 CE. Translated by William Melmoth (1746), revised by F. C. T. Bosanquet (1909); public domain. Both letters are given in full. Paragraph breaks have been added; the edition's footnote numbers and the scanning errors in the copy supplied (prevai1ed, atmd, to he driven) have been removed. No other wording has been changed. <b>The date in the letters, 24 August, is disputed:</b> a charcoal note found at Pompeii in 2018 is dated 17 October."
 };
 
 const FACTS = [
-  ["Ancient text", "A letter from Pliny the Younger to the historian Tacitus, one of a collection its author arranged for publication."],
-  ["The author", "Pliny the Younger, in his eighteenth year at the time of the eruption, nephew of the commander of the Roman fleet."],
-  ["Where he stood", "Misenum, a naval base about thirty kilometres across the Bay of Naples from the mountain."],
-  ["The delay", "He wrote roughly twenty-five years after the event, at Tacitus' request, for a history Tacitus was writing."],
-  ["What he did not see", "His uncle's death. That part reached him from the people who were with him."],
-  ["Known limits", "The date is disputed. The account of the death is second-hand. He had a personal stake in how his uncle was remembered."]
+  ["Who wrote them", "Pliny the Younger, aged 17 or 18. He was at Misenum with his mother and his uncle, Pliny the Elder, who commanded the Roman fleet there."],
+  ["Who they were for", "Tacitus, a Roman historian. He asked Pliny how his uncle died, so that he could put it in his history."],
+  ["When", "By the letters' own date, the eruption began on 24 August 79 CE. Pliny wrote both letters around 106 CE, about 27 years later."],
+  ["Where Rome was up to", "Rome had been a republic until 27 BCE, then was ruled by emperors. In 79 CE the emperor was Titus, who had come to power that year."],
+  ["The places", "Misenum was the navy's base, about 30 km across the Bay of Naples from Vesuvius. Stabiae was a town on the coast about 15 km south of the mountain."],
+  ["The date", "A note written in charcoal on a wall at Pompeii, found in 2018, is dated 17 October. It has no year on it. Many historians now think the eruption was in autumn."],
+  ["Not in either letter", "Pompeii. Neither letter names the town the eruption is best known for."]
 ];
 
-/* ink: the colour on paper, all four above 4.5:1 on the wall's cream
-   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which is what survives a greyscale
-               photocopy and a colour-blind reader */
+/* Two rows, the two CAT 2 rows that are ways of thinking. Blue and orange
+   are the pair most colour-blind readers still tell apart, and each row also
+   has its own underline pattern and glyph, so the wall survives a greyscale
+   photocopy (rule 18). */
 const CRITERIA = [
-  { key:"source",   row:"Origin, features &amp; purpose",        name:"Origin, features &amp; purpose",        glyph:"■",
+  { key:"chron", row:"Chronology",       name:"Chronology",       glyph:"■",
     ink:"#176b87", lamp:"#6fc0da", underline:"solid" },
-  { key:"context",  row:"Historical context",                    name:"Historical context",                    glyph:"▲",
-    ink:"#357a46", lamp:"#74c288", underline:"dashed" },
-  { key:"evidence", row:"Historical interpretations",            name:"Historical interpretations",            glyph:"●",
+  { key:"cause", row:"Cause and effect", name:"Cause and effect", glyph:"●",
     ink:"#a34d1d", lamp:"#e89a63", underline:"dotted" },
-  { key:"judge",    row:"Accuracy, usefulness &amp; reliability", name:"Accuracy, usefulness &amp; reliability", glyph:"◆",
-    ink:"#744f91", lamp:"#bda0d8", underline:"double" },
 ];
 
-const LEVELS = ["Grade 5","Year 6","Year 7","Year 8","Year 9","Year 10"];
+/* The CAT 2 rubric's own four levels. Below Level 6 the rubric is blank, so
+   those rungs are EARLY_LEVELS: they carry a worked example and the
+   Victorian Curriculum code, and no continuum wording (rule 5). */
+const LEVELS = ["Level 6","Level 7","Level 8","Level 9"];
 
 const EXAMPLES = {
-"Grade 5":
-`This source is {source|a letter written by Pliny the Younger}. He describes {source|a cloud shaped like a pine tree} above the mountain. {context|Ash and burnt stones fell as the ships came closer}. His uncle {context|sailed towards the danger to help people}. Pliny {evidence|watched from a town across the bay}. He {evidence|heard the rest from people who were there}. The letter is {judge|useful for what the eruption looked like}, but he {judge|did not see his uncle die}.`,
+"Level 6":
+`Pliny's first letter can go on a timeline. {chron|At one in the afternoon on 24 August, his mother sees the cloud}. {chron|That evening his uncle reaches Stabiae and has supper}. {chron|During the night the courtyard fills with stones}, and {chron|in the morning he dies on the shore}. Some causes and effects are clear: {cause|the falling stones mean they must wake him and move him}, and {cause|the high waves mean no one can escape by sea}.`,
 
-"Year 6":
-`The source is a letter by {source|Pliny the Younger}. He wrote it {source|to the historian Tacitus}, about the eruption of Vesuvius in 79 CE. He describes {source|a cloud rising like a pine tree}. It had {source|a tall trunk and branches spreading at the top}. As the rescue ships drew closer, {context|hot ash fell, and then pumice and blackened stones}. His uncle {context|commanded the Roman fleet and sailed towards the mountain}. Pliny {evidence|saw the cloud himself, from across the bay}. But {evidence|others told him how his uncle died}. The letter is {judge|useful evidence for what the eruption looked like}, but {judge|it was written about twenty-five years later}.`,
+"Level 7":
+`The eruption fits a clear time frame: {chron|it began on 24 August 79 CE}, and {chron|Pliny wrote about it around 106 CE, 27 years later}. {chron|His two letters cover the same days from two places, Stabiae and Misenum}. The eruption affected people in different ways. {cause|For his uncle, Rectina's note turned a trip to study the cloud into a rescue}. {cause|For the crowd at Misenum, fear made people follow others instead of deciding for themselves}.`,
 
-"Year 7":
-`The ancient source is {source|a letter from Pliny the Younger to the historian Tacitus}. It was written {source|about twenty-five years after Vesuvius erupted in 79 CE}. Its purpose was to {source|give Tacitus material for a history}, and also to leave {source|a record of how his uncle died}. In the Roman world, {context|Misenum was a naval base, and Pliny's uncle commanded the fleet stationed there}. That is why {context|warships could be launched towards an erupting mountain}. Pliny describes the cloud as {evidence|shaped like a pine tree, with a trunk and spreading branches}. He is clear that {evidence|he watched from across the bay and was told the rest}. The letter is {judge|very useful for the shape and stages of the eruption}, because {judge|the ash and pumice he describes match what excavators dug through at Pompeii}. It cannot tell us {judge|what happened inside the buried towns}.`,
+"Level 8":
+`{chron|The eruption happened in 79 CE, in the time of the Roman Empire}, {chron|about a hundred years after Augustus became the first emperor in 27 BCE}. {cause|An onshore wind carried his uncle to Stabiae, but the same wind stopped Pomponianus from sailing away}. His uncle's actions had motives. {cause|He bathed and ate supper cheerfully}, and Pliny says why: {cause|to calm his frightened friend by seeming unworried}.`,
 
-"Year 8":
-`Pliny wrote this letter {source|around 106 CE, at the request of Tacitus, who was writing a history}. He tells Tacitus {source|to take from it whatever he needs}, and he says plainly that {source|a letter and a history are not the same thing}. Misenum was {context|the base of the Roman fleet, about thirty kilometres across the bay from the mountain}. Pliny the Elder {context|commanded it and also wrote on natural history}, which explains {context|both the rescue and the curiosity together}. Pliny describes the eruption column as {evidence|a pine-shaped cloud}, a description exact enough that {evidence|volcanologists now call this kind of eruption Plinian}. He separates {evidence|the cloud he saw from his uncle's death, which reached him at second hand}. The letter is {judge|strongly supported where the deposits at Pompeii match his order of ash, then pumice, then stone}. I would ask {judge|how much twenty-five years and a wish to honour his uncle have shaped the telling}.`,
-
-"Year 9":
-`The letter survives {source|because it was collected and published among Pliny's correspondence}, not because anyone preserved it {source|as a record of a disaster}. He wrote it {source|for Tacitus, and past him for the readers of a published collection}. He draws the distinction himself: {source|writing to a friend is not writing for the public}. Misenum lay {context|across the Bay of Naples from Vesuvius, far enough for Pliny to watch and near enough for the fleet to be ordered out}. His uncle's decision to sail {context|belonged to a Roman elite in which command and the study of nature sat in one person}. Pliny explains the column {evidence|as a pine, a comparison precise enough that modern volcanology took its name from him}. He distinguishes {evidence|what he observed from what was reported to him afterwards}. Because {judge|the layers excavated at Pompeii follow the same order he gives, ash, then pumice, then blackened stone, the physical account is well supported}. The account of his uncle's last hours is {judge|weaker, resting on survivors' testimony recalled a quarter of a century later}.`,
-
-"Year 10":
-`Pliny is a witness to part of what he describes, but the text reaches us {source|as literature: a letter written for publication, inside a collection its author arranged}. Its explicit evidence is {source|the shape of the column and the order of what fell}. Its implicit argument is that {source|his uncle died as a Roman of learning and command should die}, and it is aimed {source|at a historian and, through him, at a reading public}. The letter reflects {context|an empire in which naval command, natural philosophy and literary reputation belonged to the same men}. It reveals what Pliny valued: {context|accuracy, courage, and the memory of his family}. Volcanologists accept the eruption sequence {evidence|because the deposits at Pompeii and Herculaneum record the same order independently}. Historians treat the death scene more cautiously {evidence|because it came through survivors and through twenty-five years of retelling}, and they now dispute even the date {evidence|because autumn fruit, heavier clothing and an inscription found in 2018 point past August}. Their readings diverge because {evidence|deposits and memory decay in different ways}. Overall the letter is {judge|strong evidence for the physical eruption and qualified evidence for the human events inside it}. Its strength is {judge|that an independent record in the ground agrees with it}; its limits are {judge|the delay, the second-hand core, and the author's stake in how his uncle is remembered}.`
+"Level 9":
+`The letters cover about three days: {chron|from the cloud on the afternoon of 24 August}, {chron|through a night and a morning of darkness}, {chron|to the body being found when the light returned}. {chron|Two timelines run side by side: while his uncle sheltered at Stabiae, Pliny and his mother waited at Misenum}. {chron|Even the date is uncertain, because a note found at Pompeii in 2018 points to October}. The causes were not only physical. {cause|The ash forced choices}, but motives shaped what people did: {cause|his uncle steered towards danger to help others}, {cause|Pliny would not leave his mother}, and {cause|some people spread false stories, which made the fear worse}.`
 };
 
 const EXPLANATIONS = {
-"Grade 5": {
-  source:   "Names the source, its author, and the image he uses for the cloud.",
-  context:  "Says what was falling and what his uncle did.",
-  evidence: "Separates what Pliny saw from what he was told.",
-  judge:    "Gives one use and one limit, and the limit is about the author's position."
-},
-"Year 6": {
-  source:   "Identifies the type of source, both people involved, the event and the date.",
-  context:  "Describes the sequence of what fell, and the role that put his uncle on a ship.",
-  evidence: "Recognises that the letter holds two kinds of evidence at once.",
-  judge:    "Recognises usefulness and names the delay as the limit."
-},
-"Year 7": {
-  source:   "Identifies origin and content, then states both purposes: material for a history, and a record of a death.",
-  context:  "Outlines why a fleet was there at all, which is what makes the rescue possible.",
-  evidence: "Describes his interpretation of the column and his own split between seen and reported.",
-  judge:    "Concludes from outside corroboration, then bounds the claim with what the letter cannot reach."
-},
-"Year 8": {
-  source:   "Describes the commission, the audience, and Pliny's own statement about genre.",
-  context:  "Describes Misenum and explains the double role that produced both the rescue and the observation.",
-  evidence: "Connects his description to its modern reception, the term Plinian, and holds the two evidence bases apart.",
-  judge:    "Compares the letter with the excavated deposits, then asks targeted questions about time and motive."
-},
-"Year 9": {
-  source:   "Explains why the letter survives at all, and how publication shaped it.",
-  context:  "Explains the geography of the bay and the social world that put a naturalist in command of a fleet.",
-  evidence: "Analyses the pine comparison as an interpretation precise enough to become a technical term.",
-  judge:    "Ranks the physical account above the death scene, and gives the reason for each."
-},
-"Year 10": {
-  source:   "Analyses the letter as literature, with an explicit record and an implicit argument about how to die well.",
-  context:  "Uses context to explain the author's values and the world that made them possible.",
-  evidence: "Exposes why specialists accept one part, qualify another, and now dispute the date itself.",
-  judge:    "Weighs one strength against three limitations and separates two claims of different strength."
-}
+"Level 6": {
+  chron: "The blue phrases put four events from the first letter in order, using the times the letter gives.",
+  cause: "The orange phrases give two causes, each with its effect." },
+"Level 7": {
+  chron: "The blue phrases use CE dates, measure the gap between the eruption and the writing, and see that both letters cover the same days.",
+  cause: "The orange phrases show the eruption affecting one person and one group in different ways." },
+"Level 8": {
+  chron: "The blue phrases place the eruption in a period of Roman history, counted from the first emperor.",
+  cause: "The orange phrases explain one cause with two effects, then name a person's motive for what he did." },
+"Level 9": {
+  chron: "The blue phrases give how long it lasted, run two timelines side by side, and notice that the date itself is disputed.",
+  cause: "The orange phrases separate the physical cause from the motives of three different people." }
 };
 
+/* CAT 2 rubric, Ancient Rome, 2025. Quoted exactly (rule 4). Level 7
+   chronology is one cell in the rubric that wraps onto two lines. */
 const CONTINUUM = {
-source:{
- "Grade 5":"I can name a historical source and a feature I notice.",
- "Year 6":"I can identify different types of historical sources.",
- "Year 7":"I can identify the origin, content features and purpose of historical sources.",
- "Year 8":"I can describe the origin, content features and purpose of historical sources.",
- "Year 9":"I can explain the origin, content features and purpose of historical sources.",
- "Year 10":"I can analyse the origin, explicit and implicit meaning, and purpose of historical sources."},
-context:{
- "Grade 5":"I can say where or when a source comes from.",
- "Year 6":"I can identify the historical context of a source.",
- "Year 7":"I can outline the historical context of a source.",
- "Year 8":"I can describe the historical context of sources.",
- "Year 9":"I can explain historical context, including important events that influenced a source’s creation.",
- "Year 10":"I can explain historical context to identify the motivations, values and attitudes of a source’s creator."},
-evidence:{
- "Grade 5":"I can notice that people may explain the past differently.",
- "Year 6":"I can recognise that historians may interpret historical events and developments differently.",
- "Year 7":"I can describe different historical interpretations of the past.",
- "Year 8":"I can explain different historical interpretations and contested debates about the past.",
- "Year 9":"I can analyse historical interpretations and contested debates and identify the evidence used to support them.",
- "Year 10":"I can evaluate historical interpretations and contested debates, including why or how interpretations differ."},
-judge:{
- "Grade 5":"I can say one thing a source can and cannot tell us.",
- "Year 6":"I can recognise that some historical sources are more useful than others.",
- "Year 7":"I can draw conclusions about the usefulness of sources.",
- "Year 8":"I can compare and contrast historical sources and ask questions about their accuracy, usefulness and reliability.",
- "Year 9":"I can compare and contrast historical sources and identify their accuracy, usefulness and reliability.",
- "Year 10":"I can compare and contrast sources and analyse their accuracy, usefulness and reliability."},
+chron:{
+ "Level 6":"I can sequence events and people in chronological order, and represent time by creating timelines.",
+ "Level 7":"I can sequence events and developments within a chronological framework, using dating conventions to represent and measure time.",
+ "Level 8":"I can sequence events and developments within a chronological framework with reference to periods of time.",
+ "Level 9":"I can sequence events and developments within a chronological framework with reference to periods of time and their duration."},
+cause:{
+ "Level 6":"I can identify the causes and effects of events and developments.",
+ "Level 7":"I can describe the causes and effects of events and developments on societies, individuals, and groups.",
+ "Level 8":"I can explain the causes and effects of events and developments and identify the motives and actions of people at the time.",
+ "Level 9":"I can analyse the causes and effects of events and developments and explain the motives and actions of people at the time."},
 };
 
 const SHEET_IMAGE = "";
 
-const SOURCE_PANEL = {
+const SOURCES = [
+ {
+  id: "letter1",
+  tab: "Letter 1 · My uncle",
   kind: "text",
+  cite: "Pliny the Younger, Letters 6.16, to Tacitus, about 106 CE. Translated by William Melmoth, revised by F. C. T. Bosanquet (1909).",
+  whole: { label:"The first letter",
+    text:"How Pliny's uncle died, at Stabiae, from the afternoon of 24 August until his body was found." },
   paragraphs: [
-    "My uncle was at Misenum, in command of the fleet. On 24 August, in the early afternoon, my mother pointed out to him a cloud of unusual size and appearance.",
-    "It rose like a tree, and I can best describe its shape by likening it to a pine. It shot up to a great height in the form of a tall trunk, which spread out at the top into branches.",
-    "Ashes were already falling, hotter and thicker as the ships came nearer, and then pumice and blackened stones, charred and cracked by the fire.",
-    "He was overtaken by the flames and the smell of sulphur, and fell. I believe his breathing was stopped by the thick fumes, for he had always had a weak chest.",
-    "You will pick out what you want. There is a great difference between a letter and a history, between writing to a friend and writing for the public."
+   "Your request that I would send you an account of my uncle's death, in order to transmit a more exact relation of it to posterity, deserves my acknowledgments; for, if this accident shall be celebrated by your pen, the glory of it, I am well assured, will be rendered forever illustrious. And notwithstanding he perished by a misfortune, which, as it involved at the same time a most beautiful country in ruins, and destroyed so many populous cities, seems to promise him an everlasting remembrance; notwithstanding he has himself composed many and lasting works; yet I am persuaded, the mentioning of him in your immortal writings, will greatly contribute to render his name immortal. Happy I esteem those to be to whom by provision of the gods has been granted the ability either to do such actions as are worthy of being related or to relate them in a manner worthy of being read; but peculiarly happy are they who are blessed with both these uncommon talents: in the number of which my uncle, as his own writings and your history will evidently prove, may justly be ranked. It is with extreme willingness, therefore, that I execute your commands; and should indeed have claimed the task if you had not enjoined it.",
+   "He was at that time with the fleet under his command at Misenum. On the 24th of August, about one in the afternoon, my mother desired him to observe a cloud which appeared of a very unusual size and shape. He had just taken a turn in the sun and, after bathing himself in cold water, and making a light luncheon, gone back to his books: he immediately arose and went out upon a rising ground from whence he might get a better sight of this very uncommon appearance. A cloud, from which mountain was uncertain, at this distance (but it was found afterwards to come from Mount Vesuvius), was ascending, the appearance of which I cannot give you a more exact description of than by likening it to that of a pine tree, for it shot up to a great height in the form of a very tall trunk, which spread itself out at the top into a sort of branches; occasioned, I imagine, either by a sudden gust of air that impelled it, the force of which decreased as it advanced upwards, or the cloud itself being pressed back again by its own weight, expanded in the manner I have mentioned; it appeared sometimes bright and sometimes dark and spotted, according as it was either more or less impregnated with earth and cinders.",
+   "This phenomenon seemed to a man of such learning and research as my uncle extraordinary and worth further looking into. He ordered a light vessel to be got ready, and gave me leave, if I liked, to accompany him. I said I had rather go on with my work; and it so happened, he had himself given me something to write out. As he was coming out of the house, he received a note from Rectina, the wife of Bassus, who was in the utmost alarm at the imminent danger which threatened her; for her villa lying at the foot of Mount Vesuvius, there was no way of escape but by sea; she earnestly entreated him therefore to come to her assistance. He accordingly changed his first intention, and what he had begun from a philosophical, he now carries out in a noble and generous spirit. He ordered the galleys to be put to sea, and went himself on board with an intention of assisting not only Rectina, but the several other towns which lay thickly strewn along that beautiful coast.",
+   "Hastening then to the place from whence others fled with the utmost terror, he steered his course direct to the point of danger, and with so much calmness and presence of mind as to be able to make and dictate his observations upon the motion and all the phenomena of that dreadful scene. He was now so close to the mountain that the cinders, which grew thicker and hotter the nearer he approached, fell into the ships, together with pumice-stones, and black pieces of burning rock: they were in danger too not only of being aground by the sudden retreat of the sea, but also from the vast fragments which rolled down from the mountain, and obstructed all the shore. Here he stopped to consider whether he should turn back again; to which the pilot advising him, \"Fortune,\" said he, \"favours the brave; steer to where Pomponianus is.\"",
+   "Pomponianus was then at Stabiae, separated by a bay, which the sea, after several insensible windings, forms with the shore. He had already sent his baggage on board; for though he was not at that time in actual danger, yet being within sight of it, and indeed extremely near, if it should in the least increase, he was determined to put to sea as soon as the wind, which was blowing dead in-shore, should go down. It was favourable, however, for carrying my uncle to Pomponianus, whom he found in the greatest consternation: he embraced him tenderly, encouraging and urging him to keep up his spirits, and, the more effectually to soothe his fears by seeming unconcerned himself, ordered a bath to be got ready, and then, after having bathed, sat down to supper with great cheerfulness, or at least (what is just as heroic) with every appearance of it.",
+   "Meanwhile broad flames shone out in several places from Mount Vesuvius, which the darkness of the night contributed to render still brighter and clearer. But my uncle, in order to soothe the apprehensions of his friend, assured him it was only the burning of the villages, which the country people had abandoned to the flames: after this he retired to rest, and it is most certain he was so little disquieted as to fall into a sound sleep: for his breathing, which, on account of his corpulence, was rather heavy and sonorous, was heard by the attendants outside. The court which led to his apartment being now almost filled with stones and ashes, if he had continued there any time longer, it would have been impossible for him to have made his way out.",
+   "So he was awoke and got up, and went to Pomponianus and the rest of his company, who were feeling too anxious to think of going to bed. They consulted together whether it would be most prudent to trust to the houses, which now rocked from side to side with frequent and violent concussions as though shaken from their very foundations; or fly to the open fields, where the calcined stones and cinders, though light indeed, yet fell in large showers, and threatened destruction. In this choice of dangers they resolved for the fields: a resolution which, while the rest of the company were hurried into by their fears, my uncle embraced upon cool and deliberate consideration. They went out then, having pillows tied upon their heads with napkins; and this was their whole defence against the storm of stones that fell round them. It was now day everywhere else, but there a deeper darkness prevailed than in the thickest night; which however was in some degree alleviated by torches and other lights of various kinds.",
+   "They thought proper to go farther down upon the shore to see if they might safely put out to sea, but found the waves still running extremely high, and boisterous. There my uncle, laying himself down upon a sail cloth, which was spread for him, called twice for some cold water, which he drank, when immediately the flames, preceded by a strong whiff of sulphur, dispersed the rest of the party, and obliged him to rise. He raised himself up with the assistance of two of his servants, and instantly fell down dead; suffocated, as I conjecture, by some gross and noxious vapour, having always had a weak throat, which was often inflamed. As soon as it was light again, which was not till the third day after this melancholy accident, his body was found entire, and without any marks of violence upon it, in the dress in which he fell, and looking more like a man asleep than dead.",
+   "During all this time my mother and I, who were at Misenum--but this has no connection with your history, and you did not desire any particulars besides those of my uncle's death; so I will end here, only adding that I have faithfully related to you what I was either an eye-witness of myself or received immediately after the accident happened, and before there was time to vary the truth. You will pick out of this narrative whatever is most important: for a letter is one thing, a history another; it is one thing writing to a friend, another thing writing to the public.",
+   "Farewell."
   ],
-  cite: "Pliny the Younger, <i>Letters</i> 6.16, to Tacitus, written c. 106 CE. Wording adapted from William Melmoth's public-domain translation of 1746. The August date is the one the manuscripts give; it is disputed.",
-  whole: { label:"The whole letter extract",
-    text:"Five short extracts in the order Pliny wrote them. The first four are the account; the fifth tells you what kind of document it is." }
-};
-
-const HOTSPOTS = [
- { mark:"a cloud of unusual size and appearance", label:"What he actually saw",
-   text:"This is the part he witnessed, from thirty kilometres away, at seventeen. Everything in the letter that historians trust most begins here." },
- { mark:"likening it to a pine", label:"The comparison that became a technical term",
-   text:"A Roman umbrella pine: a bare trunk with a flat spreading crown. The description was accurate enough that volcanologists now call this eruption type Plinian, after him." },
- { mark:"pumice and blackened stones", label:"The part the ground can check",
-   text:"Excavators at Pompeii dug through ash, then pumice, then heavier stone, the same order Pliny gives. An independent record agreeing with a witness is the strongest thing in source analysis." },
- { mark:"a great difference between a letter and a history", label:"He tells you what this is",
-   text:"Pliny names his own genre. A letter to a friend, written for publication, supplying a historian with material. Three purposes at once, and he expects you to know it." }
+  hotspots: [
+   { mark:"about one in the afternoon", label:"One in the afternoon",
+     text:"The first time of day in the letter. Everything after this can be put in order from here." },
+   { mark:"he received a note from Rectina", label:"Rectina's note",
+     text:"Rectina lives at the foot of the mountain and can only escape by sea. Her note changes the plan from watching the cloud to rescuing people." },
+   { mark:"favours the brave", label:"Fortune favours the brave",
+     text:"The pilot says turn back. The uncle keeps going, and Pliny gives his reason in his own words." },
+   { mark:"which was blowing dead in-shore", label:"The wind",
+     text:"The wind blows towards the land. It carries the uncle to Stabiae, and it stops anyone sailing away." },
+   { mark:"The court which led to his apartment being now almost filled with stones and ashes", label:"The courtyard fills",
+     text:"Stones and ash pile up outside his room. That is why they wake him." },
+   { mark:"the third day after this melancholy accident", label:"The third day",
+     text:"The light comes back and his body is found. This tells you how long the darkness lasted." }
+  ]
+ },
+ {
+  id: "letter2",
+  tab: "Letter 2 · My mother and I",
+  kind: "text",
+  cite: "Pliny the Younger, Letters 6.20, to Tacitus, about 106 CE. Translated by William Melmoth, revised by F. C. T. Bosanquet (1909).",
+  whole: { label:"The second letter",
+    text:"What happened to Pliny and his mother at Misenum, on the same days as the first letter." },
+  paragraphs: [
+   "The letter which, in compliance with your request, I wrote to you concerning the death of my uncle has raised, it seems, your curiosity to know what terrors and dangers attended me while I continued at Misenum; for there, I think, my account broke off:",
+   "Though my shocked soul recoils, my tongue shall tell. My uncle having left us, I spent such time as was left on my studies (it was on their account indeed that I had stopped behind), till it was time for my bath. After which I went to supper, and then fell into a short and uneasy sleep.",
+   "There had been noticed for many days before a trembling of the earth, which did not alarm us much, as this is quite an ordinary occurrence in Campania; but it was so particularly violent that night that it not only shook but actually overturned, as it would seem, everything about us. My mother rushed into my chamber, where she found me rising, in order to awaken her. We sat down in the open court of the house, which occupied a small space between the buildings and the sea. As I was at that time but eighteen years of age, I know not whether I should call my behaviour, in this dangerous juncture, courage or folly; but I took up Livy, and amused myself with turning over that author, and even making extracts from him, as if I had been perfectly at my leisure. Just then, a friend of my uncle's, who had lately come to him from Spain, joined us, and observing me sitting by my mother with a book in my hand, reproved her for her calmness, and me at the same time for my careless security: nevertheless I went on with my author.",
+   "Though it was now morning, the light was still exceedingly faint and doubtful; the buildings all around us tottered, and though we stood upon open ground, yet as the place was narrow and confined, there was no remaining without imminent danger: we therefore resolved to quit the town. A panic-stricken crowd followed us, and (as to a mind distracted with terror every suggestion seems more prudent than its own) pressed on us in dense array to drive us forward as we came out. Being at a convenient distance from the houses, we stood still, in the midst of a most dangerous and dreadful scene.",
+   "The chariots, which we had ordered to be drawn out, were so agitated backwards and forwards, though upon the most level ground, that we could not keep them steady, even by supporting them with large stones. The sea seemed to roll back upon itself, and to be driven from its banks by the convulsive motion of the earth; it is certain at least the shore was considerably enlarged, and several sea animals were left upon it. On the other side, a black and dreadful cloud, broken with rapid, zigzag flashes, revealed behind it variously shaped masses of flame: these last were like sheet-lightning, but much larger.",
+   "Upon this our Spanish friend, whom I mentioned above, addressing himself to my mother and me with great energy and urgency: \"If your brother,\" he said, \"if your uncle be safe, he certainly wishes you may be so too; but if he perished, it was his desire, no doubt, that you might both survive him: why therefore do you delay your escape a moment?\" We could never think of our own safety, we said, while we were uncertain of his. Upon this our friend left us, and withdrew from the danger with the utmost precipitation.",
+   "Soon afterwards, the cloud began to descend, and cover the sea. It had already surrounded and concealed the island of Capri and the promontory of Misenum. My mother now besought, urged, even commanded me to make my escape at any rate, which, as I was young, I might easily do; as for herself, she said, her age and corpulency rendered all attempts of that sort impossible; however, she would willingly meet death if she could have the satisfaction of seeing that she was not the occasion of mine. But I absolutely refused to leave her, and, taking her by the hand, compelled her to go with me. She complied with great reluctance, and not without many reproaches to herself for retarding my flight.",
+   "The ashes now began to fall upon us, though in no great quantity. I looked back; a dense dark mist seemed to be following us, spreading itself over the country like a cloud. \"Let us turn out of the high-road,\" I said, \"while we can still see, for fear that, should we fall in the road, we should be pressed to death in the dark, by the crowds that are following us.\" We had scarcely sat down when night came upon us, not such as we have when the sky is cloudy, or when there is no moon, but that of a room when it is shut up, and all the lights put out.",
+   "You might hear the shrieks of women, the screams of children, and the shouts of men; some calling for their children, others for their parents, others for their husbands, and seeking to recognise each other by the voices that replied; one lamenting his own fate, another that of his family; some wishing to die, from the very fear of dying; some lifting their hands to the gods; but the greater part convinced that there were now no gods at all, and that the final endless night of which we have heard had come upon the world. Among these there were some who augmented the real terrors by others imaginary or wilfully invented. I remember some who declared that one part of Misenum had fallen, that another was on fire; it was false, but they found people to believe them.",
+   "It now grew rather lighter, which we imagined to be rather the forerunner of an approaching burst of flames (as in truth it was) than the return of day: however, the fire fell at a distance from us: then again we were immersed in thick darkness, and a heavy shower of ashes rained upon us, which we were obliged every now and then to stand up to shake off, otherwise we should have been crushed and buried in the heap. I might boast that, during all this scene of horror, not a sigh, or expression of fear, escaped me, had not my support been grounded in that miserable, though mighty, consolation, that all mankind were involved in the same calamity, and that I was perishing with the world itself.",
+   "At last this dreadful darkness was dissipated by degrees, like a cloud or smoke; the real day returned, and even the sun shone out, though with a lurid light, like when an eclipse is coming on. Every object that presented itself to our eyes (which were extremely weakened) seemed changed, being covered deep with ashes as if with snow. We returned to Misenum, where we refreshed ourselves as well as we could, and passed an anxious night between hope and fear; though, indeed, with a much larger share of the latter: for the earthquake still continued, while many frenzied persons ran up and down heightening their own and their friends' calamities by terrible predictions. However, my mother and I, notwithstanding the danger we had passed, and that which still threatened us, had no thoughts of leaving the place, till we could receive some news of my uncle.",
+   "And now, you will read this narrative without any view of inserting it in your history, of which it is not in the least worthy; and indeed you must put it down to your own request if it should appear not worth even the trouble of a letter. Farewell."
+  ],
+  hotspots: [
+   { mark:"There had been noticed for many days before a trembling of the earth", label:"Days of shaking",
+     text:"The ground had been shaking for days before the eruption. Nobody worried, because it happened often in Campania." },
+   { mark:"we therefore resolved to quit the town", label:"Leaving the town",
+     text:"The buildings are rocking, so they leave." },
+   { mark:"The sea seemed to roll back upon itself", label:"The sea goes out",
+     text:"The ground is moving so much that the sea pulls back and leaves sea animals on the sand." },
+   { mark:"But I absolutely refused to leave her", label:"He will not leave her",
+     text:"His mother tells him to escape without her. He refuses. The volcano did not cause this choice. He did." },
+   { mark:"Let us turn out of the high-road", label:"Off the road",
+     text:"He leaves the road so the crowd will not crush them in the dark." },
+   { mark:"some who augmented the real terrors by others imaginary or wilfully invented", label:"False stories",
+     text:"Some people spread stories that were not true, such as part of Misenum falling down. Others believed them." }
+  ]
+ }
 ];
+
+/* Anything that reads one source still gets one. bump-it-up.html prefers
+   SOURCES. */
+const SOURCE_PANEL = Object.assign({}, SOURCES[0]);
+const HOTSPOTS = SOURCES[0].hotspots;
 
 
 /* ---------------------------------------------------------------------------
-   The rungs below Grade 5. Two bands, matching the way the Victorian
-   Curriculum bands the primary years.
+   The rungs below Level 6, where the CAT rubric has no wording. Three bands,
+   following the Victorian Curriculum's own two-year bands, with Level 5 on
+   its own because it shares a band with Level 6.
    --------------------------------------------------------------------------- */
 
-const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4"];
+const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5"];
 
 const EARLY_EXAMPLES = {
  "Foundation to Level 2":
-`This is a letter. A man called {source|Pliny} wrote it. He saw {source|a big cloud} over a mountain. {context|Hot ash and stones fell down}. His uncle {context|went in a ship to help}.`,
+`First, {chron|a big cloud went up over the mountain}. Next, {chron|ash fell on the boats}. Then {chron|the sky went dark}. People ran away {cause|because they were scared}.`,
 
  "Levels 3 and 4":
-`Pliny wrote a letter about {source|the day a mountain erupted}. He says the cloud {source|looked like a pine tree}. {context|Hot ash fell on the ships}. Then {context|burnt stones fell too}. His uncle {context|sailed towards the mountain to help}. Pliny {evidence|saw the cloud himself}. He was {evidence|told about his uncle by other people}.`
+`At {chron|one o'clock in the afternoon}, Pliny's mother saw a strange cloud. {chron|That night} there were flames on the mountain. {cause|Stones and ash filled the yard, so they had to wake his uncle up}. In the second letter, {cause|the houses were shaking, so Pliny and his mother left the town}.`,
+
+ "Level 5":
+`{chron|On 24 August, at about one in the afternoon}, a cloud rose over Vesuvius. {chron|That night} flames lit up the mountain, and {chron|on the third day}, when the light came back, his uncle's body was found. {cause|A note from Rectina made his uncle change his plan}, so he sailed to rescue people instead of just watching. {cause|Rocks from the mountain blocked the shore, so he steered to Stabiae instead}.`
 };
 
 const EARLY_EXPLANATIONS = {
  "Foundation to Level 2": {
-   source:  "Identifies what the source is, who wrote it, and one thing he saw (VC2HH2S03).",
-   context: "Identifies what people did at the time (VC2HH2S04). The wall colours this green; at this band the curriculum calls it perspectives, not context." },
+   chron: "Puts three events in order with first, next and then (VC2HH2S02).",
+   cause: "Says why people did something (VC2HH2S06)." },
  "Levels 3 and 4": {
-   source:  "Identifies the features and content of the source, including the comparison Pliny uses (VC2HH4S03).",
-   context: "Describes what people in the past did, using evidence from the source (VC2HH4S04).",
-   evidence:"Describes that the source holds two different kinds of account (VC2HH4S05)." }
+   chron: "Uses a time from the letter, and puts events across a day and a night in order (VC2HH4S02).",
+   cause: "Says what caused two changes, and what each one led to (VC2HH4S07)." },
+ "Level 5": {
+   chron: "Uses a date and a time from the letter, and says when later events happened (VC2HH6S02).",
+   cause: "Explains what made the uncle change his plan, and what made him change course (VC2HH6S08)." }
 };
 
-/* The Victorian Curriculum 2.0 descriptor each rung is working inside, from
-   the History sub-strand "Using historical sources", Foundation to Level 10.
-   These are about the skill, not the topic, so they are identical across all
-   three units. That is correct, not a copy-paste slip.
-
-   This is the SECOND layer: CONTINUUM above is Kew High School's own learning
-   continuum. See CURRICULUM-CHECK.md for where the two diverge. */
+/* The Victorian Curriculum 2.0 descriptors each rung is working inside, from
+   the History sub-strands Chronology and Causes and consequences. Checked
+   against History Foundation-Level 10 (VCAA, 19-06-2024) in the private
+   repository. VC2 bands History two years at a time, so neighbouring rungs
+   share codes. */
 const VC = {
  "Foundation to Level 2": [
-  ["VC2HH2S03","identify the features and content of sources"],
-  ["VC2HH2S04","identify perspectives of people in the past or present in sources"]],
+  ["VC2HH2S02","sequence events chronologically"],
+  ["VC2HH2S06","identify the causes and consequences of changes"]],
  "Levels 3 and 4": [
-  ["VC2HH4S03","identify the features and content of historical sources"],
-  ["VC2HH4S04","describe perspectives of people from the past based on evidence from primary sources"],
-  ["VC2HH4S05","describe different historical interpretations"]],
- "Grade 5": [
-  ["VC2HH6S03","describe the features, content and context of historical sources"],
-  ["VC2HH6S04","describe the value of sources for use as evidence to identify historical significance and continuity and change"],
-  ["VC2HH6S05","describe historical perspectives and identify beliefs, values and attitudes of people and groups based on evidence from primary sources"],
-  ["VC2HH6S06","explain different historical interpretations"]],
- "Year 6": [
-  ["VC2HH6S03","describe the features, content and context of historical sources"],
-  ["VC2HH6S04","describe the value of sources for use as evidence to identify historical significance and continuity and change"],
-  ["VC2HH6S05","describe historical perspectives and identify beliefs, values and attitudes of people and groups based on evidence from primary sources"],
-  ["VC2HH6S06","explain different historical interpretations"]],
- "Year 7": [
-  ["VC2HH8S03","explain the features, content and context of historical sources"],
-  ["VC2HH8S04","analyse the value of sources for use as evidence to explain historical significance, continuity and change, and causes and consequences"],
-  ["VC2HH8S05","explain the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
-  ["VC2HH8S06","analyse historical interpretations and debates"]],
- "Year 8": [
-  ["VC2HH8S03","explain the features, content and context of historical sources"],
-  ["VC2HH8S04","analyse the value of sources for use as evidence to explain historical significance, continuity and change, and causes and consequences"],
-  ["VC2HH8S05","explain the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
-  ["VC2HH8S06","analyse historical interpretations and debates"]],
- "Year 9": [
-  ["VC2HH10S03","analyse the purpose, features, content and context of historical sources"],
-  ["VC2HH10S04","evaluate the value of sources for use as evidence to interpret historical significance, continuity and change, and causes and consequences"],
-  ["VC2HH10S05","analyse the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
-  ["VC2HH10S06","evaluate historical interpretations and debates"]],
- "Year 10": [
-  ["VC2HH10S03","analyse the purpose, features, content and context of historical sources"],
-  ["VC2HH10S04","evaluate the value of sources for use as evidence to interpret historical significance, continuity and change, and causes and consequences"],
-  ["VC2HH10S05","analyse the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
-  ["VC2HH10S06","evaluate historical interpretations and debates"]]
+  ["VC2HH4S02","sequence significant events and peoples’ life stories chronologically to identify continuity and change"],
+  ["VC2HH4S07","describe the causes and consequences of change"]],
+ "Level 5": [
+  ["VC2HH6S02","sequence significant events, developments and the lives of individuals chronologically to describe continuity and change, and causes and consequences"],
+  ["VC2HH6S08","explain the causes and consequences of significant events and developments"]],
+ "Level 6": [
+  ["VC2HH6S02","sequence significant events, developments and the lives of individuals chronologically to describe continuity and change, and causes and consequences"],
+  ["VC2HH6S08","explain the causes and consequences of significant events and developments"]],
+ "Level 7": [
+  ["VC2HH8S02","sequence significant events, individuals, ideas and developments chronologically to explain continuity and change and causes and consequences"],
+  ["VC2HH8S08","explain the causes and consequences of significant events, individuals, ideas and developments and their contribution to continuity and change"]],
+ "Level 8": [
+  ["VC2HH8S02","sequence significant events, individuals, ideas and developments chronologically to explain continuity and change and causes and consequences"],
+  ["VC2HH8S08","explain the causes and consequences of significant events, individuals, ideas and developments and their contribution to continuity and change"]],
+ "Level 9": [
+  ["VC2HH10S02","sequence significant events, individuals, ideas, movements and developments chronologically to analyse continuity and change, and causes and consequences"],
+  ["VC2HH10S08","analyse short- and long-term causes and the intended and unintended consequences of significant events, individuals, ideas and developments and their contributions to continuity and change"]]
 };
-const VC_NOTE = "The row wording on this wall is Kew High School's own learning continuum, which runs level by level. The codes are Victorian Curriculum 2.0, which bands History two years at a time, so the two years inside a band share a code. The school continuum runs about one level behind the curriculum through the middle of the ladder: at Level 8 it asks students to \u2018describe\u2019 where VC2HH8S03 asks them to \u2018explain\u2019, and to \u2018explain\u2019 interpretations where VC2HH8S06 asks them to \u2018analyse\u2019. The two converge again by Level 10. See CURRICULUM-CHECK.md.";
 
+const VC_NOTE = "Levels 6 to 9 use the CAT 2 rubric's wording. Below Level 6 the rubric is blank, so those rungs show the Victorian Curriculum only. VC2 bands History two years at a time, so neighbouring rungs share a code.";
+
+/* new: the skill this rung adds.
+   background: what a student at this level has already been taught, which
+   is what lets them make the rung's inferences. Shown as "A Level 8 student
+   already knows". The skill climbs in "new"; the history it leans on is
+   named in "background", so a student can tell the two apart. */
 const BUMP = {
  "Foundation to Level 2": {
-   new:"You say who wrote it and one thing he saw.",
-   background:"That a letter is one person writing to another, and that we can still read it." },
+   new:"You put three things in order, and say why one of them happened.",
+   background:"that things happen in an order, and that people do things for reasons." },
  "Levels 3 and 4": {
-   new:"You use his own comparison for the cloud, and you notice he did not see everything he writes about.",
-   background:"That a writer can see some things and be told others, and that those are not the same kind of evidence." },
- "Grade 5": {
-   new:"Three things switch on at once: you place the source in its time, you judge what it is useful for, and you name what he could not see.",
-   background:"That a source can be strong evidence for one thing and weak evidence for another at the same time." },
- "Year 6": {
-   new:"You name who he wrote to, and you give the order of what fell rather than just saying stuff fell.",
-   background:"That Tacitus was a historian, and that Pliny wrote this because he was asked for it." },
- "Year 7": {
-   new:"You say why the letter was written, and you bring in evidence from outside the source.",
-   background:"That excavators at Pompeii dug through the same layers, in the same order, that Pliny describes." },
- "Year 8": {
-   new:"You use Pliny's own statement about what kind of document this is, and you ask what twenty-five years did to it.",
-   background:"That the eruption type is named Plinian after this letter, and that his uncle was a natural historian as well as an admiral." },
- "Year 9": {
-   new:"You explain why the letter survives at all, and you rank the physical account above the human one.",
-   background:"What independent corroboration means, and that a published letter is written for more than one reader." },
- "Year 10": {
-   new:"You read the argument underneath the description, and you explain why even the date is now contested.",
-   background:"That an inscription found at Pompeii in 2018, plus autumn fruit and heavier clothing in the deposits, moved many archaeologists to an October date." }
+   new:"You use a time from the letter, and say what one event led to.",
+   background:"that a volcano can shake the ground, throw out ash and make the sky dark." },
+ "Level 5": {
+   new:"You use a date, say how long it took, and name the thing that made a person change their plan.",
+   background:"that the Romans ruled lands all around the Mediterranean Sea, and sailed between them." },
+ "Level 6": {
+   new:"You put one person's day on a timeline, and give two causes, each with its effect.",
+   background:"how to read and draw a timeline." },
+ "Level 7": {
+   new:"You use CE dates and measure the time between two events, and say how one event affected a person and a group differently.",
+   background:"what BCE and CE mean, and that Rome went from kings, to a republic, to an empire." },
+ "Level 8": {
+   new:"You place the event in a period of Roman history, and name a person's motive for what they did.",
+   background:"that the Republic ended in 27 BCE, when Augustus became the first emperor." },
+ "Level 9": {
+   new:"You say how long things lasted, run two timelines side by side, and separate physical causes from people's motives.",
+   background:"that historians date events from more than one kind of evidence, and that the evidence does not always agree." }
 };
 
 /* Tier 3 = the subject's own words, which need a definition.
-   Tier 2 = general academic words, which need a plainer synonym. */
+   Tier 2 = general academic words, which need a plainer word.
+   Matched case-insensitively on whole words wherever they appear. */
 const GLOSS = {
  tier3: {
-  "Vesuvius":"A volcano on the Bay of Naples in Italy. It buried Pompeii and Herculaneum in 79 CE.",
-  "Pompeii":"A Roman town buried by the eruption and dug out again from the eighteenth century onwards.",
-  "Herculaneum":"A second Roman town buried by the same eruption, under a different kind of deposit.",
-  "Misenum":"The Roman naval base across the bay from Vesuvius, where Pliny was staying.",
-  "pumice":"A light, bubbly rock thrown out by a volcano. It is full of holes and floats on water.",
-  "eruption":"When a volcano throws out ash, rock and gas.",
-  "eruption column":"The tall pillar of ash and gas that rises above an erupting volcano.",
-  "Plinian":"The name volcanologists give to a tall-column eruption like this one, after Pliny's description of it.",
-  "volcanologist":"A scientist who studies volcanoes.",
-  "volcanologists":"Scientists who study volcanoes.",
-  "deposits":"The layers of ash, pumice and stone left on the ground by an eruption.",
-  "sulphur":"A yellow element with a sharp smell, given off by volcanoes.",
-  "quadrireme":"A Roman warship rowed by four banks of oarsmen.",
-  "Tacitus":"A Roman historian, a friend of Pliny's, who asked him for this account.",
-  "corroboration":"Separate evidence that says the same thing, from a different direction.",
-  "testimony":"What a witness says happened.",
-  "genre":"The kind of writing something is: a letter, a history, a poem.",
-  "CE":"Common Era. 79 CE is about 1,950 years ago.",
-  "inscription":"Writing cut or painted onto a hard surface."
+  "eruption":"When a volcano throws out ash, rock, gas or lava.",
+  "timeline":"A line showing events in the order they happened, with their dates.",
+  "CE":"Common Era. Years counted forward from year 1. 79 CE is 79 years after year 1.",
+  "BCE":"Before the Common Era. Years counted backwards from year 1. 27 BCE is 27 years before year 1.",
+  "Roman Empire":"Rome and all the lands it ruled under an emperor, from 27 BCE.",
+  "emperor":"The single ruler of the Roman Empire.",
+  "republic":"Rome's government from 509 BCE to 27 BCE, run by elected officials instead of a king.",
+  "Misenum":"The Roman navy's base at the north end of the Bay of Naples, where Pliny was staying.",
+  "Stabiae":"A Roman town on the coast south of Vesuvius, where Pliny's uncle died.",
+  "Vesuvius":"A volcano near Naples in southern Italy.",
+  "Pompeii":"A Roman town buried by the eruption of Vesuvius.",
+  "Tacitus":"A Roman historian. Pliny wrote both letters to him."
  },
  tier2: {
-  "ancient":"very old",
-  "evidence":"proof · signs",
-  "account":"the story someone gives of what happened",
-  "witness":"someone who was there and saw it",
-  "eyewitness":"someone who saw it happen with their own eyes",
-  "interpret":"work out what it means",
-  "interpretation":"what someone thinks it means",
-  "reliable":"can be trusted",
-  "contested":"argued about",
-  "independent":"separate · not connected",
-  "purpose":"the reason it was made",
-  "context":"the time and place around it",
-  "audience":"the people it was written for",
-  "explicit":"said openly",
-  "implicit":"not said, but meant",
-  "qualified":"limited · with conditions",
-  "identify":"name · point out",
-  "describe":"say what it is like",
-  "analyse":"break it down and examine it",
-  "evaluate":"judge how good it is",
-  "supports":"backs up"
+  "motives":"reasons for doing something",
+  "motive":"a reason for doing something",
+  "affected":"changed, had an effect on",
+  "uncertain":"not known for sure",
+  "physical":"to do with things you can touch, like rock and ash",
+  "onshore":"blowing from the sea towards the land",
+  "sheltered":"stayed somewhere safe",
+  "rescue":"saving people from danger"
  }
 };
 
-/* The curriculum descriptors said the way a student would say them. */
+/* The curriculum descriptors said the way a student would say them. Levels
+   6 to 9 show the CAT rubric's own sentences, so they carry only a band. */
 const KID = {
  "Foundation to Level 2": { band:"Foundation to Level 2", lines:[
-   "I can say who wrote it.",
-   "I can say one thing he saw."]},
+   "I can put things in order: first, next, last.",
+   "I can say why something happened."]},
  "Levels 3 and 4": { band:"Levels 3 and 4", lines:[
-   "I can say what the source is and what it is about.",
-   "I can say what the people in it did.",
-   "I can say that he saw some of it and was told the rest."]},
- "Grade 5": { band:"Levels 5 and 6", lines:[
-   "I can say what the source is, and when and where it comes from.",
-   "I can say what the source is useful for.",
-   "I can say what people at the time did and cared about.",
-   "I can explain why people tell the story in different ways."]},
- "Year 6": { band:"Levels 5 and 6", lines:[
-   "I can say what the source is, and when and where it comes from.",
-   "I can say what the source is useful for.",
-   "I can say what people at the time did and cared about.",
-   "I can explain why people tell the story in different ways."]},
- "Year 7": { band:"School continuum", lines:[
-   "I can say where a source came from, what is in it, and why it was made.",
-   "I can say what was happening at the time.",
-   "I can describe the different ways people explain the past.",
-   "I can say how useful a source is."]},
- "Year 8": { band:"School continuum", lines:[
-   "I can describe where a source came from, what is in it, and why it was made.",
-   "I can describe what was happening at the time.",
-   "I can explain the different ways people explain the past, and what they argue about.",
-   "I can compare sources and ask whether they are accurate and reliable."]},
- "Year 9": { band:"School continuum", lines:[
-   "I can explain where a source came from, what is in it, and why it was made.",
-   "I can explain what was happening that made someone create it.",
-   "I can pull each explanation apart and find the evidence behind it.",
-   "I can compare sources and say how accurate and reliable they are."]},
- "Year 10": { band:"School continuum", lines:[
-   "I can work out what a source says openly, and what it argues underneath.",
-   "I can use the time and place to explain what the maker believed and valued.",
-   "I can judge the different explanations and say why they differ.",
-   "I can compare sources and analyse how accurate and reliable they are."]}
+   "I can put events in the order they happened.",
+   "I can say what caused a change, and what it led to."]},
+ "Level 5": { band:"Levels 5 and 6", lines:[
+   "I can put important events in order on a timeline.",
+   "I can explain what caused an event, and what it led to."]},
+ "Level 6": { band:"CAT 2 rubric · Level 6", lines:[] },
+ "Level 7": { band:"CAT 2 rubric · Level 7", lines:[] },
+ "Level 8": { band:"CAT 2 rubric · Level 8", lines:[] },
+ "Level 9": { band:"CAT 2 rubric · Level 9", lines:[] }
+};
+
+/* Translations for this unit's own tier-3 and tier-2 words, in the shape
+   eal.js uses. Machine-drafted, unreviewed, and labelled as such on screen.
+   The eight languages are the ones Year 7 has full coverage in. */
+const TIER3_T = {
+  "eruption": {"zh-Hans":"火山喷发","zh-Hant":"火山噴發","vi":"sự phun trào núi lửa","ar":"ثوران بركاني","fa":"فوران آتشفشان","ur":"آتش فشاں کا پھٹنا","ml":"അഗ്നിപർവ്വത സ്ഫോടനം","am":"የእሳተ ገሞራ ፍንዳታ"},
+  "timeline": {"zh-Hans":"时间线","zh-Hant":"時間線","vi":"dòng thời gian","ar":"خط زمني","fa":"خط زمانی","ur":"زمانی ترتیب کی لکیر","ml":"സമയരേഖ","am":"የጊዜ መስመር"},
+  "CE": {"zh-Hans":"公元","zh-Hant":"公元","vi":"Công nguyên (CN)","ar":"بعد الميلاد","fa":"میلادی","ur":"عیسوی","ml":"പൊതുയുഗം","am":"እ.ኤ.አ."},
+  "BCE": {"zh-Hans":"公元前","zh-Hant":"公元前","vi":"trước Công nguyên (TCN)","ar":"قبل الميلاد","fa":"پیش از میلاد","ur":"قبل مسیح","ml":"പൊതുയുഗത്തിന് മുമ്പ്","am":"ከክርስቶስ ልደት በፊት"},
+  "Roman Empire": {"zh-Hans":"罗马帝国","zh-Hant":"羅馬帝國","vi":"Đế quốc La Mã","ar":"الإمبراطورية الرومانية","fa":"امپراتوری روم","ur":"رومی سلطنت","ml":"റോമാ സാമ്രാജ്യം","am":"የሮማ ኢምፓየር"},
+  "emperor": {"zh-Hans":"皇帝","zh-Hant":"皇帝","vi":"hoàng đế","ar":"إمبراطور","fa":"امپراتور","ur":"شہنشاہ","ml":"ചക്രവർത്തി","am":"ንጉሠ ነገሥት"},
+  "republic": {"zh-Hans":"共和国","zh-Hant":"共和國","vi":"nền cộng hòa","ar":"جمهورية","fa":"جمهوری","ur":"جمہوریہ","ml":"റിപ്പബ്ലിക്","am":"ሪፐብሊክ"},
+  "Misenum": {"zh-Hans":"米塞努姆","zh-Hant":"米塞努姆","vi":"Misenum","ar":"ميسينوم","fa":"میسنوم","ur":"میسینم","ml":"മിസേനം","am":"ሚሴኑም"},
+  "Stabiae": {"zh-Hans":"斯塔比伊","zh-Hant":"斯塔比伊","vi":"Stabiae","ar":"ستابيا","fa":"استابیا","ur":"ستابیا","ml":"സ്റ്റാബിയേ","am":"ስታቢየ"},
+  "Vesuvius": {"zh-Hans":"维苏威火山","zh-Hant":"維蘇威火山","vi":"núi lửa Vesuvius","ar":"جبل فيزوف","fa":"کوه وزوو","ur":"ویسوویس آتش فشاں","ml":"വെസൂവിയസ് പർവ്വതം","am":"የቬሱቪየስ ተራራ"},
+  "Pompeii": {"zh-Hans":"庞贝","zh-Hant":"龐貝","vi":"Pompeii","ar":"بومبي","fa":"پمپئی","ur":"پومپئی","ml":"പോംപെയ്","am":"ፖምፔ"},
+  "Tacitus": {"zh-Hans":"塔西佗","zh-Hant":"塔西佗","vi":"Tacitus","ar":"تاسيتس","fa":"تاسیتوس","ur":"ٹیسیٹس","ml":"ടാസിറ്റസ്","am":"ታሲተስ"}
+};
+
+const TIER2_T = {
+  "motives": {"zh-Hans":"动机","zh-Hant":"動機","vi":"động cơ","ar":"دوافع","fa":"انگیزه‌ها","ur":"محرکات","ml":"ഉദ്ദേശ്യങ്ങൾ","am":"ምክንያቶች"},
+  "motive": {"zh-Hans":"动机","zh-Hant":"動機","vi":"động cơ","ar":"دافع","fa":"انگیزه","ur":"محرک","ml":"ഉദ്ദേശ്യം","am":"ምክንያት"},
+  "affected": {"zh-Hans":"影响了","zh-Hant":"影響了","vi":"ảnh hưởng đến","ar":"أثّر في","fa":"تأثیر گذاشت","ur":"متاثر کیا","ml":"ബാധിച്ചു","am":"ተጽዕኖ አሳደረ"},
+  "uncertain": {"zh-Hans":"不确定的","zh-Hant":"不確定的","vi":"không chắc chắn","ar":"غير مؤكد","fa":"نامعلوم","ur":"غیر یقینی","ml":"അനിശ്ചിതമായ","am":"እርግጠኛ ያልሆነ"},
+  "physical": {"zh-Hans":"自然的","zh-Hant":"自然的","vi":"vật chất","ar":"مادي","fa":"فیزیکی","ur":"طبعی","ml":"ഭൗതികമായ","am":"አካላዊ"},
+  "onshore": {"zh-Hans":"向岸的","zh-Hant":"向岸的","vi":"thổi vào bờ","ar":"باتجاه الشاطئ","fa":"به سوی ساحل","ur":"ساحل کی طرف","ml":"കരയിലേക്കുള്ള","am":"ወደ ዳርቻ የሚነፍስ"},
+  "sheltered": {"zh-Hans":"躲避","zh-Hant":"躲避","vi":"trú ẩn","ar":"احتمى","fa":"پناه گرفت","ur":"پناہ لی","ml":"അഭയം തേടി","am":"ተጠለለ"},
+  "rescue": {"zh-Hans":"营救","zh-Hant":"營救","vi":"giải cứu","ar":"إنقاذ","fa":"نجات","ur":"بچاؤ","ml":"രക്ഷാപ്രവർത്തനം","am":"ማዳን"}
 };
 
 </script>
@@ -1349,6 +1346,15 @@ function drawRungs(){
   el("next").disabled = i >= LADDER.length - 1;
 }
 
+/* The background panel is knowledge, not skill: it names what a student at
+   this level has already been taught, which is what makes the rung's thinking
+   available to them. Labelling it with the level's own name keeps that
+   separate from the gold bar above, which is the skill that actually grew. */
+function bgLabel(lv){
+  const band = /^(Foundation|Levels)/.test(lv);
+  return band ? `Students at ${lv} already know` : `A ${lv} student already knows`;
+}
+
 function render(){
   hidePop();
   drawRungs();
@@ -1377,8 +1383,8 @@ function render(){
   const b = BUMP[lv] || {};
   stage.innerHTML =
     `<h2><span class="of">Rung ${i+1} of ${LADDER.length}</span>${esc(lv)}</h2>
-     ${b.new ? `<div class="newbar"><span>New at this rung</span>${esc(b.new)}</div>` : ""}
-     ${b.background ? `<div class="bg" id="bgBox" hidden><span>You need to know</span>${esc(b.background)}</div>` : ""}
+     ${b.new ? `<div class="newbar"><span>New skill at this rung</span>${esc(b.new)}</div>` : ""}
+     ${b.background ? `<div class="bg" id="bgBox" hidden><span>${esc(bgLabel(lv))}</span>${esc(b.background)}</div>` : ""}
      <p class="example">${marked(ex)}</p>
      <p class="crumbs">Tap any underlined phrase to see what it proves.</p>`;
   syncBg();
