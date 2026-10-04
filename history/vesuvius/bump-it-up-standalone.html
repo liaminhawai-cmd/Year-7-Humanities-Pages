@@ -92,6 +92,29 @@ button{font:inherit;cursor:pointer}
 .passage .segno{color:#f4d98b;font-weight:800;font-size:.78em;vertical-align:.35em;padding-left:.1em}
 .passage .cite{display:block;margin-top:.4em;color:#9aa8a3;font-size:.8em;
                font-family:system-ui,sans-serif;line-height:1.4}
+/* A written source may carry a short version and plain English. The buttons
+   switch between them; the plain English sits in its own column beside the
+   paragraph it explains, and drops underneath it when the panel is narrow. */
+.plate.text{container-type:inline-size}
+.passage .srcbar{display:flex;flex-wrap:wrap;gap:.4em;margin:0 0 .7em}
+/* .plate button is the picture hotspot, absolutely placed; these are not */
+.plate .passage .srcbar button{position:static;font:700 .78em system-ui,sans-serif;color:#f4d98b;
+               background:transparent;border:1px solid #6b7d78;border-radius:999px;padding:.3em .85em;cursor:pointer}
+.plate .passage .srcbar button:hover,.plate .passage .srcbar button:focus-visible{border-color:#f4d98b;
+               background:rgba(244,217,139,.12);outline:none}
+.prow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0 1em;align-items:start}
+.prow > p{margin:0 0 .6em}
+.prow .plain{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.86em;line-height:1.5;
+               color:#c9d4cf;border-left:.18em solid #3c4a46;padding-left:.7em}
+.prow.phead{font:700 .68em system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+               color:#9aa8a3;margin-bottom:.4em}
+.passage .gap,.zpass .gap{color:#9aa8a3}
+.cut{color:#9aa8a3;padding:0 .15em}
+@container (max-width: 30em){
+  .prow{grid-template-columns:1fr}
+  .prow.phead{display:none}
+  .prow .plain{margin-top:-.2em}
+}
 .zoomall{border:1px solid #3b4442;background:#222927;color:#f4d98b;border-radius:.5em;
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
@@ -196,6 +219,8 @@ button{font:inherit;cursor:pointer}
 .zpass{max-width:46ch;max-height:100%;overflow:auto;color:#f4f0e6;
        font-family:Georgia,"Times New Roman",serif;font-size:1.42em;line-height:1.5}
 .zpass[hidden]{display:none}
+.zpass.wide{max-width:min(94vw,118ch)}
+.zpass.wide .plain{font-size:.8em}
 .zpass p{margin:0 0 .6em}
 .zpass .seg{opacity:.42}
 .zpass .seg.lit{opacity:1;background:rgba(244,217,139,.22);border-radius:.15em;
@@ -564,10 +589,11 @@ const CRITERIA = [
     ink:"#a34d1d", lamp:"#e89a63", underline:"dotted" },
 ];
 
-/* The CAT 2 rubric's own four levels. Below Level 6 the rubric is blank, so
-   those rungs are EARLY_LEVELS: they carry a worked example and the
-   Victorian Curriculum code, and no continuum wording (rule 5). */
-const LEVELS = ["Level 6","Level 7","Level 8","Level 9"];
+/* The CAT 2 rubric's own four levels, then Level 10. The rubric stops at
+   Level 9, so Level 10 has no CONTINUUM wording (rule 5): its rubric pane
+   shows the Victorian Curriculum Level 10 descriptors and a KID band instead.
+   Below Level 6 the rubric is blank too, so those rungs are EARLY_LEVELS. */
+const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
 
 const EXAMPLES = {
 "Level 6":
@@ -580,7 +606,10 @@ const EXAMPLES = {
 `{chron|The eruption happened in 79 CE, in the time of the Roman Empire}, {chron|about a hundred years after Augustus became the first emperor in 27 BCE}. {cause|An onshore wind carried his uncle to Stabiae, but the same wind stopped Pomponianus from sailing away}. His uncle's actions had motives. {cause|He bathed and ate supper cheerfully}, and Pliny says why: {cause|to calm his frightened friend by seeming unworried}.`,
 
 "Level 9":
-`The letters cover about three days: {chron|from the cloud on the afternoon of 24 August}, {chron|through a night and a morning of darkness}, {chron|to the body being found when the light returned}. {chron|Two timelines run side by side: while his uncle sheltered at Stabiae, Pliny and his mother waited at Misenum}. {chron|Even the date is uncertain, because a note found at Pompeii in 2018 points to October}. The causes were not only physical. {cause|The ash forced choices}, but motives shaped what people did: {cause|his uncle steered towards danger to help others}, {cause|Pliny would not leave his mother}, and {cause|some people spread false stories, which made the fear worse}.`
+`The letters cover about three days: {chron|from the cloud on the afternoon of 24 August}, {chron|through a night and a morning of darkness}, {chron|to the body being found when the light returned}. {chron|Two timelines run side by side: while his uncle sheltered at Stabiae, Pliny and his mother waited at Misenum}. {chron|Even the date is uncertain, because a note found at Pompeii in 2018 points to October}. The causes were not only physical. {cause|The ash forced choices}, but motives shaped what people did: {cause|his uncle steered towards danger to help others}, {cause|Pliny would not leave his mother}, and {cause|some people spread false stories, which made the fear worse}.`,
+
+"Level 10":
+`{chron|Pliny wrote about 27 years after the eruption, so his timeline is a memory, built partly from what other people told him}. {chron|Both letters fit on one timeline: the cloud at one in the afternoon, a night of shaking at Stabiae and at Misenum, then the third day, when the light came back in both places}. {chron|In Rome's longer story, 79 CE falls about a century into the rule of the emperors, when Rome controlled the whole Mediterranean and kept a navy at Misenum}. The causes worked over different lengths of time. {cause|In the long term, towns had grown up along the coast below Vesuvius, and the ground shook so often in Campania that nobody left when the shaking started}. {cause|In the short term, the onshore wind that carried his uncle to Stabiae also kept the ships from leaving}. Some results were intended and some were not. {cause|His uncle sailed to rescue people, which was his aim}, but {cause|by landing at Stabiae he was trapped with the people he came to help}. {cause|Pliny wrote so that his uncle would be remembered, and an unintended result is that the letters became one of the main written records of the eruption}.`
 };
 
 const EXPLANATIONS = {
@@ -595,7 +624,10 @@ const EXPLANATIONS = {
   cause: "The orange phrases explain one cause with two effects, then name a person's motive for what he did." },
 "Level 9": {
   chron: "The blue phrases give how long it lasted, run two timelines side by side, and notice that the date itself is disputed.",
-  cause: "The orange phrases separate the physical cause from the motives of three different people." }
+  cause: "The orange phrases separate the physical cause from the motives of three different people." },
+"Level 10": {
+  chron: "The blue phrases notice the letters were written 27 years later, lay both letters on one timeline, and place 79 CE in Rome's longer story.",
+  cause: "The orange phrases separate long-term from short-term causes, and intended from unintended results." }
 };
 
 /* CAT 2 rubric, Ancient Rome, 2025. Quoted exactly (rule 4). Level 7
@@ -635,6 +667,49 @@ const SOURCES = [
    "During all this time my mother and I, who were at Misenum--but this has no connection with your history, and you did not desire any particulars besides those of my uncle's death; so I will end here, only adding that I have faithfully related to you what I was either an eye-witness of myself or received immediately after the accident happened, and before there was time to vary the truth. You will pick out of this narrative whatever is most important: for a letter is one thing, a history another; it is one thing writing to a friend, another thing writing to the public.",
    "Farewell."
   ],
+  /* The short version, one entry per paragraph. Each entry is a list of exact
+     pieces of that paragraph, shown joined with an ellipsis; null leaves the
+     paragraph out. Nothing in a piece may differ from the full text: the
+     check in tools/ refuses a piece it cannot find. */
+  short: [
+   ["Your request that I would send you an account of my uncle's death, in order to transmit a more exact relation of it to posterity, deserves my acknowledgments;"],
+   ["He was at that time with the fleet under his command at Misenum. On the 24th of August, about one in the afternoon, my mother desired him to observe a cloud which appeared of a very unusual size and shape.",
+    "A cloud, from which mountain was uncertain, at this distance (but it was found afterwards to come from Mount Vesuvius), was ascending, the appearance of which I cannot give you a more exact description of than by likening it to that of a pine tree, for it shot up to a great height in the form of a very tall trunk, which spread itself out at the top into a sort of branches;"],
+   ["This phenomenon seemed to a man of such learning and research as my uncle extraordinary and worth further looking into. He ordered a light vessel to be got ready,",
+    "As he was coming out of the house, he received a note from Rectina, the wife of Bassus, who was in the utmost alarm at the imminent danger which threatened her; for her villa lying at the foot of Mount Vesuvius, there was no way of escape but by sea; she earnestly entreated him therefore to come to her assistance. He accordingly changed his first intention,",
+    "He ordered the galleys to be put to sea, and went himself on board with an intention of assisting not only Rectina, but the several other towns which lay thickly strewn along that beautiful coast."],
+   ["Hastening then to the place from whence others fled with the utmost terror, he steered his course direct to the point of danger,",
+    "He was now so close to the mountain that the cinders, which grew thicker and hotter the nearer he approached, fell into the ships, together with pumice-stones, and black pieces of burning rock:",
+    "Here he stopped to consider whether he should turn back again; to which the pilot advising him, \"Fortune,\" said he, \"favours the brave; steer to where Pomponianus is.\""],
+   ["Pomponianus was then at Stabiae,",
+    "He had already sent his baggage on board;",
+    "he was determined to put to sea as soon as the wind, which was blowing dead in-shore, should go down. It was favourable, however, for carrying my uncle to Pomponianus, whom he found in the greatest consternation:",
+    "the more effectually to soothe his fears by seeming unconcerned himself, ordered a bath to be got ready, and then, after having bathed, sat down to supper with great cheerfulness,"],
+   ["Meanwhile broad flames shone out in several places from Mount Vesuvius, which the darkness of the night contributed to render still brighter and clearer.",
+    "after this he retired to rest, and it is most certain he was so little disquieted as to fall into a sound sleep:",
+    "The court which led to his apartment being now almost filled with stones and ashes, if he had continued there any time longer, it would have been impossible for him to have made his way out."],
+   ["So he was awoke and got up, and went to Pomponianus and the rest of his company, who were feeling too anxious to think of going to bed. They consulted together whether it would be most prudent to trust to the houses, which now rocked from side to side with frequent and violent concussions as though shaken from their very foundations; or fly to the open fields, where the calcined stones and cinders, though light indeed, yet fell in large showers, and threatened destruction. In this choice of dangers they resolved for the fields:",
+    "They went out then, having pillows tied upon their heads with napkins; and this was their whole defence against the storm of stones that fell round them. It was now day everywhere else, but there a deeper darkness prevailed than in the thickest night;"],
+   ["They thought proper to go farther down upon the shore to see if they might safely put out to sea, but found the waves still running extremely high, and boisterous.",
+    "the flames, preceded by a strong whiff of sulphur, dispersed the rest of the party, and obliged him to rise. He raised himself up with the assistance of two of his servants, and instantly fell down dead;",
+    "As soon as it was light again, which was not till the third day after this melancholy accident, his body was found entire, and without any marks of violence upon it, in the dress in which he fell, and looking more like a man asleep than dead."],
+   ["I have faithfully related to you what I was either an eye-witness of myself or received immediately after the accident happened, and before there was time to vary the truth."],
+   null
+  ],
+  /* Plain English, one paragraph for each paragraph of the letter. Written
+     for this page. It sits beside the source and is never mixed into it. */
+  plain: [
+   "You asked me how my uncle died, so you can put it in your history. Thank you. If you write about him, people will remember him forever. I am happy to do it.",
+   "My uncle was at Misenum, in charge of the navy's ships. On 24 August, at about one in the afternoon, my mother showed him a strange cloud. It was very big and an odd shape. He went up to a high place to see it better. From so far away we could not tell which mountain it came from. Later we found out it was Vesuvius. The cloud looked like a pine tree: a tall trunk going straight up, then spreading out at the top like branches. Some of it looked light, and some looked dark and dirty with earth and ash.",
+   "My uncle loved to learn, so he wanted a closer look. He had a small fast boat made ready, and asked if I wanted to come. I said no, I would rather keep studying. As he was leaving the house, a note came from Rectina. Her house was at the bottom of Vesuvius, and the only way out was by sea. She was terrified and begged him to save her. So he changed his plan. He had set out to study the cloud. Now he set out to rescue people. He sent out the big warships to help Rectina and the many people living along the coast.",
+   "Everyone else was running away from the danger. He sailed straight towards it, calm enough to keep describing what he saw so it could be written down. The closer the ships got, the hotter and thicker the ash that fell on them, with pumice and burnt black rocks. The sea suddenly pulled back, so they might run aground, and rocks from the mountain blocked the shore. He stopped and thought about turning back. The pilot told him to. He said, \"Fortune favours the brave. Sail to Pomponianus.\"",
+   "Pomponianus was at Stabiae, across a small bay. He was not in danger yet, but he could see it coming. He had already put his things on a ship. He planned to sail away as soon as the wind dropped, because it was blowing towards the land. That same wind carried my uncle straight to him. Pomponianus was very frightened. My uncle hugged him and told him to be brave. To calm him down, my uncle acted as if he was not worried. He had a bath and then ate dinner cheerfully, or at least looked cheerful, which is just as brave.",
+   "Meanwhile big flames shone from Vesuvius in many places, bright in the dark night. To calm his friend, my uncle said it was only empty villages burning. Then he went to bed and fell fast asleep. He was a big man and snored loudly, and the servants outside could hear him. But the courtyard outside his room was filling up with stones and ash. If he had stayed in bed much longer, he could not have got out.",
+   "So they woke him. He joined Pomponianus and the others, who were too worried to sleep. They talked about what to do. They could stay inside, but the houses were rocking from the earthquakes. Or they could go out into the fields, where stones were falling like rain. They chose the fields. The others chose because they were scared. My uncle chose because he had thought it through. They tied pillows on their heads to protect them from the stones. By now it was morning everywhere else, but where they were it was darker than the darkest night. They used torches and lamps to see.",
+   "They went down to the beach to see if they could escape by sea, but the waves were still too big and rough. My uncle lay down on a sail and asked twice for cold water. Then flames and a strong smell of sulphur made the others run. Two servants helped him stand up, and he fell down dead. I think the fumes choked him, because his throat had always been weak. When daylight came back, on the third day, they found his body. It was not hurt, and he was still in his clothes. He looked asleep, not dead.",
+   "My mother and I were at Misenum all this time, but you did not ask about that, so I will stop here. Everything I have told you, I saw myself or heard straight after it happened, before anyone could change the story. Use the parts you need. A letter to a friend is not the same as a history for everyone to read.",
+   "Goodbye."
+  ],
   hotspots: [
    { mark:"about one in the afternoon", label:"One in the afternoon",
      text:"The first time of day in the letter. Everything after this can be put in order from here." },
@@ -670,6 +745,42 @@ const SOURCES = [
    "It now grew rather lighter, which we imagined to be rather the forerunner of an approaching burst of flames (as in truth it was) than the return of day: however, the fire fell at a distance from us: then again we were immersed in thick darkness, and a heavy shower of ashes rained upon us, which we were obliged every now and then to stand up to shake off, otherwise we should have been crushed and buried in the heap. I might boast that, during all this scene of horror, not a sigh, or expression of fear, escaped me, had not my support been grounded in that miserable, though mighty, consolation, that all mankind were involved in the same calamity, and that I was perishing with the world itself.",
    "At last this dreadful darkness was dissipated by degrees, like a cloud or smoke; the real day returned, and even the sun shone out, though with a lurid light, like when an eclipse is coming on. Every object that presented itself to our eyes (which were extremely weakened) seemed changed, being covered deep with ashes as if with snow. We returned to Misenum, where we refreshed ourselves as well as we could, and passed an anxious night between hope and fear; though, indeed, with a much larger share of the latter: for the earthquake still continued, while many frenzied persons ran up and down heightening their own and their friends' calamities by terrible predictions. However, my mother and I, notwithstanding the danger we had passed, and that which still threatened us, had no thoughts of leaving the place, till we could receive some news of my uncle.",
    "And now, you will read this narrative without any view of inserting it in your history, of which it is not in the least worthy; and indeed you must put it down to your own request if it should appear not worth even the trouble of a letter. Farewell."
+  ],
+  short: [
+   ["The letter which, in compliance with your request, I wrote to you concerning the death of my uncle has raised, it seems, your curiosity to know what terrors and dangers attended me while I continued at Misenum;"],
+   ["My uncle having left us, I spent such time as was left on my studies (it was on their account indeed that I had stopped behind), till it was time for my bath. After which I went to supper, and then fell into a short and uneasy sleep."],
+   ["There had been noticed for many days before a trembling of the earth, which did not alarm us much, as this is quite an ordinary occurrence in Campania; but it was so particularly violent that night that it not only shook but actually overturned, as it would seem, everything about us. My mother rushed into my chamber, where she found me rising, in order to awaken her.",
+    "I took up Livy, and amused myself with turning over that author, and even making extracts from him, as if I had been perfectly at my leisure."],
+   ["Though it was now morning, the light was still exceedingly faint and doubtful; the buildings all around us tottered,",
+    "we therefore resolved to quit the town. A panic-stricken crowd followed us, and (as to a mind distracted with terror every suggestion seems more prudent than its own) pressed on us in dense array to drive us forward as we came out."],
+   ["The sea seemed to roll back upon itself, and to be driven from its banks by the convulsive motion of the earth; it is certain at least the shore was considerably enlarged, and several sea animals were left upon it. On the other side, a black and dreadful cloud, broken with rapid, zigzag flashes, revealed behind it variously shaped masses of flame:"],
+   ["\"If your brother,\" he said, \"if your uncle be safe, he certainly wishes you may be so too; but if he perished, it was his desire, no doubt, that you might both survive him: why therefore do you delay your escape a moment?\" We could never think of our own safety, we said, while we were uncertain of his. Upon this our friend left us,"],
+   ["Soon afterwards, the cloud began to descend, and cover the sea.",
+    "My mother now besought, urged, even commanded me to make my escape at any rate, which, as I was young, I might easily do; as for herself, she said, her age and corpulency rendered all attempts of that sort impossible;",
+    "But I absolutely refused to leave her, and, taking her by the hand, compelled her to go with me."],
+   ["The ashes now began to fall upon us, though in no great quantity.",
+    "\"Let us turn out of the high-road,\" I said, \"while we can still see, for fear that, should we fall in the road, we should be pressed to death in the dark, by the crowds that are following us.\" We had scarcely sat down when night came upon us, not such as we have when the sky is cloudy, or when there is no moon, but that of a room when it is shut up, and all the lights put out."],
+   ["You might hear the shrieks of women, the screams of children, and the shouts of men;",
+    "Among these there were some who augmented the real terrors by others imaginary or wilfully invented. I remember some who declared that one part of Misenum had fallen, that another was on fire; it was false, but they found people to believe them."],
+   ["then again we were immersed in thick darkness, and a heavy shower of ashes rained upon us, which we were obliged every now and then to stand up to shake off, otherwise we should have been crushed and buried in the heap."],
+   ["At last this dreadful darkness was dissipated by degrees, like a cloud or smoke; the real day returned,",
+    "Every object that presented itself to our eyes (which were extremely weakened) seemed changed, being covered deep with ashes as if with snow.",
+    "However, my mother and I, notwithstanding the danger we had passed, and that which still threatened us, had no thoughts of leaving the place, till we could receive some news of my uncle."],
+   null
+  ],
+  plain: [
+   "My letter about my uncle's death made you curious. Now you want to know what dangers I faced at Misenum. That is where my last letter stopped.",
+   "It is painful to remember, but I will tell you. After my uncle left, I kept studying. That was why I had stayed behind. Then I had a bath, ate dinner, and slept badly for a short time.",
+   "For many days the ground had been shaking a little. We did not worry, because that happens often in Campania. But that night it shook so hard that it seemed everything would fall over. My mother rushed into my room. I was already getting up to wake her. We sat in the open yard between the house and the sea. I was only eighteen, and I do not know if what I did next was brave or silly. I picked up a book by the historian Livy and kept reading and taking notes, as if nothing was wrong. A friend of my uncle's, who had just come from Spain, saw this. He told my mother off for being so calm, and me for being so careless. I kept reading anyway.",
+   "It was morning by now, but the light was still very dim. The buildings around us were wobbling. We were outside, but the yard was small, so it was still dangerous. We decided to leave the town. A crowd of frightened people followed us and pushed us along, because when people are scared they copy whatever someone else is doing. When we were far enough from the houses, we stopped. It was a terrifying place to be.",
+   "The carts we had brought kept rolling backwards and forwards, even on flat ground. We could not hold them still, even with big stones behind the wheels. The sea seemed to pull back, pushed away by the shaking ground. The beach was much wider than before, and sea animals were left lying on the sand. On the other side was a huge black cloud. Zigzag flashes broke through it, and behind them were flames, like lightning but much bigger.",
+   "Then the friend from Spain spoke to my mother and me, loudly and urgently. \"If your brother, your uncle, is safe, he wants you to be safe too. If he has died, he would want you to live. So why are you waiting?\" We said we could not think about saving ourselves until we knew he was safe. So our friend left us, and got away from the danger as fast as he could.",
+   "Soon the cloud came down and covered the sea. We could no longer see the island of Capri or the point of land at Misenum. My mother begged me, then ordered me, to escape without her. She said I was young and could get away, but she was old and heavy and could not. She said she would die happy if she knew she had not caused my death. I refused to leave her. I took her hand and made her come with me. She came, but slowly, and kept blaming herself for holding me back.",
+   "Ash started to fall on us, but not much yet. I looked back. A thick dark cloud was following us, spreading over the land. I said, \"Let's get off the road while we can still see. If we fall over on the road in the dark, the crowd behind us will trample us.\" We had only just sat down when it went dark. It was not like a cloudy night or a night with no moon. It was like a room with no windows and all the lights out.",
+   "You could hear women screaming, children crying and men shouting. People were calling for their children, their parents or their husbands, trying to find each other by their voices. Some cried about what would happen to them, and some about their families. Some were so scared of dying that they wanted to die. Some prayed to the gods. More of them believed there were no gods any more, and that this was the last night of the world. Some people made it worse by making up dangers that were not real. They said part of Misenum had fallen down and another part was on fire. It was not true, but people believed them.",
+   "Then it got a little lighter. We thought this meant fire was coming, not daylight, and we were right. But the fire landed a long way from us. Then it went dark again, and thick ash poured down on us. Every few minutes we had to stand up and shake it off, or we would have been buried and crushed. I could say I never showed I was afraid. But really, what kept me going was a sad thought: everyone was in the same danger, and the whole world was ending with me.",
+   "At last the darkness slowly cleared, like smoke blowing away. Real daylight came back, and the sun even came out, but it looked pale and strange, like during an eclipse. Our eyes were sore. Everything we looked at had changed, covered in deep ash like snow. We went back to Misenum, cleaned up and ate as well as we could. We spent a worried night, more scared than hopeful, because the earthquakes kept going and frightened people ran around making terrible predictions. Even so, my mother and I would not leave until we had news of my uncle.",
+   "Read this, but do not put it in your history. It is not good enough for that. If it is not even good enough for a letter, that is your fault for asking. Goodbye."
   ],
   hotspots: [
    { mark:"There had been noticed for many days before a trembling of the earth", label:"Days of shaking",
@@ -751,10 +862,13 @@ const VC = {
   ["VC2HH8S08","explain the causes and consequences of significant events, individuals, ideas and developments and their contribution to continuity and change"]],
  "Level 9": [
   ["VC2HH10S02","sequence significant events, individuals, ideas, movements and developments chronologically to analyse continuity and change, and causes and consequences"],
+  ["VC2HH10S08","analyse short- and long-term causes and the intended and unintended consequences of significant events, individuals, ideas and developments and their contributions to continuity and change"]],
+ "Level 10": [
+  ["VC2HH10S02","sequence significant events, individuals, ideas, movements and developments chronologically to analyse continuity and change, and causes and consequences"],
   ["VC2HH10S08","analyse short- and long-term causes and the intended and unintended consequences of significant events, individuals, ideas and developments and their contributions to continuity and change"]]
 };
 
-const VC_NOTE = "Levels 6 to 9 use the CAT 2 rubric's wording. Below Level 6 the rubric is blank, so those rungs show the Victorian Curriculum only. VC2 bands History two years at a time, so neighbouring rungs share a code.";
+const VC_NOTE = "Levels 6 to 9 use the CAT 2 rubric's wording. The rubric stops at Level 9 and is blank below Level 6, so Level 10 and the lower rungs show the Victorian Curriculum only. VC2 bands History two years at a time, so neighbouring rungs share a code.";
 
 /* new: the skill this rung adds.
    background: what a student at this level has already been taught, which
@@ -782,7 +896,10 @@ const BUMP = {
    background:"that the Republic ended in 27 BCE, when Augustus became the first emperor." },
  "Level 9": {
    new:"You say how long things lasted, run two timelines side by side, and separate physical causes from people's motives.",
-   background:"that historians date events from more than one kind of evidence, and that the evidence does not always agree." }
+   background:"that historians date events from more than one kind of evidence, and that the evidence does not always agree." },
+ "Level 10": {
+   new:"You sort causes into long term and short term, and results into intended and unintended, and you notice how long after the event the source was written.",
+   background:"that a source written years later is shaped by memory and by why it was written, and that by 79 CE Rome ruled every coast of the Mediterranean." }
 };
 
 /* Tier 3 = the subject's own words, which need a definition.
@@ -811,7 +928,11 @@ const GLOSS = {
   "physical":"to do with things you can touch, like rock and ash",
   "onshore":"blowing from the sea towards the land",
   "sheltered":"stayed somewhere safe",
-  "rescue":"saving people from danger"
+  "rescue":"saving people from danger",
+  "long term":"over a long time, years or more",
+  "short term":"over a short time, hours or days",
+  "intended":"meant, planned",
+  "unintended":"not meant, not planned"
  }
 };
 
@@ -830,7 +951,10 @@ const KID = {
  "Level 6": { band:"CAT 2 rubric · Level 6", lines:[] },
  "Level 7": { band:"CAT 2 rubric · Level 7", lines:[] },
  "Level 8": { band:"CAT 2 rubric · Level 8", lines:[] },
- "Level 9": { band:"CAT 2 rubric · Level 9", lines:[] }
+ "Level 9": { band:"CAT 2 rubric · Level 9", lines:[] },
+ "Level 10": { band:"Level 10 · past the CAT rubric, which stops at Level 9", lines:[
+   "I can sequence events and developments to show what changed and what stayed the same, and why.",
+   "I can analyse long-term and short-term causes, and intended and unintended results."]}
 };
 
 /* Translations for this unit's own tier-3 and tier-2 words, in the shape
@@ -859,7 +983,11 @@ const TIER2_T = {
   "physical": {"zh-Hans":"自然的","zh-Hant":"自然的","vi":"vật chất","ar":"مادي","fa":"فیزیکی","ur":"طبعی","ml":"ഭൗതികമായ","am":"አካላዊ"},
   "onshore": {"zh-Hans":"向岸的","zh-Hant":"向岸的","vi":"thổi vào bờ","ar":"باتجاه الشاطئ","fa":"به سوی ساحل","ur":"ساحل کی طرف","ml":"കരയിലേക്കുള്ള","am":"ወደ ዳርቻ የሚነፍስ"},
   "sheltered": {"zh-Hans":"躲避","zh-Hant":"躲避","vi":"trú ẩn","ar":"احتمى","fa":"پناه گرفت","ur":"پناہ لی","ml":"അഭയം തേടി","am":"ተጠለለ"},
-  "rescue": {"zh-Hans":"营救","zh-Hant":"營救","vi":"giải cứu","ar":"إنقاذ","fa":"نجات","ur":"بچاؤ","ml":"രക്ഷാപ്രവർത്തനം","am":"ማዳን"}
+  "rescue": {"zh-Hans":"营救","zh-Hant":"營救","vi":"giải cứu","ar":"إنقاذ","fa":"نجات","ur":"بچاؤ","ml":"രക്ഷാപ്രവർത്തനം","am":"ማዳን"},
+  "long term": {"zh-Hans":"长期","zh-Hant":"長期","vi":"lâu dài","ar":"على المدى الطويل","fa":"بلندمدت","ur":"طویل مدت","ml":"ദീർഘകാലം","am":"በረጅም ጊዜ"},
+  "short term": {"zh-Hans":"短期","zh-Hant":"短期","vi":"ngắn hạn","ar":"على المدى القصير","fa":"کوتاه‌مدت","ur":"قلیل مدت","ml":"ഹ്രസ്വകാലം","am":"በአጭር ጊዜ"},
+  "intended": {"zh-Hans":"有意的","zh-Hant":"有意的","vi":"có chủ ý","ar":"مقصود","fa":"عمدی","ur":"ارادی","ml":"ഉദ്ദേശിച്ച","am":"የታሰበ"},
+  "unintended": {"zh-Hans":"无意的","zh-Hant":"無意的","vi":"ngoài ý muốn","ar":"غير مقصود","fa":"ناخواسته","ur":"غیر ارادی","ml":"ഉദ്ദേശിക്കാത്ത","am":"ያልታሰበ"}
 };
 
 </script>
@@ -1081,6 +1209,8 @@ let SPOTS  = SOURCE.hotspots;
 let isText = SOURCE.kind === "text";
 let rockImg = null;
 let VIEWS = [];
+let textFull  = false;        // a source with a short version opens on it
+let textPlain = true;         // plain English beside the source, when it has some
 
 function mountSource(i){
   srcI   = (i + SRC_LIST.length) % SRC_LIST.length;
@@ -1096,18 +1226,54 @@ function mountSource(i){
     /* Each hotspot names a phrase; wrap that phrase in a button wherever it
        appears. Longest first so a phrase inside another phrase cannot break it. */
     const order = SPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
-    const body = SOURCE.paragraphs.map(p => {
-      let s = esc(p);
+    const spot = s => {
       order.forEach(({h,n}) => {
         const q = esc(h.mark);
         if (s.includes(q) && !s.includes(`data-h="${n}"`))
           s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
                 title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
       });
-      return `<p>${s}</p>`;
-    }).join("");
-    plate.innerHTML = `<div class="passage" id="passage">${body}
-      <span class="cite">${esc(SOURCE.cite || "")}</span></div>`;
+      return s;
+    };
+    /* SOURCE.short holds exact pieces of each paragraph (null drops one), and
+       SOURCE.plain one plain-English paragraph per paragraph. A source with
+       neither renders exactly as it always did. */
+    const hasShort = Array.isArray(SOURCE.short);
+    const hasPlain = Array.isArray(SOURCE.plain);
+    const shortNow = hasShort && !textFull;
+    const plainNow = hasPlain && textPlain;
+    const CUT = `<span class="cut" title="words left out">…</span>`;
+    const rows = [];
+    let gapOpen = false;
+    SOURCE.paragraphs.forEach((p, k) => {
+      let s;
+      if (shortNow){
+        const pcs = SOURCE.short[k];
+        if (!pcs){
+          if (!gapOpen) rows.push(`<p class="gap">${CUT}</p>`);
+          gapOpen = true;
+          return;
+        }
+        s = pcs.map(esc).join(` ${CUT} `);
+        if (!p.startsWith(pcs[0])) s = `${CUT} ` + s;
+        if (!p.endsWith(pcs[pcs.length-1])) s = s + ` ${CUT}`;
+      } else s = esc(p);
+      gapOpen = false;
+      s = spot(s);
+      rows.push(plainNow
+        ? `<div class="prow"><p>${s}</p><p class="plain">${esc(SOURCE.plain[k] || "")}</p></div>`
+        : `<p>${s}</p>`);
+    });
+    const bar = (hasShort || hasPlain) ? `<div class="srcbar">${
+        hasShort ? `<button type="button" data-tmode="full" aria-pressed="${textFull}">${
+          textFull ? "Back to the short version" : "Read it in full"}</button>` : ""}${
+        hasPlain ? `<button type="button" data-tmode="plain" aria-pressed="${textPlain}">Plain English: ${
+          textPlain ? "on" : "off"}</button>` : ""}</div>` : "";
+    const head = plainNow ? `<div class="prow phead"><span>${
+        shortNow ? "The source, shortened" : "The source, in full"}</span><span>In plain English</span></div>` : "";
+    plate.innerHTML = `<div class="passage" id="passage">${bar}${head}${rows.join("")}
+      <span class="cite">${esc(SOURCE.cite || "")}${
+        shortNow ? " Shortened: … marks words left out. Every word that is shown is the translator's." : ""}</span></div>`;
   } else {
     plate.innerHTML =
       `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
@@ -1199,6 +1365,8 @@ function drawZoomText(n){
   const box = el("zPass");
   box.hidden = false;
   box.innerHTML = plate.querySelector(".passage").innerHTML;
+  box.querySelectorAll(".srcbar").forEach(x => x.remove());
+  box.classList.toggle("wide", !!box.querySelector(".plain"));
   box.classList.toggle("all", n === 0);
   box.querySelectorAll("[data-h]").forEach(s => {
     s.classList.add("seg");
@@ -1239,6 +1407,16 @@ plate.addEventListener("keydown", e => {
   s.click();
 });
 plate.addEventListener("click", e => {
+  const t = e.target.closest("[data-tmode]");
+  if (t){
+    if (t.dataset.tmode === "full") textFull = !textFull; else textPlain = !textPlain;
+    const top = plate.scrollTop;
+    mountSource(srcI);
+    if (t.dataset.tmode === "plain") plate.scrollTop = top;
+    const again = plate.querySelector(`[data-tmode="${t.dataset.tmode}"]`);
+    if (again) again.focus();
+    return;
+  }
   const b = e.target.closest("[data-h]");
   if (!b) return;
   const n = +b.dataset.h;

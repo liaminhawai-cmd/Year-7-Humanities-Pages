@@ -92,6 +92,29 @@ button{font:inherit;cursor:pointer}
 .passage .segno{color:#f4d98b;font-weight:800;font-size:.78em;vertical-align:.35em;padding-left:.1em}
 .passage .cite{display:block;margin-top:.4em;color:#9aa8a3;font-size:.8em;
                font-family:system-ui,sans-serif;line-height:1.4}
+/* A written source may carry a short version and plain English. The buttons
+   switch between them; the plain English sits in its own column beside the
+   paragraph it explains, and drops underneath it when the panel is narrow. */
+.plate.text{container-type:inline-size}
+.passage .srcbar{display:flex;flex-wrap:wrap;gap:.4em;margin:0 0 .7em}
+/* .plate button is the picture hotspot, absolutely placed; these are not */
+.plate .passage .srcbar button{position:static;font:700 .78em system-ui,sans-serif;color:#f4d98b;
+               background:transparent;border:1px solid #6b7d78;border-radius:999px;padding:.3em .85em;cursor:pointer}
+.plate .passage .srcbar button:hover,.plate .passage .srcbar button:focus-visible{border-color:#f4d98b;
+               background:rgba(244,217,139,.12);outline:none}
+.prow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0 1em;align-items:start}
+.prow > p{margin:0 0 .6em}
+.prow .plain{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.86em;line-height:1.5;
+               color:#c9d4cf;border-left:.18em solid #3c4a46;padding-left:.7em}
+.prow.phead{font:700 .68em system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+               color:#9aa8a3;margin-bottom:.4em}
+.passage .gap,.zpass .gap{color:#9aa8a3}
+.cut{color:#9aa8a3;padding:0 .15em}
+@container (max-width: 30em){
+  .prow{grid-template-columns:1fr}
+  .prow.phead{display:none}
+  .prow .plain{margin-top:-.2em}
+}
 .zoomall{border:1px solid #3b4442;background:#222927;color:#f4d98b;border-radius:.5em;
           padding:.4em .7em;font-size:.92em;font-weight:700;width:100%}
 .rockcap{color:#cfc7b8;font-size:.95em;line-height:1.4;overflow:auto;min-height:2.4em;flex:0 1 auto}
@@ -196,6 +219,8 @@ button{font:inherit;cursor:pointer}
 .zpass{max-width:46ch;max-height:100%;overflow:auto;color:#f4f0e6;
        font-family:Georgia,"Times New Roman",serif;font-size:1.42em;line-height:1.5}
 .zpass[hidden]{display:none}
+.zpass.wide{max-width:min(94vw,118ch)}
+.zpass.wide .plain{font-size:.8em}
 .zpass p{margin:0 0 .6em}
 .zpass .seg{opacity:.42}
 .zpass .seg.lit{opacity:1;background:rgba(244,217,139,.22);border-radius:.15em;
@@ -1083,6 +1108,8 @@ let SPOTS  = SOURCE.hotspots;
 let isText = SOURCE.kind === "text";
 let rockImg = null;
 let VIEWS = [];
+let textFull  = false;        // a source with a short version opens on it
+let textPlain = true;         // plain English beside the source, when it has some
 
 function mountSource(i){
   srcI   = (i + SRC_LIST.length) % SRC_LIST.length;
@@ -1098,18 +1125,54 @@ function mountSource(i){
     /* Each hotspot names a phrase; wrap that phrase in a button wherever it
        appears. Longest first so a phrase inside another phrase cannot break it. */
     const order = SPOTS.map((h,n)=>({h,n})).sort((a,b)=>b.h.mark.length-a.h.mark.length);
-    const body = SOURCE.paragraphs.map(p => {
-      let s = esc(p);
+    const spot = s => {
       order.forEach(({h,n}) => {
         const q = esc(h.mark);
         if (s.includes(q) && !s.includes(`data-h="${n}"`))
           s = s.replace(q, `<span class="seg" role="button" tabindex="0" data-h="${n}" aria-pressed="false"
                 title="${esc(h.label)}">${q}<span class="segno">${n+1}</span></span>`);
       });
-      return `<p>${s}</p>`;
-    }).join("");
-    plate.innerHTML = `<div class="passage" id="passage">${body}
-      <span class="cite">${esc(SOURCE.cite || "")}</span></div>`;
+      return s;
+    };
+    /* SOURCE.short holds exact pieces of each paragraph (null drops one), and
+       SOURCE.plain one plain-English paragraph per paragraph. A source with
+       neither renders exactly as it always did. */
+    const hasShort = Array.isArray(SOURCE.short);
+    const hasPlain = Array.isArray(SOURCE.plain);
+    const shortNow = hasShort && !textFull;
+    const plainNow = hasPlain && textPlain;
+    const CUT = `<span class="cut" title="words left out">…</span>`;
+    const rows = [];
+    let gapOpen = false;
+    SOURCE.paragraphs.forEach((p, k) => {
+      let s;
+      if (shortNow){
+        const pcs = SOURCE.short[k];
+        if (!pcs){
+          if (!gapOpen) rows.push(`<p class="gap">${CUT}</p>`);
+          gapOpen = true;
+          return;
+        }
+        s = pcs.map(esc).join(` ${CUT} `);
+        if (!p.startsWith(pcs[0])) s = `${CUT} ` + s;
+        if (!p.endsWith(pcs[pcs.length-1])) s = s + ` ${CUT}`;
+      } else s = esc(p);
+      gapOpen = false;
+      s = spot(s);
+      rows.push(plainNow
+        ? `<div class="prow"><p>${s}</p><p class="plain">${esc(SOURCE.plain[k] || "")}</p></div>`
+        : `<p>${s}</p>`);
+    });
+    const bar = (hasShort || hasPlain) ? `<div class="srcbar">${
+        hasShort ? `<button type="button" data-tmode="full" aria-pressed="${textFull}">${
+          textFull ? "Back to the short version" : "Read it in full"}</button>` : ""}${
+        hasPlain ? `<button type="button" data-tmode="plain" aria-pressed="${textPlain}">Plain English: ${
+          textPlain ? "on" : "off"}</button>` : ""}</div>` : "";
+    const head = plainNow ? `<div class="prow phead"><span>${
+        shortNow ? "The source, shortened" : "The source, in full"}</span><span>In plain English</span></div>` : "";
+    plate.innerHTML = `<div class="passage" id="passage">${bar}${head}${rows.join("")}
+      <span class="cite">${esc(SOURCE.cite || "")}${
+        shortNow ? " Shortened: … marks words left out. Every word that is shown is the translator's." : ""}</span></div>`;
   } else {
     plate.innerHTML =
       `<img id="rockImg" src="${esc(SOURCE.file)}" alt="${esc(SOURCE.alt)}">
@@ -1201,6 +1264,8 @@ function drawZoomText(n){
   const box = el("zPass");
   box.hidden = false;
   box.innerHTML = plate.querySelector(".passage").innerHTML;
+  box.querySelectorAll(".srcbar").forEach(x => x.remove());
+  box.classList.toggle("wide", !!box.querySelector(".plain"));
   box.classList.toggle("all", n === 0);
   box.querySelectorAll("[data-h]").forEach(s => {
     s.classList.add("seg");
@@ -1241,6 +1306,16 @@ plate.addEventListener("keydown", e => {
   s.click();
 });
 plate.addEventListener("click", e => {
+  const t = e.target.closest("[data-tmode]");
+  if (t){
+    if (t.dataset.tmode === "full") textFull = !textFull; else textPlain = !textPlain;
+    const top = plate.scrollTop;
+    mountSource(srcI);
+    if (t.dataset.tmode === "plain") plate.scrollTop = top;
+    const again = plate.querySelector(`[data-tmode="${t.dataset.tmode}"]`);
+    if (again) again.focus();
+    return;
+  }
   const b = e.target.closest("[data-h]");
   if (!b) return;
   const n = +b.dataset.h;
