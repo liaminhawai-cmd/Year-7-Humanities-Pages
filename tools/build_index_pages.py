@@ -217,8 +217,9 @@ SITE = [
            "Downloads as one file for offline use.")),
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "The unit lesson by lesson, 1.1 to 5.1: build each word from its parts, then use it, "
-            "with base camp and stretch tiers and a printable report.", None)]),
+            "85 words, lesson by lesson, 1.1 to 5.1, including the whole unit word list: build "
+            "each word from its parts, then use it. The word list shows every word, its meaning "
+            "and what each part means, and prints.", None)]),
       ],
       note="<b>This wall rehearses CAT 2.</b> CAT 2 is a guidebook for a traveller arriving in Rome "
            "in 300 CE, with a timeline and a one-page history. Its rubric marks chronology, cause and "

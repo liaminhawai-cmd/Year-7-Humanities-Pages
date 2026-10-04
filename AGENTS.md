@@ -188,6 +188,17 @@ in that hub, or the index fills with near-duplicates. A word whose ending would
 teach a false rule if cut into tiles (*centurion*, where `-ion` means the person in
 charge) is a word-origin question instead.
 
+Rome's hub carries 85 words, six to eight a lesson. Every word on the unit's own
+vocabulary list (27 words, strategic to civic) is in it, with the teacher's
+definition used word for word, and lesson 1.1 front-loads the Ancient Rome 101
+video's terms (civilisation, monarchy, republic, millennium). Base camp is two
+items a lesson, a build and a question, so a lesson's time goes on its words
+rather than on consolidation. Its Word list screen is the unit word list: one
+row per word, the word with its parts highlighted, the meaning, then each part
+with what it means, printable. When you add words, rerun the longest-option
+check: it was 34% after the first pass and is back under 27% because twelve
+distractors were lengthened.
+
 **Neither history hub is on the Word Builder yet as rule 9 describes.** Ancient
 Australia's Word Builder words are a separate ELC build with a different word
 set, and the Year 7 `hist-rome` folder still holds 31 words from a Rome wall
@@ -266,8 +277,17 @@ cut to five sentences "adapted from Melmoth, sentence length and spelling
 modernised". They are now both letters in full, Melmoth's translation as revised
 in 1909, with paragraph breaks added and scanning errors fixed, and the foot of the
 wall lists exactly what was cleaned. Commentary goes in a hotspot caption or a
-fact card, never inside `paragraphs`. If the full text is hard, say so in the
-topic note; do not make it easier by rewriting it.
+fact card, never inside `paragraphs`.
+
+A hard source can be made shorter, and it can have a plain version beside it, as
+long as neither touches the source. The Pliny letters open shortened: each
+paragraph's entry in `SOURCES[].short` is a list of exact pieces of that
+paragraph, shown joined with an ellipsis, and "Read it in full" brings back
+`paragraphs`. Before publishing, check that every piece is found in its
+paragraph, in order, and that every hotspot phrase survives the cut; both letters
+were checked this way. The plain English sits in `SOURCES[].plain`, one per
+paragraph, in its own column, labelled as written for the page. Nothing is
+reworded inside the source itself.
 
 A related bug to know about: `cite` strings are escaped when rendered, so HTML in
 them prints as text. Two walls showed a raw `<i>Letters</i>` and
