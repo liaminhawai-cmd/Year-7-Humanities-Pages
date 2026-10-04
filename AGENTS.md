@@ -77,16 +77,22 @@ Where the walls sit now:
 |---|---|---|
 | Ancient Australia (Batman) | 4 | CAT 1's four, on two sources that disagree. |
 | GS73 | 4 | The same four, archived. Metacognition is written and withdrawn. |
-| Ancient Rome (Vesuvius) | 4 | Not CAT 2's rubric at all: Rome's CAT is a guidebook and marks no source analysis. This wall carries the source-analysis four, as a source for the unit rather than a model of its task. |
+| Ancient Rome (Vesuvius) | 2 | CAT 2's two thinking rows, chronology and cause and effect, in the 2025 rubric's words at Levels 6 to 9. Metacognition and presentation off. |
 | Ancient Egypt | 4 | The same four, archived. |
 | Water in the World | 4 | Geographical inquiry, not source analysis. |
 | Pigeon Patrol | 3 | Business success, innovation, decisions. |
 | Ancient China | 6 | Its rubric's own six, and they are numbered in the rubric itself. |
 
-A wall built for CAT 2 existed and was deleted in August 2026: three rows,
-chronology and cause and effect from the CAT rubric plus continuity and change
-from Kew's Developmental Rubric. It is in the git history if the guidebook task
-needs a wall again.
+Rome is the clearest case of choosing a source for the rows rather than the other
+way round. CAT 2 is a guidebook for a traveller arriving in 300 CE, with a
+timeline and a one-page history, and its rubric marks chronology and cause and
+effect. Those can look content-heavy: a student cannot sequence what they do not
+know. Pliny's two letters about Vesuvius solve that, because the times, the days
+and the reasons are inside the text ("about one in the afternoon", "the third
+day", Rectina's note that changes the plan), so the wall rehearses both rows
+without first teaching a body of content. Until October 2026 the same letter
+carried the four source-analysis rows instead, which no Rome rubric marks. That
+version and an earlier deleted CAT 2 wall are in the git history.
 
 Three or four rows is the working shape and six is the practical ceiling. Ancient
 China reaches it legitimately: its booklet rubric really does run five numbered
@@ -104,10 +110,8 @@ it is in the rubric but is really about formatting, it still does not.
 ### 3. Every row is a way of thinking, not a way of presenting.
 
 Rome's CAT rubric marks four things: chronology, cause and effect, metacognition
-and presentation. The wall built on it carried the first two and added continuity
-and change from Kew's Developmental Rubric. The other two were deliberately left
-off. That wall has since been deleted, but the decision is the clearest example
-on the site of this rule being applied, which is why it is still written here.
+and presentation. The Pliny wall carries the first two. The other two are
+deliberately left off.
 
 "I can present information creatively" teaches a student to improve their
 formatting. Metacognition is about managing your own learning. Both can be worth
@@ -168,24 +172,44 @@ list. It is:
 - meaning, example sentence, root and translation on every word
 - a printable report at the end
 
-The five history hubs are not this yet. Each is a 2 KB page over
-`assets/vocab-hub.js`, giving one flat alphabetical list in meet, build and recall
-modes, with no lesson split, no tiers, no review and no report. That is the thing
-to converge on the water build, not the other way round.
+Two history hubs are now this build: `history/batman/vocab-hub.html`
+(Ancient Australia, 16 lessons) and `history/vesuvius/vocab-hub.html` (Ancient
+Rome, 12 lessons, 1.1 to 5.1, from the unit's OneNote lesson pages, extracted with
+`tools/onenote_extract.py` in the private repository). They share one engine. The
+China, GS73 and Egypt hubs are still the 2 KB page over `assets/vocab-hub.js`: one
+flat list, no lessons, no tiers, no review, no report.
 
-The morpheme bank is the part that has been brought across. The build stage used
-to print the word above its own two tiles, so the answer was in the question and
+The two lesson hubs differ in one engine line, on purpose. Rome's morpheme index
+is keyed by spelling and meaning, because Latin reuses spellings: `leg` is law in
+*legal* and to choose in *legion*. Australia's is keyed by spelling alone, because
+its doubles are wording variants of one meaning, and splitting them would list
+`re-` three times. Before you add a word, make its glosses match the ones already
+in that hub, or the index fills with near-duplicates. A word whose ending would
+teach a false rule if cut into tiles (*centurion*, where `-ion` means the person in
+charge) is a word-origin question instead.
+
+**Neither history hub is on the Word Builder yet as rule 9 describes.** Ancient
+Australia's Word Builder words are a separate ELC build with a different word
+set, and the Year 7 `hist-rome` folder still holds 31 words from a Rome wall
+deleted in August 2026. Until they match, the Rome topic page carries no Word
+Builder card, because a card promising "the same words" would be false.
+
+In the three flat hubs, the morpheme bank is the part of the water build that has
+been brought across. The build stage used to print the word above its own two tiles, so the answer was in the question and
 the task was to tap in order. It now shows the meaning only, and puts one shared
 bank above the whole board, deduped and grouped prefix, root and suffix, with
 three decoys drawn from real morphemes elsewhere in the topic. A word leaves the
 board once it is built correctly. Words with nothing to cut up fall through to a
 meaning-match round rather than being faked into tiles.
 
-Still missing against the water build: the lesson split, the tiers, the warm-up
-review, an example sentence per word, and the report.
+Still missing from those three: the lesson split, the tiers, the warm-up review,
+an example sentence per word, and the report.
 
 Splitting a topic's words across its lessons is a curriculum decision. Bring the
-lesson breakdown, then build. Do not allocate words to lessons by guessing.
+lesson breakdown, then build. Do not allocate words to lessons by guessing. For
+Rome the breakdown came from the notebook's own sequence page (week 1: 1.1, 1.2,
+2.1, and so on) and each lesson page's text; the OneNote `.mht` export keeps page
+order, the `.one` file does not.
 
 ### 9. The same words, in both places, generated once, linked both ways.
 
@@ -226,6 +250,28 @@ Cut on sight:
 
 Name the specific thing. Attach a number where one exists. Let a short flat
 sentence carry the weight.
+
+**Labels name the thing. They are not riddles.** The Pliny wall's hotspots were
+labelled "The part the ground can check", "The comparison that became a technical
+term" and "He tells you what this is". A teacher read the first and asked what it
+meant. Each is a clever noun phrase standing in for a plain one, which is a model
+habit, not a teacher's. They are now "The courtyard fills", "Rectina's note",
+"Fortune favours the brave": the words a student would use to point at that bit
+of the page. The caption under a label says what is there, in one or two short
+sentences, and stops.
+
+**A source is the source.** Do not modernise its wording, abridge it without
+saying so, or insert notes, dates or brackets into it. The Pliny letters had been
+cut to five sentences "adapted from Melmoth, sentence length and spelling
+modernised". They are now both letters in full, Melmoth's translation as revised
+in 1909, with paragraph breaks added and scanning errors fixed, and the foot of the
+wall lists exactly what was cleaned. Commentary goes in a hotspot caption or a
+fact card, never inside `paragraphs`. If the full text is hard, say so in the
+topic note; do not make it easier by rewriting it.
+
+A related bug to know about: `cite` strings are escaped when rendered, so HTML in
+them prints as text. Two walls showed a raw `<i>Letters</i>` and
+`<i>Histories</i>` for that reason. Write citations as plain text.
 
 Explain an outcome by the mechanism that produced it, and let the reader infer
 the disposition. "The generator rebuilds every index page from one site map"
@@ -281,6 +327,16 @@ it did. What still differs is the **rubric pane**: `china`, `egypt` and
 `KID` band underneath, and `gs73` and `batman` show the continuum alone. That is
 a real difference in what those walls are for, not drift, but check which side
 you are on before you edit that function.
+
+The third axis is the **background panel's label**. `batman` and `vesuvius` label
+it with the level, "A Level 8 student already knows", through `bgLabel()`, and
+their `BUMP.background` text is written in that register: history the year level
+has been taught, which is what lets them make the rung's inference. `gs73`,
+`china` and `egypt` still say "You need to know", because their background text
+is topic content a student is being given ("That Clarkson and Williams disagree
+about how the site formed"), and no Year 8 already knows that. Changing their
+label without rewriting that text would print false sentences. Rewrite the text
+first, then copy `bgLabel()` across.
 
 ### 14. Paper size is one block. The phone layout must never reach paper.
 
