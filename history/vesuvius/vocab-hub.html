@@ -1,23 +1,2614 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
-<meta name="description" content="Learn, build and recall the vocabulary for this Humanities topic."><title>Vocab hub</title>
-<link rel="stylesheet" href="../../assets/vocab-hub.css"></head><body>
-<header><div class="in"><div class="kicker" id="kicker"></div><h1>Vocab hub</h1>
-<p>Meet the words, build or match them, then use them from memory. Progress stays in this browser.</p>
-<a class="back" href="./">&larr; Back to the topic</a></div></header>
-<main>
-  <div class="tools"><input id="search" type="search" placeholder="Find a word…" aria-label="Find a word">
-    <select id="lang" aria-label="Translation language"></select>
-    <label><input id="left" type="checkbox"> Still learning only</label><span class="count" id="count"></span></div>
-  <nav class="tabs" aria-label="Vocabulary stages">
-    <button data-mode="meet" aria-selected="true">1 · Meet</button>
-    <button data-mode="build" aria-selected="false">2 · Build &amp; match</button>
-    <button data-mode="recall" aria-selected="false">3 · Recall</button>
-  </nav>
-  <section class="panel on" id="panel-meet"><p class="intro">Read each meaning. Break apart the words that have useful morphemes, and mark a word secure only when you can explain it.</p><div class="grid" id="cards"></div></section>
-  <section class="panel" id="panel-build"><div class="practice" id="practiceBuild"></div></section>
-  <section class="panel" id="panel-recall"><div class="practice" id="practiceRecall"></div></section>
-</main>
-<script src="../../eal.js"></script><script src="content.js"></script><script src="../../assets/vocab-hub.js"></script>
-</body></html>
+<title>Ancient Rome: Vocab Hub</title>
+<meta name="description" content="The full Ancient Rome unit, lesson by lesson. Build each word from its morphemes, then keep it alive with quick reviews.">
+<style>
+  /* Suite family with the Water in the World vocab hub: same warm paper, same
+     Georgia display face, same two-accent system, repurposed for History.
+     ochre for land & movement, teal for evidence & sources. Two quieter
+     accents extend it: plum for beliefs & values, storm-red for law & custom. */
+  :root{
+    --bg:#f2ece0; --paper:#fbf7ef; --ink:#211d17; --muted:#6c6353;
+    --line:#d9cfb9; --line-soft:#e8e0ce;
+    --earth:#b0741f; --earth-d:#8f5d16;      /* primary accent: land & movement */
+    --water:#2c7488; --water-d:#215866;      /* secondary accent: evidence & sources */
+    --people:#7a4a6f; --people-d:#5e3755;    /* beliefs & values: plum          */
+    --hazard:#a8432f; --hazard-d:#86331f;    /* law & custom: storm red         */
+    --correct:#2f6a3e; --wrong:#a8432f;
+    --okbg:#eef4ec; --badbg:#f6ece8;
+    --waterbg:#e6f0f1; --earthbg:#f4ead7; --peoplebg:#f1e6ee; --hazardbg:#f6e4df;
+    --stretch:#1f4e5e; --stretchbg:#e2edf0;
+    --base:#7c6a3c; --basebg:#f2ecdb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);
+       min-height:100vh;padding:16px;display:flex;justify-content:center;align-items:flex-start;color:var(--ink)}
+  .container{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+       max-width:920px;width:100%;padding:26px;margin-top:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h1{text-align:center;font-size:24px;font-family:Georgia,'Times New Roman',serif;letter-spacing:.3px}
+  h2{font-family:Georgia,serif;font-size:18px;margin:4px 0 10px}
+  h3{font-family:Georgia,serif;font-size:15px;margin:18px 0 8px}
+  .subtitle{color:var(--muted);text-align:center;margin:6px 0 18px;font-size:13px}
+  .muted{color:var(--muted);font-size:13px;line-height:1.5}
+  .screen{display:none}.screen.active{display:block}
+  button{font-family:inherit}
+  .btn{padding:11px 18px;border:1px solid var(--line);border-radius:8px;font-size:15px;font-weight:600;
+       cursor:pointer;background:var(--paper);color:var(--ink);transition:all .15s ease}
+  .btn-primary{background:var(--earth);color:#fff;border-color:var(--earth)}
+  .btn-primary:hover:not(:disabled){background:var(--earth-d)}
+  .btn-primary:disabled{background:var(--line);border-color:var(--line);color:var(--muted);cursor:not-allowed}
+  .btn-water{background:var(--water);color:#fff;border-color:var(--water)}
+  .btn-water:hover:not(:disabled){background:var(--water-d)}
+  .btn-ghost{background:var(--bg);color:var(--muted)}
+  .btn-ghost:hover{color:var(--ink);border-color:var(--ink)}
+  .linkbtn{background:none;border:none;color:var(--earth);font-weight:600;font-size:13px;cursor:pointer;padding:4px 8px}
+  .linkbtn:hover{text-decoration:underline}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .progress{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.4px}
+  button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--earth);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important}}
+
+  /* ---- key-word translations (EAL) ---- */
+  .langrow{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:0 0 16px;
+       font-size:12.5px;color:var(--muted);font-weight:600}
+  .langrow select{padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);
+       font-family:inherit;font-size:13px;color:var(--ink)}
+  .wtr{font-size:14px;color:var(--water-d);font-weight:600;background:var(--waterbg);border-radius:6px;padding:1px 8px}
+  .wtr.big{font-size:16px}
+
+  /* ---- home: unit map ---- */
+  .topichead{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
+       margin:18px 0 8px;border-bottom:1px solid var(--line-soft);padding-bottom:4px}
+  .lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+  .lcard{border:1px solid var(--line-soft);border-radius:10px;background:var(--paper);padding:12px 14px;
+       text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:border-color .15s ease}
+  .lcard:hover{border-color:var(--earth)}
+  .lcard .lnum{font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--muted)}
+  .lcard .lname{font-family:Georgia,serif;font-size:15px;font-weight:700;line-height:1.25}
+  .lcard .lstat{display:flex;gap:5px;flex-wrap:wrap;margin-top:2px}
+  .lcard.done{border-color:var(--correct)}
+  .chip{font-size:10px;font-weight:800;letter-spacing:.4px;border-radius:20px;padding:2px 8px;background:var(--bg);color:var(--muted)}
+  .chip.ok{background:var(--okbg);color:var(--correct)}
+  .chip.now{background:var(--earth);color:#fff}
+  .chip.part{background:var(--earthbg);color:var(--earth-d)}
+  .chip.str{background:var(--stretchbg);color:var(--stretch)}
+  .chip.base{background:var(--basebg);color:var(--base)}
+  .homerow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  @media(max-width:640px){.homerow{grid-template-columns:1fr}}
+  .panelcard{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg)}
+  .panelcard .t{font-family:Georgia,serif;font-weight:700;font-size:15px;margin-bottom:4px}
+  .panelcard .d{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+  details.teach{margin-top:16px;border:1px dashed var(--line);border-radius:10px;padding:10px 14px}
+  details.teach summary{font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}
+  details.teach p{font-size:12.5px;color:var(--muted);line-height:1.55;margin:8px 0}
+
+  /* ---- lesson home: step cards ---- */
+  .focusline{text-align:center;font-family:Georgia,serif;font-size:15px;color:var(--ink);
+       background:var(--bg);border:1px solid var(--line-soft);border-radius:10px;padding:10px 14px;margin:0 0 14px;line-height:1.45}
+  .steps{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+  .step{display:flex;align-items:center;gap:14px;border:1px solid var(--line-soft);border-radius:10px;
+        padding:14px 16px;background:var(--paper);text-align:left;cursor:pointer;width:100%}
+  .step:hover:not(:disabled){border-color:var(--earth)}
+  .step:disabled{opacity:.55;cursor:not-allowed}
+  .step .num{width:34px;height:34px;border-radius:50%;background:var(--bg);border:1px solid var(--line);
+        display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+  .step.done .num{background:var(--okbg);border-color:var(--correct);color:var(--correct)}
+  .step .t{font-weight:700;font-size:15px}
+  .step .d{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .step .tag{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--muted);flex-shrink:0;text-align:right}
+  .step.done .tag{color:var(--correct)}
+  .tierbar{border-radius:10px;padding:12px 16px;margin:10px 0;font-size:13.5px;line-height:1.5;display:flex;
+       gap:12px;align-items:center;flex-wrap:wrap}
+  .tierbar .grow{flex:1;min-width:200px}
+  .tierbar b{display:block;font-family:Georgia,serif;font-size:14.5px}
+  .tierbar.base{background:var(--basebg);border:1px solid #d8c893}
+  .tierbar.stretch{background:var(--stretchbg);border:1px solid #b9d2da}
+  .tierbar .btn{padding:8px 14px;font-size:13.5px}
+
+  /* ---- study list ---- */
+  .vcard{border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;margin-bottom:10px;background:var(--paper)}
+  .vcard .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .vcard .w{font-family:Georgia,serif;font-size:23px;font-weight:700}
+  .vcard .w .mp{color:var(--mpre)} .vcard .w .mr{color:var(--mroot)} .vcard .w .ms{color:var(--msuf)} .vcard .w .mc{color:var(--mcon)}
+  .vcard .pos{font-size:12px;color:var(--muted);font-style:italic}
+  .vcard .meaning{font-size:14px;margin:6px 0;line-height:1.5}
+  .vcard .morph{font-size:13.5px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--line-soft);padding-top:6px;margin-top:6px}
+  .vcard .morph b,.vcard .morph i{color:var(--ink)}
+  code.mp,code.mr,code.ms,code.mc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:16px}
+  code.mp{color:var(--mpre)} code.mr{color:var(--mroot)} code.ms{color:var(--msuf)} code.mc{color:var(--mcon)}
+  .dtag{margin-left:auto;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:20px;flex-shrink:0}
+  .dtag.water{color:var(--water-d);background:var(--waterbg)}
+  .dtag.earth{color:var(--earth-d);background:var(--earthbg)}
+  .dtag.people{color:var(--people-d);background:var(--peoplebg)}
+  .dtag.hazard{color:var(--hazard-d);background:var(--hazardbg)}
+
+  /* ---- word builder ---- */
+  .buildword{font-family:Georgia,serif;font-size:22px;text-align:center;margin-bottom:2px;color:var(--muted)}
+  .slots,.bank{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:14px 0}
+  .slot{min-width:78px;min-height:50px;border:2px dashed var(--line);border-radius:9px;
+        display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;padding:6px 12px;background:var(--bg)}
+  .slot.filled{border-style:solid;border-color:var(--correct);background:var(--okbg);color:var(--correct)}
+  .joiner{align-self:center;font-size:18px;color:var(--muted);font-weight:700}
+  .tile{min-width:78px;padding:9px 14px;border:1px solid var(--line);border-radius:9px;background:var(--paper);
+        cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.15;transition:all .12s ease}
+  .tile:hover:not(:disabled){border-color:var(--earth)}
+  .tile:disabled{opacity:.3;cursor:default}
+  .tile .mm{font-weight:800;font-size:16px}
+  .tile .gl{font-size:11px;color:var(--muted)}
+  .tile.shake{animation:shake .3s;border-color:var(--wrong)}
+  .tile.shake .mm,.tile.shake .gl{color:var(--wrong)}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .buildprog{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:14px}
+  .bdot{width:12px;height:12px;border-radius:50%;border:1px solid var(--line);background:var(--bg)}
+  .bdot.done{background:var(--correct);border-color:var(--correct)}
+  .bdot.now{border-color:var(--earth);background:var(--paper);box-shadow:0 0 0 2px rgba(176,116,31,.3)}
+  .maprow{margin:12px auto 2px;max-width:560px;font-size:13px;color:var(--muted);line-height:1.7;text-align:center}
+  .maprow b{color:var(--ink)}
+  .reveal{border:1px solid var(--correct);background:var(--okbg);border-radius:10px;padding:14px 16px;
+          margin:14px 0;font-size:14.5px;line-height:1.6;display:none}
+  .reveal.show{display:block}
+  .reveal .rw{font-family:Georgia,serif;font-weight:700}
+
+  /* ---- task shell (apply / review / tiers) ---- */
+  .prompt{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:8px}
+  .qtext{font-size:17px;line-height:1.6;margin-bottom:16px}
+  .qtext .gap{display:inline-block;min-width:120px;border-bottom:2px solid var(--ink);text-align:center;font-weight:800;color:var(--earth)}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opts.chips{flex-direction:row;flex-wrap:wrap}
+  .opt{padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:15px;
+       text-align:left;cursor:pointer;line-height:1.5}
+  .chips .opt{flex:0 0 auto;padding:9px 16px}
+  .opt:hover:not(:disabled){border-color:var(--earth)}
+  .opt:disabled{cursor:default}
+  .opt.right{background:var(--okbg);border-color:var(--correct);color:var(--correct);font-weight:700}
+  .opt.wrongpick{background:var(--badbg);border-color:var(--wrong);color:var(--wrong)}
+  .feedback{margin-top:14px;padding:12px 14px;border-radius:8px;font-size:14px;line-height:1.55;display:none}
+  .feedback.ok{display:block;background:var(--okbg);border:1px solid var(--correct)}
+  .feedback.bad{display:block;background:var(--badbg);border:1px solid var(--wrong)}
+  .nextrow{margin-top:16px;display:flex;justify-content:flex-end;gap:8px}
+  .reviewtag{font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--water-d);background:var(--waterbg);
+       border-radius:20px;padding:3px 10px;display:inline-block;margin-bottom:10px}
+
+  /* ---- diagrams (unused in this module, kept for shared engine) ---- */
+  .svgbox{border:1px solid var(--line-soft);border-radius:10px;background:var(--bg);padding:10px;margin:0 auto 16px;
+          max-width:360px;display:flex;justify-content:center}
+  .svgbox svg{width:100%;height:auto;display:block}
+
+  /* ---- summary ---- */
+  .sumbox{border:1px solid var(--line);border-radius:10px;padding:18px;margin:14px 0;text-align:center}
+  .sumbox .big{font-family:Georgia,serif;font-size:30px;font-weight:700}
+  .sumbox .big.good{color:var(--correct)} .sumbox .big.mid{color:#9a6b1f} .sumbox .big.low{color:var(--wrong)}
+
+  /* ---- report ---- */
+  .repgrid{width:100%;border-collapse:collapse;margin:12px 0}
+  .repgrid th,.repgrid td{border:1px solid var(--line);padding:7px 9px;font-size:13px;text-align:left}
+  .repgrid th{background:var(--bg);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+  .repgrid td.score{font-weight:700;white-space:nowrap}
+  .repgrid td.nf{color:var(--muted);font-style:italic}
+  .idrow{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  .idrow label{font-size:12px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px}
+  .idrow input{padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:15px;font-family:inherit;background:#fff}
+  .vcode{font-family:'Courier New',monospace;font-size:13px;letter-spacing:2px}
+  /* ---- persistent nav ---- */
+  .topnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:-4px 0 16px;
+       border-bottom:1px solid var(--line-soft);padding-bottom:12px}
+  .topnav button{font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.3px;color:var(--muted);
+       background:var(--bg);border:1px solid var(--line-soft);border-radius:20px;padding:7px 15px;cursor:pointer}
+  .topnav button:hover{border-color:var(--earth);color:var(--earth-d)}
+  .topnav button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+  /* ---- morpheme colour system (prefix / root / suffix), from the EAL book ---- */
+  :root{
+    --mpre:#2c6fa8; --mpre-bg:#e5eef5;
+    --mroot:#9a5518; --mroot-bg:#f5e7d8;
+    --msuf:#3f7a4a; --msuf-bg:#e6f1e8;
+    --mcon:#6c6353; --mcon-bg:#ece7db;
+  }
+  .mlegend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:8px 0 14px;font-size:12px}
+  .mlegend span{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--ink)}
+  .mlegend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+  .mtile{border-radius:9px;padding:8px 12px;display:inline-flex;flex-direction:column;align-items:center;gap:1px;
+       line-height:1.15;font-family:inherit;cursor:grab;user-select:none;touch-action:none;border:1.5px solid;background:var(--paper)}
+  .mtile .mm{font-weight:800;font-size:16px}
+  .mtile .gl{font-size:10.5px;opacity:.85}
+  .mtile.prefix{color:var(--mpre);background:var(--mpre-bg);border-color:var(--mpre)}
+  .mtile.root{color:var(--mroot);background:var(--mroot-bg);border-color:var(--mroot)}
+  .mtile.suffix{color:var(--msuf);background:var(--msuf-bg);border-color:var(--msuf)}
+  .mtile.connector{color:var(--mcon);background:var(--mcon-bg);border-color:var(--mcon)}
+  .mtile.sel{outline:3px solid var(--ink);outline-offset:2px}
+  .mtile.dragging{opacity:.35}
+  .drag-ghost{position:fixed;transform:translate(-50%,-50%);z-index:999;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  /* ---- Access mode: big tap targets, tap-only, most slots prefilled ----
+     A persistent per-device profile (localStorage "y7h-access"), for students
+     for whom fine pointer control is the barrier: every target is large, a
+     tapped tile enlarges so the current selection is unmissable, dragging is
+     off so a tremor cannot yank a tile, and each word starts with every slot
+     but one already placed and locked, so one accurate tap finishes a word. */
+  .accessrow{text-align:center;margin-top:26px;border-top:1px solid var(--line-soft);padding-top:8px}
+  .accessrow button{background:none;border:none;font-family:inherit;font-size:10.5px;color:var(--muted);cursor:pointer;padding:4px 8px;letter-spacing:.3px}
+  .accessrow button:hover{color:var(--ink);text-decoration:underline}
+  body.access .accessrow button{color:var(--earth-d);font-weight:800;font-size:13px}
+  body.access .mtile{padding:16px 22px;border-radius:12px;border-width:2px}
+  body.access .mtile .mm{font-size:26px}
+  body.access .mtile .gl{font-size:15px}
+  body.access .mtile.sel{transform:scale(1.45);z-index:20;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3);outline-width:4px}
+  body.access .mtiles{gap:14px}
+  body.access .wslot{min-width:110px;min-height:74px;border-width:3px;border-radius:12px;font-size:24px}
+  body.access .wslot .mm{font-size:24px}
+  body.access .wslot .ph{font-size:15px}
+  body.access .wslot.locked{border-style:solid;cursor:default;opacity:.9}
+  body.access .wrow{padding:14px}
+  body.access .wmean{font-size:17px}
+  body.access .mbank{position:static}
+  .say{border:0;background:none;font-size:15px;cursor:pointer;padding:2px 5px;border-radius:6px;line-height:1;vertical-align:middle}
+  .say:hover{background:var(--bg)}
+  body.access .say{font-size:26px;padding:5px 8px}
+  body.access .tile{padding:16px 22px;font-size:24px;border-radius:12px}
+  body.access .tile .mm{font-size:24px}
+  body.access .opt{padding:16px 18px;font-size:17px}
+  /* colour the tap-tile builder used by the tiers, too */
+  .tile.prefix .mm{color:var(--mpre)} .tile.root .mm{color:var(--mroot)} .tile.suffix .mm{color:var(--msuf)} .tile.connector .mm{color:var(--mcon)}
+
+  .mbank{background:var(--bg);border:1px solid var(--line-soft);border-radius:10px;padding:12px;margin-bottom:14px;position:sticky;top:6px;z-index:5}
+  .mbank .mgroup{margin-bottom:8px}
+  .mbank .mgroup:last-child{margin-bottom:0}
+  .mbank .glabel{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+  .mbank .glabel.prefix{color:var(--mpre)} .mbank .glabel.root{color:var(--mroot)} .mbank .glabel.suffix{color:var(--msuf)} .mbank .glabel.connector{color:var(--mcon)}
+  .mtiles{display:flex;flex-wrap:wrap;gap:7px}
+
+  /* ---- word-build table (drag morphemes to the matching meaning) ---- */
+  .wtable{display:flex;flex-direction:column;gap:9px}
+  .wrow{display:flex;align-items:center;gap:12px;border:1px solid var(--line-soft);border-radius:10px;
+       padding:10px 12px;background:var(--paper);transition:opacity .3s ease,transform .3s ease,background .2s}
+  .wrow.wrong{animation:shake .3s;border-color:var(--wrong)}
+  .wrow.done{border-color:var(--correct);background:var(--okbg)}
+  .wrow.gone{opacity:0;transform:translateX(40px)}
+  .wmean{flex:1 1 46%;min-width:190px;font-size:13.5px;line-height:1.45}
+  .wmean .pos{color:var(--muted);font-style:italic;font-size:12px}
+  .wslots{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .wjoin{color:var(--muted);font-weight:700}
+  .wslot{min-width:60px;min-height:46px;border:2px dashed var(--line);border-radius:8px;display:flex;
+       align-items:center;justify-content:center;background:var(--bg);cursor:pointer;padding:4px 8px}
+  .wslot .ph{color:var(--muted);font-size:10px;letter-spacing:.3px}
+  .wslot .mm{font-weight:800;font-size:15px}
+  .wslot.over{border-color:var(--ink);background:#fff}
+  .wslot.filled{border-style:solid}
+  .wslot.filled.prefix{border-color:var(--mpre);background:var(--mpre-bg);color:var(--mpre)}
+  .wslot.filled.root{border-color:var(--mroot);background:var(--mroot-bg);color:var(--mroot)}
+  .wslot.filled.suffix{border-color:var(--msuf);background:var(--msuf-bg);color:var(--msuf)}
+  .wslot.filled.connector{border-color:var(--mcon);background:var(--mcon-bg);color:var(--mcon)}
+  .wbuilt{flex:1 1 46%;min-width:190px;text-align:right;display:none}
+  .wrow.done .wslots{display:none}
+  .wrow.done .wbuilt{display:block}
+  .wbuilt .wname{font-family:Georgia,serif;font-weight:700;font-size:16px;color:var(--correct)}
+  .wbuilt .wtickmark{color:var(--correct);font-weight:800;margin-left:4px}
+  .buildhint{font-size:12.5px;color:var(--wrong);text-align:center;min-height:16px;margin:4px 0 6px;font-weight:600}
+  @media(max-width:560px){ .wmean{flex:1 1 100%} .wbuilt{flex:1 1 100%;text-align:left} }
+
+  /* ---- reference views (morpheme table + word list) ---- */
+  .reftable{width:100%;border-collapse:collapse;margin:4px 0 14px}
+  .reftable th,.reftable td{border:1px solid var(--line-soft);padding:7px 10px;font-size:13px;text-align:left;vertical-align:middle}
+  .reftable th{background:var(--bg);font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted)}
+  .reftable .mtile{display:inline-flex}
+  .refhead{font-family:Georgia,serif;font-size:16px;margin:18px 0 6px;padding-bottom:3px;border-bottom:2px solid var(--line-soft)}
+  .refhead.prefix{color:var(--mpre)} .refhead.root{color:var(--mroot)} .refhead.suffix{color:var(--msuf)} .refhead.connector{color:var(--mcon)}
+  .reffilter{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .reffilter input{padding:9px 13px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px;background:var(--paper);color:var(--ink);min-width:220px}
+  .eqn{font-family:Georgia,serif;font-size:18px;letter-spacing:.5px}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .container{border:none;box-shadow:none;max-width:100%;padding:8px}
+    .noprint{display:none !important}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="topnav noprint">
+  <a href="./" style="font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.3px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px">&larr; Ancient Rome</a>
+  <button data-scr="home" onclick="go('home')">&#9776; Lessons</button>
+  <button data-scr="morphtable" onclick="go('morphtable')">Morpheme table</button>
+  <button data-scr="glossary" onclick="go('glossary')">Word list</button>
+  <button data-scr="report" onclick="go('report')">My report</button>
+</div>
+
+<div class="screen active" id="scr-home">
+  <h1>Ancient Rome</h1>
+  <p class="subtitle">Vocab Hub &middot; the full unit, from the founding of Rome to the spreading empire, lessons 1.1 to 5.1 &middot; build each lesson&rsquo;s words from their morphemes, then keep them alive with quick reviews</p>
+  <div id="home-map"></div>
+  <div class="homerow">
+    <div class="panelcard">
+      <div class="t">&#8635; Quick review</div>
+      <div class="d" id="review-desc">A shuffled set of words from the lessons you&rsquo;ve already done, everyone gets a different mix, so eyes on your own screen.</div>
+      <button class="btn btn-water" id="review-start" onclick="startReviewSetup()">Review earlier words</button>
+    </div>
+    <div class="panelcard">
+      <div class="t">&#9998; My report</div>
+      <div class="d">Everything you&rsquo;ve done: first-attempt scores lesson by lesson, plus your review history. Save it as a PDF for your teacher at any time.</div>
+      <button class="btn btn-ghost" onclick="go('report')">Open my report</button>
+    </div>
+  </div>
+  <div class="nextrow noprint" style="justify-content:center">
+    <button class="linkbtn" onclick="resetAll()">start over (clears everything)</button>
+  </div>
+</div>
+
+<div class="screen" id="scr-lesson">
+  <div class="topbar noprint"><button class="linkbtn" onclick="go('home')">&larr; all lessons</button><span class="progress" id="lesson-prog"></span></div>
+  <div id="lesson-body"></div>
+</div>
+
+<div class="screen" id="scr-study">
+  <div class="topbar noprint"><button class="linkbtn" onclick="goLesson()">&larr; lesson</button><span class="progress" id="study-prog">STEP 1 &middot; MEET THE WORDS</span></div>
+  <div id="study-body"></div>
+</div>
+
+<div class="screen" id="scr-build">
+  <div class="topbar noprint"><button class="linkbtn" onclick="goLesson()">&larr; lesson</button><span class="progress" id="build-prog">STEP 2 &middot; BUILD</span></div>
+  <div id="build-body"></div>
+</div>
+
+<div class="screen" id="scr-apply">
+  <div class="topbar noprint"><button class="linkbtn" onclick="goLesson()">&larr; lesson</button><span class="progress" id="apply-prog">STEP 3 &middot; USE THE WORDS</span></div>
+  <div id="apply-body"></div>
+</div>
+
+<div class="screen" id="scr-base">
+  <div class="topbar noprint"><button class="linkbtn" onclick="goLesson()">&larr; lesson</button><span class="progress" id="base-prog">BASE CAMP</span></div>
+  <div id="base-body"></div>
+</div>
+
+<div class="screen" id="scr-stretch">
+  <div class="topbar noprint"><button class="linkbtn" onclick="goLesson()">&larr; lesson</button><span class="progress" id="stretch-prog">STRETCH</span></div>
+  <div id="stretch-body"></div>
+</div>
+
+<div class="screen" id="scr-review">
+  <div class="topbar noprint"><button class="linkbtn" onclick="go('home')">&larr; home</button><span class="progress" id="review-prog">REVIEW</span></div>
+  <div id="review-body"></div>
+</div>
+
+<div class="screen" id="scr-report">
+  <div class="topbar noprint"><button class="linkbtn" onclick="go('home')">&larr; home</button><span class="progress">REPORT</span></div>
+  <div id="report-body"></div>
+</div>
+
+<div class="screen" id="scr-morphtable">
+  <div class="topbar noprint"><button class="linkbtn" onclick="go('home')">&larr; lessons</button><span class="progress">MORPHEME TABLE</span></div>
+  <div id="morphtable-body"></div>
+</div>
+
+<div class="screen" id="scr-glossary">
+  <div class="topbar noprint"><button class="linkbtn" onclick="go('home')">&larr; lessons</button><span class="progress">WORD LIST</span></div>
+  <div id="glossary-body"></div>
+</div>
+
+<div class="accessrow noprint"><button id="accessToggle" onclick="toggleAccess()" aria-pressed="false" title="Bigger tiles, tap only, most pieces already placed">Access mode: off</button></div>
+</div>
+<script>
+/* Access mode: regular mode is the default, always. A ?access link switches
+   it on for that sitting only (sessionStorage, so it follows the student
+   between this site's pages in the tab and then lapses), and the small
+   toggle at the foot of the page makes it stick on this device
+   (localStorage) until it is switched off again. Nothing else turns it on,
+   so a shared laptop always opens in regular mode. */
+const ACCESS_KEY="y7h-access";
+let ACCESS=false;
+try{
+  if(new URLSearchParams(location.search).has("access")) sessionStorage.setItem(ACCESS_KEY,"on");
+  ACCESS=localStorage.getItem(ACCESS_KEY)==="on"||sessionStorage.getItem(ACCESS_KEY)==="on";
+}catch(e){}
+function accessLabel(){
+  const b=document.getElementById("accessToggle");
+  if(b){ b.textContent="Access mode: "+(ACCESS?"on":"off"); b.setAttribute("aria-pressed",String(ACCESS)); }
+}
+document.addEventListener("DOMContentLoaded",()=>{ if(ACCESS) document.body.classList.add("access"); accessLabel(); });
+/* Read-aloud: the browser's own speech engine, nothing leaves the device.
+   Always on show, not gated behind Access mode: a student who needs text read
+   aloud does not necessarily need the motor scaffold. */
+const TTS_OK="speechSynthesis" in window;
+let VOICE=null;
+if(TTS_OK){
+  const pick=()=>{const vs=speechSynthesis.getVoices();
+    VOICE=vs.find(v=>v.lang==="en-AU")||vs.find(v=>v.lang&&v.lang.startsWith("en"))||null};
+  pick();speechSynthesis.onvoiceschanged=pick;
+}
+function speak(text){
+  if(!TTS_OK)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(VOICE)u.voice=VOICE;u.lang=(VOICE&&VOICE.lang)||"en-AU";u.rate=.95;
+  speechSynthesis.speak(u);
+}
+function sayBtn(text){return TTS_OK?`<button class="say" type="button" data-say="${esc(text)}" aria-label="Read aloud" title="Read aloud">\u{1F50A}</button>`:""}
+function wireSay(root){root.querySelectorAll(".say").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say)})}
+function toggleAccess(){
+  ACCESS=!ACCESS;
+  try{
+    if(ACCESS) localStorage.setItem(ACCESS_KEY,"on");
+    else { localStorage.removeItem(ACCESS_KEY); sessionStorage.removeItem(ACCESS_KEY); }
+  }catch(e){}
+  document.body.classList.toggle("access",ACCESS);
+  accessLabel();
+  const row=document.querySelector("#wtable .wrow");
+  if(row && buildCtx) renderBuildTable(buildCtx.l, buildCtx.l.words.filter(w=>w.type==="morph"||w.type==="compound"));
+}
+"use strict";
+/* ============================================================
+   ANCIENT ROME: VOCAB HUB
+   Companion to the Year 7 Ancient Rome unit, from the unit's own
+   OneNote lesson pages (History 2 - Ancient Rome, current sequence):
+   Topic 1 · Introduction (1.1 origins, 1.2 geography, 1.3 the rise
+   of the Romans), Topic 2 · Roman Society (2.1 social groups, 2.2
+   rights of citizens, 2.3 peasants and slaves), Topic 3 · Politics,
+   Beliefs and Values (3.1 Republic to Empire, 3.2 religion), Topic 4
+   · Law, Force and Technology (4.1 law, 4.2 technology, 4.3 the army)
+   and Topic 5 · Conquest (5.1 the spreading empire). Lesson 1.4 has
+   no content in the notebook and is not here.
+
+   ONE ENGINE DIFFERENCE from history/batman/vocab-hub.html: the
+   morpheme index is keyed by spelling AND meaning, not spelling alone,
+   because Latin really does reuse spellings: leg is law in 'legal'
+   and to choose in 'legion', and -ate is an office in 'senate' and
+   to make in 'tolerate'. Keyed by spelling, the index printed
+   whichever meaning came first against every word. The Ancient
+   Australia hub keeps spelling-only keys on purpose: its doubles are
+   wording variants of one meaning, and splitting them would list
+   're-' three times.
+
+   Engine shared with the Water in the World Vocab Hub. Clicking a
+   lesson AUTO-RUNS a short review of earlier lessons first (skipped
+   for the very first lesson), then drops into it.
+
+   One lesson = one short set of key words. For each lesson:
+     MEET: read the words: meaning + the morphemes that build it.
+     BUILD: a single colour-coded morpheme bank (prefix/root/suffix)
+             above a table of word MEANINGS; drag (or tap) each
+             morpheme into the word it belongs to. Morphemes are
+             reused across many words, so the bank never depletes.
+             A finished word ticks off and leaves the board; you go
+             until none remain. Opaque/borrowed words (Myth, Legend,
+             Bribery) can't be cut into parts, so they come as
+             honest word-origin questions afterwards.
+     USE: a mixed bag of tasks (cloze, scenario, description,
+             word-sum, meaning-match, part-meaning) sampled and
+             generated so neighbouring students differ.
+
+   A persistent MORPHEME TABLE and WORD LIST are always available
+   from the top nav as look-ups.
+
+   ADAPTIVE TIERS:
+     BASE CAMP (support): the same morphemes in everyday words;
+       offered when a lesson is rough, always self-selectable.
+     STRETCH (extension): heavier words built from known parts +
+       "word alchemy" transfer questions; unlocks on a clean lesson.
+
+   All scores record FIRST attempts; wrong answers loop until
+   mastered. The REPORT prints to PDF with a verification code.
+   ============================================================ */
+const SVGS = {};
+
+/* ============================================================
+   LESSON DATA
+   word types: "morph": build from morpheme tiles (in order);
+                "compound": same mechanic, plain-English pieces;
+                "origin": no honest cuts -> word-origin question.
+   Each word carries its own APPLY bank; one item per word is
+   sampled per run. Review draws on the same banks.
+   ============================================================ */
+const LESSONS = [
+
+/* ================= 1.1 THE ORIGINS OF ROME ================= */
+{ id:"1.1", topic:"Topic 1 · Introduction to Ancient Rome", title:"The Origins of Rome",
+  focus:"Twins raised by a wolf, a fight over vultures, a city named after the winner. True story, or myth? And what does a city need before it can become an empire?",
+  words:[
+  { w:"Myth", pos:"noun", domain:"people",
+    meaning:"A traditional story, often about gods or heroes, that explains how something began. It is not a reliable record of real events.",
+    type:"origin",
+    originQ:"The word 'myth' comes from a Greek word meaning…",
+    originOpts:["a story, or something said","a proven fact","a king's law","a written record"],
+    originA:"a story, or something said",
+    note:"Greek <i>mythos</i>, a story or a spoken word. The tale of Romulus and Remus is a <b>myth</b>: it explains how Rome began, but nobody can check it against evidence from 753 BCE.",
+    apply:[
+      { id:"ap_myth_scn", type:"scenario",
+        q:"Romulus and Remus are raised by a she-wolf, and Romulus wins the city after seeing twelve vultures. A historian would call this story a…",
+        a:"Myth", opts:["Myth","Treaty","Timeline","Census"],
+        explain:"A traditional story explaining how something began. Greek <i>mythos</i>, a story." },
+      { id:"ap_myth_cloze", type:"cloze",
+        before:"Most historians treat the story of Romulus and Remus as a", after:", because it cannot be checked against evidence from the time.",
+        a:"myth", opts:["myth","source","law","colony"],
+        explain:"A myth explains a beginning; it is not a reliable record." } ] },
+
+  { w:"Legend", pos:"noun", domain:"people",
+    meaning:"A very old story that may be partly based on real people or events, passed down over many generations.",
+    type:"origin",
+    originQ:"The word 'legend' comes from a Latin word meaning…",
+    originOpts:["things to be read aloud","things to be fought for","a law carved in stone","a map of a city"],
+    originA:"things to be read aloud",
+    note:"Latin <i>legenda</i>, things to be read, from <i>legere</i>, to read. The same root gives <b>legible</b> and <b>lecture</b>. A legend may hold a grain of truth; a myth usually explains something with gods or wonders.",
+    apply:[
+      { id:"ap_leg_desc", type:"desc",
+        q:"An old story that may be partly based on real people, passed down over many generations, is called a…",
+        a:"Legend", opts:["Legend","Ledger","Lecture","Legion"],
+        explain:"Latin <i>legenda</i>, things to be read aloud. Some legends hold a little real history." },
+      { id:"ap_leg_cloze", type:"cloze",
+        before:"According to", after:", Rome was founded by Romulus in 753 BCE.",
+        a:"legend", opts:["legend","law","treaty","census"],
+        explain:"The founding date comes from a story told for centuries, not from a record made at the time." } ] },
+
+  { w:"Founder", pos:"noun", domain:"people",
+    meaning:"The person who starts or sets up a city, a group or an organisation.",
+    type:"morph",
+    tiles:[["found","to lay the base of, to set up"],["-er","one who"]],
+    decoys:[["-ion","the act of"],["re-","again, back"],["-ate","to do, to make"]],
+    note:"Latin <i>fundare</i>, to lay the bottom, from <i>fundus</i>, the base. Same root in <b>foundation</b> and <b>fundamental</b>. Romulus is Rome's legendary <b>founder</b>.",
+    apply:[
+      { id:"ap_fdr_scn", type:"scenario",
+        q:"In the legend, Romulus builds a city on the Palatine Hill and names it after himself. Romulus is the city's…",
+        a:"Founder", opts:["Founder","Senator","Emperor","Citizen"],
+        explain:"<i>found</i> (to lay the base of) + <i>-er</i> (one who): the one who set the city up." },
+      { id:"ap_fdr_cloze", type:"cloze",
+        before:"Romulus is remembered as the", after:"of Rome, even though the story may not be true.",
+        a:"founder", opts:["founder","enemy","emperor","consul"],
+        explain:"<i>found</i> + <i>-er</i>: the one who lays the base." } ] },
+
+  { w:"Empire", pos:"noun", domain:"earth",
+    meaning:"A group of many lands and peoples ruled by one powerful state or one ruler.",
+    type:"morph",
+    tiles:[["em-","in, on"],["pire","to order, to command"]],
+    decoys:[["ex-","out"],["port","to carry"],["-al","relating to"]],
+    note:"Latin <i>imperium</i>, the power to command, from <i>imperare</i>, to order. The <i>em-</i> is <i>in-</i> worn down before a <i>p</i>. An <b>empire</b> is the area that one power commands. Same root in <b>emperor</b> (lesson 3.1).",
+    apply:[
+      { id:"ap_emp_desc", type:"desc",
+        q:"Many lands and peoples, all ruled by one powerful state, make up an…",
+        a:"Empire", opts:["Empire","Island","Alliance","Village"],
+        explain:"Latin <i>imperium</i>, the power to command: <i>em-</i> (in, on) + <i>pire</i> (to order)." },
+      { id:"ap_emp_cloze", type:"cloze",
+        before:"At its largest, the Roman", after:"stretched from Britain to the Middle East.",
+        a:"Empire", opts:["Empire","Senate","legion","forum"],
+        explain:"One state commanding many lands: an empire." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b11_teacher", kind:"build", w:"teacher", tiles:[["teach","to show how"],["-er","one who"]], decoys:[["-ion","the act of"],["re-","again, back"]],
+        meaning:"one who teaches." },
+      { id:"b11_found", kind:"mcq", q:"To <b>found</b> a city means to…", a:"set it up for the first time", opts:["set it up for the first time","find it after it was lost","destroy it","rule it as king"],
+        explain:"Latin <i>fundare</i>, to lay the base. Not the past tense of <i>find</i>: a different word that happens to look the same." },
+      { id:"b11_er", kind:"mcq", q:"<b>-er</b> in &lsquo;founder&rsquo;, &lsquo;ruler&rsquo; and &lsquo;builder&rsquo; means…", a:"one who (does something)", opts:["one who (does something)","more than","not","before"],
+        explain:"<i>-er</i> turns an action into the person who does it." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s11_foundation", kind:"build", w:"foundation", tiles:[["found","to lay the base of"],["-ation","the process of"]], decoys:[["-er","one who"],["re-","again, back"]],
+        meaning:"the base something is built on, or the act of setting something up.",
+        explain:"<i>found</i> + <i>-ation</i>: the laying of the base. Rome's foundation is dated 753 BCE by legend." },
+      { id:"s11_legible", kind:"mcq", q:"Word alchemy: <b>legend</b> comes from <i>legere</i>, to read. Handwriting that is <b>legible</b> is…", a:"clear enough to be read", opts:["clear enough to be read","very old","written in Latin","against the law"],
+        explain:"<i>leg</i> (to read) + <i>-ible</i> (able to be): able to be read." } ] },
+},
+
+/* ================= 1.2 GEOGRAPHY OF ANCIENT ROME ================= */
+{ id:"1.2", topic:"Topic 1 · Introduction to Ancient Rome", title:"Geography of Ancient Rome",
+  focus:"Seven hills, a river, the sea close but not too close. Livy said gods and men chose the spot. How did the land help Rome grow?",
+  words:[
+  { w:"Geography", pos:"noun", domain:"earth",
+    meaning:"The study of the Earth's land, water, climate and people, and how they affect each other.",
+    type:"morph",
+    tiles:[["geo-","earth, land"],["graph","to write, to describe"],["-y","the study / practice of"]],
+    decoys:[["techno","skill, craft"],["-ment","the result / act of"],["-logy","the study / knowledge of"]],
+    note:"Greek <i>ge</i>, earth, + <i>graphein</i>, to write: describing the earth. Rome's <b>geography</b>, hills for defence and a river for trade, helped it grow.",
+    apply:[
+      { id:"ap_geo_scn", type:"scenario",
+        q:"A student studies Rome's hills, the Tiber River, the nearby sea and the mild climate. Which subject is she using?",
+        a:"Geography", opts:["Geography","Mythology","Technology","Chronology"],
+        explain:"<i>geo-</i> (earth) + <i>graph</i> (to describe): describing the land." },
+      { id:"ap_geo_cloze", type:"cloze",
+        before:"Rome's", after:", with its hills, its river and its distance from the sea, helped protect it from attack.",
+        a:"geography", opts:["geography","legend","senate","religion"],
+        explain:"The land, water and climate of a place: its geography." } ] },
+
+  { w:"Settlement", pos:"noun", domain:"earth",
+    meaning:"A place where people come to live and stay, such as a village or town.",
+    type:"morph",
+    tiles:[["settle","to sit down, to stay in one place"],["-ment","the result / act of"]],
+    decoys:[["-er","one who"],["un-","not"],["-ion","the act of"]],
+    note:"Old English <i>setlan</i>, to seat or place. A <b>settlement</b> is the result of people settling. Rome began as a small settlement on the Palatine Hill.",
+    apply:[
+      { id:"ap_set_desc", type:"desc",
+        q:"A place where a group of people choose to live and stay is called a…",
+        a:"Settlement", opts:["Settlement","Settler","Settling","Setting"],
+        explain:"<i>settle</i> (to stay in one place) + <i>-ment</i> (the result of)." },
+      { id:"ap_set_cloze", type:"cloze",
+        before:"Early Rome was a small", after:"of farmers on the hills beside the Tiber River.",
+        a:"settlement", opts:["settlement","empire","senate","legion"],
+        explain:"A place people came to live: a settlement." } ] },
+
+  { w:"Peninsula", pos:"noun", domain:"earth",
+    meaning:"A piece of land almost surrounded by water, joined to a larger mainland on one side.",
+    type:"morph",
+    tiles:[["pen-","almost"],["insula","island"]],
+    decoys:[["in-","into"],["terr","land, earth"],["-ary","relating to"]],
+    note:"Latin <i>paene</i>, almost, + <i>insula</i>, island: almost an island. Italy is a <b>peninsula</b>, with sea on three sides and the Alps across the top. <i>Insula</i> also gives <b>insulate</b> and <b>isolated</b>.",
+    apply:[
+      { id:"ap_pen_scn", type:"scenario",
+        q:"Italy has sea on three sides and is joined to Europe by land in the north. Italy is a…",
+        a:"Peninsula", opts:["Peninsula","Island","Continent","Plateau"],
+        explain:"<i>pen-</i> (almost) + <i>insula</i> (island): almost an island." },
+      { id:"ap_pen_cloze", type:"cloze",
+        before:"Rome sits near the middle of the Italian", after:", which helped it reach the whole of Italy by land and sea.",
+        a:"peninsula", opts:["peninsula","island","empire","province"],
+        explain:"Land almost surrounded by sea: a peninsula." } ] },
+
+  { w:"Commerce", pos:"noun", domain:"earth",
+    meaning:"Buying and selling goods, especially between places or countries.",
+    type:"morph",
+    tiles:[["com-","together, with"],["merce","goods, trade"]],
+    decoys:[["ex-","out"],["port","to carry"],["-ion","the act of"]],
+    note:"Latin <i>commercium</i>: <i>com-</i> (together) + <i>merx</i> (goods). Same root in <b>merchant</b> and <b>market</b>. Livy says the Tiber brought Rome &ldquo;seaborne <b>commerce</b> from abroad&rdquo;.",
+    apply:[
+      { id:"ap_com_desc", type:"desc",
+        q:"Livy wrote that the river brought Rome produce from inland and trade from overseas. Another word for this buying and selling of goods is…",
+        a:"Commerce", opts:["Commerce","Conquest","Census","Colony"],
+        explain:"<i>com-</i> (together) + <i>merce</i> (goods): goods traded between people." },
+      { id:"ap_com_cloze", type:"cloze",
+        before:"The Tiber River and the sea made Rome a centre of", after:", as ships brought goods in from abroad.",
+        a:"commerce", opts:["commerce","rebellion","religion","discipline"],
+        explain:"Trade in goods: commerce." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b12_payment", kind:"build", w:"payment", tiles:[["pay","to give money for"],["-ment","the result / act of"]], decoys:[["-er","one who"],["un-","not"]],
+        meaning:"money given for something." },
+      { id:"b12_geo", kind:"mcq", q:"The prefix <b>geo-</b> means…", a:"earth, land", opts:["earth, land","water","life","writing"],
+        explain:"Same <i>geo-</i> as in <b>geology</b> and <b>geometry</b> (measuring land)." },
+      { id:"b12_ment", kind:"mcq", q:"<b>-ment</b> in &lsquo;settlement&rsquo; and &lsquo;payment&rsquo; turns an action into…", a:"a thing: the result of the action", opts:["a thing: the result of the action","a person who does it","the opposite of it","a place far away"],
+        explain:"<i>settle</i> → <i>settlement</i>, <i>pay</i> → <i>payment</i>: the thing the action produces." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s12_merchant", kind:"build", w:"merchant", tiles:[["merch","goods, trade"],["-ant","one who"]], decoys:[["com-","together, with"],["-ment","the result / act of"]],
+        meaning:"a person who buys and sells goods.",
+        explain:"Latin <i>merx</i>, goods, the same root as <b>commerce</b>, + <i>-ant</i>, one who." },
+      { id:"s12_insulate", kind:"mcq", q:"Word alchemy: <i>insula</i> means island. To <b>insulate</b> a house is to…", a:"cut it off from heat or cold, like an island", opts:["cut it off from heat or cold, like an island","build it on a hill","sell it to a merchant","paint it white"],
+        explain:"<i>insula</i> (island) + <i>-ate</i> (to make): to make it like an island, cut off from what is around it." } ] },
+},
+
+/* ================= 1.3 THE RISE OF THE ROMANS ================= */
+{ id:"1.3", topic:"Topic 1 · Introduction to Ancient Rome", title:"The Rise of the Romans",
+  focus:"From 493 to 272 BCE Rome went to war again and again, and ended up ruling most of Italy. How? Treaties, alliances, colonies, and an army that won.",
+  words:[
+  { w:"Alliance", pos:"noun", domain:"hazard",
+    meaning:"An agreement between groups or countries to work or fight together.",
+    type:"morph",
+    tiles:[["al-","to, towards"],["li","to bind, to tie"],["-ance","the state / act of"]],
+    decoys:[["con-","together, completely"],["-ion","the act of"],["re-","again, back"]],
+    note:"Latin <i>alligare</i>, to bind to: <i>ad-</i> (to, worn to <i>al-</i> before an <i>l</i>) + <i>ligare</i> (to bind). The same <i>lig</i> is in <b>ligament</b> and <b>obligation</b>. Rome &ldquo;made <b>alliances</b> with former rivals&rdquo; to control Italy.",
+    apply:[
+      { id:"ap_all_scn", type:"scenario",
+        q:"In 493 BCE Rome and the other Latin tribes agreed to fight the hill tribes together. This agreement is an…",
+        a:"Alliance", opts:["Alliance","Invasion","Election","Empire"],
+        explain:"<i>al-</i> (to) + <i>li</i> (to bind) + <i>-ance</i>: groups bound together." },
+      { id:"ap_all_cloze", type:"cloze",
+        before:"Rome made an", after:"with some of its former enemies, so they would supply troops instead of fighting it.",
+        a:"alliance", opts:["alliance","invasion","election","aqueduct"],
+        explain:"Groups tied together by an agreement: an alliance." } ] },
+
+  { w:"Conquer", pos:"verb", domain:"hazard",
+    meaning:"To take control of a place or people by force.",
+    type:"morph",
+    tiles:[["con-","together, completely"],["quer","to seek, to win"]],
+    decoys:[["re-","again, back"],["-ion","the act of"],["ex-","out"]],
+    note:"Latin <i>conquirere</i>: <i>con-</i> (completely) + <i>quaerere</i> (to seek, to gain). Same root in <b>query</b> and <b>question</b>. By 272 BCE Rome had <b>conquered</b> most of Italy.",
+    apply:[
+      { id:"ap_con_desc", type:"desc",
+        q:"To take control of a city or people by force is to…",
+        a:"Conquer", opts:["Conquer","Consult","Convert","Contain"],
+        explain:"<i>con-</i> (completely) + <i>quer</i> (to win): to win completely." },
+      { id:"ap_con_cloze", type:"cloze",
+        before:"In 396 BCE Rome set out to", after:"the powerful Etruscan city of Veii, and captured it.",
+        a:"conquer", opts:["conquer","elect","worship","tolerate"],
+        explain:"Taking a city by force: to conquer it." } ] },
+
+  { w:"Colony", pos:"noun", domain:"earth",
+    meaning:"A place settled and controlled by people from another country.",
+    type:"origin",
+    originQ:"The word 'colony' comes from a Latin word meaning…",
+    originOpts:["a farm, a settlement of farmers","a city wall","a group of soldiers","a temple to the gods"],
+    originA:"a farm, a settlement of farmers",
+    note:"Latin <i>colonia</i>, a farm or settlement, from <i>colonus</i>, a farmer, from <i>colere</i>, to farm. Rome &ldquo;<b>colonised</b> strategically important places with Roman citizens&rdquo;.",
+    apply:[
+      { id:"ap_col_scn", type:"scenario",
+        q:"Rome sent its own citizens to live in an important town it had taken, so the town would stay loyal. That town became a Roman…",
+        a:"Colony", opts:["Colony","Senate","Republic","Legion"],
+        explain:"<i>colon</i> (settler) + <i>-y</i> (a place of): a place of settlers." },
+      { id:"ap_col_cloze", type:"cloze",
+        before:"Roman citizens were sent to live in each new", after:", to hold the land for Rome.",
+        a:"colony", opts:["colony","temple","myth","treaty"],
+        explain:"A place settled and controlled from Rome: a colony." } ] },
+
+  { w:"Cavalry", pos:"noun", domain:"water",
+    meaning:"Soldiers who fight on horseback.",
+    type:"morph",
+    tiles:[["caval","horse"],["-ry","a group of"]],
+    decoys:[["-ion","the act of"],["equ","horse"],["-er","one who"]],
+    note:"Latin <i>caballus</i>, a horse, through Italian <i>cavalleria</i>. The <i>-ry</i> means a group, as in <b>infantry</b> (soldiers on foot). In Livy's account, the <b>cavalry</b> was &ldquo;let loose&rdquo; once the enemy scattered.",
+    apply:[
+      { id:"ap_cav_desc", type:"desc",
+        q:"The soldiers on horseback in a Roman army were called the…",
+        a:"Cavalry", opts:["Cavalry","Infantry","Senate","Legion"],
+        explain:"<i>caval</i> (horse) + <i>-ry</i> (a group of). Soldiers on foot are the infantry." },
+      { id:"ap_cav_cloze", type:"cloze",
+        before:"When the enemy ran, the Roman", after:"rode across their path so the foot soldiers could catch up.",
+        a:"cavalry", opts:["cavalry","infantry","senate","colony"],
+        explain:"Riders are faster than soldiers on foot: the cavalry." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b13_redo", kind:"build", w:"redo", tiles:[["re-","again, back"],["do","to do"]], decoys:[["con-","together, completely"],["-ance","the state / act of"]],
+        meaning:"to do again." },
+      { id:"b13_con", kind:"mcq", q:"In &lsquo;conquer&rsquo; the prefix <b>con-</b> means…", a:"completely", opts:["completely","not","before","away from"],
+        explain:"<i>con-</i> can mean together or completely. Conquering is winning completely." },
+      { id:"b13_ance", kind:"mcq", q:"<b>-ance</b> in &lsquo;alliance&rsquo; and &lsquo;appearance&rsquo; makes the word a…", a:"noun: the state or act of something", opts:["noun: the state or act of something","verb: to do something","person who does something","number"],
+        explain:"<i>ally</i> → <i>alliance</i>, <i>appear</i> → <i>appearance</i>." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s13_conquest", kind:"build", w:"conquest", tiles:[["con-","together, completely"],["quest","a seeking, a winning"]], decoys:[["re-","again, back"],["-ance","the state / act of"]],
+        meaning:"the act of taking control of a place by force.",
+        explain:"Same <i>quaerere</i> as <b>conquer</b>, in its noun form <i>quest</i>." },
+      { id:"s13_infantry", kind:"mcq", q:"Word alchemy: <b>cavalry</b> fight on horses. The <b>infantry</b> are soldiers who…", a:"fight on foot", opts:["fight on foot","fight at sea","guard the emperor","build roads"],
+        explain:"Same <i>-ry</i> (a group of). Infantry once meant the young soldiers who walked." } ] },
+},
+
+/* ================= 2.1 SOCIAL GROUPS AND CLASSES ================= */
+{ id:"2.1", topic:"Topic 2 · Roman Society", title:"Social Groups and Classes",
+  focus:"Who counted as a Roman citizen? Patricians and plebeians, women, slaves and foreigners. What did each group have, and what did it lack?",
+  words:[
+  { w:"Citizen", pos:"noun", domain:"people",
+    meaning:"A person who legally belongs to a country or city, with the rights and duties that come with it.",
+    type:"morph",
+    tiles:[["citi","city"],["-zen","one who belongs to"]],
+    decoys:[["civ","citizen, city"],["-ian","one who"],["-ship","the state of being"]],
+    note:"Latin <i>civitas</i>, city, through French <i>citeien</i>. In Rome a <b>citizen</b> had to be male, freeborn and 25 or older to vote. Citizens were protected by Roman law.",
+    apply:[
+      { id:"ap_cit_scn", type:"scenario",
+        q:"A freeborn Roman man aged 30 can vote and is protected by Roman law. He is a Roman…",
+        a:"Citizen", opts:["Citizen","Slave","Gladiator","Foreigner"],
+        explain:"<i>citi</i> (city) + <i>-zen</i> (one who belongs to): one who belongs to the city." },
+      { id:"ap_cit_cloze", type:"cloze",
+        before:"Women, slaves and foreigners could not vote, because they were not counted as a", after:".",
+        a:"citizen", opts:["citizen","senator","consul","peasant"],
+        explain:"Only citizens had the full rights, including the vote." } ] },
+
+  { w:"Patrician", pos:"noun", domain:"people",
+    meaning:"A member of one of the old, rich and powerful families of ancient Rome.",
+    type:"morph",
+    tiles:[["patri","father"],["-cian","one who belongs to"]],
+    decoys:[["pleb","the common people"],["-ate","an office, a body of officials"],["re-","again, back"]],
+    note:"Latin <i>patricius</i>, from <i>patres</i>, the fathers: the heads of the families who founded the Republic. Same <i>patr</i> in <b>patriot</b> and <b>paternal</b>.",
+    apply:[
+      { id:"ap_pat_desc", type:"desc",
+        q:"A Roman from one of the small number of old, wealthy families that founded the Republic was a…",
+        a:"Patrician", opts:["Patrician","Plebeian","Peasant","Gladiator"],
+        explain:"<i>patri</i> (father) + <i>-cian</i>: from the founding fathers' families." },
+      { id:"ap_pat_cloze", type:"cloze",
+        before:"A rich plebeian might have more money than a", after:", but he rarely had the same influence.",
+        a:"patrician", opts:["patrician","peasant","slave","legion"],
+        explain:"Patricians held power by birth, not only by wealth." } ] },
+
+  { w:"Plebeian", pos:"noun", domain:"people",
+    meaning:"An ordinary Roman citizen who was not from a patrician family.",
+    type:"morph",
+    tiles:[["pleb","the common people"],["-eian","belonging to"]],
+    decoys:[["patri","father"],["-cian","one who belongs to"],["con-","together, completely"]],
+    note:"Latin <i>plebs</i>, the common people. Most Roman citizens were <b>plebeians</b>: farmers, shopkeepers, workers. Some became rich, but few gained the patricians' influence.",
+    apply:[
+      { id:"ap_ple_scn", type:"scenario",
+        q:"A Roman shopkeeper, freeborn and a citizen, but not from one of the founding families, was a…",
+        a:"Plebeian", opts:["Plebeian","Patrician","Senator","Slave"],
+        explain:"<i>pleb</i> (the common people) + <i>-eian</i> (belonging to)." },
+      { id:"ap_ple_cloze", type:"cloze",
+        before:"Everyone who was a citizen but not a patrician was a", after:".",
+        a:"plebeian", opts:["plebeian","consul","gladiator","foreigner"],
+        explain:"The common people of Rome: plebeians." } ] },
+
+  { w:"Aristocrat", pos:"noun", domain:"people",
+    meaning:"A member of the highest social class, usually rich and born into power.",
+    type:"morph",
+    tiles:[["aristo","best"],["-crat","one who rules"]],
+    decoys:[["-ian","one who"],["patri","father"],["techno","skill, craft"]],
+    note:"Greek <i>aristos</i>, best, + <i>kratos</i>, power, rule: rule by the &lsquo;best&rsquo; people, as they saw themselves. Same <i>-crat</i> in <b>democrat</b> (rule by the people). Patricians came from <b>aristocratic</b> families.",
+    apply:[
+      { id:"ap_ari_desc", type:"desc",
+        q:"A member of a rich family born into power, at the top of society, is an…",
+        a:"Aristocrat", opts:["Aristocrat","Autocrat","Artisan","Athlete"],
+        explain:"<i>aristo</i> (best) + <i>-crat</i> (one who rules)." },
+      { id:"ap_ari_cloze", type:"cloze",
+        before:"In the early Republic, power was held by a few", after:"families, even though all citizens were meant to have a say.",
+        a:"aristocratic", opts:["aristocratic","plebeian","foreign","peasant"],
+        explain:"The top, wealthy families: aristocratic families." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b21_musician", kind:"build", w:"musician", tiles:[["music","music"],["-ian","one who"]], decoys:[["-zen","one who belongs to"],["re-","again, back"]],
+        meaning:"one who plays music." },
+      { id:"b21_patri", kind:"mcq", q:"The root <b>patri</b> or <b>pater</b> means…", a:"father", opts:["father","country","king","people"],
+        explain:"Same root in <b>paternal</b> (to do with a father) and <b>patriot</b>." },
+      { id:"b21_class", kind:"mcq", q:"In Rome, being a <b>patrician</b> or a <b>plebeian</b> depended mostly on…", a:"the family you were born into", opts:["the family you were born into","how rich you became","how well you fought","which god you worshipped"],
+        explain:"Birth decided it. A rich plebeian stayed a plebeian." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s21_democrat", kind:"build", w:"democrat", tiles:[["demo","the people"],["-crat","one who rules"]], decoys:[["aristo","best"],["-ian","one who"]],
+        meaning:"a person who believes the people should rule.",
+        explain:"Greek <i>demos</i>, the people, + <i>kratos</i>, rule. The opposite idea to aristocracy." },
+      { id:"s21_patriot", kind:"mcq", q:"Word alchemy: <i>patri</i> means father. A <b>patriot</b> loves…", a:"their fatherland, their country", opts:["their fatherland, their country","their own family only","money","the emperor only"],
+        explain:"Your fatherland is the land of your fathers: your country." } ] },
+},
+
+/* ================= 2.2 THE RIGHTS OF CITIZENS ================= */
+{ id:"2.2", topic:"Topic 2 · Roman Society", title:"The Rights of Citizens",
+  focus:"A carpenter from Gaul, a slave, a soldier, a hairdresser. Which of them was a citizen, and could any of them move up?",
+  words:[
+  { w:"Privilege", pos:"noun", domain:"hazard",
+    meaning:"A special right or advantage that only some people have.",
+    type:"morph",
+    tiles:[["privi","private, for one person"],["lege","law"]],
+    decoys:[["leg","law"],["-al","relating to"],["civ","citizen, city"]],
+    note:"Latin <i>privilegium</i>: <i>privus</i> (private, for one) + <i>lex, leg-</i> (law). A law made for one person or group. Citizenship gave Romans <b>privileges</b> that slaves and foreigners did not have.",
+    apply:[
+      { id:"ap_pri_scn", type:"scenario",
+        q:"Only Roman citizens could vote and be protected by Roman law. For a citizen, these were…",
+        a:"Privileges", opts:["Privileges","Punishments","Taxes","Colonies"],
+        explain:"<i>privi</i> (for some) + <i>lege</i> (law): rights only some people had." },
+      { id:"ap_pri_cloze", type:"cloze",
+        before:"Voting was a", after:"that Roman women and slaves were never given.",
+        a:"privilege", opts:["privilege","punishment","tax","ritual"],
+        explain:"A special right only some had: a privilege." } ] },
+
+  { w:"Responsibility", pos:"noun", domain:"hazard",
+    meaning:"Something you are expected to do because of your role, such as a duty.",
+    type:"morph",
+    tiles:[["re-","again, back"],["spons","to promise"],["-ibil","able to"],["-ity","the state of"]],
+    decoys:[["con-","together, completely"],["-ment","the result / act of"],["-ance","the state / act of"]],
+    note:"Latin <i>respondere</i>, to promise in return, to answer. A <b>responsibility</b> is what you can be asked to answer for. Roman citizens had rights, and also responsibilities, such as serving in the army.",
+    apply:[
+      { id:"ap_res_desc", type:"desc",
+        q:"A duty that you must carry out because of your role is a…",
+        a:"Responsibility", opts:["Responsibility","Privilege","Rebellion","Ritual"],
+        explain:"<i>re-</i> (back) + <i>spons</i> (to promise) + <i>-ibil</i> + <i>-ity</i>: what you must answer for." },
+      { id:"ap_res_cloze", type:"cloze",
+        before:"Serving in the army when called was a", after:"of Roman citizens, not just a right.",
+        a:"responsibility", opts:["responsibility","privilege","rebellion","legend"],
+        explain:"Something citizens were expected to do: a responsibility." } ] },
+
+  { w:"Mobility", pos:"noun", domain:"people",
+    meaning:"The ability to move. Social mobility is moving to a higher or lower place in society.",
+    type:"morph",
+    tiles:[["mobil","able to move"],["-ity","the state of"]],
+    decoys:[["-ment","the result / act of"],["re-","again, back"],["-ation","the process of"]],
+    note:"Latin <i>mobilis</i>, movable, from <i>movere</i>, to move. Same root in <b>mobile</b> and <b>automobile</b>. <b>Social mobility</b> asks: could a Roman move up during their lifetime?",
+    apply:[
+      { id:"ap_mob_scn", type:"scenario",
+        q:"A soldier who serves 25 years in the army becomes a Roman citizen. His rise in society is an example of social…",
+        a:"Mobility", opts:["Mobility","Privilege","Discipline","Religion"],
+        explain:"<i>mobil</i> (able to move) + <i>-ity</i>: moving to a new place in society." },
+      { id:"ap_mob_cloze", type:"cloze",
+        before:"Was social", after:"possible in Rome? A slave could be freed, and a soldier could become a citizen.",
+        a:"mobility", opts:["mobility","commerce","geography","technology"],
+        explain:"Moving between levels of society: social mobility." } ] },
+
+  { w:"Civic", pos:"adjective", domain:"hazard",
+    meaning:"Relating to a city or to the duties and rights of citizens.",
+    type:"morph",
+    tiles:[["civ","citizen, city"],["-ic","relating to"]],
+    decoys:[["citi","city"],["-ate","to do, to make"],["-ion","the act of"]],
+    note:"Latin <i>civis</i>, citizen. Same root in <b>civilisation</b> and <b>civil</b>. Voting is a <b>civic</b> right; obeying the law is a civic duty.",
+    apply:[
+      { id:"ap_civ_desc", type:"desc",
+        q:"Voting, jury duty and obeying the law are all…",
+        a:"Civic duties", opts:["Civic duties","Military tactics","Religious rituals","Trade goods"],
+        explain:"<i>civ</i> (citizen) + <i>-ic</i> (relating to): things to do with being a citizen." },
+      { id:"ap_civ_cloze", type:"cloze",
+        before:"Comparing Roman rights with ours today means comparing", after:"rights across two thousand years.",
+        a:"civic", opts:["civic","cavalry","pagan","coastal"],
+        explain:"Rights to do with being a citizen: civic rights." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b22_quality", kind:"mcq", q:"<b>-ity</b> in &lsquo;mobility&rsquo;, &lsquo;quality&rsquo; and &lsquo;safety&rsquo; makes a word that names…", a:"a state or quality", opts:["a state or quality","a person","an action","a place"],
+        explain:"<i>mobile</i> → <i>mobility</i>: the state of being able to move." },
+      { id:"b22_reply", kind:"build", w:"return", tiles:[["re-","again, back"],["turn","to turn"]], decoys:[["con-","together, completely"],["-ity","the state of"]],
+        meaning:"to come or go back." },
+      { id:"b22_right", kind:"mcq", q:"A <b>right</b> is something you are…", a:"allowed or entitled to have or do", opts:["allowed or entitled to have or do","made to do as a duty","punished for","paid to do"],
+        explain:"Rights are what you may do; responsibilities are what you must do." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s22_civilisation", kind:"build", w:"civilisation", tiles:[["civil","of citizens"],["-is","to make"],["-ation","the process of"]], decoys:[["-ity","the state of"],["re-","again, back"],["-ment","the result / act of"]],
+        meaning:"a large, organised society with cities, laws and government.",
+        explain:"Latin <i>civis</i>, citizen: a civilisation is a society of citizens. Australian spelling uses -isation." },
+      { id:"s22_automobile", kind:"mcq", q:"Word alchemy: <i>auto</i> means self and <i>mobil</i> means able to move. An <b>automobile</b> is…", a:"a car, something that moves by itself", opts:["a car, something that moves by itself","a moving staircase","a ship's sail","a horse and cart"],
+        explain:"<i>auto</i> (self) + <i>mobile</i> (able to move)." } ] },
+},
+
+/* ================= 2.3 PEASANTS AND SLAVES ================= */
+{ id:"2.3", topic:"Topic 2 · Roman Society", title:"Peasants and Slaves",
+  focus:"About ninety per cent of people lived on farms. Slaves did more and more of the work, and in 73 BCE Spartacus led them in revolt. Why?",
+  words:[
+  { w:"Peasant", pos:"noun", domain:"people",
+    meaning:"A poor farmer or farm worker who works the land.",
+    type:"morph",
+    tiles:[["peas","country, countryside"],["-ant","one who"]],
+    decoys:[["-ian","one who"],["pleb","the common people"],["-ment","the result / act of"]],
+    note:"Old French <i>paisant</i>, from <i>pais</i>, country, from Latin <i>pagus</i>, a country district. About ninety per cent of people in the Roman Empire were <b>peasants</b>.",
+    apply:[
+      { id:"ap_pea_scn", type:"scenario",
+        q:"A poor Roman family grows grain on a small rented farm and lives on bread and porridge. They are…",
+        a:"Peasants", opts:["Peasants","Patricians","Senators","Gladiators"],
+        explain:"<i>peas</i> (countryside) + <i>-ant</i> (one who): people of the countryside." },
+      { id:"ap_pea_cloze", type:"cloze",
+        before:"Most people in the Roman Empire were not city-dwellers but", after:"who lived on farms or in villages.",
+        a:"peasants", opts:["peasants","consuls","aristocrats","emperors"],
+        explain:"Poor country farmers: peasants." } ] },
+
+  { w:"Rebellion", pos:"noun", domain:"hazard",
+    meaning:"An attempt by a group of people to fight against the people in power.",
+    type:"morph",
+    tiles:[["re-","again, back"],["bell","war"],["-ion","the act of"]],
+    decoys:[["con-","together, completely"],["-ance","the state / act of"],["vas","to go"]],
+    note:"Latin <i>rebellare</i>: <i>re-</i> (again) + <i>bellum</i> (war), to make war again. Same <i>bell</i> in <b>belligerent</b>. Spartacus led a slave <b>rebellion</b> in 73 BCE.",
+    apply:[
+      { id:"ap_reb_scn", type:"scenario",
+        q:"In 73 BCE gladiators escaped at Capua, freed other slaves and fought the Roman legions. This was a…",
+        a:"Rebellion", opts:["Rebellion","Republic","Religion","Reform"],
+        explain:"<i>re-</i> (again) + <i>bell</i> (war) + <i>-ion</i>: fighting back against those in power." },
+      { id:"ap_reb_cloze", type:"cloze",
+        before:"To stop the poor from starting a", after:", the rulers gave out free grain and entertainment.",
+        a:"rebellion", opts:["rebellion","colony","census","settlement"],
+        explain:"An uprising against those in power: a rebellion." } ] },
+
+  { w:"Gladiator", pos:"noun", domain:"water",
+    meaning:"A man, often a slave, trained to fight other men or animals in an arena to entertain crowds.",
+    type:"morph",
+    tiles:[["gladi","sword"],["-ator","one who"]],
+    decoys:[["dict","to say, to command"],["-or","one who"],["-ion","the act of"]],
+    note:"Latin <i>gladius</i>, a short sword, the weapon of the Roman legionary. A <b>gladiator</b> was a swordsman. Spartacus was a Thracian gladiator. The <b>gladiolus</b> flower is named for its sword-shaped leaves.",
+    apply:[
+      { id:"ap_gla_desc", type:"desc",
+        q:"A man trained to fight in an arena for a crowd's entertainment was a…",
+        a:"Gladiator", opts:["Gladiator","Legionary","Senator","Merchant"],
+        explain:"<i>gladi</i> (sword) + <i>-ator</i> (one who): a swordsman." },
+      { id:"ap_gla_cloze", type:"cloze",
+        before:"Spartacus was a", after:"who escaped from his training school and led thousands of slaves.",
+        a:"gladiator", opts:["gladiator","consul","patrician","merchant"],
+        explain:"A trained arena fighter, often a slave: a gladiator." } ] },
+
+  { w:"Unemployed", pos:"adjective", domain:"people",
+    meaning:"Without a paid job.",
+    type:"morph",
+    tiles:[["un-","not"],["employ","to give work to"],["-ed","in a state of"]],
+    decoys:[["re-","again, back"],["-ment","the result / act of"],["-er","one who"]],
+    note:"<i>employ</i>, from Latin <i>implicare</i>, to involve. As more slaves did the work, more poor Roman citizens became <b>unemployed</b>, and many moved to the cities.",
+    apply:[
+      { id:"ap_une_scn", type:"scenario",
+        q:"Rich landowners used slaves instead of paying workers, so many poor Roman citizens had no job. They were…",
+        a:"Unemployed", opts:["Unemployed","Enslaved","Elected","Exiled"],
+        explain:"<i>un-</i> (not) + <i>employ</i> (given work) + <i>-ed</i>." },
+      { id:"ap_une_cloze", type:"cloze",
+        before:"Slave labour left many free Romans", after:", so they moved to the cities to look for casual work.",
+        a:"unemployed", opts:["unemployed","enslaved","aristocratic","conquered"],
+        explain:"Without a paid job: unemployed." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b23_unhappy", kind:"build", w:"unhappy", tiles:[["un-","not"],["happy","happy"]], decoys:[["re-","again, back"],["-ion","the act of"]],
+        meaning:"not happy." },
+      { id:"b23_ant", kind:"mcq", q:"<b>-ant</b> in &lsquo;peasant&rsquo;, &lsquo;servant&rsquo; and &lsquo;assistant&rsquo; means…", a:"one who", opts:["one who","not","again","the study of"],
+        explain:"<i>serve</i> → <i>servant</i>: one who serves." },
+      { id:"b23_ninety", kind:"mcq", q:"About what share of people in the Roman Empire were peasants?", a:"about ninety per cent", opts:["about ninety per cent","about half","about ten per cent","almost none"],
+        explain:"Far fewer lived in towns and cities." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s23_rebel", kind:"build", w:"rebel", tiles:[["re-","again, back"],["bel","war"]], decoys:[["con-","together, completely"],["-ion","the act of"]],
+        meaning:"a person who fights against those in power.",
+        explain:"The same <i>bellum</i>, war. A rebel makes war again on those in charge." },
+      { id:"s23_belligerent", kind:"mcq", q:"Word alchemy: <i>bell</i> means war. A <b>belligerent</b> person is…", a:"aggressive and ready to fight", opts:["aggressive and ready to fight","beautiful","very loud","peaceful and calm"],
+        explain:"<i>bell</i> (war) + <i>ger</i> (to carry): carrying on war." } ] },
+},
+
+/* ================= 3.1 ROMAN REPUBLIC TO ROMAN EMPIRE ================= */
+{ id:"3.1", topic:"Topic 3 · Politics, Beliefs and Values", title:"Roman Republic to Roman Empire",
+  focus:"In 509 BCE Rome threw out its last king and swore never to have another. In 27 BCE it got an emperor. What changed, and why?",
+  words:[
+  { w:"Republic", pos:"noun", domain:"hazard",
+    meaning:"A state where the people choose their leaders, and there is no king or queen.",
+    type:"morph",
+    tiles:[["re","thing, matter"],["public","of the people"]],
+    decoys:[["sen","old, elder"],["-ate","an office, a body of officials"],["civ","citizen, city"]],
+    note:"Latin <i>res publica</i>: <i>res</i> (thing, affair) + <i>publica</i> (of the people), &lsquo;the people's affair&rsquo;. Rome was a <b>republic</b> from 509 BCE to 27 BCE.",
+    apply:[
+      { id:"ap_rep_scn", type:"scenario",
+        q:"After expelling their last king in 509 BCE, the Romans let citizens elect their leaders. Rome had become a…",
+        a:"Republic", opts:["Republic","Empire","Kingdom","Colony"],
+        explain:"<i>res publica</i>: the people's affair, run by elected leaders." },
+      { id:"ap_rep_cloze", type:"cloze",
+        before:"The Roman", after:"lasted from 509 BCE to 27 BCE, when Augustus became the first emperor.",
+        a:"Republic", opts:["Republic","Empire","Senate","legion"],
+        explain:"The time of elected leaders and no king: the Republic." } ] },
+
+  { w:"Senate", pos:"noun", domain:"hazard",
+    meaning:"A council of important men who advised Rome's leaders and helped make decisions.",
+    type:"morph",
+    tiles:[["sen","old, elder"],["-ate","an office, a body of officials"]],
+    decoys:[["patri","father"],["-ion","the act of"],["-ic","relating to"]],
+    note:"Latin <i>senatus</i>, from <i>senex</i>, an old man: a council of elders. Same <i>sen</i> in <b>senior</b>. SPQR, <i>Senatus Populusque Romanus</i>, means the <b>Senate</b> and the people of Rome.",
+    apply:[
+      { id:"ap_sen_desc", type:"desc",
+        q:"The council of about 300 leading men who advised Rome's leaders was the…",
+        a:"Senate", opts:["Senate","Legion","Forum","Colony"],
+        explain:"<i>sen</i> (elder) + <i>-ate</i> (a group): a council of elders." },
+      { id:"ap_sen_cloze", type:"cloze",
+        before:"In the first century BCE the senators of the", after:"fought each other for power, and order broke down.",
+        a:"Senate", opts:["Senate","army","temple","aqueduct"],
+        explain:"Rome's council of leading men: the Senate." } ] },
+
+  { w:"Emperor", pos:"noun", domain:"hazard",
+    meaning:"The single, supreme ruler of an empire.",
+    type:"morph",
+    tiles:[["em-","in, on"],["per","to order, to command"],["-or","one who"]],
+    decoys:[["sen","old, elder"],["-ate","an office, a body of officials"],["re-","again, back"]],
+    note:"Latin <i>imperator</i>, commander, from <i>imperare</i>, to command, the same root as <b>empire</b> (lesson 1.1). Augustus became the first <b>emperor</b> in 27 BCE.",
+    apply:[
+      { id:"ap_emr_scn", type:"scenario",
+        q:"In 27 BCE Augustus took supreme power and ruled for life, though the Senate still met. Augustus was Rome's first…",
+        a:"Emperor", opts:["Emperor","Consul","Senator","Tribune"],
+        explain:"<i>em-</i> (on) + <i>per</i> (to command) + <i>-or</i> (one who): the commander of the empire." },
+      { id:"ap_emr_cloze", type:"cloze",
+        before:"An", after:"ruled much like a king, though he was often chosen with the Senate's approval.",
+        a:"emperor", opts:["emperor","plebeian","gladiator","citizen"],
+        explain:"The single ruler of the Empire: the emperor." } ] },
+
+  { w:"Dictator", pos:"noun", domain:"hazard",
+    meaning:"A ruler with total power, who is not controlled by laws or elections.",
+    type:"morph",
+    tiles:[["dict","to say, to command"],["-ator","one who"]],
+    decoys:[["gladi","sword"],["-ion","the act of"],["re-","again, back"]],
+    note:"Latin <i>dictare</i>, to say often, to order. In the Republic a <b>dictator</b> was given total power for six months in an emergency. Julius Caesar made himself dictator for life, and was murdered in 44 BCE.",
+    apply:[
+      { id:"ap_dic_desc", type:"desc",
+        q:"A ruler who has total power and answers to no law or election is a…",
+        a:"Dictator", opts:["Dictator","Senator","Consul","Citizen"],
+        explain:"<i>dict</i> (to command) + <i>-ator</i> (one who): one whose word is law." },
+      { id:"ap_dic_cloze", type:"cloze",
+        before:"Julius Caesar ruled as", after:"from 49 to 44 BCE, until senators murdered him.",
+        a:"dictator", opts:["dictator","gladiator","plebeian","peasant"],
+        explain:"Total power, no elections: a dictator." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b31_senior", kind:"build", w:"senior", tiles:[["sen","old, elder"],["-ior","more"]], decoys:[["-ate","an office, a body of officials"],["re-","again, back"]],
+        meaning:"older, or higher in rank." },
+      { id:"b31_or", kind:"mcq", q:"<b>-or</b> and <b>-ator</b> in &lsquo;emperor&rsquo;, &lsquo;dictator&rsquo; and &lsquo;gladiator&rsquo; mean…", a:"one who", opts:["one who","the study of","not","a group of"],
+        explain:"They turn an action into the person who does it." },
+      { id:"b31_spqr", kind:"mcq", q:"SPQR stands for <i>Senatus Populusque Romanus</i>. In English that is…", a:"the Senate and the people of Rome", opts:["the Senate and the people of Rome","the emperor of the Romans","the army of Rome","the gods of Rome"],
+        explain:"It was stamped on coins, buildings and army standards." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s31_imperial", kind:"build", w:"imperial", tiles:[["im-","in, on"],["peri","to command"],["-al","relating to"]], decoys:[["sen","old, elder"],["-ate","an office, a body of officials"]],
+        meaning:"relating to an empire or an emperor.",
+        explain:"The same <i>imperare</i> as empire and emperor. Here the prefix keeps its <i>im-</i> spelling." },
+      { id:"s31_dictionary", kind:"mcq", q:"Word alchemy: <i>dict</i> means to say. A <b>dictionary</b> is…", a:"a book of words and what they say", opts:["a book of words and what they say","a ruler with total power","a speech to the Senate","a law carved in bronze"],
+        explain:"<i>dict</i> (to say) + <i>-ion</i> + <i>-ary</i> (a place for): a place for sayings." } ] },
+},
+
+/* ================= 3.2 RELIGION ================= */
+{ id:"3.2", topic:"Topic 3 · Politics, Beliefs and Values", title:"Religion",
+  focus:"Hundreds of gods, and a rule: worship the emperor and you may keep your own. Why were Christians persecuted, then made the state religion?",
+  words:[
+  { w:"Religion", pos:"noun", domain:"people",
+    meaning:"A set of beliefs about a god or gods, with ways of worshipping.",
+    type:"morph",
+    tiles:[["re-","again, back"],["lig","to bind, to tie"],["-ion","the act of"]],
+    decoys:[["per-","thoroughly, all the way"],["-ance","the state / act of"],["rit","a rite, a set way of worship"]],
+    note:"Latin <i>religio</i>. Roman writers argued over where it came from: <i>religare</i>, to bind fast, or <i>relegere</i>, to go over again. Either way, a <b>religion</b> ties people to their gods. Romans had hundreds of gods.",
+    apply:[
+      { id:"ap_rel_scn", type:"scenario",
+        q:"The Romans prayed to Jupiter, Juno and Mars, and made offerings at their temples. These beliefs and practices were their…",
+        a:"Religion", opts:["Religion","Republic","Rebellion","Legion"],
+        explain:"<i>re-</i> + <i>lig</i> (to bind) + <i>-ion</i>: what binds people to the gods." },
+      { id:"ap_rel_cloze", type:"cloze",
+        before:"Romans believed", after:"was closely tied to government, and that other beliefs were dangerous only if they threatened Rome.",
+        a:"religion", opts:["religion","geography","commerce","technology"],
+        explain:"Beliefs about the gods and how to worship them: religion." } ] },
+
+  { w:"Tolerate", pos:"verb", domain:"hazard",
+    meaning:"To allow something you may not agree with to continue.",
+    type:"morph",
+    tiles:[["toler","to bear, to put up with"],["-ate","to do, to make"]],
+    decoys:[["-ion","the act of"],["re-","again, back"],["-ic","relating to"]],
+    note:"Latin <i>tolerare</i>, to bear or endure. Rome usually <b>tolerated</b> the religions of conquered peoples, as long as they also paid homage to the emperor.",
+    apply:[
+      { id:"ap_tol_desc", type:"desc",
+        q:"Rome let conquered peoples keep their own gods, as long as they also honoured the emperor. Rome chose to…",
+        a:"Tolerate them", opts:["Tolerate them","Conquer them","Elect them","Enslave them"],
+        explain:"<i>toler</i> (to bear) + <i>-ate</i>: to put up with something different." },
+      { id:"ap_tol_cloze", type:"cloze",
+        before:"The Romans would", after:"other religions, but not one that refused to worship the emperor.",
+        a:"tolerate", opts:["tolerate","conquer","colonise","dictate"],
+        explain:"To allow something to continue: to tolerate it." } ] },
+
+  { w:"Ritual", pos:"noun", domain:"people",
+    meaning:"A set of actions always done in the same way, often as part of worship.",
+    type:"morph",
+    tiles:[["rit","a rite, a set way of worship"],["-ual","relating to"]],
+    decoys:[["lig","to bind, to tie"],["-ion","the act of"],["-ic","relating to"]],
+    note:"Latin <i>ritus</i>, a religious custom. Roman religion was about performing <b>rituals</b> correctly, in return for the gods' protection, more than about how to live a good life.",
+    apply:[
+      { id:"ap_rit_scn", type:"scenario",
+        q:"Before a battle, a Roman general offered an animal to the gods, using the same words and steps every time. This was a…",
+        a:"Ritual", opts:["Ritual","Rebellion","Treaty","Census"],
+        explain:"<i>rit</i> (a rite) + <i>-ual</i>: a set way of worship." },
+      { id:"ap_rit_cloze", type:"cloze",
+        before:"Roman religion was mostly about performing each", after:"correctly, in return for protection from misfortune.",
+        a:"ritual", opts:["ritual","law","battle","colony"],
+        explain:"Actions done the same way each time: a ritual." } ] },
+
+  { w:"Persecution", pos:"noun", domain:"hazard",
+    meaning:"Cruel treatment of people because of their beliefs or who they are.",
+    type:"morph",
+    tiles:[["per-","thoroughly, all the way"],["secu","to follow"],["-tion","the act of"]],
+    decoys:[["re-","again, back"],["-ance","the state / act of"],["con-","together, completely"]],
+    note:"Latin <i>persequi</i>: <i>per-</i> (thoroughly) + <i>sequi</i> (to follow), to hunt down. Same root in <b>sequence</b> and <b>consecutive</b>. The <b>persecution</b> of Christians ended in 313 CE.",
+    apply:[
+      { id:"ap_per_scn", type:"scenario",
+        q:"Several emperors ordered Christians to be hunted down and executed because they refused to worship the emperor. This was…",
+        a:"Persecution", opts:["Persecution","Toleration","Celebration","Election"],
+        explain:"<i>per-</i> (thoroughly) + <i>secu</i> (to follow) + <i>-tion</i>: hunting people down for their beliefs." },
+      { id:"ap_per_cloze", type:"cloze",
+        before:"The", after:"of Christians ended when Emperor Constantine made Christianity legal in 313 CE.",
+        a:"persecution", opts:["persecution","toleration","foundation","expansion"],
+        explain:"Cruel treatment for beliefs: persecution." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b32_actual", kind:"build", w:"actual", tiles:[["act","to do"],["-ual","relating to"]], decoys:[["-ion","the act of"],["re-","again, back"]],
+        meaning:"real, really happening." },
+      { id:"b32_sequence", kind:"mcq", q:"<b>sequ</b> or <b>secu</b> in &lsquo;sequence&rsquo; and &lsquo;persecution&rsquo; means…", a:"to follow", opts:["to follow","to bind","to bear","to pray"],
+        explain:"A sequence is things following each other." },
+      { id:"b32_313", kind:"mcq", q:"In what year did Emperor Constantine make Christianity legal?", a:"313 CE", opts:["313 CE","753 BCE","27 BCE","476 CE"],
+        explain:"Christianity became the state religion of the Empire in 391 CE." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s32_tolerance", kind:"build", w:"tolerance", tiles:[["toler","to bear, to put up with"],["-ance","the state / act of"]], decoys:[["-ion","the act of"],["re-","again, back"]],
+        meaning:"being willing to accept beliefs or ways different from your own.",
+        explain:"<i>toler</i> + <i>-ance</i>: the state of putting up with difference." },
+      { id:"s32_consecutive", kind:"mcq", q:"Word alchemy: <i>secu</i> means to follow. Three <b>consecutive</b> days are days that…", a:"follow one after another", opts:["follow one after another","are holidays","are far apart","are all the same"],
+        explain:"<i>con-</i> (together) + <i>secu</i> (follow): following on together." } ] },
+},
+
+/* ================= 4.1 ROMAN LAW ================= */
+{ id:"4.1", topic:"Topic 4 · Law, Force and Technology", title:"Roman Law",
+  focus:"In 450 BCE Rome wrote its laws on twelve bronze tables in the Forum, so everyone could read them. Fair for everyone, or fairer for some?",
+  words:[
+  { w:"Legal", pos:"adjective", domain:"hazard",
+    meaning:"Allowed by the law, or to do with the law.",
+    type:"morph",
+    tiles:[["leg","law"],["-al","relating to"]],
+    decoys:[["privi","private, for one person"],["-ion","the act of"],["il-","not"]],
+    note:"Latin <i>lex, leg-</i>, law. Same root in <b>privilege</b> (lesson 2.2) and <b>legislate</b>. The Twelve Tables made Roman <b>legal</b> rights public.",
+    apply:[
+      { id:"ap_leg2_desc", type:"desc",
+        q:"Something that is allowed by the law is…",
+        a:"Legal", opts:["Legal","Loyal","Lethal","Local"],
+        explain:"<i>leg</i> (law) + <i>-al</i> (relating to)." },
+      { id:"ap_leg2_cloze", type:"cloze",
+        before:"The Twelve Tables set out the", after:"rights of citizens, so judges could not invent the law.",
+        a:"legal", opts:["legal","civic","royal","military"],
+        explain:"Rights set by the law: legal rights." } ] },
+
+  { w:"Magistrate", pos:"noun", domain:"hazard",
+    meaning:"An official who carries out the law and judges cases.",
+    type:"morph",
+    tiles:[["magistr","master, chief"],["-ate","an office, a body of officials"]],
+    decoys:[["sen","old, elder"],["-ion","the act of"],["leg","law"]],
+    note:"Latin <i>magistratus</i>, from <i>magister</i>, master. Same root in <b>master</b>. Written laws stopped <b>magistrates</b> from interpreting the law unfairly.",
+    apply:[
+      { id:"ap_mag_scn", type:"scenario",
+        q:"A Roman official hears a case about a debt and decides what the law says should happen. He is a…",
+        a:"Magistrate", opts:["Magistrate","Gladiator","Centurion","Merchant"],
+        explain:"<i>magistr</i> (master) + <i>-ate</i> (office): an official in charge of the law." },
+      { id:"ap_mag_cloze", type:"cloze",
+        before:"Before the laws were written down, a", after:"could interpret the law to suit the patricians.",
+        a:"magistrate", opts:["magistrate","peasant","slave","gladiator"],
+        explain:"The official who carries out the law: a magistrate." } ] },
+
+  { w:"Debtor", pos:"noun", domain:"people",
+    meaning:"A person who owes money.",
+    type:"morph",
+    tiles:[["debt","what is owed"],["-or","one who"]],
+    decoys:[["-ion","the act of"],["re-","again, back"],["-ate","to do, to make"]],
+    note:"Latin <i>debere</i>, to owe. The <i>b</i> in <b>debt</b> is silent: English writers added it back in the 1500s to show the Latin. Table III of the Twelve Tables gave a <b>debtor</b> 30 days to pay.",
+    apply:[
+      { id:"ap_deb_desc", type:"desc",
+        q:"A person who owes money to someone else is a…",
+        a:"Debtor", opts:["Debtor","Creditor","Senator","Founder"],
+        explain:"<i>debt</i> (what is owed) + <i>-or</i> (one who). The person owed the money is the creditor." },
+      { id:"ap_deb_cloze", type:"cloze",
+        before:"Under the Twelve Tables, a", after:"who had not paid after 30 days could be arrested.",
+        a:"debtor", opts:["debtor","consul","founder","colony"],
+        explain:"One who owes money: a debtor." } ] },
+
+  { w:"Bribery", pos:"noun", domain:"hazard",
+    meaning:"Offering money or gifts to someone so they will do something dishonest for you.",
+    type:"origin",
+    originQ:"The word 'bribe' comes from an old French word meaning…",
+    originOpts:["a piece of bread given to a beggar","a golden coin","a promise to the gods","a law about money"],
+    originA:"a piece of bread given to a beggar",
+    note:"Old French <i>bribe</i>, a lump of bread given to a beggar. Over centuries it came to mean a payment to buy someone's help. Roman citizens were meant to be equal under the law, but the rich could use <b>bribery</b>.",
+    apply:[
+      { id:"ap_bri_scn", type:"scenario",
+        q:"A rich Roman secretly pays a magistrate to decide a case in his favour. This is…",
+        a:"Bribery", opts:["Bribery","Debt","Tolerance","Commerce"],
+        explain:"Paying someone to act dishonestly: bribery." },
+      { id:"ap_bri_cloze", type:"cloze",
+        before:"All citizens had the same rights under the law, but the rich could use", after:"to get an advantage.",
+        a:"bribery", opts:["bribery","geography","ritual","alliance"],
+        explain:"Buying unfair help: bribery." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b41_actor", kind:"build", w:"actor", tiles:[["act","to do, to perform"],["-or","one who"]], decoys:[["-al","relating to"],["re-","again, back"]],
+        meaning:"one who acts in a play." },
+      { id:"b41_illegal", kind:"mcq", q:"<b>il-</b> in &lsquo;illegal&rsquo; means…", a:"not", opts:["not","very","before","again"],
+        explain:"<i>in-</i> (not) changes to <i>il-</i> before an <i>l</i>: illegal, illogical." },
+      { id:"b41_tables", kind:"mcq", q:"Why were the Twelve Tables put up in the Forum?", a:"so everyone could read the law", opts:["so everyone could read the law","to honour the gods","to show off Roman bronze","to record battles"],
+        explain:"A written, public law is harder to twist." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s41_illegal", kind:"build", w:"illegal", tiles:[["il-","not"],["leg","law"],["-al","relating to"]], decoys:[["re-","again, back"],["-ion","the act of"]],
+        meaning:"against the law.",
+        explain:"<i>il-</i> (not) + <i>leg</i> (law) + <i>-al</i>." },
+      { id:"s41_legislate", kind:"mcq", q:"Word alchemy: <i>leg</i> means law. To <b>legislate</b> is to…", a:"make laws", opts:["make laws","break laws","read laws aloud","pay a fine"],
+        explain:"<i>leg</i> (law) + <i>lat</i> (to bring): to bring in laws." } ] },
+},
+
+/* ================= 4.2 ROMAN TECHNOLOGY ================= */
+{ id:"4.2", topic:"Topic 4 · Law, Force and Technology", title:"Roman Technology",
+  focus:"84,000 km of roads, aqueducts, baths. How did Roman technology hold a huge empire together?",
+  words:[
+  { w:"Aqueduct", pos:"noun", domain:"water",
+    meaning:"A channel or bridge built to carry water from a distant source into a town.",
+    type:"morph",
+    tiles:[["aque","water"],["duct","to lead, to carry"]],
+    decoys:[["port","to carry"],["terr","land, earth"],["-ion","the act of"]],
+    note:"Latin <i>aqua</i>, water, + <i>ducere</i>, to lead. Same <i>duct</i> in <b>conduct</b> and <b>product</b>. An <b>aqueduct</b> sloped gently downhill so gravity carried the water. Some Roman aqueducts still work.",
+    apply:[
+      { id:"ap_aqu_scn", type:"scenario",
+        q:"The Romans built a long, gently sloping channel to bring fresh water from the hills into the city. This was an…",
+        a:"Aqueduct", opts:["Aqueduct","Amphitheatre","Archway","Arena"],
+        explain:"<i>aque</i> (water) + <i>duct</i> (to lead): a water-leader." },
+      { id:"ap_aqu_cloze", type:"cloze",
+        before:"Without the", after:", Roman cities could not have had fresh water for drinking and for the baths.",
+        a:"aqueduct", opts:["aqueduct","senate","legion","colony"],
+        explain:"The structure that carried water: the aqueduct." } ] },
+
+  { w:"Technology", pos:"noun", domain:"water",
+    meaning:"Using knowledge and tools to make things or solve practical problems.",
+    type:"morph",
+    tiles:[["techno","skill, craft"],["-logy","the study / knowledge of"]],
+    decoys:[["geo-","earth, land"],["graph","to write, to describe"],["-ity","the state of"]],
+    note:"Greek <i>techne</i>, skill or craft, + <i>-logia</i>, study. Roman <b>technology</b>, roads, aqueducts, concrete, helped Rome control its territory.",
+    apply:[
+      { id:"ap_tec_desc", type:"desc",
+        q:"Roads, aqueducts, concrete and underfloor heating are all examples of Roman…",
+        a:"Technology", opts:["Technology","Mythology","Geography","Chronology"],
+        explain:"<i>techno</i> (skill, craft) + <i>-logy</i> (knowledge of)." },
+      { id:"ap_tec_cloze", type:"cloze",
+        before:"Roman", after:"such as roads let the army reach any part of the empire quickly.",
+        a:"technology", opts:["technology","religion","mythology","citizenship"],
+        explain:"Practical skills and tools: technology." } ] },
+
+  { w:"Innovation", pos:"noun", domain:"water",
+    meaning:"A new idea, method or invention.",
+    type:"morph",
+    tiles:[["in-","into"],["nov","new"],["-ation","the process of"]],
+    decoys:[["re-","again, back"],["-ment","the result / act of"],["ex-","out"]],
+    note:"Latin <i>innovare</i>, to make new: <i>in-</i> + <i>novus</i> (new). Same <i>nov</i> in <b>novel</b> and <b>novice</b>. Aqueducts were a major Roman <b>innovation</b>.",
+    apply:[
+      { id:"ap_inn_scn", type:"scenario",
+        q:"The Romans invented a new kind of concrete that could even set under water. This was an…",
+        a:"Innovation", opts:["Innovation","Invasion","Inheritance","Inscription"],
+        explain:"<i>in-</i> + <i>nov</i> (new) + <i>-ation</i>: the process of making something new." },
+      { id:"ap_inn_cloze", type:"cloze",
+        before:"Aqueducts were a major Roman", after:"that brought fresh water to cities.",
+        a:"innovation", opts:["innovation","rebellion","religion","persecution"],
+        explain:"A new invention: an innovation." } ] },
+
+  { w:"Engineer", pos:"noun", domain:"water",
+    meaning:"A person who designs and builds roads, bridges, machines or buildings.",
+    type:"morph",
+    tiles:[["engin","clever device, machine"],["-eer","one who works with"]],
+    decoys:[["-ion","the act of"],["techno","skill, craft"],["re-","again, back"]],
+    note:"Latin <i>ingenium</i>, cleverness, through <i>engine</i>, a clever device. The Romans had no power tools or cranes like ours, yet their <b>engineers</b> built roads and buildings that still stand.",
+    apply:[
+      { id:"ap_eng_desc", type:"desc",
+        q:"The person who planned a Roman bridge and worked out how it would stand up was an…",
+        a:"Engineer", opts:["Engineer","Emperor","Envoy","Enemy"],
+        explain:"<i>engin</i> (clever device) + <i>-eer</i> (one who works with)." },
+      { id:"ap_eng_cloze", type:"cloze",
+        before:"Before building a road, a Roman", after:"surveyed the land so the road would run as straight as possible.",
+        a:"engineer", opts:["engineer","senator","peasant","debtor"],
+        explain:"The designer and builder: the engineer." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b42_aqua", kind:"mcq", q:"<b>aqua</b> or <b>aque</b> in &lsquo;aquarium&rsquo; and &lsquo;aqueduct&rsquo; means…", a:"water", opts:["water","air","stone","road"],
+        explain:"An aquarium is a place for water creatures." },
+      { id:"b42_conduct", kind:"build", w:"conduct", tiles:[["con-","together, completely"],["duct","to lead"]], decoys:[["aque","water"],["-al","relating to"]],
+        meaning:"to lead or guide, as a conductor leads an orchestra." },
+      { id:"b42_gravity", kind:"mcq", q:"How did water move along an aqueduct?", a:"gravity pulled it down a gentle slope", opts:["gravity pulled it down a gentle slope","slaves carried it in buckets","pumps pushed it uphill","horses pulled carts"],
+        explain:"The channel dropped a little all the way from the source to the city." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s42_renovate", kind:"build", w:"renovate", tiles:[["re-","again, back"],["nov","new"],["-ate","to do, to make"]], decoys:[["in-","into"],["-ion","the act of"]],
+        meaning:"to make an old building new again.",
+        explain:"<i>re-</i> (again) + <i>nov</i> (new) + <i>-ate</i> (to make)." },
+      { id:"s42_ingenious", kind:"mcq", q:"Word alchemy: <i>engineer</i> comes from <i>ingenium</i>, cleverness. An <b>ingenious</b> plan is…", a:"clever and inventive", opts:["clever and inventive","dangerous","very old","made of iron"],
+        explain:"The same root as engine and engineer." } ] },
+},
+
+/* ================= 4.3 THE ROMAN ARMY ================= */
+{ id:"4.3", topic:"Topic 4 · Law, Force and Technology", title:"The Roman Army",
+  focus:"Eight men to a tent, eighty to a century, six thousand to a legion, 32 km a day in full armour. Why was the Roman army so hard to beat?",
+  words:[
+  { w:"Legion", pos:"noun", domain:"water",
+    meaning:"The main unit of the Roman army, of about 6,000 soldiers.",
+    type:"morph",
+    tiles:[["leg","to choose, to gather"],["-ion","the act of"]],
+    decoys:[["cent","a hundred"],["-ate","an office, a body of officials"],["-ary","relating to"]],
+    note:"Latin <i>legio</i>, a choosing, from <i>legere</i>, to choose. Not the same <i>leg</i> as law (lesson 4.1): same letters, different root. A <b>legion</b> was ten cohorts, about 6,000 men.",
+    apply:[
+      { id:"ap_lgn_scn", type:"scenario",
+        q:"Ten cohorts of about 600 men together made one…",
+        a:"Legion", opts:["Legion","Century","Colony","Senate"],
+        explain:"<i>leg</i> (to choose) + <i>-ion</i>: a body of chosen men, about 6,000." },
+      { id:"ap_lgn_cloze", type:"cloze",
+        before:"Each", after:"was commanded by a legate, appointed from Rome.",
+        a:"legion", opts:["legion","colony","tent party","temple"],
+        explain:"The army's main unit: the legion." } ] },
+
+  { w:"Centurion", pos:"noun", domain:"water",
+    meaning:"An officer who commanded a century, a unit of 80 to 100 Roman soldiers.",
+    type:"origin",
+    originQ:"The word 'centurion' comes from a Latin word meaning…",
+    originOpts:["the leader of a hundred","a soldier on a horse","a citizen of Rome","a man of the Senate"],
+    originA:"the leader of a hundred",
+    note:"Latin <i>centurio</i>, from <i>centuria</i>, a group of a hundred, from <i>centum</i>, a hundred. Same <i>cent</i> in <b>century</b> and <b>per cent</b>. The <i>-ion</i> here is not the usual &lsquo;act of&rsquo;: in Latin <i>-io</i> could mean the person in charge, which is why this word is not cut into tiles. A <b>centurion</b> led about 80 men.",
+    apply:[
+      { id:"ap_cen_desc", type:"desc",
+        q:"The officer in charge of a century of 80 to 100 soldiers was a…",
+        a:"Centurion", opts:["Centurion","Senator","Consul","Gladiator"],
+        explain:"<i>centur</i> (a group of a hundred) + <i>-ion</i>: the one who leads it." },
+      { id:"ap_cen_cloze", type:"cloze",
+        before:"The senior", after:"of the six centuries took command of the whole cohort.",
+        a:"centurion", opts:["centurion","senator","peasant","merchant"],
+        explain:"The commander of a century: a centurion." } ] },
+
+  { w:"Auxiliary", pos:"noun", domain:"water",
+    meaning:"A soldier who helps the main army, often from a conquered people and not a Roman citizen.",
+    type:"morph",
+    tiles:[["auxili","help"],["-ary","relating to"]],
+    decoys:[["cent","a hundred"],["-ion","the act of"],["-ate","an office, a body of officials"]],
+    note:"Latin <i>auxilium</i>, help. <b>Auxiliaries</b>, archers, slingers, horsemen, were recruited locally. After 25 years of service an auxiliary could become a Roman citizen.",
+    apply:[
+      { id:"ap_aux_scn", type:"scenario",
+        q:"A slinger from a conquered island joins the Roman army to support the legions. He is not yet a citizen. He is an…",
+        a:"Auxiliary", opts:["Auxiliary","Aristocrat","Ally","Apprentice"],
+        explain:"<i>auxili</i> (help) + <i>-ary</i>: a helper of the army." },
+      { id:"ap_aux_cloze", type:"cloze",
+        before:"After 25 years of service, an", after:"soldier could become a citizen of Rome.",
+        a:"auxiliary", opts:["auxiliary","aristocratic","imperial","civic"],
+        explain:"A helping soldier, often from outside Rome: an auxiliary." } ] },
+
+  { w:"Discipline", pos:"noun", domain:"water",
+    meaning:"Training people to follow rules and orders, and punishing them if they do not.",
+    type:"morph",
+    tiles:[["discipl","a learner, a pupil"],["-ine","the practice of"]],
+    decoys:[["-ion","the act of"],["re-","again, back"],["-ary","relating to"]],
+    note:"Latin <i>disciplina</i>, teaching, from <i>discipulus</i>, a pupil. Same root in <b>disciple</b>. The Roman army was one of the most <b>disciplined</b> fighting forces that has ever existed.",
+    apply:[
+      { id:"ap_dis_desc", type:"desc",
+        q:"Soldiers who march 32 km a day in step, obey every order and train until they act as one show strong…",
+        a:"Discipline", opts:["Discipline","Rebellion","Tolerance","Commerce"],
+        explain:"<i>discipl</i> (learner) + <i>-ine</i>: the practice of training and obeying." },
+      { id:"ap_dis_cloze", type:"cloze",
+        before:"Strict", after:"helped the Roman army keep its formation in battle.",
+        a:"discipline", opts:["discipline","religion","commerce","geography"],
+        explain:"Training to follow orders: discipline." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b43_century", kind:"build", w:"century", tiles:[["cent","a hundred"],["-ury","a group of"]], decoys:[["-ion","the act of"],["-ary","relating to"]],
+        meaning:"a hundred years, or in Rome a unit of about a hundred soldiers." },
+      { id:"b43_cent", kind:"mcq", q:"<b>cent</b> in &lsquo;century&rsquo;, &lsquo;centurion&rsquo; and &lsquo;per cent&rsquo; means…", a:"a hundred", opts:["a hundred","a thousand","a soldier","a coin"],
+        explain:"Latin <i>centum</i>, a hundred. A cent is one hundredth of a dollar." },
+      { id:"b43_tent", kind:"mcq", q:"About how many men were in a Roman legion?", a:"about 6,000", opts:["about 6,000","about 80","about 600","about 60,000"],
+        explain:"8 men to a tent party, about 80 to a century, 600 to a cohort, 6,000 to a legion." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s43_centennial", kind:"build", w:"centennial", tiles:[["cent","a hundred"],["enn","year"],["-ial","relating to"]], decoys:[["leg","to choose, to gather"],["-ary","relating to"]],
+        meaning:"relating to a hundredth anniversary.",
+        explain:"<i>cent</i> (hundred) + <i>enn</i> (year, from <i>annus</i>) + <i>-ial</i>." },
+      { id:"s43_disciple", kind:"mcq", q:"Word alchemy: <i>discipline</i> comes from <i>discipulus</i>, a pupil. A <b>disciple</b> is…", a:"a follower who learns from a teacher", opts:["a follower who learns from a teacher","a soldier's punishment","an army officer","a Roman law"],
+        explain:"The same root: a learner." } ] },
+},
+
+/* ================= 5.1 THE SPREADING EMPIRE ================= */
+{ id:"5.1", topic:"Topic 5 · Conquest, Conflict and Dictators", title:"The Spreading Empire",
+  focus:"Carthage, Hannibal and forty elephants over the Alps. How did Rome go from ruling Italy to ruling the Mediterranean?",
+  words:[
+  { w:"Expansion", pos:"noun", domain:"earth",
+    meaning:"Growing larger, especially by taking more land.",
+    type:"morph",
+    tiles:[["ex-","out"],["pans","to spread"],["-ion","the act of"]],
+    decoys:[["in-","into"],["vas","to go"],["-ment","the result / act of"]],
+    note:"Latin <i>expandere</i>: <i>ex-</i> (out) + <i>pandere</i> (to spread). Rome's <b>expansion</b> reached its greatest extent in the second century CE.",
+    apply:[
+      { id:"ap_exp_scn", type:"scenario",
+        q:"Between 272 BCE and the second century CE, Rome went from ruling Italy to ruling lands around the whole Mediterranean. This growth is called…",
+        a:"Expansion", opts:["Expansion","Explosion","Exception","Expression"],
+        explain:"<i>ex-</i> (out) + <i>pans</i> (to spread) + <i>-ion</i>: spreading out." },
+      { id:"ap_exp_cloze", type:"cloze",
+        before:"The Punic Wars were a major step in Rome's", after:"across the Mediterranean.",
+        a:"expansion", opts:["expansion","religion","settlement","discipline"],
+        explain:"Spreading out over more land: expansion." } ] },
+
+  { w:"Territory", pos:"noun", domain:"earth",
+    meaning:"An area of land controlled by a ruler or a state.",
+    type:"morph",
+    tiles:[["terr","land, earth"],["-itory","a place belonging to"]],
+    decoys:[["geo-","earth, land"],["-ary","relating to"],["pans","to spread"]],
+    note:"Latin <i>territorium</i>, the land around a town, from <i>terra</i>, land. Same root in <b>terrain</b> and <b>Mediterranean</b> (in the middle of the land). Winning the First Punic War gave Rome the <b>territory</b> of Sicily and Sardinia.",
+    apply:[
+      { id:"ap_ter_desc", type:"desc",
+        q:"An area of land that a ruler or state controls is its…",
+        a:"Territory", opts:["Territory","Treaty","Tribute","Temple"],
+        explain:"<i>terr</i> (land) + <i>-itory</i> (a place belonging to)." },
+      { id:"ap_ter_cloze", type:"cloze",
+        before:"As Rome's", after:"grew, so did the problem of controlling it from one city.",
+        a:"territory", opts:["territory","senate","religion","commerce"],
+        explain:"The land Rome controlled: its territory." } ] },
+
+  { w:"Invasion", pos:"noun", domain:"earth",
+    meaning:"An army entering another country by force to attack it or take it over.",
+    type:"morph",
+    tiles:[["in-","into"],["vas","to go"],["-ion","the act of"]],
+    decoys:[["ex-","out"],["pans","to spread"],["-ment","the result / act of"]],
+    note:"Latin <i>invadere</i>: <i>in-</i> (into) + <i>vadere</i> (to go). Hannibal's <b>invasion</b> of Italy began the Second Punic War in 218 BCE.",
+    apply:[
+      { id:"ap_inv_scn", type:"scenario",
+        q:"In 218 BCE Hannibal led his army, with elephants, over the Alps and into Italy to attack Rome. This was an…",
+        a:"Invasion", opts:["Invasion","Innovation","Alliance","Election"],
+        explain:"<i>in-</i> (into) + <i>vas</i> (to go) + <i>-ion</i>: going into a land by force." },
+      { id:"ap_inv_cloze", type:"cloze",
+        before:"Hannibal's", after:"of Italy surprised Rome, because nobody expected an army to cross the Alps.",
+        a:"invasion", opts:["invasion","innovation","religion","alliance"],
+        explain:"Entering by force: an invasion." } ] },
+
+  { w:"Strategy", pos:"noun", domain:"earth",
+    meaning:"A long-term plan for winning a war or reaching a goal.",
+    type:"morph",
+    tiles:[["strat","army"],["-egy","leading, the art of"]],
+    decoys:[["techno","skill, craft"],["-ary","relating to"],["-ion","the act of"]],
+    note:"Greek <i>strategos</i>, a general: <i>stratos</i> (army) + <i>agein</i> (to lead). Fabius Maximus's <b>strategy</b> was to avoid big battles with Hannibal and wear him down instead.",
+    apply:[
+      { id:"ap_str_desc", type:"desc",
+        q:"Rome decided to avoid open battles with Hannibal and attack Carthage's lands instead. This long-term plan was a…",
+        a:"Strategy", opts:["Strategy","Ceremony","Treaty","Rebellion"],
+        explain:"<i>strat</i> (army) + <i>-egy</i> (leading): the art of leading an army." },
+      { id:"ap_str_cloze", type:"cloze",
+        before:"Attacking Carthage at home was a", after:"that forced Hannibal to leave Italy.",
+        a:"strategy", opts:["strategy","ritual","privilege","colony"],
+        explain:"A plan to win the war: a strategy." } ] },
+  ],
+  base:{ intro:"The parts inside this lesson's words, on easier words first.",
+    items:[
+      { id:"b51_export", kind:"build", w:"export", tiles:[["ex-","out"],["port","to carry"]], decoys:[["in-","into"],["-ion","the act of"]],
+        meaning:"to send goods out to another country." },
+      { id:"b51_terra", kind:"mcq", q:"<b>terr</b> in &lsquo;territory&rsquo; and &lsquo;terrain&rsquo; means…", a:"land, earth", opts:["land, earth","fear","water","army"],
+        explain:"Latin <i>terra</i>. (Terror comes from a different root, meaning fear.)" },
+      { id:"b51_punic", kind:"mcq", q:"Which city did Rome fight in the Punic Wars?", a:"Carthage", opts:["Carthage","Athens","Veii","Capua"],
+        explain:"A powerful North African trading city with colonies around the Mediterranean." } ] },
+  stretch:{ intro:"Same roots, harder words.",
+    items:[
+      { id:"s51_mediterranean", kind:"build", w:"Mediterranean", tiles:[["medi","middle"],["terr","land, earth"],["-anean","relating to"]], decoys:[["in-","into"],["-ion","the act of"]],
+        meaning:"the sea in the middle of the land, between Europe, Africa and Asia.",
+        explain:"Latin <i>medius</i> (middle) + <i>terra</i> (land)." },
+      { id:"s51_evade", kind:"mcq", q:"Word alchemy: <i>vas</i> or <i>vad</i> means to go. To <b>evade</b> someone is to…", a:"go out of their way, escape them", opts:["go out of their way, escape them","attack them","make an alliance with them","pay them"],
+        explain:"<i>e-</i> (out) + <i>vad</i> (to go)." } ] },
+},
+];
+
+/* ---------------- KEY-WORD TRANSLATIONS ----------------
+   The Year 7 EAL languages. Shown on study cards and build reveals when a
+   language is chosen, preteaching is scaffolded in the home language, but
+   the practice tasks stay in English. */
+const LANGS = [
+  ["zh","中文（简体）· Mandarin"],
+  ["yue","中文（繁體）· Cantonese"],
+  ["vi","Tiếng Việt · Vietnamese"],
+  ["ar","العربية · Arabic"],
+  ["fa","فارسی · Farsi"],
+  ["ur","اردو · Urdu"],
+  ["am","አማርኛ · Amharic"],
+  ["ml","മലയാളം · Malayalam"],
+];
+const RTL = { ar:1, fa:1, ur:1 };
+const TR = {
+"Myth":{zh:"神话",yue:"神話",vi:"thần thoại",ar:"أسطورة",fa:"اسطوره",ur:"اساطیر (دیومالا)",am:"አፈ ታሪክ",ml:"പുരാണകഥ"},
+"Legend":{zh:"传说",yue:"傳說",vi:"truyền thuyết",ar:"حكاية تراثية",fa:"افسانه",ur:"لوک داستان",am:"ጥንታዊ ትውፊት",ml:"ഐതിഹ്യം"},
+"Founder":{zh:"创建者",yue:"創建者",vi:"người sáng lập",ar:"مؤسِّس",fa:"بنیان‌گذار",ur:"بانی",am:"መሥራች",ml:"സ്ഥാപകൻ"},
+"Empire":{zh:"帝国",yue:"帝國",vi:"đế quốc",ar:"إمبراطورية",fa:"امپراتوری",ur:"سلطنت",am:"ኢምፓየር (ግዛተ አፄ)",ml:"സാമ്രാജ്യം"},
+"Geography":{zh:"地理",yue:"地理",vi:"địa lý",ar:"الجغرافيا",fa:"جغرافیا",ur:"جغرافیہ",am:"ጂኦግራፊ (መልክዓ ምድር)",ml:"ഭൂമിശാസ്ത്രം"},
+"Settlement":{zh:"定居点",yue:"定居點",vi:"khu định cư",ar:"مستوطنة",fa:"سکونتگاه",ur:"بستی",am:"መኖሪያ ሰፈር",ml:"ജനവാസകേന്ദ്രം"},
+"Peninsula":{zh:"半岛",yue:"半島",vi:"bán đảo",ar:"شبه جزيرة",fa:"شبه‌جزیره",ur:"جزیرہ نما",am:"ባሕረ ገብ መሬት",ml:"ഉപദ്വീപ്"},
+"Commerce":{zh:"商业贸易",yue:"商業貿易",vi:"thương mại",ar:"التجارة",fa:"بازرگانی",ur:"تجارت",am:"ንግድ",ml:"വാണിജ്യം"},
+"Alliance":{zh:"联盟",yue:"聯盟",vi:"liên minh",ar:"تحالف",fa:"اتحاد",ur:"اتحاد",am:"ኅብረት",ml:"സഖ്യം"},
+"Conquer":{zh:"征服",yue:"征服",vi:"chinh phục",ar:"يغزو (يفتح)",fa:"فتح کردن",ur:"فتح کرنا",am:"መውረር (ድል ማድረግ)",ml:"കീഴടക്കുക"},
+"Colony":{zh:"殖民地",yue:"殖民地",vi:"thuộc địa",ar:"مستعمرة",fa:"مستعمره",ur:"نوآبادی",am:"ቅኝ ግዛት",ml:"കോളനി"},
+"Cavalry":{zh:"骑兵",yue:"騎兵",vi:"kỵ binh",ar:"سلاح الفرسان",fa:"سواره‌نظام",ur:"گھڑ سوار فوج",am:"ፈረሰኛ ጦር",ml:"കുതിരപ്പട"},
+"Citizen":{zh:"公民",yue:"公民",vi:"công dân",ar:"مواطن",fa:"شهروند",ur:"شہری",am:"ዜጋ",ml:"പൗരൻ"},
+"Patrician":{zh:"贵族（罗马）",yue:"貴族（羅馬）",vi:"quý tộc La Mã",ar:"نبيل روماني (بطريقي)",fa:"اشراف‌زاده رومی",ur:"رومی امیر طبقہ",am:"የሮማ መኳንንት",ml:"റോമൻ പ്രഭു"},
+"Plebeian":{zh:"平民（罗马）",yue:"平民（羅馬）",vi:"thường dân La Mã",ar:"عامّة الشعب الروماني",fa:"عوام رومی",ur:"رومی عوام",am:"የሮማ ተራ ሕዝብ",ml:"റോമൻ സാധാരണക്കാരൻ"},
+"Aristocrat":{zh:"贵族",yue:"貴族",vi:"quý tộc",ar:"أرستقراطي",fa:"اشراف",ur:"امیر (اشرافیہ)",am:"መኳንንት",ml:"പ്രഭു"},
+"Privilege":{zh:"特权",yue:"特權",vi:"đặc quyền",ar:"امتياز",fa:"امتیاز ویژه",ur:"استحقاق",am:"ልዩ መብት",ml:"പ്രത്യേകാവകാശം"},
+"Responsibility":{zh:"责任",yue:"責任",vi:"trách nhiệm",ar:"مسؤولية",fa:"مسئولیت",ur:"ذمہ داری",am:"ኃላፊነት",ml:"ഉത്തരവാദിത്തം"},
+"Mobility":{zh:"流动性",yue:"流動性",vi:"sự dịch chuyển",ar:"الحراك",fa:"تحرک",ur:"نقل و حرکت",am:"የመንቀሳቀስ ዕድል",ml:"ചലനശേഷി"},
+"Civic":{zh:"公民的",yue:"公民的",vi:"thuộc về công dân",ar:"مدني",fa:"مدنی",ur:"شہری (حقوق)",am:"የዜግነት",ml:"പൗരസംബന്ധമായ"},
+"Peasant":{zh:"农民",yue:"農民",vi:"nông dân",ar:"فلاح",fa:"دهقان",ur:"کسان",am:"ገበሬ",ml:"കർഷകൻ"},
+"Rebellion":{zh:"叛乱",yue:"叛亂",vi:"cuộc nổi loạn",ar:"تمرد",fa:"شورش",ur:"بغاوت",am:"አመጽ",ml:"കലാപം"},
+"Gladiator":{zh:"角斗士",yue:"角鬥士",vi:"đấu sĩ",ar:"مصارع",fa:"گلادیاتور",ur:"گلیڈی ایٹر (تلوار باز)",am:"ግላዲያተር",ml:"ഗ്ലാഡിയേറ്റർ"},
+"Unemployed":{zh:"失业的",yue:"失業的",vi:"thất nghiệp",ar:"عاطل عن العمل",fa:"بیکار",ur:"بے روزگار",am:"ሥራ አጥ",ml:"തൊഴിൽരഹിതൻ"},
+"Republic":{zh:"共和国",yue:"共和國",vi:"nền cộng hòa",ar:"جمهورية",fa:"جمهوری",ur:"جمہوریہ",am:"ሪፐብሊክ",ml:"റിപ്പബ്ലിക്"},
+"Senate":{zh:"元老院",yue:"元老院",vi:"Viện Nguyên lão",ar:"مجلس الشيوخ",fa:"مجلس سنا",ur:"سینیٹ",am:"የሽማግሌዎች ምክር ቤት (ሴኔት)",ml:"സെനറ്റ്"},
+"Emperor":{zh:"皇帝",yue:"皇帝",vi:"hoàng đế",ar:"إمبراطور",fa:"امپراتور",ur:"شہنشاہ",am:"ንጉሠ ነገሥት",ml:"ചക്രവർത്തി"},
+"Dictator":{zh:"独裁者",yue:"獨裁者",vi:"nhà độc tài",ar:"دكتاتور",fa:"دیکتاتور",ur:"آمر",am:"አምባገነን",ml:"ഏകാധിപതി"},
+"Religion":{zh:"宗教",yue:"宗教",vi:"tôn giáo",ar:"دين",fa:"دین",ur:"مذہب",am:"ሃይማኖት",ml:"മതം"},
+"Tolerate":{zh:"容忍",yue:"容忍",vi:"khoan dung",ar:"يتسامح مع",fa:"تحمل کردن",ur:"برداشت کرنا",am:"መታገሥ",ml:"സഹിക്കുക"},
+"Ritual":{zh:"仪式",yue:"儀式",vi:"nghi lễ",ar:"طقس ديني",fa:"آیین",ur:"رسم",am:"ሥርዓተ አምልኮ",ml:"ആചാരം"},
+"Persecution":{zh:"迫害",yue:"迫害",vi:"sự bức hại",ar:"اضطهاد",fa:"آزار و اذیت",ur:"ظلم و ستم",am:"ስደት (ግፍ)",ml:"പീഡനം"},
+"Legal":{zh:"合法的",yue:"合法的",vi:"hợp pháp",ar:"قانوني",fa:"قانونی",ur:"قانونی",am:"ሕጋዊ",ml:"നിയമപരമായ"},
+"Magistrate":{zh:"地方法官",yue:"地方法官",vi:"quan tòa",ar:"قاضٍ (حاكم مدني)",fa:"دادرس",ur:"مجسٹریٹ",am:"ዳኛ",ml:"മജിസ്ട്രേറ്റ്"},
+"Debtor":{zh:"债务人",yue:"債務人",vi:"con nợ",ar:"مَدين",fa:"بدهکار",ur:"مقروض",am:"ባለዕዳ",ml:"കടക്കാരൻ"},
+"Bribery":{zh:"贿赂",yue:"賄賂",vi:"hối lộ",ar:"رشوة",fa:"رشوه",ur:"رشوت",am:"ጉቦ",ml:"കൈക്കൂലി"},
+"Aqueduct":{zh:"引水渠",yue:"引水渠",vi:"cầu dẫn nước",ar:"قناة مياه",fa:"آبراه",ur:"آبی گزرگاہ",am:"የውኃ ማስተላለፊያ ቦይ",ml:"ജലവാഹിനി"},
+"Technology":{zh:"技术",yue:"技術",vi:"công nghệ",ar:"تكنولوجيا",fa:"فناوری",ur:"ٹیکنالوجی",am:"ቴክኖሎጂ",ml:"സാങ്കേതികവിദ്യ"},
+"Innovation":{zh:"创新",yue:"創新",vi:"sự đổi mới",ar:"ابتكار",fa:"نوآوری",ur:"جدت",am:"ፈጠራ",ml:"നൂതനാശയം"},
+"Engineer":{zh:"工程师",yue:"工程師",vi:"kỹ sư",ar:"مهندس",fa:"مهندس",ur:"انجینئر",am:"መሐንዲስ",ml:"എഞ്ചിനീയർ"},
+"Legion":{zh:"军团",yue:"軍團",vi:"quân đoàn",ar:"فيلق",fa:"لژیون (لشکر)",ur:"رومی لشکر",am:"ሌጌዎን (ክፍለ ጦር)",ml:"ലീജിയൻ (സൈന്യവിഭാഗം)"},
+"Centurion":{zh:"百夫长",yue:"百夫長",vi:"bách phu trưởng",ar:"قائد مئة",fa:"فرمانده صدنفری",ur:"سو سپاہیوں کا افسر",am:"የመቶ አለቃ",ml:"ശതാധിപൻ"},
+"Auxiliary":{zh:"辅助部队",yue:"輔助部隊",vi:"quân trợ chiến",ar:"جندي مساعد",fa:"نیروی کمکی",ur:"معاون سپاہی",am:"ረዳት ወታደር",ml:"സഹായസൈന്യം"},
+"Discipline":{zh:"纪律",yue:"紀律",vi:"kỷ luật",ar:"انضباط",fa:"انضباط",ur:"نظم و ضبط",am:"ሥነ ሥርዓት",ml:"അച്ചടക്കം"},
+"Expansion":{zh:"扩张",yue:"擴張",vi:"sự bành trướng",ar:"توسع",fa:"گسترش",ur:"توسیع",am:"መስፋፋት",ml:"വികാസം"},
+"Territory":{zh:"领土",yue:"領土",vi:"lãnh thổ",ar:"إقليم",fa:"قلمرو",ur:"علاقہ",am:"ግዛት",ml:"പ്രദേശം"},
+"Invasion":{zh:"入侵",yue:"入侵",vi:"cuộc xâm lược",ar:"غزو",fa:"تهاجم",ur:"حملہ",am:"ወረራ",ml:"ആക്രമണം"},
+"Strategy":{zh:"战略",yue:"戰略",vi:"chiến lược",ar:"استراتيجية",fa:"راهبرد",ur:"حکمت عملی",am:"ስልት",ml:"തന്ത്രം"},
+};
+
+/* ================= INDEXES ================= */
+const LESSON_BY_ID = {}; LESSONS.forEach(l=>LESSON_BY_ID[l.id]=l);
+const ALL_WORDS = []; const WORD_LESSON = {};
+LESSONS.forEach(l=>l.words.forEach(w=>{ ALL_WORDS.push(w); WORD_LESSON[w.w]=l.id; }));
+const ITEM_WORD = {}; // apply item id -> word object
+LESSONS.forEach(l=>l.words.forEach(w=>(w.apply||[]).forEach(it=>ITEM_WORD[it.id]=w)));
+const WORD_BY_NAME = {}; ALL_WORDS.forEach(w=>WORD_BY_NAME[w.w]=w);
+
+/* morpheme index: unique word-parts across every buildable word, typed + with examples */
+function classifyMorph(piece){
+  if(/^-.*-$/.test(piece)) return "connector";   // e.g. -o-
+  if(/^-/.test(piece)) return "suffix";
+  if(/-$/.test(piece)) return "prefix";
+  return "root";
+}
+const MORPHS = [];                 // {piece, gloss, type, examples:[wordName]}
+const MORPH_BY_PIECE = {};
+const MKEY=(p,g)=>p+"\u0000"+g;   // spelling AND meaning: see the header
+LESSONS.forEach(l=>l.words.forEach(w=>(w.tiles||[]).forEach(([p,g])=>{
+  const k=MKEY(p,g);
+  if(!MORPH_BY_PIECE[k]){ const m={piece:p, gloss:g, type:classifyMorph(p), examples:[]}; MORPH_BY_PIECE[k]=m; MORPHS.push(m); }
+  if(MORPH_BY_PIECE[k].examples.indexOf(w.w)<0) MORPH_BY_PIECE[k].examples.push(w.w);
+})));
+const ALL_GLOSSES = [...new Set(MORPHS.map(m=>m.gloss))];
+const MTYPE_LABEL = {prefix:"Prefixes", root:"Roots & base words", suffix:"Suffixes", connector:"Joiners"};
+const MTYPE_ORDER = ["prefix","root","suffix","connector"];
+const MTYPE_LETTER = {prefix:"mp", root:"mr", suffix:"ms", connector:"mc"};
+
+/* Colour a word's own spelling by morpheme role, matching the coloured
+   code-chips in its morph line below: the purple-lab word-list treatment.
+   Falls back to the plain word if a tile can't be found inside it. */
+function colourWord(v){
+  if(v.type==="origin"||!v.tiles?.length) return esc(v.w);
+  let out="", rest=v.w;
+  for(const [piece] of v.tiles){
+    const clean=piece.replace(/-/g,"");
+    const idx=rest.toLowerCase().indexOf(clean.toLowerCase());
+    if(idx===-1) return esc(v.w);
+    out+=esc(rest.slice(0,idx))+`<span class="${MTYPE_LETTER[classifyMorph(piece)]}">${esc(rest.slice(idx,idx+clean.length))}</span>`;
+    rest=rest.slice(idx+clean.length);
+  }
+  return out+esc(rest);
+}
+function morphChips(tiles){
+  return tiles.map(t=>`<code class="${MTYPE_LETTER[classifyMorph(t[0])]}">${esc(t[0])}</code> <i>${esc(t[1])}</i>`).join(" + ");
+}
+const MLEGEND=`<div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix</span><span><i style="background:var(--mroot)"></i>Root</span><span><i style="background:var(--msuf)"></i>Suffix</span><span><i style="background:var(--mcon)"></i>Joiner</span></div>`;
+
+/* ================= STATE ================= */
+/* storage shim: real localStorage as a standalone file / on GitHub Pages;
+   silent in-memory fallback if storage is blocked (e.g. a sandboxed preview). */
+const store = (function(){
+  try{ const k="__aavh_probe"; localStorage.setItem(k,"1"); localStorage.removeItem(k); return localStorage; }
+  catch(e){ const m={}; return { getItem:k=>(k in m?m[k]:null), setItem:(k,v)=>{m[k]=String(v);}, removeItem:k=>{delete m[k];} }; }
+})();
+const KEY = "ancientrome.vocabhub.v1";
+let S = load();
+function blankLesson(){ return { studied:false, buildDone:{}, buildFirst:{}, buildComplete:false,
+  applySample:[], applyFirst:{}, applyDone:false,
+  baseDone:false, baseFirst:{}, stretchDone:false, stretchFirst:{} }; }
+function blank(){ return { name:"", sid:"", lang:"", startedAt:null, lessons:{}, reviews:[], wstat:{} }; }
+function load(){ try{ const s=JSON.parse(store.getItem(KEY)); return (s&&s.lessons)?s:blank(); }catch(e){ return blank(); } }
+function save(){ try{ store.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function L(id){ if(!S.lessons[id]) S.lessons[id]=blankLesson(); return S.lessons[id]; }
+function WS(w){ if(!S.wstat[w]) S.wstat[w]={wrong:0,seen:0,rev:0}; return S.wstat[w]; }
+function resetAll(){ if(confirm("Wipe all your progress, scores and review history?")){ S=blank(); save(); go("home"); } }
+function touchStart(){ if(!S.startedAt){ S.startedAt=Date.now(); save(); } }
+
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function esc(t){ const d=document.createElement("div"); d.textContent=t; return d.innerHTML; }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+let cur = null; // current lesson id
+function go(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("scr-"+id).classList.add("active");
+  window.scrollTo(0,0);
+  updateNav(id);
+  if(id==="home") renderHome();
+  if(id==="report") renderReport();
+  if(id==="morphtable") renderMorphTable();
+  if(id==="glossary") renderGlossary();
+}
+function updateNav(id){
+  const group={morphtable:"morphtable", glossary:"glossary", report:"report"}[id] || "home";
+  document.querySelectorAll(".topnav button").forEach(b=>b.classList.toggle("on", b.dataset.scr===group));
+}
+function goLesson(){ if(cur) openLesson(cur, false); else go("home"); }
+
+/* translations */
+function trSpan(w, big){
+  if(!S.lang || !TR[w]) return "";
+  const t = TR[w][S.lang]; if(!t) return "";
+  return `<span class="wtr${big?" big":""}" ${RTL[S.lang]?'dir="rtl"':""} lang="${esc(S.lang)}">${esc(t)}</span>`;
+}
+
+/* ================= SCORE HELPERS ================= */
+function buildCounts(l){
+  const st=L(l.id);
+  const done=l.words.filter(w=>st.buildDone[w.w]).length;
+  const clean=l.words.filter(w=>st.buildFirst[w.w]===true).length;
+  return {done, clean, total:l.words.length};
+}
+/* apply sample = descriptors: {k:"a",id} authored, or {k:"g",g:type,w:name} generated */
+function applyKey(d){ return d.k==="a" ? d.id : ("g:"+d.g+":"+d.w); }
+function applyItem(d){
+  if(d.k==="a"){ const w=ITEM_WORD[d.id]; return w.apply.find(x=>x.id===d.id); }
+  return genTask(d.g, WORD_BY_NAME[d.w]);
+}
+function applyWordName(d){ return d.k==="a" ? ITEM_WORD[d.id].w : d.w; }
+function applyCounts(l){
+  const st=L(l.id);
+  const ds=st.applySample||[];
+  const ans=ds.filter(d=>st.applyFirst[applyKey(d)]!==undefined).length;
+  const got=ds.filter(d=>st.applyFirst[applyKey(d)]===true).length;
+  return {ans, got, total:ds.length||l.words.length};
+}
+function lessonCleanRate(l){
+  const b=buildCounts(l), a=applyCounts(l);
+  const attempted=b.done+a.ans; if(!attempted) return null;
+  return (b.clean+a.got)/attempted;
+}
+function lessonDone(l){ const st=L(l.id); return st.buildComplete && st.applyDone; }
+function tierCounts(items, firsts){
+  const ans=items.filter(it=>firsts[it.id]!==undefined).length;
+  const got=items.filter(it=>firsts[it.id]===true).length;
+  return {ans, got, total:items.length};
+}
+
+/* ================= HOME ================= */
+function renderHome(){
+  const wrap=document.getElementById("home-map"); wrap.innerHTML="";
+  /* language toggle */
+  const lrow=document.createElement("div");
+  lrow.className="langrow noprint";
+  let lopts=`<option value="">English only</option>`;
+  LANGS.forEach(([c,n])=>{ lopts+=`<option value="${c}"${S.lang===c?" selected":""}>${esc(n)}</option>`; });
+  lrow.innerHTML=`<label for="langsel">Key words in my language:</label> <select id="langsel">${lopts}</select>`;
+  wrap.appendChild(lrow);
+  lrow.querySelector("#langsel").onchange=(e)=>{ S.lang=e.target.value; save(); };
+
+  let topic="";
+  let firstOpen=null;
+  LESSONS.forEach(l=>{
+    if(l.topic!==topic){ topic=l.topic;
+      const h=document.createElement("div"); h.className="topichead"; h.textContent=topic; wrap.appendChild(h);
+      const grid=document.createElement("div"); grid.className="lessons"; grid.dataset.grid="1"; wrap.appendChild(grid);
+    }
+    const grid=wrap.querySelectorAll(".lessons")[wrap.querySelectorAll(".lessons").length-1];
+    const st=L(l.id), b=buildCounts(l), a=applyCounts(l);
+    const chips=[];
+    if(lessonDone(l)) chips.push(`<span class="chip ok">DONE ✓</span>`);
+    else if(b.done||st.studied){ chips.push(`<span class="chip now">IN PROGRESS</span>`); if(firstOpen===null) firstOpen=l.id; }
+    if(st.studied) chips.push(`<span class="chip part">met</span>`);
+    if(b.done) chips.push(`<span class="chip ${st.buildComplete?"ok":"part"}">built ${st.buildComplete?`${b.clean}/${b.total} clean`:`${b.done}/${b.total}`}</span>`);
+    if(a.ans) chips.push(`<span class="chip ${st.applyDone?"ok":"part"}">used ${a.got}/${st.applyDone?a.total:a.ans}</span>`);
+    if(st.baseDone) chips.push(`<span class="chip base">base camp ✓</span>`);
+    if(st.stretchDone) chips.push(`<span class="chip str">stretch ✓</span>`);
+    const card=document.createElement("button");
+    card.className="lcard"+(lessonDone(l)?" done":"");
+    card.innerHTML=`<span class="lnum">LESSON ${esc(l.id)} · ${l.words.length} WORDS</span>
+      <span class="lname">${esc(l.title)}</span>
+      <span class="lstat">${chips.join("")||`<span class="chip">not started</span>`}</span>`;
+    card.onclick=()=>openLesson(l.id, true);
+    grid.appendChild(card);
+  });
+  /* review availability */
+  const pool=reviewPool(latestLessonIdx());
+  const btn=document.getElementById("review-start");
+  btn.disabled = pool.length<4;
+  document.getElementById("review-desc").innerHTML = pool.length<4
+    ? "A quick look back is <b>baked into the start of every lesson</b> once you’ve done your first one. This button is here for extra practice any time."
+    : `Extra practice: a shuffled set from the <b>${pool.length} words</b> you’ve met so far (this also runs automatically when you open a lesson). Everyone gets a different mix. Done ${S.reviews.length} review${S.reviews.length===1?"":"s"} so far.`;
+}
+
+/* ================= LESSON HOME ================= */
+function openLesson(id, fromHome){
+  cur=id;
+  const l=LESSON_BY_ID[id], st=L(id);
+  if(fromHome){
+    const idx=LESSONS.findIndex(x=>x.id===id);
+    const pool=reviewPool(idx);
+    if(pool.length>=4){ runReview(idx, {contLesson:id}); return; }
+  }
+  document.getElementById("lesson-prog").textContent=`LESSON ${id}`;
+  const b=buildCounts(l), a=applyCounts(l);
+  const rate=lessonCleanRate(l);
+  const steps=[
+    { t:"Meet the words", d:`Read this lesson’s ${l.words.length} words, meaning, morphemes and where each came from.`,
+      done:st.studied, locked:false, fn:()=>renderStudy(l), tag:st.studied?"READ":"" },
+    { t:"Build the words", d:"Drag the colour-coded morphemes into the word each one belongs to. Finished words tick off and leave the board.",
+      done:st.buildComplete, locked:!st.studied, fn:()=>startBuild(l),
+      tag:st.buildComplete?`${b.clean}/${b.total} CLEAN`:(b.done?`${b.done}/${b.total} built`:"") },
+    { t:"Use the words", d:"Your own sample of apply tasks: scenarios, sentences, meaning-matches. Your neighbour’s set will be different.",
+      done:st.applyDone, locked:!st.buildComplete, fn:()=>startApply(l),
+      tag:st.applyDone?`${a.got}/${a.total} FIRST TRY`:(a.ans?`${a.ans}/${a.total} done`:"") },
+  ];
+  const mount=document.getElementById("lesson-body");
+  mount.innerHTML=`<h2 style="text-align:center">${esc(l.id)} · ${esc(l.title)}</h2>
+    <p class="focusline">${l.focus}</p><div class="steps" id="lsteps"></div><div id="ltiers"></div>`;
+  const wrap=mount.querySelector("#lsteps");
+  steps.forEach((stp,i)=>{
+    const btn=document.createElement("button");
+    btn.className="step"+(stp.done?" done":"");
+    btn.disabled=stp.locked;
+    btn.innerHTML=`<span class="num">${stp.done?"✓":i+1}</span><span><span class="t">${stp.t}</span><br><span class="d">${stp.d}</span></span><span class="tag">${stp.locked?"LOCKED":stp.tag}</span>`;
+    btn.onclick=stp.fn;
+    wrap.appendChild(btn);
+  });
+  /* adaptive tiers */
+  const tiers=mount.querySelector("#ltiers");
+  if(l.base){
+    const bc=tierCounts(l.base.items, st.baseFirst);
+    const struggling = st.buildComplete && rate!==null && rate<0.5 && !st.baseDone;
+    const t=document.createElement("div"); t.className="tierbar base";
+    t.innerHTML=`<span class="grow"><b>⛺ Base camp${st.baseDone?`, done (${bc.got}/${bc.total} first try)`:""}</b>
+      ${struggling?"That was a tough climb: these are the same word-parts inside easy words you already know. Five minutes here makes the lesson words much friendlier.":"The same morphemes in everyday words. Start here any time you want a warm-up. It all counts on your report."}</span>
+      <button class="btn btn-ghost" onclick="startBase('${l.id}')">${st.baseDone?"Do it again":"Warm up"}</button>`;
+    tiers.appendChild(t);
+  }
+  if(l.stretch){
+    const sc=tierCounts(l.stretch.items, st.stretchFirst);
+    const unlocked = st.applyDone;
+    const t=document.createElement("div"); t.className="tierbar stretch";
+    t.innerHTML=`<span class="grow"><b>⛰ Stretch${st.stretchDone?`, done (${sc.got}/${sc.total} first try)`:""}</b>
+      ${unlocked?(rate!==null&&rate>=0.85?"You cleared this lesson in style. These heavier words are built from parts you now own, go get them.":"Heavier words built from the parts you just learned, including some that show up in the CAT."):"Finish “Use the words” to unlock the heavy gear."}</span>
+      <button class="btn btn-water" ${unlocked?"":"disabled"} onclick="startStretch('${l.id}')">${st.stretchDone?"Do it again":"Stretch"}</button>`;
+    tiers.appendChild(t);
+  }
+  go("lesson");
+}
+
+/* ================= STUDY ================= */
+function renderStudy(l){
+  const mount=document.getElementById("study-body");
+  document.getElementById("study-prog").textContent=`STEP 1 · MEET THE WORDS · ${l.id}`;
+  let html=`<h2>Lesson ${esc(l.id)}, ${esc(l.title)}</h2>
+    <p class="muted" style="margin-bottom:14px">Read each word: its meaning, and how its <b>morphemes</b> build that meaning. Tags show each word’s domain.</p>
+    ${MLEGEND}`;
+  mount.innerHTML=html;
+  l.words.forEach(v=>{
+    const map=(v.type==="origin")?"":morphChips(v.tiles);
+    const d=document.createElement("div"); d.className="vcard";
+    const domLabel={water:"ARMY & TECHNOLOGY",earth:"LAND & EMPIRE",people:"PEOPLE & BELIEFS",hazard:"LAW & POWER"}[v.domain]||v.domain;
+    d.innerHTML=`<div class="top"><span class="w">${colourWord(v)}</span><span class="pos">${esc(v.pos)}</span>${trSpan(v.w)}
+        <span class="dtag ${v.domain}">${domLabel}</span></div>
+      <div class="meaning">${esc(v.meaning)}</div>
+      <div class="morph">${ v.type==="origin" ? v.note : (map+" &nbsp;→&nbsp; "+esc(v.w)+"<br>"+v.note) }</div>`;
+    mount.appendChild(d);
+  });
+  const row=document.createElement("div"); row.className="nextrow noprint";
+  row.innerHTML=`<button class="btn btn-primary">I’ve read them: start building →</button>`;
+  row.querySelector("button").onclick=()=>{ L(l.id).studied=true; touchStart(); save(); startBuild(l); };
+  mount.appendChild(row);
+  go("study");
+}
+
+/* ================= GENERIC BUILDER (words + tier builds) ================= */
+function renderBuilder(mount, spec, opts){
+  /* spec: {w, pos?, tiles, decoys, meaning, note?/explain?} ; opts: {dots, prompt, onFirst, onDone} */
+  const pieces=spec.tiles.map(t=>t[0]);
+  const bank=shuffle(spec.tiles.concat(spec.decoys||[]));
+  let pos=0, errored=false;
+  const slotHtml=pieces.map((_,i)=>(i?`<span class="joiner">+</span>`:"")+`<span class="slot">&nbsp;</span>`).join("");
+  mount.innerHTML=`${opts.dots||""}
+    <div class="prompt">${opts.prompt||"Build the word: tap the morphemes into place, in order"}</div>
+    <div class="buildword" id="bword">? ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""}</div>
+    <div class="slots" id="slots">${slotHtml}</div>
+    <div class="bank" id="bank"></div>
+    <div class="maprow" id="maprow"></div>
+    <div class="reveal" id="reveal"></div>
+    <div class="nextrow noprint"><button class="btn btn-primary" id="bnext" style="display:none">Next →</button></div>`;
+  const bankEl=mount.querySelector("#bank");
+  const slots=mount.querySelectorAll("#slots .slot");
+  bank.forEach(([piece,gloss])=>{
+    const t=document.createElement("button"); t.className="tile "+classifyMorph(piece);
+    t.innerHTML=`<span class="mm">${esc(piece)}</span><span class="gl">${esc(gloss)}</span>`;
+    t.onclick=()=>{
+      if(pos>=pieces.length) return;
+      if(piece===pieces[pos] && !t.disabled){
+        slots[pos].textContent=piece; slots[pos].classList.add("filled");
+        t.disabled=true; pos++;
+        if(pos===pieces.length){
+          mount.querySelector("#bword").innerHTML=`${esc(spec.w)} ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""} ${trSpan(spec.w)}`;
+          opts.onFirst && opts.onFirst(!errored);
+          const mr=mount.querySelector("#maprow");
+          mr.innerHTML=morphChips(spec.tiles)+" &nbsp;→&nbsp; <b>"+esc(spec.w)+"</b>";
+          const r=mount.querySelector("#reveal");
+          r.className="reveal show";
+          r.innerHTML=`<span class="rw">${esc(spec.w)}</span>: ${esc(spec.meaning)}${(spec.note||spec.explain)?`<br><span class="muted">${spec.note||spec.explain}</span>`:""}`;
+          const nb=mount.querySelector("#bnext");
+          nb.style.display="inline-block"; nb.onclick=opts.onDone;
+          nb.focus();
+        }
+      } else {
+        errored=true;
+        t.classList.add("shake");
+        setTimeout(()=>t.classList.remove("shake"),320);
+      }
+    };
+    bankEl.appendChild(t);
+  });
+}
+
+/* origin question (used in build step + review) */
+function renderOriginQ(mount, spec, opts){
+  mount.innerHTML=`${opts.dots||""}
+    <div class="prompt">Word origin. This one can’t be cut into smaller meaningful parts</div>
+    <div class="buildword">${esc(spec.w)} ${spec.pos?`<span class="muted" style="font-size:14px">(${esc(spec.pos)})</span>`:""}</div>
+    <div class="qtext" style="text-align:center">${spec.originQ}</div>
+    <div class="opts" id="oopts"></div>
+    <div class="reveal" id="reveal"></div>
+    <div class="nextrow noprint"><button class="btn btn-primary" id="bnext" style="display:none">Next →</button></div>`;
+  const optsEl=mount.querySelector("#oopts");
+  let first=true;
+  shuffle(spec.originOpts.slice()).forEach(o=>{
+    const btn=document.createElement("button"); btn.className="opt"; btn.textContent=o;
+    btn.onclick=()=>{
+      const correct=(o===spec.originA);
+      if(first){ opts.onFirst && opts.onFirst(correct); first=false; }
+      if(correct){
+        btn.classList.add("right");
+        optsEl.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+        const r=mount.querySelector("#reveal");
+        r.className="reveal show";
+        r.innerHTML=`<span class="rw">${esc(spec.w)}</span> ${trSpan(spec.w)}, ${esc(spec.meaning)}<br><span class="muted">${spec.note}</span>`;
+        const nb=mount.querySelector("#bnext");
+        nb.style.display="inline-block"; nb.onclick=opts.onDone; nb.focus();
+      } else {
+        btn.classList.add("wrongpick"); btn.disabled=true;
+      }
+    };
+    optsEl.appendChild(btn);
+  });
+}
+
+/* ================= STEP 2 · BUILD: colour-coded drag-and-drop morpheme table ================= */
+let buildCtx=null; // {l, tapSel}
+function startBuild(l){
+  touchStart();
+  const st=L(l.id);
+  const buildable=l.words.filter(w=>w.type==="morph"||w.type==="compound");
+  if(buildable.every(w=>st.buildDone[w.w])){ buildOriginPhase(l); return; }
+  go("build");
+  renderBuildTable(l, buildable);
+}
+function buildProgressText(l){
+  const st=L(l.id);
+  const done=l.words.filter(w=>st.buildDone[w.w]).length;
+  document.getElementById("build-prog").textContent=`STEP 2 · BUILD · ${done}/${l.words.length} words`;
+}
+function renderBuildTable(l, buildable){
+  const st=L(l.id);
+  buildCtx={l, tapSel:null};
+  /* one shared morpheme bank: every part these words need, deduped, plus a few decoys */
+  const need=new Map();
+  buildable.forEach(w=>w.tiles.forEach(([p,g])=>{ if(!need.has(p)) need.set(p,g); }));
+  const realSet=new Set(need.keys());
+  const decoyPool=[]; const seenD=new Set();
+  buildable.forEach(w=>(w.decoys||[]).forEach(([p,g])=>{ if(!realSet.has(p)&&!seenD.has(p)){ seenD.add(p); decoyPool.push([p,g]); } }));
+  const bankArr=[...need.entries()].map(([p,g])=>({piece:p,gloss:g,type:classifyMorph(p)}))
+    .concat(shuffle(decoyPool).slice(0,3).map(([p,g])=>({piece:p,gloss:g,type:classifyMorph(p)})));
+  let bankHtml="";
+  MTYPE_ORDER.forEach(type=>{
+    const group=bankArr.filter(m=>m.type===type);
+    if(!group.length) return;
+    bankHtml+=`<div class="mgroup"><div class="glabel ${type}">${MTYPE_LABEL[type]}</div><div class="mtiles">`+
+      shuffle(group).map(m=>`<button class="mtile ${m.type}" data-piece="${esc(m.piece)}" data-gloss="${esc(m.gloss)}" data-type="${m.type}"><span class="mm">${esc(m.piece)}</span><span class="gl">${esc(m.gloss)}</span></button>`).join("")+
+      `</div></div>`;
+  });
+  const active=shuffle(buildable.filter(w=>!st.buildDone[w.w]));
+  const rowsHtml=active.map(w=>{
+    const slots=w.tiles.map((_,si)=>(si?`<span class="wjoin">+</span>`:"")+`<span class="wslot" data-i="${si}"><span class="ph">drop</span></span>`).join("");
+    return `<div class="wrow" data-w="${esc(w.w)}">
+      <div class="wmean">${sayBtn(w.meaning)}<span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
+      <div class="wslots">${slots}</div>
+      <div class="wbuilt"></div></div>`;
+  }).join("");
+  const mount=document.getElementById("build-body");
+  mount.innerHTML=`
+    <h2 style="text-align:center">Build the words: Lesson ${esc(l.id)}</h2>
+    <p class="muted" style="text-align:center;margin-bottom:8px">${ACCESS
+      ? "Most pieces are placed for you. Read the meaning, tap the missing morpheme, then tap the empty slot. A finished word ticks off and leaves the board."
+      : "Drag each morpheme into the word it belongs to, or tap a morpheme, then tap a slot. Build <b>prefix → root → suffix</b>, left to right. A finished word ticks off and leaves the board; keep going until none are left."}</p>
+    <div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix (start)</span><span><i style="background:var(--mroot)"></i>Root (heart)</span><span><i style="background:var(--msuf)"></i>Suffix (end)</span></div>
+    <div class="mbank">${bankHtml}</div>
+    <div class="buildhint" id="buildhint"></div>
+    <div class="wtable" id="wtable">${rowsHtml}</div>`;
+  buildProgressText(l);
+  wireBuildDnD(mount);
+  wireSay(mount);
+}
+function wireBuildDnD(mount){
+  mount.querySelectorAll(".mtile").forEach(tile=>{
+    const info={piece:tile.dataset.piece, gloss:tile.dataset.gloss, type:tile.dataset.type};
+    if(ACCESS){
+      /* Tap only. A drag threshold of six pixels reads a tremor as a drag,
+         so in access mode the pointer never drags: tap selects (and the tile
+         grows), tap again deselects. */
+      tile.addEventListener("click", ()=>{
+        const same=buildCtx.tapSel && buildCtx.tapSel.piece===info.piece && buildCtx.tapSel.type===info.type;
+        setTapSel(same ? null : info);
+      });
+    } else {
+      tile.addEventListener("pointerdown", e=>startTileDrag(e, tile, info));
+    }
+  });
+  mount.querySelectorAll(".wslot").forEach(slot=>{
+    slot.addEventListener("click", ()=>{
+      if(slot.classList.contains("locked")) return;
+      if(slot.dataset.piece){ clearSlot(slot); return; }
+      if(buildCtx.tapSel){ const s=buildCtx.tapSel; setTapSel(null); fillSlot(slot, s); }
+    });
+  });
+  if(ACCESS) prefillBoard(mount);
+}
+/* Access mode: pre-place every slot but one per word, and lock what is
+   pre-placed. The open slot varies by word, so the student still reads the
+   meaning and still chooses the piece; what falls away is the tap count. */
+function prefillBoard(mount){
+  mount.querySelectorAll(".wrow").forEach(row=>{
+    const w=WORD_BY_NAME[row.dataset.w];
+    if(!w || w.tiles.length<2) return;
+    const open=Math.floor(Math.random()*w.tiles.length);
+    row.querySelectorAll(".wslot").forEach((slot,si)=>{
+      if(si===open) return;
+      const [piece,gloss]=w.tiles[si];
+      const m=MORPH_BY_PIECE[MKEY(piece,gloss)]||{};
+      slot.dataset.piece=piece; slot.dataset.type=m.type||classifyMorph(piece);
+      slot.className="wslot filled locked "+(m.type||classifyMorph(piece));
+      slot.innerHTML=`<span class="mm">${esc(piece)}</span>`;
+    });
+  });
+}
+function setTapSel(info){
+  buildCtx.tapSel=info;
+  document.querySelectorAll("#build-body .mtile").forEach(t=>{
+    t.classList.toggle("sel", !!info && t.dataset.piece===info.piece && t.dataset.type===info.type);
+  });
+}
+function startTileDrag(e, tile, info){
+  e.preventDefault();
+  const sx=e.clientX, sy=e.clientY; let moved=false, ghost=null;
+  try{ tile.setPointerCapture(e.pointerId); }catch(_){}
+  function mv(ev){
+    if(!moved && Math.hypot(ev.clientX-sx, ev.clientY-sy)>6){ moved=true; tile.classList.add("dragging"); ghost=mkGhost(info); }
+    if(moved && ghost){ ghost.style.left=ev.clientX+"px"; ghost.style.top=ev.clientY+"px"; hoverSlot(ev); }
+  }
+  function up(ev){
+    tile.removeEventListener("pointermove",mv); tile.removeEventListener("pointerup",up);
+    try{ tile.releasePointerCapture(e.pointerId); }catch(_){}
+    if(moved){
+      tile.classList.remove("dragging"); if(ghost) ghost.remove(); clearHover();
+      const slot=slotAt(ev);
+      if(slot && !slot.dataset.piece) fillSlot(slot, info);
+    } else {
+      const same=buildCtx.tapSel && buildCtx.tapSel.piece===info.piece && buildCtx.tapSel.type===info.type;
+      setTapSel(same ? null : info);
+    }
+  }
+  tile.addEventListener("pointermove",mv); tile.addEventListener("pointerup",up);
+}
+function mkGhost(info){
+  const g=document.createElement("div"); g.className="drag-ghost mtile "+info.type;
+  g.innerHTML=`<span class="mm">${esc(info.piece)}</span><span class="gl">${esc(info.gloss)}</span>`;
+  document.body.appendChild(g); return g;
+}
+function slotAt(ev){ const el=document.elementFromPoint(ev.clientX,ev.clientY); return el?el.closest(".wslot"):null; }
+function hoverSlot(ev){ clearHover(); const s=slotAt(ev); if(s && !s.dataset.piece) s.classList.add("over"); }
+function clearHover(){ document.querySelectorAll("#build-body .wslot.over").forEach(s=>s.classList.remove("over")); }
+function fillSlot(slot, info){
+  slot.dataset.piece=info.piece; slot.dataset.type=info.type;
+  slot.className="wslot filled "+info.type; slot.innerHTML=`<span class="mm">${esc(info.piece)}</span>`;
+  checkRow(slot.closest(".wrow"));
+}
+function clearSlot(slot){
+  delete slot.dataset.piece; delete slot.dataset.type;
+  slot.className="wslot"; slot.innerHTML=`<span class="ph">drop</span>`;
+  const h=document.getElementById("buildhint"); if(h) h.textContent="";
+}
+function checkRow(rowEl){
+  const w=WORD_BY_NAME[rowEl.dataset.w];
+  const slots=[...rowEl.querySelectorAll(".wslot")];
+  if(slots.some(s=>!s.dataset.piece)) return;
+  const placed=slots.map(s=>s.dataset.piece);
+  const answer=w.tiles.map(t=>t[0]);
+  const correct=placed.length===answer.length && placed.every((p,i)=>p===answer[i]);
+  const hint=document.getElementById("buildhint");
+  if(correct){ if(hint) hint.textContent=""; markRowDone(rowEl, w); }
+  else {
+    const st=L(buildCtx.l.id);
+    if(st.buildFirst[w.w]===undefined){ st.buildFirst[w.w]=false; WS(w.w).wrong++; save(); }
+    const sameSet=[...placed].sort().join("~")===[...answer].sort().join("~");
+    rowEl.classList.add("wrong"); setTimeout(()=>rowEl.classList.remove("wrong"),320);
+    if(ACCESS){
+      slots.forEach(s=>{ if(!s.classList.contains("locked")) clearSlot(s); });
+      if(hint) hint.innerHTML="Not that piece: reread the meaning and pick again.";
+    } else if(hint) hint.innerHTML = sameSet
+      ? "Right pieces: check the <b>order</b> (prefix → root → suffix). Tap a slot to send its piece back."
+      : "Not a match yet: reread the meaning. Tap any slot to send its piece back.";
+  }
+}
+function markRowDone(rowEl, w){
+  const st=L(buildCtx.l.id);
+  st.buildDone[w.w]=true;
+  if(st.buildFirst[w.w]===undefined) st.buildFirst[w.w]=true;
+  save();
+  rowEl.classList.add("done");
+  rowEl.querySelector(".wbuilt").innerHTML=`<span class="wname">${esc(w.w)}</span> ${trSpan(w.w)} <span class="wtickmark">✓</span>`;
+  buildProgressText(buildCtx.l);
+  setTimeout(()=>{
+    rowEl.classList.add("gone");
+    setTimeout(()=>{
+      rowEl.remove();
+      if(!document.querySelector("#wtable .wrow")) buildOriginPhase(buildCtx.l);
+    },320);
+  },850);
+}
+function buildOriginPhase(l){
+  const st=L(l.id);
+  const origins=l.words.filter(w=>w.type==="origin" && !st.buildDone[w.w]);
+  if(!origins.length){ finishBuild(l); return; }
+  go("build");
+  const mount=document.getElementById("build-body");
+  mount.innerHTML=`<h2 style="text-align:center">Word origins: Lesson ${esc(l.id)}</h2>
+    <p class="muted" style="text-align:center;margin-bottom:12px">A few of this lesson’s words come from names or ideas, not word-parts, so you match their story instead of building them.</p>
+    <div id="origin-slot"></div>`;
+  let queue=shuffle(origins.slice());
+  function next(){
+    buildProgressText(l);
+    if(!queue.length){ finishBuild(l); return; }
+    const w=queue.shift();
+    renderTaskItem(document.getElementById("origin-slot"),
+      {type:"desc", q:w.originQ, a:w.originA, opts:w.originOpts.slice(), explain:w.note, tag:"ORIGIN · "+w.w},
+      { onAnswer:(correct)=>{
+          if(st.buildFirst[w.w]===undefined){ st.buildFirst[w.w]=correct; if(!correct) WS(w.w).wrong++; save(); }
+          if(correct){ st.buildDone[w.w]=true; save(); } else queue.push(w);
+        },
+        onNext:next });
+  }
+  next();
+}
+function finishBuild(l){
+  const st=L(l.id); st.buildComplete=true; save();
+  const b=buildCounts(l);
+  const pct=Math.round(100*b.clean/b.total);
+  const cls=pct>=80?"good":(pct>=60?"mid":"low");
+  document.getElementById("build-body").innerHTML=`
+    <div class="sumbox"><div class="prompt">Lesson ${esc(l.id)}, clean builds (right first go)</div>
+    <div class="big ${cls}">${b.clean} / ${b.total}</div>
+    <p class="muted">Every word is built. “Clean” means you placed it correctly on the first full attempt, anything you had to redo still counts as done, just not clean.</p></div>
+    <div class="nextrow" style="justify-content:center">
+      <button class="btn btn-ghost" onclick="goLesson()">back to lesson</button>
+      <button class="btn btn-primary" onclick="startApply(LESSON_BY_ID['${l.id}'])">Use the words →</button></div>`;
+}
+
+/* ================= SHARED MCQ ITEM RENDERER ================= */
+function renderTaskItem(mount, it, hooks){
+  /* it: {type, q/before/after/svg(string name or raw), a, opts, explain, tag?} */
+  const box=document.createElement("div");
+  if(it.tag) box.innerHTML+=`<span class="reviewtag">${esc(it.tag)}</span>`;
+  let fb, nextBtn;
+  const isRight=(o)=>o===it.a;
+  function finishItem(correct){
+    fb.className="feedback "+(correct?"ok":"bad");
+    fb.innerHTML=(correct?"<b>Correct.</b> ":`<b>Not quite: the answer is “${esc(it.a)}”.</b> `)+(it.explain||"");
+    if(!correct) fb.innerHTML+=" <i>This one will come back around.</i>";
+    nextBtn.style.display="inline-block";
+    hooks.onAnswer && hooks.onAnswer(correct);
+  }
+  const kind=it.type||"desc";
+  if(kind==="diagram"){
+    const svg=SVGS[it.svg]||it.svg;
+    box.innerHTML+=`<div class="prompt">Read the diagram, then choose</div><div class="svgbox">${svg}</div>`;
+    const qd=document.createElement("div"); qd.className="qtext"; qd.innerHTML=it.q; box.appendChild(qd);
+    box.appendChild(buildOpts(it,isRight,finishItem,()=>nextBtn.style.display==="inline-block",null));
+  } else if(kind==="cloze"){
+    box.innerHTML+=`<div class="prompt">Choose the word that fits the sentence</div>`;
+    const qd=document.createElement("div"); qd.className="qtext";
+    qd.innerHTML=`${esc(it.before)} <span class="gap">&nbsp;</span> ${esc(it.after)}`;
+    box.appendChild(qd);
+    box.appendChild(buildOpts(it,isRight,finishItem,()=>nextBtn.style.display==="inline-block",qd.querySelector(".gap")));
+  } else {
+    const prompts={scenario:"Read the scenario, then choose",desc:"Match the word",morphmatch:"Read the morphemes, then choose the word they build",alchemy:"Word alchemy, use the parts to work it out",wordsum:"Add the morphemes, which word do they make?",meaningmatch:"Which word fits the meaning?",morphmeaning:"What does the word-part mean?"};
+    box.innerHTML+=`<div class="prompt">${prompts[kind]||prompts.desc}</div>`;
+    const qd=document.createElement("div"); qd.className="qtext"; qd.innerHTML=it.q; box.appendChild(qd);
+    box.appendChild(buildOpts(it,isRight,finishItem,()=>nextBtn.style.display==="inline-block",null));
+  }
+  fb=document.createElement("div"); fb.className="feedback"; box.appendChild(fb);
+  const row=document.createElement("div"); row.className="nextrow noprint";
+  nextBtn=document.createElement("button"); nextBtn.className="btn btn-primary"; nextBtn.textContent="Next →";
+  nextBtn.style.display="none"; nextBtn.onclick=hooks.onNext;
+  row.appendChild(nextBtn); box.appendChild(row);
+  mount.innerHTML=""; mount.appendChild(box);
+}
+function buildOpts(it, isRight, finishItem, locked, gapEl){
+  const optList=shuffle(it.opts.slice());
+  const opts=document.createElement("div");
+  opts.className=optList.every(o=>o.length<28)?"opts chips":"opts";
+  optList.forEach(o=>{
+    const btn=document.createElement("button"); btn.className="opt"; btn.textContent=o;
+    btn.onclick=()=>{
+      if(locked()) return;
+      const correct=isRight(o);
+      btn.classList.add(correct?"right":"wrongpick");
+      if(!correct) opts.querySelectorAll(".opt").forEach(x=>{ if(isRight(x.textContent)) x.classList.add("right"); });
+      opts.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+      if(gapEl && correct) gapEl.textContent=o;
+      finishItem(correct);
+    };
+    opts.appendChild(btn);
+  });
+  return opts;
+}
+
+/* ================= GENERATED TASKS (for variety + anti-copying) ================= */
+function sameLessonDistractors(word, n){
+  const l=LESSON_BY_ID[WORD_LESSON[word.w]];
+  return shuffle(l.words.filter(x=>x.w!==word.w).map(x=>x.w)).slice(0,n);
+}
+function morphMap(word){
+  return word.tiles ? morphChips(word.tiles)+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
+}
+function genTypesFor(word){ return word.tiles ? ["meaningmatch","wordsum","morphmeaning"] : ["meaningmatch"]; }
+function genTask(gtype, word){
+  if(gtype==="wordsum" && word.tiles){
+    const eq=word.tiles.map(t=>`<b>${esc(t[0])}</b>`).join(" + ");
+    return { type:"wordsum", q:`Which word do these parts build?<br><span class="eqn">${eq}</span>`,
+      a:word.w, opts:[word.w].concat(sameLessonDistractors(word,3)), explain:morphMap(word) };
+  }
+  if(gtype==="morphmeaning" && word.tiles){
+    const roots=word.tiles.filter(t=>classifyMorph(t[0])==="root");
+    const t=pick(roots.length?roots:word.tiles);
+    const wrong=shuffle(ALL_GLOSSES.filter(g=>g!==t[1])).slice(0,3);
+    return { type:"morphmeaning", q:`In <b>${esc(word.w)}</b>, what does the part <b>${esc(t[0])}</b> mean?`,
+      a:t[1], opts:[t[1]].concat(wrong), explain:`<b>${esc(t[0])}</b> = ${esc(t[1])}. &nbsp; ${morphMap(word)}` };
+  }
+  return { type:"meaningmatch", q:`Which word means this?<br><i>${esc(word.meaning)}</i>`,
+    a:word.w, opts:[word.w].concat(sameLessonDistractors(word,3)), explain:morphMap(word) };
+}
+
+/* ================= STEP 3 · USE THE WORDS ================= */
+function startApply(l){
+  touchStart();
+  const st=L(l.id);
+  if(!st.applySample.length){
+    st.applySample=l.words.map(w=>{
+      const gts=genTypesFor(w);
+      if(Math.random()<0.5 && w.apply && w.apply.length) return {k:"a", id:pick(w.apply).id};
+      return {k:"g", g:pick(gts), w:w.w};
+    });
+    save();
+  }
+  go("apply");
+  const descs=st.applySample.slice();
+  const record = !st.applyDone; /* re-runs don't change the report */
+  let queue=shuffle(descs.map(d=>({d, it:Object.assign({}, applyItem(d))})));
+  let mastered=0;
+  function next(){
+    document.getElementById("apply-prog").textContent=`STEP 3 · USE THE WORDS · mastered ${mastered}/${descs.length}`;
+    if(!queue.length){ finishApply(l, record); return; }
+    const cur=queue.shift();
+    const key=applyKey(cur.d);
+    renderTaskItem(document.getElementById("apply-body"), cur.it, {
+      onAnswer:(correct)=>{
+        if(record && st.applyFirst[key]===undefined){
+          st.applyFirst[key]=correct;
+          if(!correct) WS(applyWordName(cur.d)).wrong++;
+          save();
+        }
+        if(correct) mastered++; else queue.push(cur);
+      },
+      onNext:next,
+    });
+  }
+  next();
+}
+function finishApply(l, recorded){
+  const st=L(l.id);
+  if(recorded){ st.applyDone=true; save(); }
+  const a=applyCounts(l);
+  const pct=a.total?Math.round(100*a.got/a.total):0;
+  const cls=pct>=80?"good":(pct>=60?"mid":"low");
+  const rate=lessonCleanRate(l);
+  let follow="";
+  if(rate!==null && rate<0.5 && l.base && !st.baseDone){
+    follow=`<div class="tierbar base"><span class="grow"><b>⛺ Base camp?</b> Those words fought back. The same word-parts live inside easy words you already know, a five-minute warm-up there, then this lesson will feel different.</span>
+      <button class="btn btn-ghost" onclick="startBase('${l.id}')">Warm up</button></div>`;
+  } else if(rate!==null && rate>=0.85 && l.stretch && !st.stretchDone){
+    follow=`<div class="tierbar stretch"><span class="grow"><b>⛰ Stretch unlocked.</b> You own these morphemes now: take on the heavier words built from them.</span>
+      <button class="btn btn-water" onclick="startStretch('${l.id}')">Stretch</button></div>`;
+  }
+  document.getElementById("apply-body").innerHTML=`
+    <div class="sumbox"><div class="prompt">Lesson ${esc(l.id)}, first attempts</div>
+    <div class="big ${cls}">${a.got} / ${a.total}</div>
+    <p class="muted">Every task is mastered: wrong answers looped back until you cleared them. The score above is your FIRST attempt on each.${recorded?"":" (Practice run: your report kept the original scores.)"}</p></div>
+    ${follow}
+    <div class="nextrow" style="justify-content:center">
+      <button class="btn btn-ghost" onclick="goLesson()">back to lesson</button>
+      <button class="btn btn-primary" onclick="go('home')">all lessons</button></div>`;
+}
+
+/* ================= TIERS: BASE CAMP & STRETCH ================= */
+function runTier(lid, tierKey){
+  const l=LESSON_BY_ID[lid], st=L(lid);
+  const tier=l[tierKey];
+  const firsts = tierKey==="base" ? st.baseFirst : st.stretchFirst;
+  const doneFlag = tierKey==="base" ? "baseDone" : "stretchDone";
+  const scr = tierKey==="base" ? "base" : "stretch";
+  const label = tierKey==="base" ? "BASE CAMP" : "STRETCH";
+  touchStart();
+  go(scr);
+  const mount=document.getElementById(scr+"-body");
+  const progEl=document.getElementById(scr+"-prog");
+  const record=!st[doneFlag];
+  let queue=shuffle(tier.items.slice());
+  let mastered=0; const total=tier.items.length;
+  let intro=true;
+  function recFirst(id, correct){
+    if(record && firsts[id]===undefined){ firsts[id]=correct; save(); }
+  }
+  function next(){
+    progEl.textContent=`${label} · ${lid} · mastered ${mastered}/${total}`;
+    if(!queue.length){
+      if(record){ st[doneFlag]=true; save(); }
+      const tc=tierCounts(tier.items, firsts);
+      const pct=Math.round(100*tc.got/tc.total);
+      const cls=pct>=80?"good":(pct>=60?"mid":"low");
+      mount.innerHTML=`<div class="sumbox"><div class="prompt">${label} · lesson ${esc(lid)}: first attempts</div>
+        <div class="big ${cls}">${tc.got} / ${tc.total}</div>
+        <p class="muted">${tierKey==="base"?"Foundations set. Those same parts are waiting inside the lesson words, go back and use them.":"Heavy words carried. These count as bonus territory on your report."}</p></div>
+        <div class="nextrow" style="justify-content:center">
+        <button class="btn btn-primary" onclick="goLesson()">back to lesson</button></div>`;
+      return;
+    }
+    const it=queue.shift();
+    if(it.kind==="build"){
+      renderBuilder(mount, it, { prompt:"Build the word: tap the pieces into place, in order",
+        onFirst:(clean)=>recFirst(it.id, clean),
+        onDone:()=>{ mastered++; next(); } });
+    } else {
+      renderTaskItem(mount, {type:"alchemy", q:it.q, a:it.a, opts:it.opts, explain:it.explain}, {
+        onAnswer:(correct)=>{ recFirst(it.id, correct); if(correct) mastered++; else queue.push(it); },
+        onNext:next });
+    }
+  }
+  if(intro){
+    mount.innerHTML=`<h2 style="text-align:center">${tierKey==="base"?"⛺ Base camp":"⛰ Stretch"} · Lesson ${esc(lid)}</h2>
+      <p class="focusline">${tier.intro}</p>
+      <div class="nextrow" style="justify-content:center"><button class="btn btn-primary" id="tstart">Start →</button></div>`;
+    mount.querySelector("#tstart").onclick=()=>{ intro=false; next(); };
+  }
+}
+function startBase(lid){ runTier(lid,"base"); }
+function startStretch(lid){ runTier(lid,"stretch"); }
+
+/* ================= REVIEW ================= */
+function latestLessonIdx(){
+  let idx=-1;
+  LESSONS.forEach((l,i)=>{ const st=S.lessons[l.id]; if(st && (st.studied||Object.keys(st.buildDone).length)) idx=i; });
+  return idx;
+}
+function reviewPool(uptoIdx){
+  /* every word from the lessons BEFORE this one in the sequence, a warm-up always
+     looks back over prior lessons, whether or not they were fully finished */
+  const pool=[];
+  LESSONS.forEach((l,i)=>{ if(uptoIdx>=0 && i>=uptoIdx) return; l.words.forEach(w=>pool.push(w)); });
+  return pool;
+}
+function startReviewSetup(){
+  const idx=latestLessonIdx();
+  if(idx<0){ return; }
+  go("review");
+  const mount=document.getElementById("review-body");
+  document.getElementById("review-prog").textContent="REVIEW · SET-UP";
+  let opts="";
+  LESSONS.forEach((l,i)=>{
+    const st=S.lessons[l.id];
+    const started=st&&(st.studied||Object.keys(st.buildDone).length);
+    if(started||i<=idx) opts+=`<option value="${i}"${i===idx?" selected":""}>${l.id} · ${esc(l.title)}</option>`;
+  });
+  mount.innerHTML=`<h2 style="text-align:center">Quick review</h2>
+    <p class="focusline">Five words drawn from earlier lessons: weighted so the ones you’ve missed before come back more often. Gap-fill or match to meaning. Every run is a different mix.</p>
+    <div class="idrow" style="justify-content:center">
+      <span><label for="rev-upto">We’re currently learning lesson…</label>
+      <select id="rev-upto" class="btn" style="font-weight:600">${opts}</select></span>
+    </div>
+    <div class="nextrow" style="justify-content:center">
+      <button class="btn btn-water" id="rev-go">Shuffle my six →</button>
+    </div>`;
+  mount.querySelector("#rev-go").onclick=()=>{
+    const upto=parseInt(mount.querySelector("#rev-upto").value,10);
+    runReview(upto);
+  };
+}
+function weightedSample(pool, n){
+  const entries=pool.map(w=>{
+    const ws=WS(w.w);
+    let wt=1 + 2*Math.min(ws.wrong,4) + (ws.rev===0?1.5:0);
+    return {w, wt};
+  });
+  const out=[];
+  while(out.length<n && entries.length){
+    let total=entries.reduce((s,e)=>s+e.wt,0);
+    let r=Math.random()*total;
+    let k=0;
+    for(let i=0;i<entries.length;i++){ r-=entries[i].wt; if(r<=0){ k=i; break; } }
+    out.push(entries[k].w);
+    entries.splice(k,1);
+  }
+  return out;
+}
+function reviewTaskFor(word, pool){
+  /* quick warm-up tasks only: GAP-FILL a sentence, or MATCH the word to its definition.
+     Both are backed by the lesson data (authored cloze items + word meanings). */
+  const clozes=(word.apply||[]).filter(it=>it.type==="cloze");
+  if(clozes.length && Math.random()<0.5) return Object.assign({}, pick(clozes));
+  /* match word -> definition, with distractors drawn from the review pool */
+  const others=shuffle(pool.filter(x=>x.w!==word.w)).slice(0,3).map(x=>x.w);
+  const opts=[word.w].concat(others.length>=3?others:sameLessonDistractors(word,3));
+  return { type:"meaningmatch", q:`Which word means this?<br><i>${esc(word.meaning)}</i>`,
+    a:word.w, opts, explain:morphMap(word) };
+}
+function runReview(uptoIdx, opts){
+  opts=opts||{};
+  const pool=reviewPool(uptoIdx);
+  if(pool.length<4){ if(opts.contLesson) openLesson(opts.contLesson, false); else go("home"); return; }
+  go("review");
+  const n=Math.min(5,pool.length);
+  const words=weightedSample(pool,n);
+  const items=words.map(w=>{ const it=Object.assign({}, reviewTaskFor(w,pool)); it._w=w.w; it.tag="REVIEW · from lesson "+WORD_LESSON[w.w]; return it; });
+  let queue=shuffle(items);
+  let mastered=0;
+  const firsts={};
+  words.forEach(w=>{ const ws=WS(w.w); ws.seen++; ws.rev++; });
+  function next(){
+    document.getElementById("review-prog").textContent=(opts.contLesson?`WARM-UP REVIEW → LESSON ${opts.contLesson}`:"REVIEW")+` · mastered ${mastered}/${items.length}`;
+    if(!queue.length){ finishReview(uptoIdx, words, firsts, opts); return; }
+    const it=queue.shift();
+    renderTaskItem(document.getElementById("review-body"), it, {
+      onAnswer:(correct)=>{
+        if(firsts[it._w]===undefined){
+          firsts[it._w]=correct;
+          if(!correct) WS(it._w).wrong++;
+          save();
+        }
+        if(correct) mastered++; else queue.push(it);
+      },
+      onNext:next,
+    });
+  }
+  if(opts.contLesson){
+    const mount=document.getElementById("review-body");
+    mount.innerHTML=`<div class="sumbox"><div class="prompt">Before Lesson ${esc(opts.contLesson)}</div>
+      <p class="muted" style="margin:6px 0 0">Quick warm-up first: <b>5 words from earlier lessons</b>, drawn at random (ones you’ve missed come back more often). Just gap-fill a sentence or match the word to its meaning. Then we jump into the new lesson.</p></div>
+      <div class="nextrow" style="justify-content:center"><button class="btn btn-water" id="rev-begin">Start warm-up →</button>
+      <button class="btn btn-ghost" onclick="openLesson('${opts.contLesson}', false)">Skip to lesson</button></div>`;
+    mount.querySelector("#rev-begin").onclick=next;
+  } else next();
+}
+function finishReview(uptoIdx, words, firsts, opts){
+  opts=opts||{};
+  const got=words.filter(w=>firsts[w.w]===true).length;
+  const missed=words.filter(w=>firsts[w.w]===false).map(w=>w.w);
+  S.reviews.push({ when:Date.now(), upTo:LESSONS[uptoIdx]?LESSONS[uptoIdx].id:": ", total:words.length, got, missed });
+  save();
+  const pct=Math.round(100*got/words.length);
+  const cls=pct>=80?"good":(pct>=60?"mid":"low");
+  const buttons = opts.contLesson
+    ? `<button class="btn btn-primary" onclick="openLesson('${opts.contLesson}', false)">Start Lesson ${esc(opts.contLesson)} →</button>
+       <button class="btn btn-ghost" onclick="go('home')">home</button>`
+    : `<button class="btn btn-water" onclick="startReviewSetup()">Another six</button>
+       <button class="btn btn-ghost" onclick="go('home')">home</button>
+       <button class="btn btn-ghost" onclick="go('report')">my report</button>`;
+  document.getElementById("review-body").innerHTML=`
+    <div class="sumbox"><div class="prompt">${opts.contLesson?"Warm-up review":"Review"}: first attempts</div>
+    <div class="big ${cls}">${got} / ${words.length}</div>
+    <p class="muted">${missed.length?`Back for another visit soon: <b>${esc(missed.join(", "))}</b>: the shuffle remembers.`:"Clean sweep: these words are sticking."}</p></div>
+    <div class="nextrow" style="justify-content:center">${buttons}</div>`;
+}
+
+/* ================= REFERENCE LOOK-UPS (always available from the nav) ================= */
+function renderMorphTable(){
+  const m=document.getElementById("morphtable-body");
+  let html=`<h2 style="text-align:center">Morpheme table</h2>
+    <p class="muted" style="text-align:center;margin-bottom:6px">Every word-part in the module, colour-coded. Learn a part once and you can read it inside dozens of words.</p>
+    <div class="mlegend"><span><i style="background:var(--mpre)"></i>Prefix</span><span><i style="background:var(--mroot)"></i>Root / base</span><span><i style="background:var(--msuf)"></i>Suffix</span></div>`;
+  MTYPE_ORDER.forEach(type=>{
+    const group=MORPHS.filter(mm=>mm.type===type).slice().sort((a,b)=>a.piece.replace(/-/g,"").localeCompare(b.piece.replace(/-/g,"")));
+    if(!group.length) return;
+    html+=`<div class="refhead ${type}">${MTYPE_LABEL[type]}</div>
+      <table class="reftable"><tr><th>Part</th><th>Meaning</th><th>Words that use it</th></tr>`;
+    group.forEach(mm=>{
+      html+=`<tr><td><span class="mtile ${type}"><span class="mm">${esc(mm.piece)}</span></span></td>
+        <td>${esc(mm.gloss)}</td><td class="muted">${mm.examples.map(esc).join(", ")}</td></tr>`;
+    });
+    html+=`</table>`;
+  });
+  m.innerHTML=html;
+}
+function renderGlossary(){
+  const m=document.getElementById("glossary-body");
+  m.innerHTML=`<h2 style="text-align:center">Word list</h2>
+    <p class="muted" style="text-align:center;margin-bottom:10px">Every key word in the module, meaning, parts and (if you’ve chosen a language) your translation. Search or scroll.</p>
+    ${MLEGEND}
+    <div class="reffilter"><input id="gloss-search" placeholder="Search a word or meaning…" aria-label="search words"></div>
+    <div id="gloss-list"></div>`;
+  const input=m.querySelector("#gloss-search");
+  input.addEventListener("input", ()=>drawGloss(input.value.trim().toLowerCase()));
+  drawGloss("");
+}
+function drawGloss(q){
+  const wrap=document.getElementById("gloss-list"); if(!wrap) return;
+  let html="";
+  LESSONS.forEach(l=>{
+    const ws=l.words.filter(w=> !q || w.w.toLowerCase().includes(q) || w.meaning.toLowerCase().includes(q));
+    if(!ws.length) return;
+    html+=`<div class="topichead">Lesson ${esc(l.id)} · ${esc(l.title)}</div>`;
+    ws.forEach(w=>{
+      const map=w.tiles
+        ? morphChips(w.tiles)+" &nbsp;→&nbsp; <b>"+esc(w.w)+"</b>"
+        : `<span class="muted">from a name or idea: see its story in the lesson</span>`;
+      const domLabel={water:"ARMY & TECHNOLOGY",earth:"LAND & EMPIRE",people:"PEOPLE & BELIEFS",hazard:"LAW & POWER"}[w.domain]||w.domain;
+      html+=`<div class="vcard"><div class="top"><span class="w">${colourWord(w)}</span>${sayBtn(w.w+". "+w.meaning)}<span class="pos">${esc(w.pos)}</span>${trSpan(w.w)}
+          <span class="dtag ${w.domain}">${domLabel}</span></div>
+        <div class="meaning">${esc(w.meaning)}</div>
+        <div class="morph">${map}</div></div>`;
+    });
+  });
+  wrap.innerHTML=html || `<p class="muted" style="text-align:center">No words match “${esc(q)}”.</p>`;
+  wireSay(wrap);
+}
+
+/* ================= REPORT ================= */
+function vcode(str){
+  let h=5381; for(let i=0;i<str.length;i++){ h=((h<<5)+h+str.charCodeAt(i))>>>0; }
+  return h.toString(36).toUpperCase().padStart(7,"0").slice(0,7);
+}
+function fmtWhen(t){
+  try{ return new Date(t).toLocaleString("en-AU",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}); }
+  catch(e){ return ""; }
+}
+function renderReport(){
+  const m=document.getElementById("report-body");
+  const name=S.name||"", sid=S.sid||"";
+  const dt=new Date().toLocaleString("en-AU",{dateStyle:"full",timeStyle:"short"});
+  let rows="", aggFirst=0, aggAtt=0, sig="";
+  LESSONS.forEach(l=>{
+    const st=S.lessons[l.id];
+    if(!st){ rows+=`<tr><td>${esc(l.id)} ${esc(l.title)}</td><td class="nf">: </td><td class="nf">: </td><td class="nf">: </td><td class="nf">: </td></tr>`; return; }
+    const b=buildCounts(l), a=applyCounts(l);
+    const bTxt = b.done? (st.buildComplete?`${b.clean}/${b.total}`:`${b.clean}/${b.done} (${b.done}/${b.total} built)`) : ": ";
+    const aTxt = a.ans? (st.applyDone?`${a.got}/${a.total}`:`${a.got}/${a.ans} (unfinished)`) : ": ";
+    const bc=l.base?tierCounts(l.base.items, st.baseFirst):null;
+    const sc=l.stretch?tierCounts(l.stretch.items, st.stretchFirst):null;
+    const bcTxt = bc&&bc.ans? `${bc.got}/${st.baseDone?bc.total:bc.ans}` : ": ";
+    const scTxt = sc&&sc.ans? `${sc.got}/${st.stretchDone?sc.total:sc.ans}` : ": ";
+    aggFirst += b.clean + a.got; aggAtt += b.done + a.ans;
+    sig += `|${l.id}:${b.clean}.${a.got}`;
+    rows+=`<tr><td>${esc(l.id)} ${esc(l.title)}</td>
+      <td class="score">${bTxt}</td><td class="score">${aTxt}</td>
+      <td class="score">${bcTxt}</td><td class="score">${scTxt}</td></tr>`;
+  });
+  /* review log */
+  let revRows="";
+  S.reviews.slice(-12).forEach(r=>{
+    revRows+=`<tr><td>${esc(fmtWhen(r.when))}</td><td>${esc(r.upTo)}</td><td class="score">${r.got}/${r.total}</td>
+      <td${r.missed.length?"":" class='nf'"}>${r.missed.length?esc(r.missed.join(", ")):"none"}</td></tr>`;
+  });
+  /* words needing another go */
+  const needs={};
+  LESSONS.forEach(l=>{
+    const st=S.lessons[l.id]; if(!st) return;
+    l.words.forEach(w=>{ if(st.buildFirst[w.w]===false) needs[w.w]=(needs[w.w]||0)+1; });
+    (st.applySample||[]).forEach(d=>{ if(st.applyFirst[applyKey(d)]===false) needs[applyWordName(d)]=(needs[applyWordName(d)]||0)+1; });
+  });
+  S.reviews.forEach(r=>r.missed.forEach(w=>{ needs[w]=(needs[w]||0)+1; }));
+  const needList=Object.keys(needs).sort((x,y)=>needs[y]-needs[x]);
+  const revFirst=S.reviews.reduce((s,r)=>s+r.got,0), revAtt=S.reviews.reduce((s,r)=>s+r.total,0);
+  const code=vcode(`${name}|${sid}|${aggFirst}/${aggAtt}|${revFirst}/${revAtt}${sig}`);
+  m.innerHTML=`
+    <div class="idrow noprint">
+      <span><label>Your name</label><input id="rep-name" value="${esc(name)}" placeholder="e.g. Ama Osei"></span>
+      <span><label>Student ID</label><input id="rep-sid" value="${esc(sid)}" placeholder="e.g. KHS12345"></span>
+      <span style="align-self:flex-end"><button class="btn btn-primary" onclick="saveIdAndPrint()">Save as PDF</button></span>
+    </div>
+    <p class="muted noprint" style="margin-bottom:14px">Type your name and ID, click <b>Save as PDF</b>, choose “Save as PDF” as the destination in the print box, then send the file to your teacher.</p>
+    <h2>Ancient Rome: Vocab Report</h2>
+    <p class="muted">${name?`<b>${esc(name)}</b>`:"<i>(name not entered)</i>"} · ID ${sid?`<b>${esc(sid)}</b>`:"<i>(not entered)</i>"} · ${dt}</p>
+    <table class="repgrid">
+      <tr><th>Lesson</th><th>Build (clean)</th><th>Use (1st try)</th><th>Base camp</th><th>Stretch</th></tr>
+      ${rows}
+      <tr><td><b>All lesson items attempted</b></td><td class="score" colspan="2"><b>${aggAtt?`${aggFirst}/${aggAtt} (${Math.round(100*aggFirst/aggAtt)}%)`:": "}</b></td><td colspan="2">first attempts; everything was then mastered via the retry loop</td></tr>
+    </table>
+    <h3>Review sessions (${S.reviews.length})</h3>
+    ${S.reviews.length?`<table class="repgrid"><tr><th>When</th><th>Up to lesson</th><th>First try</th><th>Missed</th></tr>${revRows}</table>
+      <p class="muted">Across all reviews: <b>${revFirst}/${revAtt}</b> first-attempt. ${S.reviews.length>12?"(last 12 shown)":""}</p>`
+      :`<p class="muted">No review sessions yet: reviews are the part that makes words stick.</p>`}
+    <h3>Words needing another go</h3>
+    <p class="muted">${needList.length?needList.map(w=>`${esc(w)}${needs[w]>1?` (×${needs[w]})`:""}`).join(", "):"None recorded: every first attempt so far has landed."}</p>
+    <h3>Reading this report</h3>
+    <p class="muted">Each lesson runs meet → build (assemble the word from its morphemes) → use (apply tasks sampled from a bank). Base camp is the support tier, the same morphemes in everyday words; Stretch is the extension tier. Reviews shuffle words from earlier lessons, weighted toward ones previously missed. All scores are FIRST attempts; wrong answers loop until mastered, so a rough first-attempt score with everything cleared still shows honest, finished work.</p>
+    <p class="muted">Verification code: <span class="vcode">${code}</span> · Ancient Rome Vocab Hub</p>`;
+}
+function saveIdAndPrint(){
+  S.name=document.getElementById("rep-name").value.trim();
+  S.sid=document.getElementById("rep-sid").value.trim();
+  save(); renderReport();
+  setTimeout(()=>window.print(),150);
+}
+
+/* ---- boot ---- */
+go("home");
+</script>
+</body>
+</html>

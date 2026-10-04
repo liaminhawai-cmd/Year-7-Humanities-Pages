@@ -2048,7 +2048,7 @@ const MTYPE_ORDER = ["prefix","root","suffix","connector"];
 const MTYPE_LETTER = {prefix:"mp", root:"mr", suffix:"ms", connector:"mc"};
 
 /* Colour a word's own spelling by morpheme role, matching the coloured
-   code-chips in its morph line below — the purple-lab word-list treatment.
+   code-chips in its morph line below: the purple-lab word-list treatment.
    Falls back to the plain word if a tile can't be found inside it. */
 function colourWord(v){
   if(v.type==="origin"||!v.tiles?.length) return esc(v.w);
