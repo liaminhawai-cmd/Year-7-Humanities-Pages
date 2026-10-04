@@ -134,7 +134,7 @@ SITE = [
           ("&#128218;", "Ancient Australia words", "batman/vocab-hub.html",
            "The unit lesson by lesson: build each word from its parts, then use it.", None),
           ("&#128218;", "Ancient Rome words", "vesuvius/vocab-hub.html",
-           "The unit lesson by lesson, 1.1 to 5.1: build each word from its parts, then use it.", None),
+           "The unit lesson by lesson, 1.1 to 4.1: build each word from its parts, then use it.", None),
           ("&#128218;", "Ancient China words", "china/vocab-hub.html",
            "Meet, build and recall the words the China wall marks.", None),
           ("&#128221;", "Vocabulary homework", "homework/",
@@ -217,9 +217,9 @@ SITE = [
            "Downloads as one file for offline use.")),
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "85 words, lesson by lesson, 1.1 to 5.1, including the whole unit word list: build "
-            "each word from its parts, then use it. The word list shows every word, its meaning "
-            "and what each part means, and prints.", None)]),
+            "89 words in the 2025 lesson order, 1.1 to 4.1, with each word's family (conquer, conquest, "
+            "conqueror) and the whole unit word list: build each word from its parts, then use it. "
+            "The word list shows every word, its meaning and what each part means, and prints.", None)]),
       ],
       note="<b>This wall rehearses CAT 2.</b> CAT 2 is a guidebook for a traveller arriving in Rome "
            "in 300 CE, with a timeline and a one-page history. Its rubric marks chronology, cause and "
