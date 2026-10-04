@@ -95,8 +95,9 @@ SITE = [
       note="<b>Everything here is a plain HTML file.</b> No login, no install, and no internet needed "
            "once a page has loaded. The single-file versions download and run from a USB stick.<br><br>"
            "<b>The words for each topic sit with that topic</b>, not in a pile at the front: "
-           "Water in the World has a lesson-by-lesson vocab hub, History has its own word list, and both "
-           "appear on the <a href=\"" + WORD_BUILDER + "\">EAL Word Builder</a>.<br><br>"
+           "Water in the World, Ancient Australia and Ancient Rome each have a lesson-by-lesson vocab hub, "
+           "and Water in the World's words are also on the <a href=\"" + WORD_BUILDER + "\">EAL Word Builder</a>, "
+           "lesson by lesson.<br><br>"
            "<b>Teacher context</b>, curriculum documents, source files, planning, lives in "
            "the private <b>Year-7-Humanities</b> repository, not here."),
 
@@ -123,22 +124,28 @@ SITE = [
           ("&#128220;", "1 &middot; Ancient Australia", "batman/",
            "Batman's Treaty at Merri Creek. A painting showing a bargain being struck, and a "
            "Proclamation saying no such bargain was ever possible.", None),
-          ("&#128221;", "Vocabulary homework", "homework/",
-           "Four weekly rounds for Ancient Australia: build the words from their morphemes, "
-           "meet one source, answer the Grade 4 table, bump one row up.", "weekly"),
-          ("&#127772;", "2 &middot; Ancient China", "china/",
+          ("&#127963;", "2 &middot; Ancient Rome", "vesuvius/",
+           "Pliny's two letters about the eruption of Vesuvius: what happened, in what order, "
+           "and why people did what they did.", "draft"),
+          ("&#127772;", "3 &middot; Ancient China", "china/",
            "Qin Shi Huang, in a painting of the burning of the books and in a historian who "
            "calls him the founder of China.", "draft")]),
+        ("Vocabulary &amp; homework", "the words for each unit, and the weekly homework", [
+          ("&#128218;", "Ancient Australia words", "batman/vocab-hub.html",
+           "The unit lesson by lesson: build each word from its parts, then use it.", None),
+          ("&#128218;", "Ancient Rome words", "vesuvius/vocab-hub.html",
+           "The unit lesson by lesson, 1.1 to 5.1: build each word from its parts, then use it.", None),
+          ("&#128218;", "Ancient China words", "china/vocab-hub.html",
+           "Meet, build and recall the words the China wall marks.", None),
+          ("&#128221;", "Vocabulary homework", "homework/",
+           "Four weekly rounds for Ancient Australia: build the words from their morphemes, "
+           "meet one source, answer the Grade 4 table, bump one row up.", "weekly")]),
         ("Archive", "written and levelled, but not the source a unit is now built on", [
           ("&#129704;", "GS73, the grinding stone", "gs73/",
            "An excavated object from Madjedbebe on Mirarr Country, with no author, answered from "
            "Foundation to Year 10. The fullest resource set on the site: a wall, level sheets, a "
            "paragraph builder and the print pack. Kept because it is the one source here that is "
            "an object rather than a document.", "archived"),
-          ("&#127963;", "Ancient Rome", "vesuvius/",
-           "Pliny the Younger on the eruption of Vesuvius, written twenty-five years after it "
-           "happened. Built as History 2 before the unit list was revised; Year 7 does not now "
-           "teach a Rome unit using this source. Kept as a complete ancient source.", "archived"),
           ("\U0001F3FA", "Ancient Egypt", "egypt/",
            "Herodotus on the Nile, a visitor writing much of it at second hand. Built as History 2 "
            "before the unit list was checked; Year 7 does not teach an Egypt unit. Kept because it "
@@ -199,36 +206,37 @@ SITE = [
            "still to be confirmed before print. See <a href=\"SOURCE-NOTICE.md\">the source "
            "notice</a>."),
 
- dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Archive",
+ dict(path="history/vesuvius/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
       title="Ancient Rome",
-      intro="Pliny the Younger's letter to Tacitus on the eruption of Vesuvius, written twenty-five "
-            "years after it happened.",
+      intro="What happened at Vesuvius, in what order, and why did people do what they did?",
       back=("../", "History"),
       sections=[
         ("Resources", None, wagoll(False,
-           "Foundation to Year 10. Tap any part of the letter, tap any phrase. "
+           "Foundation to Level 9. Tap between the two letters, tap any phrase. "
            "Downloads as one file for offline use.")),
-        ("Words &amp; booklet", None, [
+        ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
-           words("hist-rome",
-                 "The Ancient Rome unit's thirty-one words in nine languages, with spaced practice."),
-           SOURCE_WORDS,
-           ("&#128214;", "What is source analysis?", "../../print/What-is-source-analysis-A5.pdf",
-            "The nine-page student booklet, ready to print.", None)]),
+            "The unit lesson by lesson, 1.1 to 5.1: build each word from its parts, then use it, "
+            "with base camp and stretch tiers and a printable report.", None)]),
       ],
-      note="<b>Archived.</b> Built as History 2 before the unit list was revised; Year 7 does not now "
-           "teach a Rome unit using this source. Kept as a complete ancient source, read from "
-           "Foundation to Year 10, rather than deleted.<br><br>"
-           "<b>This wall does not rehearse a CAT.</b> A tourist-guidebook task for a traveller "
-           "arriving in 300 CE would assess no source analysis at all, so what sits here is instead "
-           "a real Roman source read at every level: the source-analysis skill the taught units are "
-           "marked on.<br><br>"
-           "<b>Draft.</b> Written and levelled but not yet taught. The traditional 24 August date is "
-           "disputed, an inscription found at Pompeii in 2018 points to autumn, and the "
-           "wall treats that disagreement as part of what there is to analyse."),
+      note="<b>This wall rehearses CAT 2.</b> CAT 2 is a guidebook for a traveller arriving in Rome "
+           "in 300 CE, with a timeline and a one-page history. Its rubric marks chronology, cause and "
+           "effect, metacognition and presentation. The wall carries the first two, in the rubric's "
+           "own words, at Levels 6 to 9, with three rungs below Level 6 that show the Victorian "
+           "Curriculum instead. Metacognition and presentation are not on it.<br><br>"
+           "<b>Pliny is not in the CAT.</b> The first letter follows his uncle at Stabiae, the second "
+           "follows Pliny and his mother at Misenum, over the same days. The times, the days and the "
+           "reasons are all inside the letters, so a student can put events in order and explain "
+           "them without first learning a body of content.<br><br>"
+           "<b>Both letters are given in full</b>, in Melmoth's translation of 1746 as revised in "
+           "1909, which is public domain. Only paragraph breaks have been added. The text is hard "
+           "going: some sentences in the first letter run past a hundred words. The worked examples "
+           "are written at each level; the source is not.<br><br>"
+           "<b>The date in the letters, 24 August, is disputed.</b> A charcoal note found at Pompeii "
+           "in 2018 is dated 17 October.<br><br>"
+           "<b>Draft.</b> Written and levelled, not yet taught."),
 
- dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 2",
+ dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
       title="Ancient China",
       intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
             "argued. Task 3 of the CAT booklet asks you to weigh him.",
