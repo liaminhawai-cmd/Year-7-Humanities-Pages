@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Funny holiday recount WAGOLL wall: chronology and cause and effect marked inside the same recount as it grows from Level 6 to Level 9.">
-<title>The Holiday That Should Have Been Relaxing</title>
+<meta name="description" content="Funny holiday recount WAGOLL wall: chronology and cause and effect marked as the writing grows from Prep to Level 9.">
+<title>The Holiday Where the Tent Flew Away</title>
 <style>
 :root{
   --paper:#fbf7ee;--bg:#efe8dc;--ink:#20231f;--muted:#675f54;--line:#d4c8b6;
@@ -28,6 +28,20 @@ body{background:var(--bg);color:var(--ink);line-height:1.5;font-family:system-ui
 .mast{border-bottom:3px solid var(--deep);padding-bottom:11px;margin-bottom:12px}
 .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;color:var(--muted)}
 h1{font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.05;color:var(--deep);margin:.18rem 0 .3rem;letter-spacing:-.015em}
+/* ---------- holiday source band ---------- */
+.src{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:14px;align-items:start;margin:12px 0 13px}
+.plates{display:flex;flex-direction:column;gap:8px}
+.quote{border:1px solid var(--line);border-left:5px solid var(--cause);border-radius:8px;background:var(--band);padding:8px 10px}
+.quote b{display:block;color:var(--cause);font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.quote p{font-size:.76rem;line-height:1.4}
+.srcbody{display:flex;flex-direction:column;gap:8px}
+.inquiry{background:var(--deep);color:var(--on-deep);border-radius:9px;padding:9px 13px;font-size:1.02rem;font-weight:800;line-height:1.3}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.fact{border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:var(--band);font-size:.76rem;line-height:1.36}
+.fact b{display:block;color:var(--deep);font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+@media(max-width:900px){.src{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.facts{grid-template-columns:1fr}}
+
 .intro{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.7fr);gap:12px;margin:12px 0}
 .hook{background:var(--deep);color:var(--on-deep);border-radius:9px;padding:11px 14px;font-size:1.03rem;font-weight:800;line-height:1.35}
 .hook small{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;opacity:.72;margin-bottom:3px}
@@ -151,155 +165,7 @@ const EXAMPLES={
 "Level 7":`On Monday 8 July, we arrived at the beach house. Later that afternoon, Dad put up the tent. The wind suddenly became stronger, which made one side of the tent lift off the ground, so we had to chase it. The following morning, we went kayaking. Because I had not listened to the instructor, I paddled backwards and crashed into a bush.`,
 "Level 8":`On Monday 8 July, during the first afternoon of our six-day holiday, we arrived at the beach house and unloaded the car. Over the next few hours, Dad assembled the tent while the wind gradually increased. As the gusts became stronger, one corner lifted, then the whole tent rose into the air. Dad had chosen the lightest tent because he wanted to set it up quickly, but that decision meant the wind could lift it, turning our relaxing afternoon into a 400-metre sprint. By Tuesday morning, we had recovered enough to go kayaking. Since I had ignored the instructor's warning about the current, I drifted into a bush, which meant the instructor had to paddle over and rescue me.`,
 "Level 9":`From Monday 8 July to Saturday 13 July, our supposedly peaceful six-day holiday became a sequence of increasingly ridiculous problems. During the first afternoon, Dad deliberately chose the lightest tent because he wanted it up before dinner. That choice, combined with the strengthening wind, left the tent pulling against its pegs until one corner escaped; because nothing heavy had been packed to anchor it, the entire tent became a very large, very expensive kite. We chased it for ten minutes before dragging it back. The following morning, we went kayaking. I ignored the instructor's warning because I thought I could correct for the current myself; consequently, I drifted into a bush and the instructor had to rescue me. For the remaining four days, Dad kept the tent indoors and banned me from choosing the route.`
-};doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Funny holiday recount WAGOLL wall: chronology and cause and effect marked inside the same recount as it grows from Level 6 to Level 9.">
-<title>The Holiday That Should Have Been Relaxing</title>
-<style>
-:root{
-  --paper:#fbf7ee;--bg:#efe8dc;--ink:#20231f;--muted:#675f54;--line:#d4c8b6;
-  --deep:#223f43;--on-deep:#fbf7ee;--band:#f5f0e6;--gold:#8b681e;
-  --chrono:#176b87;--chrono-soft:#d8edf4;
-  --cause:#a34d1d;--cause-soft:#f7e3d4;
-  --shadow:0 1px 2px rgba(48,39,24,.06),0 4px 14px rgba(48,39,24,.08);
-}
-@media(prefers-color-scheme:dark){
- :root:not([data-theme="light"]){
-  --paper:#1b1e1c;--bg:#111312;--ink:#eae5db;--muted:#a49a8b;--line:#3a4038;
-  --deep:#cfe0e0;--on-deep:#111312;--band:#232725;--gold:#e0b64c;
-  --chrono:#6fc0da;--chrono-soft:#12303a;--cause:#e89a63;--cause-soft:#3a2417;
-  --shadow:0 1px 2px rgba(0,0,0,.5);
- }
-}
-:root[data-theme="dark"]{--paper:#1b1e1c;--bg:#111312;--ink:#eae5db;--muted:#a49a8b;--line:#3a4038;--deep:#cfe0e0;--on-deep:#111312;--band:#232725;--gold:#e0b64c;--chrono:#6fc0da;--chrono-soft:#12303a;--cause:#e89a63;--cause-soft:#3a2417;--shadow:0 1px 2px rgba(0,0,0,.5)}
-*{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--ink);line-height:1.5;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.sheet{max-width:1900px;margin:14px auto;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px 24px}
-.mast{border-bottom:3px solid var(--deep);padding-bottom:11px;margin-bottom:12px}
-.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;color:var(--muted)}
-h1{font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.05;color:var(--deep);margin:.18rem 0 .3rem;letter-spacing:-.015em}
-.intro{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.7fr);gap:12px;margin:12px 0}
-.hook{background:var(--deep);color:var(--on-deep);border-radius:9px;padding:11px 14px;font-size:1.03rem;font-weight:800;line-height:1.35}
-.hook small{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;opacity:.72;margin-bottom:3px}
-.note{border:1px solid var(--line);border-radius:9px;background:var(--band);padding:10px 12px;font-size:.76rem;line-height:1.42}
-.note b{display:block;color:var(--deep);text-transform:uppercase;letter-spacing:.07em;font-size:.65rem;margin-bottom:3px}
-.key{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.k{border:1px solid var(--line);border-left:5px solid;border-radius:8px;padding:7px 10px;background:var(--band)}
-.k.chrono{border-left-color:var(--chrono)}.k.cause{border-left-color:var(--cause)}
-.kh{font-weight:800;font-size:.82rem}.chrono .kh{color:var(--chrono)}.cause .kh{color:var(--cause)}
-.sample{display:block;margin-top:2px;font-family:Georgia,"Times New Roman",serif;font-size:.76rem}
-.mark{font-weight:600;text-decoration-line:underline;text-underline-offset:2.5px;text-decoration-thickness:1.3px}
-.m-chrono{color:var(--chrono);text-decoration-color:var(--chrono);text-decoration-style:solid}
-.m-cause{color:var(--cause);text-decoration-color:var(--cause);text-decoration-style:dotted}
-.tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
-.tools button{font:inherit;font-size:.78rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
-.tools button[aria-pressed="true"]{border-color:var(--deep);box-shadow:inset 0 0 0 1px var(--deep)}
-.tools .sp{flex:1}
-.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
-table.wall{border-collapse:collapse;width:100%;min-width:1450px;table-layout:fixed}
-.wall th,.wall td{border:1px solid var(--line);padding:9px 10px;vertical-align:top;text-align:left}
-.wall col.lbl{width:150px}
-.wall thead th{background:var(--deep);color:var(--on-deep);text-align:center;vertical-align:middle;font-size:.95rem;padding:8px 6px}
-.wall thead th.expected{background:var(--gold)}
-.wall thead th .sub{display:block;font-size:.63rem;font-weight:700;opacity:.85;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
-.wall .rowlab{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--deep);vertical-align:middle;background:var(--band)}
-td.example{font-family:Georgia,"Times New Roman",serif;font-size:.88rem;line-height:1.62}
-td.expl{font-size:.73rem;line-height:1.43;background:var(--band)}
-.exp-item{display:flex;gap:6px;margin-bottom:6px}.exp-item .g{flex:none}
-.exp-chrono .g{color:var(--chrono)}.exp-cause .g{color:var(--cause)}
-.wall tr.band td{background:var(--deep);color:var(--on-deep);font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;text-align:center;padding:5px}
-.wall tr.crit td{font-size:.76rem;line-height:1.44}.wall tr.crit .rowlab{background:transparent}
-tr.crit-chrono td{background:var(--chrono-soft)}tr.crit-chrono .rowlab{color:var(--chrono)}
-tr.crit-cause td{background:var(--cause-soft)}tr.crit-cause .rowlab{color:var(--cause)}
-.wall td.expected-col{box-shadow:inset 3px 0 0 var(--gold),inset -3px 0 0 var(--gold)}
-body.filtering .mark{color:var(--muted);font-weight:400;text-decoration-color:transparent}
-body.filtering .exp-item{opacity:.2}
-body.f-chrono .m-chrono,body.f-cause .m-cause{font-weight:600;text-decoration-color:currentColor}
-body.f-chrono .exp-chrono,body.f-cause .exp-cause{opacity:1}
-@media(max-width:900px){.intro{grid-template-columns:1fr}.key{grid-template-columns:1fr}}
-@media(max-width:620px){.sheet{padding:14px;margin:0;border-radius:0;border:0}}
-@media print{
- @page{size:A2 landscape;margin:8mm}
- :root{--paper:#fff;--bg:#fff;--ink:#000;--muted:#4a463d;--line:#c3b8a4;--deep:#223f43;--on-deep:#fff;--band:#f5f0e6}
- body{background:#fff}.tools{display:none!important}.sheet{max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}
- .intro{gap:10px;margin:8px 0}.hook{padding:7pt 10pt;font-size:12pt}.note{font-size:8.5pt;padding:6pt 8pt}
- .mast{padding-bottom:6px;margin-bottom:7px}h1{font-size:29pt}.kicker{font-size:8.5pt}.read{font-size:8.8pt}
- .key{gap:5px;margin-bottom:7px}.k{padding:5pt 7pt}.kh{font-size:9pt}.sample{font-size:8pt}
- .wall col.lbl{width:115pt}.wall th,.wall td{padding:5pt 6pt}.wall thead th{font-size:13pt;padding:5pt}
- .wall .rowlab{font-size:8.5pt}td.example{font-size:10pt;line-height:1.42}td.expl{font-size:8.3pt;line-height:1.3}
- .wall tr.band td{font-size:8.2pt;padding:3pt}.wall tr.crit td{font-size:8.6pt;line-height:1.28}.foot{font-size:7.7pt;margin-top:6pt;padding-top:4pt}
- *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-}
-</style>
-</head>
-<body>
-<div class="sheet">
-
-<header class="mast">
-  <div class="kicker">Writing · Holiday recount · WAGOLL wall</div>
-  <h1>The Holiday That Should Have Been Relaxing</h1>
-</header>
-
-<section class="src">
-  <div class="plates">
-    <div class="quote">
-      <b>The holiday</b>
-      <p>We went to the beach. Dad put up the tent. Then the wind took it.</p>
-    </div>
-  </div>
-  <div class="srcbody">
-    <div class="inquiry">A family goes away for a relaxing holiday. By the end, the tent has escaped, a kayak is in a bush, and Dad has banned outdoor equipment.</div>
-    <div class="facts">
-      <div class="fact"><b>Day 1</b>The tent blows away.</div>
-      <div class="fact"><b>Day 2</b>I crash the kayak.</div>
-      <div class="fact"><b>Days 3–6</b>Dad stops letting us choose things.</div>
-    </div>
-  </div>
-</section>
-
-<div class="key">
-  <div class="k" style="border-left-color:var(--chrono)">
-    <div class="kh" style="color:var(--chrono)">■ Chronology</div>
-    <span class="sample m" style="color:var(--chrono);text-decoration-color:var(--chrono);text-decoration-style:solid">marked like this</span>
-  </div>
-  <div class="k" style="border-left-color:var(--cause)">
-    <div class="kh" style="color:var(--cause)">● Cause and effect</div>
-    <span class="sample m" style="color:var(--cause);text-decoration-color:var(--cause);text-decoration-style:dotted">marked like this</span>
-  </div>
-</div>
-
-<div class="tools noprint" role="group" aria-label="Wall tools">
-  <button id="showAll" aria-pressed="true">Show all</button>
-  <span id="lenses" style="display:contents"></span>
-  <span class="sp"></span>
-  <button id="grey" aria-pressed="false">Greyscale check</button>
-  <button id="print">Print / save PDF</button>
-</div>
-
-<div class="wrap"><table class="wall" id="wall"></table></div>
-
-
-</div>
-
-<script>
-const WALL={title:"The Holiday That Should Have Been Relaxing",expected:"Level 8"};
-const LEVELS=["Prep","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Level 6","Level 7","Level 8","Level 9"];
-
-const CRITERIA=[
- {key:"chrono",row:"Chronology",name:"Chronology",glyph:"■"},
- {key:"cause",row:"Cause and effect",name:"Cause and effect",glyph:"●"}
-];
-
-const EXAMPLES={
-"Level 6":`On <span class="m m-chrono">Monday morning</span>, we arrived at the beach house. <span class="m m-chrono">That afternoon</span>, Dad put up the tent. <span class="m m-cause">The wind got stronger, so the tent flew away</span> and we chased it down the beach. <span class="m m-chrono">The next day</span>, we went kayaking, but I paddled into a bush.`,
-"Level 7":`<span class="m m-chrono">On Monday 8 July</span>, we arrived at the beach house. <span class="m m-chrono">Later that afternoon</span>, Dad put up the tent. <span class="m m-cause">The wind suddenly became stronger, which made one side of the tent lift off the ground</span>, so we had to chase it. <span class="m m-chrono">The following morning</span>, we went kayaking. <span class="m m-cause">Because I had not listened to the instructor, I paddled backwards and crashed into a bush.</span>`,
-"Level 8":`<span class="m m-chrono">On Monday 8 July, during the first afternoon of our six-day holiday</span>, we arrived at the beach house and unloaded the car. <span class="m m-chrono">Over the next few hours</span>, Dad assembled the tent while the wind gradually increased. <span class="m m-cause">As the gusts became stronger, one corner lifted, then the whole tent rose into the air</span>. <span class="m m-cause">Dad had chosen the lightest tent because he wanted to set it up quickly, but that decision meant the wind could lift it</span>, turning our relaxing afternoon into a 400-metre sprint. <span class="m m-chrono">By Tuesday morning</span>, we had recovered enough to go kayaking. <span class="m m-cause">Since I had ignored the instructor's warning about the current, I drifted into a bush, which meant the instructor had to paddle over and rescue me.</span>`,
-"Level 9":`<span class="m m-chrono">From Monday 8 July to Saturday 13 July</span>, our supposedly peaceful six-day holiday became a sequence of increasingly ridiculous problems. <span class="m m-chrono">During the first afternoon</span>, Dad deliberately chose the lightest tent because he wanted it up before dinner. <span class="m m-cause">That choice, combined with the strengthening wind, left the tent pulling against its pegs until one corner escaped; because nothing heavy had been packed to anchor it, the entire tent became a very large, very expensive kite.</span> We chased it for ten minutes before dragging it back. <span class="m m-chrono">The following morning</span>, we went kayaking. <span class="m m-cause">I ignored the instructor's warning because I thought I could correct for the current myself; consequently, I drifted into a bush and the instructor had to rescue me.</span> <span class="m m-chrono">For the remaining four days</span>, Dad kept the tent indoors and banned me from choosing the route.`
 };
-
 const EXPLANATIONS={
 "Prep":{chrono:"Puts the events in order.",cause:"Shows what happened next."},
 "Grade 1":{chrono:"Adds simple time words: <b>Saturday, then.</b>",cause:"Shows a simple result: <b>Dad fell in the water.</b>"},
