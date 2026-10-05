@@ -79,6 +79,7 @@ tr.crit-cause td{background:var(--cause-soft)}tr.crit-cause .rowlab{color:var(--
 body.filtering .mark{color:var(--muted);font-weight:400;text-decoration-color:transparent}
 body.filtering .exp-item{opacity:.2}
 body.f-chrono .m-chrono,body.f-cause .m-cause{font-weight:600;text-decoration-color:currentColor}
+body.greyscale{filter:grayscale(1)}
 body.f-chrono .exp-chrono,body.f-cause .exp-cause{opacity:1}
 @media(max-width:900px){.intro{grid-template-columns:1fr}.key{grid-template-columns:1fr}}
 @media(max-width:620px){.sheet{padding:14px;margin:0;border-radius:0;border:0}}
@@ -167,22 +168,16 @@ const EXAMPLES={
 "Level 9":`From Monday 8 July to Saturday 13 July, our supposedly peaceful six-day holiday became a sequence of increasingly ridiculous problems. During the first afternoon, Dad deliberately chose the lightest tent because he wanted it up before dinner. That choice, combined with the strengthening wind, left the tent pulling against its pegs until one corner escaped; because nothing heavy had been packed to anchor it, the entire tent became a very large, very expensive kite. We chased it for ten minutes before dragging it back. The following morning, we went kayaking. I ignored the instructor's warning because I thought I could correct for the current myself; consequently, I drifted into a bush and the instructor had to rescue me. For the remaining four days, Dad kept the tent indoors and banned me from choosing the route.`
 };
 const EXPLANATIONS={
-"Level 6":{
- chrono:"Uses simple sequence markers: <b>Monday morning, that afternoon, the next day.</b>",
- cause:"Shows a direct cause and result: <b>stronger wind → tent flies away</b>."
-},
-"Level 7":{
- chrono:"Adds a specific date and tightens the sequence: <b>8 July, later that afternoon, the following morning.</b>",
- cause:"Shows the chain more clearly: <b>wind increases → tent lifts</b>; <b>poor listening → kayaking crash</b>."
-},
-"Level 8":{
- chrono:"Places events inside periods and gives the duration: <b>first afternoon of a six-day holiday, over the next few hours, by Tuesday morning.</b>",
- cause:"Shows how one choice sets off the next: <b>Dad's choice → light tent + wind → tent escapes</b>, then <b>ignored warning → current → rescue</b>."
-},
-"Level 9":{
- chrono:"Controls the whole time span and shows how long it lasts: <b>8–13 July, first afternoon, following morning, remaining four days.</b>",
- cause:"Tracks several causes together and shows why people act: <b>Dad chose speed → light tent → wind + weak anchoring → escape</b>; <b>I ignored the warning because I thought I could manage → current → bush → rescue</b>."
-}
+"Prep":{ chrono:"Puts the events in order.", cause:"Shows what happened next." },
+"Grade 1":{ chrono:"Adds simple time words: <b>Saturday, then.</b>", cause:"Shows a simple result: <b>Dad fell in the water.</b>" },
+"Grade 2":{ chrono:"Moves through the morning: <b>first, then.</b>", cause:"Links the wave to the sandcastle falling down." },
+"Grade 3":{ chrono:"Moves through morning, then lunch.", cause:"Links the wind to the tent falling and the crash to the bush." },
+"Grade 4":{ chrono:"Uses <b>morning, later.</b>", cause:"Gives a reason for each problem: <b>wind, then ignoring the instructor.</b>" },
+"Grade 5":{ chrono:"Gives a date and a longer span: <b>Saturday morning, six days, next morning.</b>", cause:"Joins several steps: <b>light tent → wind → chase</b>; <b>ignored warning → current → bush.</b>" },
+"Level 6":{ chrono:"Uses simple sequence markers: <b>Monday morning, that afternoon, the next day.</b>", cause:"Shows a direct cause and result: <b>stronger wind → tent flies away</b>." },
+"Level 7":{ chrono:"Adds a specific date and tightens the sequence: <b>8 July, later that afternoon, the following morning.</b>", cause:"Shows the chain more clearly: <b>wind increases → tent lifts</b>; <b>poor listening → kayaking crash</b>." },
+"Level 8":{ chrono:"Places events inside periods and gives the duration: <b>first afternoon of a six-day holiday, over the next few hours, by Tuesday morning.</b>", cause:"Shows how one choice sets off the next: <b>Dad’s choice → light tent + wind → tent escapes</b>, then <b>ignored warning → current → rescue</b>." },
+"Level 9":{ chrono:"Controls the whole time span and shows how long it lasts: <b>8–13 July, first afternoon, following morning, remaining four days.</b>", cause:"Tracks several causes together and shows why people act: <b>Dad chose speed → light tent → wind + weak anchoring → escape</b>; <b>I ignored the warning because I thought I could manage → current → bush → rescue</b>." }
 };
 
 const CONTINUUM={
@@ -206,7 +201,7 @@ const head=`<colgroup><col class="lbl">${LEVELS.map(()=>"<col>").join("")}</colg
 
 const exampleRow=`<tr><th class="rowlab" scope="row">Worked example</th>${LEVELS.map(lv=>`<td class="example${isExp(lv)?" expected-col":""}">${EXAMPLES[lv]}</td>`).join("")}</tr>`;
 
-const explainRow=`<tr><th class="rowlab" scope="row">What it proves</th>${LEVELS.map(lv=>`<td class="expl${isExp(lv)?" expected-col":""}">${CRITERIA.map(c=>`<div class="exp-item exp-${c.key}"><span class="g">${c.glyph}</span><span>${EXPLANATIONS[lv][c.key]}</span></div>`).join("")}</td>`).join("")}</tr>`;
+const explainRow=`<tr><th class="rowlab" scope="row">Notice</th>${LEVELS.map(lv=>`<td class="expl${isExp(lv)?" expected-col":""}">${CRITERIA.map(c=>`<div class="exp-item exp-${c.key}"><span class="g">${c.glyph}</span><span>${EXPLANATIONS[lv][c.key]}</span></div>`).join("")}</td>`).join("")}</tr>`;
 
 const bandRow=`<tr class="band"><td>Learning continuum</td>${LEVELS.map(lv=>`<td${isExp(lv)?' class="expected-col"':''}>${lv}</td>`).join("")}</tr>`;
 
