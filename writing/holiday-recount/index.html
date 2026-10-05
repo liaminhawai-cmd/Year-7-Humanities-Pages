@@ -28,7 +28,6 @@ body{background:var(--bg);color:var(--ink);line-height:1.5;font-family:system-ui
 .mast{border-bottom:3px solid var(--deep);padding-bottom:11px;margin-bottom:12px}
 .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:800;color:var(--muted)}
 h1{font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.05;color:var(--deep);margin:.18rem 0 .3rem;letter-spacing:-.015em}
-.read{font-size:.84rem;color:var(--muted);max-width:1100px}.read b{color:var(--ink)}
 .intro{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.7fr);gap:12px;margin:12px 0}
 .hook{background:var(--deep);color:var(--on-deep);border-radius:9px;padding:11px 14px;font-size:1.03rem;font-weight:800;line-height:1.35}
 .hook small{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;opacity:.72;margin-bottom:3px}
@@ -67,8 +66,6 @@ body.filtering .mark{color:var(--muted);font-weight:400;text-decoration-color:tr
 body.filtering .exp-item{opacity:.2}
 body.f-chrono .m-chrono,body.f-cause .m-cause{font-weight:600;text-decoration-color:currentColor}
 body.f-chrono .exp-chrono,body.f-cause .exp-cause{opacity:1}
-.foot{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);font-size:.73rem;color:var(--muted);line-height:1.5}
-.foot b{color:var(--ink)}
 @media(max-width:900px){.intro{grid-template-columns:1fr}.key{grid-template-columns:1fr}}
 @media(max-width:620px){.sheet{padding:14px;margin:0;border-radius:0;border:0}}
 @media print{
@@ -91,7 +88,6 @@ body.f-chrono .exp-chrono,body.f-cause .exp-cause{opacity:1}
 <header class="mast">
   <div class="kicker">Writing · Holiday recount · WAGOLL wall</div>
   <h1>The Holiday That Should Have Been Relaxing</h1>
-  <p class="read"><b>Read across</b> to see the same holiday become more controlled. <b>Read down</b> from a marked phrase, to what it proves, to the continuum descriptor. The black text is the recount; only the phrases doing the criterion's work are marked.</p>
 </header>
 
 <section class="src">
@@ -112,12 +108,12 @@ body.f-chrono .exp-chrono,body.f-cause .exp-cause{opacity:1}
 </section>
 
 <div class="key">
-  <div class="k" style="border-left-color:var(--source)">
-    <div class="kh" style="color:var(--source)">■ Chronology</div>
+  <div class="k" style="border-left-color:var(--chrono)">
+    <div class="kh" style="color:var(--chrono)">■ Chronology</div>
     <span class="sample m" style="color:var(--source);text-decoration-color:var(--source);text-decoration-style:solid">marked like this</span>
   </div>
-  <div class="k" style="border-left-color:var(--evidence)">
-    <div class="kh" style="color:var(--evidence)">● Cause and effect</div>
+  <div class="k" style="border-left-color:var(--cause)">
+    <div class="kh" style="color:var(--cause)">● Cause and effect</div>
     <span class="sample m" style="color:var(--evidence);text-decoration-color:var(--evidence);text-decoration-style:dotted">marked like this</span>
   </div>
 </div>
@@ -132,7 +128,6 @@ body.f-chrono .exp-chrono,body.f-cause .exp-cause{opacity:1}
 
 <div class="wrap"><table class="wall" id="wall"></table></div>
 
-<p class="foot"><b>The continuum is reproduced exactly.</b> The wall models Chronology and Cause and effect because those are the parts of the recount that ask the writer to control and explain the past. Metacognition and Presentation are not separate worked-example rows.</p>
 
 </div>
 
@@ -141,12 +136,12 @@ const WALL={title:"The Holiday That Should Have Been Relaxing",expected:"Level 8
 const LEVELS=["Level 6","Level 7","Level 8","Level 9"];
 
 const CRITERIA=[
- {key:"source",row:"Chronology",name:"Chronology",glyph:"■",ink:"#176b87",lamp:"#6fc0da",underline:"solid"},
- {key:"evidence",row:"Cause and effect",name:"Cause and effect",glyph:"●",ink:"#a34d1d",lamp:"#e89a63",underline:"dotted"}
+ {key:"chrono",row:"Chronology",name:"Chronology",glyph:"■"},
+ {key:"cause",row:"Cause and effect",name:"Cause and effect",glyph:"●"}
 ];
 
 const EXAMPLES={
-"Level 6":`On <span class="m m-source">Monday morning</span>, we arrived at the beach house. <span class="m m-source">That afternoon</span>, Dad put up the tent. <span class="m m-evidence">The wind got stronger, so the tent flew away</span> and we chased it down the beach. <span class="m m-source">The next day</span>, we went kayaking, but I paddled into a bush.`,
+"Level 6":`On <span class="m m-chrono">Monday morning</span>, we arrived at the beach house. <span class="m m-source">That afternoon</span>, Dad put up the tent. <span class="m m-cause">The wind got stronger, so the tent flew away</span> and we chased it down the beach. <span class="m m-source">The next day</span>, we went kayaking, but I paddled into a bush.`,
 "Level 7":`<span class="m m-source">On Monday 8 July</span>, we arrived at the beach house. <span class="m m-source">Later that afternoon</span>, Dad put up the tent. <span class="m m-evidence">The wind suddenly became stronger, which made one side of the tent lift off the ground</span>, so we had to chase it. <span class="m m-source">The following morning</span>, we went kayaking. <span class="m m-evidence">Because I had not listened to the instructor, I paddled backwards and crashed into a bush.</span>`,
 "Level 8":`<span class="m m-source">On Monday 8 July, during the first afternoon of our six-day holiday</span>, we arrived at the beach house and unloaded the car. <span class="m m-source">Over the next few hours</span>, Dad assembled the tent while the wind gradually increased. <span class="m m-evidence">As the gusts became stronger, one corner lifted, then the whole tent rose into the air</span>. <span class="m m-evidence">Dad had chosen the lightest tent because he wanted to set it up quickly, but that decision meant the wind could lift it</span>, turning our relaxing afternoon into a 400-metre sprint. <span class="m m-source">By Tuesday morning</span>, we had recovered enough to go kayaking. <span class="m m-evidence">Since I had ignored the instructor's warning about the current, I drifted into a bush, which meant the instructor had to paddle over and rescue me.</span>`,
 "Level 9":`<span class="m m-source">From Monday 8 July to Saturday 13 July</span>, our supposedly peaceful six-day holiday became a sequence of increasingly ridiculous problems. <span class="m m-source">During the first afternoon</span>, Dad deliberately chose the lightest tent because he wanted it up before dinner. <span class="m m-evidence">That choice, combined with the strengthening wind, left the tent pulling against its pegs until one corner escaped; because nothing heavy had been packed to anchor it, the entire tent became a very large, very expensive kite.</span> We chased it for ten minutes before dragging it back. <span class="m m-source">The following morning</span>, we went kayaking. <span class="m m-evidence">I ignored the instructor's warning because I thought I could correct for the current myself; consequently, I drifted into a bush and the instructor had to rescue me.</span> <span class="m m-source">For the remaining four days</span>, Dad kept the tent indoors and banned me from choosing the route.`
@@ -154,31 +149,31 @@ const EXAMPLES={
 
 const EXPLANATIONS={
 "Level 6":{
- source:"Uses simple sequence markers: <b>Monday morning, that afternoon, the next day.</b>",
- evidence:"Identifies a direct cause and result: <b>stronger wind → tent flies away</b>."
+ chrono:"Uses simple sequence markers: <b>Monday morning, that afternoon, the next day.</b>",
+ cause:"Shows a direct cause and result: <b>stronger wind → tent flies away</b>."
 },
 "Level 7":{
- source:"Adds a specific date and tighter sequence: <b>8 July, later that afternoon, the following morning.</b>",
- evidence:"Describes the causal chain more clearly: <b>wind increases → tent lifts</b>; <b>poor listening → kayaking crash</b>."
+ chrono:"Adds a specific date and tightens the sequence: <b>8 July, later that afternoon, the following morning.</b>",
+ cause:"Shows the chain more clearly: <b>wind increases → tent lifts</b>; <b>poor listening → kayaking crash</b>."
 },
 "Level 8":{
- source:"Places events inside periods and gives duration: <b>first afternoon of a six-day holiday, over the next few hours, by Tuesday morning.</b>",
- evidence:"Explains a developing chain and a person's action: <b>Dad's choice → light tent + wind → tent escapes</b>, then <b>ignored warning → current → rescue</b>."
+ chrono:"Places events inside periods and gives the duration: <b>first afternoon of a six-day holiday, over the next few hours, by Tuesday morning.</b>",
+ cause:"Shows how one choice sets off the next: <b>Dad's choice → light tent + wind → tent escapes</b>, then <b>ignored warning → current → rescue</b>."
 },
 "Level 9":{
- source:"Controls the whole time span and duration: <b>8–13 July, first afternoon, following morning, remaining four days.</b>",
- evidence:"Analyses interacting causes and explains motives/actions: <b>Dad chose speed → light tent → wind + weak anchoring → escape</b>; <b>I ignored the warning because I thought I could manage → current → bush → rescue</b>."
+ chrono:"Controls the whole time span and shows how long it lasts: <b>8–13 July, first afternoon, following morning, remaining four days.</b>",
+ cause:"Tracks several causes together and shows why people act: <b>Dad chose speed → light tent → wind + weak anchoring → escape</b>; <b>I ignored the warning because I thought I could manage → current → bush → rescue</b>."
 }
 };
 
 const CONTINUUM={
-source:{
+chrono:{
 "Level 6":"I can sequence events and people in chronological order, and represent time by creating timelines.",
 "Level 7":"I can sequence events and developments within a chronological framework, using dating conventions to represent and measure time.",
 "Level 8":"I can sequence events and developments within a chronological framework with reference to periods of time.",
 "Level 9":"I can sequence events and developments within a chronological framework with reference to periods of time and their duration."
 },
-evidence:{
+cause:{
 "Level 6":"I can identify the causes and effects of events and developments.",
 "Level 7":"I can describe the causes and effects of events and developments on societies, individuals, and groups.",
 "Level 8":"I can explain the causes and effects of events and developments and identify the motives and actions of people at the time.",
