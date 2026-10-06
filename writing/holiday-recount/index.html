@@ -92,7 +92,6 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.05rem)
   <nav class="topnav" id="topnav" aria-label="Sections">
     <button data-tab="source" class="active">The holiday</button>
     <button data-tab="rubric">Rubric</button>
-    <button data-tab="ladder">The ladder</button>
   </nav>
 
   <main class="layout">
@@ -100,7 +99,6 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.05rem)
       <div class="tabs">
         <button data-tab="source" class="active">The holiday</button>
         <button data-tab="rubric">Rubric</button>
-        <button data-tab="ladder">Levels</button>
       </div>
       <div class="leftbody" id="leftbody"></div>
     </aside>
@@ -203,10 +201,6 @@ function renderLeft(){
       <div class="rubriccard chrono"><h3>■ Chronology</h3><p>${c6}</p></div>
       <div class="rubriccard cause"><h3>● Cause and effect</h3><p>${c2}</p></div>
       <div class="rubricbox"><h3>At this rung</h3><p class="mini">${NOTES[lv].chrono}</p><p class="mini" style="margin-top:6px">${NOTES[lv].cause}</p></div>`;
-  } else {
-    l.innerHTML=`<div class="eyebrow">Rungs</div><div class="ladderbox"><h3>Choose a rung</h3><div class="ladder">${LEVELS.map((x,i)=>`<button data-go="${i}" class="${i===index?'active':''}">${x}</button>`).join("")}</div></div>
-    <div class="sourcebox"><h3>${lv}</h3><p>${SKILLS[lv]}</p></div>`;
-    l.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>show(+b.dataset.go));
   }
 }
 function show(i){
