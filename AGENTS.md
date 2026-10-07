@@ -210,6 +210,15 @@ the order changed the key moved to `ancientrome.vocabhub.v2`, because progress
 saved under v1 would have attached to different words. Do the same if you
 renumber lessons again.
 
+Access mode in the two lesson hubs turns the build board into a full-screen
+layout for students with motor barriers such as cerebral palsy. The word list
+scrolls on its own; the bank never leaves the screen (beside the words on a wide
+screen, docked underneath on a tall one). One word is always active, so tapping
+a piece fills its one open slot. Targets are at least 56px, a repeat tap within
+0.4s is ignored, and the bank is capped near ten tiles so it fits a 360x740
+phone without scrolling: check that across every lesson if you change tile
+sizes or add words. The code is identical in both hubs; patch both.
+
 **Neither history hub is on the Word Builder yet as rule 9 describes.** Ancient
 Australia's Word Builder words are a separate ELC build with a different word
 set, and the Year 7 `hist-rome` folder still holds 31 words from a Rome wall

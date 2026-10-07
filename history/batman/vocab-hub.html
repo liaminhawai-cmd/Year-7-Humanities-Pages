@@ -250,6 +250,93 @@
   body.access .tile{padding:16px 22px;font-size:24px;border-radius:12px}
   body.access .tile .mm{font-size:24px}
   body.access .opt{padding:16px 18px;font-size:17px}
+  /* ---- Access mode build board: full screen, bank always in view ----
+     For students with cerebral palsy and other motor barriers. The board
+     takes the whole screen; the word list scrolls on its own and the bank
+     never leaves the screen (beside the words on a wide screen, under them
+     on a tall one). One word is always the active one, so tapping a piece
+     fills that word's empty slot: one accurate tap per word, and no small
+     slot to aim at. Targets are at least 64px with 16px gaps; a second tap
+     within 0.4s is ignored, and a press that starts on one tile and lifts on
+     another does nothing, so a tremor cannot pick the wrong piece. */
+  body.afs{overflow:hidden}
+  body.afs #scr-build.active{position:fixed;inset:0;z-index:60;background:var(--paper);height:100vh;height:100dvh;
+       display:grid;grid-template-rows:auto minmax(0,1fr);gap:10px;padding:10px 16px 14px;margin:0;user-select:none;-webkit-user-select:none}
+  body.afs #scr-build .topbar{margin:0;align-items:center;gap:14px}
+  body.afs #scr-build .topbar .linkbtn{font-size:19px;font-weight:800;padding:12px 20px;min-height:56px;border:2px solid var(--line);border-radius:14px;background:var(--bg)}
+  body.afs #scr-build .topbar .progress{font-size:15px}
+  body.afs #build-body{min-height:0}
+  .afs{height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,1fr);gap:18px}
+  .afs-words{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 6px 30vh 2px;-webkit-overflow-scrolling:touch}
+  .afs-how{font-size:18px;color:var(--muted);margin:2px 0 8px}
+  .afs-words .buildhint{position:sticky;top:0;z-index:3;background:var(--paper);font-size:19px;min-height:30px;margin:0 0 8px;text-align:left}
+  body.afs .afs .wtable{gap:16px}
+  body.afs .afs .wrow{display:grid;grid-template-columns:1fr;gap:12px;padding:16px 18px;border:3px solid var(--line-soft);border-radius:16px;
+       cursor:pointer;touch-action:manipulation;opacity:.72;background:var(--paper)}
+  body.afs .afs .wrow.active{opacity:1;border-color:var(--ink);box-shadow:0 0 0 5px var(--earthbg)}
+  body.afs .afs .wrow:focus-visible{outline:4px solid var(--water);outline-offset:3px}
+  body.afs .afs .wrow.done{opacity:1}
+  body.afs .afs .wmean{font-size:clamp(18px,1.7vw,23px);line-height:1.45;min-width:0}
+  body.afs .afs .wslots{gap:12px}
+  body.afs .afs .wjoin{font-size:24px}
+  body.afs .afs .wslot{min-width:124px;min-height:84px;border-width:3px;border-radius:14px;font-size:28px}
+  body.afs .afs .wslot .mm{font-size:28px}
+  body.afs .afs .wslot[data-open]:not(.filled){border-style:dashed;border-color:var(--ink);background:#fff}
+  body.afs .afs .wslot .ph{font-size:30px;font-weight:800;color:var(--muted)}
+  body.afs .afs .wbuilt .wname{font-size:26px}
+  body.afs .afs .say{font-size:28px;padding:6px 10px;min-width:52px;min-height:52px}
+  .afs-side{min-height:0;display:flex;flex-direction:column;gap:14px;overflow-y:auto;overscroll-behavior:contain}
+  .afs-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .afs-nav button,.afs-tools button{min-height:64px;font-family:inherit;font-weight:800;font-size:18px;border:2px solid var(--line);border-radius:14px;
+       background:var(--bg);color:var(--ink);cursor:pointer;touch-action:manipulation;padding:8px 12px}
+  .afs-nav button:focus-visible,.afs-tools button:focus-visible,body.afs .afs .mtile:focus-visible{outline:4px solid var(--water);outline-offset:3px}
+  body.afs .afs .mbank{position:static;margin:0;padding:16px;flex:0 0 auto}
+  body.afs .afs .mbank .glabel{font-size:13px;margin-bottom:8px}
+  body.afs .afs .mbank .mgroup{margin-bottom:14px}
+  body.afs .afs .mtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+  body.afs .afs .mtile{min-height:84px;width:100%;justify-content:center;cursor:pointer;touch-action:manipulation;padding:12px 10px;border-width:3px;border-radius:14px}
+  body.afs .afs .mtile .mm{font-size:clamp(24px,2.4vw,32px)}
+  body.afs .afs .mtile .gl{font-size:14px;line-height:1.25;text-align:center}
+  body.afs .afs .mtile:active{transform:scale(.97)}
+  .afs-tools{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}
+  .afs-tools button{min-height:52px;font-size:15px;flex:1 1 auto}
+  /* a tall screen: words on top, the bank docked underneath like a keyboard */
+  @media (orientation:portrait), (max-width:820px){
+    .afs{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:10px}
+    .afs-words{padding-bottom:12vh}
+    .afs-side{max-height:50vh;border-top:3px solid var(--line);padding-top:10px}
+    .afs-nav button{min-height:56px}
+    body.afs .afs .mtiles{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:12px}
+    body.afs .afs .mtile{min-height:72px}
+    body.afs .afs .mbank .mgroup{margin-bottom:10px}
+    .afs-tools{display:none}
+  }
+  @media (max-width:600px){
+    body.afs #scr-build.active{padding:8px 10px 10px;gap:6px}
+    body.afs #scr-build .topbar .linkbtn{min-height:48px;padding:8px 14px;font-size:17px}
+    .afs-how{display:none}
+    body.afs .afs{grid-template-rows:minmax(190px,1fr) auto}
+    .afs-side{max-height:66vh;gap:8px;padding-top:8px}
+    .afs-nav{gap:10px}
+    .afs-nav button{min-height:52px;font-size:16px}
+    body.afs .afs .mbank{padding:10px}
+    body.afs .afs .mbank .glabel{font-size:11px;margin-bottom:4px}
+    body.afs .afs .mbank .mgroup{margin-bottom:6px}
+    body.afs .afs .mtiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    body.afs .afs .mtile{min-height:64px;padding:6px 4px}
+    body.afs .afs .mtile .mm{font-size:22px}
+    body.afs .afs .mtile .gl{font-size:11.5px}
+    body.afs .afs .wrow{padding:12px}
+    body.afs .afs .wslot{min-width:96px;min-height:68px}
+  }
+  @media (max-width:600px) and (max-height:760px){
+    body.afs .afs{grid-template-rows:minmax(160px,1fr) auto}
+    .afs-nav button{min-height:46px}
+    body.afs .afs .mtile{min-height:56px;padding:4px}
+    body.afs .afs .mtile .gl{font-size:11px;line-height:1.15}
+    body.afs .afs .mbank .glabel{margin-bottom:2px}
+  }
+  @media (prefers-reduced-motion:reduce){ .afs .mtile:active{transform:none} }
   /* colour the tap-tile builder used by the tiers, too */
   .tile.prefix .mm{color:var(--mpre)} .tile.root .mm{color:var(--mroot)} .tile.suffix .mm{color:var(--msuf)} .tile.connector .mm{color:var(--mcon)}
 
@@ -389,7 +476,7 @@
   <div id="glossary-body"></div>
 </div>
 
-<div class="accessrow noprint"><button id="accessToggle" onclick="toggleAccess()" aria-pressed="false" title="Bigger tiles, tap only, most pieces already placed">Access mode: off</button></div>
+<div class="accessrow noprint"><button id="accessToggle" onclick="toggleAccess()" aria-pressed="false" title="Full-screen build board, big tiles, tap only, one piece per word">Access mode: off</button></div>
 </div>
 <script>
 /* Access mode: regular mode is the default, always. A ?access link switches
@@ -2093,6 +2180,7 @@ function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
 let cur = null; // current lesson id
 function go(id){
+  if(id!=="build") setAfs(false);
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById("scr-"+id).classList.add("active");
   window.scrollTo(0,0);
@@ -2371,6 +2459,8 @@ function buildProgressText(l){
   document.getElementById("build-prog").textContent=`STEP 2 · BUILD · ${done}/${l.words.length} words`;
 }
 function renderBuildTable(l, buildable){
+  setAfs(ACCESS);
+  if(ACCESS){ renderAccessBoard(l, buildable); return; }
   const st=L(l.id);
   buildCtx={l, tapSel:null};
   /* one shared morpheme bank: every part these words need, deduped, plus a few decoys */
@@ -2435,6 +2525,133 @@ function wireBuildDnD(mount){
   });
   if(ACCESS) prefillBoard(mount);
 }
+/* ---------- Access mode: the full-screen board ----------
+   Every slot but one per word is placed and locked, as before. What is new:
+   the bank holds only the pieces those open slots need (plus decoys), so the
+   tiles can be big; one word is always active, and tapping a piece fills
+   that word's open slot. The student still reads the meaning and still
+   chooses the piece. */
+let afsFS=false, afsLast=0;
+function setAfs(on){
+  document.body.classList.toggle("afs", !!on);
+  try{
+    if(on && !document.fullscreenElement && document.fullscreenEnabled){
+      document.documentElement.requestFullscreen({navigationUI:"hide"}).then(()=>{ afsFS=true; afsFsLabel(); }).catch(()=>{});
+    }
+    if(!on && afsFS && document.fullscreenElement){ document.exitFullscreen().catch(()=>{}); }
+    if(!on) afsFS=false;
+  }catch(e){}
+}
+function afsFsLabel(){
+  const b=document.getElementById("afs-fsbtn"); if(!b) return;
+  b.hidden=!document.fullscreenEnabled;
+  b.textContent=document.fullscreenElement ? "Leave full screen" : "Full screen";
+}
+document.addEventListener("fullscreenchange", afsFsLabel);
+function afsToggleFS(){
+  try{
+    if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+    else document.documentElement.requestFullscreen({navigationUI:"hide"}).then(()=>{ afsFS=true; }).catch(()=>{});
+  }catch(e){}
+}
+function renderAccessBoard(l, buildable){
+  const st=L(l.id);
+  buildCtx={l, tapSel:null, active:null};
+  const words=shuffle(buildable.filter(w=>!st.buildDone[w.w]));
+  const open={};
+  words.forEach(w=>{ open[w.w]= w.tiles.length<2 ? 0 : Math.floor(Math.random()*w.tiles.length); });
+  const need=new Map();
+  words.forEach(w=>{ const [p,g]=w.tiles[open[w.w]]; if(!need.has(p)) need.set(p,g); });
+  const decoyPool=[], seen=new Set(need.keys());
+  buildable.forEach(w=>(w.decoys||[]).concat(w.tiles).forEach(([p,g])=>{ if(!seen.has(p)){ seen.add(p); decoyPool.push([p,g]); } }));
+  /* about ten tiles in all, so the whole bank fits a small phone: a lesson
+     that needs many different pieces gets fewer decoys, never none */
+  const nDecoy=Math.max(1, Math.min(3, 10-need.size));
+  const bankArr=[...need.entries()].concat(shuffle(decoyPool).slice(0,nDecoy))
+    .map(([p,g])=>({piece:p,gloss:g,type:classifyMorph(p)}));
+  let bankHtml="";
+  MTYPE_ORDER.forEach(type=>{
+    const group=bankArr.filter(m=>m.type===type).sort((a,b)=>a.piece.replace(/-/g,"").localeCompare(b.piece.replace(/-/g,"")));
+    if(!group.length) return;
+    bankHtml+=`<div class="mgroup"><div class="glabel ${type}">${MTYPE_LABEL[type]}</div><div class="mtiles">`+
+      group.map(m=>`<button type="button" class="mtile ${m.type}" data-piece="${esc(m.piece)}" data-gloss="${esc(m.gloss)}" data-type="${m.type}"><span class="mm">${esc(m.piece)}</span><span class="gl">${esc(m.gloss)}</span></button>`).join("")+
+      `</div></div>`;
+  });
+  const rowsHtml=words.map(w=>{
+    const slots=w.tiles.map(([p],si)=>{
+      const join=si?`<span class="wjoin">+</span>`:"";
+      if(si===open[w.w]) return join+`<span class="wslot" data-i="${si}" data-open="1"><span class="ph">?</span></span>`;
+      const t=classifyMorph(p);
+      return join+`<span class="wslot filled locked ${t}" data-i="${si}" data-piece="${esc(p)}" data-type="${t}"><span class="mm">${esc(p)}</span></span>`;
+    }).join("");
+    return `<div class="wrow" data-w="${esc(w.w)}" role="button" tabindex="0" aria-pressed="false" aria-label="${esc(w.meaning)}">
+      <div class="wmean">${sayBtn(w.meaning)}<span class="pos">${esc(w.pos)}</span>: ${esc(w.meaning)}</div>
+      <div class="wslots">${slots}</div>
+      <div class="wbuilt"></div></div>`;
+  }).join("");
+  const mount=document.getElementById("build-body");
+  mount.innerHTML=`<div class="afs">
+    <div class="afs-words" id="afs-words">
+      <p class="afs-how">Lesson ${esc(l.id)}. Tap a word, then tap its missing piece.</p>
+      <div class="buildhint" id="buildhint" aria-live="polite"></div>
+      <div class="wtable" id="wtable">${rowsHtml}</div>
+    </div>
+    <div class="afs-side">
+      <div class="afs-nav"><button type="button" id="afs-prev">▲ Previous word</button><button type="button" id="afs-next">Next word ▼</button></div>
+      <div class="mbank">${bankHtml}</div>
+      <div class="afs-tools"><button type="button" id="afs-fsbtn">Full screen</button><button type="button" id="afs-off">Turn off access mode</button></div>
+    </div></div>`;
+  buildProgressText(l);
+  wireSay(mount);
+  mount.querySelectorAll("#wtable .wrow").forEach(row=>{
+    row.addEventListener("click", e=>{ if(e.target.closest(".say")) return; afsSetActive(row, false); });
+    row.addEventListener("keydown", e=>{
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); afsSetActive(row, false); }
+      if(e.key==="ArrowDown"){ e.preventDefault(); afsMove(1); }
+      if(e.key==="ArrowUp"){ e.preventDefault(); afsMove(-1); }
+    });
+  });
+  mount.querySelectorAll(".mtile").forEach(tile=>{
+    tile.addEventListener("click", ()=>afsPlace({piece:tile.dataset.piece, gloss:tile.dataset.gloss, type:tile.dataset.type}));
+  });
+  mount.querySelector("#afs-prev").onclick=()=>afsMove(-1);
+  mount.querySelector("#afs-next").onclick=()=>afsMove(1);
+  mount.querySelector("#afs-fsbtn").onclick=afsToggleFS;
+  mount.querySelector("#afs-off").onclick=toggleAccess;
+  afsFsLabel();
+  const first=afsRows()[0]; if(first) afsSetActive(first, false);
+}
+function afsRows(){ return [...document.querySelectorAll("#wtable .wrow:not(.done)")]; }
+function afsSetActive(row, scroll){
+  document.querySelectorAll("#wtable .wrow.active").forEach(r=>{ r.classList.remove("active"); r.setAttribute("aria-pressed","false"); });
+  buildCtx.active=row||null;
+  if(!row) return;
+  row.classList.add("active"); row.setAttribute("aria-pressed","true");
+  const h=document.getElementById("buildhint"); if(h) h.textContent="";
+  if(scroll){
+    const calm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+    row.scrollIntoView({block:"center", behavior: calm?"auto":"smooth"});
+  }
+}
+function afsMove(d){
+  const rows=afsRows(); if(!rows.length) return;
+  let i=rows.indexOf(buildCtx.active);
+  i = i<0 ? 0 : (i+d+rows.length)%rows.length;
+  afsSetActive(rows[i], true);
+}
+function afsPlace(info){
+  const now=Date.now(); if(now-afsLast<400) return; afsLast=now;
+  let row=buildCtx.active;
+  if(!row || row.classList.contains("done") || !row.isConnected){ row=afsRows()[0]; if(!row) return; afsSetActive(row, true); }
+  const slot=row.querySelector(".wslot[data-open]"); if(!slot) return;
+  if(slot.dataset.piece) clearSlot(slot);
+  const rows=afsRows(), at=rows.indexOf(row);
+  fillSlot(slot, info);
+  if(row.classList.contains("done")){
+    const left=afsRows();
+    if(left.length) afsSetActive(left[Math.min(at, left.length-1)], true);
+  }
+}
 /* Access mode: pre-place every slot but one per word, and lock what is
    pre-placed. The open slot varies by word, so the student still reads the
    meaning and still chooses the piece; what falls away is the tap count. */
@@ -2496,7 +2713,7 @@ function fillSlot(slot, info){
 }
 function clearSlot(slot){
   delete slot.dataset.piece; delete slot.dataset.type;
-  slot.className="wslot"; slot.innerHTML=`<span class="ph">drop</span>`;
+  slot.className="wslot"; slot.innerHTML=`<span class="ph">${slot.dataset.open?"?":"drop"}</span>`;
   const h=document.getElementById("buildhint"); if(h) h.textContent="";
 }
 function checkRow(rowEl){
@@ -2542,6 +2759,7 @@ function buildOriginPhase(l){
   const origins=l.words.filter(w=>w.type==="origin" && !st.buildDone[w.w]);
   if(!origins.length){ finishBuild(l); return; }
   go("build");
+  setAfs(false);
   const mount=document.getElementById("build-body");
   mount.innerHTML=`<h2 style="text-align:center">Word origins: Lesson ${esc(l.id)}</h2>
     <p class="muted" style="text-align:center;margin-bottom:12px">A few of this lesson’s words come from names or ideas, not word-parts, so you match their story instead of building them.</p>
