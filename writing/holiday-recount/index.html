@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Interactive holiday recount WAGOLL: chronology and cause and effect from Prep to Level 9.">
+<title>The Holiday Where the Tent Flew Away</title>
+<style>
+:root{
+  --bg:#111513;--panel:#0b0f0e;--panel2:#19201e;--paper:#fbf8f0;--ink:#182e31;
+  --muted:#a8a99f;--cream:#f1ede3;--line:#37403d;--white:#fffdf7;
+  --chrono:#61c3df;--cause:#f39a59;--gold:#9b701c;--gold2:#b07d1b;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button{font:inherit}
+.page{min-height:100vh;padding:12px 14px 18px}
+.top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;margin-bottom:10px}
+.brand{font-weight:900;letter-spacing:.12em;font-size:.73rem;color:#aaa99f;text-transform:uppercase}
+.title{font-size:clamp(1.55rem,2.8vw,2.55rem);font-weight:900;line-height:1;color:var(--white);margin-top:4px}
+.levelnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.levelnav button,.topnav button{
+  border:1px solid #35403c;background:#202824;color:#d8d6cd;border-radius:999px;
+  padding:8px 13px;font-weight:800;cursor:pointer;white-space:nowrap
+}
+.levelnav button:hover,.topnav button:hover{background:#29332f}
+.levelnav button.active{background:var(--white);color:var(--ink);border-color:var(--white)}
+.topnav{display:flex;gap:7px;margin:2px 0 10px}
+.topnav button.active{background:var(--white);color:var(--ink);border-color:var(--white)}
+.layout{display:grid;grid-template-columns:520px minmax(0,1fr);gap:14px;align-items:stretch}
+.left{background:var(--panel);border-radius:11px;min-height:640px;display:flex;flex-direction:column;overflow:hidden}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:10px 10px 0}
+.tabs button{border:0;border-radius:8px 8px 0 0;background:#202825;color:#ddd9cf;padding:13px 9px;font-weight:800;cursor:pointer}
+.tabs button.active{background:var(--paper);color:var(--ink)}
+.leftbody{padding:11px 11px 14px;overflow:auto}
+.eyebrow{font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:#8eaaa8;font-weight:900;margin-bottom:7px}
+.sourcebox,.rubricbox,.ladderbox{border:1px solid #3b4541;background:var(--panel2);border-radius:8px;padding:12px;margin-bottom:9px}
+.sourcebox h3,.rubricbox h3,.ladderbox h3{margin:0 0 6px;color:#e9e4d9;font-size:1rem}
+.sourcebox p{margin:0 0 8px;line-height:1.42;font-size:.88rem}
+.fact{border-top:1px solid #36403c;padding:8px 0;font-size:.84rem;line-height:1.38}
+.fact b{display:block;color:#aeb9b1;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.rubriccard{border:1px solid #46504c;border-left:5px solid;border-radius:8px;padding:10px;margin-bottom:9px;background:#1c2421}
+.rubriccard.chrono{border-left-color:var(--chrono)}.rubriccard.cause{border-left-color:var(--cause)}
+.rubriccard h3{margin:0 0 5px;font-size:.96rem}.rubriccard.chrono h3{color:var(--chrono)}.rubriccard.cause h3{color:var(--cause)}
+.rubriccard p{margin:0;font-size:.84rem;line-height:1.45;color:#eee9de}
+.mini{font-size:.74rem;color:#aaa99f;line-height:1.4}
+.ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.ladder button{border:1px solid #39433f;background:#202824;color:#d9d6cd;border-radius:6px;padding:6px 3px;font-weight:800;cursor:pointer}
+.ladder button.active{background:var(--gold);border-color:var(--gold);color:white}
+.right{background:var(--paper);color:var(--ink);border-radius:14px;min-height:640px;padding:26px 30px 18px;display:flex;flex-direction:column}
+.rung{font-size:.76rem;font-weight:900;letter-spacing:.14em;color:#7d776b;text-transform:uppercase}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.05rem);line-height:1.03;margin:3px 0 12px;color:var(--ink)}
+.skill{background:var(--gold);color:#fffdf7;border-radius:10px;padding:12px 18px;margin-bottom:17px}
+.skill small{display:block;font-size:.69rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.9;margin-bottom:3px}
+.skill strong{font-size:1.04rem;line-height:1.28}
+.example{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.18rem,2vw,1.58rem);line-height:1.48;max-width:1150px;flex:0 0 auto}
+.evidence{margin-top:15px;border-top:1px solid #d7cfc0;padding-top:10px;min-height:66px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.evidence .hint{color:#706b61;font-size:.86rem}
+.evtitle{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;font-weight:900;margin-bottom:3px}
+.evtitle.chrono{color:#287f9b}.evtitle.cause{color:#a55220}
+.evtext{font-size:.91rem;line-height:1.42;color:#49463f}
+.mark{
+  display:inline;border:0;background:none;padding:0;margin:0;font:inherit;font-weight:700;cursor:pointer;
+  text-decoration-thickness:2px;text-underline-offset:5px
+}
+.mark.chrono{color:#277e98;text-decoration:underline;text-decoration-style:solid}
+.mark.cause{color:#a65220;text-decoration:underline;text-decoration-style:dotted}
+.mark:hover{background:#e8e1d5;border-radius:3px}
+.footerline{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.legend{display:flex;gap:20px;color:#277e98;font-size:.9rem}.legend span:last-child{color:#a65220}
+.navbuttons{display:flex;gap:8px}
+.navbuttons button{border:0;border-radius:10px;background:var(--ink);color:var(--white);padding:12px 18px;font-weight:900;font-size:.95rem;cursor:pointer}
+.navbuttons button:disabled{opacity:.35;cursor:default}
+.pop{position:fixed;z-index:20;left:50%;bottom:28px;transform:translateX(-50%);width:min(620px,calc(100vw - 30px));background:#17201d;color:#f8f3e9;border:1px solid #43504a;border-radius:10px;box-shadow:0 12px 35px rgba(0,0,0,.35);padding:13px 15px;display:none}
+.pop.show{display:block}.pop button{float:right;border:0;background:none;color:#aaa;padding:0 0 0 12px;cursor:pointer;font-size:1.2rem}
+@media(max-width:1150px){.layout{grid-template-columns:380px minmax(0,1fr)}.levelnav{justify-content:flex-start}.top{grid-template-columns:1fr}}
+@media(max-width:820px){.page{padding:8px}.layout{grid-template-columns:1fr}.left{min-height:0;order:2}.right{min-height:650px;order:1}.leftbody{max-height:none}.right{padding:20px}.example{font-size:1.18rem}.levelnav{overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}.levelnav button{flex:none}}
+@media print{body{background:white}.page{padding:0}.top,.topnav,.left,.footerline,.pop{display:none!important}.right{display:block;min-height:auto;border-radius:0;padding:0}.skill{background:#eee;border:1px solid #999;color:#111}.example{font-size:16pt}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <div class="brand">Writing · Holiday recount</div>
+      <div class="title">The Holiday Where the Tent Flew Away</div>
+    </div>
+    <nav class="levelnav" id="levels" aria-label="Levels"></nav>
+  </header>
+
+  <nav class="topnav" id="topnav" aria-label="Sections">
+    <button data-tab="source" class="active">The holiday</button>
+    <button data-tab="rubric">Rubric</button>
+  </nav>
+
+  <main class="layout">
+    <aside class="left">
+      <div class="tabs">
+        <button data-tab="source" class="active">The holiday</button>
+        <button data-tab="rubric">Rubric</button>
+      </div>
+      <div class="leftbody" id="leftbody"></div>
+    </aside>
+
+    <section class="right" aria-live="polite">
+      <div class="rung" id="rung"></div>
+      <h1 id="leveltitle"></h1>
+      <div class="skill"><small>New skill at this rung</small><strong id="skill"></strong></div>
+      <div class="example" id="example"></div>
+      <div class="evidence" id="evidence"><div class="hint">Tap an underlined phrase.</div></div>
+      <div class="footerline">
+        <div class="legend"><span>■ Chronology</span><span>● Cause and effect</span></div>
+        <div class="navbuttons"><button id="back">← Back</button><button id="next">Next →</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="pop" id="pop"><button id="closepop" aria-label="Close">×</button><div id="poptext"></div></div>
+
+<script>
+const LEVELS=["Prep","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Level 6","Level 7","Level 8","Level 9"];
+const SKILLS={
+"Prep":"You put the events in the order they happened.",
+"Grade 1":"You add simple time words to move the reader through the holiday.",
+"Grade 2":"You connect events with first and then, and show a simple result.",
+"Grade 3":"You move through a day and connect a problem to what happened next.",
+"Grade 4":"You give reasons for problems as well as putting them in time.",
+"Grade 5":"You join several events into a longer chain of time and cause.",
+"Level 6":"You put the holiday on a timeline, and give two causes, each with its effect.",
+"Level 7":"You use a specific date and tighter sequence, and make each cause-and-effect chain clearer.",
+"Level 8":"You place events inside periods of time and explain how choices set off consequences.",
+"Level 9":"You control the whole duration and analyse several causes, including why people acted as they did."
+};
+const EXAMPLES={
+"Prep":`<button class="mark chrono" data-kind="chrono" data-note="The events appear in the order they happened.">We went to the beach.</button> I saw a crab. Dad got wet.`,
+"Grade 1":`<button class="mark chrono" data-kind="chrono" data-note="Saturday fixes the event to a point in time, then the next sentence moves on.">On Saturday</button>, we went to the beach. I found a crab. Dad fell in the water.`,
+"Grade 2":`<button class="mark chrono" data-kind="chrono" data-note="First and then move the reader through the morning.">On Saturday morning, we went to the beach. First</button> we built a sandcastle. <button class="mark chrono" data-kind="chrono" data-note="Then keeps the events in sequence.">Then</button> a wave knocked it down, <button class="mark cause" data-kind="cause" data-note="The wave causes the sandcastle to fall down.">so we built another one.</button>`,
+"Grade 3":`<button class="mark chrono" data-kind="chrono" data-note="The recount moves from the morning to after lunch.">On Saturday morning</button>, we arrived at the beach. First we put up the tent. <button class="mark cause" data-kind="cause" data-note="The wind causes the tent to fall over.">Then the wind blew it over, so Dad had to put it up again.</button> <button class="mark chrono" data-kind="chrono" data-note="After lunch moves the recount to a later part of the day.">After lunch</button>, I went kayaking and crashed into a bush.`,
+"Grade 4":`<button class="mark chrono" data-kind="chrono" data-note="Morning and later give the reader two points in the day.">On Saturday morning</button>, we arrived at the beach house. We put up the tent, but the wind got stronger and one side fell down. Dad moved the tent behind a tree <button class="mark cause" data-kind="cause" data-note="The wind is the reason Dad moves the tent.">because it was too windy.</button> <button class="mark chrono" data-kind="chrono" data-note="Later moves to the next event.">Later</button>, I went kayaking and crashed into a bush <button class="mark cause" data-kind="cause" data-note="Ignoring the instructor gives the reason for the crash.">because I ignored the instructor.</button>`,
+"Grade 5":`<button class="mark chrono" data-kind="chrono" data-note="The recount gives a starting point and the total length of the holiday.">On Saturday morning, we arrived at the beach house for six days.</button> While Dad put up the tent, the wind grew stronger and lifted one corner off the ground. <button class="mark cause" data-kind="cause" data-note="Dad's choice of a light tent helps cause the chase when the wind lifts it.">Because he had chosen a light tent, we had to chase it down the beach.</button> <button class="mark chrono" data-kind="chrono" data-note="The next morning moves to the following day.">The next morning</button>, I ignored the instructor's warning about the current, so I drifted into a bush.`,
+"Level 6":`<button class="mark chrono" data-kind="chrono" data-note="The day is split into a clear sequence: morning, afternoon, then the next day.">On Monday morning</button>, we arrived at the beach house. <button class="mark chrono" data-kind="chrono" data-note="That afternoon places the tent event later on the same day.">That afternoon</button>, Dad put up the tent. <button class="mark cause" data-kind="cause" data-note="Stronger wind causes the tent to fly away.">The wind got stronger, so the tent flew away</button> and we chased it down the beach. <button class="mark chrono" data-kind="chrono" data-note="The next day moves the recount to Tuesday.">The next day</button>, we went kayaking, but I paddled into a bush.`,
+"Level 7":`<button class="mark chrono" data-kind="chrono" data-note="The exact date anchors the event in time.">On Monday 8 July</button>, we arrived at the beach house. <button class="mark chrono" data-kind="chrono" data-note="Later that afternoon tightens the sequence within the same day.">Later that afternoon</button>, Dad put up the tent. <button class="mark cause" data-kind="cause" data-note="The stronger wind makes the tent lift, which leads to the chase.">The wind suddenly became stronger, which made one side of the tent lift off the ground, so we had to chase it.</button> <button class="mark chrono" data-kind="chrono" data-note="The following morning moves to the next day.">The following morning</button>, we went kayaking. <button class="mark cause" data-kind="cause" data-note="Not listening to the instructor leads to the kayaking crash.">Because I had not listened to the instructor, I paddled backwards and crashed into a bush.</button>`,
+"Level 8":`<button class="mark chrono" data-kind="chrono" data-note="The event sits inside the first afternoon of a six-day period.">On Monday 8 July, during the first afternoon of our six-day holiday</button>, we arrived at the beach house and unloaded the car. <button class="mark chrono" data-kind="chrono" data-note="Over the next few hours shows duration rather than just a sequence of events.">Over the next few hours</button>, Dad assembled the tent while the wind gradually increased. As the gusts became stronger, one corner lifted, then the whole tent rose into the air. <button class="mark cause" data-kind="cause" data-note="Dad's choice of the lightest tent combines with the wind to cause the escape.">Dad had chosen the lightest tent because he wanted to set it up quickly, but that decision meant the wind could lift it</button>, turning our relaxing afternoon into a 400-metre sprint. <button class="mark chrono" data-kind="chrono" data-note="By Tuesday morning marks the boundary between the first day and the next.">By Tuesday morning</button>, we had recovered enough to go kayaking. <button class="mark cause" data-kind="cause" data-note="Ignoring the warning leads through the current to the bush and then to rescue.">Since I had ignored the instructor's warning about the current, I drifted into a bush, which meant the instructor had to paddle over and rescue me.</button>`,
+"Level 9":`<button class="mark chrono" data-kind="chrono" data-note="The whole holiday is controlled from 8 July to 13 July.">From Monday 8 July to Saturday 13 July</button>, our supposedly peaceful six-day holiday became a sequence of increasingly ridiculous problems. <button class="mark chrono" data-kind="chrono" data-note="The first afternoon establishes the first period inside the whole holiday.">During the first afternoon</button>, Dad deliberately chose the lightest tent <button class="mark cause" data-kind="cause" data-note="Dad's motive is stated: he wanted the tent up before dinner.">because he wanted it up before dinner.</button> That choice, combined with the strengthening wind, left the tent pulling against its pegs until one corner escaped; <button class="mark cause" data-kind="cause" data-note="Weak anchoring removes the remaining protection from the wind, so the tent escapes.">because nothing heavy had been packed to anchor it, the entire tent became a very large, very expensive kite.</button> We chased it for ten minutes before dragging it back. <button class="mark chrono" data-kind="chrono" data-note="The following morning moves the story to the next day.">The following morning</button>, we went kayaking. <button class="mark cause" data-kind="cause" data-note="The writer's motive is stated, then the current causes the drift and the drift causes the rescue.">I ignored the instructor's warning because I thought I could correct for the current myself; consequently, I drifted into a bush and the instructor had to rescue me.</button> <button class="mark chrono" data-kind="chrono" data-note="The remaining four days closes the whole six-day duration.">For the remaining four days</button>, Dad kept the tent indoors and banned me from choosing the route.`
+};
+const RUBRIC={
+chrono:{
+"Level 6":"I can sequence events and people in chronological order, and represent time by creating timelines.",
+"Level 7":"I can sequence events and developments within a chronological framework, using dating conventions to represent and measure time.",
+"Level 8":"I can sequence events and developments within a chronological framework with reference to periods of time.",
+"Level 9":"I can sequence events and developments within a chronological framework with reference to periods of time and their duration."
+},
+cause:{
+"Level 6":"I can identify the causes and effects of events and developments.",
+"Level 7":"I can describe the causes and effects of events and developments on societies, individuals, and groups.",
+"Level 8":"I can explain the causes and effects of events and developments and identify the motives and actions of people at the time.",
+"Level 9":"I can analyse the causes and effects of events and developments and explain the motives and actions of people at the time."
+}};
+const NOTES={
+"Prep":{chrono:"Events are simply put in order.",cause:"The result is present, but the cause is not yet stated."},
+"Grade 1":{chrono:"A simple time word anchors the recount.",cause:"The event is reported, but the reason is not yet developed."},
+"Grade 2":{chrono:"First and then create a simple sequence.",cause:"The wave is linked directly to the fallen sandcastle."},
+"Grade 3":{chrono:"Morning and after lunch move the reader through the day.",cause:"The wind is linked to the tent falling; the crash is linked to the bush."},
+"Grade 4":{chrono:"Morning and later give a wider sequence.",cause:"Because gives a reason for each problem."},
+"Grade 5":{chrono:"The recount gives a starting point, duration and next morning.",cause:"Several steps are joined into two short cause chains."},
+"Level 6":{chrono:"A day is ordered with three clear time points.",cause:"Two direct causes are visible: wind → tent; ignored warning → crash."},
+"Level 7":{chrono:"The exact date and tighter time markers make the sequence more precise.",cause:"Each chain has a clearer trigger and result."},
+"Level 8":{chrono:"Events are placed inside periods and duration is stated.",cause:"A choice sets off a chain, and the second chain ends in rescue."},
+"Level 9":{chrono:"The whole six-day span is controlled, including how long events last.",cause:"The causes include motives and several linked consequences."}
+};
+let index=0;
+let tab="source";
+
+const levelNav=document.getElementById("levels");
+LEVELS.forEach((lv,i)=>{
+  const b=document.createElement("button"); b.textContent=lv; b.dataset.i=i;
+  b.onclick=()=>show(i); levelNav.appendChild(b);
+});
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+
+function setTab(t){
+  tab=t;
+  document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));
+  renderLeft();
+}
+function renderLeft(){
+  const lv=LEVELS[index], l=document.getElementById("leftbody");
+  if(tab==="source"){
+    l.innerHTML=`<div class="eyebrow">The holiday</div>
+      <div class="sourcebox"><h3>Six days. Two disasters.</h3><p>We went away for six days. On day one the tent blew away. On day two I crashed a kayak. Dad stopped letting us choose things.</p>
+      <div class="fact"><b>Day 1</b>The tent blows away.</div>
+      <div class="fact"><b>Day 2</b>I crash the kayak into a bush.</div>
+      <div class="fact"><b>Days 3–6</b>Dad stops letting us choose things.</div></div>
+      <div class="sourcebox"><h3>Starting point</h3><p>We went to the beach. Dad put up the tent. Then the wind took it.</p></div>`;
+  } else if(tab==="rubric"){
+    const c6=RUBRIC.chrono[lv]||RUBRIC.chrono["Level 6"];
+    const c2=RUBRIC.cause[lv]||RUBRIC.cause["Level 6"];
+    const suffix=lv.startsWith("Level")?lv:"Working toward Level 6";
+    l.innerHTML=`<div class="eyebrow">CAT 2 rubric · ${suffix}</div>
+      <div class="rubriccard chrono"><h3>■ Chronology</h3><p>${c6}</p></div>
+      <div class="rubriccard cause"><h3>● Cause and effect</h3><p>${c2}</p></div>
+      <div class="rubricbox"><h3>At this rung</h3><p class="mini">${NOTES[lv].chrono}</p><p class="mini" style="margin-top:6px">${NOTES[lv].cause}</p></div>`;
+  }
+}
+function show(i){
+  index=Math.max(0,Math.min(LEVELS.length-1,i));
+  const lv=LEVELS[index];
+  document.querySelectorAll("#levels button").forEach((b,j)=>b.classList.toggle("active",j===index));
+  document.getElementById("rung").textContent=`Rung ${index+1} of ${LEVELS.length}`;
+  document.getElementById("leveltitle").textContent=lv;
+  document.getElementById("skill").textContent=SKILLS[lv];
+  document.getElementById("example").innerHTML=EXAMPLES[lv];
+  document.getElementById("evidence").innerHTML='<div class="hint">Tap an underlined phrase.</div>';
+  document.getElementById("back").disabled=index===0;
+  document.getElementById("next").disabled=index===LEVELS.length-1;
+  document.querySelectorAll(".mark").forEach(b=>b.onclick=()=>selectEvidence(b));
+  renderLeft();
+}
+function selectEvidence(b){
+  const kind=b.dataset.kind, title=kind==="chrono"?"■ Chronology":"● Cause and effect";
+  document.getElementById("evidence").innerHTML=`<div class="evtitle ${kind}">${title}</div><div class="evtext">${b.dataset.note}</div>`;
+  const pop=document.getElementById("pop");
+  document.getElementById("poptext").innerHTML=`<strong>${title}</strong><br>${b.dataset.note}`;
+  pop.classList.add("show");
+}
+document.getElementById("closepop").onclick=()=>document.getElementById("pop").classList.remove("show");
+document.getElementById("back").onclick=()=>show(index-1);
+document.getElementById("next").onclick=()=>show(index+1);
+show(6);
+</script>
+</body>
+</html>
