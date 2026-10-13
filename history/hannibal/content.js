@@ -121,11 +121,44 @@ const SOURCES = [
 const SOURCE_PANEL = Object.assign({}, SOURCES[0]);
 const HOTSPOTS = SOURCES[0].hotspots;
 
-const EARLY_LEVELS = [];
-const EARLY_EXAMPLES = {};
-const EARLY_EXPLANATIONS = {};
+/* The rungs below Level 6, where the CAT rubric is blank. They carry a
+   worked example and the Victorian Curriculum code only (rule 5). The
+   Foundation to Level 2 example sounds like a seven-year-old on purpose. */
+const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5"];
+
+const EARLY_EXAMPLES = {
+ "Foundation to Level 2":
+`Hannibal had elephants. {chron|First} he took them over some big snowy mountains. {cause|The elephants got really cold and most of them died}. {chron|Then} there was a big fight. {cause|The Romans blew trumpets and the elephants got scared and ran the wrong way}. {chron|At the end} Rome won. I like elephants.`,
+
+ "Levels 3 and 4":
+`Hannibal crossed the Alps with about 40 elephants {chron|in 218 BCE}. {cause|The Romans were scared because they had never seen an elephant before}. {chron|That winter} {cause|it was so cold that nearly all the elephants died}. {chron|After that} Hannibal still won a big battle at Cannae. {chron|In the end, at Zama,} {cause|the Romans blew trumpets and the elephants ran back into Hannibal's own army}, so Rome won the war.`,
+
+ "Level 5":
+`Rome won the war against Hannibal, even though he won lots of battles. {chron|In 218 BCE} he crossed the Alps with about 40 elephants {cause|to frighten the Romans}. {cause|The plan worked at first, but the cold winter killed almost all of them}. {chron|In 216 BCE} he beat the Romans at Cannae anyway. {cause|Then Rome attacked Carthage's lands in Africa, so Hannibal had to go home}. {chron|At Zama in 202 BCE} {cause|his new elephants turned on his own side, and Rome won}.`
+};
+
+const EARLY_EXPLANATIONS = {
+ "Foundation to Level 2": {
+   chron: "Puts events in order with first, then and at the end (VC2HH2S02).",
+   cause: "Says why something happened (VC2HH2S06)." },
+ "Levels 3 and 4": {
+   chron: "Uses a date and puts events across a few years in order (VC2HH4S02).",
+   cause: "Says what caused a change and what it led to (VC2HH4S07)." },
+ "Level 5": {
+   chron: "Uses three BCE dates in the right order (VC2HH6S02).",
+   cause: "Explains causes and effects from the start of the war to the end (VC2HH6S08)." }
+};
 
 const VC = {
+ "Foundation to Level 2": [
+  ["VC2HH2S02","sequence events chronologically"],
+  ["VC2HH2S06","identify the causes and consequences of changes"]],
+ "Levels 3 and 4": [
+  ["VC2HH4S02","sequence significant events and peoples’ life stories chronologically to identify continuity and change"],
+  ["VC2HH4S07","describe the causes and consequences of change"]],
+ "Level 5": [
+  ["VC2HH6S02","sequence significant events, developments and the lives of individuals chronologically to describe continuity and change, and causes and consequences"],
+  ["VC2HH6S08","explain the causes and consequences of significant events and developments"]],
  "Level 6": [
   ["VC2HH6S02","sequence significant events, developments and the lives of individuals chronologically to describe continuity and change, and causes and consequences"],
   ["VC2HH6S08","explain the causes and consequences of significant events and developments"]],
@@ -139,9 +172,18 @@ const VC = {
   ["VC2HH10S02","sequence significant events, individuals, ideas, movements and developments chronologically to analyse continuity and change, and causes and consequences"],
   ["VC2HH10S08","analyse short- and long-term causes and the intended and unintended consequences of significant events, individuals, ideas and developments and their contributions to continuity and change"]]
 };
-const VC_NOTE = "Levels 6 to 9 use the CAT 2 rubric's wording. VC2 bands History two years at a time, so neighbouring rungs share a code.";
+const VC_NOTE = "Levels 6 to 9 use the CAT 2 rubric's wording. Below Level 6 the rubric is blank, so those rungs show the Victorian Curriculum only. VC2 bands History two years at a time, so neighbouring rungs share a code.";
 
 const BUMP = {
+ "Foundation to Level 2": {
+   new:"You put things in order, and say why one thing happened.",
+   background:"that elephants are very big, and that snow is very cold." },
+ "Levels 3 and 4": {
+   new:"You use a date, and say what caused a change.",
+   background:"that armies fight wars, and that a general is the person in charge of an army." },
+ "Level 5": {
+   new:"You use BCE dates in order, and say what each cause led to.",
+   background:"that Rome and Carthage were two powerful cities that fought each other." },
  "Level 6": {
    new:"You put the events in order and say what each one led to.",
    background:"that Rome and Carthage fought a war, and that Hannibal brought elephants into Italy." },
@@ -177,6 +219,15 @@ const GLOSS = {
 };
 
 const KID = {
+ "Foundation to Level 2": { band:"Foundation to Level 2", lines:[
+   "I can put things in order: first, next, last.",
+   "I can say why something happened."]},
+ "Levels 3 and 4": { band:"Levels 3 and 4", lines:[
+   "I can put events in the order they happened.",
+   "I can say what caused a change, and what it led to."]},
+ "Level 5": { band:"Levels 5 and 6", lines:[
+   "I can put important events in order on a timeline.",
+   "I can explain what caused an event, and what it led to."]},
  "Level 6": { band:"CAT 2 rubric · Level 6", lines:[] },
  "Level 7": { band:"CAT 2 rubric · Level 7", lines:[] },
  "Level 8": { band:"CAT 2 rubric · Level 8", lines:[] },
