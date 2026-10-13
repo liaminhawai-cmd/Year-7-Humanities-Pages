@@ -349,8 +349,11 @@ The workflow fails the build if an index page differs from what the generator
 produces.
 
 `bump-it-up.html` is not one of the generated files, and it is not unique per
-topic either: `gs73`, `china`, `egypt`, `vesuvius` and `batman` each carry their
-own copy. A fix to the shared machinery, the translate popup, the zoom viewer,
+topic either: `gs73`, `china`, `egypt`, `vesuvius`, `batman` and `hannibal` each carry their
+own copy. `history/hannibal/` is a hidden lesson wall (Rome 1.4, why Rome beat
+Hannibal): it is deliberately not in the site map, carries a noindex tag, and is
+opened by its address after students have drafted, so the models are not seen
+first. Keep it out of `tools/build_index_pages.py`. A fix to the shared machinery, the translate popup, the zoom viewer,
 the source panel, the rubric pane, is a fix that has to be pasted into every copy
 or the topics silently drift apart. When you make one, patch every copy in the
 same change, verify the diff is identical across files before you write it, and
