@@ -475,7 +475,7 @@ const FRAMES = [FRAME,
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
    source-analysis words are NOT repeated here. They live in eal.js and only
-   there. Machine-drafted, unreviewed, and labelled as such on screen. */
+   there. Machine-drafted and unreviewed; no longer labelled on screen. */
 const TIER3_T = {
   "grinding stone": {"zh-Hans": "石磨", "zh-Hant": "石磨", "vi": "đá nghiền", "ar": "حجر طحن", "fa": "سنگ آسیاب", "ur": "پیسنے کا پتھر", "ml": "അരയ്ക്കുന്ന കല്ല്", "am": "መፍጫ ድንጋይ"},
   "millstone": {"zh-Hans": "磨盘", "zh-Hant": "磨盤", "vi": "cối đá", "ar": "حجر الرحى", "fa": "سنگ آسیاب", "ur": "چکی کا پاٹ", "ml": "തിരികല്ല്", "am": "የወፍጮ ድንጋይ"},

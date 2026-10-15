@@ -426,7 +426,7 @@ const KID = {
 };
 
 /* Translations for this unit's own tier-3 and tier-2 words, in the shape
-   eal.js uses. Machine-drafted, unreviewed, and labelled as such on screen.
+   eal.js uses. Machine-drafted and unreviewed; no longer labelled on screen.
    The eight languages are the ones Year 7 has full coverage in. */
 const TIER3_T = {
   "eruption": {"zh-Hans":"火山喷发","zh-Hant":"火山噴發","vi":"sự phun trào núi lửa","ar":"ثوران بركاني","fa":"فوران آتشفشان","ur":"آتش فشاں کا پھٹنا","ml":"അഗ്നിപർവ്വത സ്ഫോടനം","am":"የእሳተ ገሞራ ፍንዳታ"},

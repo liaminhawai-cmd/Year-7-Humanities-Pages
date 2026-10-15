@@ -234,8 +234,7 @@ const KID = {
  "Level 9": { band:"CAT 2 rubric · Level 9", lines:[] }
 };
 
-/* Machine-drafted and unreviewed. Unlike the other walls, this page does not
-   say so in the translation popup: the teacher asked for the note off here. */
+/* Machine-drafted and unreviewed; not labelled on screen (see eal.js). */
 const TIER3_T = {
   "Carthage": {"zh-Hans":"迦太基","zh-Hant":"迦太基","vi":"Carthage","ar":"قرطاج","fa":"کارتاژ","ur":"قرطاجنہ","ml":"കാർത്തേജ്","am":"ካርቴጅ"},
   "Punic War": {"zh-Hans":"布匿战争","zh-Hant":"布匿戰爭","vi":"Chiến tranh Punic","ar":"الحرب البونيقية","fa":"جنگ پونیک","ur":"پیونک جنگ","ml":"പ്യൂണിക് യുദ്ധം","am":"የፑኒክ ጦርነት"},

@@ -349,9 +349,10 @@ button{font:inherit;cursor:pointer}
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
    written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
-   nobody has reviewed them yet. The wall labels them as unreviewed on
-   screen, and they should not be treated as meeting that rule until a
-   speaker of each language has been through them.
+   nobody has reviewed them yet. They are not labelled as unreviewed on
+   screen: the teacher asked for that note off every page in October 2026.
+   They should still not be treated as meeting that rule until a speaker of
+   each language has been through them.
 
    `morph` is the morpheme breakdown, where the word has one. The hub is
    built on morphology, so this is what lets a word join its family there.
@@ -378,6 +379,7 @@ const EAL_LANGS = [
   { code:"es",      label:"Español",          english:"Spanish" }
 ];
 
+/* Kept for anything that still reads it; no page shows it now. */
 const EAL_NOTE = "Machine-drafted. Not yet checked by a speaker of each language.";
 
 const EAL = {
@@ -1007,7 +1009,7 @@ const FRAMES = [FRAME,
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
    source-analysis words are NOT repeated here. They live in eal.js and only
-   there. Machine-drafted, unreviewed, and labelled as such on screen. */
+   there. Machine-drafted and unreviewed; no longer labelled on screen. */
 const TIER3_T = {
   "grinding stone": {"zh-Hans": "石磨", "zh-Hant": "石磨", "vi": "đá nghiền", "ar": "حجر طحن", "fa": "سنگ آسیاب", "ur": "پیسنے کا پتھر", "ml": "അരയ്ക്കുന്ന കല്ല്", "am": "መፍጫ ድንጋይ"},
   "millstone": {"zh-Hans": "磨盘", "zh-Hant": "磨盤", "vi": "cối đá", "ar": "حجر الرحى", "fa": "سنگ آسیاب", "ur": "چکی کا پاٹ", "ml": "തിരികല്ല്", "am": "የወፍጮ ድንጋይ"},
@@ -1539,7 +1541,7 @@ function openTranslatable(anchorEl, kind, body, hit){
     const label = UNIT_LANGS.find(l => l.code === lang);
     el("popBody").insertAdjacentHTML("beforeend",
       `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-      `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
+      `<span class="warn">${esc(label.label)}</span></span>`);
     return;
   }
   const avail = UNIT_LANGS.filter(l => hit.t[l.code]);

@@ -18,9 +18,10 @@
    include REVIEWED Taiwan Traditional Chinese as its own value, with
    Taiwan terminology rather than character conversion. These drafts were
    written with that in mind, zh-Hant and zh-Hans differ in wording, not just in characters, wherever the two varieties genuinely differ, but
-   nobody has reviewed them yet. The wall labels them as unreviewed on
-   screen, and they should not be treated as meeting that rule until a
-   speaker of each language has been through them.
+   nobody has reviewed them yet. They are not labelled as unreviewed on
+   screen: the teacher asked for that note off every page in October 2026.
+   They should still not be treated as meeting that rule until a speaker of
+   each language has been through them.
 
    `morph` is the morpheme breakdown, where the word has one. The hub is
    built on morphology, so this is what lets a word join its family there.
@@ -47,6 +48,7 @@ const EAL_LANGS = [
   { code:"es",      label:"Español",          english:"Spanish" }
 ];
 
+/* Kept for anything that still reads it; no page shows it now. */
 const EAL_NOTE = "Machine-drafted. Not yet checked by a speaker of each language.";
 
 const EAL = {

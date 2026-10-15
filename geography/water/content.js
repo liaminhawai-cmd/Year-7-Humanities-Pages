@@ -490,7 +490,7 @@ const FRAMES = [FRAME,
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses, so
    the tool treats a unit word and a shared word identically. The shared
    source-analysis words are NOT repeated here. They live in eal.js and only
-   there. Machine-drafted, unreviewed, and labelled as such on screen. */
+   there. Machine-drafted and unreviewed; no longer labelled on screen. */
 const TIER3_T = {
   "fresh water": {"zh-Hans": "淡水", "zh-Hant": "淡水", "vi": "nước ngọt", "ar": "مياه عذبة", "fa": "آب شیرین", "ur": "میٹھا پانی", "ml": "ശുദ്ധജലം", "am": "ንጹህ ውሃ"},
   "groundwater": {"zh-Hans": "地下水", "zh-Hant": "地下水", "vi": "nước ngầm", "ar": "مياه جوفية", "fa": "آب زیرزمینی", "ur": "زیرِ زمین پانی", "ml": "ഭൂഗർഭജലം", "am": "የከርሰ ምድር ውሃ"},

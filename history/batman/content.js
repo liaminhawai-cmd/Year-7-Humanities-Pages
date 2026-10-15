@@ -426,7 +426,7 @@ const GLOSS = {
 };
 
 /* Translations for this unit's own tier-3 words, in the shape eal.js uses.
-   Machine-drafted, unreviewed, and labelled as such on screen (EAL_NOTE),
+   Machine-drafted and unreviewed (not labelled on screen since October 2026),
    same as every other translation table on this site. The eight languages
    below are the ones Year 7 actually has full coverage in: check against
    geography/water/content.js's TIER3_T before assuming a wider or narrower

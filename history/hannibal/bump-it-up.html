@@ -781,7 +781,7 @@ function openTranslatable(anchorEl, kind, body, hit){
     const label = UNIT_LANGS.find(l => l.code === lang);
     el("popBody").insertAdjacentHTML("beforeend",
       `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-      `<span class="warn">${esc(label.label)}</span></span>`);   /* hannibal: language name only, at the teacher's request */
+      `<span class="warn">${esc(label.label)}</span></span>`);
     return;
   }
   const avail = UNIT_LANGS.filter(l => hit.t[l.code]);

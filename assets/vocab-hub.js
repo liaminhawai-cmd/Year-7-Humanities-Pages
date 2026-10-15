@@ -114,7 +114,7 @@ function drawMeet(){
       <div class="wordrow"><h3>${colourWord(w)}</h3>${w.shared?'<span class="tag">every history unit</span>':""}
       ${sayBtn(w.word+". "+w.def)}<button class="star" data-word="${esc(w.word)}" aria-label="${k?"Move back to learning":"Mark secure"}">${k?"★":"☆"}</button></div>
       <p class="definition">${esc(w.def)}</p>
-      ${tr?`<span class="translation" lang="${esc(lang)}">${esc(tr)}<span class="note">${esc(languageLabel()?.label)} · machine-drafted, not yet speaker-reviewed</span></span>`:""}${morph}</article>`;
+      ${tr?`<span class="translation" lang="${esc(lang)}">${esc(tr)}<span class="note">${esc(languageLabel()?.label)}</span></span>`:""}${morph}</article>`;
   }).join("");
   $("cards").querySelectorAll(".star").forEach(b=>b.onclick=()=>{const key=b.dataset.word.toLowerCase();mark(key,!known.has(key));drawMeet()});
   wireSay($("cards"));

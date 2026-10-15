@@ -658,7 +658,7 @@ document.addEventListener("click", e => {
       const label = UNIT_LANGS.find(l => l.code === lang);
       el("popBody").insertAdjacentHTML("beforeend",
         `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-        `<span class="warn">${esc(label.label)}, ${esc(EAL_NOTE)}</span></span>`);
+        `<span class="warn">${esc(label.label)}</span></span>`);
     } else if (hit){
       /* No language chosen yet. Rather than showing nothing and looking broken,
          offer the languages here: one tap translates and is remembered. */
@@ -679,7 +679,7 @@ document.addEventListener("click", e => {
         const lb = UNIT_LANGS.find(l => l.code === lang);
         el("popBody").insertAdjacentHTML("beforeend",
           `<span class="tr"><b lang="${lang}">${esc(hit.t[lang])}</b>` +
-          `<span class="warn">${esc(lb.label)}, ${esc(EAL_NOTE)}</span></span>`);
+          `<span class="warn">${esc(lb.label)}</span></span>`);
       });
     }
     return;
