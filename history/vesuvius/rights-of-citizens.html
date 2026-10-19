@@ -16,7 +16,8 @@
   16px gaps; a choice is made by tapping and is not undone by tapping it
   again; a second tap within 0.4s is ignored; no dragging anywhere. Answers
   save to this device only (localStorage), and Print gives the table to hand
-  in. The fact files are the low-literacy versions written for 2.2.
+  in. The fact files are the low-literacy versions written for 2.2, always
+  shown: a folded panel read as missing text, and costs a tap.
 -->
 <style>
   :root{
@@ -41,9 +42,9 @@
   .who{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
   .who h2{font:800 26px/1.2 Georgia,serif;margin:0}
   .job{color:var(--muted);font-weight:700}
-  details{margin:8px 0 16px;border:2px dashed var(--line);border-radius:14px;padding:4px 14px;background:#fff}
-  summary{cursor:pointer;font-weight:800;min-height:56px;display:flex;align-items:center;gap:10px}
-  details p{margin:6px 0}
+  .file{margin:8px 0 16px;border:2px solid var(--line);border-radius:14px;padding:6px 16px 10px;background:#fff}
+  .filehead{font-weight:800;min-height:56px;display:flex;align-items:center;gap:10px}
+  .file p{margin:6px 0}
   .q{margin:20px 0 6px;font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin:8px 0}
   .choices.rank{grid-template-columns:repeat(4,1fr)}
@@ -63,7 +64,7 @@
   .steps button,.tools button{min-height:64px;font-weight:800;font-size:19px;line-height:1.2;font-family:inherit;border:3px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);cursor:pointer}
   .steps .next{background:var(--sel);border-color:var(--sel);color:#fff}
   .tools{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
-  button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+  button:focus-visible,textarea:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
   .key{font-size:16px;color:var(--muted);margin-top:6px}
   #print{display:none}
   @media (max-width:560px){ .nav{grid-template-columns:1fr 1fr} .steps,.tools{grid-template-columns:1fr} }
@@ -168,8 +169,8 @@ function draw(){
     <textarea id="${field}" data-f="${field}" spellcheck="true" placeholder="Type here">${esc(a[field])}</textarea>`;
   $("card").innerHTML = `
     <div class="who"><h2>${esc(p.name)}</h2><span class="job">${esc(p.job)}</span>${sayBtn(p.name + ", " + p.job, "Read the name")}</div>
-    <details${cur === 0 && !a.cit ? " open" : ""}><summary>📄 Read the fact file ${sayBtn(p.file.join(" "), "Read the fact file aloud")}</summary>
-      <p><b>${esc(p.from)}</b></p>${p.file.map(t => `<p>${esc(t)}</p>`).join("")}</details>
+    <div class="file"><div class="filehead">📄 Fact file ${sayBtn(p.file.join(" "), "Read the fact file aloud")}</div>
+      <p><b>${esc(p.from)}</b></p>${p.file.map(t => `<p>${esc(t)}</p>`).join("")}</div>
 
     <div class="q">1. ${esc(Q_CIT)} ${sayBtn(Q_CIT)}</div>
     <div class="choices">${yn("cit", true, "Yes")}${yn("cit", false, "No")}</div>
