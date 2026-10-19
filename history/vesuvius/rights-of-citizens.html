@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Rights of Citizens</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<!--
+  HIDDEN. Rome lesson 2.2, The Rights of Citizens: the four-person table as a
+  page a student with a motor disability can complete without handwriting.
+  Not in the site map and nothing links to it (keep it out of
+  tools/build_index_pages.py); the teacher shares the address.
+
+  Built for cerebral palsy and similar: every target is at least 64px with
+  16px gaps; a choice is made by tapping and is not undone by tapping it
+  again; a second tap within 0.4s is ignored; no dragging anywhere. Answers
+  save to this device only (localStorage), and Print gives the table to hand
+  in. The fact files are the low-literacy versions written for 2.2.
+-->
+<style>
+  :root{
+    --bg:#f6f1e7; --paper:#fffdf8; --ink:#1f2a2e; --muted:#5b6669; --line:#d9cfbd;
+    --yes:#1f6b3a; --yesbg:#e3f2e7; --no:#9b2c1f; --nobg:#f8e3df; --sel:#1d3b4a; --selbg:#dce9ee;
+    --focus:#2c7488;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:20px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:16px 16px 80px}
+  h1{font:800 clamp(26px,4vw,34px)/1.2 Georgia,serif;margin:8px 0 4px}
+  .sub{color:var(--muted);margin:0 0 16px}
+  .namebox{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:0 0 18px}
+  .namebox label{font-weight:700}
+  input[type=text]{font:inherit;font-size:20px;padding:12px 14px;border:2px solid var(--line);border-radius:12px;min-height:56px;flex:1 1 260px;background:#fff}
+  .nav{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 18px}
+  .nav button{min-height:64px;font-weight:700;font-size:17px;line-height:1.2;font-family:inherit;border:3px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);cursor:pointer;padding:6px}
+  .nav button[aria-current="true"]{border-color:var(--sel);background:var(--selbg)}
+  .nav .tick{display:block;font-size:14px;color:var(--yes);font-weight:800;min-height:18px}
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:18px}
+  .who{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+  .who h2{font:800 26px/1.2 Georgia,serif;margin:0}
+  .job{color:var(--muted);font-weight:700}
+  details{margin:8px 0 16px;border:2px dashed var(--line);border-radius:14px;padding:4px 14px;background:#fff}
+  summary{cursor:pointer;font-weight:800;min-height:56px;display:flex;align-items:center;gap:10px}
+  details p{margin:6px 0}
+  .q{margin:20px 0 6px;font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin:8px 0}
+  .choices.rank{grid-template-columns:repeat(4,1fr)}
+  .choice{min-height:72px;font-weight:800;font-size:24px;line-height:1;font-family:inherit;border:3px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);cursor:pointer;touch-action:manipulation}
+  .choice[aria-pressed="true"].yes{background:var(--yesbg);border-color:var(--yes);color:var(--yes)}
+  .choice[aria-pressed="true"].no{background:var(--nobg);border-color:var(--no);color:var(--no)}
+  .choice[aria-pressed="true"].num{background:var(--selbg);border-color:var(--sel);color:var(--sel)}
+  .choice[aria-pressed="true"]::after{content:" ✓"}
+  .ranknote{font-size:16px;color:var(--muted);margin:2px 0 0}
+  .ranknote b{color:var(--ink)}
+  .msg{min-height:26px;font-size:17px;font-weight:700;color:var(--sel)}
+  textarea{width:100%;font:inherit;font-size:20px;line-height:1.5;padding:12px 14px;min-height:130px;border:2px solid var(--line);border-radius:14px;background:#fff;resize:vertical}
+  .starters{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 2px}
+  .starters button{min-height:52px;font-weight:600;font-size:17px;line-height:1.2;font-family:inherit;border:2px solid var(--line);border-radius:999px;background:var(--bg);color:var(--ink);padding:8px 16px;cursor:pointer;touch-action:manipulation}
+  .say{min-width:52px;min-height:52px;font-size:24px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  .steps button,.tools button{min-height:64px;font-weight:800;font-size:19px;line-height:1.2;font-family:inherit;border:3px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);cursor:pointer}
+  .steps .next{background:var(--sel);border-color:var(--sel);color:#fff}
+  .tools{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+  .key{font-size:16px;color:var(--muted);margin-top:6px}
+  #print{display:none}
+  @media (max-width:560px){ .nav{grid-template-columns:1fr 1fr} .steps,.tools{grid-template-columns:1fr} }
+  @media print{
+    body{background:#fff;font-size:11pt}
+    .wrap > *:not(#print){display:none !important}
+    #print{display:block}
+    #print table{width:100%;border-collapse:collapse}
+    #print th,#print td{border:1px solid #444;padding:6px;vertical-align:top;text-align:left}
+    #print th{background:#eee}
+    @page{size:A4 landscape;margin:12mm}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>The Rights of Citizens</h1>
+  <p class="sub">Four people in Ancient Rome. For each one, choose your answers, then say how you know.</p>
+  <div class="namebox"><label for="nm">Name</label><input id="nm" type="text" autocomplete="off"></div>
+  <nav class="nav" id="nav" aria-label="People"></nav>
+  <section class="card" id="card" aria-live="polite"></section>
+  <div class="tools">
+    <button type="button" id="printBtn">Print or save as PDF</button>
+    <button type="button" id="clearBtn">Start again</button>
+  </div>
+  <div id="print"></div>
+</div>
+<script>
+"use strict";
+const PEOPLE = [
+ { id:"gaius", name:"Gaius Valerius Silvanus", job:"Carpenter", short:"Gaius", he:"He",
+   from:"From a village in Gaul (now France).",
+   file:[
+    "The crops failed in Gaius's village. So he walked to Rome to find work. Now he lives in one small room. Under his room is his workshop. He cuts wood and makes doors. He speaks Latin, but with an accent.",
+    "Gaius is free. But he is a foreigner, not a citizen. Romans call people like him peregrini. That means free foreigners.",
+    "He can sign deals, pay a helper and take a cheat to court. He cannot vote, or speak in the Senate. He pays more tax than citizens do.",
+    "His hope: Gaius saves coins in a clay jar. He wants to buy a house one day. He hopes his sons will join a legion and become real Romans."] },
+ { id:"fortunata", name:"Fortunata", job:"Slave", short:"Fortunata", he:"She",
+   from:"From a busy port town.",
+   file:[
+    "Pirates took Fortunata when she was young. They sold her. At the market, people looked at her like a thing for sale. A senator's family bought her. She works from early morning. She grinds grain and cleans floors. She runs when her mistress calls.",
+    "The law says she is property, like a table or a cow.",
+    "She cannot marry, own her clothes, write a will, or complain about a cruel boss. But she learns Latin well, and she never steals. Her mistress starts to trust her with money for shopping.",
+    "Her hope: Sometimes an owner frees a slave in their will. Every night Fortunata dreams of hearing her name read out. Then she would be a freedwoman."] },
+ { id:"quintus", name:"Quintus Valerius Secundus", job:"Soldier", short:"Quintus", he:"He",
+   from:"From a small town in Spain.",
+   file:[
+    "As a boy, Quintus watched Roman soldiers march past. At 17 he joined the army. But he is not in a legion. Legions are for citizens. He is in the auxiliaries. That is the army for foreigners.",
+    "Now he guards a cold border in the north. He carries a long spear and an oval shield. He digs ditches and builds forts.",
+    "He cannot vote in Rome, or get an important job in the government. He gets pay, food and a doctor. People respect his uniform.",
+    "His hope: After 25 years, a soldier gets a bronze certificate. It gives him land. It makes him and his children Roman citizens. Quintus counts the years. Every battle is a risk."] },
+ { id:"tryphosa", name:"Tryphosa", job:"Hairdresser", short:"Tryphosa", he:"She",
+   from:"From a Greek port town.",
+   file:[
+    "Tryphosa was sold as a slave when she was a girl. A rich woman bought her. Tryphosa was very good at doing hair. She also kept secrets. Her owner was so pleased that she set Tryphosa free at a festival.",
+    "Now Tryphosa is a freedwoman. She has a tiny shop near the Forum. Rich women line up to get their hair done.",
+    "She can now sign deals, take a cheat to court and keep her own money. She still cannot get a job in the government.",
+    "Her hope: She wants a bigger shop with helpers. Her children will be born free citizens. They will never be slaves."] }
+];
+const Q_CIT = "Is this person a Roman citizen?";
+const Q_RISE = "Can this person rise in Roman society? Can they move up?";
+const Q_RANK = "Ranking of rights";
+const KEY = "rome22.rights.v1";
+
+/* answers live on this device only; a private window or blocked storage
+   still works, it just forgets on close */
+let A = { name:"", p:{} };
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.p) A = s; } catch(e){}
+PEOPLE.forEach(p => { A.p[p.id] = Object.assign({ cit:null, citWhy:"", rise:null, riseWhy:"", rank:null }, A.p[p.id] || {}); });
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(A)); } catch(e){} }
+
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+let cur = 0, lastTap = 0;
+function steady(){ const n = Date.now(); if (n - lastTap < 400) return false; lastTap = n; return true; }
+
+const TTS = "speechSynthesis" in window;
+function speak(t){ if (!TTS) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-AU"; u.rate = .92; speechSynthesis.speak(u); }
+const sayBtn = (t, label) => TTS ? `<button type="button" class="say" data-say="${esc(t)}" aria-label="${esc(label || "Read aloud")}">🔊</button>` : "";
+
+$("nm").value = A.name || "";
+$("nm").addEventListener("input", e => { A.name = e.target.value; save(); });
+
+function done(p){ const a = A.p[p.id]; return a.cit !== null && a.rise !== null && a.rank !== null && a.citWhy.trim() && a.riseWhy.trim(); }
+function drawNav(){
+  $("nav").innerHTML = PEOPLE.map((p, i) =>
+    `<button type="button" data-i="${i}" aria-current="${i === cur}">${esc(p.short)}<span class="tick">${done(p) ? "✓ done" : ""}</span></button>`).join("");
+  $("nav").querySelectorAll("button").forEach(b => b.onclick = () => { cur = +b.dataset.i; draw(); });
+}
+
+function starters(p){
+  const h = p.he;
+  return [`The fact file says `, `${h} can `, `${h} cannot `, `I know because `, `${h} is a `];
+}
+
+function draw(){
+  const p = PEOPLE[cur], a = A.p[p.id];
+  const yn = (field, val, lab) => `<button type="button" class="choice ${val ? "yes" : "no"}" data-f="${field}" data-v="${val}" aria-pressed="${a[field] === val}">${lab}</button>`;
+  const why = (field, q) => `
+    <label class="q" for="${field}">How do you know? ${sayBtn("How do you know? " + q)}</label>
+    <div class="starters" data-for="${field}">${starters(p).map(s => `<button type="button" data-s="${esc(s)}">${esc(s.trim())}…</button>`).join("")}</div>
+    <textarea id="${field}" data-f="${field}" spellcheck="true" placeholder="Type here">${esc(a[field])}</textarea>`;
+  $("card").innerHTML = `
+    <div class="who"><h2>${esc(p.name)}</h2><span class="job">${esc(p.job)}</span>${sayBtn(p.name + ", " + p.job, "Read the name")}</div>
+    <details${cur === 0 && !a.cit ? " open" : ""}><summary>📄 Read the fact file ${sayBtn(p.file.join(" "), "Read the fact file aloud")}</summary>
+      <p><b>${esc(p.from)}</b></p>${p.file.map(t => `<p>${esc(t)}</p>`).join("")}</details>
+
+    <div class="q">1. ${esc(Q_CIT)} ${sayBtn(Q_CIT)}</div>
+    <div class="choices">${yn("cit", true, "Yes")}${yn("cit", false, "No")}</div>
+    ${why("citWhy", Q_CIT)}
+
+    <div class="q">2. ${esc(Q_RISE)} ${sayBtn(Q_RISE)}</div>
+    <div class="choices">${yn("rise", true, "Yes")}${yn("rise", false, "No")}</div>
+    ${why("riseWhy", Q_RISE)}
+
+    <div class="q">3. ${esc(Q_RANK)} ${sayBtn("Ranking of rights. 1 is the most rights. 4 is the fewest rights.")}</div>
+    <p class="ranknote"><b>1</b> = most rights &nbsp; · &nbsp; <b>4</b> = fewest rights. Each number once.</p>
+    <div class="choices rank">${[1,2,3,4].map(n => `<button type="button" class="choice num" data-f="rank" data-v="${n}" aria-pressed="${a.rank === n}">${n}</button>`).join("")}</div>
+    <div class="msg" id="msg" role="status"></div>
+
+    <div class="steps">
+      <button type="button" id="prev">← ${esc(PEOPLE[(cur + 3) % 4].short)}</button>
+      <button type="button" id="next" class="next">${esc(PEOPLE[(cur + 1) % 4].short)} →</button>
+    </div>`;
+  wire(p, a);
+  drawNav();
+}
+
+function wire(p, a){
+  const card = $("card");
+  card.querySelectorAll(".say").forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation(); speak(b.dataset.say); });
+  card.querySelectorAll(".choice").forEach(b => b.onclick = () => {
+    if (!steady()) return;
+    const f = b.dataset.f, v = f === "rank" ? +b.dataset.v : b.dataset.v === "true";
+    if (a[f] === v) return;                       // tapping your answer again does not undo it
+    let note = "";
+    if (f === "rank"){                             // each number once: take it from whoever had it
+      const other = PEOPLE.find(q => q.id !== p.id && A.p[q.id].rank === v);
+      if (other){ A.p[other.id].rank = null; note = `${v} moved from ${other.short} to ${p.short}. Choose a new number for ${other.short}.`; }
+    }
+    a[f] = v; save();
+    card.querySelectorAll(`.choice[data-f="${f}"]`).forEach(x =>
+      x.setAttribute("aria-pressed", String((f === "rank" ? +x.dataset.v : x.dataset.v === "true") === v)));
+    $("msg").textContent = note;
+    drawNav();
+  });
+  card.querySelectorAll("textarea").forEach(t => t.addEventListener("input", () => { a[t.dataset.f] = t.value; save(); drawNav(); }));
+  card.querySelectorAll(".starters").forEach(box => box.querySelectorAll("button").forEach(b => b.onclick = () => {
+    if (!steady()) return;
+    const t = $(box.dataset.for), s = b.dataset.s;
+    const at = t.selectionStart ?? t.value.length;
+    const pre = t.value.slice(0, at), post = t.value.slice(at);
+    const gap = pre && !/\s$/.test(pre) ? " " : "";
+    t.value = pre + gap + s + post; t.focus();
+    const pos = (pre + gap + s).length; t.setSelectionRange(pos, pos);
+    a[t.dataset.f] = t.value; save(); drawNav();
+  }));
+  $("prev").onclick = () => { cur = (cur + 3) % 4; draw(); window.scrollTo(0, 0); };
+  $("next").onclick = () => { cur = (cur + 1) % 4; draw(); window.scrollTo(0, 0); };
+}
+
+function drawPrint(){
+  const yn = v => v === null ? "" : (v ? "Yes" : "No");
+  $("print").innerHTML = `<h2 style="margin:0 0 4px">The Rights of Citizens</h2>
+    <p style="margin:0 0 8px">Name: ${esc(A.name || "")}</p>
+    <table><tr><th></th><th>Is he or she a Roman citizen? How do you know?</th><th>Does he or she have the ability to rise within Roman society? How do you know?</th><th>Ranking of rights (1 - 4)</th></tr>
+    ${PEOPLE.map(p => { const a = A.p[p.id]; return `<tr><td><b>${esc(p.job)}</b><br>${esc(p.name)}</td>
+      <td><b>${yn(a.cit)}</b><br>${esc(a.citWhy)}</td><td><b>${yn(a.rise)}</b><br>${esc(a.riseWhy)}</td><td style="text-align:center;font-size:16pt"><b>${a.rank ?? ""}</b></td></tr>`; }).join("")}
+    </table>`;
+}
+$("printBtn").onclick = () => { drawPrint(); window.print(); };
+window.addEventListener("beforeprint", drawPrint);
+$("clearBtn").onclick = () => {
+  if (!confirm("Clear all your answers and start again?")) return;
+  A = { name:"", p:{} }; PEOPLE.forEach(p => A.p[p.id] = { cit:null, citWhy:"", rise:null, riseWhy:"", rank:null });
+  save(); $("nm").value = ""; cur = 0; draw();
+};
+draw();
+</script>
+</body>
+</html>
