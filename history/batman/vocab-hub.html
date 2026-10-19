@@ -3250,6 +3250,14 @@ function saveIdAndPrint(){
 
 /* ---- boot ---- */
 go("home");
+/* A link can open one lesson directly: vocab-hub.html#2.1. The OneNote
+   lesson pages use this, so a lesson's id must stay its page number. */
+function openFromHash(){
+  const id=decodeURIComponent(location.hash.slice(1));
+  if(id && LESSON_BY_ID[id]) openLesson(id, true);
+}
+openFromHash();
+window.addEventListener("hashchange", openFromHash);
 </script>
 </body>
 </html>
