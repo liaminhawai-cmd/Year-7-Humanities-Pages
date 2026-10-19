@@ -174,7 +174,7 @@ list. It is:
 
 Two history hubs are now this build: `history/batman/vocab-hub.html`
 (Ancient Australia, 16 lessons) and `history/vesuvius/vocab-hub.html` (Ancient
-Rome, 12 lessons, 1.1 to 4.1, from the unit's OneNote lesson pages, extracted with
+Rome, 13 lessons, 1.1 to 5.1, from the unit's OneNote lesson pages, extracted with
 `tools/onenote_extract.py` in the private repository). They share one engine. The
 China, GS73 and Egypt hubs are still the 2 KB page over `assets/vocab-hub.js`: one
 flat list, no lessons, no tiers, no review, no report.
@@ -188,10 +188,15 @@ in that hub, or the index fills with near-duplicates. A word whose ending would
 teach a false rule if cut into tiles (*centurion*, where `-ion` means the person in
 charge) is a word-origin question instead.
 
-Rome's hub carries 89 words, five to ten a lesson, in the 2025 lesson order (the
-notebook's 'ROME UNIT 2025' section, not the older 1.1 to 5.1 sequence page: that
-one has a Republic-to-Empire lesson the 2025 order does not, and no Julius Caesar
-or Fall of Rome lesson). Every word on the unit's own
+Rome's hub carries 91 words, six to eight a lesson, numbered exactly as the
+OneNote pages the class is taught from: Topic 1 (1.1 to 1.4), Topic 2 (2.1 Social
+Groups, 2.2 Rights of Citizens, 2.3 Peasants and Slaves), Topic 3 (3.1 Republic to
+Empire, 3.2 Religion), Topic 4 (4.1 Law, 4.2 Technology, 4.3 Army) and 5.1 The Fall
+of Rome. Each OneNote page links to its lesson as `vocab-hub.html#2.1`, so a
+lesson id is a page number and must not drift. It drifted once: the hub followed
+the notebook's "ROME UNIT 2025" section, a different order that is not the one
+taught, and the teacher's 2.1 link opened the army. Check against the pages the
+teacher actually uses, not the newest-looking section. Every word on the unit's own
 vocabulary list (27 words, strategic to civic) is in it, with the teacher's
 definition used word for word, and lesson 1.1 front-loads the Ancient Rome 101
 video's terms (civilisation, monarchy, republic, millennium). Base camp is two
@@ -206,8 +211,8 @@ Each word carries its family in `forms` (conquer, conquest, conqueror; strategis
 strategic, strategy), shown on the study card and in the word list, and most words
 have a second apply item whose answer is a different form from the headword, so a
 student has to choose the form. Lesson ids are the storage key's contents: when
-the order changed the key moved to `ancientrome.vocabhub.v2`, because progress
-saved under v1 would have attached to different words. Do the same if you
+the order changed the key moved on (now `ancientrome.vocabhub.v3`), because
+progress saved under the old ids would have attached to different words. Do the same if you
 renumber lessons again.
 
 Access mode in the two lesson hubs turns the build board into a full-screen
