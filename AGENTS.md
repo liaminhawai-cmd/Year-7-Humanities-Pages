@@ -30,9 +30,12 @@ A WAGOLL wall models better thinking on a source the student will not be
 assessed on. The CAT then asks for the same thinking on material they have not
 seen.
 
-Ancient Australia does this correctly, and has done it twice. CAT 1 tests source
-analysis on a woomera, an eel trap, a boomerang and a Joseph Lycett painting. The
-wall taught from is now Batman's Treaty: Burtt's painting of the meeting at Merri
+Ancient Australia does this correctly, and has done it twice. The 2026 CAT 1 tests
+source analysis on Fred Kruger's photograph of Kulin men (about 1883), the Bunjil
+story from the History Alive textbook, and Giovanni Caselli's 1974 painting of Lake
+Mungo. (Earlier versions used a woomera, an eel trap, a boomerang and a Joseph
+Lycett painting; the revision lesson still does, and the practice CAT in the private
+repository is built from those.) The wall taught from is now Batman's Treaty: Burtt's painting of the meeting at Merri
 Creek and Governor Bourke's Proclamation, neither of which is in that CAT. The
 GS73 wall it replaced cleared the same bar, on a grinding stone from Madjedbebe.
 Either way a student who has worked the wall has rehearsed origin, context,
