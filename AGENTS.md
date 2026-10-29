@@ -362,6 +362,10 @@ own copy. `history/hannibal/` is a hidden lesson wall (Rome 1.4, why Rome beat
 Hannibal): it is deliberately not in the site map, carries a noindex tag, and is
 opened by its address after students have drafted, so the models are not seen
 first. Keep it out of `tools/build_index_pages.py`.
+`history/fall/` is hidden the same way: the Rome rehearsal task, why the Western
+Roman Empire fell, with its own worksheet in the private repository. It rehearses
+the CAT's chronology and cause and effect rows on different events from the CAT
+(the Republic becoming an empire), so rule 1 holds. Keep it out of the generator too.
 `history/vesuvius/rights-of-citizens.html` is hidden the same way: the 2.2 rights
 table as a tap-and-type page for a student with a motor disability, opened by its
 address. A fix to the shared machinery, the translate popup, the zoom viewer,
