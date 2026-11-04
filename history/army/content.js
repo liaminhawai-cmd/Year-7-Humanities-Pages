@@ -52,7 +52,7 @@ const EXAMPLES = {
 `Rome's army helped Rome succeed in a few ways. {cause|Soldiers trained every day, so they were ready to fight}. {cause|They locked their shields into a testudo, so they could get close to a city wall and take the town}. {cause|They built roads and a camp every night, so the army could move fast and be safe}. {cause|Josephus says Rome won its empire through "their valour, and not the bare gift of fortune"}. {cause|At Cannae the Romans were surrounded and lost}, but most of the time they won. The army was the main reason Rome was so strong.`,
 
 "Level 7":
-`Rome's army helped Rome succeed because fighting became a full-time job. {cause|Soldiers like Servius signed up for 25 years and trained every day. For the soldier this meant a hard life far from home, and for Rome it meant an army that was always ready}. {cause|Every soldier carried tools as well as weapons, so the army built a walled camp each night and roads that traders used later}. {cause|For conquered peoples the army offered a reward: after 25 years an auxiliary became a Roman citizen, so people Rome had beaten now fought for it}. {cause|At Cannae in 216 BCE the army's size did not save it, and tens of thousands of Romans were killed in one day}, {cause|but Rome raised new armies and still won the war}. The army made Rome strong, and it changed the lives of almost everyone in the empire.`,
+`Rome's army helped Rome succeed because fighting became a full-time job. {cause|Soldiers like Servius signed up for 25 years and trained every day. For the soldier this meant a hard life far from home, and for Rome it meant an army that was always ready}. {cause|Every soldier carried tools as well as weapons, so the army built a walled camp each night and roads that the next army could use}. {cause|For conquered peoples the army offered a reward: after 25 years an auxiliary became a Roman citizen, so people Rome had beaten now fought for it}. {cause|At Cannae in 216 BCE the army's size did not save it, and tens of thousands of Romans were killed in one day}, {cause|but Rome raised new armies and still won the war}. The army made Rome strong, and it changed the lives of almost everyone in the empire.`,
 
 "Level 8":
 `Rome's army contributed to its success because Rome built it to keep winning far from home. {cause|Rome paid its soldiers and kept them for 20 to 25 years because it needed an army that could fight all year, not only in summer}. {cause|Josephus says every soldier "is every day exercised … as if it were in time of war", so in battle the Romans kept their order and did not panic}. {cause|Rome made auxiliaries citizens after 25 years because it wanted conquered peoples to have a reason to be loyal}. {cause|Josephus had his own motive for praising the army: he says he wrote to deter others from rebelling, so he may have made it sound harder to beat than it was}. {cause|At Cannae, Hannibal held his best soldiers back so that the Romans would push forward into a trap}, which shows the army could be beaten by a general who understood it. Rome's choices about how to build its army won it the empire.`,
@@ -68,7 +68,7 @@ const EXPLANATIONS = {
 "Level 6": {
   cause: "The orange phrases name causes and what each one led to: training, the testudo, roads and camps, and one defeat." },
 "Level 7": {
-  cause: "The orange phrases say how the army affected different people and groups: a soldier like Servius, conquered peoples, traders, and Rome itself." },
+  cause: "The orange phrases say how the army affected different people and groups: a soldier like Servius, conquered peoples, and Rome itself." },
 "Level 8": {
   cause: "The orange phrases give motives: why Rome paid its soldiers and made auxiliaries citizens, why Josephus wrote, and what Hannibal was trying to do." },
 "Level 9": {
@@ -98,23 +98,21 @@ const SOURCES = [
   id: "bank",
   tab: "The evidence bank",
   kind: "text",
-  cite: "The evidence bank from the 4.3 worksheet, written for this lesson.",
+  cite: "The evidence bank and the two defeats from the 4.3 worksheet, written for this lesson, and one fact from the module's reading.",
   whole: { label:"The evidence bank", text:"Everything the worked examples use is here, in Josephus, or in the two videos." },
   paragraphs: [
-   "Helmet: iron, with guards for the cheeks and neck. A centurion's helmet had a crest across the top so his men could find him in battle.",
-   "Body armour: strips of iron, or a shirt of linked iron rings. Apron: strips of leather with metal studs, hanging from the belt.",
-   "Shield (scutum): large and curved. Soldiers locked shields together into a testudo, a roof and walls of shields against arrows and stones.",
-   "Throwing spears (pila), a short sword (gladius) and a dagger. A pilum stuck in an enemy's shield was hard to pull out.",
-   "Pack (sarcina): food for several days, a pot, a cloak, and tools for building camp: spade, saw, pickaxe and basket. In all, over 20 kg.",
-   "Organisation: 8 men shared a tent, 80 made a century led by a centurion, 6 centuries a cohort, and 10 cohorts a legion of about 5000 to 6000 men.",
-   "Training every day. Marching about 30 km a day in full kit, with a walled camp built every night. The army also built roads, bridges and forts.",
-   "In the early Republic soldiers were farmers who fought each summer. Later the army was full-time and paid, and legionaries served 20 to 25 years, with land or money when they retired.",
-   "Auxiliaries, soldiers from conquered lands who were not citizens, became Roman citizens after 25 years.",
+   "Shield and armour: a helmet, iron body armour and a large curved shield (scutum). Locked together, the shields made a testudo (tortoise): a roof and walls against arrows and stones.",
+   "Weapons: two throwing spears (pila), thrown just before the armies met, then a short sword (gladius) for stabbing at close range from behind the shield.",
+   "Marching and building: each soldier carried over 20 kg, food for days and tools for building camp (spade, saw, pickaxe, basket). About 30 km a day, a walled camp every night, and roads and bridges.",
+   "Organisation: 8 men shared a tent, 80 made a century led by a centurion, and 10 cohorts made a legion of about 5000 to 6000 men.",
+   "Training: every day, as if at war. Centurions gave the orders and punished anyone who disobeyed.",
+   "Pay and citizenship: legionaries were full-time and paid for 20 to 25 years, then got land or money. Auxiliaries from conquered lands became Roman citizens after 25 years.",
+   "From the module's reading: in the early Republic soldiers were farmers who fought each summer and went home.",
    "216 BCE, Cannae: Hannibal's army of about 50 000 surrounds about 80 000 Romans. It is Rome's worst defeat, but Rome raises new armies and wins the war in 202 BCE.",
    "9 CE, the Teutoburg Forest: Arminius, once an officer in the Roman army, traps three legions on a narrow forest path in heavy rain. Rome gives up trying to conquer Germania, and the Rhine becomes the border."
   ],
   hotspots: [
-   { mark:"locked shields together into a testudo", label:"The testudo",
+   { mark:"the shields made a testudo", label:"The testudo",
      text:"A roof and walls of shields, so the army could reach a city wall." },
    { mark:"tools for building camp", label:"The tools",
      text:"Every soldier carried a builder's kit as well as weapons." },

@@ -4152,13 +4152,11 @@ function formsLine(w){
 function morphMap(word){
   return word.tiles ? morphChips(word.tiles)+" → <b>"+esc(word.w)+"</b>" : (word.note||"");
 }
-function genTypesFor(word){ return word.tiles ? ["meaningmatch","wordsum","morphmeaning"] : ["meaningmatch"]; }
+/* No "wordsum" item. It printed the word's own parts and asked which word they
+   build, so the answer was spelled out on screen. A sample saved with it falls
+   through to meaningmatch below, so no saved progress breaks. */
+function genTypesFor(word){ return word.tiles ? ["meaningmatch","morphmeaning"] : ["meaningmatch"]; }
 function genTask(gtype, word){
-  if(gtype==="wordsum" && word.tiles){
-    const eq=word.tiles.map(t=>`<b>${esc(t[0])}</b>`).join(" + ");
-    return { type:"wordsum", q:`Which word do these parts build?<br><span class="eqn">${eq}</span>`,
-      a:word.w, opts:[word.w].concat(sameLessonDistractors(word,3)), explain:morphMap(word) };
-  }
   if(gtype==="morphmeaning" && word.tiles){
     const roots=word.tiles.filter(t=>classifyMorph(t[0])==="root");
     const t=pick(roots.length?roots:word.tiles);
