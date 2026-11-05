@@ -369,15 +369,17 @@ the CAT's chronology and cause and effect rows on different events from the CAT
 `history/vesuvius/rights-of-citizens.html` is hidden the same way: the 2.2 rights
 table as a tap-and-type page for a student with a motor disability, opened by its
 address. `history/army/` is hidden too: Rome 4.3, how the army contributed to
-Rome's success. `module.html` is the student page, three steps that are not
-locked: the vocab hub's own 4.3 lesson in a frame (the words stay in one place),
-comprehension questions where a student answers and then taps the sentence that
-proves it, and the bump-it-up. That wall has one row, cause and effect, and its
-copy of `bump-it-up.html` is the only one with a TEACHER UNLOCK block: the class
-sees the rungs in `STUDENT_LEVELS` (Foundation to Level 2, Levels 3 and 4), and
-typing "teacher" outside a text box opens the rest up to Level 10 until reload.
-It is a curtain, not a lock. When you patch shared machinery into this copy, keep
-that block. A fix to the shared machinery, the translate popup, the zoom viewer,
+Rome's success. The class does lesson 4.3 in the Rome vocab hub, and its finish
+screen goes straight to `history/army/bump-it-up.html` (the lesson's
+`next:{ label, to }` in the hub's data; any lesson can carry one, and only 4.3
+does). `module.html` was a three-step shell around both and now only forwards to
+the hub. The wall has one row, cause and effect, and its examples lean on earlier
+lessons (Cannae from 1.4, roads from 4.2, citizenship from 2.2) rather than new
+facts. Its copy of `bump-it-up.html` is the only one with a TEACHER UNLOCK block:
+the class sees the rungs in `STUDENT_LEVELS` (Foundation to Level 2, Levels 3
+and 4), and typing "teacher" outside a text box opens the rest up to Level 10
+until reload. It is a curtain, not a lock. When you patch shared machinery into
+this copy, keep that block. A fix to the shared machinery, the translate popup, the zoom viewer,
 the source panel, the rubric pane, is a fix that has to be pasted into every copy
 or the topics silently drift apart. When you make one, patch every copy in the
 same change, verify the diff is identical across files before you write it, and

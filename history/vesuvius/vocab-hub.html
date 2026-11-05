@@ -2919,6 +2919,8 @@ const LESSONS = [
 
 /* ================= 4.3 THE ROMAN ARMY ================= */
 { id:"4.3", topic:"Topic 4 · Law, Force and Technology", title:"The Roman Army",
+  next:{ label:"Bump it up", to:"../army/bump-it-up.html",
+    desc:"Worked answers to today's question: how did Rome's army contribute to its success?" },
   focus:"Eight men to a tent, eighty to a century, six thousand to a legion, 32 km a day in full armour. Why was the Roman army so hard to beat?",
   words:[
   { w:"Legion", pos:"noun", domain:"water",
@@ -3587,6 +3589,10 @@ function openLesson(id, fromHome){
       done:st.applyDone, locked:!st.buildComplete, fn:()=>startApply(l),
       tag:st.applyDone?`${a.got}/${a.total} FIRST TRY`:(a.ans?`${a.ans}/${a.total} done`:"") },
   ];
+  /* A lesson can name where the class goes next: next:{ label, to, desc }.
+     It shows as one more step, never locked. Rome 4.3 goes to its wall. */
+  if(l.next) steps.push({ t:l.next.label, d:l.next.desc||"", done:false, locked:false,
+    fn:()=>location.assign(l.next.to), tag:"OPEN →" });
   const mount=document.getElementById("lesson-body");
   mount.innerHTML=`<h2 style="text-align:center">${esc(l.id)} · ${esc(l.title)}</h2>
     <p class="focusline">${l.focus}</p><div class="steps" id="lsteps"></div><div id="ltiers"></div>`;
@@ -4204,6 +4210,9 @@ function startApply(l){
   }
   next();
 }
+/* A lesson can name where the class goes when it is finished:
+   next:{ label, to, desc } in its data. Rome 4.3 goes to its bump-it-up wall.
+   The same place is a step card on the lesson page (openLesson). */
 function finishApply(l, recorded){
   const st=L(l.id);
   if(recorded){ st.applyDone=true; save(); }
@@ -4226,7 +4235,9 @@ function finishApply(l, recorded){
     ${follow}
     <div class="nextrow" style="justify-content:center">
       <button class="btn btn-ghost" onclick="goLesson()">back to lesson</button>
-      <button class="btn btn-primary" onclick="go('home')">all lessons</button></div>`;
+      ${l.next ? `<button class="btn btn-ghost" onclick="go('home')">all lessons</button>
+      <button class="btn btn-primary" onclick="location.assign(LESSON_BY_ID['${l.id}'].next.to)">${esc(l.next.label)} →</button>`
+        : `<button class="btn btn-primary" onclick="go('home')">all lessons</button>`}</div>`;
 }
 
 /* ================= TIERS: BASE CAMP & STRETCH ================= */

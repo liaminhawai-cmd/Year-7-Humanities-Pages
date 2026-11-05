@@ -352,8 +352,8 @@ document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
 /* TEACHER UNLOCK. This copy only (history/army); the other walls do not have
    it. The class sees the rungs named in STUDENT_LEVELS in content.js. Typing
    "teacher" anywhere on the page, outside a text box, opens every rung up to
-   Level 10; typing it again closes them. module.html passes the same word on
-   when it is typed outside this frame. Nothing is saved, so a reload closes
+   Level 10; typing it again closes them. A page that frames this one can
+   send the same switch as a message. Nothing is saved, so a reload closes
    them too. It is a curtain, not a lock: the word is in this file. */
 const FULL_LADDER = EARLY_LEVELS.concat(LEVELS);
 const OPEN_LADDER = (typeof STUDENT_LEVELS !== "undefined" && STUDENT_LEVELS.length)

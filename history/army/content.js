@@ -2,9 +2,9 @@
    CONTENT BLOCK for the lesson 4.3 bump-it-up: How did Rome's army
    contribute to its success?
 
-   HIDDEN. Not in the site map and nothing links to it except module.html
-   in this folder, which the teacher shares by its address. Keep both out of
-   tools/build_index_pages.py.
+   HIDDEN. Not in the site map. The class reaches it from the end of lesson
+   4.3 in the Rome vocab hub (its "Bump it up" button), or by its address.
+   Keep it out of tools/build_index_pages.py.
 
    The class sees only the rungs in STUDENT_LEVELS (Foundation to Level 2,
    Levels 3 and 4), as a place to start a first draft. Typing "teacher" on
@@ -13,11 +13,12 @@
 
    One row: cause and effect, in the CAT rubric's own words (AGENTS.md rules
    2 to 4). Chronology is left off because this lesson is about how the army
-   worked, not about change over time. The worked examples use only what is
-   on the 4.3 worksheet (the evidence bank, Josephus, Cannae and the
-   Teutoburg Forest), the reading in module.html and the two videos, so a
-   student can see every claim is reachable from what they had. They do not
-   use the CAT's causes (armies loyal to their generals), so rule 1 holds.
+   worked, not about change over time. The worked examples carry little new
+   information: they use the 4.3 worksheet's evidence bank and Josephus,
+   Cannae from lesson 1.4, roads from lesson 4.2, citizenship from 2.2 and
+   the two videos, so a student can see every claim is reachable from what
+   they already had. They do not use the CAT's causes (armies loyal to their
+   generals), so rule 1 holds.
 
    Mark evidence in an example with {key|the phrase}.
    ======================================================================= */
@@ -27,7 +28,7 @@ const WALL = {
   title: "How did Rome's army contribute to its success?",
   expected: "Level 7",
   inquiry: "How did Rome's army contribute to its success?",
-  foot: "<b>Sources:</b> the evidence bank on the 4.3 worksheet, written for this lesson from the 4.3 lesson notes, the TED-Ed video “A day in the life of a Roman soldier” and the clip on Hannibal's tactics at Cannae; and Josephus, The Jewish War, Book 3, chapter 5, sections 1 and 8, in William Whiston's 1737 translation. Josephus is printed in full with paragraph breaks added and one transcription error fixed (“abide ill it” to “abide in it”). The worked examples and the plain English were written for this page."
+  foot: "<b>Sources:</b> the evidence bank on the 4.3 worksheet, written for this lesson from the 4.3 lesson notes and lessons 1.4 and 4.2, the TED-Ed video “A day in the life of a Roman soldier” and the clip on Hannibal's tactics at Cannae; and Josephus, The Jewish War, Book 3, chapter 5, sections 1 and 8, in William Whiston's 1737 translation. Josephus is printed in full with paragraph breaks added and one transcription error fixed (“abide ill it” to “abide in it”). The worked examples and the plain English were written for this page."
 };
 
 /* The class sees these rungs. Every other rung waits for "teacher". */
@@ -49,24 +50,24 @@ const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
 
 const EXAMPLES = {
 "Level 6":
-`Rome's army helped Rome succeed in a few ways. {cause|Soldiers trained every day, so they were ready to fight}. {cause|They locked their shields into a testudo, so they could get close to a city wall and take the town}. {cause|They built roads and a camp every night, so the army could move fast and be safe}. {cause|Josephus says Rome won its empire through "their valour, and not the bare gift of fortune"}. {cause|At Cannae the Romans were surrounded and lost}, but most of the time they won. The army was the main reason Rome was so strong.`,
+`Rome's army helped Rome succeed in a few ways. {cause|Soldiers trained every day, so they were ready to fight}. {cause|They locked their shields into a testudo, so they could get close to a city wall and take the town}. {cause|They built roads, so the army could move fast}. {cause|Josephus says Rome won its empire through "their valour, and not the bare gift of fortune"}. {cause|At Cannae the Romans were surrounded and lost}, but most of the time they won. The army was the main reason Rome was so strong.`,
 
 "Level 7":
-`Rome's army helped Rome succeed because fighting became a full-time job. {cause|Soldiers like Servius signed up for 25 years and trained every day. For the soldier this meant a hard life far from home, and for Rome it meant an army that was always ready}. {cause|Every soldier carried tools as well as weapons, so the army built a walled camp each night and roads that the next army could use}. {cause|For conquered peoples the army offered a reward: after 25 years an auxiliary became a Roman citizen, so people Rome had beaten now fought for it}. {cause|At Cannae in 216 BCE the army's size did not save it, and tens of thousands of Romans were killed in one day}, {cause|but Rome raised new armies and still won the war}. The army made Rome strong, and it changed the lives of almost everyone in the empire.`,
+`Rome's army helped Rome succeed because fighting was a full-time job. {cause|Soldiers like Servius served for 25 years and trained every day. For the soldier that meant a hard life far from home, and for Rome it meant an army that was always ready}. {cause|The roads the army built carried messages and food across the empire, so Rome could control lands far away}. {cause|Auxiliaries from conquered lands became Roman citizens after 25 years, so people Rome had beaten now fought for it}. {cause|At Cannae, Hannibal killed tens of thousands of Romans in one day}, {cause|but Rome built new armies and still won the war}.`,
 
 "Level 8":
-`Rome's army contributed to its success because Rome built it to keep winning far from home. {cause|Rome paid its soldiers and kept them for 20 to 25 years because it needed an army that could fight all year, not only in summer}. {cause|Josephus says every soldier "is every day exercised … as if it were in time of war", so in battle the Romans kept their order and did not panic}. {cause|Rome made auxiliaries citizens after 25 years because it wanted conquered peoples to have a reason to be loyal}. {cause|Josephus had his own motive for praising the army: he says he wrote to deter others from rebelling, so he may have made it sound harder to beat than it was}. {cause|At Cannae, Hannibal held his best soldiers back so that the Romans would push forward into a trap}, which shows the army could be beaten by a general who understood it. Rome's choices about how to build its army won it the empire.`,
+`Rome's army contributed to its success because Rome built it to keep winning. {cause|Rome paid soldiers for 20 to 25 years because a full-time army could fight all year, far from home}. {cause|Rome made auxiliaries citizens because it wanted conquered peoples to be loyal}. {cause|Josephus says every soldier "is every day exercised … as if it were in time of war", so in battle the Romans kept their order}. {cause|Josephus also had a motive: he wrote to stop others rebelling, so he may have made the army sound harder to beat than it was}. {cause|At Cannae, Hannibal held his best soldiers back so the Romans would push forward into his trap}.`,
 
 "Level 9":
-`Rome's army was the main cause of Rome's success, but only where it could fight the way it had trained. {cause|Its strengths worked together: daily training kept soldiers in order, the shield wall protected them, and the tools in every pack let them build a camp each night and roads behind them}. {cause|Josephus, who fought against this army and lost, calls its exercises "unbloody battles", which suggests its training mattered more than its weapons}. {cause|Those strengths had limits. At Cannae in 216 BCE Hannibal used the Romans' size and their push forward against them: the further they pushed, the tighter they were packed}. {cause|In the Teutoburg Forest in 9 CE, on a narrow path in heavy rain, the legions could not form a fighting line, so their training could not help them}. {cause|That defeat changed the empire: Rome gave up trying to conquer Germania, and the Rhine became its border}. The army won Rome its empire on open ground, and the places where it could not fight that way became the empire's edges.`,
+`Rome's army was the main cause of Rome's success, but only where it could fight the way it had trained. {cause|Its strengths worked together: daily training kept soldiers in order, the shield wall protected them, and the roads they built let them move fast}. {cause|Josephus calls its training "unbloody battles", which suggests training mattered more than weapons}. {cause|At Cannae, Hannibal turned that training against them: the Romans pushed forward, as they had been trained to, straight into his trap}. {cause|In the Teutoburg Forest, on a narrow path in heavy rain, the legions could not form a line, so their training could not help}. The army won Rome its empire wherever it could fight its own way.`,
 
 "Level 10":
-`Rome's army was the long-term cause of Rome's success, because it turned the peoples Rome conquered into the soldiers who defended it. {cause|Over centuries Rome changed its army from farmers who fought each summer into full-time soldiers who trained every day and served for 20 to 25 years}. {cause|Rome intended the promise of citizenship to make auxiliaries loyal, and mostly it worked: Servius's tent companions came from Syria to Spain}. {cause|It also had a result nobody intended. Arminius had been an officer in the Roman army, and in 9 CE he used what he knew to trap three legions in the Teutoburg Forest}. {cause|The short-term cause of that defeat was the place, a narrow path in heavy rain with no way out}, {cause|but its long-term result was that Rome gave up trying to conquer Germania, and the Rhine became the border}. {cause|Josephus wanted his readers to believe the army could not be beaten, so that they would not rebel}, yet Cannae and the Teutoburg Forest show that it could be. Rome's army built the empire, and its defeats decided where the empire stopped.`
+`Rome's army was the long-term cause of Rome's success. {cause|Rome made fighting a full-time job: soldiers served 20 to 25 years and trained every day}. {cause|Rome intended citizenship to make auxiliaries loyal, and it worked: Servius's tent companions came from all over the empire}. {cause|The roads the army built were meant for marching, but they also carried messages and food, a result that lasted long after the battles}. {cause|At Cannae the short-term cause of defeat was Hannibal's trap}, {cause|but Rome's long-term strength, its supply of trained soldiers, let it build new armies and win the war}. The army won the battles, and the roads and citizens it left behind held the empire together.`
 };
 
 const EXPLANATIONS = {
 "Level 6": {
-  cause: "The orange phrases name causes and what each one led to: training, the testudo, roads and camps, and one defeat." },
+  cause: "The orange phrases name causes and what each one led to: training, the testudo, roads, and one defeat." },
 "Level 7": {
   cause: "The orange phrases say how the army affected different people and groups: a soldier like Servius, conquered peoples, and Rome itself." },
 "Level 8": {
@@ -74,7 +75,7 @@ const EXPLANATIONS = {
 "Level 9": {
   cause: "The orange phrases weigh the causes: which strength mattered most, and where the army's strengths stopped working." },
 "Level 10": {
-  cause: "The orange phrases separate long-term causes from short-term ones, and what Rome intended from what actually happened." }
+  cause: "The orange phrases separate long-term causes from short-term ones, and what Rome intended from what else happened." }
 };
 
 /* CAT rubric, Ancient Rome, 2025. Quoted exactly (rule 4). The rubric
@@ -98,7 +99,7 @@ const SOURCES = [
   id: "bank",
   tab: "The evidence bank",
   kind: "text",
-  cite: "The evidence bank and the two defeats from the 4.3 worksheet, written for this lesson, and one fact from the module's reading.",
+  cite: "The evidence bank and the two defeats from the 4.3 worksheet, written for this lesson, and one line from lesson 4.2.",
   whole: { label:"The evidence bank", text:"Everything the worked examples use is here, in Josephus, or in the two videos." },
   paragraphs: [
    "Shield and armour: a helmet, iron body armour and a large curved shield (scutum). Locked together, the shields made a testudo (tortoise): a roof and walls against arrows and stones.",
@@ -107,9 +108,9 @@ const SOURCES = [
    "Organisation: 8 men shared a tent, 80 made a century led by a centurion, and 10 cohorts made a legion of about 5000 to 6000 men.",
    "Training: every day, as if at war. Centurions gave the orders and punished anyone who disobeyed.",
    "Pay and citizenship: legionaries were full-time and paid for 20 to 25 years, then got land or money. Auxiliaries from conquered lands became Roman citizens after 25 years.",
-   "From the module's reading: in the early Republic soldiers were farmers who fought each summer and went home.",
-   "216 BCE, Cannae: Hannibal's army of about 50 000 surrounds about 80 000 Romans. It is Rome's worst defeat, but Rome raises new armies and wins the war in 202 BCE.",
-   "9 CE, the Teutoburg Forest: Arminius, once an officer in the Roman army, traps three legions on a narrow forest path in heavy rain. Rome gives up trying to conquer Germania, and the Rhine becomes the border."
+   "From lesson 4.2: messages travelled on Roman roads, and roads and ships carried food to the soldiers.",
+   "216 BCE, Cannae (lesson 1.4): Hannibal surrounds a much bigger Roman army. It is Rome's worst defeat, but Rome builds new armies and wins the war in 202 BCE.",
+   "9 CE, the Teutoburg Forest (the video): Germanic tribes destroy three legions. Six years later the army comes back to bury the dead."
   ],
   hotspots: [
    { mark:"the shields made a testudo", label:"The testudo",
@@ -118,10 +119,10 @@ const SOURCES = [
      text:"Every soldier carried a builder's kit as well as weapons." },
    { mark:"became Roman citizens after 25 years", label:"A reward",
      text:"A reason for conquered peoples to fight for Rome." },
-   { mark:"Rome raises new armies", label:"After Cannae",
+   { mark:"Rome builds new armies", label:"After Cannae",
      text:"Rome's worst defeat, and still not the end of the war." },
-   { mark:"once an officer in the Roman army", label:"Arminius",
-     text:"The man who destroyed three legions had been trained by Rome." }
+   { mark:"Germanic tribes destroy three legions", label:"The forest",
+     text:"Training was no help on a narrow path in heavy rain." }
   ]
  },
  {
@@ -181,7 +182,7 @@ const EARLY_EXAMPLES = {
 `The Roman army helped Rome become a big empire. {cause|The soldiers trained every day, so they were very good at fighting}. {cause|They locked their shields together into a testudo, so arrows could not hurt them}. {cause|They built roads, so the army could get to new places fast}. {cause|Because the army won so many battles, Rome took over lots of land}. But the army did not always win. {cause|At Cannae, Hannibal tricked the Romans and surrounded them}.`,
 
  "Level 5":
-`Rome's army was a big reason Rome became so powerful. {cause|Soldiers trained every day, so in a battle they stayed in order and did not panic}. {cause|Each soldier carried tools, so the army could build a safe camp every night and roads as it went}. {cause|Josephus, who fought against Rome, said Rome won its empire through "valour", not "fortune"}. {cause|Auxiliaries from conquered lands joined because they could become citizens}, so the army kept growing. {cause|The army lost at Cannae and in the Teutoburg Forest when it was trapped}, but most of the time its training won.`
+`Rome's army was a big reason Rome became so powerful. {cause|Soldiers trained every day, so in a battle they stayed in order and did not panic}. {cause|They built roads, so armies could move quickly across the empire}. {cause|Josephus said Rome won its empire through "valour", not "fortune"}. {cause|At Cannae, Hannibal beat the Romans}, but Rome built new armies and won the war.`
 };
 
 const EARLY_EXPLANATIONS = {
