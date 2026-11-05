@@ -379,7 +379,10 @@ facts. Its copy of `bump-it-up.html` is the only one with a TEACHER UNLOCK block
 the class sees the rungs in `STUDENT_LEVELS` (Foundation to Level 2, Levels 3
 and 4), and typing "teacher" outside a text box opens the rest up to Level 10
 until reload. It is a curtain, not a lock. When you patch shared machinery into
-this copy, keep that block. A fix to the shared machinery, the translate popup, the zoom viewer,
+this copy, keep that block. The folder also holds the lesson's two worksheets as
+downloads (`Rome-4.3-The-Roman-Army-Worksheet*.docx`), linked from the 4.3 lesson
+page. They are copies of the masters in the private repository: when a master
+changes, copy it over again rather than editing the download. A fix to the shared machinery, the translate popup, the zoom viewer,
 the source panel, the rubric pane, is a fix that has to be pasted into every copy
 or the topics silently drift apart. When you make one, patch every copy in the
 same change, verify the diff is identical across files before you write it, and
