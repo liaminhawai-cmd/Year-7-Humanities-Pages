@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ancient Rome: Revision</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23223f43'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23c99a2e' text-anchor='middle'>7</text></svg>">
+<!--
+  HIDDEN. The Ancient Rome revision session before the CAT. Not in the site
+  map (keep it out of tools/build_index_pages.py); the teacher shares the
+  address.
+
+  Two tabs, neither locked:
+    Catch up        every lesson page in the class OneNote, 1.1 to 4.3, with a
+                    "done" tick per page saved on this device, and each
+                    lesson's words in the vocab hub
+    Check yourself  16 checks: six dated events in order, which period three
+                    dates fall in, two durations, ten key words typed from the
+                    hub's own definitions. A miss names the rule and links to
+                    the lesson it came from
+
+  The checks do not use the CAT's events or questions: the dates come from
+  other lessons (the Punic Wars wall, the 4.2 and 4.3 worksheets, the fall of
+  Rome), so the test is not rehearsed item by item.
+
+  Saved on this device only (localStorage). The teacher row is one
+  tab-separated line: first tries, the lessons to go back to, pages ticked.
+-->
+<style>
+  :root{
+    --bg:#f6f1e7; --paper:#fffdf8; --ink:#1f2a2e; --muted:#5b6669; --line:#d9cfbd;
+    --deep:#1d3b4a; --selbg:#dce9ee; --yes:#1f6b3a; --yesbg:#e3f2e7; --no:#9b2c1f; --nobg:#f8e3df;
+    --focus:#2c7488; --gold:#8a6d1e;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+  button,input{font:inherit;color:inherit}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+  a{color:#1d5f8a}
+
+  .bar{background:var(--deep);color:#fbf7ee;display:flex;align-items:center;gap:16px;padding:6px 14px;flex-wrap:wrap}
+  .bar .title{font:700 19px/1.2 Georgia,serif}
+  .bar .title span{font:600 13px/1 system-ui,sans-serif;opacity:.75;margin-right:8px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tabs button{min-height:44px;padding:4px 16px;border:2px solid rgba(251,247,238,.35);border-radius:999px;background:transparent;
+               color:#fbf7ee;font-weight:700;cursor:pointer}
+  .tabs button[aria-current="true"]{background:#fbf7ee;color:var(--deep);border-color:#fbf7ee}
+  .bar .count{margin-left:auto;font-size:14px;opacity:.85}
+
+  main{min-height:0;overflow:auto;padding:14px}
+  section[hidden]{display:none}
+  .wrap{max-width:1180px;margin:0 auto}
+
+  /* ---------- catch up ---------- */
+  .topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;align-items:start}
+  .topic{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:10px 14px}
+  .topic h2{font:700 18px/1.3 Georgia,serif;margin:2px 0 8px}
+  .lesson{border-top:1px solid var(--line);padding:8px 0}
+  .lesson:first-of-type{border-top:0}
+  .lesson h3{font-size:16px;margin:0 0 4px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .lesson h3 a{font-size:14px;font-weight:600;white-space:nowrap}
+  .page{display:flex;align-items:center;gap:10px;min-height:44px}
+  .tick{flex:none;min-width:44px;min-height:40px;border:2px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:800;font-size:13px}
+  .tick[aria-pressed="true"]{background:var(--yesbg);border-color:var(--yes);color:var(--yes)}
+  .tick[aria-pressed="true"]::before{content:"✓ "}
+  .page a{flex:1}
+  .page.done a{color:var(--muted)}
+  .note{color:var(--muted);font-size:14px;margin:10px 0 0}
+
+  /* ---------- check ---------- */
+  .check{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:16px 18px}
+  .qn{color:var(--muted);font-size:14px;margin:0}
+  .qtext{font:700 22px/1.3 Georgia,serif;margin:4px 0 12px}
+  .def{font-size:19px;margin:0 0 12px;padding:10px 12px;background:#fff;border-left:4px solid var(--gold);border-radius:6px}
+  .choices{display:flex;gap:10px;flex-wrap:wrap}
+  .choice{min-height:48px;padding:8px 18px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font-weight:700}
+  .choice[aria-pressed="true"]{border-color:var(--deep);background:var(--selbg)}
+  .evts{display:grid;gap:8px}
+  .evt{display:flex;gap:10px;align-items:center;min-height:48px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;text-align:left}
+  .evt .n{flex:none;width:2em;height:2em;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--selbg);color:var(--deep);font-weight:800}
+  .evt[data-pos] .n{background:var(--deep);color:#fff}
+  .evt b{white-space:nowrap}
+  input[type=text]{min-height:48px;padding:8px 12px;border:2px solid var(--line);border-radius:12px;background:#fff;width:min(360px,100%);font-size:19px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .btn{min-height:46px;padding:6px 18px;border:2px solid var(--line);border-radius:12px;background:#fff;font-weight:700;cursor:pointer}
+  .btn.go{background:var(--deep);border-color:var(--deep);color:#fff}
+  .btn:disabled{opacity:.45;cursor:default}
+  .fb{margin:14px 0 0;padding:12px 14px;border-radius:12px;font-size:17px}
+  .fb.ok{background:var(--yesbg);color:var(--yes)}
+  .fb.no{background:var(--nobg);color:var(--no)}
+  .fb .goback{display:block;margin-top:6px;color:var(--ink);font-size:15px}
+  .side h3{font-size:16px;margin:0 0 6px}
+  .dots{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+  .dot{min-height:40px;padding:0;border:2px solid var(--line);border-radius:8px;background:#fff;font-weight:800;cursor:pointer;font-size:14px}
+  .dot[aria-current="true"]{border-color:var(--deep);background:var(--selbg)}
+  .dot.r{border-color:var(--yes);color:var(--yes)}
+  .dot.r::after{content:"✓"}
+  .dot.w{border-color:var(--no);color:var(--no)}
+  .dot.w::after{content:"✗"}
+  .back ul{margin:6px 0 0;padding-left:18px}
+  .back li{margin:4px 0}
+  .rep summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+  .rep input{width:100%;font-size:16px;min-height:44px}
+  .rep pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;max-height:7em;overflow:auto}
+  .rep p{font-size:13px;color:var(--muted);margin:6px 0}
+
+  @media screen and (max-width:860px){
+    .check{grid-template-columns:1fr}
+    .bar .count{margin-left:0}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="title"><span>Ancient Rome</span>Revision</div>
+  <nav class="tabs" aria-label="Revision">
+    <button type="button" data-tab="catch">Catch up</button>
+    <button type="button" data-tab="check">Check yourself</button>
+  </nav>
+  <div class="count" id="count" aria-live="polite"></div>
+</header>
+
+<main>
+  <section id="catch" class="wrap">
+    <div class="topics" id="topics"></div>
+    <p class="note">Tick a page when its work is finished. Ticks are saved on this device only. Words opens that lesson in the vocab hub.</p>
+  </section>
+
+  <section id="check" class="wrap" hidden>
+    <div class="check">
+      <div class="card" id="qcard"></div>
+      <div class="card side">
+        <h3>Checks</h3>
+        <div class="dots" id="dots"></div>
+        <div class="back" id="back"></div>
+        <details class="rep">
+          <summary>Teacher report</summary>
+          <label for="who">Name</label>
+          <input id="who" type="text" autocomplete="off">
+          <div class="row"><button type="button" class="btn" id="copyRow">Copy my row</button><span id="copied" role="status"></span></div>
+          <pre id="rowOut"></pre>
+          <p>First tries only. A ticked page means the student says it is finished; it is not checked here. The words are typed, and a spelling one letter out is counted right.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* =======================================================================
+   CONTENT. Lessons and their pages in the class OneNote; the checks.
+   A lesson's `hub` opens it in ../vesuvius/vocab-hub.html. A check's `go`
+   names the page (by key in PAGES) it sends a student back to.
+   ======================================================================= */
+const NB = "https://kewhighschool.sharepoint.com/sites/Section_7HUM.F-2026/_layouts/Doc.aspx?sourcedoc={53E5B44D-E42B-46FD-8349-5295A5D79914}&wd=target%28_Content%20Library%2FHistory%202.one%7C92B89456-650A-4A65-9AAE-CEAE6384627B%2F";
+const PAGES = {
+  "1.1":   ["1.1 The Origins of Rome", NB + "1.1%20The%20Origins%20of%20Rome%7C0FE1B11A-C920-4FAC-BA53-592A9B96D7EC%2F%29&wdpartid={94E6D062-BB86-4826-8B90-1DAF33D76457}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.1ce": ["1.1 cause and effect", NB + "1.1%20cause%20and%20effect%7C96426625-4512-434D-B6D0-7CC733BC96FF%2F%29&wdpartid={05E5B9E9-1812-4EBE-80DB-D341A44CD8A0}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.1rv": ["Revision Task: The origins of Ancient Rome", NB + "Revision%20Task%3A%20The%20origins%20of%20Ancient%20Rome%7CDDCAA9D1-F98B-4653-A702-8741B45AFFD6%2F%29&wdpartid={06AB3CDC-75D4-405B-B5AD-79B0B611AE48}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.2":   ["1.2 Geography of Ancient Rome", NB + "1.2%20Geography%20of%20Ancient%20Rome%7C095BDDF6-E451-4C01-90A7-1F72C9988555%2F%29&wdpartid={C9CC931C-ED6B-4DB1-A250-B05177B7C4AE}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.2t":  ["1.2 table", NB + "1.2%20table%7C6F7DBE08-EA48-4A1E-A93E-08DD1423A694%2F%29&wdpartid={F4E59AAA-31C6-4DCA-9606-9183A13C1598}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.3":   ["1.3 The Rise of the Romans", NB + "1.3%20The%20Rise%20of%20the%20Romans%7C1DF94F7B-E85D-44A3-9AB7-52136419DCE4%2F%29&wdpartid={1F12566E-D2E0-49E9-9EE0-77E71250CB72}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.4":   ["1.4 The Spreading Empire", NB + "1.4%20The%20Spreading%20Empire%7CFBBBB835-33FB-4B45-8F28-4CD4FD06D0B9%2F%29&wdpartid={EA9CD43F-3F30-4C11-ABF7-1FB8F697C028}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.4es": ["Event summary", NB + "Event%20summary%7C3B99755F-8F48-4831-ADCF-A9072FBC4B54%2F%29&wdpartid={1458E241-9D5E-4945-BD05-FA83787911F0}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "1.4cc": ["1.4 Cause and Effect + Chronology", NB + "1.4%20Cause%20and%20Effect%20%2B%20Chronology%7C6331EE7D-FA9D-4F1C-A7AF-2EF2DAE6EAA7%2F%29&wdpartid={2FC2594A-EC94-4A64-906E-F6AFDAA19421}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "2.1":   ["2.1 Social Groups and Classes", NB + "2.1%20Social%20Groups%20and%20Classes%7C5F32DE68-91A1-4F66-9269-1D9627E39970%2F%29&wdpartid={59EC7B53-D766-417D-BB15-265F8ED1746E}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "2.2":   ["2.2 The Rights of Citizens", NB + "2.2%20The%20Rights%20of%20Citizens%7CDA0F27B0-36E9-497A-83B5-F6DFB9DF2566%2F%29&wdpartid={EC2102DE-3553-4D56-A0D4-2F711E793A23}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "2.2w":  ["2.2 W", NB + "2.2%20W%7C3EADE1B9-9BE2-448D-870B-BCD5E0942254%2F%29&wdpartid={0F4F86A1-F794-4173-81B2-6B59ECDB2BFA}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "2.2ws": ["2.2 Ws", NB + "2.2%20Ws%7CBAEF6F6B-D3DA-4054-ACD9-CDD3E5AA0C76%2F%29&wdpartid={4A2236B4-3427-4962-902E-3F8809F90C3E}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "2.3":   ["2.3 Peasants and Slaves", NB + "2.3%20Peasants%20and%20Slaves%7C0213F0A6-C51C-4F69-AAD6-ED06F2868FB9%2F%29&wdpartid={D4C718BD-9EB4-454E-8123-AF32A87700D4}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "3.1":   ["3.1 Roman Republic to Roman Empire", NB + "3.1%20Roman%20Republic%20to%20Roman%20Empire%7C0E4D5036-78BF-4FC2-B05D-65D6A2D605B9%2F%29&wdpartid={6D5A9686-78F1-4E5D-B00C-BC82EE6B4DE7}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "3.2":   ["3.2 Religion", NB + "3.2%20Religion%7C71846B06-CBA9-4E4D-AEF2-CB92D3452984%2F%29&wdpartid={0CD4E1B0-27D5-4D23-9389-FC1280CF0CC7}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "4.1":   ["4.1 Roman Law", NB + "4.1%20Roman%20Law%7C107B0E0E-DD7D-49E4-B1CC-4A7BBE26D2CE%2F%29&wdpartid={0E9AF456-6860-0A36-0B1B-9FD72733ED1F}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "4.2":   ["4.2 Roman Technology", NB + "4.2%20Roman%20Technology%7C71ED0B60-68CD-4BFC-9577-DDF6866855C1%2F%29&wdpartid={F732D0CB-FCA0-0036-128C-7E1A73FC1AD5}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "4.3":   ["4.3 The Roman Army", NB + "4.3%20The%20Roman%20Army%7C98659842-2A24-4E22-9C62-612E485D7F32%2F%29&wdpartid={B42D6D85-C078-03AB-158F-61185D7DB391}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"],
+  "4.3m":  ["4.3 The Roman army modified skill based lesson", NB + "4.3%20The%20Roman%20army%20modified%20skill%20based%20lesson%7C2B04F1CB-67C0-4086-AF16-9BEB172C585A%2F%29&wdpartid={FFA260EE-6DFC-4C44-8B2A-656F066F928B}{1}&wdsectionfileid={F01141D1-1DD1-45FD-A534-BB20F1602329}"]
+};
+
+const TOPICS = [
+  { name:"Topic 1 · Introduction to Ancient Rome", lessons:[
+    { id:"1.1", title:"1.1 The Origins of Rome", pages:["1.1","1.1ce","1.1rv"] },
+    { id:"1.2", title:"1.2 Geography of Ancient Rome", pages:["1.2","1.2t"] },
+    { id:"1.3", title:"1.3 The Rise of the Romans", pages:["1.3"] },
+    { id:"1.4", title:"1.4 The Spreading Empire", pages:["1.4","1.4es","1.4cc"] } ] },
+  { name:"Topic 2 · Roman Society", lessons:[
+    { id:"2.1", title:"2.1 Social Groups and Classes", pages:["2.1"] },
+    { id:"2.2", title:"2.2 The Rights of Citizens", pages:["2.2","2.2w","2.2ws"] },
+    { id:"2.3", title:"2.3 Peasants and Slaves", pages:["2.3"] } ] },
+  { name:"Topic 3 · Politics, Beliefs and Values", lessons:[
+    { id:"3.1", title:"3.1 Roman Republic to Roman Empire", pages:["3.1"] },
+    { id:"3.2", title:"3.2 Religion", pages:["3.2"] } ] },
+  { name:"Topic 4 · Law, Force and Technology", lessons:[
+    { id:"4.1", title:"4.1 Roman Law", pages:["4.1"] },
+    { id:"4.2", title:"4.2 Roman Technology", pages:["4.2"] },
+    { id:"4.3", title:"4.3 The Roman Army", pages:["4.3","4.3m"] } ] }
+];
+
+/* The three periods, said the same way every time a check refers to them. */
+const PERIODS = "Regal period: 753 to 509 BCE (kings). Republican period: 509 to 27 BCE. Imperial period: 27 BCE to 476 CE (emperors).";
+
+/* The checks. Definitions are the vocab hub's own, word for word. */
+const CHECKS = [
+  { id:"order", kind:"order", go:"1.4cc", hub:"1.4",
+    q:"Tap these events in order, earliest first.",
+    events:[
+      ["241 BCE", "Rome wins the First Punic War"],
+      ["216 BCE", "Hannibal wins at Cannae"],
+      ["202 BCE", "Rome beats Hannibal at Zama"],
+      ["9 CE", "Three legions are lost in the Teutoburg Forest"],
+      ["122 CE", "Hadrian's Wall is begun in Britain"],
+      ["284 CE", "Diocletian splits the empire in two"] ] },
+  { id:"p600", kind:"period", go:"1.1", hub:"1.1", q:"Which period is 600 BCE in?", a:"Regal",
+    why:"600 BCE is between 753 and 509 BCE, when Rome was ruled by kings." },
+  { id:"p216", kind:"period", go:"1.4", hub:"1.4", q:"Which period is 216 BCE, the Battle of Cannae, in?", a:"Republican",
+    why:"216 BCE is between 509 and 27 BCE, after the kings and before the emperors." },
+  { id:"p122", kind:"period", go:"3.1", hub:"3.1", q:"Which period is 122 CE, when Hadrian's Wall was begun, in?", a:"Imperial",
+    why:"122 CE is after 27 BCE, when Augustus became the first emperor." },
+  { id:"dRep", kind:"number", go:"1.4cc", hub:"1.4", q:"The Republican period ran from 509 BCE to 27 BCE. How many years is that?", a:482,
+    why:"Both dates are BCE, so take the smaller number from the bigger one: 509 − 27 = 482 years." },
+  { id:"dAug", kind:"number", go:"3.1", hub:"3.1", q:"Augustus ruled from 27 BCE to 14 CE. How many years is that?", a:40,
+    why:"Across the BCE and CE line, add the two numbers, then take away 1, because there was no year 0: 27 + 14 − 1 = 40 years." },
+  { id:"republic", kind:"word", go:"1.1", hub:"1.1", a:"republic",
+    def:"A system of government where power is held by elected representatives and an elected leader, rather than a monarch.",
+    parts:"From Latin res publica, “the public thing”." },
+  { id:"monarchy", kind:"word", go:"1.1", hub:"1.1", a:"monarchy",
+    def:"Rule by a king or queen, where power usually passes down in one family.",
+    parts:"mon (one) + archy (rule)." },
+  { id:"senate", kind:"word", go:"1.3", hub:"1.3", a:"senate",
+    def:"A governing or advisory council, especially in a republic.",
+    parts:"From Latin senex, an old man: a council of elders." },
+  { id:"province", kind:"word", go:"1.4", hub:"1.4", a:"province",
+    def:"A region outside Italy that Rome conquered and ruled through a governor." },
+  { id:"patrician", kind:"word", go:"2.1", hub:"2.1", a:"patrician",
+    def:"A member of one of the old, rich and powerful families of ancient Rome.",
+    parts:"From Latin pater, a father." },
+  { id:"plebeian", kind:"word", go:"2.1", hub:"2.1", a:"plebeian",
+    def:"An ordinary Roman citizen who was not from a patrician family.",
+    parts:"From Latin plebs, the common people." },
+  { id:"rebellion", kind:"word", go:"2.3", hub:"2.3", a:"rebellion",
+    def:"An attempt by a group of people to fight against the people in power.",
+    parts:"re (again) + bell (war)." },
+  { id:"emperor", kind:"word", go:"3.1", hub:"3.1", a:"emperor",
+    def:"The single, supreme ruler of an empire." },
+  { id:"magistrate", kind:"word", go:"4.1", hub:"4.1", a:"magistrate",
+    def:"An official who carries out the law and judges cases.",
+    parts:"From Latin magister, a master." },
+  { id:"aqueduct", kind:"word", go:"4.2", hub:"4.2", a:"aqueduct",
+    def:"A channel or bridge built to carry water from a distant source into a town.",
+    parts:"aque (water) + duct (to lead)." }
+];
+
+/* ======================================================================= */
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+const KEY = "y7h.rome.revision.v1";
+let S = { done:{}, first:{}, ans:{}, name:"", started:"", q:0, tab:"catch" };
+try { const v = JSON.parse(localStorage.getItem(KEY) || "null"); if (v) S = Object.assign(S, v); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
+/* Single-quoted on purpose: the site's link check reads every double-quoted
+   href in the file as a path, and a template here is not one. */
+const pageLink = k => `<a href='${esc(PAGES[k][1])}' target="_blank" rel="noopener">${esc(PAGES[k][0])}</a>`;
+const hubLink = id => `<a href='vocab-hub.html#${esc(id)}' target="_blank" rel="noopener">Words</a>`;
+const ALL_PAGES = TOPICS.flatMap(t => t.lessons.flatMap(l => l.pages));
+
+/* ---------- tabs ---------- */
+function showTab(t){
+  S.tab = t === "check" ? "check" : "catch"; save();
+  el("catch").hidden = S.tab !== "catch";
+  el("check").hidden = S.tab !== "check";
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-current", String(b.dataset.tab === S.tab)));
+  if (S.tab === "check") renderQ();
+  count();
+}
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => showTab(b.dataset.tab));
+function count(){
+  const done = ALL_PAGES.filter(k => S.done[k]).length;
+  const tried = CHECKS.filter(c => c.id in S.first).length;
+  el("count").textContent = S.tab === "catch" ? `${done} of ${ALL_PAGES.length} pages ticked` : `${tried} of ${CHECKS.length} checks tried`;
+}
+
+/* ---------- catch up ---------- */
+function drawTopics(){
+  el("topics").innerHTML = TOPICS.map(t => `<div class="topic"><h2>${esc(t.name)}</h2>${
+    t.lessons.map(l => `<div class="lesson"><h3><span>${esc(l.title)}</span>${hubLink(l.id)}</h3>${
+      l.pages.map(k => `<div class="page${S.done[k] ? " done" : ""}"><button type="button" class="tick" data-k="${k}" aria-pressed="${!!S.done[k]}" aria-label="${esc(PAGES[k][0])} done">Done</button>${pageLink(k)}</div>`).join("")
+    }</div>`).join("")}</div>`).join("");
+  el("topics").querySelectorAll(".tick").forEach(b => b.onclick = () => {
+    const k = b.dataset.k; S.done[k] = !S.done[k]; save();
+    b.setAttribute("aria-pressed", String(S.done[k])); b.parentElement.classList.toggle("done", S.done[k]);
+    count(); renderRow();
+  });
+}
+
+/* ---------- checks ---------- */
+const norm = s => String(s || "").toLowerCase().replace(/[^a-z]/g, "");
+function lev(a, b){
+  const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= n; j++) d[0][j] = j;
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+    d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+  return d[m][n];
+}
+/* right, close (one letter out), or wrong; a plural counts as the word */
+function judgeWord(typed, word){
+  const t = norm(typed), w = norm(word);
+  if (!t) return "empty";
+  if (t === w || t === w + "s") return "right";
+  if (w.length >= 6 && lev(t, w) <= 1) return "close";
+  return "wrong";
+}
+let order = [];   // tapped event indices for the order check
+let pick = null;  // chosen period
+
+function goBack(c){
+  return `<span class="goback">Go back to ${pageLink(c.go)} · ${hubLink(c.hub)} for lesson ${esc(c.hub)}</span>`;
+}
+function renderQ(){
+  const c = CHECKS[S.q], tried = c.id in S.first;
+  el("dots").innerHTML = CHECKS.map((x, k) => `<button type="button" class="dot ${x.id in S.first ? (S.first[x.id] ? "r" : "w") : ""}" data-k="${k}" aria-current="${k === S.q}" aria-label="Check ${k+1}">${k+1}</button>`).join("");
+  el("dots").querySelectorAll(".dot").forEach(b => b.onclick = () => { S.q = +b.dataset.k; save(); renderQ(); });
+  let body = `<p class="qn">Check ${S.q + 1} of ${CHECKS.length}</p>`;
+  if (c.kind === "order"){
+    const evs = c.events.map((e, i) => ({ e, i }));
+    // shown in a fixed scrambled order so the list is never already sorted
+    const shown = [3, 0, 5, 2, 4, 1].map(i => evs[i]);
+    order = tried ? (S.ans[c.id] || []) : order.filter(i => i < c.events.length);
+    body += `<h2 class="qtext">${esc(c.q)}</h2><div class="evts">${shown.map(({ e, i }) => {
+      const pos = order.indexOf(i);
+      return `<button type="button" class="evt" data-i="${i}" ${pos >= 0 ? `data-pos="${pos+1}"` : ""} ${tried ? "disabled" : ""}><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span><b>${esc(e[0])}</b> · ${esc(e[1])}</span></button>`;
+    }).join("")}</div>
+      <div class="row">${tried ? "" : `<button type="button" class="btn" id="undo">Undo last</button><button type="button" class="btn go" id="checkBtn" ${order.length === c.events.length ? "" : "disabled"}>Check</button>`}</div>`;
+  } else if (c.kind === "period"){
+    pick = tried ? S.ans[c.id] : pick;
+    body += `<h2 class="qtext">${esc(c.q)}</h2><div class="choices">${["Regal","Republican","Imperial"].map(p =>
+      `<button type="button" class="choice" data-p="${p}" aria-pressed="${pick === p}" ${tried ? "disabled" : ""}>${p}</button>`).join("")}</div>
+      <div class="row">${tried ? "" : `<button type="button" class="btn go" id="checkBtn" ${pick ? "" : "disabled"}>Check</button>`}</div>`;
+  } else {
+    const label = c.kind === "number" ? "Years" : "The word";
+    body += c.kind === "word"
+      ? `<h2 class="qtext">Which word means this?</h2><p class="def">${esc(c.def)}</p>`
+      : `<h2 class="qtext">${esc(c.q)}</h2>`;
+    body += `<label for="ans" class="qn">${label}</label><br><input id="ans" type="text" inputmode="${c.kind === "number" ? "numeric" : "text"}" autocomplete="off" spellcheck="false" value="${esc(tried ? S.ans[c.id] : "")}" ${tried ? "disabled" : ""}>
+      <div class="row">${tried ? "" : `<button type="button" class="btn go" id="checkBtn">Check</button>`}</div>`;
+  }
+  body += `<div id="fbBox">${tried ? feedback(c) : ""}</div>
+    <div class="row"><button type="button" class="btn" id="prevQ" ${S.q === 0 ? "disabled" : ""}>Back</button>
+    <button type="button" class="btn" id="nextQ">${S.q === CHECKS.length - 1 ? "Back to check 1" : "Next check"}</button></div>`;
+  el("qcard").innerHTML = body;
+
+  if (c.kind === "order" && !tried){
+    el("qcard").querySelectorAll(".evt").forEach(b => b.onclick = () => {
+      const i = +b.dataset.i; if (!order.includes(i)) order.push(i); renderQ();
+    });
+    el("undo").onclick = () => { order.pop(); renderQ(); };
+  }
+  if (c.kind === "period" && !tried){
+    el("qcard").querySelectorAll(".choice").forEach(b => b.onclick = () => { pick = b.dataset.p; renderQ(); });
+  }
+  const ans = el("ans");
+  if (ans && !tried){
+    ans.focus();
+    ans.addEventListener("keydown", e => { if (e.key === "Enter") el("checkBtn").click(); });
+  }
+  const cb = el("checkBtn"); if (cb) cb.onclick = () => mark(c);
+  el("prevQ").onclick = () => { if (S.q > 0){ S.q--; resetPick(); save(); renderQ(); } };
+  el("nextQ").onclick = () => { S.q = (S.q + 1) % CHECKS.length; resetPick(); save(); renderQ(); };
+  drawBack(); count(); renderRow();
+}
+function resetPick(){ order = []; pick = null; }
+
+function mark(c){
+  let ok, given;
+  if (c.kind === "order"){ given = order.slice(); ok = given.every((v, k) => v === k); }
+  else if (c.kind === "period"){ given = pick; ok = pick === c.a; }
+  else if (c.kind === "number"){ given = el("ans").value.trim(); ok = parseInt(given.replace(/[^0-9-]/g, ""), 10) === c.a; }
+  else {
+    given = el("ans").value.trim();
+    const j = judgeWord(given, c.a);
+    if (j === "empty"){ el("ans").focus(); return; }
+    ok = j !== "wrong";
+  }
+  if (!S.started) S.started = today();
+  S.first[c.id] = ok; S.ans[c.id] = given; save();
+  resetPick(); renderQ();
+}
+
+function feedback(c){
+  const ok = S.first[c.id], given = S.ans[c.id];
+  if (c.kind === "order"){
+    if (ok) return `<div class="fb ok">Right order. In BCE a bigger number is earlier; in CE a bigger number is later; every BCE date comes before every CE date.</div>`;
+    // the first place their order goes wrong, named by its two events
+    const k = given.findIndex((v, n) => v !== n);
+    const want = c.events[k], put = c.events[given[k]];
+    const rule = (/BCE/.test(want[0]) && /BCE/.test(put[0])) ? "In BCE a bigger number is earlier, because the years count down towards year 1."
+               : (/BCE/.test(want[0]) && !/BCE/.test(put[0])) ? "Every BCE date comes before every CE date."
+               : "In CE a bigger number is later.";
+    return `<div class="fb no">Not quite. Number ${k+1} should be <b>${esc(want[0])}</b> (${esc(want[1])}), not ${esc(put[0])}. ${rule}
+      <br>The right order: ${c.events.map(e => esc(e[0])).join(", ")}.${goBack(c)}</div>`;
+  }
+  if (c.kind === "period"){
+    return ok ? `<div class="fb ok">Yes: ${esc(c.why)}</div>`
+              : `<div class="fb no">Not ${esc(given)}. It is the <b>${esc(c.a)}</b> period: ${esc(c.why)}<br>${esc(PERIODS)}${goBack(c)}</div>`;
+  }
+  if (c.kind === "number"){
+    return ok ? `<div class="fb ok">Yes, ${c.a} years. ${esc(c.why)}</div>`
+              : `<div class="fb no">Not ${esc(given || "blank")}. It is <b>${c.a} years</b>. ${esc(c.why)}${goBack(c)}</div>`;
+  }
+  const j = judgeWord(given, c.a);
+  const parts = c.parts ? ` ${esc(c.parts)}` : "";
+  if (j === "right") return `<div class="fb ok">Yes: <b>${esc(c.a)}</b>.${parts}</div>`;
+  if (j === "close") return `<div class="fb ok">Yes, counted right. The spelling is <b>${esc(c.a)}</b>.${parts}</div>`;
+  // name the near-miss when they typed another word from these checks
+  const other = CHECKS.find(x => x.kind === "word" && x.id !== c.id && judgeWord(given, x.a) !== "wrong");
+  const near = other ? ` You wrote ${esc(other.a)}, which means: ${esc(other.def.charAt(0).toLowerCase() + other.def.slice(1))}` : "";
+  return `<div class="fb no">The word is <b>${esc(c.a)}</b>.${parts}${near}${goBack(c)}</div>`;
+}
+
+/* ---------- the lessons to go back to ---------- */
+function backList(){
+  const seen = new Map();
+  CHECKS.forEach(c => { if (c.id in S.first && !S.first[c.id]) seen.set(c.go, c); });
+  return [...seen.values()];
+}
+function drawBack(){
+  const list = backList();
+  const tried = CHECKS.filter(c => c.id in S.first).length;
+  el("back").innerHTML = !tried ? "" : list.length
+    ? `<h3 style="margin-top:12px">Go back to</h3><ul>${list.map(c => `<li>${pageLink(c.go)} · ${hubLink(c.hub)}</li>`).join("")}</ul>`
+    : `<p class="qn" style="margin-top:12px">Nothing to go back to so far.</p>`;
+}
+
+/* ---------- teacher row ---------- */
+function rowText(){
+  const tried = CHECKS.filter(c => c.id in S.first), right = tried.filter(c => S.first[c.id]).length;
+  const back = backList().map(c => PAGES[c.go][0]).join("; ") || "none";
+  const done = ALL_PAGES.filter(k => S.done[k]).length;
+  const clean = s => String(s || "").replace(/[\t\r\n]+/g, " ").trim();
+  return [clean(S.name), S.started || today(), `${right} of ${tried.length}` + (tried.length < CHECKS.length ? ` (${CHECKS.length - tried.length} not tried)` : ""),
+    back, `${done} of ${ALL_PAGES.length} pages ticked`].join("\t");
+}
+function renderRow(){ el("rowOut").textContent = rowText(); }
+el("who").value = S.name;
+el("who").addEventListener("input", () => { S.name = el("who").value; save(); renderRow(); });
+el("copyRow").onclick = async () => {
+  try { await navigator.clipboard.writeText(rowText()); el("copied").textContent = "Copied."; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents(el("rowOut")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); el("copied").textContent = "Press Ctrl+C."; }
+};
+
+drawTopics();
+showTab(location.hash === "#check" ? "check" : S.tab);
+</script>
+</body>
+</html>

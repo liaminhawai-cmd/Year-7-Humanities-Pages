@@ -366,6 +366,15 @@ first. Keep it out of `tools/build_index_pages.py`.
 Roman Empire fell, with its own worksheet in the private repository. It rehearses
 the CAT's chronology and cause and effect rows on different events from the CAT
 (the Republic becoming an empire), so rule 1 holds. Keep it out of the generator too.
+`history/vesuvius/revision.html` is hidden too: the revision session before the
+Rome CAT. A "Catch up" tab lists every lesson page in the class OneNote (1.1 to
+4.3) with a done tick saved on the device, and "Check yourself" has 16 checks
+(dates in order, periods, durations, key words typed from the hub's own
+definitions) whose misses link back to the lesson. Its dates come from lessons
+the CAT does not test item by item, so the checks rehearse the periods and the
+BCE/CE rules without rehearsing the CAT's own timeline or table. Its OneNote
+links are single-quoted in the JavaScript on purpose: the link check reads every
+double-quoted href as a path.
 `history/vesuvius/rights-of-citizens.html` is hidden the same way: the 2.2 rights
 table as a tap-and-type page for a student with a motor disability, opened by its
 address. `history/army/` is hidden too: Rome 4.3, how the army contributed to
