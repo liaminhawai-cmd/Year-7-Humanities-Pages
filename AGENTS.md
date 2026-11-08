@@ -368,13 +368,21 @@ the CAT's chronology and cause and effect rows on different events from the CAT
 (the Republic becoming an empire), so rule 1 holds. Keep it out of the generator too.
 `history/vesuvius/revision.html` is hidden too: the revision session before the
 Rome CAT. A "Catch up" tab lists every lesson page in the class OneNote (1.1 to
-4.3) with a done tick saved on the device, and "Check yourself" has 16 checks
-(dates in order, periods, durations, key words typed from the hub's own
-definitions) whose misses link back to the lesson. Its dates come from lessons
-the CAT does not test item by item, so the checks rehearse the periods and the
-BCE/CE rules without rehearsing the CAT's own timeline or table. Its OneNote
-links are single-quoted in the JavaScript on purpose: the link check reads every
-double-quoted href as a path.
+4.3) with a done tick saved on the device. "Challenge" is a timed, scored run in
+full screen, at the teacher's request: leaving full screen, the page or the
+window sends the score back to zero, and the teacher row counts the resets. Its
+seven stages are drag-and-drop timelines scored by closeness (with years, then
+from memory at double value), the three periods, cause and effect, a Bump it up
+that sorts short stems about the fall of the West into Years 4, 6, 7 and 9 (stem
+length does not rise with level; measured), key words and durations. Right
+first time earns 10, a fix after a rule hint earns 5, and the first try is kept.
+"Finish and see my report" works at any point: goals by points lost, lessons by
+priority with links, and the student's missed words with a practice round. The
+score, timer and reset are the teacher's call against the house "no points"
+and "never wipe earned progress" rules; they were raised. Its events come from
+lessons the CAT does not test item by item, never the CAT's own timeline or
+table rows. Its OneNote links are single-quoted in the JavaScript on purpose:
+the link check reads every double-quoted href as a path.
 `history/vesuvius/rights-of-citizens.html` is hidden the same way: the 2.2 rights
 table as a tap-and-type page for a student with a motor disability, opened by its
 address. `history/army/` is hidden too: Rome 4.3, how the army contributed to
