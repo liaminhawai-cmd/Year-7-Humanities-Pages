@@ -54,7 +54,7 @@
     if (!(window.crypto && crypto.subtle)) { msg.textContent = "This browser cannot open the download. Use Edge or Chrome."; return; }
     go.disabled = true; msg.textContent = "Checking.";
     try {
-      const res = await fetch("package.bin?v=mwbc53w5");
+      const res = await fetch("package.bin?v=mwbd70xx");
       if (!res.ok) throw new Error(res.status);
       const buf = new Uint8Array(await res.arrayBuffer());
       const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(p), "PBKDF2", false, ["deriveKey"]);
