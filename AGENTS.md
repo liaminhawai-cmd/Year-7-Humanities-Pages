@@ -179,8 +179,24 @@ Two history hubs are now this build: `history/batman/vocab-hub.html`
 (Ancient Australia, 16 lessons) and `history/vesuvius/vocab-hub.html` (Ancient
 Rome, 13 lessons, 1.1 to 5.1, from the unit's OneNote lesson pages, extracted with
 `tools/onenote_extract.py` in the private repository). They share one engine. The
-China, GS73 and Egypt hubs are still the 2 KB page over `assets/vocab-hub.js`: one
-flat list, no lessons, no tiers, no review, no report.
+GS73 and Egypt hubs are still the 2 KB page over `assets/vocab-hub.js`: one flat
+list, no lessons, no tiers, no review, no report.
+
+`history/china/vocab-hub.html` (Ancient China, 14 lessons, 1.1 to 4.4, 102 words)
+is the third. It is the Rome engine, copied whole, with China's lesson data and
+translations in place of Rome's, so a fix to the engine is patched in all three.
+Its lessons and keywords come from the unit's OneNote pages as the teacher pasted
+them (Topic 1 Introduction 1.1 to 1.3, Topic 2 Society 2.1 to 2.5, Topic 3
+Historical Significance and Source Analysis 3.1 and 3.2, Topic 4 Dynasties 4.1 to
+4.4); where a page defines a keyword the meaning is that definition word for word,
+and 1.1, 1.2, 2.2, 2.3 and 2.4 front-load their lesson video's terms. A word on two
+lesson pages belongs to the first. The old flat list's words are all in it except
+the wall's tier-2 phrases. Its storage key is `ancientchina.vocabhub.v1`. Measured
+when built: the answer is the longest option in 15% of 317 multiple-choice items
+and the shortest in 13%. The eight translations were written by a model and have
+not been checked by speakers; Amharic, Malayalam and Urdu most need it. The
+lesson data and the script that assembles it onto the Rome engine live outside
+this repository; to change a word, edit this file's data block directly.
 
 The two lesson hubs differ in one engine line, on purpose. Rome's morpheme index
 is keyed by spelling and meaning, because Latin reuses spellings: `leg` is law in

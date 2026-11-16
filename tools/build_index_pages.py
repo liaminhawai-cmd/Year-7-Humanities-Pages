@@ -136,7 +136,7 @@ SITE = [
           ("&#128218;", "Ancient Rome words", "vesuvius/vocab-hub.html",
            "The unit lesson by lesson, 1.1 to 5.1: build each word from its parts, then use it.", None),
           ("&#128218;", "Ancient China words", "china/vocab-hub.html",
-           "Meet, build and recall the words the China wall marks.", None),
+           "The unit lesson by lesson, 1.1 to 4.4: build each word from its parts, then use it.", None),
           ("&#128221;", "Vocabulary homework", "homework/",
            "Four weekly rounds for Ancient Australia: build the words from their morphemes, "
            "meet one source, answer the Grade 4 table, bump one row up.", "weekly")]),
@@ -254,7 +254,7 @@ SITE = [
            "Downloads as one file for offline use.")),
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
-            "Meet, build and recall every word this topic marks.", None),
+            "102 words, lesson by lesson, 1.1 to 4.4, numbered as in the OneNote notebook, with each word's family and the whole unit word list: build each word from its parts, then use it. The word list shows every word, its meaning and what each part means, and prints.", None),
            words("hist-china",
                  "The topic's twenty words in nine languages, with spaced practice."),
            SOURCE_WORDS,
