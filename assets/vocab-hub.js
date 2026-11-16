@@ -123,7 +123,63 @@ function drawMeet(){
 const distractors=(correct,n=3)=>shuffle(WORDS.filter(w=>w!==correct)).slice(0,Math.min(n,WORDS.length-1));
 const buildable=w=>(w.morph?.length||0)>1;
 
+/* ================= FULLSCREEN GUARD (Build tab) =================
+   Keeps a student in fullscreen on the Build step so they cannot copy answers
+   from the word list in another tab. First exit warns; second restarts the
+   build. Leaving the Build step releases it with no penalty. Browsers without
+   the Fullscreen API (iPhone Safari) are not guarded. Nothing is stored.
+   Same logic as EAL-Vocabulary-Site/assets/js/focus-guard.js. */
+const FG=(function(){
+  const root=document.documentElement;
+  const fsOn=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+  const fsOk=()=>!!(document.fullscreenEnabled||document.webkitFullscreenEnabled)&&!!(root.requestFullscreen||root.webkitRequestFullscreen);
+  let active=false, wasFs=false, strikes=0, lastAt=0, restartFn=null, overlay=null;
+  function req(){ try{ const p=(root.requestFullscreen||root.webkitRequestFullscreen).call(root); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
+  function leave(){ if(!fsOn()) return; try{ const p=(document.exitFullscreen||document.webkitExitFullscreen).call(document); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
+  function hide(){ if(overlay){ overlay.remove(); overlay=null; } }
+  function show(title, lines, label){
+    hide();
+    const o=document.createElement("div");
+    o.setAttribute("role","alertdialog"); o.setAttribute("aria-modal","true");
+    o.style.cssText="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:16px;background:#1e1b4b;font-family:inherit";
+    const box=document.createElement("div");
+    box.style.cssText="max-width:460px;background:#fff;color:#1f2937;border-radius:14px;padding:24px;text-align:center;line-height:1.45";
+    const h=document.createElement("h2"); h.textContent=title; h.style.cssText="margin:0 0 12px";
+    box.appendChild(h);
+    lines.forEach(t=>{ const p=document.createElement("p"); p.textContent=t; p.style.cssText="margin:0 0 12px"; box.appendChild(p); });
+    const b=document.createElement("button"); b.type="button"; b.textContent=label;
+    b.style.cssText="min-height:44px;padding:0 20px;font:inherit;font-weight:700;color:#fff;background:#4f46e5;border:0;border-radius:10px;cursor:pointer";
+    b.addEventListener("click",req);
+    box.appendChild(b); o.appendChild(box); document.body.appendChild(o); overlay=o; b.focus();
+  }
+  function strike(){
+    const now=Date.now(); if(now-lastAt<1500) return; lastAt=now;
+    wasFs=false; strikes+=1;
+    if(strikes===1){
+      show("Do not cheat",["Stay in this tab, in fullscreen, until you finish the words.","If you leave again, you will have to start the round again."],"Go back to fullscreen");
+    } else {
+      strikes=0; const again=restartFn;
+      show("Round restarted",["You left fullscreen twice, so you start the round again from the beginning."],"Start again in fullscreen");
+      if(again) again();
+    }
+  }
+  function onFs(){ if(!active) return; if(fsOn()){ wasFs=true; hide(); } else if(wasFs) strike(); }
+  document.addEventListener("fullscreenchange",onFs);
+  document.addEventListener("webkitfullscreenchange",onFs);
+  document.addEventListener("visibilitychange",()=>{ if(active&&wasFs&&document.hidden) strike(); });
+  return {
+    enter(restart){
+      restartFn=restart; if(active||!fsOk()) return;
+      active=true; wasFs=false; strikes=0;
+      if(fsOn()){ wasFs=true; return; }
+      req();
+      setTimeout(()=>{ if(active&&!fsOn()&&!overlay) show("Fullscreen needed",["The word builder runs in fullscreen so you cannot look at the word list while you build."],"Start in fullscreen"); },400);
+    },
+    release(){ active=false; wasFs=false; strikes=0; restartFn=null; hide(); leave(); }
+  };
+})();
 function start(which){
+  if(which==="build") FG.enter(()=>start("build")); else FG.release();
   mode=which;round=shuffle(WORDS).slice(0,Math.min(10,WORDS.length));at=0;answered=false;sel=null;
   if(mode==="build"){
     board=round.filter(buildable);
@@ -134,7 +190,7 @@ function start(which){
   queue=round;renderPractice();
 }
 function next(){at++;answered=false;renderPractice()}
-function finish(){
+function finish(){ FG.release();
   box().innerHTML=`<div class="progress">Round complete</div><p class="prompt">You finished ${round.length} words.</p>
     <p>${known.size} of ${WORDS.length} are marked secure on this device.</p>
     <div class="actions"><button class="primary" id="again">Practise again</button><button class="secondary" id="meetAgain">Return to the word list</button></div>`;
@@ -273,7 +329,7 @@ function renderRecall(w,tr){
   $("check").onclick=check;$("answer").onkeydown=e=>{if(e.key==="Enter")check()};
   $("reveal").onclick=()=>{answered=true;$("feedback").className="feedback bad";$("feedback").innerHTML=`The answer is <b>${esc(w.word)}</b>.`;setTimeout(next,1200)};$("answer").focus();
 }
-function show(nextMode){
+function show(nextMode){ if(nextMode==="meet") FG.release();
   mode=nextMode;document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id===`panel-${mode}`));
   document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.mode===mode)));
   mode==="meet"?drawMeet():start(mode);
