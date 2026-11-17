@@ -1,48 +1,43 @@
-# Source notice: the Ancient China painting
+# Source notice: the Ancient China wall
 
-`qin-burning-books-source.jpg` is Source 1 of Task 3 in the Year 7 Ancient
-China Source Analysis Booklet: a Chinese painting of the burning of the books
-and the execution of the scholars. It is reproduced here at 960x1254, a higher-
-resolution scan supplied directly by the teacher (2026-08-21), replacing the
-1089x805 file that had been taken from the booklet.
+The wall rehearses Task 3 of the Source Analysis Booklet on two sources that
+appear in no assessment. Until November 2026 it used Task 3's own painting and
+Peter Bol interview; that painting file has been removed from this folder.
 
-## What is settled
+## Source A: the Mogao Cave 323 mural
 
-The work is a painting of an event of 213 BCE made a very long time afterwards.
-That gap is the point of the source in the task and is stated on the wall, in
-the worked examples and in the hotspots.
+`wudi-mogao-323.jpg` is a mural in Cave 323 of the Mogao Caves, Dunhuang,
+Gansu, China, painted in the Tang dynasty, 8th century CE. Artist unknown. It
+shows Emperor Wu of Han kneeling before two golden statues, with a Chinese
+label describing statues his army won from the Xiongnu and set up in the
+Ganquan Palace. In the same cave a neighbouring scene shows him seeing off
+Zhang Qian.
 
-Any painting of this subject is old enough for the painting itself to be out of
-copyright. Nothing on this page claims otherwise.
+The file is Wikimedia Commons `File:HanWudiBuddhas.jpg` (1543x1996, tagged
+public domain), resized here to 960x1242. Commons credits the photograph to a
+plate in Whitfield, Whitfield, Agnew and Conner, *Cave Temples of Mogao: Art
+and History on the Silk Road* (Getty Conservation Institute, 2000), p. 19.
 
-## What is not settled
+What is settled: the mural is about 1,300 years old, so the painting itself is
+out of copyright everywhere.
 
-**The booklet does not name the artist, the date or the holding collection**, and
-this file's own origin before it reached the teacher is not recorded either. So
-three things remain open:
+What is not settled: the photograph is a faithful reproduction of a flat work.
+Commons and US law treat that as public domain. Australian law on whether such a
+photograph carries its own copyright is less clear. That is the same position
+the previous painting was in. Before this image goes into print or anywhere
+commercial, check the reproduction terms with the Dunhuang Academy or replace
+it with a plate whose terms are known.
 
-- the artist and date, which the wall therefore describes only as "a later
-  Chinese painting" rather than dating it precisely
-- which institution holds the original, and what terms that institution attaches
-  to its own photograph of it
-- where this specific file came from before it reached the teacher; the filename
-  ("Burning_of_books_and_burying_of_scholars higher res.jpg") reads like a
-  Wikimedia Commons title, which is plausible but is not confirmed here and
-  should not be stated on the page as fact
+The hotspot coordinates were read off the 960x1242 file by cropping each region
+and checking it against its description. If the file is replaced, check them
+again.
 
-The new file resolves the previous crop question: it is the whole painting, not
-a crop, so no scholar or detail is cut off at an edge. It does not resolve any
-of the three items above, and no EXIF or caption data travelled with the file.
+## Source B: Wikipedia
 
-None of that blocks classroom use of an out-of-copyright painting, and it is why
-the citation on the page stops where the evidence stops. Before this image is
-used in print or anywhere commercial, trace it to the holding collection, confirm
-the reproduction terms, and replace this file with the catalogue plate and its
-full attribution.
-
-## Peter Bol
-
-Source 3 is quoted, not reproduced: an interview with Peter Bol of Harvard
-University recorded by Carry Grace for the BBC, transcribed in the booklet. It
-appears here as text under quotation, attributed in the citation line on the
-source panel.
+Three paragraphs from the Legacy section of the English Wikipedia article
+"Emperor Wu of Han", revision 1384672986 (fetched 16 November 2026), shortened
+with an ellipsis where words are left out and otherwise unchanged, including its
+own BC dates. Wikipedia text is licensed CC BY-SA 4.0
+(https://creativecommons.org/licenses/by-sa/4.0/); the citation on the source
+panel gives the article, the revision, the licence and the shortening, which is
+what the licence asks for.

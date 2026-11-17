@@ -41,21 +41,21 @@ GS73 wall it replaced cleared the same bar, on a grinding stone from Madjedbebe.
 Either way a student who has worked the wall has rehearsed origin, context,
 evidence and usefulness, and still has to think for themselves on the day.
 
-Ancient China is the standing example of the failure. Its wall is built on Task 3
-of the assessment booklet, and models the thinking on the same painting and the
-same Peter Bol interview the students are marked on. It hands out the answers, and
-it needs rebuilding on a rehearsal source the booklet does not use.
-
-That got worse before it gets better. In August 2026 the painting was put on the
-page as a picture rather than as a line of text describing it, because a student
-cannot describe the features of a source they have not been shown. It is the
-right fix for the source panel and the wrong source to be showing, and the two
-are separate jobs: keep the picture, move the wall onto a painting the booklet
-does not mark.
+Ancient China was the standing example of the failure. Until November 2026 its
+wall was built on Task 3 of the assessment booklet, and modelled the thinking on
+the same painting and the same Peter Bol interview the students are marked on. It
+handed out the answers. It is now Emperor Wu of Han, on a Tang-dynasty mural from
+Mogao Cave 323 and the Legacy section of his Wikipedia article (CC BY-SA), neither
+of which is in any assessment. The teacher's bar is stricter than "not in this
+CAT": a source used in no assessment at all. Task 3's big answer, Q5, evaluates a
+ruler's significance, so the wall leads with significance and carries the two
+rows that judgement rests on, perspectives and interpretations. He is a ruler
+whose gains and costs both have to be weighed, so the thinking transfers to Q5
+and the content does not. The old painting file is gone from the site.
 
 Its `TASK_MAP` is not the problem. The booklet's rubric itself names the task and
 question numbers against each row, "Task 1, Source 1: Q1-3", so the wall is
-quoting the rubric rather than leaking anything. Keep it when the wall is rebuilt:
+quoting the rubric rather than leaking anything. It was kept through the rebuild:
 it is how a student finds the row they are marked on.
 
 Before you build a wall, ask whether its source appears in the CAT. If it does,
@@ -84,7 +84,7 @@ Where the walls sit now:
 | Ancient Egypt | 4 | The same four, archived. |
 | Water in the World | 4 | Geographical inquiry, not source analysis. |
 | Pigeon Patrol | 3 | Business success, innovation, decisions. |
-| Ancient China | 6 | Its rubric's own six, and they are numbered in the rubric itself. |
+| Ancient China (Emperor Wu) | 3 | Task 3's significance row, led, plus perspectives and interpretations, verbatim. The other three rubric rows are marked from Tasks 1, 2 and 4. |
 
 Rome is the clearest case of choosing a source for the rows rather than the other
 way round. CAT 2 is a guidebook for a traveller arriving in 300 CE, with a
@@ -98,10 +98,10 @@ carried the four source-analysis rows instead, which no Rome rubric marks. That
 version and an earlier deleted CAT 2 wall are in the git history.
 
 Three or four rows is the working shape and six is the practical ceiling. Ancient
-China reaches it legitimately: its booklet rubric really does run five numbered
-rows plus significance, so the wall is not over-scoped, it is carrying a wide
-rubric. If you meet another one, prefer a second wall over a wider one, and say in
-the topic note which CAT each rehearses.
+China used to carry all six of its booklet rubric's rows; it now carries the three
+Task 3 marks, which is the "prefer a second wall over a wider one" rule applied.
+If you meet another wide rubric, do the same, and say in the topic note which CAT
+task each wall rehearses.
 
 The failure this rule guards against is the other direction: a row added because
 it is part of history, or part of geography, rather than because this rubric marks

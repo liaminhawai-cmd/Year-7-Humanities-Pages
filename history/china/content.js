@@ -6,131 +6,107 @@
    the criterion keys in CRITERIA. Anything left unmarked stays black.
 
    ------------------------------------------------------------------
-   THIS WALL REHEARSES CAT 3.
+   THIS WALL REHEARSES TASK 3 OF THE SOURCE ANALYSIS BOOKLET, ON OTHER SOURCES.
 
-   Every other wall in this site runs Foundation to Year 10, because it is
-   showing a skill growing across the whole school. This one does not. It
-   runs Level 6 to Level 9, because that is exactly what the Ancient China
-   Source Analysis Booklet rubric runs, and the point of this wall is that a
-   student can see their own CAT band on it.
+   Task 3's big answer is Q5: evaluate the significance of a ruler, using the
+   sources and your own knowledge, weighing strengths against weaknesses. So
+   the wall leads with significance and carries the two rows that judgement
+   rests on, perspectives and interpretations. Three of the rubric's six
+   rows, in the rubric's own words. The other three are marked from Tasks 1,
+   2 and 4, on sources this wall does not rehearse.
 
-   Source 1 is the painting itself, not a line of text describing it. The
-   rubric's first row marks origin, features and purpose, and a student cannot
-   describe the features of a picture they have not been shown. The plate came
-   out of the booklet and its artist, date and holding collection are not
-   recorded there; see SOURCE-NOTICE.md.
+   Until November 2026 the wall was built on Task 3 itself: the same painting
+   and the same Peter Bol interview the students are marked on, which handed
+   out the answers (AGENTS.md, rule 1). It is now Emperor Wu of Han, on a
+   Tang-dynasty mural from the Mogao Caves and the Legacy section of his
+   Wikipedia article. Neither appears in any assessment. He is a ruler whose
+   achievements and costs both have to be weighed, so the thinking transfers
+   to Q5 and the content does not. See SOURCE-NOTICE.md.
 
-   The six criteria are the rubric's own rows, in the rubric's own words:
-   its five numbered source-analysis rows plus the significance strand that
-   Task 3 adds. The wall is built on Task 3, Qin Shi Huang, because it is
-   the only task in the booklet that touches all six at once: a primary
-   painting, a secondary interpretation, and a judgement about a person.
+   It runs Level 6 to Level 9, because that is what the booklet rubric runs.
    ======================================================================= */
 
 const WALL = {
   id: "hist-china",
-  title: "Qin Shi Huang",
+  title: "Emperor Wu of Han",
   expected: "Level 7",
-  inquiry: "Qin Shi Huang made China one country. He also burned the books and killed the scholars who argued. How do you weigh a person like that?",
-  foot: "<b>Sources:</b> a later Chinese painting of the burning of the books and the execution of 460 scholars, and an interview with <b>Peter Bol</b> of Harvard University, recorded by the BBC. Both appear in Task 3 of the Year 7 Ancient China Source Analysis Booklet, and the rows on this wall are that booklet's rubric, level for level. The painting is not contemporary with Qin Shi Huang, and that is part of what there is to analyse."
+  inquiry: "Emperor Wu made the Han empire about twice as big. His wars also made his people poorer. How significant was he as a ruler?",
+  foot: "<b>Sources:</b> a mural in Cave 323 of the Mogao Caves at Dunhuang, painted in the Tang dynasty in the 700s CE (public domain), and the Legacy section of the Wikipedia article on Emperor Wu of Han (CC BY-SA 4.0). Neither is in the Source Analysis Booklet. The rows on this wall are three of that booklet's rubric rows, word for word."
 };
 
 const FACTS = [
-  ["The person", "Qin Shi Huang, who conquered the other states one by one and became the first ruler of a united China in 221 BCE."],
-  ["Source 1", "A Chinese painting showing the burning of the books and the execution of 460 scholars. Painted long after the events it shows."],
-  ["Source 3", "Peter Bol, a historian at Harvard University, speaking to the BBC. A secondary source: a modern expert explaining the past."],
-  ["What he built", "One system of writing, weights, measures and law across every conquered state. Taxes collected and justice run by trained officials."],
-  ["What it cost", "Conquered populations enslaved. Scholars killed. Books destroyed. The terracotta army built by forced labour."],
-  ["Why he is hard", "The same actions produced the achievement and the cruelty. Neither cancels the other, and a judgement has to hold both."]
+  ["The person", "Emperor Wu of Han, who ruled China for 54 years, from 141 to 87 BCE."],
+  ["Source A", "A mural in Cave 323 of the Mogao Caves, painted by Buddhists in the 700s CE, more than 800 years after he died."],
+  ["Source B", "The Legacy section of the Wikipedia article about him: a modern summary of what historians say."],
+  ["What he built", "An empire about twice the size of the one he was given. Confucian learning as the training for officials. Contact with Central Asia through his envoy Zhang Qian."],
+  ["What it cost", "Wars paid for with heavy taxes and government control of salt and iron. Peasant revolts. Harsh punishments, and witchcraft trials that killed thousands and led to his own son's death."],
+  ["Why he is hard", "The same wars built the empire and burdened the people. Near the end of his life he said so himself, in the Repenting Edict of 89 BCE."]
 ];
 
-/* ink: the colour on paper, all six above 4.5:1 on the wall's cream
-   lamp, the same criterion on the dark bar of the big-screen tool underline, the second channel, which survives a greyscale photocopy and
-               a colour-blind reader. Six criteria and only five underline
-               styles exist, so significance also carries a weight, and no
-               two rows are told apart by colour alone. */
+/* ink: the colour on paper, all above 4.5:1 on the wall's cream
+   lamp: the same criterion on the dark bar of the big-screen tool
+   underline: the second channel, which survives a greyscale photocopy and
+              a colour-blind reader. Significance also carries a weight. */
 const CRITERIA = [
-  { key:"origin",         row:"Origin, features &amp; purpose",  name:"Origin, features &amp; purpose",  glyph:"■",
-    ink:"#176b87", lamp:"#6fc0da", underline:"solid" },
-  { key:"context",        row:"Historical context",              name:"Historical context",              glyph:"▲",
-    ink:"#2f6b3f", lamp:"#74c288", underline:"dashed" },
+  { key:"significance",   row:"Historical significance",         name:"Historical significance",         glyph:"✦",
+    ink:"#9b2f22", lamp:"#f0968a", underline:"solid", weight:"3px" },
   { key:"perspective",    row:"Historical perspectives",         name:"Historical perspectives",         glyph:"●",
     ink:"#a34d1d", lamp:"#e89a63", underline:"dotted" },
   { key:"interpretation", row:"Historical interpretations",      name:"Historical interpretations",      glyph:"◆",
     ink:"#6b4a86", lamp:"#bda0d8", underline:"double" },
-  { key:"useful",         row:"Usefulness",                      name:"Usefulness",                      glyph:"★",
-    ink:"#7a5a10", lamp:"#e0bd63", underline:"wavy" },
-  { key:"significance",   row:"Historical significance",         name:"Historical significance",         glyph:"✦",
-    ink:"#9b2f22", lamp:"#f0968a", underline:"solid", weight:"3px" },
 ];
 
-/* The CAT rubric's own bands. Not Foundation to Year 10. This wall is the
-   assessment, and a student should find their own row on it. */
+/* The CAT rubric's own bands. Not Foundation to Year 10. */
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9"];
 
 const EXAMPLES = {
 "Level 6":
-`Source 1 is {origin|a painting}. It shows {origin|books being burned and scholars being killed}. It was made {origin|a long time after it happened}, so it is a secondary source. In Ancient China, {context|Qin Shi Huang was the first emperor and ruled every state}. The painter shows the emperor {perspective|as cruel, standing over the killing}. Source 3 is different, because {interpretation|Peter Bol says China would not exist without him}. Source 1 is {useful|useful for showing what people thought of the emperor}. Qin Shi Huang is {significance|important because he made China one country}.`,
+`Source A is a painting of {perspective|Emperor Wu bowing to two golden statues}. The painter {perspective|shows him as a good and holy man}. Source B says that {interpretation|historians do not all agree about him}. Emperor Wu was {significance|important because he made the Han empire much bigger}.`,
 
 "Level 7":
-`Source 1 is {origin|a Chinese painting of the burning of the books and the killing of 460 scholars}. Because it was painted {origin|long after these events happened}, it is a secondary source rather than an eyewitness record. Its purpose was {origin|to show what the emperor did, and to judge him for it}. At this time {context|Qin Shi Huang had defeated every rival state}. He was {context|forcing one law, one script and one set of measures on all of them}. The painting clearly takes a side, because {perspective|it shows the scholars as the victims}. It also shows {perspective|the emperor as the man who gave the order}. Source 3 does not agree, since {interpretation|Peter Bol calls the same emperor the founder of China}. The painting is {useful|useful evidence for how later people remembered him}. It {useful|cannot tell us what really happened in 213 BCE}. He is important because {significance|he turned many separate states into a single country}. He matters too because {significance|the officials and taxes he introduced lasted for centuries afterwards}.`,
+`Source A is a mural painted by Buddhists in the Mogao Caves, hundreds of years after Emperor Wu died. It {perspective|shows him kneeling to two golden statues, as if he were a Buddhist}, so {perspective|the painters saw him as a ruler who honoured their faith}. Source B gives a different view. It says {interpretation|historians have treated him with ambivalence}, because {interpretation|some praise the land he won and others say his policies were a burden on his people}. Emperor Wu was significant for more than one reason. {significance|He roughly doubled the size of the empire}, and {significance|much of that land is still part of China today}. {significance|He also made Confucianism the official teaching}, so {significance|officials were trained in it for centuries after he died}.`,
 
 "Level 8":
-`Source 1 is {origin|a painting of the burning of the books and the killing of 460 scholars}, made {origin|well after the Qin dynasty had fallen}. That matters, because {origin|it holds a memory of the event rather than a record of it}, and its purpose is {origin|to pass judgement as much as to describe}. The events sit inside a conquest, in which {context|Qin Shi Huang took the neighbouring states one by one and enslaved their people}, and then {context|replaced their scripts, weights and laws with his own}. Killing the scholars was part of that same plan, {context|because the books he burned carried the older states' ideas}. The painting takes a clear position, since {perspective|it puts the scholars at the centre as victims}, and {perspective|presents the emperor as the author of their deaths}. Peter Bol reads him very differently, because {interpretation|he treats the same drive to centralise as an extraordinary achievement}. He argues {interpretation|that China itself would not exist without it}, and the two accounts differ because they answer different questions. Source 1 is {useful|strong evidence for how the First Emperor was remembered}, but {useful|weak evidence for the events themselves, because nothing in it dates from the time}. His significance is real, but it is double. {significance|He created a unified China and a system of government that lasted two thousand years}. {significance|He achieved it through warfare, forced labour and the destruction of learning}.`,
+`Source A was painted in Cave 323 at Mogao in the 700s CE, more than 800 years after Emperor Wu ruled. The Buddhist painters {perspective|show him kneeling before two golden statues in a temple, with his officials waiting behind him}, so {perspective|he becomes a model worshipper for the monks and pilgrims who saw the cave}. Source B explains why {interpretation|historians have treated him with ambivalence}: {interpretation|one side counts the land he won, while the other counts the burden his policies put on his people}. Both sides are needed to explain his significance. The changes he caused were huge, because {significance|he roughly doubled the empire and sent Zhang Qian west, opening contact with Central Asia}. The impact on people was harsh, because {significance|his wars were paid for with heavy taxes and government control of salt and iron}. His legacy lasted, since {significance|Confucianism stayed the official teaching of Chinese government until the last emperor, about two thousand years later}. {significance|So how significant he seems depends on whether you measure the empire or the people who paid for it}.`,
 
 "Level 9":
-`Source 1 reaches us {origin|as a later painting rather than as testimony}. Its explicit content is {origin|the burning of the books and the execution of 460 scholars}, while its implicit argument is {origin|that this is how the First Emperor ought to be remembered}. Nothing in it was made by a witness, {origin|which limits what it can properly be asked to prove}. The context explains the target, because {context|Qin Shi Huang had ended the rival states by force}, and was {context|imposing a single script, currency, set of measures and legal code across all of them}. The scholars died for carrying learning that belonged to the world he was replacing. The two sources hold opposite points of view: {perspective|the painting speaks for the scholars, arranging the scene so the viewer stands with the dying}. {perspective|Bol speaks as a modern historian, asking how a state came to exist at all}. Their interpretations diverge because they answer different questions. {interpretation|The painting asks whether he was admirable; Bol asks whether he was decisive}. Bol is also explicit about the cost, acknowledging that {interpretation|the mobilisation that enslaved conquered citizens is what produced a working government}. As evidence, {useful|the painting is reliable for later memory and unreliable for 213 BCE}, while {useful|Bol is authoritative on the structure of the Qin state, yet he remains a single interpretation}. Weighing them together, {significance|Qin Shi Huang is significant in the strongest historical sense}. He matters {significance|not because he was admirable, but because the unified China he forced into being outlasted his own dynasty by two thousand years}. {significance|That significance stays contested rather than settled, because the writers who recorded him, the painter who condemned him and the historian who explains him each measure him against something different}.`
+`Emperor Wu is significant mainly as a builder of the Chinese state, and the cost of that building is part of his significance rather than a footnote to it. Source A shows how his meaning changed over time. {perspective|Buddhist painters working about 850 years after his reign show him kneeling to two golden statues}. The label says {perspective|his army won them fighting the Xiongnu, but the painters stand them in a temple hall as if they were Buddhas}, so {perspective|the most powerful emperor of the Han appears to honour the painters' own faith}. The older charge that Source B reports sees a different man: {perspective|an emperor "extravagant and superstitious", whose policies became "a burden on his people"}. Source B {interpretation|holds both views at once, which is why it says historians have treated him "with ambivalence"}. {interpretation|Its evidence, the doubled empire and the land still inside China, supports the state-builder reading more firmly than the Buddhist one}, which no record from his own time supports. Weighing the criteria, {significance|his long-term legacy is strongest: borders, Confucian officials and contact with Central Asia that lasted for centuries}. {significance|His impact on his own people is the weakness, through heavy taxes, revolts and the purges of his last years}, and {significance|his Repenting Edict of 89 BCE shows that even he judged part of his rule a failure}. {significance|His significance is therefore contested, and it changes with who is doing the measuring}.`
 };
 
 const EXPLANATIONS = {
 "Level 6": {
-  origin:         "Names the source, one feature in it, and that it is not from the time.",
-  context:        "Identifies who Qin Shi Huang was and what he ruled.",
-  perspective:    "Identifies the point of view the painter takes.",
-  interpretation: "Recognises that a historian says something different.",
-  useful:         "Gives one thing the source is useful for.",
-  significance:   "Identifies one reason he was important."
+  significance:   "Identifies one basic reason why he was important.",
+  perspective:    "Identifies the point of view the painting takes.",
+  interpretation: "Recognises that historians do not all agree."
 },
 "Level 7": {
-  origin:         "Identifies origin, content and purpose, and works out primary or secondary from the date.",
-  context:        "Outlines the conquest and the forced standardisation the events sit inside.",
-  perspective:    "Describes the point of view by naming who is shown as victim and who as cause.",
-  interpretation: "Describes a different interpretation and attributes it to the historian who holds it.",
-  useful:         "Draws a conclusion about usefulness, then bounds it with what the source cannot reach.",
-  significance:   "Describes significance by naming impact at the time and after it."
+  significance:   "Describes more than one reason, and one effect that lasted after he died.",
+  perspective:    "Describes the point of view by saying how the painters show him and why.",
+  interpretation: "Describes the different view in Source B and what each side looks at."
 },
 "Level 8": {
-  origin:         "Describes origin, content and purpose, and explains what being painted later does to the evidence.",
-  context:        "Describes the context and connects the killings to the same programme as the conquest.",
-  perspective:    "Explains the point of view by showing how the painting is composed to produce it.",
-  interpretation: "Explains both interpretations and gives the reason they differ.",
-  useful:         "Compares the two sources and asks what each is and is not good for.",
-  significance:   "Explains significance across the short and long term, holding achievement and cost together."
+  significance:   "Explains significance with criteria: change caused, impact on people, legacy and perspective, each with evidence.",
+  perspective:    "Explains the point of view by showing who the mural was made for.",
+  interpretation: "Explains why historians differ: each side measures something different."
 },
 "Level 9": {
-  origin:         "Explains origin and separates explicit content from implicit argument.",
-  context:        "Explains context and uses it to account for why the scholars in particular were targeted.",
-  perspective:    "Compares and contrasts two points of view, outlining what each is positioned to see.",
-  interpretation: "Analyses why the interpretations differ and identifies the evidence each rests on.",
-  useful:         "Identifies the accuracy and reliability of each source and says what each claim is worth.",
-  significance:   "Evaluates significance from several perspectives and recognises that it is debatable."
+  significance:   "Makes a judgement, weighs strengths against weaknesses, and shows that significance is contested and changes with who measures it.",
+  perspective:    "Compares the Buddhist painters' view with the older charge, outlining what each is placed to see.",
+  interpretation: "Weighs the interpretations and says which is better supported by evidence, and why."
 }
 };
 
 /* Verbatim from the Year 7 Ancient China Source Analysis Rubric, level for
    level. Do not paraphrase these, a student is marked against this wording,
-   so the wall has to carry it exactly as the booklet does. */
+   so the wall has to carry it exactly as the rubric does. The significance
+   bands are the rubric's descriptive bands, and they name Qin Shi Huang
+   because the rubric does; they are not rewritten for Emperor Wu. */
 const CONTINUUM = {
-origin:{
- "Level 6":"I can identify different types of historical sources.",
- "Level 7":"I can identify the origin, content features and purpose of historical sources.",
- "Level 8":"I can describe the origin, content features and purpose of historical sources.",
- "Level 9":"I can explain the origin, content features and purpose of historical sources."},
-context:{
- "Level 6":"I can identify the historical context of a source.",
- "Level 7":"I can describe the historical context of a source.",
- "Level 8":"I can describe the historical context of sources to determine the perspectives of people from the past and recognise different points of view.",
- "Level 9":"I can explain the historical context of sources."},
+significance:{
+ "Level 6":"Identifies one basic reason why Qin Shi Huang (or another figure/event) was important. Provides simple statements such as “He changed China” or “He was powerful.”",
+ "Level 7":"Describes more than one reason for Qin Shi Huang’s significance (e.g., unification, administration reforms). Shows some awareness that significance relates to impact or change. Begins to explain short-term or long-term effects. Uses some evidence from the sources or prior knowledge.",
+ "Level 8":"Clearly explains why Qin Shi Huang was significant, using historical criteria such as: Impact on people, Long-term legacy, Changes caused, Perspectives (positive and negative). Shows awareness that significance can be interpreted differently by different groups (e.g., Han writers vs. modern historians). Uses evidence purposefully to support explanations.",
+ "Level 9":"Makes a clear, insightful judgment about Qin Shi Huang’s significance and justifies it with multiple pieces of evidence. Evaluates significance through several criteria: Perspectives of different groups (ancient vs modern). Shows understanding that significance is complex, debatable, and changes over time, Analyses both strengths and limitations of Qin’s legacy (e.g., nation-building vs. oppression). Weighs up different historical interpretations and explains why one interpretation may be more convincing."},
 perspective:{
  "Level 6":"I can identify different points of view in primary sources.",
  "Level 7":"I can describe different points of view in primary sources.",
@@ -141,88 +117,74 @@ interpretation:{
  "Level 7":"I can describe different historical interpretations of the past.",
  "Level 8":"I can explain different historical interpretations and contested debates about the past, providing different examples to show how people and events have been interpreted.",
  "Level 9":"I can analyse different historical interpretations and contested debates about the past and identify the evidence used to support these interpretations."},
-useful:{
- "Level 6":"I can recognise that some historical sources are more useful than others.",
- "Level 7":"I can draw conclusions about the usefulness of sources.",
- "Level 8":"I can compare and contrast historical sources and ask questions about their usefulness.",
- "Level 9":"I can compare and contrast historical sources and identify their usefulness."},
-significance:{
- "Level 6":"I can identify one basic reason why Qin Shi Huang was important.",
- "Level 7":"I can describe more than one reason for his significance and begin to explain short-term or long-term effects.",
- "Level 8":"I can clearly explain why he was significant using historical criteria: impact on people, long-term legacy, changes caused, and perspectives.",
- "Level 9":"I can evaluate significance through several criteria, weigh different interpretations, and show that significance is complex, debatable and changes over time."},
 };
 
-/* Which question in the booklet each row is marked from. The rubric maps
-   these itself; carrying the map here is what turns the wall from a poster
-   into a revision tool for the actual CAT. */
+/* Which question in the booklet each row is marked from, as the rubric
+   itself maps them. It names the task, not the answer, so it stays. */
 const TASK_MAP = {
-  origin:         "Task 1: Source 1: Q1&ndash;3 &middot; Source 2: Q4 &middot; Task 2, Jade Suit: Q1, Q2", context: "Task 2, Jade Suit: Q3",
-  perspective:    "Task 3, Qin Shi Huang: Q2", interpretation: "Task 1, Source 2: Q5",
-  useful:         "Task 4 (Level 7 option)",
-  significance:   "Task 3: Qin Shi Huang: Q3, Q5"
+  significance:   "Task 3: Qin Shi Huang: Q3, Q5",
+  perspective:    "Task 3, Qin Shi Huang: Q2",
+  interpretation: "Task 1, Source 2: Q5"
 };
 
-const SHEET_IMAGE = "qin-burning-books-source.jpg";
+const SHEET_IMAGE = "wudi-mogao-323.jpg";
 
 /* ---------------------------------------------------------------------------
-   TWO sources, the pair the booklet puts on the page, and the painting is now
-   the painting rather than a sentence describing it. Origin, features and
-   purpose is the rubric's first row, and a student cannot describe the features
-   of a picture they have never seen. It used to sit here as one line of text.
+   TWO sources that disagree: a later painting that claims him for Buddhism,
+   and a modern summary that weighs his gains against his costs.
 
    SOURCES drives the tab strip on bump-it-up.html. Each entry carries its own
    hotspots, so a picture source and a written source behave identically.
    --------------------------------------------------------------------------- */
 const SOURCES = [
  {
-  id: "painting",
-  tab: "A · The painting",
+  id: "mural",
+  tab: "A · The mural",
   kind: "image",
   file: SHEET_IMAGE,
-  ar:   "960/1254",
-  alt:  "A Chinese painting of the burning of the books and the execution of the scholars. The First Emperor sits in cream robes inside a red hall, watching, an attendant beside him. A scholar in a green robe kneels on the terrace below, holding up a document. Guards in red drag men in blue-grey robes across the lawn, bound volumes burn in flames at the bottom edge, and scholars lie half buried in a pit of yellow earth.",
-  missing: "The picture of the painting did not load.<br>Keep <b>qin-burning-books-source.jpg</b> in the same folder as this page.",
-  cite: "Source 1, Task 3 of the Year 7 Ancient China Source Analysis Booklet. A later Chinese painting; the artist and date are not recorded in the booklet. See SOURCE-NOTICE.md.",
-  whole: { label:"The whole painting",
-    text:"Painted centuries after the events it shows, by someone who could not have been there. Every choice in it, who is at the centre, who is on the ground, is a later judgement about how the First Emperor should be remembered." },
-  /* Percentages of the 960x1254 reproduction, read off the image by cropping
-     each region and checking it against the description before committing to
-     the numbers. Nudge them if the plate is ever replaced with a different
-     crop; do not guess coordinates by eye against a thumbnail. */
+  ar:   "960/1242",
+  alt:  "A mural from the Mogao Caves. At the top, a temple hall with two tall standing statues inside. Below it Emperor Wu, the largest figure, kneels on a low platform facing the hall, with two attendants behind him. Officials in pale and orange robes stand to the left holding tablets. A dark panel of Chinese writing sits below the emperor.",
+  missing: "The picture of the mural did not load.<br>Keep <b>wudi-mogao-323.jpg</b> in the same folder as this page.",
+  cite: "Source A: mural in Cave 323, Mogao Caves, Dunhuang, China. Tang dynasty, 700s CE, artist unknown. Public domain. Photograph from Wikimedia Commons, File:HanWudiBuddhas.jpg. See SOURCE-NOTICE.md.",
+  whole: { label:"The whole mural",
+    text:"Painted on the wall of a Buddhist cave temple more than 800 years after Emperor Wu died. The painters never saw him. Every choice in it, who kneels and what is worshipped, is how later Buddhists wanted him remembered." },
+  /* Percentages of the 960x1242 file, read off the image by cropping each
+     region and checking it against the description before committing to the
+     numbers. Nudge them if the plate is ever replaced with a different crop. */
   hotspots: [
-   { x:64, y:20, w:34, h:21, label:"The emperor, watching",
-     text:"Qin Shi Huang in cream, seated inside the hall with an attendant, at a distance from the killing. The painter puts him above it and in charge of it at the same time." },
-   { x:57, y:43, w:19, h:18, label:"The man on the steps",
-     text:"A figure in a scholar's green robe and black cap, alone on the terrace between the emperor and the courtyard, holding up a document. He is the only one still being heard." },
-   { x:1, y:70, w:79, h:20, label:"The scholars taken",
-     text:"Guards in red seize men in blue-grey robes and pull them across the lawn from the steps. Red is the soldiers throughout this painting and blue is the scholars, which is how the picture tells you who is doing what to whom." },
-   { x:0, y:86, w:33, h:14, label:"The books burning",
-     text:"Bound volumes stacked in the flames at the bottom edge. This is the other half of the event named in the source: the books and the people who knew them destroyed together." },
-   { x:61, y:77, w:36, h:20, label:"The pit",
-     text:"Scholars lying half covered in yellow earth. The tradition the painter is following says 460 of them were buried alive, and the painting shows it as fact rather than as a claim." }
+   { x:35, y:19, w:22, h:24, label:"The two statues",
+     text:"Two tall figures standing inside a temple hall. The writing below says his army won them fighting the Xiongnu. The painters show them as holy figures, in the place a temple keeps for what it worships." },
+   { x:53, y:54, w:19, h:22, label:"The emperor, kneeling",
+     text:"Emperor Wu, the biggest figure in the picture, kneeling on a low platform and facing the hall. The painters make the most powerful man in China bow, which is a strong claim about what he believed." },
+   { x:16, y:56, w:37, h:33, label:"His officials",
+     text:"Officials in court robes holding tablets, standing back from the emperor. Their presence makes this an act of the whole government, not a private prayer." },
+   { x:56, y:75, w:16, h:23, label:"The written label",
+     text:"A label in Chinese. It says the emperor won two golden statues in his war against the Xiongnu, set them up in his Ganquan Palace and worshipped them. A label tells the viewer how to read the picture." }
   ]
  },
  {
-  id: "bol",
-  tab: "B · Bol for the BBC",
+  id: "wikipedia",
+  tab: "B · Wikipedia",
   kind: "text",
-  cite: "Source 3, Task 3 of the Year 7 Ancient China Source Analysis Booklet. Carry Grace and Peter Bol of Harvard University, for the BBC.",
-  whole: { label:"The whole interview",
-    text:"A modern historian explaining how the Qin state worked. He is answering a different question from the painting's, which is why the two sources can both be right and still disagree." },
+  cite: "Source B: Wikipedia, \"Emperor Wu of Han\", Legacy section, revision 1384672986 (November 2026), en.wikipedia.org/wiki/Emperor_Wu_of_Han. Shortened: … shows where words are left out. Text CC BY-SA 4.0, creativecommons.org/licenses/by-sa/4.0.",
+  whole: { label:"The whole extract",
+    text:"A modern summary, written by many unnamed volunteers, of what historians say about him. It is not a historian's own argument, so it reports the disagreement rather than settling it." },
   paragraphs: [
-    "Peter Bol, Harvard University, interviewed by the BBC: \"We wouldn't have a China without Qin Shi Huang. It's that simple. China at the time was a land of many states. Qin Shi Huang built a formidable fighting machine. His army is easy to imagine because he left us the famous terracotta warriors in Xian.\"",
-    "\"The Qin was really the first state to go into total mobilisation for war. It really saw the work of its population being fighting and soldiering to win wars and expand. One by one, Qin Shi Huang defeated neighbouring states, swallowed their territory into his growing empire and enslaved and castrated their citizens.\"",
-    "\"Qin Shi Huang is credited not only with creating China, but with establishing the world's first truly centralised bureaucratic empire. He set out to unify the procedures and customs and policies of all the states.\"",
-    "\"He collected taxes, he administered justice and he had trained bureaucrats all over China. That's an extraordinary achievement.\""
+    "Historians have treated Emperor Wu with ambivalence, and there are certainly some contradictory accounts of his life. He roughly doubled the size of the Han empire of China during his reign, and much of the territory that he annexed is now part of modern China.",
+    "Emperor Wu is said to have been extravagant and superstitious, allowing his policies to become a burden on his people. … The punishments for perceived failures and disloyalty were often exceedingly harsh.",
+    "In 140 BC, Emperor Wu conducted an imperial examination of over 100 young scholars. … most of the scholars were commoners with no noble background. This event would have a major impact on Chinese history, marking the official start of the establishment of Confucianism as official imperial doctrine."
   ],
   hotspots: [
-   { mark:"We wouldn't have a China without Qin Shi Huang", label:"An interpretation, stated flat",
-     text:"This is a historian's claim, not a fact you can look up. It is exactly the kind of sentence the interpretations row is asking you to describe, explain, or analyse." },
-   { mark:"enslaved and castrated their citizens", label:"Bol does not soften it",
-     text:"Notice that the historian who calls him extraordinary also records the cruelty in the same breath. Significance is not the same as approval, and this sentence is where students usually see that." },
-   { mark:"That's an extraordinary achievement", label:"The word to argue with",
-     text:"Achievement for whom? A Level 9 answer weighs this against the previous sentence rather than choosing one and ignoring the other." }
+   { mark:"Historians have treated Emperor Wu with ambivalence", label:"Historians disagree, and it says so",
+     text:"Ambivalence means having two opposite feelings at once. This sentence is the interpretations row: it tells you the judgement is argued over before giving either side." },
+   { mark:"much of the territory that he annexed is now part of modern China", label:"A legacy you can measure",
+     text:"Long-term significance. The result of his wars is still on the map more than two thousand years later." },
+   { mark:"is said to have been", label:"Said by whom?",
+     text:"The extract does not name who said it. A careful answer notices that a charge is being reported, not proved." },
+   { mark:"allowing his policies to become a burden on his people", label:"The cost",
+     text:"Impact on people. A strong answer holds this against the land he won rather than choosing one and ignoring the other." },
+   { mark:"marking the official start of the establishment of Confucianism as official imperial doctrine", label:"A change that lasted",
+     text:"Changes caused. Confucianism stayed the official teaching of Chinese government until the last emperor." }
   ]
  }
 ];
@@ -239,114 +201,98 @@ const EARLY_LEVELS = [];
 const EARLY_EXAMPLES = {};
 const EARLY_EXPLANATIONS = {};
 
-/* Victorian Curriculum 2.0, History sub-strand "Using historical sources".
-   The unit plan for Ancient China still cites VCHHK codes, which are
-   Victorian Curriculum 1.0; the 2.0 equivalents are below. VC 2.0 bands two
+/* Victorian Curriculum 2.0, History sub-strand "Using historical sources",
+   one code per row in CRITERIA order: S04 (value of sources as evidence for
+   significance), S05 (perspectives), S06 (interpretations). VC 2.0 bands two
    years at a time, so Levels 7 and 8 share a code. */
 const VC = {
  "Level 6": [
-   ["VC2HH6S03","describe the features, content and context of historical sources"],
    ["VC2HH6S04","describe the value of sources for use as evidence to identify historical significance and continuity and change"],
    ["VC2HH6S05","describe historical perspectives and identify beliefs, values and attitudes of people and groups based on evidence from primary sources"],
    ["VC2HH6S06","explain different historical interpretations"]],
  "Level 7": [
-   ["VC2HH8S03","explain the features, content and context of historical sources"],
    ["VC2HH8S04","analyse the value of sources for use as evidence to explain historical significance, continuity and change, and causes and consequences"],
    ["VC2HH8S05","explain the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
    ["VC2HH8S06","analyse historical interpretations and debates"]],
  "Level 8": [
-   ["VC2HH8S03","explain the features, content and context of historical sources"],
    ["VC2HH8S04","analyse the value of sources for use as evidence to explain historical significance, continuity and change, and causes and consequences"],
    ["VC2HH8S05","explain the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
    ["VC2HH8S06","analyse historical interpretations and debates"]],
  "Level 9": [
-   ["VC2HH10S03","analyse the purpose, features, content and context of historical sources"],
    ["VC2HH10S04","evaluate the value of sources for use as evidence to interpret historical significance, continuity and change, and causes and consequences"],
    ["VC2HH10S05","analyse the perspectives, beliefs, values and attitudes of people and groups based on evidence from a range of sources"],
    ["VC2HH10S06","evaluate historical interpretations and debates"]]
 };
-const VC_NOTE = "The rows on this wall are the Ancient China Source Analysis Booklet rubric, word for word, because that is what the CAT is marked against. The codes are Victorian Curriculum 2.0. Two things are worth knowing. The unit plan for this topic still cites VCHHK codes, which belong to Victorian Curriculum 1.0 and have been superseded. And the booklet's significance strand has no equivalent code of its own: VC 2.0 folds significance into the value-of-sources descriptor (S04) rather than making it a separate skill, which is why the significance row here is the only one whose wording is the rubric's descriptive bands rather than an 'I can' statement. See CURRICULUM-CHECK.md.";
+const VC_NOTE = "The rows are the Ancient China Source Analysis Booklet rubric, word for word. The significance bands name Qin Shi Huang because the rubric does; the same bands apply to any ruler. The codes are Victorian Curriculum 2.0, which has no separate significance code and folds it into S04.";
 
+/* new: what this rung adds. background: the facts the rung's example uses
+   that are not in either source. The page labels it "You need to know". */
 const BUMP = {
- "Level 6": "You have named the source and one reason he mattered. To reach Level 7, say what the source was FOR, and give a second reason he mattered, one that lasted after he died.",
- "Level 7": "You have described the point of view and drawn a conclusion about usefulness. To reach Level 8, say WHY the painting and the historian disagree, and compare what each source is good for rather than judging them one at a time.",
- "Level 8": "You have explained both interpretations and held the achievement against the cost. To reach Level 9, weigh them: say which claim is better supported and why, and show that his significance is argued over rather than agreed.",
- "Level 9": "You are evaluating from several positions and treating significance as contested. Keep the evidence attached to every claim, at this level an unsupported judgement costs more than a cautious one."
+ "Level 6": { new:"One reason he was important, and the side the painting takes.",
+   background:"Emperor Wu ruled the Han dynasty from 141 to 87 BCE. He won wars that made the empire much bigger." },
+ "Level 7": { new:"A second reason he mattered, and one effect that lasted after he died.",
+   background:"He made Confucianism the official teaching for government officials. Much of the land he conquered is still part of China." },
+ "Level 8": { new:"Significance measured with criteria: change caused, impact on people, legacy. A reason the views of him differ.",
+   background:"He sent his envoy Zhang Qian west in 139 BCE. He paid for his wars with heavy taxes and by making salt and iron a government business." },
+ "Level 9": { new:"A judgement, with the views weighed against each other, and significance shown to change with who measures it.",
+   background:"Buddhism reached China after Emperor Wu died. In 89 BCE he issued the Repenting Edict, apologising to the nation for his past policy mistakes." }
 };
 
 const GLOSS = {
  tier2: {
-   "swallowed":"took over completely",
-   "mobilisation":"getting everyone ready for one purpose, usually war",
-   "outlasted":"lasted longer than",
-   "imposing":"forcing something onto people",
-   "condemned":"said it was very wrong"
+   "ambivalence":"having two opposite feelings at once",
+   "extravagant":"spending far too much",
+   "superstitious":"believing in magic and luck",
+   "annexed":"took over and added to a country",
+   "doctrine":"a set of official beliefs",
+   "commoners":"ordinary people, not nobles",
+   "burden":"a heavy load to carry",
+   "envoy":"a person sent to speak for a ruler"
  },
  tier3: {
-   "primary source":"Something made at the time by someone who was there.",
-   "secondary source":"Something made later by someone explaining the past.",
-   "origin":"Where a source came from: who made it, when, and where.",
-   "purpose":"The reason a source was made.",
-   "historical context":"What was happening at the time that helps explain the source.",
-   "perspective":"How something looks from one person's or group's point of view.",
-   "interpretation":"A historian's explanation of what the past means.",
-   "contested":"Argued over, with people holding different views.",
-   "reliability":"How much a source can be trusted.",
-   "usefulness":"How much a source helps answer the question being asked.",
-   "significance":"How important something was, at the time and afterwards.",
-   "legacy":"What is left behind and still matters long after.",
-   "unify":"To make separate things into one.",
-   "centralised":"Run from one place, by one government.",
-   "bureaucratic":"Run by trained officials following set rules.",
-   "dynasty":"A line of rulers from the same family.",
-   "standardisation":"Making everything follow the same system.",
-   "forced labour":"Work people are made to do without choice or pay.",
-   "scholar":"Someone whose work is studying and learning.",
-   "terracotta":"Baked clay, the material the buried army is made from."
+   "primary source":"Was created at the time being studied. It shows the view of people who saw the events first-hand.",
+   "secondary source":"Was created after the time being studied. It is made by people who combine primary sources to explain the past.",
+   "perspective":"A person's point of view, shaped by who they are and what they have experienced.",
+   "interpretation":"An explanation of what something means, which different people may see in different ways.",
+   "significance":"How important something was, how many people it affected and for how long.",
+   "contested":"Argued about. Historians disagree about a contested claim.",
+   "legacy":"Something from the past that still affects us today.",
+   "dynasty":"A line of rulers usually a family line. In China a dynasty ended when a rebellion or a war removed the family from power.",
+   "Confucianism":"The teachings of Confucius, which stress good conduct, family duty and rulers who lead by example, to build a just and peaceful society.",
+   "Buddhism":"The beliefs based on the teachings of the Buddha: that suffering is caused by desire, and that people can reach nirvana, a state of bliss free from rebirth.",
+   "Buddhist":"A follower of Buddhism, the beliefs based on the teachings of the Buddha.",
+   "mural":"A painting made directly on a wall.",
+   "Xiongnu":"Nomadic peoples of the northern grasslands who fought the Han for centuries."
  }
 };
 
+/* One line per row, in CRITERIA order: significance, perspectives,
+   interpretations. */
 const KID = {
  "Level 6": { band:"Level 6", lines:[
-   "I can say what kind of source it is.",
-   "I can say what was happening at the time.",
+   "I can say one reason a ruler was important.",
    "I can say whose side the source takes.",
-   "I can say that historians do not all agree.",
-   "I can say one thing the source is good for.",
-   "I can say one reason he was important."]},
+   "I can say that historians do not all agree."]},
  "Level 7": { band:"Level 7", lines:[
-   "I can say where the source came from, what is in it, and why it was made.",
-   "I can describe what was happening at the time.",
+   "I can give more than one reason a ruler mattered, including one that lasted after them.",
    "I can describe the point of view in the source.",
-   "I can describe a historian's different explanation.",
-   "I can say how useful the source is, and what it cannot tell me.",
-   "I can give more than one reason he mattered, including one that lasted."]},
+   "I can describe a different explanation of the same ruler."]},
  "Level 8": { band:"Level 8", lines:[
-   "I can describe where the source came from and explain what being made later does to it.",
-   "I can describe the context and use it to work out how people saw things.",
-   "I can explain how the source builds its point of view.",
-   "I can explain why two accounts of the same person disagree.",
-   "I can compare two sources and ask what each is good for.",
-   "I can explain his significance using impact, legacy, change and perspective."]},
+   "I can explain a ruler's significance using change, impact on people, legacy and perspective.",
+   "I can explain who a source was made for and how that shapes its point of view.",
+   "I can explain why two accounts of the same ruler disagree."]},
  "Level 9": { band:"Level 9", lines:[
-   "I can explain what a source says openly and what it argues underneath.",
-   "I can explain the context well enough to say why these people were targeted.",
+   "I can make a judgement about a ruler's significance, weigh the strengths against the weaknesses, and show that it is argued over.",
    "I can compare two points of view and say what each is placed to see.",
-   "I can analyse why interpretations differ and name the evidence behind each.",
-   "I can judge how accurate and reliable each source is.",
-   "I can evaluate significance from several sides and show that it is argued over."]}
+   "I can weigh interpretations and say which the evidence supports better."]}
 };
 
-/* The paragraph shape the booklet's extended answers want. The letters are
-   the criteria themselves, in the order Task 3 asks for them. */
+/* The paragraph shape Task 3, Q5 wants, in the order the answer builds. */
 const FRAME = {
-  blurb: "Task 3 asks for source analysis and significance in one answer. These are the moves, in the order the booklet asks for them.",
+  blurb: "Q5 asks you to evaluate a ruler's significance from the sources and your own knowledge. These are the moves.",
   steps: [
-    { key:"origin",         label:"Say what it is",      prompt:"Name the source, what is in it, and why it was made. Is it primary or secondary, and how do you know?" },
-    { key:"context",        label:"Set the scene",       prompt:"What was happening at the time that explains this source?" },
-    { key:"perspective",    label:"Whose side?",         prompt:"Whose point of view does the source take? How can you tell from the way it is made?" },
-    { key:"interpretation", label:"Who disagrees?",      prompt:"What does the other source say instead, and why do the two differ?" },
-    { key:"useful",         label:"What is it worth?",   prompt:"What is each source good evidence for, and what can it not reach?" },
-    { key:"significance",   label:"Weigh him",           prompt:"How important was he, at the time and long after? Hold the achievement and the cost together." }
+    { key:"perspective",    label:"Whose side?",     prompt:"How does each source show the ruler, and who was it made for?" },
+    { key:"interpretation", label:"Who disagrees?",  prompt:"What do the different views say, and why do they differ?" },
+    { key:"significance",   label:"Weigh the ruler", prompt:"What changed because of them, who paid for it, and what lasted? Make a judgement and hold the strengths and weaknesses together." }
   ]
 };

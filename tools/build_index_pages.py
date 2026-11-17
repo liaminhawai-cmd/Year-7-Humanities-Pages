@@ -242,15 +242,15 @@ SITE = [
 
  dict(path="history/china/index.html", cls="history", depth=2, kicker="History &middot; Topic 3",
       title="Ancient China",
-      intro="Qin Shi Huang made China one country, and burned the books and killed the scholars who "
-            "argued. Task 3 of the CAT booklet asks you to weigh him.",
+      intro="Emperor Wu of Han made the empire about twice as big, and his people paid for it. "
+            "The wall weighs him the way Task 3 of the CAT booklet asks you to weigh a ruler.",
       back=("../", "History"),
-      hero_image=("qin-burning-books-source.jpg",
-                   "Qin Shi Huang, with ministers and courtiers, books burning, and the pit of "
-                   "executed scholars"),
+      hero_image=("wudi-mogao-323.jpg",
+                   "A Mogao Caves mural: Emperor Wu of Han kneeling before two golden statues, "
+                   "with his officials"),
       sections=[
         ("Resources", None, wagoll(False,
-           "Level 6 to Level 9: the CAT rubric's own bands. Tap the painting, tap any phrase. "
+           "Level 6 to Level 9: the CAT rubric's own bands. Tap the mural, tap any phrase. "
            "Downloads as one file for offline use.")),
         ("Words", None, [
            ("&#128218;", "Vocab hub", "vocab-hub.html",
