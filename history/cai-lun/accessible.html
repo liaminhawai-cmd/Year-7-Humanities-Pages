@@ -220,6 +220,14 @@ const ZHANG = [
   "He told the emperor about rich kingdoms to the west, their horses and their crops. Han missions and traders followed his route.",
   "The trade routes that grew from this were much later called the Silk Road, a name a German geographer gave them in 1877. People had already traded along parts of these routes before him.",
   "In China today he is remembered as a national hero."];
+/* Added after the first lesson: students asked why the emperor wanted the statues' names,
+   and how the statues link to the Silk Road. Word for word from the paper sheet. */
+const STATUES = [
+  "In about 120 BCE a Han army beat the Xiongnu and brought back golden statues that the Xiongnu had used in their worship.",
+  "Hundreds of years later, Buddhism came to China from India and Central Asia, carried by monks and traders along the Silk Road.",
+  "Chinese Buddhists then told a new story: the statues were statues of the Buddha, and Emperor Wu had sent Zhang Qian west to find out their names. Source B paints that story.",
+  "The Han records tell it differently. Zhang Qian set off in 138 BCE to find allies against the Xiongnu, years before the statues were captured.",
+  "So the link is the Silk Road. Zhang Qian's journeys helped open it, Buddhism later travelled into China along it, and Buddhists retold his journey as the start of their own story. The Mogao Caves are at Dunhuang, an oasis town on the Silk Road where travellers stopped."];
 const MOVES = [
   "Say what Source B is and when it was made. Is it a primary source about Zhang Qian?",
   "Say what it shows. Point at something you can see in it.",
@@ -501,7 +509,8 @@ function ladderScreen(){
 function zhangScreen(){
   return `<div class="card"><h2 class="rd">Your turn: Zhang Qian</h2>
     <img class="src" src="${IMG_B}" alt="${esc(ALT_B)}"><p class="cap rd">${esc(CAP_B)}</p>
-    <h3 class="rd" style="margin-top:16px">Zhang Qian: what you need to know</h3>${factList(ZHANG.map(t => ["", t]))}</div>`;
+    <h3 class="rd" style="margin-top:16px">Zhang Qian: what you need to know</h3>${factList(ZHANG.map(t => ["", t]))}
+    <h3 class="rd" style="margin-top:16px">Why did the emperor want the statues' names?</h3>${factList(STATUES.map(t => ["", t]))}</div>`;
 }
 
 /* ---------- page 4: write ---------- */
