@@ -550,6 +550,20 @@ let VIEWS = [];
 let textFull  = false;        // a source with a short version opens on it
 let textPlain = true;         // plain English beside the source, when it has some
 
+/* A tall picture in a short column: the plate kept the column's full width,
+   the picture was drawn letterboxed inside it, and the hotspots, which are
+   percentages of the plate, landed beside what they point at. Narrow the plate
+   to the picture's own shape so the two boxes are the same. A wide picture is
+   left alone. */
+function fitPlate(){
+  plate.style.width = ""; plate.style.marginInline = "";
+  if (isText || !SOURCE.ar) return;
+  const [a, b] = String(SOURCE.ar).split("/").map(Number), r = b ? a / b : a;
+  const w = plate.clientWidth, h = plate.clientHeight;
+  if (h && w / h > r + 0.01){ plate.style.width = Math.floor(h * r) + "px"; plate.style.marginInline = "auto"; }
+}
+window.addEventListener("resize", fitPlate);
+
 function mountSource(i){
   srcI   = (i + SRC_LIST.length) % SRC_LIST.length;
   SOURCE = SRC_LIST[srcI];
@@ -559,6 +573,7 @@ function mountSource(i){
 
   plate.classList.toggle("text", isText);
   plate.style.aspectRatio = isText ? "" : SOURCE.ar;
+  requestAnimationFrame(fitPlate);
 
   if (isText){
     /* Each hotspot names a phrase; wrap that phrase in a button wherever it

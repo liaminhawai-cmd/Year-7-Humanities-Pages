@@ -378,6 +378,14 @@ own copy. `history/hannibal/` is a hidden lesson wall (Rome 1.4, why Rome beat
 Hannibal): it is deliberately not in the site map, carries a noindex tag, and is
 opened by its address after students have drafted, so the models are not seen
 first. Keep it out of `tools/build_index_pages.py`.
+`history/cai-lun/` is hidden the same way: the teacher-screen wall for Ancient China
+lesson 2.1, Sources and significance. Students work on paper (the sheet, teacher
+notes and their builder are in the private repository, `curriculum/history/ancient-china/`);
+the teacher shows the Cai Lun ladder here. Its ladder is the paper sheet's page 2
+word for word, so change both together. Zhang Qian, the students' own figure, is
+deliberately not on this site. Three marks match the paper legend: source, significance,
+and the link words, which this copy alone draws as a box (`box:true` in `CRITERIA`, one
+extra clause in the `.m-KEY` style). Keep it out of the generator.
 `history/fall/` is hidden the same way: the Rome rehearsal task, why the Western
 Roman Empire fell, with its own worksheet in the private repository. It rehearses
 the CAT's chronology and cause and effect rows on different events from the CAT
@@ -431,6 +439,12 @@ same change, verify the diff is identical across files before you write it, and
 say in the commit which files got it. There is no generator for this file yet;
 until there is, treat "the same edit in five places" as the job, not a shortcut
 you can take on one file and forget.
+
+`fitPlate()` (November 2026) is shared machinery in every copy: a tall picture in the
+short source column used to be drawn letterboxed inside a wider plate, so the hotspots,
+which are percentages of the plate, sat beside what they pointed at. It narrows the plate
+to the picture's shape and does nothing to a wide picture. Measured at 1024, 1366 and
+1920 wide on every wall.
 
 The five copies are not identical. Check which axis they differ on before you
 patch. The **source panel** is now the same in all five: a
