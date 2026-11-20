@@ -382,8 +382,15 @@ first. Keep it out of `tools/build_index_pages.py`.
 lesson 2.1, Sources and significance. Students work on paper (the sheet, teacher
 notes and their builder are in the private repository, `curriculum/history/ancient-china/`);
 the teacher shows the Cai Lun ladder here. Its ladder is the paper sheet's page 2
-word for word, so change both together. Zhang Qian, the students' own figure, is
-deliberately not on this site. Three marks match the paper legend: source, significance,
+word for word, so change both together. Zhang Qian, the students' own figure, has no
+worked example anywhere on this site. `accessible.html` in the same folder is the whole
+lesson online for a student who works better on a device, built like the accessible Rome
+CAT (Big buttons, Read to me, Voice typing, zoom, backgrounds, saved as typed) with its
+full-screen lock but no password, at the teacher's request: leaving full screen or the page
+covers the lesson until the student goes back, and every exit is logged in the printout
+and the class-sheet row. It reads the ladder from `content.js`, so it cannot drift from the
+wall. Students mark their own paragraph (source, significance, link) and choose their
+own level; nothing judges the writing. `accessible-standalone.html` is the USB copy. Three marks match the paper legend: source, significance,
 and the link words, which this copy alone draws as a box (`box:true` in `CRITERIA`, one
 extra clause in the `.m-KEY` style). Keep it out of the generator.
 `history/fall/` is hidden the same way: the Rome rehearsal task, why the Western

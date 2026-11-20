@@ -17,7 +17,13 @@ while the records say Cai Lun used bark, hemp, rags and nets. The wall and the
 paper sheet use that gap as the point of the lesson. The title is not repeated
 on any page.
 
+`zhang-qian-mural.jpg` is Source B for the students' own paragraph, used only by
+`accessible.html`: a mural in Cave 323 of the Mogao Caves, Tang dynasty, 700s CE,
+Wikimedia Commons "Zhang Qian.jpg" (980x610, tagged public domain, reproduced from
+Whitfield and others, Cave Temples of Mogao, Getty 2000). No worked example for
+Zhang Qian is on this site.
+
 The wall is hidden: not in `tools/build_index_pages.py`, noindex, opened by its
 address. Students write on paper (Ancient China lesson 2.1, in the private
-repository); the teacher shows this ladder on the screen. The students' own
-figure, Zhang Qian, is deliberately not on this site.
+repository); the teacher shows this ladder on the screen. The accessible
+online version of the lesson, `accessible.html`, is hidden the same way.
