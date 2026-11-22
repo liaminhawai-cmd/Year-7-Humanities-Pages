@@ -7,8 +7,7 @@ by its address.
 ## Source 1: Michael Loewe
 
 A short extract (about 70 words) from Michael Loewe, *Everyday Life in Early
-Imperial China* (1968), quoted exactly as it appears in the 2.3 OneNote lesson,
-which spells the name "Lowe". The book is in copyright; the extract is a short
+Imperial China* (1968), quoted exactly as it appears in the 2.3 OneNote lesson. The book is in copyright; the extract is a short
 quotation inside original teaching material, attributed, on a hidden page. The
 same extract is Task 1, Source 2 of the Source Analysis Booklet; the teacher
 chose to use it here knowing that.
