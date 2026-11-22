@@ -404,7 +404,7 @@ function showLock(what){
   if (A.step === 0 || !$("lock").hidden) return;
   stopReading(); stopMic();
   if (Date.now() > graceUntil) logIt(what);
-  $("lockH").textContent = what === "Left the page" ? "You left the page" : "You left full screen";
+  $("lockH").textContent = what === "Left the page" ? "You left the page" : what === "Left the window" ? "You switched away" : "You left full screen";
   $("lock").hidden = false; $("lockBack").focus();
 }
 $("lockBack").onclick = () => {
@@ -413,6 +413,11 @@ $("lockBack").onclick = () => {
 };
 document.addEventListener("fullscreenchange", () => { if (FS && !document.fullscreenElement) showLock("Left full screen"); });
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") showLock("Left the page"); });
+/* Alt+Tab leaves the page visible and in full screen, so watch focus as well. A click
+   into the video or the vocab hub also blurs the window, but document.hasFocus() stays
+   true; and once focus is inside a frame the page gets no second blur, so check each second. */
+window.addEventListener("blur", () => setTimeout(() => { if (!document.hasFocus() && Date.now() > graceUntil) showLock("Left the window"); }, 200));
+setInterval(() => { if (document.visibilityState === "visible" && !document.hasFocus() && Date.now() > graceUntil) showLock("Left the window"); }, 1000);
 const exits = () => (A.log || []).length;
 const logLines = () => (A.log || []).map(x => new Date(x.t).toLocaleString("en-AU", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" }) + ": " + x.what);
 $("back").onclick = () => { if (steady()) go(A.step - 1); };

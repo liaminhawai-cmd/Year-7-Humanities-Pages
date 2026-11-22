@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>2.3 Daily life in Ancient China</title>
+<!--
+  Ancient China lesson 2.3, Daily life, as a full-screen module for a work-from-home
+  day. Hidden: not in the site map, opened by its address. It follows the 2.3 OneNote
+  lesson plan: Engage (the video and its questions), Discover and develop (the
+  readings and the ruling-class and working-class table), and the two sources with
+  their questions (Source 1, Michael Loewe; Source 2, the Shang charioteer).
+
+  What the teacher asked for, and where it lives in the code:
+  - full-screen lock with no password, as in the accessible 2.1 page: leaving full
+    screen or the page covers the module until the student goes back; every exit is
+    logged in the report (LOCK)
+  - Words: the vocab hub's lesson 2.3, inside the module (WORDS)
+  - the video embedded, with its questions after it; two wrong answers in a row
+    sends the student back to question 1, at the teacher's request, against the
+    house "never wipe earned progress" rule (VIDEO). First tries are kept for the report
+  - a little spaced repetition: two "Remember?" checks later in the module re-ask
+    what was missed (REMEMBER)
+  - the readings as slides, free to move back and forth, at Year 6, 7 or 8 level:
+    Year 7 is the lesson plan's text; the other two keep the same facts (READ)
+  - big ideas (Buddhism and others) open a box with more (CONCEPTS)
+  - each source answered blind, then checked against Level 5, 6, 7, 8 and an
+    optional 9 checklist, one level at a time: a tick needs a highlight showing
+    where; "not yet" lets the student add it (recorded as added after seeing the
+    list) or skip (SOURCES)
+  - any word from the China vocab hub opens its card: parts and meaning if the
+    student has built it there, otherwise a prompt to go and build it (HUB_WORDS,
+    generated from the hub into vocab-data.js)
+  - a report with advice and links back to lessons and resources (REPORT)
+
+  Honest interface: the video questions are marked by the page; the table, the
+  source answers and the checklist ticks are the student's own and are never
+  judged here. The report says which is which.
+
+  Saved on this device as it is typed (china23.module.v1).
+-->
+<style>
+  :root{ --bg:#f6f1e7; --paper:#fffdf8; --ink:#1f2a2e; --muted:#5b6669; --line:#d9cfbd; --sel:#1d3b4a; --selbg:#dce9ee;
+         --yes:#1f6b3a; --yesbg:#e3f2e7; --no:#9b2c1f; --nobg:#fbeae6; --gold:#8a6d1e; --focus:#2c7488; --hl:#ffe58a; --add:#d7ecff }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:var(--bg);color:var(--ink);font:19px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden}
+  button,input,textarea,select{font:inherit;color:inherit}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+  [hidden]{display:none!important}
+  .top{background:var(--sel);color:#fbf7ee;padding:8px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .top .t{font:700 19px/1.2 Georgia,serif;margin-right:6px}
+  .strip{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+  .strip button{min-height:42px;border:2px solid rgba(251,247,238,.4);border-radius:10px;background:transparent;color:#fbf7ee;font-weight:800;font-size:15px;cursor:pointer;padding:2px 10px}
+  .strip button[aria-current="true"]{background:#fbf7ee;color:var(--sel);border-color:#fbf7ee}
+  .strip button.ok::after{content:" ✓"}
+  .lvls{display:flex;gap:4px;align-items:center;font-size:14px}
+  .lvls button{min-height:38px;border:2px solid rgba(251,247,238,.4);border-radius:8px;background:transparent;color:#fbf7ee;font-weight:700;font-size:14px;cursor:pointer;padding:0 8px}
+  .lvls button[aria-pressed="true"]{background:#ffd36b;color:#1d3b4a;border-color:#ffd36b}
+  main{overflow:auto;padding:16px}
+  .wrap{max-width:1180px;margin:0 auto}
+  .task{font:700 14px/1.2 system-ui,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);margin:0 0 4px}
+  h1{font:700 30px/1.25 Georgia,serif;margin:0 0 10px} h2{font:700 24px/1.3 Georgia,serif;margin:0 0 10px} h3{font-size:19px;margin:0 0 8px}
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:16px 20px;margin:0 0 14px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .big{min-height:46px;padding:6px 16px;border:3px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;font-weight:700;text-align:left}
+  .big:disabled{opacity:.5;cursor:default}
+  .big[aria-pressed="true"]{border-color:var(--sel);background:var(--selbg)}
+  .go{background:var(--sel)!important;border-color:var(--sel)!important;color:#fff}
+  .note{color:var(--muted);font-size:16px;margin:6px 0 0}
+  textarea{width:100%;min-height:120px;font-size:18px;line-height:1.5;padding:10px 12px;border:3px solid var(--line);border-radius:12px;background:#fff;resize:vertical}
+  input[type=text]{min-height:46px;padding:8px 12px;border:3px solid var(--line);border-radius:12px;background:#fff;width:min(420px,100%)}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+  .bottom{background:var(--paper);border-top:2px solid var(--line);padding:8px 16px;display:flex;gap:10px;justify-content:space-between;align-items:center}
+  .bottom .big{min-width:130px;text-align:center}
+  /* video */
+  .vid{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+  .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .opts{display:grid;gap:10px;margin:10px 0 0}
+  .opts .big{font-weight:600}
+  .fb{border-radius:12px;padding:10px 14px;margin:12px 0 0;font-weight:600}
+  .fb.yes{background:var(--yesbg);border-left:6px solid var(--yes)}
+  .fb.no{background:var(--nobg);border-left:6px solid var(--no)}
+  .dots{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+  .dots span{width:30px;height:30px;border-radius:999px;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;background:#fff}
+  .dots span.ok{background:var(--yes);border-color:var(--yes);color:#fff}
+  .dots span.now{border-color:var(--sel);border-width:3px}
+  /* reading slides */
+  .slide p{font-size:19px;margin:0 0 10px}
+  .slidenav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+  .slidenav button{min-height:40px;border:2px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:700;font-size:15px;padding:0 10px}
+  .slidenav button[aria-current="true"]{border-color:var(--sel);background:var(--selbg)}
+  .slidenav button.ok::after{content:" ✓"}
+  .concept{border:0;background:none;padding:0;color:#1d5c7a;font:inherit;font-weight:700;text-decoration:underline dotted 2px;text-underline-offset:3px;cursor:pointer}
+  .concept::after{content:" ⊕";font-size:.8em}
+  .cbox{background:#eef5f8;border-left:6px solid #1d5c7a;border-radius:8px;padding:10px 14px;margin:8px 0 12px;font-size:17px}
+  .vw{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;border-bottom:2px dotted #8a6d1e}
+  .tbl{width:100%;border-collapse:collapse}
+  .tbl th,.tbl td{border:2px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  .tbl th{background:#efe8da}
+  .model{background:#f1f6ef;border-left:6px solid var(--yes);border-radius:8px;padding:8px 12px;margin:10px 0 0;font-size:17px}
+  /* sources */
+  .srcimg{width:100%;border-radius:12px;border:2px solid var(--line);display:block}
+  .quote{background:#fff;border:2px solid #8aa9b8;border-radius:12px;padding:12px 16px;font-size:18px}
+  .cap{font-size:15px;color:var(--muted);margin:6px 0 0}
+  .ans{background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 10px;white-space:pre-wrap;font-size:17px;line-height:1.6}
+  .ans mark{background:var(--hl);border-radius:3px;padding:0 1px}
+  .ans .added{background:var(--add);border-radius:3px;padding:0 2px}
+  .ckl{list-style:none;padding:0;margin:8px 0 0}
+  .ckl li{border:2px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 10px;background:#fff}
+  .ckl li.got{border-color:var(--yes);background:var(--yesbg)}
+  .ckl li.addd{border-color:#2f6aa3;background:#e8f1fb}
+  .ckl li.skip{border-color:#b39a5a;background:#fbf5e4}
+  .ckl .it{font-weight:700}
+  .lvlbar{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+  .lvlbar span{padding:4px 10px;border-radius:999px;border:2px solid var(--line);font-weight:800;font-size:14px;background:#fff}
+  .lvlbar span.done{background:var(--yes);border-color:var(--yes);color:#fff}
+  .lvlbar span.now{border-color:var(--sel);background:var(--selbg)}
+  .rub{font-size:15px;background:#fffbe6;border-left:5px solid var(--gold);padding:6px 10px;border-radius:6px;margin:0 0 8px}
+  /* hub */
+  .hubframe{width:100%;height:calc(100vh - 230px);min-height:420px;border:2px solid var(--line);border-radius:12px;background:#fff}
+  /* word card */
+  #wcard{position:fixed;inset:0;background:rgba(20,30,35,.45);display:grid;place-items:center;z-index:40;padding:16px}
+  #wcard .card{max-width:520px;width:100%;margin:0}
+  .tiles{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .tiles span{border:2px solid #8a6d1e;border-radius:10px;padding:4px 10px;background:#fff7e0;font-weight:700}
+  .tiles span small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+  /* report */
+  .rep h3{margin-top:14px}
+  .rep li{margin:4px 0}
+  .tag{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:1px 8px;margin-right:6px}
+  .tag.y{background:var(--yes);color:#fff} .tag.a{background:#2f6aa3;color:#fff} .tag.s{background:#b39a5a;color:#fff}
+  #print{display:none}
+  /* lock */
+  #lock{position:fixed;inset:0;z-index:50;background:var(--sel);color:#fbf7ee;display:grid;place-items:center;padding:24px;text-align:center}
+  #lock h2{font-size:32px} #lock p{font-size:19px;max-width:34em;margin:0 auto 18px}
+  #lock .big{background:#fbf7ee;color:var(--sel);border-color:#fbf7ee;min-height:66px;font-size:22px;text-align:center}
+  @media screen and (max-width:860px){ .two{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+  @media print{ @page{size:A4;margin:14mm} body{display:block;overflow:visible;background:#fff;font-size:11pt} .top,main,.bottom,#lock,#wcard{display:none!important} #print{display:block}
+    #print h1{font-size:17pt} #print h2{font-size:13pt;margin:10pt 0 4pt} #print p,#print li{margin:2pt 0} #print .ans{border:1px solid #999;font-size:10pt} }
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="t">2.3 Daily life</span>
+  <nav class="strip" id="strip" aria-label="Steps"></nav>
+  <div class="lvls" role="group" aria-label="Reading level"><span>Reading:</span>
+    <button type="button" data-yr="6">Year 6</button><button type="button" data-yr="7">Year 7</button><button type="button" data-yr="8">Year 8</button></div>
+</header>
+<main><div class="wrap" id="screen"></div></main>
+<footer class="bottom">
+  <button type="button" class="big" id="back">← Back</button>
+  <span class="note" id="saved">Saved on this device</span>
+  <button type="button" class="big go" id="next">Next →</button>
+</footer>
+<div id="print"></div>
+<div id="wcard" hidden role="dialog" aria-modal="true" aria-labelledby="wcH"><div class="card" id="wcBody"></div></div>
+<div id="lock" hidden role="alertdialog" aria-modal="true" aria-labelledby="lockH">
+  <div><h2 id="lockH">You left full screen</h2>
+  <p>Your work is saved. Leaving full screen is written in your report, and your teacher sees it.</p>
+  <button type="button" class="big" id="lockBack">Back to full screen</button></div>
+</div>
+
+<script src="vocab-data.js"></script>
+<script>
+"use strict";
+/* =======================================================================
+   CONTENT. Year 7 reading text is the 2.3 OneNote lesson plan, word for word
+   (one slip fixed: "a women" is "a woman"). Years 6 and 8 keep the same facts.
+   ======================================================================= */
+const SITE = "../";                       // the history folder of the class site
+const HUB = id => SITE + "china/vocab-hub.html#" + id;
+const RES = {
+  hub21:["Vocab hub 2.1: primary and secondary sources", HUB("2.1")],
+  hub23:["Vocab hub 2.3: daily life words", HUB("2.3")],
+  hub24:["Vocab hub 2.4: Confucianism, Taoism, Buddhism", HUB("2.4")],
+  hub25:["Vocab hub 2.5: origin, purpose, evidence", HUB("2.5")],
+  cai:["Cai Lun bump it up: joining a source to what it shows", SITE + "cai-lun/bump-it-up.html"],
+  aus:["Ancient Australia bump it up: the four parts of source analysis", SITE + "batman/bump-it-up.html"]
+};
+const VIDEO = { id:"QO8o3oYuB8I", title:"Interesting Facts about Daily Life in Ancient China for kids" };
+const at = s => `https://youtu.be/${VIDEO.id}?t=${s}`;
+const mmss = s => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+
+/* The lesson plan's video questions, as answers the page can mark. Options are written so
+   the right one is not the longest; the last question is the student's own and is not marked. */
+const VQ = [
+  { id:"v1", q:"What was life like for most farmers?", t:7, topic:"farmers",
+    a:"Tough and difficult, with most work done by hand",
+    opts:["Easy, as animals did the work", "Tough and difficult, with most work done by hand", "Comfortable, because farmers were the richest people in a village", "Short and simple, because farmers only worked during the summer"],
+    why:"The video calls farmers' lives tough and difficult. They had ploughs and some animals, but most work was done by hand." },
+  { id:"v2", q:"What else did farmers owe the government?", t:49, topic:"farmers",
+    a:"About a month of work each year, and part of their crops",
+    opts:["A share of their silk every spring, but never any of their work", "About a month of work each year, and part of their crops", "Nothing at all, because farmers were the most respected class", "Ten years in the army before they were allowed to farm"],
+    why:"Farmers worked for the government for about a month a year (in the army, or building canals, palaces and walls) and paid tax as a share of their crops." },
+  { id:"v3", q:"In the north of China, the main crop was…", t:74, topic:"food",
+    a:"millet", opts:["rice", "millet", "wheat", "tea"],
+    why:"North and south grew different grains: millet in the north, rice in the south." },
+  { id:"v4", q:"In the south of China, the main crop was…", t:74, topic:"food",
+    a:"rice", opts:["millet", "tea", "rice", "soybeans"],
+    why:"Rice grew in the wet south, and later became the main food for much of the country." },
+  { id:"v5", q:"Who ruled the Chinese family?", t:129, topic:"family",
+    a:"The father of the house", opts:["The eldest daughter", "The father of the house", "The leader of the village", "The youngest son"],
+    why:"The father ruled the house. His wife and children had to obey him in all things." },
+  { id:"v6", q:"Who went to school in Ancient China?", t:185, topic:"school",
+    a:"Only boys from wealthy families", opts:["Every child aged six and up", "Boys and girls from every social class", "Only boys from wealthy families", "Only girls from farming families"],
+    why:"Only wealthy boys went to school, to learn calligraphy, Confucius and poetry, skills for officials." },
+  { id:"v7", q:"What does the video say about women's lives?", t:199, topic:"women",
+    a:"They were seen as less valuable than men",
+    opts:["They ruled the house", "They were seen as less valuable than men", "They chose who they married, as long as he was rich", "They went to school with their brothers until they married"],
+    why:"Women were considered much less valuable than men, and had no say in who they married." },
+  { id:"v8", q:"Which group does the video call the lowest class of workers?", t:227, topic:"classes",
+    a:"Merchants", opts:["Farmers", "Merchants", "Craftsmen", "Scholars"],
+    why:"Merchants were the lowest class: they could not wear silk or ride in carriages. Farmers were respected for growing food." }
+];
+const VQ_OWN = { id:"vown", q:"Write down one interesting fact you learned from the video." };
+
+/* The readings, one slide per row of the table. */
+const READ = [
+ { id:"life", title:"Life for the working class", row:"Everyday life", t:{
+   6:"Most people in Ancient China were peasant farmers. Life was hard. They worked long hours every day, and most of the work was done by hand. In towns and cities, a son learned his father's craft and took over the job when his father died.",
+   7:"The vast majority of Chinese people were peasant farmers for whom life was a constant struggle to survive. They worked long hours every day and most of their work was done by hand. In towns and cities crafts were usually hereditary, with sons learning from their fathers and taking their places when they died.",
+   8:"The vast majority of Chinese people were peasant farmers, and for them life was a constant struggle to survive. They worked long hours, mostly by hand, and owed the government a share of their crops as tax and about a month of labour each year, in the army or on building projects. In towns and cities crafts were usually hereditary: sons learned the trade from their fathers and took their places when they died, so a family's work passed down the generations." } },
+ { id:"family", title:"Family", row:"Family", t:{
+   6:"Only boys from rich families went to school, and most of them lived in cities. The father was in charge of the family. Children learned from a young age to respect older people, especially older relatives. Grandparents, parents and children often all lived in the same house. Women had to obey men, and girls were seen as less valuable than boys.",
+   7:"Only the sons of wealthy families, living mostly in cities, were formally schooled. The father was the master of the house in Chinese families, and the children were taught from an early age that respect for their elders, particularly elder relatives, was key. It was common for three generations of a family to live together in the same dwelling, sometimes more. The eldest male was dominant; women were considered subservient to men, and daughters considered less valuable to the family than sons.",
+   8:"Only the sons of wealthy families, most of them in the cities, received formal schooling, where they studied calligraphy, poetry and the teachings of Confucius. The father was master of the house, and children were taught from an early age that respect for their elders, especially elder relatives, was essential. That respect continued after death, through prayers and offerings to ancestors. Three generations, sometimes more, commonly shared one dwelling. The eldest male was dominant; women were expected to be subservient to men, and daughters were valued less than sons." } },
+ { id:"women", title:"Women", row:"Women", t:{
+   6:"Women from every class were seen as less important than men. They looked after the home and the children. In farming families they worked in the fields too. A girl's father chose who she would marry. A married woman had to obey her husband's family. She was respected more if she had sons. If she had no sons, her husband might take another wife.",
+   7:"Regardless of social class women were considered inferior to men. Women were expected to look after the household and children. In peasant families, they often worked in the fields as well. Their fathers arranged their marriages. Married women had to obey their husband's family, but gained more respect if they produced sons. If a woman failed to give birth to sons, their husband might take other wives.",
+   8:"Regardless of social class, women were considered inferior to men, a belief supported by Confucian ideas about order in the family. Women were expected to run the household and raise the children, and in peasant families they also worked in the fields. Marriages were arranged by fathers, and a married woman joined, and had to obey, her husband's family. Her status rose if she gave birth to sons, who would continue the family line and care for the ancestors; if she had none, her husband might take other wives." } },
+ { id:"religion", title:"Religion", row:"Religion", t:{
+   6:"Three sets of beliefs shaped life in Ancient China: Confucianism, Taoism and Buddhism. They are called the \"three pillars\". They changed how people thought about the spirit world, and also how the country was run, as well as science, art and the way society was organised. They sometimes disagreed, but they also shared many ideas.",
+   7:"Confucianism, Taoism, and Buddhism are considered the \"three pillars\" of ancient Chinese society. As philosophies and religions, they not only influenced spirituality, but also government, science, the arts, and social structure. Though their specific beliefs and teachings have occasionally been at odds with each other, there has been much room for overlap.",
+   8:"Confucianism, Taoism and Buddhism are considered the \"three pillars\" of ancient Chinese society. Confucianism and Taoism grew in China during the Zhou dynasty; Buddhism arrived later from India, along the Silk Road. As philosophies and religions they shaped not only spiritual life but government, science, the arts and the social order. Their teachings sometimes clashed, yet there was much overlap, and many people followed more than one." } },
+ { id:"fun", title:"Entertainment", row:"Entertainment", t:{
+   6:"Working families had very little time or money for fun, except at festivals now and then. Rich families had much more. In the Zhou dynasty, acting, music and dance were mixed together to tell famous stories, the start of Chinese opera. People played board games from about 500 BCE. From the Qin dynasty, acrobatics were popular too.",
+   7:"For the working class there was very little time or money for any kind of entertainment, apart from occasional festivals. In contrast, for the ruling classes, and some wealthy merchants, several forms of entertainment were available. During the Zhou dynasty acting, music and dance were combined into Chinese opera, in which famous legends were performed. There were a variety of board games from 500BCE. From the time of the Qin dynasty, acrobatics became another popular form of entertainment.",
+   8:"For the working class there was very little time or money for entertainment apart from occasional festivals. The ruling classes, and some wealthy merchants, could afford far more. During the Zhou dynasty, acting, music and dance were combined in performances of famous legends, early forms of what became Chinese opera. Board games were played from about 500 BCE, and from the Qin dynasty acrobatics became a popular spectacle. Much of what we know comes from what the wealthy left behind, such as carvings in their tombs." } },
+ { id:"death", title:"Death and burials", row:"Death and burials", t:{
+   6:"We know very little about how poor people were buried. We know much more about rich people's funerals, because they could pay for big tombs. A rich family might ask Taoist and Buddhist priests and Confucian scholars to help at a funeral. From about 5000 BCE, rich people were buried with things like food and drink, so they would have them in the afterlife. The famous Terracotta Warriors were buried to guard the tomb of China's first emperor, Qin Shi Huang.",
+   7:"There is little information available about death among the poor. However, the funeral customs of the ruling classes we know a lot about. They could afford elaborate tombs. A rich family might employ Taoist and Buddhist priests and Confucian scholars to play a role at the funeral. From about 5000BCE it was the custom of the ruling classes to bury goods, including food and drink with the dead so they would have them in the after life. The famous Terracotta warriors were buried to guard the tomb of China's first emperor Qin Shihuang.",
+   8:"Little information survives about death among the poor, but the funeral customs of the ruling classes are well known, because they could afford elaborate tombs that archaeologists have excavated. A rich family might employ Taoist and Buddhist priests and Confucian scholars to take part in a funeral. From about 5000 BCE the ruling classes buried goods, including food and drink, with the dead so that they would have them in the afterlife. In the Shang dynasty some kings were buried with chariots, horses and even people. The Terracotta Warriors, thousands of life-size clay soldiers, were buried to guard the tomb of China's first emperor, Qin Shi Huang." } }
+];
+/* The table's model answers: the teacher's 2.3 answers for the first three rows; the
+   last three are written from the reading. Shown only after the student has written both cells. */
+const MODEL = {
+  life:["Lived comfortably; did not do manual labour.", "Peasant farmers; long hours of hard work by hand."],
+  family:["Sons received formal schooling; large multi-generation households.", "No formal schooling; sons inherited crafts from fathers."],
+  women:["Still considered inferior, but had servants; respected if they produced sons.", "Worked in the fields and at home; obeyed the husband's family; arranged marriages."],
+  religion:["Shaped by the three pillars; could pay Taoist and Buddhist priests and Confucian scholars.", "Shaped by the same three pillars: respect for elders, family and ancestors."],
+  fun:["Opera, music and dance, board games and acrobatics.", "Very little time or money; occasional festivals."],
+  death:["Elaborate tombs; priests and scholars at funerals; goods buried for the afterlife.", "Little is known: they could not afford tombs that last."]
+};
+/* Big ideas: a box opens under the paragraph. Match is the text that becomes the button. */
+const CONCEPTS = [
+  { k:"Confucianism", m:/Confucianism|Confucian scholars|teachings of Confucius/, t:"The teachings of Confucius (551 to 479 BCE): good conduct, duty to your family, respect for elders, and rulers who lead by example. His followers wrote down his sayings in a book called The Analects. Lesson 2.4 goes further." },
+  { k:"Taoism", m:/Taoism|Taoist/, t:"Taoism (also spelled Daoism) is based on the Tao, \"the way\": living simply and in harmony with nature, without forcing things. It is traditionally traced back to a thinker called Laozi." },
+  { k:"Buddhism", m:/Buddhism|Buddhist/, t:"Buddhism began in India with the Buddha, about 2,500 years ago. It teaches that suffering comes from desire, and that a person can escape the cycle of being born again by reaching nirvana, a state of peace. It reached China along the Silk Road in about the 1st century CE." },
+  { k:"three pillars", m:/three pillars/, t:"A pillar holds up a building. Confucianism, Taoism and Buddhism are called pillars because all three held up Chinese society together, and many people followed more than one." },
+  { k:"hereditary", m:/hereditary/, t:"Passed down from parent to child. A hereditary craft is a trade, such as making pots or metalwork, that a son learned from his father and took over." },
+  { k:"Chinese opera", m:/Chinese opera/, t:"Theatre that mixes singing, music, acting, dance and acrobatics to tell famous stories. The opera people know today grew over many centuries, much later than the Zhou dynasty." },
+  { k:"acrobatics", m:/acrobatics/, t:"Balancing, tumbling and juggling. Carvings in Han dynasty tombs show acrobats performing at feasts for rich families." },
+  { k:"afterlife", m:/after ?life/, t:"The life many people believed came after death. Food, drink and goods were buried in tombs for the dead to use there." },
+  { k:"Terracotta Warriors", m:/Terracotta [Ww]arriors/, t:"Thousands of life-size clay soldiers, with horses and chariots, buried near the tomb of Qin Shi Huang, who died in 210 BCE. Farmers digging a well found them in 1974." },
+  { k:"Zhou dynasty", m:/Zhou dynasty/, t:"China's longest-ruling dynasty, about 1046 to 256 BCE. Confucius lived in its later years, a time of wars between states." },
+  { k:"Qin dynasty", m:/Qin dynasty/, t:"221 to 206 BCE: the dynasty of Qin Shi Huang, the first emperor to unite China. Short, but it changed China for good." },
+  { k:"Shang dynasty", m:/Shang dynasty/, t:"About 1600 to 1046 BCE. The first Chinese dynasty whose writing survives, on oracle bones. Its last capital was near Anyang, where the chariot pits were found." }
+];
+
+/* The two sources, their questions (from the lesson plan), and the checklists.
+   A checklist item is something a student can point at in their own answer.
+   Level 5 sits below the rubric, which starts at Level 6. */
+const RUB1 = { 6:"I can identify different types of historical sources.", 7:"I can identify the origin, content features and purpose of historical sources.",
+  8:"I can describe the origin, content features and purpose of historical sources.", 9:"I can explain the origin, content features and purpose of historical sources." };
+const SOURCES = [
+ { id:"lowe", title:"Source 1", head:"From Michael Loewe, Everyday Life in Early Imperial China", kind:"text",
+   text:"… evidence in the form of reliefs [sculptures] that decorated a tomb illustrates the type of entertainment that rich families could afford to stage, right at the end of the Han period. There was dancing and sword-play, juggling and acrobatic feats, accompanied by skilled players with their drums and bells, their wind and stringed instruments; and we know of other forms of amusements … such as cock-fighting, dog or horse racing and bird hunting.",
+   cite:"Quoted as it appears in the 2.3 lesson, which spells his name Lowe. Michael Loewe, Everyday Life in Early Imperial China (1968), a historian's book. … shows where words are left out.",
+   qs:[ "How do we know about the entertainment of the ruling classes? What does the source reveal about everyday life in Ancient China?",
+        "What does the source reveal about everyday life for the ruling classes in Ancient China?",
+        "Why would it be more difficult to find evidence for the entertainments of the common people?" ],
+   levels:{
+    5:[ { id:"l5a", t:"I said what the source is about: entertainment.", adv:"Start with the topic. One sentence saying what the source is about gives everything after it something to hang on.", res:[] },
+        { id:"l5b", t:"I named at least one kind of entertainment from the source.", adv:"Use the source's own examples: dancing, sword-play, juggling, music, cock-fighting, racing. Evidence means words from the source.", res:[] } ],
+    6:[ { id:"l6a", t:"I said whether Source 1 is a primary or a secondary source.", adv:"Every source analysis starts by saying what type of source it is. A historian writing about the past is a secondary source.", res:["hub21"] },
+        { id:"l6b", t:"I gave a reason: it was written by a modern historian, long after the Han period.", adv:"Back the type up with a reason: who made it, and when, compared with the events.", res:["hub21"] } ],
+    7:[ { id:"l7a", t:"I named the origin: Michael Loewe, a historian, in his book.", adv:"Origin is who made a source, when and where. Name the author and say what he is.", res:["hub25", "aus"] },
+        { id:"l7b", t:"I named the evidence he used: carvings (reliefs) that decorated a tomb.", adv:"Look for how the historian knows. Loewe tells you: the reliefs in a tomb. That is the answer to \"how do we know?\"", res:["aus"] },
+        { id:"l7c", t:"I said when the carvings are from: the end of the Han period.", adv:"Put the evidence in time. The source says \"right at the end of the Han period\".", res:[] },
+        { id:"l7d", t:"I said the purpose: to explain everyday life in early imperial China.", adv:"Purpose is why a source was made. The book's title tells you what Loewe set out to do.", res:["hub25"] } ],
+    8:[ { id:"l8a", t:"I described what it reveals about the ruling classes: they had the money and time to pay performers.", adv:"Go past listing. Say what the list shows: only the rich could afford to stage all this.", res:["cai"] },
+        { id:"l8b", t:"I described why the common people left less evidence: no decorated tombs, little time or money for fun.", adv:"Ask who could afford the evidence. Working families had no carved tombs, and little time or money for entertainment.", res:[] },
+        { id:"l8c", t:"I used link words to join the source to my point (this shows that, so, because).", adv:"Join what the source says to what it means. The Cai Lun bump it up shows the link words at every level.", res:["cai"] } ],
+    9:[ { id:"l9a", t:"I explained a limit: tomb carvings show what rich families chose to show for the afterlife, not always everyday life as it was.", adv:"A Level 9 answer asks what the evidence was made for. Tomb art was made for the dead and for show.", res:["aus"] },
+        { id:"l9b", t:"I explained whose lives get recorded: tombs and records were made by and for the wealthy, so evidence about the poor is rare.", adv:"Turn the gap into the answer: the missing evidence about the poor is itself evidence of who had power.", res:[] } ] } },
+ { id:"chariot", title:"Source 2", head:"The skeleton of a Shang dynasty charioteer and the remains of his chariot", kind:"image",
+   img:"shang-chariot-burial.jpg",
+   alt:"A burial pit with the remains of two large wooden chariot wheels, the chariot's frame between them, and a human skull and skeleton lying in the soil in front.",
+   cite:"Yin Ruins (Yinxu), Anyang, the last Shang capital, about 1250 to 1050 BCE. The museum's label says the chariots are genuine and the skeletons on show are copies. Photo: Gary Todd, CC0, via Wikimedia Commons.",
+   qs:[ "Describe the source.", "Identify the purpose of the source.", "Suggest what it can tell us about practices associated with death in Ancient China." ],
+   levels:{
+    5:[ { id:"c5a", t:"I said what I can see: a chariot with big wheels and a human skeleton.", adv:"Describe before you explain. Say what is in the picture, piece by piece.", res:[] },
+        { id:"c5b", t:"I said it was found in a burial pit (a grave).", adv:"Say where it is. The pit tells you this is a burial.", res:["hub23"] } ],
+    6:[ { id:"c6a", t:"I said it is a primary source: an artefact from the Shang dynasty itself.", adv:"Objects made and buried at the time are primary sources, even when we find them thousands of years later.", res:["hub21"] },
+        { id:"c6b", t:"I gave a reason: it was made and buried at the time, not written about later.", adv:"Back the type up with a reason about when it was made.", res:["hub21"] } ],
+    7:[ { id:"c7a", t:"I named the origin: the Shang dynasty, and where it was found (Yinxu, near Anyang).", adv:"Origin is who, when and where. The caption tells you all three.", res:["hub25"] },
+        { id:"c7b", t:"I described content features: the wheels, the chariot frame, the skeleton lying in front.", adv:"Content features are the things in the source. Name at least three.", res:["aus"] },
+        { id:"c7c", t:"I identified its purpose: buried with someone important to serve them in the afterlife.", adv:"Purpose: why would anyone bury a chariot and its driver? Think about the afterlife.", res:["hub23", "hub25"] } ],
+    8:[ { id:"c8a", t:"I described what it tells us about death practices: people believed in an afterlife and buried what the dead would need there.", adv:"Join the object to the belief behind it. The reading on death and burials gives you the custom.", res:["hub23"] },
+        { id:"c8b", t:"I described what it shows about power: only rulers could afford to bury a chariot, horses and even a person.", adv:"Ask who could do this. A chariot was costly; burying one, with its driver, shows great wealth and power.", res:[] },
+        { id:"c8c", t:"I used link words to join what I see to what it tells us (this suggests, so, which shows).", adv:"Join the evidence to the meaning. The Cai Lun bump it up shows the link words at every level.", res:["cai"] } ],
+    9:[ { id:"c9a", t:"I explained a limit: it shows the burials of rulers, not ordinary people.", adv:"Say who is missing. Poor people's burials did not last, so this tells us about the few.", res:[] },
+        { id:"c9b", t:"I questioned the source itself: the museum says the skeleton on show is a copy, so the photo shows a reconstruction.", adv:"Read the caption like a historian. A copy is good evidence for what was found, but it is not the find itself.", res:["aus"] },
+        { id:"c9c", t:"I linked it to the reading: the ruling classes buried goods for the afterlife from about 5000 BCE.", adv:"Bring in your own knowledge. The death and burials reading backs up what the pit suggests.", res:[] } ] } }
+];
+const LEVELS_SA = [5, 6, 7, 8, 9];
+</script>
+<script src="module.js"></script>
+</body>
+</html>

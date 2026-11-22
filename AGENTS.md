@@ -393,6 +393,16 @@ wall. Students mark their own paragraph (source, significance, link) and choose 
 own level; nothing judges the writing. `accessible-standalone.html` is the USB copy. Three marks match the paper legend: source, significance,
 and the link words, which this copy alone draws as a box (`box:true` in `CRITERIA`, one
 extra clause in the `.m-KEY` style). Keep it out of the generator.
+`history/daily-life/` is hidden the same way: Ancient China 2.3 as a full-screen module
+(`module.html`, engine in `module.js`) for a work-from-home day. It follows the 2.3 OneNote
+lesson plan: the hub's lesson 2.3 inside it, the video with marked questions (two wrong in a
+row goes back to question 1, at the teacher's request), readings as slides at Year 6, 7
+(the lesson plan's own text) or 8, concept boxes, the ruling and working classes table,
+and Sources 1 (Loewe) and 2 (the Shang chariot burial) answered blind and then checked
+against Level 5 to 9 checklists, where a tick needs a highlight and an addition is recorded
+as added. Hub words open a card from `vocab-data.js` (generated from the China hub by
+`make-vocab-data.js`; rerun it when the hub changes), reading the hub's saved progress to
+know whether the student has built the word. Same lock as `history/cai-lun/accessible.html`.
 `history/fall/` is hidden the same way: the Rome rehearsal task, why the Western
 Roman Empire fell, with its own worksheet in the private repository. It rehearses
 the CAT's chronology and cause and effect rows on different events from the CAT
@@ -446,6 +456,14 @@ same change, verify the diff is identical across files before you write it, and
 say in the commit which files got it. There is no generator for this file yet;
 until there is, treat "the same edit in five places" as the job, not a shortcut
 you can take on one file and forget.
+
+The full-screen guards watch focus as well as full screen and visibility (November
+2026): students found Alt+Tab left the page visible and still in full screen, so nothing
+noticed. A window blur counts only when `document.hasFocus()` is false, so a click into an
+embedded video or hub does not; the module and the accessible page also check every second,
+because after a click into a frame the page gets no second blur. Patched identically in
+the five vocab hub guards (`assets/vocab-hub.js`, china, batman, vesuvius, water). The
+EAL-Vocabulary-Site `focus-guard.js` it was copied from still has the gap.
 
 `fitPlate()` (November 2026) is shared machinery in every copy: a tall picture in the
 short source column used to be drawn letterboxed inside a wider plate, so the hotspots,

@@ -4029,7 +4029,7 @@ const FG=(function(){
     lines.forEach(t=>{ const p=document.createElement("p"); p.textContent=t; p.style.cssText="margin:0 0 12px"; box.appendChild(p); });
     const b=document.createElement("button"); b.type="button"; b.textContent=label;
     b.style.cssText="min-height:44px;padding:0 20px;font:inherit;font-weight:700;color:#fff;background:#4f46e5;border:0;border-radius:10px;cursor:pointer";
-    b.addEventListener("click",req);
+    b.addEventListener("click",()=>{ if(fsOn()){ wasFs=true; hide(); } else req(); });  /* after Alt+Tab the page may still be fullscreen */
     box.appendChild(b); o.appendChild(box); document.body.appendChild(o); overlay=o; b.focus();
   }
   function strike(){
@@ -4047,6 +4047,9 @@ const FG=(function(){
   document.addEventListener("fullscreenchange",onFs);
   document.addEventListener("webkitfullscreenchange",onFs);
   document.addEventListener("visibilitychange",()=>{ if(active&&wasFs&&document.hidden) strike(); });
+  /* Alt+Tab leaves the page visible and still in fullscreen, so watch focus too.
+     A click into an iframe also blurs the window, but document.hasFocus() stays true. */
+  window.addEventListener("blur",()=>{ setTimeout(()=>{ if(active&&wasFs&&!document.hasFocus()) strike(); },200); });
   return {
     enter(restart){
       restartFn=restart; if(active||!fsOk()) return;
