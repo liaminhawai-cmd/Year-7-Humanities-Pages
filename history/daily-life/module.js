@@ -76,7 +76,8 @@ const lessonTitle = id => (HUB_LESSONS.find(l => l.id === id) || {}).title || ""
 const STOP = new Set(["Change", "Progress", "Development", "Compare", "Contrast", "Conclusion", "Informed", "Evaluate", "Judgement", "Defence", "Symbol",
   "Conflict", "Era", "Reform", "Universal", "Invention", "Achievement", "Sequence", "Convention", "Decade", "Century", "Timeline", "Landform", "Landscape",
   "Accuracy", "Harmony", "Tolerance", "Overthrow", "Successor", "Reign", "Rebellion", "Unify", "Commerce", "Origin", "Purpose", "Context", "Evidence", "Perspective",
-  "Interpretation", "Significance", "Usefulness", "Reliability", "Bias", "Contested", "Legacy", "Philosopher", "Enlightenment"]);
+  "Interpretation", "Significance", "Usefulness", "Reliability", "Bias", "Contested", "Legacy", "Philosopher", "Enlightenment",
+  "BCE", "CE"]);   /* in every date: a card on each one is noise, and sent students off to lesson 1.3 */
 const VWORDS = HUB_WORDS.map((w, i) => ({ i, w })).filter(x => !STOP.has(x.w.w));
 const FORMS = VWORDS.flatMap(x => x.w.f.map(f => ({ f, i:x.i }))).sort((a, b) => b.f.length - a.f.length);
 /* a form, or its plural (merchants, scholars, generations) */
@@ -211,9 +212,10 @@ function wordsScreen(){
 function tameHub(f, id){
   let w, d; try { w = f.contentWindow; d = f.contentDocument; if (!d || typeof w.openLesson !== "function") return; } catch (e) { return; }
   if (!d.getElementById("tame")) { const st = d.createElement("style"); st.id = "tame";
-    st.textContent = ".topnav{display:none!important} #scr-lesson .topbar .linkbtn{visibility:hidden} .container{margin-top:0!important;padding-top:6px!important}"; d.head.appendChild(st); }
+    st.textContent = ".topnav{display:none!important} #scr-lesson .topbar .linkbtn{visibility:hidden} .container{margin-top:0!important;padding-top:6px!important} #ltiers,.tierbar,#review-start{display:none!important}"; d.head.appendChild(st); }
   if (!w.__tamed) { w.__tamed = true; const og = w.go;
-    w.go = function(s){ return ["home", "report", "morphtable", "glossary"].includes(s) ? w.openLesson(id, false) : og.apply(this, arguments); }; }
+    /* the hub's extras (base camp, stretch, quick review) are off inside the module: only this lesson's three steps */
+    w.go = function(s){ return ["home", "report", "morphtable", "glossary", "base", "stretch", "review"].includes(s) ? w.openLesson(id, false) : og.apply(this, arguments); }; }
   if (!w.__opened) { w.__opened = true; w.openLesson(id, false); return; }
   const home = d.getElementById("scr-home"); if (home && home.classList.contains("active")) w.openLesson(id, false);
 }
