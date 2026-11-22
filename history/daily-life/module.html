@@ -33,6 +33,10 @@
     student has built it there, otherwise a prompt to go and build it (HUB_WORDS,
     generated from the hub into vocab-data.js)
   - a report with advice and links back to lessons and resources (REPORT)
+  - accessibility mode, chosen by the student on Start, as in the accessible Rome CAT
+    and the accessible 2.1 page: Big buttons, Read to me (each word lit up, the
+    device's own voice), Voice typing on every writing box, reading speed, background
+    colours, and zoom in the bottom bar (ACCESS). The report names the supports used.
 
   Honest interface: the video questions are marked by the page; the table, the
   source answers and the checklist ticks are the student's own and are never
@@ -132,6 +136,19 @@
   .tag{display:inline-block;font-size:13px;font-weight:800;border-radius:999px;padding:1px 8px;margin-right:6px}
   .tag.y{background:var(--yes);color:#fff} .tag.a{background:#2f6aa3;color:#fff} .tag.s{background:#b39a5a;color:#fff}
   #print{display:none}
+  /* accessibility mode (chosen on Start) */
+  .wrap{zoom:var(--z,1)}
+  body.bigui{font-size:21px} body.bigui .big,body.bigui .strip button,body.bigui .slidenav button{min-height:62px;font-size:20px}
+  body.bigui .opts{gap:16px} body.bigui textarea{font-size:21px} body.bigui .top .t{display:none}
+  body.zbig .two{grid-template-columns:1fr}
+  .zoom{display:flex;gap:8px;align-items:center} .zoom .big{min-width:56px;text-align:center;font-size:20px;padding:2px 10px}
+  .zoom output{font-weight:700;font-size:15px;color:var(--muted);min-width:4.5em;text-align:center}
+  .w.now{background:#ffd54a;color:#1f2a2e;border-radius:4px;box-shadow:0 0 0 2px #ffd54a}
+  .acc{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px} .acc .big{min-height:40px;font-size:16px}
+  .acc-mic[aria-pressed="true"]{background:#9b2c1f!important;border-color:#9b2c1f!important;color:#fff}
+  .heard{font-size:16px;color:var(--muted);margin:0;min-height:1.4em;width:100%}
+  body.noread .acc-read,body.noread #readPage{display:none!important} body.nomic .acc-mic,body.nomic .heard{display:none!important}
+  body.tint-blue{--bg:#e3ebf2;--paper:#f3f7fa} body.tint-yellow{--bg:#f4ecc2;--paper:#fffbe3} body.tint-white{--bg:#fff;--paper:#fff}
   /* lock */
   #lock{position:fixed;inset:0;z-index:50;background:var(--sel);color:#fbf7ee;display:grid;place-items:center;padding:24px;text-align:center}
   #lock h2{font-size:32px} #lock p{font-size:19px;max-width:34em;margin:0 auto 18px}
@@ -152,6 +169,8 @@
 <main><div class="wrap" id="screen"></div></main>
 <footer class="bottom">
   <button type="button" class="big" id="back">← Back</button>
+  <button type="button" class="big" id="readPage" aria-pressed="false">🔊 Read this page</button>
+  <div class="zoom" role="group" aria-label="Zoom"><button type="button" class="big" id="zOut" aria-label="Zoom out">A−</button><output id="zLvl">100%</output><button type="button" class="big" id="zIn" aria-label="Zoom in">A+</button></div>
   <span class="note" id="saved">Saved on this device</span>
   <button type="button" class="big go" id="next">Next →</button>
 </footer>

@@ -8,7 +8,8 @@ const KEY = "china23.module.v1";
 const blankSA = () => ({ orig:["", "", ""], ans:["", "", ""], phase:"write", lvl:5, items:{}, checkedAt:0, finished:false });
 let A = { name:"", yr:7, step:0, started:0, secs:0, log:[], slide:0, hub:"2.3",
           vq:{ order:VQ.map(q => q.id), done:{}, first:{}, streak:0, resets:0, tries:{} }, vown:"",
-          rem:{}, tbl:{}, seen:{}, sa:{ lowe:blankSA(), chariot:blankSA() } };
+          rem:{}, tbl:{}, seen:{}, sa:{ lowe:blankSA(), chariot:blankSA() },
+          sup:{ big:false, read:false, mic:false }, used:{}, zoom:1, tint:"cream", rate:.9 };
 try { const s = JSON.parse(localStorage.getItem(KEY)); if (s) A = Object.assign(A, s); } catch (e) {}
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(A)); $("saved").textContent = "Saved on this device"; } catch (e) { $("saved").textContent = "Not saving: storage is blocked here"; } }
 if (!A.started) { A.started = Date.now(); save(); }
@@ -116,13 +117,14 @@ $("next").onclick = () => { if (steady()) go(A.step + 1); };
 document.querySelectorAll("[data-yr]").forEach(b => b.onclick = () => { A.yr = +b.dataset.yr; A.used = A.used || {}; A.used["y" + A.yr] = true; save(); render(); });
 
 function render(){
+  stopReading(); stopMic();
   drawStrip();
   const s = STEPS[A.step];
   $("back").disabled = A.step === 0; $("next").hidden = A.step === STEPS.length - 1;
   const body = { start:startScreen, words:wordsScreen, watch:watchScreen, read:readScreen, rem1:() => remScreen("rem1"),
     lowe:() => saScreen("lowe"), chariot:() => saScreen("chariot"), rem2:() => remScreen("rem2"), report:reportScreen }[s.id]();
   $("screen").innerHTML = (s.task ? `<p class="task">${esc(s.task)}</p>` : "") + body;
-  wire(); wireRich($("screen"));
+  wire(); wireRich($("screen")); accessWire();
 }
 
 /* ---------- start ---------- */
@@ -133,6 +135,15 @@ function startScreen(){
     <h3 style="margin-top:16px">Reading level</h3>
     <div class="row" role="group" aria-label="Reading level">${[6, 7, 8].map(y => `<button type="button" class="big" data-yr2="${y}" aria-pressed="${A.yr === y}">Year ${y}</button>`).join("")}</div>
     <p class="note">Year 7 is the class reading. You can change it at any time, top right.</p>
+    <h3 style="margin-top:16px">Supports</h3>
+    <div class="row" role="group" aria-label="Supports">
+      <button type="button" class="big" data-sup="big" aria-pressed="${A.sup.big}">Big buttons</button>
+      <button type="button" class="big" data-sup="read" aria-pressed="${A.sup.read}" ${TTS ? "" : "disabled"}>🔊 Read to me${TTS ? "" : " (not in this browser)"}</button>
+      <button type="button" class="big" data-sup="mic" aria-pressed="${A.sup.mic}" ${SR ? "" : "disabled"}>🎤 Voice typing${SR ? "" : " (not in this browser)"}</button></div>
+    ${SR && A.sup.mic ? `<p class="note" id="micNote" aria-live="polite">${esc(micMsg)}</p>` : ""}
+    ${TTS && A.sup.read ? `<div class="row" style="margin-top:8px" role="group" aria-label="Reading speed"><b>Reading speed</b>${[[.75, "Slower"], [.9, "Normal"]].map(([r, t]) => `<button type="button" class="big" data-rate="${r}" aria-pressed="${A.rate === r}">${t}</button>`).join("")}</div>` : ""}
+    <div class="row" style="margin-top:8px" role="group" aria-label="Background"><b>Background</b>${["cream", "blue", "yellow", "white"].map(t => `<button type="button" class="big" data-tint="${t}" aria-pressed="${A.tint === t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join("")}</div>
+    <p class="note">Zoom (A− and A+) is in the bottom bar on every page.</p>
     <h3 style="margin-top:16px">How it works</h3>
     <ol><li>Build the words.</li><li>Watch the video and answer the questions. Two wrong in a row sends you back to question 1.</li>
     <li>Read the slides and fill the table.</li><li>Answer two sources on your own, then check your answers level by level.</li><li>Read your report.</li></ol>
@@ -410,6 +421,7 @@ function reportScreen(){
     <h3>Remember?</h3><p>Right first time: ${remFirst} of ${rems.length}.</p>
     <h3>The table</h3><p>${cells} of 12 cells written. Model answers looked at: ${READ.filter(r => A.seen[r.id]).length} of 6.</p>
     ${sums.map(saBlock).join("")}
+    <h3>Supports</h3><p>${esc(supportsUsed())}</p>
     <h3>Full screen</h3><p>Left full screen or the page ${A.log.length} time${A.log.length === 1 ? "" : "s"}.</p>
     <p class="note">The video and Remember questions were marked by the page. Your table, your answers and your ticks are your own: the page did not judge them, and your teacher will.</p>
     <div class="row" style="margin-top:12px"><button type="button" class="big go" id="printBtn">Print or save as PDF</button><button type="button" class="big" id="rowBtn">Copy a row for my teacher</button><span id="copied" role="status"></span></div></div>`;
@@ -435,7 +447,120 @@ function classRow(){
     VQ.filter(q => v.first[q.id] === true).length + "/" + VQ.length, v.resets, rems.filter(it => it.first === true).length + "/" + rems.length,
     READ.reduce((n, r) => n + (A.tbl[r.id] || []).filter(x => (x || "").trim()).length, 0) + "/12",
     ...sums.flatMap(s => ["L" + s.blind, "L" + s.withAdds, s.added, s.skipped]), A.log.length, c(A.vown),
-    ...sums.map(s => c(s.S.orig.join(" | ")))].join("\t");
+    ...sums.map(s => c(s.S.orig.join(" | "))), c(supportsUsed())].join("\t");
+}
+
+/* ---------- ACCESS: supports chosen on Start (as in the accessible Rome CAT) ---------- */
+const SUP_NAMES = { big:"Big buttons", read:"Read to me", mic:"Voice typing" };
+function supportsUsed(){ const L = Object.keys(SUP_NAMES).filter(k => A.used[k]).map(k => SUP_NAMES[k]); if (A.used.zoom > 1) L.push("Zoom up to " + Math.round(A.used.zoom * 100) + "%"); return L.length ? L.join(", ") : "none"; }
+function applySupports(){
+  A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup);
+  document.body.classList.toggle("bigui", !!A.sup.big);
+  document.body.classList.toggle("noread", !A.sup.read || !TTS);
+  document.body.classList.toggle("nomic", !A.sup.mic || !SR);
+  ["cream", "blue", "yellow", "white"].forEach(t => document.body.classList.toggle("tint-" + t, (A.tint || "cream") === t));
+  if (!A.sup.read) stopReading();
+  if (!A.sup.mic) { stopMic(); closeMic(); }
+}
+const ZOOMS = [0.8, 0.9, 1, 1.15, 1.3, 1.5, 1.75, 2];
+function setZoom(z){
+  A.zoom = ZOOMS.includes(z) ? z : 1; if (A.zoom > 1) A.used.zoom = Math.max(A.used.zoom || 1, A.zoom);
+  document.documentElement.style.setProperty("--z", A.zoom); document.body.classList.toggle("zbig", A.zoom >= 1.5);
+  $("zLvl").textContent = Math.round(A.zoom * 100) + "%"; $("zOut").disabled = A.zoom === ZOOMS[0]; $("zIn").disabled = A.zoom === ZOOMS[ZOOMS.length - 1]; save();
+}
+$("zIn").onclick = () => { if (steady()) setZoom(ZOOMS[Math.min(ZOOMS.length - 1, ZOOMS.indexOf(A.zoom) + 1)]); };
+$("zOut").onclick = () => { if (steady()) setZoom(ZOOMS[Math.max(0, ZOOMS.indexOf(A.zoom) - 1)]); };
+
+/* read to me: the device's own voice; each word is lit up as it is read */
+var TTS = "speechSynthesis" in window;
+var voice = null, reading = null;
+function pickVoice(){ const v = speechSynthesis.getVoices().filter(x => /^en/i.test(x.lang)); const rank = x => (x.lang === "en-AU" ? 0 : /en-(GB|NZ)/.test(x.lang) ? 1 : 2) + (x.localService ? 0 : 3); voice = v.sort((a, b) => rank(a) - rank(b))[0] || null; }
+if (TTS) { pickVoice(); speechSynthesis.addEventListener("voiceschanged", pickVoice); }
+function utter(t){ const u = new SpeechSynthesisUtterance(t); u.lang = voice ? voice.lang : "en-AU"; if (voice) u.voice = voice; u.rate = A.rate || .9; return u; }
+function setReadUI(){ const b = $("readPage"); b.setAttribute("aria-pressed", !!reading); b.textContent = reading ? "■ Stop reading" : "🔊 Read this page"; }
+function stopReading(){ if (!TTS) return; const r = reading; reading = null; if (r && r.el) r.el.innerHTML = r.orig; speechSynthesis.cancel(); setReadUI(); }
+function speak(t){ if (!TTS) return; stopReading(); speechSynthesis.speak(utter(t)); }
+function readEls(els){
+  if (!TTS) return; stopReading();
+  const r = reading = { queue: els.filter(e => e && e.textContent.trim()), el:null, orig:"" }; setReadUI();
+  const next = () => {
+    if (reading !== r) return;
+    if (r.el) { r.el.innerHTML = r.orig; r.el = null; }
+    const el = r.queue.shift(); if (!el) { reading = null; setReadUI(); return; }
+    const text = el.textContent.replace(/\s+/g, " ").trim(), spans = [];
+    text.replace(/\S+/g, (w, i) => { spans.push([i, i + w.length]); return w; });
+    r.el = el; r.orig = el.innerHTML;
+    el.innerHTML = spans.map(([a, b]) => `<span class="w">${esc(text.slice(a, b))}</span>`).join(" ");
+    const ws = el.querySelectorAll(".w"), u = utter(text);
+    u.onboundary = e => { if (reading !== r || e.name === "sentence") return; const k = spans.findIndex(([a, b]) => e.charIndex >= a && e.charIndex < b); ws.forEach((w, j) => w.classList.toggle("now", j === k)); if (k >= 0) ws[k].scrollIntoView({ block:"nearest" }); };
+    u.onend = u.onerror = () => setTimeout(next, 150);
+    speechSynthesis.speak(u);
+  };
+  next();
+}
+$("readPage").onclick = () => {
+  if (!steady()) return; if (reading) { stopReading(); return; }
+  readEls([...$("screen").querySelectorAll("h1, h2, h3, .slide > p:not(.note), .quote, .cap, .opts .big, .ckl .it, .rub, .fb, .model, .cbox, label b, .rep li, .rep p")]);
+};
+
+/* voice typing: the browser's speech recognition puts what is said at the cursor */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+var rec = null, recFor = null, sttLang = null, micStream = null, micMsg = "";
+(async () => { try { if (SR && SR.available) for (const l of ["en-AU", "en-GB", "en-US"]) if (await SR.available({ langs:[l], processLocally:true }) === "available") { sttLang = l; break; } } catch (e) {} })();
+const liveTrack = () => micStream && micStream.getAudioTracks().find(t => t.readyState === "live");
+function micNote(t){ micMsg = t; const n = $("micNote"); if (n) n.textContent = t; }
+async function openMic(){
+  if (liveTrack()) { micNote("Microphone on. It only listens when you tap Speak."); return; }
+  if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { micNote("This browser cannot use the microphone."); return; }
+  micNote("If the browser asks to use the microphone, choose Allow.");
+  try { micStream = await navigator.mediaDevices.getUserMedia({ audio:true }); micNote("Microphone on. It only listens when you tap Speak."); }
+  catch (e) { micStream = null; micNote(e.name === "NotFoundError" ? "No microphone found on this device." : "The microphone is blocked. Ask your teacher."); }
+}
+function closeMic(){ if (micStream) micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+function stopMic(){ const r = rec; rec = null; recFor = null; if (r) { try { r.stop(); } catch (e) {} }
+  document.querySelectorAll(".acc-mic").forEach(b => { b.setAttribute("aria-pressed", "false"); b.textContent = "🎤 Speak"; }); }
+function putSaid(ta, said){
+  said = (said || "").trim(); if (!said || !ta || !document.body.contains(ta)) return;
+  const s = ta.selectionStart ?? ta.value.length, e = ta.selectionEnd ?? ta.value.length, before = ta.value.slice(0, s);
+  const text = (!before.trim() || /[.!?]\s*$/.test(before) ? said[0].toUpperCase() + said.slice(1) : said) + " ";
+  const pad = before && !/\s$/.test(before) ? " " : "";
+  ta.value = before + pad + text + ta.value.slice(e);
+  const at = (before + pad + text).length; ta.setSelectionRange(at, at);
+  ta.dispatchEvent(new Event("input", { bubbles:true }));     // the box's own handler saves it
+}
+function startMic(ta, btn, note){
+  stopMic(); stopReading();
+  const r = rec = new SR(); recFor = ta;
+  r.lang = sttLang || "en-AU"; r.continuous = true; r.interimResults = true; if (sttLang) r.processLocally = true;
+  r.onresult = e => { if (r.closed) return; let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) { const x = e.results[i]; if (x.isFinal) putSaid(ta, x[0].transcript); else interim += " " + x[0].transcript.trim(); }
+    r.pending = interim.trim(); note.textContent = r.pending ? "Hearing: " + r.pending : "Listening."; };
+  r.onerror = e => { if (e.error === "aborted") return; r.err = true;
+    note.textContent = e.error === "network" ? "Voice typing needs the internet on this device." : e.error === "not-allowed" || e.error === "service-not-allowed" ? "The microphone is blocked. Ask your teacher." : e.error === "no-speech" ? "Nothing heard. Tap Speak and try again." : "Voice typing stopped. Tap Speak to start again."; };
+  r.onend = () => { r.closed = true; if (r.pending) { putSaid(ta, r.pending); r.pending = ""; } if (rec === r) stopMic(); if (!r.err) note.textContent = ""; };
+  const track = liveTrack(); let started = false;
+  if (track) { try { r.start(track); started = true; } catch (e) {} }
+  if (!started) { try { r.start(); started = true; } catch (e) {} }
+  if (started) { btn.setAttribute("aria-pressed", "true"); btn.textContent = "■ Stop"; note.textContent = "Listening."; }
+  else { rec = null; recFor = null; note.textContent = "Voice typing did not start."; }
+}
+
+/* after each render: Speak and Read-my-writing under every writing box, and the Start controls */
+function accessWire(){
+  const S = $("screen");
+  S.querySelectorAll("textarea").forEach(ta => {
+    if (ta.nextElementSibling && ta.nextElementSibling.classList.contains("acc")) return;
+    const bar = document.createElement("div"); bar.className = "acc";
+    bar.innerHTML = (SR ? `<button type="button" class="big acc-mic" aria-pressed="false">🎤 Speak</button>` : "")
+      + (TTS ? `<button type="button" class="big acc-read">🔊 Read my writing</button>` : "") + `<p class="heard" aria-live="polite"></p>`;
+    ta.after(bar);
+    const mb = bar.querySelector(".acc-mic"), note = bar.querySelector(".heard");
+    if (mb) { mb.addEventListener("pointerdown", e => e.preventDefault()); mb.onclick = () => { if (!steady()) return; if (recFor === ta) stopMic(); else { ta.focus(); startMic(ta, mb, note); } }; }
+    const rb = bar.querySelector(".acc-read"); if (rb) rb.onclick = () => speak(ta.value.trim() || "Nothing written yet.");
+  });
+  S.querySelectorAll("[data-sup]").forEach(b => b.onclick = () => { if (!steady()) return; const k = b.dataset.sup; A.sup[k] = !A.sup[k]; if (A.sup[k]) A.used[k] = true; save(); applySupports(); render(); if (k === "mic" && A.sup.mic) openMic(); });
+  S.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => { if (!steady()) return; A.rate = +b.dataset.rate; save(); render(); speak("This is the reading speed."); });
+  S.querySelectorAll("[data-tint]").forEach(b => b.onclick = () => { if (!steady()) return; A.tint = b.dataset.tint; save(); applySupports(); render(); });
 }
 
 /* ---------- the full-screen lock (no password), off on the report ---------- */
@@ -459,5 +584,8 @@ window.addEventListener("blur", () => setTimeout(() => { if (!document.hasFocus(
 setInterval(() => { if (document.visibilityState === "visible" && !document.hasFocus() && Date.now() > graceUntil) showLock("Left the window"); }, 1000);
 document.addEventListener("click", e => { const g = e.target.closest("[data-gotostep]"); if (g) go(+g.dataset.gotostep); });
 
+A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup); A.used = A.used || {};
+applySupports(); setZoom(A.zoom || 1);
 render();
+if (A.sup.mic && SR) openMic();
 if (A.step !== 0 && STEPS[A.step].id !== "report" && FS && !document.fullscreenElement) { $("lockH").textContent = "Back to the module"; $("lock").hidden = false; }
