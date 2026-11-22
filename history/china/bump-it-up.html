@@ -795,7 +795,7 @@ function openTranslatable(anchorEl, kind, body, hit){
   /* this copy only: a big idea can carry more, and a link to the lesson that teaches it (GLOSS_MORE in content.js) */
   const more = typeof GLOSS_MORE !== "undefined" && anchorEl.dataset && GLOSS_MORE[anchorEl.dataset.t3];
   if (more) { el("popBody").insertAdjacentHTML("beforeend", `<span class="more">${esc(more.text)}</span>` +
-    (more.links || []).map(([l, u]) => `<a class="morelink" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} →</a>`).join(""));
+    (more.links || []).map(([l, u]) => `<a class='morelink' href='${esc(u)}' target='_blank' rel='noopener'>${esc(l)} →</a>`).join(""));
     const pr = pop.getBoundingClientRect(); if (pr.bottom > window.innerHeight - 8) pop.style.top = Math.max(8, window.innerHeight - pr.height - 8) + "px"; }
   if (!hit || !hasEAL) return;
   if (lang){
