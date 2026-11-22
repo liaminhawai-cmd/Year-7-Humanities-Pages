@@ -249,6 +249,10 @@ SITE = [
                    "A Mogao Caves mural: Emperor Wu of Han kneeling before two golden statues, "
                    "with his officials"),
       sections=[
+        ("Lessons", None, [
+           ("&#127982;", "2.3 Daily life", "../daily-life/module.html",
+            "The whole lesson online: the words, the video and its questions, the readings at Year 6, 7 or 8, "
+            "the ruling and working classes table, and two sources checked level by level. Goes full screen.", None)]),
         ("Resources", None, wagoll(False,
            "Level 6 to Level 9: the CAT rubric's own bands. Tap the mural, tap any phrase. "
            "Downloads as one file for offline use.")),

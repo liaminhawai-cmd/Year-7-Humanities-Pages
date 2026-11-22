@@ -1,8 +1,8 @@
 # Source notice: the 2.3 Daily life module
 
 `module.html` is Ancient China lesson 2.3 as a full-screen module for a
-work-from-home day. Hidden: not in `tools/build_index_pages.py`, noindex, opened
-by its address.
+work-from-home day. Linked from the China page's Lessons section (in
+`tools/build_index_pages.py`); noindex.
 
 ## Source 1: Michael Loewe
 
