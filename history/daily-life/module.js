@@ -60,8 +60,8 @@ const STEPS = [
   { id:"start", short:"Start" }, { id:"words", short:"1 Words", task:"Step 1: the words" },
   { id:"watch", short:"2 Watch", task:"Engage: watch, then answer" }, { id:"read", short:"3 Read", task:"Discover and develop: read" },
   { id:"table", short:"4 Table", task:"Apply: ruling classes and working classes" },
-  { id:"rem1", short:"Remember?", task:"Remember?" }, { id:"lowe", short:"5 Source 1", task:"Source analysis: Source 1" },
-  { id:"chariot", short:"6 Source 2", task:"Source analysis: Source 2" }, { id:"rem2", short:"Remember?", task:"Remember?" },
+  { id:"rem1", short:"Recall", task:"Remember?" }, { id:"lowe", short:"5 Source 1", task:"Source analysis: Source 1" },
+  { id:"chariot", short:"6 Source 2", task:"Source analysis: Source 2" }, { id:"rem2", short:"Recall", task:"Remember?" },
   { id:"report", short:"Report" } ];
 const SI = id => STEPS.findIndex(s => s.id === id);
 

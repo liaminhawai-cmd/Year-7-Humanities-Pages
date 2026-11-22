@@ -51,6 +51,8 @@ button{font:inherit;cursor:pointer}
 .langmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
 .langmenu .clear{grid-column:1/-1;text-align:center}
 .pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .more{display:block;margin-top:.55em;padding-top:.55em;border-top:1px solid var(--line)}
+.pop .morelink{display:inline-block;margin-top:.5em;font-weight:700;color:var(--deep)}
 .pop .pick{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
 .pop .pick span{display:block;font-size:.78em;color:var(--muted);margin-bottom:.3em}
 .pop .pick button{border:1px solid var(--line);background:var(--band);color:var(--ink);
@@ -790,6 +792,11 @@ const pop = el("pop");
    existed. */
 function openTranslatable(anchorEl, kind, body, hit){
   showPop(kind, anchorEl.textContent, body, null, anchorEl);
+  /* this copy only: a big idea can carry more, and a link to the lesson that teaches it (GLOSS_MORE in content.js) */
+  const more = typeof GLOSS_MORE !== "undefined" && anchorEl.dataset && GLOSS_MORE[anchorEl.dataset.t3];
+  if (more) { el("popBody").insertAdjacentHTML("beforeend", `<span class="more">${esc(more.text)}</span>` +
+    (more.links || []).map(([l, u]) => `<a class="morelink" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} →</a>`).join(""));
+    const pr = pop.getBoundingClientRect(); if (pr.bottom > window.innerHeight - 8) pop.style.top = Math.max(8, window.innerHeight - pr.height - 8) + "px"; }
   if (!hit || !hasEAL) return;
   if (lang){
     const label = UNIT_LANGS.find(l => l.code === lang);

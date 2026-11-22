@@ -403,6 +403,15 @@ against Level 5 to 9 checklists, where a tick needs a highlight and an addition 
 as added. Hub words open a card from `vocab-data.js` (generated from the China hub by
 `make-vocab-data.js`; rerun it when the hub changes), reading the hub's saved progress to
 know whether the student has built the word. Same lock as `history/cai-lun/accessible.html`.
+After the first run (November 2026): the reading is one deck of six slides with a photo each
+and two diagrams, and the table is its own step after it, so a student has to go back to the
+slides to look something up; pasting is off in every writing box, and a box counts only with
+enough real words (mostly English the page knows) and no long run copied from the reading or,
+for a checklist addition, from the checklist line. Each source is one answer box with the
+lesson's questions as prompts. The checklist's rubric panel shows the China rubric's rows in
+the Ancient Australia wall's colours, with historical significance added in red as the new
+fifth row. The China wall's content.js can give a big idea more than its definition, with a
+link to the lesson that teaches it (`GLOSS_MORE`); only `history/china/bump-it-up.html` shows it.
 `history/fall/` is hidden the same way: the Rome rehearsal task, why the Western
 Roman Empire fell, with its own worksheet in the private repository. It rehearses
 the CAT's chronology and cause and effect rows on different events from the CAT

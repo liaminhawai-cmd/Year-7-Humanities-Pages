@@ -268,6 +268,17 @@ const GLOSS = {
 
 /* One line per row, in CRITERIA order: significance, perspectives,
    interpretations. */
+/* More for the big ideas: the pop-up shows the definition above, then this, and a link to the
+   unit lesson that teaches it (lesson 2.4, Confucianism, Religion and Law, in the vocab hub). */
+const GLOSS_MORE = {
+ "Buddhism":{ text:"Buddhism began in India with the Buddha, about 2,500 years ago, and reached China along the Silk Road in about the 1st century CE, long after Emperor Wu. Buddhist monks built temples, monasteries and cave shrines, such as the Mogao Caves where Source A was painted. Many Chinese followed Buddhist ideas about the afterlife alongside Confucian ideas about family and duty.",
+   links:[["Lesson 2.4 words: Confucianism, Taoism, Buddhism", "vocab-hub.html#2.4"]] },
+ "Buddhist":{ text:"Buddhism began in India with the Buddha, about 2,500 years ago. It teaches that suffering comes from desire, and that a person can escape the cycle of being born again by reaching nirvana, a state of peace. It reached China along the Silk Road in about the 1st century CE, after Emperor Wu's time, which is why a Buddhist painting of him tells us more about the painters than about him.",
+   links:[["Lesson 2.4 words: Confucianism, Taoism, Buddhism", "vocab-hub.html#2.4"]] },
+ "Confucianism":{ text:"Confucius lived from 551 to 479 BCE, in a time of war between states. He taught that order would come back if everyone did their duty: rulers governing well, children honouring parents, the young respecting the old. Emperor Wu made Confucianism the official teaching of the government, and officials were trained in it for about two thousand years.",
+   links:[["Lesson 2.4 words: Confucianism, Taoism, Buddhism", "vocab-hub.html#2.4"]] }
+};
+
 const KID = {
  "Level 6": { band:"Level 6", lines:[
    "I can say one reason a ruler was important.",

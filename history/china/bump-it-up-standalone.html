@@ -51,6 +51,8 @@ button{font:inherit;cursor:pointer}
 .langmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#fff}
 .langmenu .clear{grid-column:1/-1;text-align:center}
 .pop .tr{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
+.pop .more{display:block;margin-top:.55em;padding-top:.55em;border-top:1px solid var(--line)}
+.pop .morelink{display:inline-block;margin-top:.5em;font-weight:700;color:var(--deep)}
 .pop .pick{margin-top:.5em;padding-top:.5em;border-top:1px solid var(--line)}
 .pop .pick span{display:block;font-size:.78em;color:var(--muted);margin-bottom:.3em}
 .pop .pick button{border:1px solid var(--line);background:var(--band);color:var(--ink);
@@ -802,6 +804,17 @@ const GLOSS = {
 
 /* One line per row, in CRITERIA order: significance, perspectives,
    interpretations. */
+/* More for the big ideas: the pop-up shows the definition above, then this, and a link to the
+   unit lesson that teaches it (lesson 2.4, Confucianism, Religion and Law, in the vocab hub). */
+const GLOSS_MORE = {
+ "Buddhism":{ text:"Buddhism began in India with the Buddha, about 2,500 years ago, and reached China along the Silk Road in about the 1st century CE, long after Emperor Wu. Buddhist monks built temples, monasteries and cave shrines, such as the Mogao Caves where Source A was painted. Many Chinese followed Buddhist ideas about the afterlife alongside Confucian ideas about family and duty.",
+   links:[["Lesson 2.4 words: Confucianism, Taoism, Buddhism", "vocab-hub.html#2.4"]] },
+ "Buddhist":{ text:"Buddhism began in India with the Buddha, about 2,500 years ago. It teaches that suffering comes from desire, and that a person can escape the cycle of being born again by reaching nirvana, a state of peace. It reached China along the Silk Road in about the 1st century CE, after Emperor Wu's time, which is why a Buddhist painting of him tells us more about the painters than about him.",
+   links:[["Lesson 2.4 words: Confucianism, Taoism, Buddhism", "vocab-hub.html#2.4"]] },
+ "Confucianism":{ text:"Confucius lived from 551 to 479 BCE, in a time of war between states. He taught that order would come back if everyone did their duty: rulers governing well, children honouring parents, the young respecting the old. Emperor Wu made Confucianism the official teaching of the government, and officials were trained in it for about two thousand years.",
+   links:[["Lesson 2.4 words: Confucianism, Taoism, Buddhism", "vocab-hub.html#2.4"]] }
+};
+
 const KID = {
  "Level 6": { band:"Level 6", lines:[
    "I can say one reason a ruler was important.",
@@ -1293,6 +1306,11 @@ const pop = el("pop");
    existed. */
 function openTranslatable(anchorEl, kind, body, hit){
   showPop(kind, anchorEl.textContent, body, null, anchorEl);
+  /* this copy only: a big idea can carry more, and a link to the lesson that teaches it (GLOSS_MORE in content.js) */
+  const more = typeof GLOSS_MORE !== "undefined" && anchorEl.dataset && GLOSS_MORE[anchorEl.dataset.t3];
+  if (more) { el("popBody").insertAdjacentHTML("beforeend", `<span class="more">${esc(more.text)}</span>` +
+    (more.links || []).map(([l, u]) => `<a class="morelink" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} →</a>`).join(""));
+    const pr = pop.getBoundingClientRect(); if (pr.bottom > window.innerHeight - 8) pop.style.top = Math.max(8, window.innerHeight - pr.height - 8) + "px"; }
   if (!hit || !hasEAL) return;
   if (lang){
     const label = UNIT_LANGS.find(l => l.code === lang);
