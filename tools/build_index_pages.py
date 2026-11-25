@@ -250,6 +250,9 @@ SITE = [
                    "with his officials"),
       sections=[
         ("Lessons", None, [
+           ("&#129417;", "2.2 Bump it up: Fu Hao's owl", "../fu-hao/bump-it-up.html",
+            "A bronze owl-shaped wine vessel from the tomb of Fu Hao, a wife of a Shang king, analysed Level 6 to Level 9 on three rubric rows: "
+            "origin, features and purpose; historical context; accuracy, usefulness and reliability. Starts with the Shang context.", None),
            ("&#127982;", "2.3 Daily life", "../daily-life/module.html",
             "The whole lesson online: the words, the video and its questions, the readings at Year 6, 7 or 8, "
             "the ruling and working classes table, and two sources checked level by level. Goes full screen.", None)]),

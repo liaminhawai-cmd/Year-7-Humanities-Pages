@@ -393,6 +393,12 @@ wall. Students mark their own paragraph (source, significance, link) and choose 
 own level; nothing judges the writing. `accessible-standalone.html` is the USB copy. Three marks match the paper legend: source, significance,
 and the link words, which this copy alone draws as a box (`box:true` in `CRITERIA`, one
 extra clause in the `.m-KEY` style). Keep it out of the generator.
+`history/fu-hao/` is the bump-it-up wall for Ancient China 2.2, linked from the China page's
+Lessons section. The lesson's own source, an ox-shaped zun, has no record that could be checked,
+so the wall uses the Fu Hao owl zun, the same kind of vessel, in no assessment. Three rows
+(origin, context, accuracy/usefulness/reliability) in the Ancient Australia colours. Every fact
+comes from the Wikipedia revisions listed in its SOURCE-NOTICE.md; keep it that way. The opening
+screen pairs four object cards with four Shang context cards. The class sees only Level 6; typing 7F on the page opens Levels 7 to 9 (the army wall's teacher unlock, with the teacher's own word). It is a curtain, not a lock.
 `history/daily-life/` is linked from the China page's Lessons section (at the teacher's request,
 November 2026; it was hidden at first): Ancient China 2.3 as a full-screen module
 (`module.html`, engine in `module.js`) for a work-from-home day. It follows the 2.3 OneNote
