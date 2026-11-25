@@ -44,3 +44,7 @@ word in `CONTINUUM`. The booklet itself is not on this site.
 Hidden from the class until the teacher types 7F on the page (`STUDENT_LEVELS` in
 `content.js`, the TEACHER UNLOCK block in `bump-it-up.html`). The examples are
 still in `content.js`, so a student who opens the file can read them.
+
+## accessible.html
+
+The whole lesson online. The stop-and-jot questions and model answers are the private repository's lesson-2-2-stop-and-jot sheet and key, word for word. The video is Captivating History, "Life in Ancient China" (YouTube qUGbfNN8nWA), embedded from youtube-nocookie.com; it needs the internet. Levels 7 to 9 worked examples are not shown there.
