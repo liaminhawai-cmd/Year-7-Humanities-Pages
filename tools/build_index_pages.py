@@ -260,7 +260,10 @@ SITE = [
             "the ruling and working classes table, and two sources checked level by level. Goes full screen.", None),
            ("&#127862;", "2.4 Bump it up: the three ways", "../three-ways/bump-it-up.html",
             "Four sources, Foundation to Level 10 on three rubric rows. The model, The Three Vinegar Tasters, is open at every level; "
-            "the three sources students write about have worked examples that open with the teacher's password at the end.", None)]),
+            "the three sources students write about have worked examples that open with the teacher's password at the end.", None),
+           ("&#128737;", "3.1 Bump it up: the kneeling archer", "../terracotta/bump-it-up.html",
+            "A clay archer from the Terracotta Army: what it tells us about how Qin Shi Huang wanted to be seen, and whose point of view is missing. "
+            "Foundation to Level 10 on three rubric rows, with historical perspectives.", None)]),
         ("Resources", None, wagoll(False,
            "Level 6 to Level 9: the CAT rubric's own bands. Tap the mural, tap any phrase. "
            "Downloads as one file for offline use.")),
