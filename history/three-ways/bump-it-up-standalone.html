@@ -581,20 +581,11 @@ const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
 
 
 const EXAMPLES = {
-"Level 6":
-`{source|Source A is a painting, The Three Vinegar Tasters}. {source|It is not a primary source about Confucius, the Buddha and Laozi, because it was made about 2,000 years after they lived}. {context|It shows the founders of China's three ways tasting vinegar}. {judge|It is more useful for learning what later people thought of the three ways than for learning about the men themselves}.`,
-
-"Level 7":
-`{source|Source A is The Three Vinegar Tasters, a painting made in Japan in the 16th century by an artist of the Kanō school, now in the Tokyo National Museum}. {source|It shows three old men dipping their fingers into a jar of vinegar: one looks sour, one bitter and one sweet}. {source|Its purpose was to teach an idea through a picture}. {context|The men are often said to be Confucius, the Buddha and Laozi}, and {context|each face stands for how that way saw life: sour for Confucianism, which wanted rules to correct people; bitter for Buddhism, which saw suffering; sweet for Taoism}. {judge|It is useful for showing that the three ways were understood as different}, {judge|but it cannot show what any of the three men looked like}.`,
-
-"Level 8":
-`{source|Source A is a 16th-century Japanese painting by an artist of the Kanō school, made about 2,000 years after the men it shows}. {source|Three old men taste vinegar from one jar, and their faces are sour, bitter and sweet}. {source|It is an allegory: the tasting never happened, and it was painted to teach}. {context|The men are often said to be Confucius, the Buddha and Laozi, but the Buddha lived in India and Laozi may never have lived at all}, so {context|the painting brings together three founders who could hardly have met}. {context|Chinese versions often show other men: Su Shi, Huang Tingjian and a monk named Foyin}, which raises the question of who chose these three and why. {judge|It is strong evidence of how people later understood the three ways}, {judge|but weak evidence about the founders, and the painting does not name them, so even who is who is open to question}.`,
-
-"Level 9":
-`{source|Source A is an allegory painted in 16th-century Japan, so its origin tells us about later East Asian ideas, not about ancient China itself}. {source|Its design carries the meaning: three men at one jar, one taste, three different faces}. {context|The idea behind it is that the three teachings sat together in harmony}, {context|yet the readings show that was not always so: emperors at times chose one way, and in 841 to 845 a Tang emperor persecuted Buddhism}. {judge|So the painting is reliable evidence of an ideal, that the three ways could share one table}, {judge|but not of how they actually lived together}. {judge|The faces also need care: Wikipedia explains the sweet face from a Taoist point of view, while the museum record calls the painting a symbol of unity, so the same picture is read in different ways}.`,
-
-"Level 10":
-`{source|Source A's explicit meaning is plain: three men taste the same vinegar and react differently}. {source|Its implicit meaning is a judgement: the man who smiles has the wisest answer, so a picture that looks like harmony also ranks the three ways}. {context|Read with Taoist eyes, the sweet face is Laozi accepting things as they are; the museum's record instead calls it a symbol of unity, which shows how the values of the viewer shape what the source says}. {judge|The faces can be tested against the founders' own words}: {judge|the Analects says people led by "the rules of propriety" will "become good" (2.3), which fits the sour face that wants rules; the Tao Te Ching says "the more display there is of legislation, the more thieves and robbers there are" (57), which fits the sweet face; the Dhammapada says pain follows an evil thought "as the wheel follows the foot of the ox" (1), which fits the bitter one}. {judge|So the allegory is a fair summary of each way's attitude, but it is a later artist's argument, not a record}.`
+ "Level 6": "{source|Source A is a painting called The Three Vinegar Tasters}. {source|It is not a primary source about Confucius, the Buddha and Laozi. An artist painted it about 2,000 years after they lived}. {context|It shows the three men who started China's three ways}. {judge|It is more useful for learning what later people thought of the three ways than for learning about the men themselves}.",
+ "Level 7": "{source|An artist of the Kanō school painted Source A in Japan in the 16th century. It now hangs in the Tokyo National Museum}. {source|Three old men dip their fingers into a jar of vinegar. One looks sour, one looks bitter and one smiles}. {source|The artist painted it to teach an idea}. {context|People often say the men are Confucius, the Buddha and Laozi}. {context|Each face shows how that way saw life. Confucianism saw life as sour and wanted rules to fix people. Buddhism saw life as bitter and full of suffering. Taoism saw life as sweet}. {judge|The painting is useful because it shows how the three ways differed}, {judge|but it cannot show us what the three men really looked like}.",
+ "Level 8": "{source|A Japanese artist painted Source A in the 16th century, about 2,000 years after the three men lived}. {source|The three men taste vinegar from one jar and pull three different faces}. {source|The tasting never happened. The artist made up the scene to teach a lesson}. {context|People often say the men are Confucius, the Buddha and Laozi. But the Buddha lived in India, and Laozi may never have lived at all}. {context|So the three men probably never met}. {context|Chinese versions of the painting often show other men: Su Shi, Huang Tingjian and a monk named Foyin}. That makes me ask who chose these three, and why. {judge|The painting is good evidence of what later people thought about the three ways}. {judge|It is weak evidence about the founders. The painting does not name them, so we cannot be sure who is who}.",
+ "Level 9": "{source|A Japanese artist painted Source A in the 16th century. So it tells us what people in East Asia believed long after ancient China}. {source|The artist puts three men at one jar. They taste the same thing and react in different ways}. {context|The painting shows an idea: that the three teachings can live side by side in harmony}. {context|The readings show this did not always happen. Emperors sometimes chose one way over the others, and from 841 to 845 a Tang emperor persecuted Buddhism}. {judge|So the painting is good evidence that people hoped the three ways could get along}. {judge|It is poor evidence of how they really got along}. {judge|People also read the faces in different ways. Wikipedia reads the sweet face as a Taoist view, but the museum says the painting stands for unity}.",
+ "Level 10": "{source|The explicit meaning of Source A is simple. Three men taste the same vinegar and react in different ways}. {source|The implicit meaning is a judgement. The man who smiles seems to have the wisest answer, so the painting ranks the three ways}. {context|A Taoist would say the sweet face is Laozi accepting life as it is. The museum says the painting stands for unity. People read the same picture in different ways, depending on what they believe}. {judge|I can test the faces against the founders' own words}. {judge|The Analects says people led by \"the rules of propriety\" will \"become good\" (2.3). That fits the sour face, which wants rules. The Tao Te Ching says \"the more display there is of legislation, the more thieves and robbers there are\" (57). That fits the sweet face. The Dhammapada says pain follows an evil thought \"as the wheel follows the foot of the ox\" (1). That fits the bitter face}. {judge|So the painting sums up each way fairly well, but one artist made it long after the founders lived}."
 };
 
 const EXPLANATIONS = {
@@ -745,13 +736,13 @@ SOURCES.push(...[
   ],
   "examples": {
    "Foundation to Level 2": "{source|This is a painting of a bear and some people}. {source|A lady stands in front of the bear}. {context|She is keeping the emperor safe}. {judge|It shows that people thought she was brave}.",
-   "Levels 3 and 4": "{source|Source C is an old painting on silk}. {source|It shows a black bear, two guards with spears and a lady standing in front of the bear}. {context|The lady, Lady Feng, was protecting the emperor}. {judge|It shows that court ladies were expected to put the emperor first}.",
-   "Level 5": "{source|Source C is a painting from the Admonitions Scroll}. A feature I notice is {source|the lady running away on the far left}. {context|It was painted in China more than 1,200 years ago}. {judge|It can tell us what behaviour was praised}, {judge|but not exactly what happened that day}.",
-   "Level 6": "{source|Source C is a painting, part of the Admonitions Scroll}. {source|It is not a primary source for the event, because it was painted centuries after 38 BCE}. {context|It shows a Han dynasty story of a court lady who saved the emperor from a bear}. {judge|It is more useful for learning what women at court were taught to do than for learning exactly what happened}.",
-   "Level 7": "{source|Source C is Scene 4 of the Admonitions Scroll, a painting on silk traditionally said to be by Gu Kaizhi, now in the British Museum}. {source|It shows Lady Feng standing in front of an escaped bear while two guards rush in with spears, the emperor watches, and another lady runs away}. {source|Its purpose was to teach: it illustrates a poem written in 292 by the official Zhang Hua to give advice to the women of the court}. {context|Confucius taught that everyone has a proper role and place, and the scroll shows a wife putting the emperor before her own life}. {judge|It is useful for showing what Confucian teaching expected of women at court}, {judge|but it cannot tell us how ordinary women lived}.",
-   "Level 8": "{source|Source C is a scene from the Admonitions Scroll, which modern scholars date to the 5th to 8th century and which may copy an earlier painting by Gu Kaizhi}. {source|Its features carry the lesson: brave Lady Feng faces the bear at the centre, while Lady Fu runs away at the edge}. {source|It illustrates Zhang Hua's poem of 292, written to advise the women of the court}. {context|It belongs to a tradition of teaching pictures influenced by Confucius, who taught that people should keep their proper roles}, so {context|it shows a Confucian point of view: loyalty to the emperor and husband comes first}. {judge|It is strong evidence of the values the court wanted women to learn}, {judge|but weak evidence for the event itself, painted centuries after 38 BCE, and we should ask whether court women really lived this way}.",
-   "Level 9": "{source|Source C's origin is uncertain, a painting of the 5th to 8th century that may copy Gu Kaizhi, but its purpose is clear: it illustrates a poem written to advise the women of the court}. {source|The painter set two women side by side so that the brave one and the one who fled could be compared}. {context|This is the Confucian idea of roles at work: the readings say a wife should respect her husband and a husband should show kindness to his wife}, yet {context|the scroll teaches only the wife's side of that duty}. {judge|So it is reliable evidence of the ideal held up to court women}, {judge|but its limits matter: it shows only the imperial court, it is one of nine surviving scenes, and it cannot show whether women accepted the lesson}.",
-   "Level 10": "{source|Source C's explicit meaning is bravery: a woman faces a bear to save the emperor}. {source|Its implicit meaning is a ranking of women: by placing Lady Fu running away beside Lady Feng, it teaches which kind of wife is good}. {context|Zhang Hua wrote the poem as advice for the court, and the painting turns that advice into a picture that values loyalty and knowing one's place}. {judge|Tested against Confucius's own words it fits: the Analects says there is good government \"when the prince is prince, and the minister is minister; when the father is father, and the son is son\" (12.11)}, {judge|and the scroll adds the wife to that list of roles}. {judge|But the readings say the duty ran both ways, a husband owing kindness to his wife, and the scroll shows only one side, so it is reliable evidence of what the court wanted, not of how roles worked in life}."
+   "Levels 3 and 4": "{source|Source C is an old painting on silk}. {source|It shows a black bear, two guards with spears and a lady in front of the bear}. {context|The lady, Lady Feng, is protecting the emperor}. {judge|It shows that court ladies were expected to put the emperor first}.",
+   "Level 5": "{source|Source C is a painting from the Admonitions Scroll}. A feature I notice is {source|the lady running away on the far left}. {context|It was painted in China more than 1,200 years ago}. {judge|It tells us what kind of behaviour people praised}, {judge|but it does not tell us exactly what happened that day}.",
+   "Level 6": "{source|Source C is a painting from a long scroll called the Admonitions Scroll}. {source|It is not a primary source for the bear attack. The attack happened in 38 BCE, and the painting was made centuries later}. {context|It shows a Han dynasty story about a court lady who saved the emperor from a bear}. {judge|It is more useful for learning what women at court were taught to do than for learning what really happened}.",
+   "Level 7": "{source|Source C is Scene 4 of the Admonitions Scroll, a painting on silk in the British Museum. People say Gu Kaizhi painted it}. {source|Lady Feng stands in front of an escaped bear. Two guards rush in with spears. The emperor watches, and another lady runs away}. {source|The painting was made to teach. It goes with a poem that the official Zhang Hua wrote in 292 to give advice to women at court}. {context|Confucius taught that everyone has a proper role and place. In this scene a wife puts the emperor's life before her own}. {judge|The painting is useful because it shows how Confucian teaching wanted women at court to behave}, {judge|but it cannot tell us how ordinary women lived}.",
+   "Level 8": "{source|Modern scholars think Source C was painted between the 5th and 8th centuries. It may be a copy of an older painting by Gu Kaizhi}. {source|The painter puts brave Lady Feng in the middle, facing the bear. Lady Fu runs away at the edge}. {source|The scene goes with a poem Zhang Hua wrote in 292 to advise women at court}. {context|The scroll follows a tradition of teaching pictures that Confucius influenced. Confucius taught that people should keep to their proper roles}. {context|So the painting shows a Confucian point of view. A wife's first duty is loyalty to her husband and the emperor}. {judge|The painting is strong evidence of what the court wanted women to learn}. {judge|It is weak evidence for the bear attack itself, because it was painted centuries later. I would also ask whether women at court really lived like this}.",
+   "Level 9": "{source|We do not know exactly when Source C was painted, or who painted it}. {source|We do know why. It illustrates a poem written to give advice to women at court}. {source|The painter puts two women side by side, one brave and one running away, so viewers compare them}. {context|The readings say Confucianism gave both partners in a marriage duties. A husband should be kind to his wife, and a wife should respect her husband}. {context|But the scroll only shows the wife's duty}. {judge|So it is reliable evidence of how the court wanted women to behave}. {judge|It has limits too. It only shows women at the emperor's court, and only nine of its twelve scenes survive. It cannot tell us whether women agreed with the lesson}.",
+   "Level 10": "{source|The explicit meaning of Source C is bravery. A woman faces a bear to save the emperor}. {source|The implicit meaning is a lesson about good and bad wives. The painter puts Lady Fu running away next to Lady Feng, so viewers can see which woman to copy}. {context|Zhang Hua wrote the poem to advise women at court. The painting turns his advice into a picture, and it praises loyalty and knowing your place}. {judge|The painting matches Confucius's own words. The Analects says there is good government \"when the prince is prince, and the minister is minister; when the father is father, and the son is son\" (12.11). The scroll adds the wife to that list}. {judge|But the readings say a husband also owed kindness to his wife, and the scroll leaves that out. So it shows what the court wanted from women. It does not show how marriages really worked}."
   },
   "explanations": {
    "Foundation to Level 2": {
@@ -800,29 +791,29 @@ SOURCES.push(...[
     "new": "Say what the source is, what you can see, and what it shows."
    },
    "Levels 3 and 4": {
-    "new": "Describe the source, say what it is about, and what it shows."
+    "new": "Describe the source. Say what it is about and what it shows."
    },
    "Level 5": {
-    "new": "Name the source and a feature, say when it was made, and one thing it can and cannot tell us."
+    "new": "Name the source and one feature. Say when it was made. Say one thing it can tell us and one thing it cannot."
    },
    "Level 6": {
-    "new": "Say what kind of source it is, what it shows, and what it is more and less useful for.",
+    "new": "Say what kind of source it is and what it shows. Say what it is more useful and less useful for.",
     "background": "The scene shows a story from 38 BCE; the painting is centuries later."
    },
    "Level 7": {
-    "new": "Origin, features and purpose; the context; and what the source cannot show.",
+    "new": "Say who made it, when, what it shows and why. Explain what was happening. Say what it cannot show.",
     "background": "Zhang Hua wrote the poem in 292 to advise the women of the court. The scroll is in the British Museum."
    },
    "Level 8": {
-    "new": "Evidence for the origin, the point of view it shows, and what it is strong and weak evidence for.",
+    "new": "Back up where it came from. Work out whose point of view it shows. Say what it is strong and weak evidence for.",
     "background": "Modern scholars date it to the 5th to 8th century. The lady on the left is thought to be Lady Fu, who ran away."
    },
    "Level 9": {
-    "new": "What the origin means, the context explained, and the limits of the source.",
+    "new": "Explain what its origin means for us. Explain the context. Explain where the source falls short.",
     "background": "Nine of the twelve scenes survive. The readings say a husband should show kindness and a wife respect."
    },
    "Level 10": {
-    "new": "Explicit and implicit meaning, the makers' values, and other sources to test it.",
+    "new": "Explain what it says and what it hints at. Explain what its makers believed. Test it against other sources.",
     "background": "Analects 12.11 is in the Confucianism reading."
    }
   }
@@ -905,12 +896,12 @@ SOURCES.push(...[
   "examples": {
    "Foundation to Level 2": "{source|This is a painting of an old man riding an ox}. {source|He has a long white beard}. {context|He is Laozi, a teacher from China long ago}. {judge|It shows what people thought he looked like}.",
    "Levels 3 and 4": "{source|Source D is a painting of Laozi riding an ox}. {source|He holds a scroll and looks up}. {context|The story says he wrote down his wisdom before he left China}. {judge|It shows a famous story about how Taoism began}.",
-   "Level 5": "{source|Source D is a painting called Laozi Riding an Ox}. A feature I notice is {source|the plain, empty background}. {context|It was painted in the Ming dynasty}. {judge|It can tell us the story people told about Laozi}, {judge|but not what he really looked like}.",
-   "Level 6": "{source|Source D is a painting from the Ming dynasty}. {source|It is not a primary source about Laozi, because it was painted nearly 2,000 years after he is said to have lived}. {context|It shows the story of Laozi leaving China after writing the Tao Te Ching}. {judge|It is more useful for learning the stories later people told about Taoism than about Laozi himself}.",
-   "Level 7": "{source|Source D is Laozi Riding an Ox, a hanging scroll painted by Zhang Lu in the Ming dynasty, now in the National Palace Museum, Taipei}. {source|It shows an old man with a long white beard, holding a scroll, riding an ox, with almost nothing else in the picture}. {source|Its purpose was to show a famous story, which the museum says came to be linked with good luck}. {context|In the story the guard Yinxi asked Laozi to write down his wisdom before he left, and he wrote the Tao Te Ching, the most important Taoist text}. {judge|It is useful for showing how the beginning of Taoism was remembered}, {judge|but it cannot show us the real Laozi}.",
-   "Level 8": "{source|Source D was painted by Zhang Lu in the Ming dynasty, nearly 2,000 years after Laozi is said to have lived}. {source|Its features suit Taoist ideas: a simple old man, a slow ox and a plain, empty background}. {source|It illustrates a story, not an event the painter saw}. {context|Modern scholars think the details of Laozi's life were invented later and that the Tao Te Ching was written by several people}, so {context|the painting shows a legend that later people believed and valued}. {context|Taoism taught living simply and in harmony with nature, and the painting shows that kind of life}. {judge|It is strong evidence of how Taoists and others imagined their founder}, {judge|but weak evidence about Laozi, and we should ask whether he existed at all}.",
-   "Level 9": "{source|Source D's origin, a Ming painting, means it shows how Taoism looked to people in the Ming dynasty, not in Laozi's time}. {source|The museum says the story came to be linked with good luck, so a painting like this was valued as a lucky picture as well as a lesson}. {context|That shows both sides of Taoism in the readings: a philosophy of living simply, and a religion bound up with the folk beliefs of ordinary people}. {judge|It is reliable evidence that the Laozi story mattered to later Chinese people}, {judge|but its limits are sharp: it shows a legend about a man who may not have existed, painted by one artist in his own style}.",
-   "Level 10": "{source|Source D's explicit meaning is a story: an old man leaves on his ox after writing his book}. {source|Its implicit meaning is in the style: a humble figure, a slow animal and empty space make simplicity look wise}. {context|The painter and the people who valued it as a lucky picture shared Taoist values: following nature and not pushing against it}. {judge|The Tao Te Ching supports that reading: \"The highest excellence is like (that of) water\", which takes \"the low place which all men dislike\" (8)}. {judge|But the same text begins \"The Tao that can be trodden is not the enduring and unchanging Tao\" (1), which warns that the Tao cannot be pinned down}, {judge|so the painting can show how Taoism was felt, but not test whether its founder or his story were real}."
+   "Level 5": "{source|Source D is a painting called Laozi Riding an Ox}. A feature I notice is {source|the plain, empty background}. {context|It was painted in the Ming dynasty}. {judge|It tells us a story people told about Laozi}, {judge|but it does not show what he really looked like}.",
+   "Level 6": "{source|Source D is a painting from the Ming dynasty}. {source|It is not a primary source about Laozi. Zhang Lu painted it nearly 2,000 years after Laozi is said to have lived}. {context|It shows the story of Laozi leaving China after he wrote the Tao Te Ching}. {judge|It is more useful for learning the stories people later told about Taoism than for learning about Laozi himself}.",
+   "Level 7": "{source|Zhang Lu painted Source D, Laozi Riding an Ox, in the Ming dynasty. It now belongs to the National Palace Museum in Taipei}. {source|An old man with a long white beard rides an ox and holds a scroll. Almost nothing else is in the picture}. {source|Zhang Lu painted a famous story. The museum says people linked this story with good luck}. {context|In the story, a guard named Yinxi asked Laozi to write down his wisdom before he left. Laozi wrote the Tao Te Ching, the most important Taoist text}. {judge|The painting is useful because it shows how people remembered the start of Taoism}, {judge|but it cannot show us the real Laozi}.",
+   "Level 8": "{source|Zhang Lu painted Source D in the Ming dynasty, nearly 2,000 years after Laozi is said to have lived}. {source|He painted a simple old man on a slow ox, with lots of empty space around them}. {source|He painted a story. He did not see any of it happen}. {context|Modern scholars think people made up the details of Laozi's life later. They also think several people wrote the Tao Te Ching}. {context|So the painting shows a legend that later people believed}. {context|Taoism teaches people to live simply and in harmony with nature, and the painting shows that kind of life}. {judge|The painting is strong evidence of how people imagined the founder of Taoism}. {judge|It is weak evidence about Laozi himself. We should even ask whether he existed}.",
+   "Level 9": "{source|Zhang Lu painted Source D in the Ming dynasty. So it shows how people saw Taoism then, long after Laozi's time}. {source|The museum says people linked the story with good luck. So people probably kept the painting as a lucky picture, as well as a lesson}. {context|This fits the readings, which describe two sides of Taoism. One side is a philosophy about living simply. The other is a religion that mixed with the folk beliefs of ordinary people}. {judge|The painting is reliable evidence that people in later China cared about the Laozi story}. {judge|But it has clear limits. It shows a legend about a man who may never have lived, and one artist painted it in his own style}.",
+   "Level 10": "{source|The explicit meaning of Source D is a story. An old man leaves on his ox after writing his book}. {source|The implicit meaning is in the style. The painter uses a plain old man, a slow animal and empty space to make a simple life look wise}. {context|Zhang Lu, and the people who kept the painting for good luck, valued Taoist ideas about following nature and not fighting it}. {judge|The Tao Te Ching supports this reading. It says \"The highest excellence is like (that of) water\", which takes \"the low place which all men dislike\" (8)}. {judge|The same book starts with \"The Tao that can be trodden is not the enduring and unchanging Tao\" (1). It warns that no one can pin the Tao down}. {judge|So the painting shows how Taoism felt to people. It cannot prove that Laozi or his story were real}."
   },
   "explanations": {
    "Foundation to Level 2": {
@@ -959,29 +950,29 @@ SOURCES.push(...[
     "new": "Say what the source is, what you can see, and what it shows."
    },
    "Levels 3 and 4": {
-    "new": "Describe the source, say what it is about, and what it shows."
+    "new": "Describe the source. Say what it is about and what it shows."
    },
    "Level 5": {
-    "new": "Name the source and a feature, say when it was made, and one thing it can and cannot tell us."
+    "new": "Name the source and one feature. Say when it was made. Say one thing it can tell us and one thing it cannot."
    },
    "Level 6": {
-    "new": "Say what kind of source it is, what it shows, and what it is more and less useful for.",
+    "new": "Say what kind of source it is and what it shows. Say what it is more useful and less useful for.",
     "background": "Ming dynasty: 1368 to 1644. Laozi is traditionally placed in the 6th century BCE."
    },
    "Level 7": {
-    "new": "Origin, features and purpose; the context; and what the source cannot show.",
+    "new": "Say who made it, when, what it shows and why. Explain what was happening. Say what it cannot show.",
     "background": "The guard Yinxi asked Laozi to write down his wisdom. The museum links the story with good luck."
    },
    "Level 8": {
-    "new": "Evidence for the origin, the point of view it shows, and what it is strong and weak evidence for.",
+    "new": "Back up where it came from. Work out whose point of view it shows. Say what it is strong and weak evidence for.",
     "background": "Modern scholars think Laozi's life story was invented later, and the Tao Te Ching had several authors."
    },
    "Level 9": {
-    "new": "What the origin means, the context explained, and the limits of the source.",
+    "new": "Explain what its origin means for us. Explain the context. Explain where the source falls short.",
     "background": "The readings describe two sides of Taoism: a philosophy and a religion close to folk religion."
    },
    "Level 10": {
-    "new": "Explicit and implicit meaning, the makers' values, and other sources to test it.",
+    "new": "Explain what it says and what it hints at. Explain what its makers believed. Test it against other sources.",
     "background": "Tao Te Ching chapters 1 and 8 are in the Taoism reading."
    }
   }
@@ -1064,12 +1055,12 @@ SOURCES.push(...[
   "examples": {
    "Foundation to Level 2": "{source|This is a page from a very old printed book}. {source|It has a picture of a teacher and many people}. {context|It is a Buddhist book from China}. {judge|It shows that some people in China were Buddhists}.",
    "Levels 3 and 4": "{source|Source B is the first page of the Diamond Sutra, a Buddhist book}. {source|It has a picture of a teacher with a halo, next to Chinese writing}. {context|It was printed in China in 868}. {judge|It shows that Buddhism was important in China}.",
-   "Level 5": "{source|Source B is a printed Buddhist book called the Diamond Sutra}. A feature I notice is {source|the detailed picture next to the writing}. {context|It was printed in China in 868}. {judge|It can tell us that Buddhist books were printed and shared}, {judge|but not what everyone in China believed}.",
-   "Level 6": "{source|Source B is a printed book, the Diamond Sutra}. {source|It is a primary source for Buddhism in Tang China, because it was made in 868}. {context|It is a Chinese translation of a talk given by the Buddha}. {judge|It is more useful for learning about Buddhism in China in 868 than about the Buddha's own life}.",
-   "Level 7": "{source|Source B is the opening of the Diamond Sutra, printed from carved wooden blocks and dated 11 May 868, now in the British Library}. {source|It shows a figure with a halo teaching a crowd, beside columns of Chinese writing}. {source|Its purpose was to spread a Buddhist text: its last lines say it was made for free distribution}. {context|By the Tang dynasty Buddhism was popular with all social classes, with many monasteries and temples}, and {context|this Chinese translation shows that a religion from India had become part of Chinese life}. {judge|It is useful for showing how far Buddhism had spread}, {judge|but it is one book, so it cannot tell us how many people believed}.",
-   "Level 8": "{source|Source B is a scroll about 5 metres long, printed in 868 and found in a walled-up cave at the Mogao Caves near Dunhuang}. {source|It is the oldest printed book that carries a date, and its detailed picture shows the skill spent on it}. {source|Its last lines say Wang Jie made it \"for universal free distribution\" on behalf of his two parents}. {context|Buddhism had come to China in the Han dynasty, and by the Tang it was popular with all classes}, yet {context|only about 23 years earlier, in 841 to 845, Emperor Wuzong had persecuted Buddhism}, so {context|Wang Jie's gift shows believers keeping their faith}. {judge|It is strong evidence that Buddhist texts were printed and shared}, {judge|but weak evidence of how many people followed Buddhism}.",
-   "Level 9": "{source|Source B's origin is unusually secure: it carries its own date, the name of the man who paid for it, and his reason}. {source|Wang Jie made it on behalf of his two parents, so a Buddhist book was used to honour a family}. {context|The readings say filial piety belongs to Chinese Buddhist ethics as well as Confucian ones, and this source shows that joining in action}. {judge|So it is reliable evidence of how one family practised Buddhism}, {judge|but its limits matter: it survived by chance in a sealed cave, and it speaks for one place, not all of China}.",
-   "Level 10": "{source|Source B's explicit meaning is religious: the Buddha's teaching, printed to be given away}. {source|Its implicit meaning is that a son's duty to his parents could be done through a Buddhist act}. {context|Wang Jie's values joined two traditions: honouring his parents, which Confucius taught, and spreading the Buddha's words}. {judge|The Analects fits his motive: filial piety needs reverence, not only support (2.7)}. {judge|The Dhammapada fits his act: \"Not to commit any sin, to do good, and to purify one's mind, that is the teaching of (all) the Awakened\" (183)}. {judge|But the readings warn that emperors sometimes favoured one way and persecuted another, so this source shows the three ways meeting in one family, not that they always met in harmony}."
+   "Level 5": "{source|Source B is a printed Buddhist book called the Diamond Sutra}. A feature I notice is {source|the detailed picture next to the writing}. {context|It was printed in China in 868}. {judge|It tells us that people printed and shared Buddhist books}, {judge|but it does not tell us what everyone in China believed}.",
+   "Level 6": "{source|Source B is a printed book called the Diamond Sutra}. {source|It is a primary source for Buddhism in Tang China, because people made it in 868}. {context|It is a Chinese translation of a talk the Buddha gave}. {judge|It is more useful for learning about Buddhism in China in 868 than for learning about the Buddha's own life}.",
+   "Level 7": "{source|Source B is the first page of the Diamond Sutra. Someone printed it from carved wooden blocks on 11 May 868, and it is now in the British Library}. {source|A figure with a halo teaches a crowd, next to columns of Chinese writing}. {source|Its last lines say it was made to give away for free, so it was made to spread a Buddhist text}. {context|By the Tang dynasty, people from every social class followed Buddhism, and there were many monasteries and temples}. {context|This Chinese translation shows that a religion from India had become part of Chinese life}. {judge|The source is useful because it shows how far Buddhism had spread}, {judge|but it is only one book, so it cannot tell us how many people believed}.",
+   "Level 8": "{source|Source B is a scroll about 5 metres long. It was printed in 868 and found in a sealed cave at the Mogao Caves near Dunhuang}. {source|It is the oldest printed book with a date on it, and the detailed picture shows how much skill went into it}. {source|Its last lines say that Wang Jie made it \"for universal free distribution\" for his two parents}. {context|Buddhism came to China in the Han dynasty. By the Tang dynasty, people of every class followed it}. {context|But only about 23 years before this book was printed, Emperor Wuzong persecuted Buddhism, from 841 to 845}. {context|So Wang Jie's gift shows that believers kept their faith}. {judge|The source is strong evidence that people printed and shared Buddhist texts}. {judge|It is weak evidence of how many people followed Buddhism}.",
+   "Level 9": "{source|We know a lot about where Source B came from. It has its own date, and it names the man who paid for it and gives his reason}. {source|Wang Jie paid for it for his two parents. So he used a Buddhist book to honour his family}. {context|The readings say that filial piety, respect for parents, is part of Chinese Buddhism as well as Confucianism. In this source we can see a real person doing both at once}. {judge|So it is reliable evidence of how one family practised Buddhism}. {judge|But it has limits. It only survived because someone sealed it in a cave, and it tells us about one place in China}.",
+   "Level 10": "{source|The explicit meaning of Source B is religious. It is the Buddha's teaching, printed so people could give it away}. {source|The implicit meaning is about family. A son could do his duty to his parents through a Buddhist act}. {context|Wang Jie followed two traditions at once. He honoured his parents, as Confucius taught, and he spread the Buddha's words}. {judge|The Analects fits his reason. It says that looking after parents is not enough without reverence (2.7)}. {judge|The Dhammapada fits what he did: \"Not to commit any sin, to do good, and to purify one's mind, that is the teaching of (all) the Awakened\" (183)}. {judge|But the readings also say that emperors sometimes favoured one way and persecuted another. So this source shows the three ways meeting in one family. It does not prove they always got along}."
   },
   "explanations": {
    "Foundation to Level 2": {
@@ -1118,29 +1109,29 @@ SOURCES.push(...[
     "new": "Say what the source is, what you can see, and what it shows."
    },
    "Levels 3 and 4": {
-    "new": "Describe the source, say what it is about, and what it shows."
+    "new": "Describe the source. Say what it is about and what it shows."
    },
    "Level 5": {
-    "new": "Name the source and a feature, say when it was made, and one thing it can and cannot tell us."
+    "new": "Name the source and one feature. Say when it was made. Say one thing it can tell us and one thing it cannot."
    },
    "Level 6": {
-    "new": "Say what kind of source it is, what it shows, and what it is more and less useful for.",
+    "new": "Say what kind of source it is and what it shows. Say what it is more useful and less useful for.",
     "background": "868 is in the Tang dynasty. The Buddha lived in India about 563 to 483 BCE."
    },
    "Level 7": {
-    "new": "Origin, features and purpose; the context; and what the source cannot show.",
+    "new": "Say who made it, when, what it shows and why. Explain what was happening. Say what it cannot show.",
     "background": "By the Tang dynasty Buddhism was popular with all classes, with many monasteries and temples."
    },
    "Level 8": {
-    "new": "Evidence for the origin, the point of view it shows, and what it is strong and weak evidence for.",
+    "new": "Back up where it came from. Work out whose point of view it shows. Say what it is strong and weak evidence for.",
     "background": "Emperor Wuzong persecuted Buddhism in 841 to 845. Buddhism reached China in the Han dynasty."
    },
    "Level 9": {
-    "new": "What the origin means, the context explained, and the limits of the source.",
+    "new": "Explain what its origin means for us. Explain the context. Explain where the source falls short.",
     "background": "The readings say filial piety is part of Confucian, Chinese Buddhist and Daoist ethics."
    },
    "Level 10": {
-    "new": "Explicit and implicit meaning, the makers' values, and other sources to test it.",
+    "new": "Explain what it says and what it hints at. Explain what its makers believed. Test it against other sources.",
     "background": "Analects 2.7 is in the Confucianism reading; Dhammapada 183 is in the Buddhism reading."
    }
   }
@@ -1151,14 +1142,9 @@ const HOTSPOTS = SOURCES[0].hotspots;
 
 const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5"];
 const EARLY_EXAMPLES = {
-"Foundation to Level 2":
-`{source|This is a painting of three old men}. They are {source|tasting something from a big jar}. {context|The men stand for three ways of thinking in China}. {judge|It shows that the three ways are different}.`,
-
-"Levels 3 and 4":
-`{source|Source A is a painting of three old men tasting vinegar}. {source|One man smiles and the others pull faces}. {context|The men stand for Confucius, the Buddha and Laozi}. {judge|It shows that each way saw life differently}.`,
-
-"Level 5":
-`{source|Source A is a painting called The Three Vinegar Tasters}. A feature I notice is {source|that one man smiles while the others look sour}. {context|It was painted in the 16th century}. {judge|It can tell us that people thought the three ways were different}, {judge|but not what Confucius looked like}.`
+ "Foundation to Level 2": "{source|This is a painting of three old men}. They are {source|tasting something from a big jar}. {context|The men stand for three ways of thinking in China}. {judge|It shows that the three ways are different}.",
+ "Levels 3 and 4": "{source|Source A is a painting of three old men tasting vinegar}. {source|One man smiles and the other two pull faces}. {context|The men stand for Confucius, the Buddha and Laozi}. {judge|It shows that each way saw life differently}.",
+ "Level 5": "{source|Source A is a painting called The Three Vinegar Tasters}. A feature I notice is {source|that one man smiles while the others look sour}. {context|It was painted in the 16th century}. {judge|It tells us that people saw the three ways as different}, {judge|but it does not show what Confucius looked like}."
 };
 const EARLY_EXPLANATIONS = {
 "Foundation to Level 2": { source:"Says what the source is and what can be seen.", context:"Says what the men stand for.", judge:"Says one thing it shows." },
@@ -1233,19 +1219,19 @@ const VC_NOTE = "Levels 6 to 9 are the Ancient China Source Analysis Rubric, wor
 const BUMP = {
  "Foundation to Level 2": { new:"Say what the source is, what you can see, and what it shows.",
    background:"The three men stand for three ways of thinking in China." },
- "Levels 3 and 4": { new:"Describe the painting, say who the men stand for, and what it shows.",
+ "Levels 3 and 4": { new:"Describe the source. Say what it is about and what it shows.",
    background:"The men are often said to be Confucius, the Buddha and Laozi." },
- "Level 5": { new:"Name the source and a feature, say when it was made, and one thing it can and cannot tell us.",
+ "Level 5": { new:"Name the source and one feature. Say when it was made. Say one thing it can tell us and one thing it cannot.",
    background:"It was painted in the 16th century." },
- "Level 6": { new:"Say what kind of source it is, what it shows, and what it is more and less useful for.",
+ "Level 6": { new:"Say what kind of source it is and what it shows. Say what it is more useful and less useful for.",
    background:"It was made about 2,000 years after Confucius, the Buddha and Laozi lived." },
- "Level 7": { new:"Origin, features and purpose; what each face stands for; and what the source cannot show.",
+ "Level 7": { new:"Say who made it, when, what it shows and why. Explain what was happening. Say what it cannot show.",
    background:"Painted in Japan by an artist of the Kanō school, now in the Tokyo National Museum. Sour stands for Confucianism, bitter for Buddhism, sweet for Taoism." },
- "Level 8": { new:"Evidence for the origin, questions about who is shown, and what it is strong and weak evidence for.",
+ "Level 8": { new:"Back up where it came from. Work out whose point of view it shows. Say what it is strong and weak evidence for.",
    background:"The Buddha lived in India; Laozi may never have lived. Chinese versions often show Su Shi, Huang Tingjian and a monk named Foyin instead." },
- "Level 9": { new:"What the origin means, the ideal behind it set against what happened, and different readings of it.",
+ "Level 9": { new:"Explain what its origin means for us. Explain the context. Explain where the source falls short.",
    background:"Emperors at times favoured one way; in 841 to 845 a Tang emperor persecuted Buddhism. Wikipedia reads the sweet face as Taoist; the museum record calls it a symbol of unity." },
- "Level 10": { new:"Explicit and implicit meaning, the viewer's values, and the founders' own words to test the allegory.",
+ "Level 10": { new:"Explain what it says and what it hints at. Explain what its makers believed. Test it against other sources.",
    background:"Analects 2.3, Tao Te Ching 57 and Dhammapada 1 are in the 2.4 readings." }
 };
 

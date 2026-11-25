@@ -73,19 +73,19 @@ const STUDENT_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5", "L
 
 const EXAMPLES = {
 "Level 6":
-`{source|Source A is a bronze wine vessel shaped like an owl}. {source|It is a primary source because it was made at the time, about 1200 BCE}. {context|It was found in the tomb of Fu Hao, who was married to the king of the Shang dynasty}. {judge|It is more useful for learning about rich and powerful people than about ordinary people}.`,
+`{source|Source A is a bronze wine vessel shaped like an owl}. {source|It is a primary source, because people made it at the time, about 1200 BCE}. {context|Archaeologists found it in the tomb of Fu Hao, who was married to a Shang king}. {judge|It is more useful for learning about rich and powerful people than about ordinary people}.`,
 
 "Level 7":
-`{source|Source A is a bronze zun, a wine vessel shaped like an owl, found in 1976 in the tomb of Fu Hao at Anyang}. {source|It is a primary source because it was made and used in the Shang dynasty, about 1200 BCE}. Its features include {source|folded wings, two legs and a tail that works as a third leg, with patterns all over}. {source|Its purpose was to hold wine}. {context|Fu Hao was a wife of King Wu Ding, and she was also a general and a priestess}, so {context|Bronze vessels like this were used in ceremonies to the ancestors by the king's court and nobles}, so {context|the vessel belonged to someone at the very top of Shang society}. {judge|It is useful for showing how rich and skilled the ruling class was}, {judge|but it cannot tell us how ordinary labourers lived}.`,
+`{source|Source A is a bronze zun, a wine vessel shaped like an owl. Archaeologists found it in 1976 in Fu Hao's tomb at Anyang}. {source|It is a primary source, because people made and used it in the Shang dynasty, about 1200 BCE}. {source|The owl has folded wings, two legs and a tail that works as a third leg, and patterns cover it}. {source|People used it to hold wine}. {context|Fu Hao was a wife of King Wu Ding. She was also a general and a priestess}. {context|The king's court and the nobles used bronze vessels like this in ceremonies for their ancestors}. {context|So the owl belonged to someone at the very top of Shang society}. {judge|It is useful because it shows how rich and skilled the ruling group was}, {judge|but it cannot tell us how ordinary labourers lived}.`,
 
 "Level 8":
-`{source|Source A is one of a pair of bronze zun, wine vessels shaped like owls, found in 1976 in the untouched tomb of Fu Hao at Yinxu, near Anyang}. {source|Fu Hao's name is cast inside it, which tells us who it was made for}, so {source|it is a primary source from about 1200 BCE}. Its features were planned with great care: {source|the owl's tail forms a third leg, small creatures sit on the lid, and patterns of cicadas, a snake and dragons cover the bronze}. {source|Its purpose was to hold wine}. {context|Fu Hao was a wife of King Wu Ding who also led armies and served as a high priestess}, and {context|her tomb held 468 bronzes, more than 700 jades and sixteen sacrificed people}. {context|Shang rules set how many bronze vessels a noble of each rank could own}, so {context|a tomb this full of bronze puts her at the very top of the hierarchy, just below the king}. {judge|That makes it strong evidence of the ruling family's wealth and skill}, {judge|but weak evidence about the artisans who made it and the labourers below them}.`,
+`{source|Source A is one of a pair of owl-shaped wine vessels. Archaeologists found them in 1976 in Fu Hao's tomb at Yinxu, near Anyang. Nobody had robbed the tomb}. {source|Fu Hao's name is cast inside the vessel, so we know who it was made for}. {source|The makers took great care. The tail forms a third leg, small creatures sit on the lid, and cicadas, a snake and dragons cover the bronze}. {context|Fu Hao was a wife of King Wu Ding. She led armies and served as a high priestess}. {context|Her tomb held 468 bronzes, more than 700 jades and sixteen sacrificed people}. {context|Shang rules set how many bronze vessels a noble of each rank could own. So all this bronze puts Fu Hao near the top, just below the king}. {judge|The owl is strong evidence of how rich and skilled the ruling family was}. {judge|It is weak evidence about the artisans who made it and the labourers below them}.`,
 
 "Level 9":
-`{source|Source A is one of a pair of owl-shaped bronze zun from the tomb of Fu Hao, a royal tomb at Yinxu found untouched in 1976}. {source|Because it was excavated where it was buried and has her name cast inside, its origin is unusually secure: a primary source from about 1200 BCE, made for one named person}. {source|Its design, a tail that becomes a third leg, a lid crowded with small creatures and a skin of cast patterns, was meant to impress as well as to hold wine}. {context|Fu Hao was a wife of King Wu Ding who commanded armies and acted as a high priestess, and she was buried with 468 bronzes, over 700 jades and sixteen sacrificed people}; {context|the vessel comes from a society in which rank was measured in bronze, and a ruling family could command metal, the skilled work of artisans and even the lives of war captives}. {judge|It is highly reliable evidence about that family's wealth and power}, but {judge|a historian must be careful generalising from it: Fu Hao was exceptional, a woman with a military and religious power that was rare}, and {judge|it tells us nothing directly about the artisans and labourers further down}. {judge|Even the owl needs care, because owls seem to have been honoured in the Shang period and only later became a bad omen, so the meaning of the shape depends on its time}.`,
+`{source|We know exactly where Source A came from. Archaeologists dug it out of an untouched tomb, and Fu Hao's name is cast inside it}. {source|The makers wanted it to impress people as well as hold wine. They turned the tail into a third leg and covered the whole owl in patterns}. {context|Fu Hao led armies and served as a high priestess. She was buried with 468 bronzes, over 700 jades and sixteen sacrificed people}. {context|In Shang society, the bronze you owned showed your rank. The ruling family also controlled the metal, the artisans' work and even the lives of war captives}. {judge|So the owl is very reliable evidence about the ruling family's wealth and power}. {judge|But I need to be careful. Fu Hao was unusual, a woman who held military and religious power}. {judge|The owl tells us nothing directly about the artisans and labourers further down}. {judge|Even the owl shape needs care. People in the Shang period seem to have honoured owls, but later people saw them as a bad omen}.`,
 
 "Level 10":
-`{source|Source A is one of a pair of owl-shaped bronze wine vessels from the tomb of Fu Hao at Yinxu, excavated untouched in 1976, with her name cast inside}. {source|Its explicit meaning is plain: a costly vessel for wine used in ceremonies}. {source|Its implicit meaning lies in the design: a tail turned into a third leg, a lid crowded with creatures and a skin of cast patterns announce skill and expense, so it was made to display status as much as to pour wine}. {context|It was made in a society where rules set how many bronze vessels a noble of each rank could own, so the people who made it and paid for it valued rank, ritual and the ancestors}. {context|Burying it with a royal wife who led armies and served as a priestess, beside sixteen sacrificed people, shows a ruling family that could command metal, labour and lives}. {judge|Archaeologists compare the tomb with the oracle bones, which name Fu Hao in 170 to 180 inscriptions: the weapons and ritual vessels match what the inscriptions say she did in war and ritual, so each source makes the other more reliable}. {judge|Yet both were made by and for the court, so neither speaks for the labourers and captives at the bottom of Shang society}.`
+`{source|The explicit meaning of Source A is simple. It is an expensive vessel for wine, used in ceremonies}. {source|The implicit meaning is in the design. The third leg, the crowded lid and the cast patterns show off skill and cost, so the makers wanted it to show status}. {context|Shang rules set how many bronze vessels a noble of each rank could own. So the people who made and paid for it cared about rank, ritual and the ancestors}. {context|Fu Hao's family buried it with her, next to sixteen sacrificed people. That shows a ruling family that controlled metal, workers and lives}. {judge|Archaeologists compare the tomb with the oracle bones, which name Fu Hao in 170 to 180 inscriptions. The weapons and ritual vessels in her tomb match what the inscriptions say she did in war and ritual. So each source backs up the other}. {judge|But the court made both sources. Neither one tells us what the labourers and captives at the bottom of Shang society thought}.`
 };
 
 const EXPLANATIONS = {
@@ -190,10 +190,10 @@ const EARLY_EXAMPLES = {
 `{source|This is a bronze pot shaped like an owl}. I can see {source|wings}, {source|feet} and {source|a lid}. {context|It belonged to Fu Hao, the wife of a king in China long ago}. {judge|It shows that she was rich}.`,
 
 "Levels 3 and 4":
-`{source|Source A is a bronze pot for wine, shaped like an owl}. {source|It was found in a tomb in China in 1976}. It has {source|wings and a lid with small animals on it}. {context|It belonged to Fu Hao. She was married to the king and led armies}. {judge|It shows that her family was rich and powerful}.`,
+`{source|Source A is a bronze pot for wine, shaped like an owl}. {source|People found it in a tomb in China in 1976}. It has {source|wings and a lid with small animals on it}. {context|It belonged to Fu Hao. She was married to the king and led armies}. {judge|It shows that her family was rich and powerful}.`,
 
 "Level 5":
-`{source|Source A is a bronze wine vessel shaped like an owl}. A feature I notice is {source|its tail, which touches the ground like a third leg}. {context|It comes from China, about 1200 BCE}. {judge|It can tell us Fu Hao's family owned fine bronze}, {judge|but not how ordinary people lived}.`
+`{source|Source A is a bronze wine vessel shaped like an owl}. A feature I notice is {source|its tail, which touches the ground like a third leg}. {context|It comes from China, about 1200 BCE}. {judge|It tells us that Fu Hao's family owned fine bronze}, {judge|but it does not tell us how ordinary people lived}.`
 };
 const EARLY_EXPLANATIONS = {
 "Foundation to Level 2": {
@@ -231,23 +231,25 @@ const VC = {
 };
 const VC_NOTE = "Levels 6 to 9 are the Ancient China Source Analysis Rubric, word for word: the same three rows that Tasks 1, 2 and 4 of the booklet mark. The China rubric stops at 6 and 9, so Level 5 and Level 10 quote the Ancient Australia source analysis continuum, also word for word. Foundation to Level 4 have no rubric wording: their lines are plain descriptions written for this wall. The codes are Victorian Curriculum 2.0.";
 
-/* new: what this rung adds. background: facts the rung uses that are not in the photo. */
+/* new: what this rung adds, as instructions to the student. background: facts the rung uses that
+   are not in the photo. The worked examples are written in a Year 7 student's voice: people doing
+   things, short sentences, no abstract nouns as subjects (see tools/three-ways-examples.js). */
 const BUMP = {
  "Foundation to Level 2": { new:"Say what the source is, something you can see, and who owned it.",
    background:"Fu Hao was the wife of a king in China long ago." },
- "Levels 3 and 4": { new:"Say where it was found, describe what it looks like, and say what it shows.",
+ "Levels 3 and 4": { new:"Say where it was found. Describe it. Say what it shows.",
    background:"It was found in 1976 in Fu Hao's tomb. She was married to the king and also led armies." },
- "Level 5": { new:"Name the source and a feature, say where and when it comes from, and one thing it can and cannot tell us.",
+ "Level 5": { new:"Name the source and one feature. Say when it comes from. Say one thing it can tell us and one thing it cannot.",
    background:"It comes from Anyang in China, from about 1200 BCE." },
- "Level 6": { new:"Say what kind of source it is, one fact about its owner, and one thing it is useful for.",
+ "Level 6": { new:"Say what kind of source it is. Say one fact about its owner and one thing it is useful for.",
    background:"Fu Hao was married to King Wu Ding of the Shang dynasty." },
- "Level 7": { new:"Origin, features and purpose; who Fu Hao was; and what the source cannot show.",
+ "Level 7": { new:"Say where it came from, what it looks like and what it was for. Say who Fu Hao was. Say what it cannot show.",
    background:"Found in 1976 in Fu Hao's tomb at Anyang. Fu Hao was a general and a priestess as well as a wife of the king. The Shang court and nobles used bronze vessels in ceremonies to the ancestors." },
- "Level 8": { new:"Evidence for the origin, the tomb as context, and what it is strong and weak evidence for.",
+ "Level 8": { new:"Back up where it came from. Use the tomb to explain Fu Hao's rank. Say what it is strong and weak evidence for.",
    background:"Her name is cast inside the vessel. Her tomb held 468 bronzes, more than 700 jades and sixteen sacrificed people. Rules set how many bronze vessels a noble of each rank could own." },
- "Level 9": { new:"Why the origin is secure, and the limits: one exceptional owner, the missing majority, changing meanings.",
+ "Level 9": { new:"Explain why we can trust where it came from. Explain its limits: one unusual owner, the people it leaves out, a meaning that changed.",
    background:"Most people sacrificed in Shang rituals were war captives. Owls seem to have been honoured in the Shang period and only later became a bad omen." },
- "Level 10": { new:"Explicit and implicit meaning, the values of the people who made it, and a second source compared to judge reliability.",
+ "Level 10": { new:"Explain what it says and what it hints at. Explain what its makers valued. Compare it with a second source.",
    background:"Oracle bones name Fu Hao in 170 to 180 inscriptions. Archaeologists say the weapons and ritual vessels in her tomb match what the inscriptions record of her wars and rituals." }
 };
 

@@ -5,6 +5,9 @@
 // else is below. Edit here and rerun; do not hand-edit the generated file.
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
+const EX = require(path.join(__dirname, "three-ways-examples.js"));
+const EARLY = ["Foundation to Level 2", "Levels 3 and 4", "Level 5"];
+const only = (o, early) => Object.fromEntries(Object.entries(o).filter(([l]) => EARLY.includes(l) === early));
 const FU = fs.readFileSync(path.join(ROOT, "history/fu-hao/content.js"), "utf8").replace(/\r\n/g, "\n");
 const block = name => {
   /* an optional comment directly above, which may not run past its own close */
@@ -57,22 +60,7 @@ const FACTS = [
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
 
 
-const EXAMPLES = {
-"Level 6":
-` + "`" + String.raw`{source|Source A is a painting, The Three Vinegar Tasters}. {source|It is not a primary source about Confucius, the Buddha and Laozi, because it was made about 2,000 years after they lived}. {context|It shows the founders of China's three ways tasting vinegar}. {judge|It is more useful for learning what later people thought of the three ways than for learning about the men themselves}.` + "`" + String.raw`,
-
-"Level 7":
-` + "`" + String.raw`{source|Source A is The Three Vinegar Tasters, a painting made in Japan in the 16th century by an artist of the Kanō school, now in the Tokyo National Museum}. {source|It shows three old men dipping their fingers into a jar of vinegar: one looks sour, one bitter and one sweet}. {source|Its purpose was to teach an idea through a picture}. {context|The men are often said to be Confucius, the Buddha and Laozi}, and {context|each face stands for how that way saw life: sour for Confucianism, which wanted rules to correct people; bitter for Buddhism, which saw suffering; sweet for Taoism}. {judge|It is useful for showing that the three ways were understood as different}, {judge|but it cannot show what any of the three men looked like}.` + "`" + String.raw`,
-
-"Level 8":
-` + "`" + String.raw`{source|Source A is a 16th-century Japanese painting by an artist of the Kanō school, made about 2,000 years after the men it shows}. {source|Three old men taste vinegar from one jar, and their faces are sour, bitter and sweet}. {source|It is an allegory: the tasting never happened, and it was painted to teach}. {context|The men are often said to be Confucius, the Buddha and Laozi, but the Buddha lived in India and Laozi may never have lived at all}, so {context|the painting brings together three founders who could hardly have met}. {context|Chinese versions often show other men: Su Shi, Huang Tingjian and a monk named Foyin}, which raises the question of who chose these three and why. {judge|It is strong evidence of how people later understood the three ways}, {judge|but weak evidence about the founders, and the painting does not name them, so even who is who is open to question}.` + "`" + String.raw`,
-
-"Level 9":
-` + "`" + String.raw`{source|Source A is an allegory painted in 16th-century Japan, so its origin tells us about later East Asian ideas, not about ancient China itself}. {source|Its design carries the meaning: three men at one jar, one taste, three different faces}. {context|The idea behind it is that the three teachings sat together in harmony}, {context|yet the readings show that was not always so: emperors at times chose one way, and in 841 to 845 a Tang emperor persecuted Buddhism}. {judge|So the painting is reliable evidence of an ideal, that the three ways could share one table}, {judge|but not of how they actually lived together}. {judge|The faces also need care: Wikipedia explains the sweet face from a Taoist point of view, while the museum record calls the painting a symbol of unity, so the same picture is read in different ways}.` + "`" + String.raw`,
-
-"Level 10":
-` + "`" + String.raw`{source|Source A's explicit meaning is plain: three men taste the same vinegar and react differently}. {source|Its implicit meaning is a judgement: the man who smiles has the wisest answer, so a picture that looks like harmony also ranks the three ways}. {context|Read with Taoist eyes, the sweet face is Laozi accepting things as they are; the museum's record instead calls it a symbol of unity, which shows how the values of the viewer shape what the source says}. {judge|The faces can be tested against the founders' own words}: {judge|the Analects says people led by "the rules of propriety" will "become good" (2.3), which fits the sour face that wants rules; the Tao Te Ching says "the more display there is of legislation, the more thieves and robbers there are" (57), which fits the sweet face; the Dhammapada says pain follows an evil thought "as the wheel follows the foot of the ox" (1), which fits the bitter one}. {judge|So the allegory is a fair summary of each way's attitude, but it is a later artist's argument, not a record}.` + "`" + String.raw`
-};
+const EXAMPLES = ${JSON.stringify(only(EX.A, false), null, 1)};
 
 const EXPLANATIONS = {
 "Level 6": {
@@ -137,16 +125,7 @@ const SOURCE_PANEL = Object.assign({}, SOURCES[0]);
 const HOTSPOTS = SOURCES[0].hotspots;
 
 const EARLY_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5"];
-const EARLY_EXAMPLES = {
-"Foundation to Level 2":
-` + "`" + String.raw`{source|This is a painting of three old men}. They are {source|tasting something from a big jar}. {context|The men stand for three ways of thinking in China}. {judge|It shows that the three ways are different}.` + "`" + String.raw`,
-
-"Levels 3 and 4":
-` + "`" + String.raw`{source|Source A is a painting of three old men tasting vinegar}. {source|One man smiles and the others pull faces}. {context|The men stand for Confucius, the Buddha and Laozi}. {judge|It shows that each way saw life differently}.` + "`" + String.raw`,
-
-"Level 5":
-` + "`" + String.raw`{source|Source A is a painting called The Three Vinegar Tasters}. A feature I notice is {source|that one man smiles while the others look sour}. {context|It was painted in the 16th century}. {judge|It can tell us that people thought the three ways were different}, {judge|but not what Confucius looked like}.` + "`" + String.raw`
-};
+const EARLY_EXAMPLES = ${JSON.stringify(only(EX.A, true), null, 1)};
 const EARLY_EXPLANATIONS = {
 "Foundation to Level 2": { source:"Says what the source is and what can be seen.", context:"Says what the men stand for.", judge:"Says one thing it shows." },
 "Levels 3 and 4": { source:"Describes the source and a feature.", context:"Says who the men stand for.", judge:"Says what it shows." },
@@ -156,21 +135,21 @@ const EARLY_EXPLANATIONS = {
 ` + shared + String.raw`
 /* new: what this rung adds. background: facts the rung uses that are not in the picture. */
 const BUMP = {
- "Foundation to Level 2": { new:"Say what the source is, what you can see, and what it shows.",
+ "Foundation to Level 2": { new:${JSON.stringify(EX.NEW["Foundation to Level 2"])},
    background:"The three men stand for three ways of thinking in China." },
- "Levels 3 and 4": { new:"Describe the painting, say who the men stand for, and what it shows.",
+ "Levels 3 and 4": { new:${JSON.stringify(EX.NEW["Levels 3 and 4"])},
    background:"The men are often said to be Confucius, the Buddha and Laozi." },
- "Level 5": { new:"Name the source and a feature, say when it was made, and one thing it can and cannot tell us.",
+ "Level 5": { new:${JSON.stringify(EX.NEW["Level 5"])},
    background:"It was painted in the 16th century." },
- "Level 6": { new:"Say what kind of source it is, what it shows, and what it is more and less useful for.",
+ "Level 6": { new:${JSON.stringify(EX.NEW["Level 6"])},
    background:"It was made about 2,000 years after Confucius, the Buddha and Laozi lived." },
- "Level 7": { new:"Origin, features and purpose; what each face stands for; and what the source cannot show.",
+ "Level 7": { new:${JSON.stringify(EX.NEW["Level 7"])},
    background:"Painted in Japan by an artist of the Kanō school, now in the Tokyo National Museum. Sour stands for Confucianism, bitter for Buddhism, sweet for Taoism." },
- "Level 8": { new:"Evidence for the origin, questions about who is shown, and what it is strong and weak evidence for.",
+ "Level 8": { new:${JSON.stringify(EX.NEW["Level 8"])},
    background:"The Buddha lived in India; Laozi may never have lived. Chinese versions often show Su Shi, Huang Tingjian and a monk named Foyin instead." },
- "Level 9": { new:"What the origin means, the ideal behind it set against what happened, and different readings of it.",
+ "Level 9": { new:${JSON.stringify(EX.NEW["Level 9"])},
    background:"Emperors at times favoured one way; in 841 to 845 a Tang emperor persecuted Buddhism. Wikipedia reads the sweet face as Taoist; the museum record calls it a symbol of unity." },
- "Level 10": { new:"Explicit and implicit meaning, the viewer's values, and the founders' own words to test the allegory.",
+ "Level 10": { new:${JSON.stringify(EX.NEW["Level 10"])},
    background:"Analects 2.3, Tao Te Ching 57 and Dhammapada 1 are in the 2.4 readings." }
 };
 
