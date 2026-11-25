@@ -29,9 +29,12 @@ const out = String.raw`/* ======================================================
    Museum), or the 2.4 readings (Simple and English Wikipedia, Legge, Muller).
    Nothing else is claimed. See SOURCE-NOTICE.md.
 
-   PASSWORD. The class sees every rung and its rubric rows, and the worked
-   examples up to Level 6. Typing "harmony" opens Levels 7 to 10 (the TEACHER
-   UNLOCK block in bump-it-up.html). It is a curtain, not a lock.
+   FOUR SOURCES. Source A, The Three Vinegar Tasters, is the teacher's model and
+   is open at every level. Sources C, D and B are the ones the students write
+   about; they are tabs on the same page, with their own worked examples
+   (tools/three-ways-sources.js), all locked until the teacher types "harmony"
+   near the end, so students can check their own answer. It is a curtain, not a
+   lock: the words are in this file.
    ======================================================================= */
 
 const WALL = {
@@ -53,8 +56,6 @@ const FACTS = [
 
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
 
-/* The class sees only these rungs' worked examples; Levels 7 to 10 wait for the password. */
-const STUDENT_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5", "Level 6"];
 
 const EXAMPLES = {
 "Level 6":
@@ -70,7 +71,7 @@ const EXAMPLES = {
 ` + "`" + String.raw`{source|Source A is an allegory painted in 16th-century Japan, so its origin tells us about later East Asian ideas, not about ancient China itself}. {source|Its design carries the meaning: three men at one jar, one taste, three different faces}. {context|The idea behind it is that the three teachings sat together in harmony}, {context|yet the readings show that was not always so: emperors at times chose one way, and in 841 to 845 a Tang emperor persecuted Buddhism}. {judge|So the painting is reliable evidence of an ideal, that the three ways could share one table}, {judge|but not of how they actually lived together}. {judge|The faces also need care: Wikipedia explains the sweet face from a Taoist point of view, while the museum record calls the painting a symbol of unity, so the same picture is read in different ways}.` + "`" + String.raw`,
 
 "Level 10":
-` + "`" + String.raw`{source|Source A's explicit meaning is plain: three men taste the same vinegar and react differently}. {source|Its implicit meaning is a judgement: the man who smiles has the wisest answer, so a picture that looks like harmony quietly ranks the three ways}. {context|Read with Taoist eyes, the sweet face is Laozi accepting things as they are; the museum's record instead calls it a symbol of unity, which shows how the values of the viewer shape what the source says}. {judge|The faces can be tested against the founders' own words}: {judge|the Analects says people led by "the rules of propriety" will "become good" (2.3), which fits the sour face that wants rules; the Tao Te Ching says "the more display there is of legislation, the more thieves and robbers there are" (57), which fits the sweet face; the Dhammapada says pain follows an evil thought "as the wheel follows the foot of the ox" (1), which fits the bitter one}. {judge|So the allegory is a fair summary of each way's attitude, but it is a later artist's argument, not a record}.` + "`" + String.raw`
+` + "`" + String.raw`{source|Source A's explicit meaning is plain: three men taste the same vinegar and react differently}. {source|Its implicit meaning is a judgement: the man who smiles has the wisest answer, so a picture that looks like harmony also ranks the three ways}. {context|Read with Taoist eyes, the sweet face is Laozi accepting things as they are; the museum's record instead calls it a symbol of unity, which shows how the values of the viewer shape what the source says}. {judge|The faces can be tested against the founders' own words}: {judge|the Analects says people led by "the rules of propriety" will "become good" (2.3), which fits the sour face that wants rules; the Tao Te Ching says "the more display there is of legislation, the more thieves and robbers there are" (57), which fits the sweet face; the Dhammapada says pain follows an evil thought "as the wheel follows the foot of the ox" (1), which fits the bitter one}. {judge|So the allegory is a fair summary of each way's attitude, but it is a later artist's argument, not a record}.` + "`" + String.raw`
 };
 
 const EXPLANATIONS = {
@@ -95,7 +96,7 @@ const EXPLANATIONS = {
   judge:   "Identifies the limits of its reliability, and that it is read in different ways."
 },
 "Level 10": {
-  source:  "Analyses explicit and implicit meaning: the harmony that quietly ranks the three ways.",
+  source:  "Analyses explicit and implicit meaning: a picture of harmony that also ranks the three ways.",
   context: "Explains how the viewer's values shape what the source is taken to say.",
   judge:   "Compares it with three primary sources to analyse how accurate the allegory is."
 }
@@ -106,7 +107,7 @@ const SHEET_IMAGE = "vinegar-tasters.jpg";
 const SOURCES = [
  {
   id: "vinegar",
-  tab: "Source A",
+  tab: "A · Model",
   kind: "image",
   file: SHEET_IMAGE,
   ar:   "644/1174",
@@ -130,6 +131,8 @@ const SOURCES = [
   ]
  }
 ];
+/* Sources C, D and B: generated from tools/three-ways-sources.js. Locked until the password. */
+SOURCES.push(...${JSON.stringify(require(path.join(__dirname, "three-ways-sources.js")), null, 1)});
 const SOURCE_PANEL = Object.assign({}, SOURCES[0]);
 const HOTSPOTS = SOURCES[0].hotspots;
 

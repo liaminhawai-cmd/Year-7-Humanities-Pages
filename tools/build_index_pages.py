@@ -259,8 +259,8 @@ SITE = [
             "The whole lesson online: the words, the video and its questions, the readings at Year 6, 7 or 8, "
             "the ruling and working classes table, and two sources checked level by level. Goes full screen.", None),
            ("&#127862;", "2.4 Bump it up: the three ways", "../three-ways/bump-it-up.html",
-            "The Three Vinegar Tasters: Confucius, the Buddha and Laozi at one jar, analysed Foundation to Level 10 on three rubric rows. "
-            "Students then do the same with a source on their own tradition.", None)]),
+            "Four sources, Foundation to Level 10 on three rubric rows. The model, The Three Vinegar Tasters, is open at every level; "
+            "the three sources students write about have worked examples that open with the teacher's password at the end.", None)]),
         ("Resources", None, wagoll(False,
            "Level 6 to Level 9: the CAT rubric's own bands. Tap the mural, tap any phrase. "
            "Downloads as one file for offline use.")),

@@ -36,8 +36,23 @@ in the generator are percentages of this 644 x 1174 file.
 | Simple English Wikipedia, "Confucianism", "Gautama Buddha"; English Wikipedia, "Laozi" | 11038325, 11067711, 1386086508 | the founders' dates; Laozi as legendary |
 | Analects 2.3 (Legge, 1861), Tao Te Ching 57 (Legge, 1891), Dhammapada 1 (Muller, 1881) | public domain | the Level 10 quotations, checked word for word |
 
-## Levels 7 to 10
+## Four tabs and the password
 
-The rubric rows show for every level from the start. The worked examples of
-Levels 7 to 10 are hidden until the teacher types "harmony" on the page. The
-examples are still in `content.js`, so a student who opens the file can read them.
+Tab A, The Three Vinegar Tasters, is the teacher model and is open at every level:
+no student writes about it. Tabs C, D and B are the students' own sources (the
+same pictures and facts as their printed source pages), with worked examples at
+every level in `tools/three-ways-sources.js`. Those stay hidden until the teacher
+types "harmony" near the end, so students can check their own answer. Every
+level's rubric rows show from the start. The examples are still in `content.js`,
+so a student who opens the file can read them.
+
+The engine here differs from the Fu Hao copy in one way: a source can carry its
+own worked examples, facts and question, and be marked locked.
+
+## The three student sources
+
+| File | Commons file | Licence |
+|---|---|---|
+| `confucian-admonitions-scene4.jpg` | Admonitions Scroll Scene 4.jpg (British Museum copy, 6th to 8th century) | Public domain |
+| `daoist-laozi-ox.jpg` | Zhang Lu-Laozi Riding an Ox.jpg (Ming dynasty, National Palace Museum) | Public domain |
+| `buddhist-diamond-sutra.jpg` | Diamond Sutra of 868 AD, frontispiece and text, BL Or. 8210-P.2 | CC0 |
