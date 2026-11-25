@@ -41,7 +41,7 @@ word in `CONTINUUM`. The booklet itself is not on this site.
 
 ## Levels 7 to 9
 
-Hidden from the class until the teacher types 7F on the page (`STUDENT_LEVELS` in
+The rubric rows show for every level from the start. The worked examples are hidden from the class until the teacher types "hierarchy" on the page (`STUDENT_LEVELS` in
 `content.js`, the TEACHER UNLOCK block in `bump-it-up.html`). The examples are
 still in `content.js`, so a student who opens the file can read them.
 

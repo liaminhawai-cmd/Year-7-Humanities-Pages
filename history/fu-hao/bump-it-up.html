@@ -352,21 +352,20 @@ document.head.insertAdjacentHTML("beforeend", "<style>" + CRITERIA.map(c => `
 
 /* TEACHER UNLOCK, copied from history/army (the other China walls do not have
    it). The class sees the rungs named in STUDENT_LEVELS in content.js. Typing
-   7F (either case) anywhere on the page, outside a text box, opens every rung;
+   "hierarchy" (any case) anywhere on the page, outside a text box, opens every rung;
    typing it again closes them. A page that frames this one can send the same
    switch as a message. Nothing is saved, so a reload closes them too. It is a
    curtain, not a lock: the word is in this file. */
 const FULL_LADDER = EARLY_LEVELS.concat(LEVELS);
-const OPEN_LADDER = (typeof STUDENT_LEVELS !== "undefined" && STUDENT_LEVELS.length)
-  ? FULL_LADDER.filter(l => STUDENT_LEVELS.includes(l)) : FULL_LADDER;
-let LADDER  = OPEN_LADDER;
-let teacherOpen = LADDER === FULL_LADDER;
+const LADDER = FULL_LADDER;
+/* Every rung and its rubric rows are always visible. Only the worked example of a rung not in
+   STUDENT_LEVELS waits for the password. */
+const HAS_LOCK = typeof STUDENT_LEVELS !== "undefined" && STUDENT_LEVELS.length > 0;
+let teacherOpen = !HAS_LOCK;
+const exampleLocked = lv => HAS_LOCK && !teacherOpen && !STUDENT_LEVELS.includes(lv);
 function setTeacher(on){
   if (on === teacherOpen) return;
-  const lv = i >= 0 ? LADDER[i] : null;
   teacherOpen = on;
-  LADDER = on ? FULL_LADDER : OPEN_LADDER;
-  i = lv && LADDER.includes(lv) ? LADDER.indexOf(lv) : Math.min(i, LADDER.length - 1);
   render();
   if (window.parent !== window) window.parent.postMessage({ y7hTeacher: teacherOpen }, "*");
 }
@@ -374,8 +373,8 @@ let typedKeys = "";
 document.addEventListener("keydown", e => {
   if (e.target.closest && e.target.closest("input,textarea,select,[contenteditable]")) return;
   if (!e.key || e.key.length !== 1) return;
-  typedKeys = (typedKeys + e.key.toLowerCase()).slice(-2);
-  if (typedKeys === "7f"){ typedKeys = ""; setTeacher(!teacherOpen); }
+  typedKeys = (typedKeys + e.key.toLowerCase()).slice(-9);
+  if (typedKeys === "hierarchy"){ typedKeys = ""; setTeacher(!teacherOpen); }
 });
 window.addEventListener("message", e => {
   if (e.data && typeof e.data.y7hTeacher === "boolean") setTeacher(e.data.y7hTeacher);
@@ -935,6 +934,16 @@ function render(){
   }
   const lv = LADDER[i];
   el("rungName").textContent = lv;
+  if (exampleLocked(lv)){
+    stage.classList.remove("small");
+    stage.innerHTML =
+      `<h2><span class="of">Rung ${i+1} of ${LADDER.length}</span>${esc(lv)}</h2>
+       <div class="newbar"><span>Worked example</span>Locked until your teacher opens it. Write your own answer first.</div>
+       <p class="crumbs">What this level asks for, in the rubric's own words:</p>
+       ${CRITERIA.map(c => `<div class="fact" style="border-left:.35em ${c.underline} ${c.ink}"><b style="color:${c.ink}">${c.glyph} ${esc(c.name.replace(/&amp;/g,"&"))}</b>${esc((CONTINUUM[c.key] && CONTINUUM[c.key][lv]) || "")}</div>`).join("")}`;
+    markTranslatable();
+    return;
+  }
   const ex = exOf(lv);
   const plain = ex.replace(/\{(\w+)\|([^}]*)\}/g,"$2");
   baseK = Math.min(2.4, Math.max(0.92, Math.sqrt(950 / plain.length)));
