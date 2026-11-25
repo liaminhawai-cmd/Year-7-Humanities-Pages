@@ -29,7 +29,7 @@ reliability" here.
 |---|---|---|
 | A | `great-wall-mutianyu.jpg`: Wikimedia Commons "Great Wall of China July 2006.JPG" by Velatrix, the Mutianyu section, resized to 1280 x 958. The hotspot boxes in the generator are percentages of this file. | CC0 |
 | B | English Wikipedia, "Arthur Waldron", revision 1383247804: two sentences summarising his book *The Great Wall of China: From History to Myth* (1989), shortened with […] where words are left out. | CC BY-SA 4.0 |
-| C | Three short quotes from the TED-Ed video "What makes the Great Wall of China so extraordinary" (youtu.be/23oHqNEqRyo), checked against its transcript. The transcript's "walls reputation" is given its apostrophe. | quoted for criticism and review |
+| C | Four short quotes from the TED-Ed video "What makes the Great Wall of China so extraordinary" (youtu.be/23oHqNEqRyo), checked against its transcript. The transcript's "walls reputation" is given its apostrophe. | quoted for criticism and review |
 
 ## The facts
 

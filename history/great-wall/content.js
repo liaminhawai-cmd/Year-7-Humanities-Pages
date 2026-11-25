@@ -69,37 +69,37 @@ const CRITERIA = [
 const LEVELS = ["Level 6","Level 7","Level 8","Level 9","Level 10"];
 const STUDENT_LEVELS = ["Foundation to Level 2", "Levels 3 and 4", "Level 5", "Level 6"];
 const EXAMPLES = {
- "Level 6": "{source|Source A is a photo of the Great Wall at Mutianyu, taken in 2006}. {source|The photo is modern, but the Ming dynasty built the wall in it}. {interpretation|Sources B and C interpret the wall differently}. {interpretation|Source C calls it a monument to human achievement. Source B says it was many walls, built at different times}. {judge|Source A is useful for showing how strong the wall looks}. {judge|Source C is more useful for deciding if it worked, because it says the wall could be beaten}. {judge|I think the wall was partly a success}.",
- "Level 7": "{source|Source A is a photo of the Great Wall at Mutianyu, near Beijing, taken in 2006}. {source|This section was built by the Ming dynasty, which ruled China from 1368 to 1644}. {source|It shows a brick wall with battlements and a square watchtower, running along steep mountain ridges}. {source|The Ming built walls like this to defend their northern border from Mongol raids}. {interpretation|Source C describes the wall as \"formidable but not invincible\"}. {interpretation|It calls the wall a \"remarkable monument to human achievement\", but it also says the wall became \"a notorious place of suffering\"}. {interpretation|Source B describes it differently. It says many walls were built at different times, and the idea of one \"Great Wall\" came from the Ming wall}. {judge|Source A is useful for showing how strong the Ming wall was}, {judge|but it cannot tell us whether the wall kept invaders out}. {judge|I conclude that the wall was partly a success. It slowed raiders, but Mongol raids still continued}.",
- "Level 8": "{source|Source A is a 2006 photo of Mutianyu, a section of the Ming Great Wall}. {source|Its brick walls, battlements and watchtower show how much stronger the Ming wall was than the earlier rammed-earth walls}. {source|Soldiers in the towers watched for raiders and sent smoke or fire signals}. {interpretation|Writers disagree about what the Great Wall even was}. {interpretation|Source C treats it as one great monument, built and extended over many dynasties}. {interpretation|Source B reports the historian Arthur Waldron's view: there were many walls, each one part of a larger plan for the border}. {interpretation|In his view, the idea of a single \"Great Wall\" grew out of the Ming wall}. {judge|Source A raises its own question: how much of what we see is original?} {judge|Mutianyu was one of the first sections restored after the Cultural Revolution}. {judge|Source C raises another: how could a wall that \"formidable\" fail?} {judge|The Ming army held Shanhai Pass against the Manchus for years}. {judge|In 1644 the Manchus got through only after a Ming general opened the gates}. {judge|So the wall worked as a defence for long periods, but it could not save the Ming in 1644}.",
- "Level 9": "{source|Source A shows the Ming wall as it looks today}. {source|The photo was taken in 2006 at Mutianyu, one of the first sections restored after the Cultural Revolution}. {source|So it shows the wall after modern repairs, and it looks stronger and more complete than much of the wall does now}. {source|A 2012 report found that 22% of the Ming wall has disappeared}. {interpretation|Sources B and C rest on different evidence}. {interpretation|Source C's evidence is the wall's size and the people who built it: soldiers, peasants and criminals, many of whom died}. {interpretation|Waldron's evidence was written records. Wikipedia says his book drew on \"extensive documentary research\"}. {interpretation|Those records show walls built at different times for different border plans}. {interpretation|That is why he argues the single \"Great Wall\" is an idea that grew from the Ming wall}. {judge|Both sources are secondary, and they are useful in different ways}. {judge|Source C is accurate on facts we can check, such as the Ming bricks and watchtowers}. {judge|It is less reliable on detail, because it simplifies for a general audience. For example, it calls Kublai Khan Genghis Khan's son, when he was his grandson}. {judge|My judgement is that the Ming wall was a success as a defence for long periods}. {judge|The Ming army held Shanhai Pass even after losing the rest of Liaodong}. {judge|It failed in 1644, but only after Beijing had fallen to rebels and a Ming general opened the gates}.",
- "Level 10": "{source|The explicit meaning of Source A is a strong, unbroken wall along the mountains}. {source|Its implicit meaning comes from where the photo was taken}. {source|Mutianyu is a restored section near Beijing, and tourists visit it today}. {source|So the photo shows the wall as a national symbol as much as a defence}. {interpretation|This links to Waldron's argument in Source B}. {interpretation|He argues that the idea of one \"Great Wall\" grew out of the Ming wall, and Wikipedia adds that it became \"a potent patriotic symbol\"}. {interpretation|Source C shares the symbol view when it calls the wall a \"remarkable monument to human achievement\"}. {interpretation|However, Source C's own evidence supports Waldron. It describes separate state walls, Qin connections, Han extensions and a Ming rebuild in brick}. {judge|Neither source is primary, so each is only as reliable as its evidence}. {judge|Waldron's interpretation rests on written records}. {judge|Source C simplifies for a general audience and makes small errors, such as calling Kublai Khan Genghis Khan's son}. {judge|So whether the wall was a success depends on which wall we judge}. {judge|The Qin wall cost many lives, and the Mongols crossed the walls in the 13th century}. {judge|The Ming wall held the Manchus at Shanhai Pass until a Ming general opened the gates in 1644}."
+ "Level 6": "{source|Source A is a photo of the Great Wall at Mutianyu, taken in 2006}. {source|The photo is modern, but the Ming dynasty built the wall in it}. {interpretation|Sources B and C interpret the wall differently}. {interpretation|Source C calls it a monument to human achievement. Source B says it was many walls, built at different times}. {judge|Source A is useful for showing how strong the wall looks}. {judge|Source C is more useful for deciding if it worked, because it says the wall \"was not enough\" in 1644}. I think the wall was partly a success.",
+ "Level 7": "{source|Source A is a photo of the Great Wall at Mutianyu, near Beijing, taken in 2006}. {source|This section was built by the Ming dynasty, which ruled China from 1368 to 1644}. {source|It shows a brick wall with battlements and a square watchtower, running along steep mountain ridges}. {source|The Ming built walls like this to defend their northern border from Mongol raids}. {interpretation|Source C describes the wall as \"formidable but not invincible\"}. {interpretation|It calls the wall a \"remarkable monument to human achievement\", but it also says the wall became \"a notorious place of suffering\"}. {interpretation|Source B describes it differently. It says many walls were built at different times, and the idea of one \"Great Wall\" came from the Ming wall}. {judge|Source A is useful for showing how strong the Ming wall was}, {judge|but it cannot tell us whether the wall kept invaders out}. {judge|Source C is more useful for that question. It admits the wall \"was not enough\" when the Manchus took over in 1644}. I conclude that the wall was partly a success. It slowed raiders, but Mongol raids still continued.",
+ "Level 8": "{source|Source A is a 2006 photo of Mutianyu, a section of the Ming Great Wall}. {source|Its brick walls, battlements and watchtower show how much stronger the Ming wall was than the earlier rammed-earth walls}. {source|Soldiers in the towers watched for raiders and sent smoke or fire signals}. {interpretation|Writers disagree about what the Great Wall even was}. {interpretation|Source C treats it as one great monument, built and extended over many dynasties}. {interpretation|Source B reports the historian Arthur Waldron's view: there were many walls, each one part of a larger plan for the border}. {interpretation|In his view, the idea of a single \"Great Wall\" grew out of the Ming wall}. {judge|Source A raises a question: how much of what we see is original?} {judge|Mutianyu was one of the first sections restored after the Cultural Revolution}. {judge|Source C raises another question. It says the Ming wall \"was not enough\", but does it tell the whole story of 1644?} {judge|It does not say that a Ming general opened the gates to the Manchus}. The Ming army held Shanhai Pass against the Manchus for years. So the wall worked as a defence for long periods, but it could not save the Ming in 1644.",
+ "Level 9": "{source|Source A shows the Ming wall as it looks today}. {source|The photo was taken in 2006 at Mutianyu, one of the first sections restored after the Cultural Revolution}. {source|So it shows the wall after modern repairs, and it looks stronger and more complete than much of the wall does now}. {source|A 2012 report found that 22% of the Ming wall has disappeared}. {interpretation|Sources B and C rest on different evidence}. {interpretation|Source C's evidence is the wall's size and the people who built it: soldiers, peasants and criminals, many of whom died}. {interpretation|Waldron's evidence was written records. Wikipedia says his book drew on \"extensive documentary research\"}. {interpretation|Those records show walls built at different times for different border plans}. {interpretation|That is why he argues the single \"Great Wall\" is an idea that grew from the Ming wall}. {judge|Both sources are secondary, and they are useful in different ways}. {judge|Source C is accurate on facts we can check, such as the Ming bricks and watchtowers}. {judge|It is less reliable on detail, because it simplifies for a general audience. For example, it calls Kublai Khan Genghis Khan's son, when he was his grandson}. {judge|It also leaves out how the Manchus got through in 1644. Beijing had already fallen to rebels, and a Ming general opened the gates}. My judgement is that the Ming wall was a success as a defence for long periods. The Ming army held Shanhai Pass even after losing the rest of Liaodong.",
+ "Level 10": "{source|The explicit meaning of Source A is a strong, unbroken wall along the mountains}. {source|Its implicit meaning comes from where the photo was taken}. {source|Mutianyu is a restored section near Beijing, and tourists visit it today}. {source|So the photo shows the wall as a national symbol as much as a defence}. {interpretation|This links to Waldron's argument in Source B}. {interpretation|He argues that the idea of one \"Great Wall\" grew out of the Ming wall, and Wikipedia adds that it became \"a potent patriotic symbol\"}. {interpretation|Source C shares the symbol view when it calls the wall a \"remarkable monument to human achievement\"}. {interpretation|However, Source C's own evidence supports Waldron. It describes separate state walls, Qin connections, Han extensions and a Ming rebuild in brick}. {judge|Neither source is primary, so each is only as reliable as its evidence}. {judge|Waldron's interpretation rests on written records}. {judge|Source C is accurate that the Manchus took over China in 1644}. {judge|But it is not reliable about how. It says the wall \"was not enough\", yet Beijing had already fallen to rebels, and a Ming general opened the gates}. {judge|So Source C makes the Ming wall look like more of a failure than it was}. Whether the wall was a success depends on which wall we judge. The Qin wall cost many lives, and the Mongols crossed the walls in the 13th century. The Ming wall held the Manchus at Shanhai Pass until 1644."
 };
 const EXPLANATIONS = {
  "Level 6": {
   "source": "Identifies the type of source.",
   "interpretation": "Recognises that the two sources see the wall differently.",
-  "judge": "Recognises that one source is more useful for the question."
+  "judge": "Recognises that Source C is more useful for the question."
  },
  "Level 7": {
   "source": "Identifies origin, features and purpose.",
   "interpretation": "Describes each interpretation, using the sources' words.",
-  "judge": "Draws a conclusion about usefulness, then answers the question."
+  "judge": "Draws a conclusion about which source is useful for the question."
  },
  "Level 8": {
   "source": "Describes the origin, with what the features show.",
   "interpretation": "Explains the debate: one monument, or many walls?",
-  "judge": "Asks questions of the sources, and tests the answer against what happened in 1644."
+  "judge": "Asks questions about each source's accuracy, and checks Source C against what happened in 1644."
  },
  "Level 9": {
   "source": "Explains what the origin means for the evidence.",
   "interpretation": "Identifies the evidence each interpretation rests on.",
-  "judge": "Identifies what each source is accurate and reliable for, then judges."
+  "judge": "Identifies what Source C is accurate on, and where it falls short."
  },
  "Level 10": {
   "source": "Analyses explicit and implicit meaning.",
   "interpretation": "Shows where one source's evidence supports the other's interpretation.",
-  "judge": "Analyses reliability, and shows the answer depends on which wall."
+  "judge": "Analyses Source C's accuracy against the evidence, and what that does to its judgement of the wall."
  }
 };
 
@@ -172,17 +172,19 @@ const SOURCES = [
  {
   id: "teded", tab: "Source C", kind: "text",
   cite: "Source C: the TED-Ed video \"What makes the Great Wall of China so extraordinary\", youtu.be/23oHqNEqRyo, in its own words. The times are from the video's transcript.",
-  whole: { label: "The three quotes",
+  whole: { label: "The four quotes",
     text: "A short animated video made for a general audience. It is a secondary source: it was made long after the walls were built." },
   paragraphs: [
     "\"Forced labor continued under the Han Emperor Han-Wudi, and the wall's reputation grew into a notorious place of suffering.\" (1:25)",
     "\"The wall was formidable but not invincible.\" (1:49)",
+    "\"But even this new and improved wall was not enough. In 1644, northern Manchu clans overthrew the Ming …\" (2:33)",
     "\"… this remarkable monument to human achievement.\" (4:09)"
   ],
   hotspots: [
    { mark:"Forced labor", label:"Forced labour", text:"Workers were made to build the wall. The video says many were peasants and criminals, and many died." },
    { mark:"a notorious place of suffering", label:"Suffering", text:"Notorious means famous for something bad. This is the cost of the wall." },
    { mark:"formidable but not invincible", label:"Strong, but could be beaten", text:"Formidable means very strong and frightening. Invincible means impossible to beat. So the video judges the wall a partial success." },
+   { mark:"was not enough", label:"A failure?", text:"The video's judgement of the Ming wall. Is it the whole story? Check how the Manchus got through in 1644." },
    { mark:"remarkable monument to human achievement", label:"An achievement", text:"The video's final judgement. It treats the wall as one great monument." }
   ]
  }
@@ -192,20 +194,20 @@ const HOTSPOTS = SOURCES[0].hotspots;
 
 const EARLY_LEVELS = ["Foundation to Level 2","Levels 3 and 4","Level 5"];
 const EARLY_EXAMPLES = {
- "Foundation to Level 2": "{source|This is a photo of the Great Wall of China}. {source|It is a long stone wall on top of the mountains}. {interpretation|Source C says the wall was strong}. {judge|I think the wall was a success because it was hard to get past}.",
- "Levels 3 and 4": "{source|Source A is a photo of the Great Wall}. {source|It has towers and a path along the top}. {interpretation|Source C says the wall was strong, but invaders still got past it}. {judge|I think the wall was partly a success}, {judge|because it stopped some attacks but not all of them}.",
- "Level 5": "{source|Source A is a photo of the Great Wall at Mutianyu}. A feature I notice is {source|the square watchtower on the hill}. {interpretation|Source C calls the wall a \"remarkable monument to human achievement\"}. {interpretation|Source B says many walls were built at different times}. {judge|The photo shows what the wall looks like}, {judge|but it cannot tell us if the wall kept invaders out}."
+ "Foundation to Level 2": "{source|This is a photo of the Great Wall of China}. {source|It is a long stone wall on top of the mountains}. {interpretation|Source C says the wall was strong}. {judge|The photo is good for seeing what the wall looks like}. I think the wall was a success because it was hard to get past.",
+ "Levels 3 and 4": "{source|Source A is a photo of the Great Wall}. {source|It has towers and a path along the top}. {interpretation|Source C says the wall was strong, but invaders still got past it}. {judge|Source C is useful because it tells us what happened to the wall}. I think the wall was partly a success, because it stopped some attacks but not all of them.",
+ "Level 5": "{source|Source A is a photo of the Great Wall at Mutianyu}. A feature I notice is {source|the square watchtower on the hill}. {interpretation|Source C calls the wall a \"remarkable monument to human achievement\"}. {interpretation|Source B says many walls were built at different times}. {judge|The photo shows what the wall looks like}, {judge|but it cannot tell us if the wall kept invaders out}. I think the wall was partly a success."
 };
 const EARLY_EXPLANATIONS = {
  "Foundation to Level 2": {
   "source": "Says what the source is and what can be seen.",
   "interpretation": "Says what one source thinks.",
-  "judge": "Gives an answer and a reason."
+  "judge": "Says what the photo is good for."
  },
  "Levels 3 and 4": {
   "source": "Describes the source.",
   "interpretation": "Says what one source thinks, and one problem.",
-  "judge": "Gives an answer with a reason."
+  "judge": "Says why a source is useful."
  },
  "Level 5": {
   "source": "Names the source and one feature.",
@@ -305,7 +307,7 @@ const BUMP = {
   "background": "Soldiers kept watch from the towers on the wall."
  },
  "Level 5": {
-  "new": "Name the source and one feature. Say what Sources B and C think. Say what the photo can and cannot tell us.",
+  "new": "Name the source and a feature. Say what B and C think. Say what the photo can and cannot show.",
   "background": "Mutianyu is a section of the wall near Beijing."
  },
  "Level 6": {
@@ -317,7 +319,7 @@ const BUMP = {
   "background": "The Ming ruled from 1368 to 1644. They built in brick and stone, and Mongol raids continued."
  },
  "Level 8": {
-  "new": "Say what the features show. Explain the debate: one wall or many? Ask questions about the sources. Test your answer against 1644.",
+  "new": "Say what the features show. Explain the debate: one wall or many? Ask questions about the sources. Check Source C against 1644.",
   "background": "Towers sent smoke or fire signals. The Ming army held Shanhai Pass against the Manchus until 1644, when a Ming general, Wu Sangui, opened the gates. Mutianyu was one of the first sections restored after the Cultural Revolution."
  },
  "Level 9": {
@@ -325,7 +327,7 @@ const BUMP = {
   "background": "A 2012 report found 22% of the Ming wall has disappeared. Waldron's book drew on \"extensive documentary research\". Beijing had already fallen to rebels when the gates were opened. Kublai Khan was Genghis Khan's grandson."
  },
  "Level 10": {
-  "new": "Explain what the photo says and what it hints at. Show how one source's evidence supports the other. Judge which wall.",
+  "new": "Explain what the photo says and what it hints at. Show how one source's evidence supports the other. Test Source C against 1644.",
   "background": "Wikipedia says the idea of the Great Wall became \"a potent patriotic symbol\" in recent times. The Mongols crossed the walls in the 13th century."
  }
 };
@@ -364,7 +366,7 @@ const KID = {
   "lines": [
    "I can say what a source is and something I see in it.",
    "I can say what one source thinks.",
-   "I can give my answer and one reason."
+   "I can say what a source is good for."
   ]
  },
  "Levels 3 and 4": {
@@ -372,7 +374,7 @@ const KID = {
   "lines": [
    "I can describe a source and a feature of it.",
    "I can say what a source thinks about the past.",
-   "I can give my answer with a reason from a source."
+   "I can say why a source is useful."
   ]
  },
  "Level 5": {
