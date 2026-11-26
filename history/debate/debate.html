@@ -128,6 +128,7 @@ body.view-run #stage{display:none}
 .side.B .spk{flex-direction:row-reverse}
 .spkFig{flex:0 0 196px;display:flex;flex-direction:column;align-items:center;gap:2px}
 .fig{color:var(--tc);display:block;flex:none}
+.spkFig .fig{width:62px;height:96px}
 .side.B .fig,.spkWrap.B .fig{transform:scaleX(-1)}
 .nrow{display:flex;gap:2px;align-items:center;width:100%}
 .nrow input{flex:1;min-width:0;height:40px;padding:4px 8px;border:2px solid var(--line);border-radius:8px;border-bottom-color:var(--tc)}
@@ -176,7 +177,7 @@ dialog#spk::backdrop{background:rgba(29,43,47,.55)}
   .spk,.side.B .spk{flex-wrap:wrap;flex-direction:row}
   .spkFig{flex:1 1 100%;flex-direction:row;gap:8px}
   .side.B .spkFig{flex-direction:row-reverse}
-  .fig{width:36px;height:58px}
+  .fig,.spkFig .fig{width:36px;height:58px}
   .bubble{flex:1 1 100%;margin:8px 0 0}
   .bubble::before,.bubble::after{display:none}
   .spkWrap,.spkWrap.B{flex-direction:column}
@@ -373,8 +374,48 @@ function planOf(T, i){
   }));
   return out;
 }
-function figSVG(){
-  return '<svg class="fig" viewBox="0 0 60 96" width="56" height="88" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="14" r="11" fill="#fff"/><path d="M30 25V62M30 36L13 54M30 36L47 44M30 62L16 92M30 62L44 92"/><path d="M33 19Q37 22 40 18" stroke-width="2.5"/></g><circle cx="35" cy="12" r="2" fill="currentColor"/></svg>';
+/* Each figure gets a look from its team and place: a hair style and colour, and maybe glasses, a beard, a cap
+   or a bow. Drawn facing right; Team B's figures are mirrored by CSS. Decoration only (aria-hidden). */
+const HAIR = ["short", "curly", "spiky", "long", "bun", "bald", "ponytail", "flat"];
+const HAIR_COL = ["#2b2118", "#7a4a26", "#d4ad38", "#b5532a", "#a3a8ad", "#111111", "#5a3a2a"];
+const HAT_COL = ["#c0392b", "#2e7d4f", "#d68910", "#5b4ba1"];
+function lookOf(T, i){
+  const n = (T === "A" ? 0 : 5) + i;
+  const hair = HAIR[(n * 3 + 1) % HAIR.length], col = HAIR_COL[(n * 5 + 2) % HAIR_COL.length];
+  const longish = hair === "long" || hair === "ponytail" || hair === "bun";
+  return { hair, col,
+    glasses: n % 3 === 1,
+    beard: !longish && (n % 4 === 2 || n === 5 || n % 4 === 0 && hair !== "bald" && n > 0),
+    cap: n % 5 === 3 && hair !== "bun",
+    bow: longish && n % 2 === 0,
+    hatCol: HAT_COL[n % HAT_COL.length] };
+}
+function hairSVG(L){
+  const c = L.col;
+  const cap = '<path d="M19 12 Q19 1 30 1 Q41 1 41 12 Q36 6 30 7 Q24 6 19 12 Z" fill="' + c + '" stroke="' + c + '" stroke-width="1.5"/>';
+  switch (L.hair) {
+    case "short": return cap;
+    case "flat": return '<path d="M19 11 Q19 2 30 2 Q41 2 41 9 L41 10 Q30 6 19 11 Z" fill="' + c + '" stroke="' + c + '" stroke-width="1.5"/><path d="M38 4 L44 8" stroke="' + c + '" stroke-width="3"/>';
+    case "spiky": return '<path d="M19 11 L21 2 L25 7 L28 -1 L31 6 L35 -1 L37 6 L41 1 L41 11 Q30 6 19 11 Z" fill="' + c + '" stroke="' + c + '" stroke-width="1.5" stroke-linejoin="round"/>';
+    case "curly": return [[20, 9], [24, 4], [30, 2], [36, 4], [40, 9], [19, 15]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="4.6" fill="' + c + '" stroke="' + c + '"/>').join("");
+    case "long": return cap + '<path d="M20 10 Q15 18 16 34 L22 34 Q21 22 23 14 Z" fill="' + c + '" stroke="' + c + '" stroke-width="1.5"/>';
+    case "bun": return cap + '<circle cx="21" cy="3" r="5.5" fill="' + c + '" stroke="' + c + '"/>';
+    case "ponytail": return cap + '<path d="M20 9 Q9 10 8 26 Q13 20 20 14 Z" fill="' + c + '" stroke="' + c + '" stroke-width="1.5"/>';
+    default: return "";   /* bald */
+  }
+}
+function figSVG(T, i){
+  const L = lookOf(T || "A", i || 0);
+  const extras =
+    (L.beard ? '<path d="M24 19 Q26 31 33 31 Q40 30 41 18 Q37 23 33 23 Q28 23 24 19 Z" fill="' + L.col + '" stroke="' + L.col + '" stroke-width="1"/>' : "") +
+    (L.glasses ? '<circle cx="35" cy="12" r="5" fill="none" stroke="#222" stroke-width="2"/><path d="M30 11 L22 10" stroke="#222" stroke-width="2"/>' : "") +
+    (L.cap ? '<path d="M18 10 Q18 -1 30 -1 Q42 -1 42 10 Z" fill="' + L.hatCol + '" stroke="' + L.hatCol + '"/><path d="M40 9 L52 9" stroke="' + L.hatCol + '" stroke-width="4" stroke-linecap="round"/>' : "") +
+    (L.bow ? '<path d="M14 2 L22 6 L14 10 Z M30 2 L22 6 L30 10 Z" fill="' + L.hatCol + '" stroke="' + L.hatCol + '" stroke-width="1"/>' : "");
+  return '<svg class="fig" viewBox="0 -4 60 100" width="56" height="88" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
+    + '<path d="M30 25V62M30 36L13 54M30 36L47 44M30 62L16 92M30 62L44 92"/><circle cx="30" cy="14" r="11" fill="#fff"/></g>'
+    + hairSVG(L) + '<circle cx="35" cy="12" r="2" fill="#1d2b2f"/>'
+    + (L.beard ? "" : '<path d="M33 19 Q37 22 40 18" fill="none" stroke="#1d2b2f" stroke-width="2.5" stroke-linecap="round"/>')
+    + extras + '</svg>';
 }
 function bubbleHTML(T, i){
   const bx = planOf(T, i), idea = b => M().ideas[b.key][b.k];
@@ -392,7 +433,7 @@ function drawStage(){
         <input class="tname" data-tname="${T}" value="${esc(teamName(T))}" aria-label="Name of team ${T === "A" ? "one" : "two"}">
         <span>${stand(T)}</span>
         <span class="stepper" role="group" aria-label="Speakers in Team ${esc(teamName(T))}"><button type="button" data-size="${T}" data-d="-1" aria-label="One fewer speaker">−</button><output>${size}</output><button type="button" data-size="${T}" data-d="1" aria-label="One more speaker">+</button></span></div>` +
-      Array.from({ length: size }, (_, i) => `<div class="spk"><div class="spkFig">${figSVG()}<div class="nrow"><input data-name="${T}" data-i="${i}" value="${esc(names[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(T))} speaker ${i + 1} name"><button type="button" data-move="${T}" data-i="${i}" data-d="-1" aria-label="Move up" ${i === 0 ? "disabled" : ""}>↑</button><button type="button" data-move="${T}" data-i="${i}" data-d="1" aria-label="Move down" ${i === size - 1 ? "disabled" : ""}>↓</button></div></div>
+      Array.from({ length: size }, (_, i) => `<div class="spk"><div class="spkFig">${figSVG(T, i)}<div class="nrow"><input data-name="${T}" data-i="${i}" value="${esc(names[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(T))} speaker ${i + 1} name"><button type="button" data-move="${T}" data-i="${i}" data-d="-1" aria-label="Move up" ${i === 0 ? "disabled" : ""}>↑</button><button type="button" data-move="${T}" data-i="${i}" data-d="1" aria-label="Move down" ${i === size - 1 ? "disabled" : ""}>↓</button></div></div>
         <button type="button" class="bubble" data-bubble="${T}" data-slot="${i}">${bubbleHTML(T, i)}</button></div>`).join("") + `</section>`;
   };
   $("court").innerHTML = side("A") + side("B");
@@ -408,7 +449,7 @@ let spk = null;
 function openSpeaker(T, i){
   spk = { T, i };
   const bx = planOf(T, i), twice = turns().filter(t => t.team === T && t.slot === i && !t.reply).length > 1;
-  $("spk").innerHTML = `<div class="spkWrap ${T}" style="--tc:var(--team${T})"><div class="spkFig2">${figSVG()}<input id="spkName" value="${esc((T === "A" ? S.namesA : S.namesB)[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(T))} speaker ${i + 1} name"></div>
+  $("spk").innerHTML = `<div class="spkWrap ${T}" style="--tc:var(--team${T})"><div class="spkFig2">${figSVG(T, i)}<input id="spkName" value="${esc((T === "A" ? S.namesA : S.namesB)[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(T))} speaker ${i + 1} name"></div>
     <div class="spkBubble"><div class="spkScroll"><h2>Team ${esc(teamName(T))} · speaker ${i + 1}${twice ? " · speaks twice" : ""}</h2>` +
     bx.map((b, n) => `<div class="idea"><label for="spkTa${n}">${esc(b.label)}</label><textarea id="spkTa${n}" data-idea="${b.key}" data-k="${b.k}" placeholder="Dot points, one per line" ${n === 0 ? "autofocus" : ""}>${esc(M().ideas[b.key][b.k] || "")}</textarea></div>`).join("") +
     `</div><div class="foot"><button type="button" class="primary" id="spkDone">Done</button></div></div></div>`;
