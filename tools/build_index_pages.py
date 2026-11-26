@@ -273,6 +273,9 @@ SITE = [
            ("&#128187;", "3.2 The Great Wall: the whole lesson online", "../great-wall/accessible.html",
             "For a student who works better on a device: two videos in four stops with sentence starters, the myth hunt, then three sources on whether the wall was a success, with starters for each rubric row. "
             "Read to me, voice typing, big buttons, zoom. Goes full screen.", None),
+           ("&#127908;", "4.3 Debate: should we commemorate Qin Shi Huang?", "../debate/",
+            "Everything for the debate in one place: the speaking order and timer, with a Batman demo, and the planner, "
+            "evidence cards and rubric to print or edit.", None),
            ("&#129521;", "3.2 Bump it up: the Great Wall", "../great-wall/bump-it-up.html",
             "Was the Great Wall a success? A photo of the Ming wall, a historian's interpretation and a video's own words. "
             "Foundation to Level 10 on three rubric rows, with historical interpretations.", None)]),
@@ -301,6 +304,31 @@ SITE = [
            "booklet does not record the artist, the date or the collection that holds it; see "
            "<a href=\"SOURCE-NOTICE.md\">the source notice</a>.<br><br>"
            "<b>Draft.</b> Written and levelled against the real rubric, but not yet taught."),
+
+ dict(path="history/debate/index.html", cls="history", depth=2, kicker="History &middot; Ancient China 4.3",
+      title="Debate: should we commemorate Qin Shi Huang?",
+      intro="Everything for the debate in one place: the speaking order and timer to project, and the planner, "
+            "evidence cards and rubric to print or edit.",
+      back=("../china/", "Ancient China"),
+      sections=[
+        ("Run the debate", "project it", [
+          ("&#127908;", "Speaking order and timer", "debate.html",
+           "Starts on the Qin Shi Huang topic, 3 v 3; type your own topic or change the team sizes. Shows whose turn it is, "
+           "what they do (intro, rebuttal, argument), a timer and sentence starters. Switch to the Batman demo to model it: "
+           "two arguments a side are planned as dot points, the third is left for the class.", None)]),
+        ("Print and edit", "Word to edit, PDF to print", [
+          ("&#128221;", "Debate planner (Word)", "../../print/China-4.3-Debate-planner.docx",
+           "2 A4 pages: our team, my intro, my one argument; get ready to rebut, while they speak, my rebuttal, after the debate.", None),
+          ("&#128424;", "Debate planner (PDF)", "../../print/China-4.3-Debate-planner.pdf", "The same, ready to print.", None),
+          ("&#128221;", "Evidence cards (Word)", "../../print/China-4.3-Debate-evidence-cards.docx",
+           "2 A4 pages, 16 cards to cut out. Every card can help either team; one is blank for your own.", None),
+          ("&#128424;", "Evidence cards (PDF)", "../../print/China-4.3-Debate-evidence-cards.pdf", "The same, ready to print.", None),
+          ("&#128221;", "Rubric and feedback slips (Word)", "../../print/China-4.3-Debate-rubric.docx",
+           "1 A4 page: the Learning Continuum rows for historical significance and Personal Social Capability, "
+           "and six feedback slips.", None),
+          ("&#128424;", "Rubric and feedback slips (PDF)", "../../print/China-4.3-Debate-rubric.pdf", "The same, ready to print.", None)]),
+      ],
+      note="New tools for this debate are added here as they are made."),
 
  dict(path="history/gs73/index.html", cls="history", depth=2, kicker="History &middot; Archive",
       title="GS73, the grinding stone",

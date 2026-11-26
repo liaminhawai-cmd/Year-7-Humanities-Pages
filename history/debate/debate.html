@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debate: speaking order and timer</title>
+<!--
+  Year 7 debate structure tool. Type a topic (it starts with the Qin Shi Huang one), set how many speakers
+  each team has, type names if you like, then run the debate turn by turn with a timer and sentence
+  starters for each part of the turn.
+
+  The rules (kept simple for Year 7, adapted from the ELC debate structure):
+  - Each team's first speaker gives a short intro.
+  - Every speaker gives one argument.
+  - Every speaker after the very first starts by answering (rebutting) the speaker before them.
+  - No conclusions. Instead, a final reply: Team For's first speaker answers Team Against's last argument,
+    so every argument gets answered and every speaker gets one rebuttal. It can be switched off.
+  - Both teams give the same number of arguments. If a team has fewer people, someone speaks twice (marked x2).
+
+  Two debates: the lesson's (Qin Shi Huang) and a demo (Batman) with two arguments a side already planned as dot
+  points and the third left for the class. Each keeps its own topic and ideas, so switching loses nothing.
+  Edit the text in the DATA block below. Names, the topic and the settings are saved in this browser only
+  (localStorage), never sent anywhere. One self-contained file: no internet needed.
+-->
+<style>
+:root{
+  --ink:#1d2b2f; --muted:#56636a; --paper:#fbf8f1; --card:#fff; --line:#d9d2c3; --sel:#1f3d47; --gold:#8a6d1e;
+  --intro:#7a5a00; --introbg:#fff2c9; --arg:#175f8a; --argbg:#e1eff8; --reb:#a3261b; --rebbg:#fbe4e0;
+  --teamA:#175f8a; --teamB:#7a3e8f; --focus:#2c7488;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--paper);color:var(--ink);font:17px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+button,input,select{font:inherit;color:inherit}
+button{min-height:40px;border:2px solid var(--line);background:#fff;border-radius:10px;padding:4px 12px;cursor:pointer;font-weight:700}
+button:hover{border-color:var(--sel)}
+button.primary{background:var(--sel);color:#fff;border-color:var(--sel)}
+button[aria-pressed="true"]{background:var(--sel);color:#fff;border-color:var(--sel)}
+button:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+header{background:var(--sel);color:#fff;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+header h1{font-size:20px;margin:0;white-space:nowrap}
+header label{font-weight:700;font-size:15px;opacity:.9}
+#motion{flex:1 1 420px;min-width:0;font-size:20px;font-weight:700;padding:6px 10px;border-radius:8px;border:2px solid #fff;background:#fff;color:var(--ink)}
+header .hbtn{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+main{display:grid;grid-template-columns:380px minmax(0,1fr);gap:14px;padding:12px 16px;min-height:0}
+body.big main{grid-template-columns:minmax(0,1fr)}
+body.big #setup{display:none}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 14px;min-height:0;overflow:auto}
+h2{font-size:17px;margin:0 0 8px}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.team{border-left:6px solid;padding:4px 0 6px 10px;margin:0 0 12px}
+.team.A{border-color:var(--teamA)} .team.B{border-color:var(--teamB)}
+.team .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.team .tname{width:150px;font-weight:800;padding:4px 6px;border:2px solid var(--line);border-radius:8px}
+.stepper{display:inline-flex;align-items:center;gap:4px}
+.stepper button{min-width:40px;padding:0}
+.stepper output{min-width:26px;text-align:center;font-weight:800}
+.names{list-style:none;margin:6px 0 0;padding:0}
+.names li{display:flex;gap:4px;align-items:center;margin:0 0 4px}
+.names input{flex:1;min-width:0;padding:5px 8px;border:2px solid var(--line);border-radius:8px}
+.names button{min-width:40px;padding:0}
+.opts label{display:flex;gap:8px;align-items:center;margin:4px 0}
+.opts input[type=number]{width:70px;padding:4px 6px;border:2px solid var(--line);border-radius:8px}
+.opts input[type=checkbox]{width:22px;height:22px}
+.note{color:var(--muted);font-size:14px;margin:6px 0}
+#run{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;min-height:0}
+body.big #run{grid-template-columns:minmax(0,1fr) 260px}
+#now{display:flex;flex-direction:column;min-height:0}
+.who{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 6px}
+.who .turnno{color:var(--muted);font-weight:700}
+.who .name{font-size:28px;font-weight:800}
+.who .team{border:0;padding:0;margin:0;font-weight:800}
+.timer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
+#clock{font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;min-width:140px}
+body.big #clock{font-size:72px}
+#clock.low{color:var(--reb)}
+#clock.done{color:#fff;background:var(--reb);border-radius:10px;padding:0 10px}
+.parts{display:grid;gap:10px;overflow:auto;min-height:0}
+.part{border-radius:12px;padding:10px 14px;border:2px solid}
+.part.intro{background:var(--introbg);border-color:var(--intro)}
+.part.reb{background:var(--rebbg);border-color:var(--reb);border-style:dashed}
+.part.arg{background:var(--argbg);border-color:var(--arg)}
+.part h3{margin:0 0 4px;font-size:18px}
+.part.intro h3{color:var(--intro)} .part.reb h3{color:var(--reb)} .part.arg h3{color:var(--arg)}
+.part .secs{font-weight:600;color:var(--muted);font-size:14px}
+.part ul{margin:4px 0 0;padding-left:1.2em}
+body.big .part{font-size:22px}
+.order{list-style:none;margin:0;padding:0}
+.order li{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;border-radius:10px;cursor:pointer;border:2px solid transparent}
+.order li:hover{border-color:var(--line)}
+.order li[aria-current="true"]{background:#eef3f4;border-color:var(--sel)}
+.order li.done{opacity:.55}
+.order .n{font-weight:800;min-width:22px}
+.order .tA{color:var(--teamA);font-weight:800}
+.order .tB{color:var(--teamB);font-weight:800}
+.tag{display:inline-block;font-size:12px;font-weight:800;border-radius:6px;padding:0 6px;margin:2px 3px 0 0;border:2px solid}
+.tag.intro{color:var(--intro);background:var(--introbg);border-color:var(--intro)}
+.tag.arg{color:var(--arg);background:var(--argbg);border-color:var(--arg)}
+.tag.reb{color:var(--reb);background:var(--rebbg);border-color:var(--reb);border-style:dashed}
+.x2{font-size:12px;font-weight:800;background:var(--sel);color:#fff;border-radius:6px;padding:0 5px;margin-left:4px}
+.legend{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+.rules{font-size:14px;margin:4px 0 0;padding-left:1.1em;color:var(--muted)}
+.links a{display:block;margin:3px 0;color:var(--sel);font-weight:700}
+.modes{display:inline-flex;gap:6px}
+header .hbtn[aria-pressed="true"]{background:#fff;color:var(--sel);border-color:#fff}
+.idea{margin:0 0 8px}
+.idea label{display:block;font-weight:700;font-size:14px;margin:0 0 2px}
+.idea textarea{width:100%;min-height:64px;padding:6px 8px;border:2px solid var(--line);border-radius:8px;font:inherit;font-size:15px;resize:vertical}
+.ideasTeam{border-left:6px solid;padding:2px 0 2px 10px;margin:0 0 10px}
+.ideasTeam.A{border-color:var(--teamA)} .ideasTeam.B{border-color:var(--teamB)}
+.dots{margin:6px 0 0;padding:8px 12px;background:#fff;border-radius:8px;border:2px solid var(--arg)}
+.dots b{display:block;font-size:14px;color:var(--arg)}
+.dots.todo{border-style:dashed;color:var(--muted)}
+body.big .dots{font-size:22px}
+.demoNote{font-size:13px;font-weight:800;background:#fff2c9;color:#7a5a00;border-radius:6px;padding:0 6px;margin-left:6px}
+#printOrder{display:none}
+@media screen and (max-width:860px){
+  body{overflow:auto;display:block}
+  main{grid-template-columns:1fr}
+  #run{grid-template-columns:1fr}
+  .panel{overflow:visible}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+@media print{
+  @page{size:A4 portrait;margin:14mm}
+  body{display:block;overflow:visible;background:#fff}
+  header,main{display:none!important}
+  #printOrder{display:block;font-size:11pt}
+  #printOrder h1{font-size:16pt;margin:0 0 4pt} #printOrder table{width:100%;border-collapse:collapse}
+  #printOrder th,#printOrder td{border:1px solid #555;padding:4pt;text-align:left;vertical-align:top}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Debate</h1>
+  <span class="modes" role="group" aria-label="Which debate"><button type="button" class="hbtn" data-mode="real">Qin Shi Huang</button><button type="button" class="hbtn" data-mode="demo">Demo: Batman</button></span>
+  <label for="motion">Topic</label>
+  <input id="motion" type="text" autocomplete="off" aria-label="The debate topic">
+  <button type="button" class="hbtn" id="resetMotion" title="Put back the starting topic and ideas for this debate">Reset</button>
+  <button type="button" class="hbtn" id="bigBtn" aria-pressed="false">Big view</button>
+  <button type="button" class="hbtn" id="printBtn">Print the order</button>
+</header>
+<main>
+  <section class="panel" id="setup" aria-label="Set up the debate">
+    <h2>Teams</h2>
+    <div class="quick" role="group" aria-label="Quick sizes">
+      <button type="button" data-quick="1">1 v 1</button>
+      <button type="button" data-quick="2">2 v 2</button>
+      <button type="button" data-quick="3">3 v 3</button>
+      <button type="button" data-quick="4">4 v 4</button>
+    </div>
+    <div id="teams"></div>
+    <h2>Argument ideas</h2>
+    <p class="note">Dot points for each argument, one per line. They show on the screen when that argument comes up.</p>
+    <div id="ideas"></div>
+    <h2>Settings</h2>
+    <div class="opts">
+      <label><input type="checkbox" id="optReply"> Final reply (Team <span class="nmA"></span>'s first speaker answers the last argument)</label>
+      <label><input type="number" id="tIntro" min="0" max="600" step="5"> seconds for an intro</label>
+      <label><input type="number" id="tReb" min="0" max="600" step="5"> seconds for a rebuttal</label>
+      <label><input type="number" id="tArg" min="0" max="600" step="5"> seconds for an argument</label>
+      <label><input type="checkbox" id="optSound"> Beep when time is up</label>
+    </div>
+    <p class="note">The topic, names and settings save in this browser only. Nothing is sent anywhere.</p>
+    <h2>The rules</h2>
+    <ul class="rules" id="rules"></ul>
+    <h2 style="margin-top:10px">Print and edit</h2>
+    <div class="links" id="links"></div>
+  </section>
+  <section id="run" aria-label="Run the debate">
+    <div class="panel" id="now"></div>
+    <div class="panel"><h2>Speaking order</h2><div class="legend" id="legend"></div><ol class="order" id="order"></ol></div>
+  </section>
+</main>
+<div id="printOrder"></div>
+
+<script>
+/* ============================== DATA: edit here ============================== */
+/* Two debates. "real" is the lesson's; "demo" is a made-up topic to show how it runs, with two arguments
+   planned for each team (as dot points) and the third left for the class to plan. Each keeps its own
+   edits in this browser. */
+const MODES = {
+  real: { label: "Qin Shi Huang", motion: "We should commemorate Qin Shi Huang.",
+    ideas: { A: ["", "", ""], B: ["", "", ""] } },
+  demo: { label: "Demo: Batman", motion: "Should the people of Gotham commemorate Batman?",
+    ideas: {
+      A: ["He has kept Gotham safe for years\nHe catches criminals the police cannot catch\nExample: the police shine the Bat-Signal when they need his help\nThis shows the city depends on him",
+          "He gives people hope\nOrdinary people see someone standing up to crime\nExample: he never gives up on Gotham, even when it is at its worst\nThis shows he makes people braver too",
+          ""],
+      B: ["He breaks the law to fight crime\nNobody voted for him, and he answers to no one\nExample: he hides his face behind a mask and works in secret\nThis shows a statue would honour someone who ignores the rules",
+          "His fights put ordinary people in danger\nBattles happen in busy streets\nExample: cars, buildings and shops get wrecked when he chases villains\nThis shows the people of Gotham pay a price for his war on crime",
+          ""] } }
+};
+const DEFAULTS = {
+  teamA: "For", teamB: "Against",
+  sizeA: 3, sizeB: 3,
+  reply: true,
+  secs: { intro: 30, reb: 45, arg: 60 },
+  sound: false
+};
+/* The three parts of a turn. Sentence starters are what the speaker sees on the screen. */
+const PARTS = {
+  intro: { name: "Intro", glyph: "▲",
+    who: "Each team's first speaker",
+    stems: ["Today's topic is: {motion}", "Our team {stand} with this topic.", "To commemorate someone means to honour and remember them, for example with a statue, a museum or a special day.", "Our team will show that…"] },
+  reb: { name: "Rebuttal", glyph: "◆",
+    who: "Answer the speaker before you",
+    stems: ["They said that…", "But…", "In fact, the evidence shows…", "So their point does not work, because…"] },
+  arg: { name: "Argument", glyph: "■",
+    who: "Your one argument",
+    stems: ["We think… because…", "For example,…", "This shows that…"] }
+};
+const LINKS = [
+  ["Debate planner (Word, edit it)", "../../print/China-4.3-Debate-planner.docx"],
+  ["Debate planner (PDF, print it)", "../../print/China-4.3-Debate-planner.pdf"],
+  ["Evidence cards (Word)", "../../print/China-4.3-Debate-evidence-cards.docx"],
+  ["Evidence cards (PDF)", "../../print/China-4.3-Debate-evidence-cards.pdf"],
+  ["Rubric and feedback (Word)", "../../print/China-4.3-Debate-rubric.docx"],
+  ["Rubric and feedback (PDF)", "../../print/China-4.3-Debate-rubric.pdf"]
+];
+/* ============================================================================ */
+
+const KEY = "y7debate.v1";
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+let S = { mode: "real", modes: {}, teamA: DEFAULTS.teamA, teamB: DEFAULTS.teamB, sizeA: DEFAULTS.sizeA, sizeB: DEFAULTS.sizeB,
+          namesA: [], namesB: [], reply: DEFAULTS.reply, secs: Object.assign({}, DEFAULTS.secs), sound: DEFAULTS.sound, turn: 0, big: false };
+try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) S = Object.assign(S, x, { secs: Object.assign({}, DEFAULTS.secs, x.secs || {}) }); } catch (e) {}
+const fresh = k => ({ motion: MODES[k].motion, ideas: { A: MODES[k].ideas.A.slice(), B: MODES[k].ideas.B.slice() } });
+for (const k of Object.keys(MODES)) { if (!S.modes[k]) S.modes[k] = fresh(k); S.modes[k].ideas = S.modes[k].ideas || fresh(k).ideas; }
+if (typeof S.motion === "string") { S.modes.real.motion = S.motion; delete S.motion; }   /* a topic saved before there were two debates */
+if (!MODES[S.mode]) S.mode = "real";
+const M = () => S.modes[S.mode];
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+const MAXT = 10;
+
+/* ---------- the speaking order ---------- */
+function speakerName(team, i){ const arr = team === "A" ? S.namesA : S.namesB; const n = (arr[i] || "").trim(); return n || ((team === "A" ? S.teamA : S.teamB) + " speaker " + (i + 1)); }
+function turns(){
+  const a = S.sizeA, b = S.sizeB, n = Math.max(a, b), out = [];
+  for (let k = 0; k < n; k++) {
+    out.push({ team: "A", slot: k % a, k, parts: k === 0 ? ["intro", "arg"] : ["reb", "arg"] });
+    out.push({ team: "B", slot: k % b, k, parts: k === 0 ? ["intro", "reb", "arg"] : ["reb", "arg"] });
+  }
+  /* the final reply goes to whoever in Team A has spoken least (speaker 1 when the teams are even) */
+  if (S.reply) {
+    const used = Array.from({ length: a }, (_, i) => out.filter(t => t.team === "A" && t.slot === i).length);
+    out.push({ team: "A", slot: used.indexOf(Math.min(...used)), parts: ["reb"], reply: true });
+  }
+  const count = {};
+  out.forEach(t => { const id = t.team + t.slot; count[id] = (count[id] || 0) + (t.reply ? 0 : 1); });
+  out.forEach(t => { t.twice = count[t.team + t.slot] > 1; t.secs = t.parts.reduce((s, p) => s + (+S.secs[p] || 0), 0); });
+  return out;
+}
+const teamName = t => t === "A" ? S.teamA : S.teamB;
+const stand = t => t === "A" ? "agrees" : "disagrees";
+
+/* ---------- set-up panel ---------- */
+function drawTeams(){
+  const one = t => {
+    const size = t === "A" ? S.sizeA : S.sizeB, names = t === "A" ? S.namesA : S.namesB;
+    return `<div class="team ${t}"><div class="row">
+        <input class="tname" data-tname="${t}" value="${esc(teamName(t))}" aria-label="Name of team ${t === "A" ? "one" : "two"}">
+        <span>${t === "A" ? "agrees" : "disagrees"}</span>
+        <span class="stepper" role="group" aria-label="Speakers in Team ${esc(teamName(t))}"><button type="button" data-size="${t}" data-d="-1" aria-label="One fewer speaker">−</button><output>${size}</output><button type="button" data-size="${t}" data-d="1" aria-label="One more speaker">+</button></span></div>
+      <ol class="names">${Array.from({ length: size }, (_, i) => `<li><input data-name="${t}" data-i="${i}" value="${esc(names[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(t))} speaker ${i + 1} name"><button type="button" data-move="${t}" data-i="${i}" data-d="-1" aria-label="Move up" ${i === 0 ? "disabled" : ""}>↑</button><button type="button" data-move="${t}" data-i="${i}" data-d="1" aria-label="Move down" ${i === size - 1 ? "disabled" : ""}>↓</button></li>`).join("")}</ol></div>`;
+  };
+  $("teams").innerHTML = one("A") + one("B");
+  document.querySelectorAll(".nmA").forEach(e => e.textContent = S.teamA);
+  document.querySelectorAll("[data-quick]").forEach(b => b.setAttribute("aria-pressed", S.sizeA === +b.dataset.quick && S.sizeB === +b.dataset.quick));
+}
+function drawIdeas(){
+  const n = Math.max(S.sizeA, S.sizeB);
+  const one = t => `<div class="ideasTeam ${t}"><b>Team ${esc(teamName(t))}</b>${Array.from({ length: n }, (_, k) => `<div class="idea"><label for="idea${t}${k}">Argument ${k + 1} · ${esc(speakerName(t, k % (t === "A" ? S.sizeA : S.sizeB)))}</label><textarea id="idea${t}${k}" data-idea="${t}" data-k="${k}" placeholder="Not planned yet">${esc(M().ideas[t][k] || "")}</textarea></div>`).join("")}</div>`;
+  $("ideas").innerHTML = one("A") + one("B");
+}
+function drawIdeaLabels(){ document.querySelectorAll("#ideas label").forEach(l => { const ta = document.getElementById(l.htmlFor); if (!ta) return; const t = ta.dataset.idea, k = +ta.dataset.k; l.textContent = "Argument " + (k + 1) + " · " + speakerName(t, k % (t === "A" ? S.sizeA : S.sizeB)); }); }
+function drawRules(){
+  const n = Math.max(S.sizeA, S.sizeB);
+  $("rules").innerHTML = [
+    `Each team's first speaker gives a short intro.`,
+    `Every speaker gives one argument. Each team gives ${n}.`,
+    `Every speaker after the first starts by answering the speaker before them.`,
+    S.reply ? `No conclusions. Team ${esc(S.teamA)}'s first speaker gives a final reply, so the last argument gets answered too.` : `No conclusions, and no final reply: the last argument is not answered.`,
+    S.sizeA !== S.sizeB ? `The teams are different sizes, so someone in the smaller team speaks twice (marked ×2).` : ``
+  ].filter(Boolean).map(t => `<li>${t}</li>`).join("");
+}
+function drawLegend(){ $("legend").innerHTML = ["intro", "reb", "arg"].map(p => `<span class="tag ${p}">${PARTS[p].glyph} ${PARTS[p].name}</span>`).join(""); }
+
+/* ---------- the run panel ---------- */
+let left = null, ticking = null, endAt = 0;
+const fmt = s => { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+function drawOrder(){
+  const T = turns();
+  S.turn = clamp(S.turn, 0, T.length - 1);
+  $("order").innerHTML = T.map((t, i) => `<li data-turn="${i}" ${i === S.turn ? 'aria-current="true"' : ""} class="${i < S.turn ? "done" : ""}" tabindex="0">
+      <span class="n">${i + 1}</span><span><span class="t${t.team}">${esc(speakerName(t.team, t.slot))}</span>${t.twice && !t.reply ? '<span class="x2" title="Speaks twice">×2</span>' : ""}<br>
+      ${t.parts.map(p => `<span class="tag ${p}">${PARTS[p].glyph} ${t.reply ? "Final reply" : PARTS[p].name}</span>`).join("")}</span></li>`).join("");
+}
+function drawNow(){
+  const T = turns(), t = T[S.turn], prev = T[S.turn - 1];
+  const fill = s => s.replace("{motion}", M().motion || "…").replace("{stand}", stand(t.team));
+  const lines = p => p === "arg" ? (M().ideas[t.team][t.k] || "").split("\n").map(x => x.replace(/^\s*[-•*]\s*/, "").trim()).filter(Boolean) : [];
+  const dots = p => { if (p !== "arg") return ""; const L = lines(p);
+    return L.length ? `<div class="dots"><b>Our dot points</b><ul>${L.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`
+      : `<div class="dots todo"><b>Not planned yet</b>${S.mode === "demo" ? "Your turn: plan this argument as dot points, then say it." : "Plan it with the starters above, or add dot points in Argument ideas."}</div>`; };
+  $("now").innerHTML = `<div class="who"><span class="turnno">Turn ${S.turn + 1} of ${T.length}</span>
+      <span class="name">${esc(speakerName(t.team, t.slot))}</span>
+      <span class="team" style="color:var(--team${t.team})">Team ${esc(teamName(t.team))} · ${stand(t.team)}</span>${S.mode === "demo" ? '<span class="demoNote">Demo</span>' : ""}</div>
+    <div class="timer"><span id="clock" aria-live="off">${fmt(left === null ? t.secs : left)}</span>
+      <button type="button" class="primary" id="go">${ticking ? "Pause" : left !== null && left < t.secs ? "Keep going" : "Start"}</button>
+      <button type="button" id="restart">Reset time</button>
+      <button type="button" id="back" ${S.turn === 0 ? "disabled" : ""}>← Back</button>
+      <button type="button" class="primary" id="next" ${S.turn === T.length - 1 ? "disabled" : ""}>Next speaker →</button></div>
+    <div class="parts">${t.parts.map(p => `<div class="part ${p}"><h3>${PARTS[p].glyph} ${t.reply ? "Final reply" : PARTS[p].name} <span class="secs">· ${S.secs[p]} s · ${p === "reb" && prev ? "answer " + esc(speakerName(prev.team, prev.slot)) : esc(PARTS[p].who)}</span></h3>
+      <ul>${PARTS[p].stems.map(s => `<li>${esc(fill(s))}</li>`).join("")}</ul>${dots(p)}</div>`).join("")}</div>`;
+  $("go").onclick = () => toggle();
+  $("restart").onclick = () => { stop(); left = null; drawNow(); };
+  $("back").onclick = () => moveTurn(-1);
+  $("next").onclick = () => moveTurn(1);
+}
+function tick(){
+  left = (endAt - Date.now()) / 1000;
+  const c = $("clock"); if (!c) return;
+  c.textContent = fmt(left);
+  c.classList.toggle("low", left <= 10 && left > 0);
+  if (left <= 0) { stop(); left = 0; c.classList.add("done"); c.textContent = "Time"; beep(); const g = $("go"); if (g) g.textContent = "Start"; }
+}
+function toggle(){
+  const t = turns()[S.turn];
+  if (ticking) { stop(); drawNow(); return; }
+  if (left === null || left <= 0) left = t.secs;
+  endAt = Date.now() + left * 1000; ticking = setInterval(tick, 200); drawNow(); tick();
+}
+function stop(){ if (ticking) clearInterval(ticking); ticking = null; }
+function moveTurn(d){ stop(); left = null; S.turn = clamp(S.turn + d, 0, turns().length - 1); save(); drawOrder(); drawNow(); }
+function beep(){
+  if (!S.sound) return;
+  try { const C = new (window.AudioContext || window.webkitAudioContext)(), o = C.createOscillator(), g = C.createGain(); o.frequency.value = 660; o.connect(g); g.connect(C.destination); g.gain.setValueAtTime(.2, C.currentTime); o.start(); o.stop(C.currentTime + .6); } catch (e) {}
+}
+
+/* ---------- print ---------- */
+function buildPrint(){
+  const T = turns();
+  $("printOrder").innerHTML = `<h1>${esc(M().motion)}</h1><p>Team ${esc(S.teamA)} agrees · Team ${esc(S.teamB)} disagrees</p>
+    <table><tr><th>Turn</th><th>Speaker</th><th>Team</th><th>What they do</th><th>Time</th></tr>${T.map((t, i) => `<tr><td>${i + 1}</td><td>${esc(speakerName(t.team, t.slot))}${t.twice && !t.reply ? " (×2)" : ""}</td><td>${esc(teamName(t.team))}</td><td>${t.parts.map(p => PARTS[p].glyph + " " + (t.reply ? "Final reply" : PARTS[p].name)).join(", ")}${t.parts.includes("arg") && M().ideas[t.team][t.k] ? "<br><small>" + esc(M().ideas[t.team][t.k]).replace(/\n/g, "; ") + "</small>" : ""}</td><td>${fmt(t.secs)}</td></tr>`).join("")}</table>`;
+}
+
+/* ---------- wiring ---------- */
+function drawAll(){ drawMode(); drawTeams(); drawIdeas(); drawRules(); drawLegend(); drawOrder(); drawNow(); }
+function drawMode(){
+  document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === S.mode));
+  $("motion").value = M().motion;
+}
+$("motion").addEventListener("input", e => { M().motion = e.target.value; save(); drawNow(); });
+$("resetMotion").onclick = () => { if (!confirm("Put back the starting topic and argument ideas for " + MODES[S.mode].label + "? Your edits to this debate will go.")) return; S.modes[S.mode] = fresh(S.mode); save(); drawAll(); };
+document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { if (S.mode === b.dataset.mode) return; S.mode = b.dataset.mode; S.turn = 0; left = null; stop(); save(); drawAll(); });
+$("ideas").addEventListener("input", e => { const el = e.target; if (!el.dataset.idea) return; M().ideas[el.dataset.idea][+el.dataset.k] = el.value; save(); drawNow(); });
+$("optReply").checked = S.reply; $("optSound").checked = S.sound;
+$("optReply").onchange = e => { S.reply = e.target.checked; save(); left = null; drawRules(); drawOrder(); drawNow(); };
+$("optSound").onchange = e => { S.sound = e.target.checked; save(); };
+for (const [id, k] of [["tIntro", "intro"], ["tReb", "reb"], ["tArg", "arg"]]) {
+  $(id).value = S.secs[k];
+  $(id).addEventListener("input", e => { S.secs[k] = clamp(+e.target.value || 0, 0, 600); save(); if (!ticking) left = null; drawOrder(); drawNow(); });
+}
+$("teams").addEventListener("input", e => {
+  const el = e.target;
+  if (el.dataset.name) { const arr = el.dataset.name === "A" ? S.namesA : S.namesB; arr[+el.dataset.i] = el.value; save(); drawOrder(); drawNow(); drawIdeaLabels(); }
+  if (el.dataset.tname) { if (el.dataset.tname === "A") S.teamA = el.value || "For"; else S.teamB = el.value || "Against"; save(); document.querySelectorAll(".nmA").forEach(x => x.textContent = S.teamA); drawRules(); drawOrder(); drawNow(); }
+});
+$("teams").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.size) { const k = b.dataset.size === "A" ? "sizeA" : "sizeB"; S[k] = clamp(S[k] + +b.dataset.d, 1, MAXT); left = null; save(); drawAll(); return; }
+  if (b.dataset.move) {
+    const arr = b.dataset.move === "A" ? S.namesA : S.namesB, i = +b.dataset.i, j = i + +b.dataset.d;
+    const size = b.dataset.move === "A" ? S.sizeA : S.sizeB; if (j < 0 || j >= size) return;
+    const t = arr[i]; arr[i] = arr[j]; arr[j] = t; save(); drawAll();
+    const f = document.querySelector(`[data-move="${b.dataset.move}"][data-i="${j}"][data-d="${b.dataset.d}"]`) || document.querySelector(`[data-name="${b.dataset.move}"][data-i="${j}"]`); if (f) f.focus();
+  }
+});
+document.querySelectorAll("[data-quick]").forEach(b => b.onclick = () => { S.sizeA = S.sizeB = +b.dataset.quick; S.turn = 0; left = null; stop(); save(); drawAll(); });
+$("order").addEventListener("click", e => { const li = e.target.closest("[data-turn]"); if (!li) return; stop(); left = null; S.turn = +li.dataset.turn; save(); drawOrder(); drawNow(); });
+$("order").addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset.turn) { e.preventDefault(); e.target.click(); } });
+$("bigBtn").onclick = () => { S.big = !S.big; document.body.classList.toggle("big", S.big); $("bigBtn").setAttribute("aria-pressed", S.big); save(); };
+$("printBtn").onclick = () => { buildPrint(); window.print(); };
+window.addEventListener("beforeprint", buildPrint);
+document.addEventListener("keydown", e => {
+  if (e.target.closest && e.target.closest("input,textarea,select")) return;
+  if (e.key === " " && !e.target.closest("button,[data-turn]")) { e.preventDefault(); toggle(); }
+  if (e.key === "ArrowRight") moveTurn(1);
+  if (e.key === "ArrowLeft") moveTurn(-1);
+});
+LINKS.forEach(([t, u]) => { const a = document.createElement("a"); a.setAttribute("href", u); a.textContent = t; $("links").appendChild(a); });
+document.body.classList.toggle("big", !!S.big); $("bigBtn").setAttribute("aria-pressed", !!S.big);
+drawAll();
+</script>
+</body>
+</html>
