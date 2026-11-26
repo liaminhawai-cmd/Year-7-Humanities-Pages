@@ -4,18 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>The three ways: stop and jot</title>
+<title>2.4 The three ways: the whole lesson online</title>
 <!--
-  Ancient China lesson 2.4, The three ways: the accessible online stop and jot. The paper
-  sheet's three stops and its bonus error hunt, word for word (lesson-2-4-build/build24.js in the
-  private repository), with sentence stems and model answers. The expert readings and the
-  recording sheet stay on paper. Nothing on this page judges the writing: the student marks
-  against the model, and the teacher marks.
+  Ancient China lesson 2.4, The three ways: the whole lesson online, for a student who works better on a
+  device. The paper sheet's stops and questions, word for word (lesson-2-4-build in the
+  private repository), with sentence starters and model answers after each student's own check; then the
+  source analysis with starters for each rubric row, and a level to choose. Sources, facts and rubric
+  wording are read from content.js in this folder, the same file the wall uses. The wall's worked examples
+  (Levels 7 to 10) are NOT shown here: they stay behind the wall's password.
 
-  Supports (Big buttons, Read to me, Voice typing, zoom, background colours) and the full-screen
-  lock with no password are the accessible Cai Lun page's, copied from history/cai-lun/accessible.html.
-  If that machinery is patched, patch this file in the same change. Built by
-  scratchpad/tools/build_threeways_access.js. Saved on this device as it is typed (three24.access.v1).
+  Supports (Big buttons, Read to me, Voice typing, zoom, background colours) and the full-screen lock with
+  no password are the accessible Cai Lun page's, copied from history/cai-lun/accessible.html. If that
+  machinery is patched, patch this file in the same change. Built by scratchpad/tools/build_lesson_access.js.
+  Honest interface: nothing here judges the writing. A box needs a few real words before the model answer
+  appears; the student marks themselves against it; the teacher marks. Saved on this device as it is typed.
 -->
 <style>
   :root{
@@ -155,9 +157,27 @@
   .key{border-left:6px solid var(--yes);background:#e8f3eb;border-radius:8px;padding:10px 14px;margin:12px 0 0;white-space:pre-line}
   .selfm{display:flex;gap:var(--gap);flex-wrap:wrap;align-items:center;margin:10px 0 0}
   textarea.short{min-height:110px}
+  .grp{margin:10px 0 0}.grp .lab{font-weight:800;margin:0 0 6px}
   .tot{font-weight:800;font-size:22px}
+  /* check it: the student's own answer, words tappable, highlights in the rubric row's colour */
+  .ansbox{border:2px solid var(--line);border-radius:12px;background:#fff;padding:14px 16px;line-height:2.2;white-space:pre-wrap}
+  .w{cursor:pointer;border-radius:3px;padding:2px 1px}
+  .w:hover{outline:2px solid #2c7488}
+  .w.sel{outline:3px solid #2c7488;background:#cfe9f2}
+  body.bigui .w{padding:8px 3px}
+  .added{font-style:italic;border-top:2px dashed #555}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:15px;margin:0 0 12px}
+  .legend .lg{padding:2px 8px;border-radius:4px}
+  table.rep{width:100%;border-collapse:collapse;margin:12px 0}
+  table.rep th,table.rep td{border:2px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .g-answer{margin:10px 0 0}
+  @media print{
+    #print *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    #print .added{font-style:italic;border-top:1.5px dashed #000}
+    #print .legend{display:block;font-size:9pt} #print .legend .lg{margin-right:8pt;display:inline-block}
+  }
   /* phone width: the shared template's header and bottom bar were sized by their widest row, so the
-     page scrolled sideways (547px on a 375px phone). Let the rows wrap instead. */
+     page scrolled sideways. Let the rows wrap instead. */
   body{grid-template-columns:minmax(0,1fr)!important}
   header.top{width:100%;max-width:100%}
   header.top>.strip{flex:0 0 100%;max-width:100%;min-width:0;width:100%}
@@ -187,54 +207,750 @@
   <button type="button" class="big" id="lockBack">Back to full screen</button></div>
 </div>
 
+<script src="content.js"></script>
 <script>
 /* ======================================================================= */
+/* Config for the 2.4 accessible page: the three ways. The stops, questions, model answers and starters are the paper
+   sheet's, word for word (lesson-2-4-build in the private repository). The error hunt has no model answer here: the
+   group's reading decides. Students choose the source for their own tradition (pick), with a checklist for each.
+   The expert readings and the recording sheet stay on paper. Words are the vocab hub's 2.4 words. Made once from
+   the earlier 2.4 page body; edit this file from now on. */
+const CFG = {
+ "id": "2.4",
+ "title": "The three ways",
+ "key": "three24.access.v1",
+ "intro": "Watch the video in three parts. Stop and jot at each stop. Then find the errors, with your group's reading. Last, read the source for your group's tradition and say what it tells us.",
+ "videos": {
+  "main": {
+   "id": "87jRYTOONRw",
+   "title": "Confucianism, Taoism and Buddhism, video"
+  }
+ },
+ "words": [
+  [
+   "philosopher",
+   "One who studies the causes of things. A philosopher asks big questions about life, truth and how people should live."
+  ],
+  [
+   "confucianism",
+   "The teachings of Confucius, which stress good conduct, family duty and rulers who lead by example, to build a just and peaceful society."
+  ],
+  [
+   "taoism",
+   "The beliefs that people should follow the Tao, ‘the way’ of nature, and see themselves as part of nature."
+  ],
+  [
+   "buddhism",
+   "The beliefs based on the teachings of the Buddha: that suffering is caused by desire, and that people can reach nirvana, a state of bliss free from rebirth."
+  ],
+  [
+   "enlightenment",
+   "A state of deep understanding and freedom from desire, which Buddhists try to reach."
+  ],
+  [
+   "harmony",
+   "A state of peace and agreement, where people or things fit together without conflict."
+  ],
+  [
+   "tolerance",
+   "Accepting that other people have different beliefs or ways of living, and allowing them."
+  ]
+ ],
+ "stops": [
+  {
+   "n": 1,
+   "from": "0:33",
+   "at": "1:30",
+   "title": "Taoism (Daoism)",
+   "qs": [
+    {
+     "id": "1a",
+     "kind": "fact",
+     "m": 1,
+     "min": 4,
+     "q": "What did Taoists believe about nature?",
+     "stems": [
+      "Taoists believed that people should ",
+      "A universal force "
+     ],
+     "a": "People should be one with nature (1); or: a universal force flows through all living things. [0:50]"
+    },
+    {
+     "id": "1b",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "How were Taoists different from the followers of Confucius?",
+     "stems": [
+      "Taoists did not believe in ",
+      "The followers of Confucius wanted ",
+      "This is different because "
+     ],
+     "a": "1 mark: Taoists did not believe in a lot of rules or government.\n2 marks: sets it against Confucius's followers, who wanted a strong, organised government. [1:00, 2:14]"
+    },
+    {
+     "id": "1c",
+     "kind": "fact",
+     "m": 2,
+     "min": 4,
+     "q": "Yin and yang are pairs of opposite forces. Give two of the video's pairs.",
+     "stems": [
+      "One pair is ",
+      "Another pair is "
+     ],
+     "a": "Any two of dark and light, cold and hot, male and female (1 each). [1:19]"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "from": "1:33",
+   "at": "3:11",
+   "title": "Confucianism",
+   "qs": [
+    {
+     "id": "2a",
+     "kind": "fact",
+     "m": 1,
+     "min": 3,
+     "q": "Who wrote down Confucius's teachings?",
+     "stems": [
+      "His ",
+      "They were written down by "
+     ],
+     "a": "His followers (he did not write them himself). [1:50]"
+    },
+    {
+     "id": "2b",
+     "kind": "fact",
+     "m": 2,
+     "min": 4,
+     "q": "Name two things Confucius said were important.",
+     "stems": [
+      "One thing was ",
+      "Another thing was "
+     ],
+     "a": "Any two of respect, politeness, fairness, honour, morality, family (1 each). [1:55 to 2:14]"
+    },
+    {
+     "id": "2c",
+     "kind": "fact",
+     "m": 1,
+     "min": 3,
+     "q": "Family mattered to Confucius. What did he say people had to do?",
+     "stems": [
+      "People had to ",
+      "Children had to "
+     ],
+     "a": "Honour their relatives. [2:11]"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "from": "3:16",
+   "at": "4:09",
+   "title": "Buddhism",
+   "qs": [
+    {
+     "id": "3a",
+     "kind": "fact",
+     "m": 1,
+     "min": 3,
+     "q": "Where and when does the video say the Buddha was born?",
+     "stems": [
+      "The video says he was born in ",
+      "The year was "
+     ],
+     "a": "Nepal, 563 BC. [3:25]"
+    },
+    {
+     "id": "3b",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "What is karma?",
+     "stems": [
+      "Karma means ",
+      "So good actions will ",
+      "And bad actions will "
+     ],
+     "a": "1 mark: all actions have consequences.\n2 marks: links it: good actions will help you later and bad ones will hurt you. [3:54 to 4:09]"
+    },
+    {
+     "id": "3c",
+     "kind": "fact",
+     "m": 1,
+     "min": 3,
+     "q": "What does the video say happens when the cycle of rebirth is complete?",
+     "stems": [
+      "The video says the person ",
+      "When the cycle ends, "
+     ],
+     "a": "The person enters nirvana. [3:46]"
+    }
+   ]
+  }
+ ],
+ "extra": {
+  "label": "Find the errors",
+  "task": "Bonus · after your reading",
+  "title": "Find the errors",
+  "intro": "The video gets something wrong about each of the three ways. Find one for each, and say what your group's reading says instead. 1 bonus mark each.",
+  "items": [
+   {
+    "id": "e1",
+    "kind": "fact",
+    "bonus": true,
+    "m": 1,
+    "min": 8,
+    "q": "Taoism (Daoism). The video says: Taoism was founded in the sixth century by Laozi, who wrote the Tao Te Ching (0:36). The idea of yin and yang comes from Taoism (1:08). What does your group's reading say instead?",
+    "stems": [
+     "The reading says ",
+     "The video is wrong because "
+    ]
+   },
+   {
+    "id": "e2",
+    "kind": "fact",
+    "bonus": true,
+    "m": 1,
+    "min": 8,
+    "q": "Confucianism. The video says: The video quotes Confucius with sayings such as 'Forget injuries, never forget kindnesses' (2:28 to 3:06). What does your group's reading say instead?",
+    "stems": [
+     "The reading says ",
+     "The video is wrong because "
+    ]
+   },
+   {
+    "id": "e3",
+    "kind": "fact",
+    "bonus": true,
+    "m": 1,
+    "min": 8,
+    "q": "Buddhism. The video says: Buddhists believe in a rebirth of the self, and the person's soul enters nirvana (3:38 to 3:50). Buddhism spread through India and China (3:34), with no date. What does your group's reading say instead?",
+    "stems": [
+     "The reading says ",
+     "The video is wrong because "
+    ]
+   }
+  ]
+ },
+ "pick": {
+  "labels": {
+   "confucian": "Confucianism: Source C, the Admonitions Scroll",
+   "daoist": "Taoism: Source D, Laozi riding an ox",
+   "buddhist": "Buddhism: Source B, the Diamond Sutra"
+  },
+  "levels": {
+   "confucian": {
+    "5": [
+     {
+      "id": "cf5a",
+      "k": "source",
+      "t": "I said Source C is a painting, and named one thing I can see.",
+      "adv": "Say what it is and what you can see: a bear, guards with spears, a lady, the emperor."
+     },
+     {
+      "id": "cf5b",
+      "k": "context",
+      "t": "I said what story it shows: a court lady stood in front of a bear to save the emperor.",
+      "adv": "The painting shows Lady Feng stepping in front of an escaped bear to protect Emperor Yuan of Han."
+     },
+     {
+      "id": "cf5c",
+      "k": "judge",
+      "t": "I said one thing it shows and one thing it cannot tell us.",
+      "adv": "It shows what a court lady was meant to do. It cannot tell us how ordinary women lived."
+     }
+    ],
+    "6": [
+     {
+      "id": "cf6a",
+      "k": "source",
+      "t": "I said Source C is not a primary source for the bear attack.",
+      "adv": "A primary source was made at the time. The attack was in 38 BCE."
+     },
+     {
+      "id": "cf6b",
+      "k": "source",
+      "t": "I gave a reason: the painting was made centuries after the attack.",
+      "adv": "Back up the type with when it was made. The scroll was painted long after 38 BCE."
+     },
+     {
+      "id": "cf6c",
+      "k": "context",
+      "t": "I said it shows a Han dynasty story about Lady Feng saving the emperor.",
+      "adv": "Name the lady and the emperor. The story is from the Han dynasty."
+     },
+     {
+      "id": "cf6d",
+      "k": "judge",
+      "t": "I said it is more useful for what women at court were taught than for what really happened.",
+      "adv": "Say what it is more useful for, and what it is less useful for."
+     }
+    ],
+    "7": [
+     {
+      "id": "cf7a",
+      "k": "source",
+      "t": "I said where it is from: Scene 4 of the Admonitions Scroll, a painting on silk in the British Museum.",
+      "adv": "Origin is who, when and where. It is one scene from a long scroll called the Admonitions Scroll."
+     },
+     {
+      "id": "cf7b",
+      "k": "source",
+      "t": "I described its features: Lady Feng between the bear and the emperor, two guards with spears, another lady running away.",
+      "adv": "Features are what you can see. Look at the bear, the guards and the ladies."
+     },
+     {
+      "id": "cf7c",
+      "k": "source",
+      "t": "I said its purpose: to teach, as it illustrates a poem written in 292 to advise women at court.",
+      "adv": "Purpose is why it was made. The official Zhang Hua wrote the poem to advise the women of the court."
+     },
+     {
+      "id": "cf7d",
+      "k": "context",
+      "t": "I said Confucius taught that everyone has a proper role and place.",
+      "adv": "Confucianism says each person has a proper role in society. Say what that means for a wife."
+     },
+     {
+      "id": "cf7e",
+      "k": "context",
+      "t": "I linked it to the scene: a wife puts the emperor's life above her own.",
+      "adv": "Join the teaching to the picture. Lady Feng faces the bear to protect the emperor."
+     },
+     {
+      "id": "cf7f",
+      "k": "judge",
+      "t": "I drew a conclusion: it is useful for how Confucian teaching expected court women to behave, but it cannot tell us how ordinary women lived.",
+      "adv": "Finish with what the source is useful for, then what it cannot show."
+     }
+    ],
+    "8": [
+     {
+      "id": "cf8a",
+      "k": "source",
+      "t": "I backed up the origin with evidence: modern scholars date it to the 5th to 8th century, and it may copy an earlier painting.",
+      "adv": "It is traditionally said to be by Gu Kaizhi, but modern scholars think it is later, and may be a copy."
+     },
+     {
+      "id": "cf8b",
+      "k": "context",
+      "t": "I explained the Confucian point of view: a wife's first duty is loyalty to her husband and her emperor.",
+      "adv": "Say what the painting teaches, and where it comes from in Confucius's teaching about roles."
+     },
+     {
+      "id": "cf8c",
+      "k": "judge",
+      "t": "I said it is strong evidence of the values the court wanted women to learn, weak evidence for the attack itself, and asked a question about it.",
+      "adv": "Ask whether women at court really lived up to this ideal."
+     }
+    ],
+    "9": [
+     {
+      "id": "cf9a",
+      "k": "source",
+      "t": "I explained its purpose: viewers compare the brave woman with the one who runs away, and are meant to copy the brave one.",
+      "adv": "The painter sets Lady Fu running away beside Lady Feng. What is the viewer supposed to do?"
+     },
+     {
+      "id": "cf9b",
+      "k": "context",
+      "t": "I used the readings: Confucianism gave both partners duties, but the scroll only shows the wife's.",
+      "adv": "The readings say a husband should show kindness and a wife respect. Which does the scroll show?"
+     },
+     {
+      "id": "cf9c",
+      "k": "judge",
+      "t": "I explained the limits: it shows only women at court, only nine of twelve scenes survive, and it cannot show whether women accepted the lesson.",
+      "adv": "Say who is missing from the evidence, and what is missing from the scroll itself."
+     }
+    ]
+   },
+   "daoist": {
+    "5": [
+     {
+      "id": "dq5a",
+      "k": "source",
+      "t": "I said Source D is a painting of an old man on an ox, and named one thing I can see.",
+      "adv": "Say what it is and what you can see: a long white beard, a scroll in his hand, an ox."
+     },
+     {
+      "id": "dq5b",
+      "k": "context",
+      "t": "I said who the old man is: Laozi.",
+      "adv": "The painting shows Laozi, the man traditionally said to have founded Taoism."
+     },
+     {
+      "id": "dq5c",
+      "k": "judge",
+      "t": "I said one thing it shows and one thing it cannot tell us.",
+      "adv": "It shows how people imagined Laozi. It cannot tell us what he was really like."
+     }
+    ],
+    "6": [
+     {
+      "id": "dq6a",
+      "k": "source",
+      "t": "I said Source D is not a primary source about Laozi.",
+      "adv": "A primary source was made at the time. Laozi is said to have lived in the 6th century BCE."
+     },
+     {
+      "id": "dq6b",
+      "k": "source",
+      "t": "I gave a reason: Zhang Lu painted it in the Ming dynasty, nearly 2,000 years later.",
+      "adv": "Back up the type with who made it and when."
+     },
+     {
+      "id": "dq6c",
+      "k": "context",
+      "t": "I said it shows the story of Laozi leaving China after writing the Tao Te Ching.",
+      "adv": "Say which story the painting shows."
+     },
+     {
+      "id": "dq6d",
+      "k": "judge",
+      "t": "I said it is more useful for the stories people told about Taoism than for learning about Laozi.",
+      "adv": "Say what it is more useful for, and what it is less useful for."
+     }
+    ],
+    "7": [
+     {
+      "id": "dq7a",
+      "k": "source",
+      "t": "I said where it is from: painted by Zhang Lu in the Ming dynasty, now in the National Palace Museum in Taipei.",
+      "adv": "Origin is who, when and where. Name the painter, the dynasty and the museum."
+     },
+     {
+      "id": "dq7b",
+      "k": "source",
+      "t": "I described its features: an old man with a long white beard riding an ox and holding a scroll, with almost nothing else in the picture.",
+      "adv": "Features are what you can see. Look at the man, the ox and the empty space."
+     },
+     {
+      "id": "dq7c",
+      "k": "source",
+      "t": "I said its purpose: it shows a well-known story that the museum says became linked with good luck.",
+      "adv": "The museum that holds it says the story came to be linked with good luck."
+     },
+     {
+      "id": "dq7d",
+      "k": "context",
+      "t": "I told the story: the guard Yinxi asked Laozi to write down his wisdom before he left.",
+      "adv": "The guard at the mountain pass, Yinxi, asked Laozi to record his wisdom."
+     },
+     {
+      "id": "dq7e",
+      "k": "context",
+      "t": "I said the Tao Te Ching is the most important Taoist text.",
+      "adv": "In the story Laozi wrote the Tao Te Ching, then went on."
+     },
+     {
+      "id": "dq7f",
+      "k": "judge",
+      "t": "I drew a conclusion: it is useful for how people remembered Taoism's beginnings, but it cannot show us the real Laozi.",
+      "adv": "Finish with what the source is useful for, then what it cannot show."
+     }
+    ],
+    "8": [
+     {
+      "id": "dq8a",
+      "k": "source",
+      "t": "I backed up the origin with evidence: Zhang Lu was illustrating a legend, so he could not have seen any of it.",
+      "adv": "He painted nearly 2,000 years after Laozi is said to have lived."
+     },
+     {
+      "id": "dq8b",
+      "k": "context",
+      "t": "I explained the Taoist idea: living simply and in harmony with nature, which the painting shows.",
+      "adv": "Taoism encouraged simple living. Look at the plain man, the slow ox and the empty space."
+     },
+     {
+      "id": "dq8c",
+      "k": "judge",
+      "t": "I said it is strong evidence of how people imagined Taoism's founder, weak evidence about Laozi himself, and asked whether he existed.",
+      "adv": "Modern scholars think the details of Laozi's life were invented later, and the Tao Te Ching had several authors."
+     }
+    ],
+    "9": [
+     {
+      "id": "dq9a",
+      "k": "source",
+      "t": "I explained what its origin means: it shows how Taoism was understood in the Ming dynasty, long after Laozi.",
+      "adv": "Say what a Ming painting can tell us, and what it cannot."
+     },
+     {
+      "id": "dq9b",
+      "k": "context",
+      "t": "I used the readings: Taoism has two sides, a philosophy of simple living and a religion close to folk belief, and the good-luck link fits the second.",
+      "adv": "The readings describe two sides of Taoism. Which side did people who kept lucky paintings follow?"
+     },
+     {
+      "id": "dq9c",
+      "k": "judge",
+      "t": "I explained the limits: it shows a legend about a man who may never have lived, painted in one artist's own style.",
+      "adv": "Say what the painting cannot prove, and why."
+     }
+    ]
+   },
+   "buddhist": {
+    "5": [
+     {
+      "id": "bd5a",
+      "k": "source",
+      "t": "I said Source B is a printed page from a book, and named one thing I can see.",
+      "adv": "Say what it is and what you can see: a picture of a seated figure teaching a crowd, and columns of Chinese writing."
+     },
+     {
+      "id": "bd5b",
+      "k": "context",
+      "t": "I said it is a Buddhist text.",
+      "adv": "The Diamond Sutra is a Buddhist text: a talk by the Buddha."
+     },
+     {
+      "id": "bd5c",
+      "k": "judge",
+      "t": "I said one thing it shows and one thing it cannot tell us.",
+      "adv": "It shows that Buddhist books were printed. It cannot tell us how many people believed."
+     }
+    ],
+    "6": [
+     {
+      "id": "bd6a",
+      "k": "source",
+      "t": "I said Source B is a primary source for Buddhism in Tang China.",
+      "adv": "A primary source was made at the time. This book was printed in 868, in the Tang dynasty."
+     },
+     {
+      "id": "bd6b",
+      "k": "source",
+      "t": "I gave a reason: people made it in 868.",
+      "adv": "Back up the type with when it was made."
+     },
+     {
+      "id": "bd6c",
+      "k": "context",
+      "t": "I said it is a Chinese translation of a talk the Buddha gave.",
+      "adv": "The Buddha lived in India. The book is in Chinese."
+     },
+     {
+      "id": "bd6d",
+      "k": "judge",
+      "t": "I said it is more useful for Buddhism in China in 868 than for the Buddha's own life.",
+      "adv": "Say what it is more useful for, and what it is less useful for."
+     }
+    ],
+    "7": [
+     {
+      "id": "bd7a",
+      "k": "source",
+      "t": "I said where it is from: the opening page of the Diamond Sutra, printed on 11 May 868, now in the British Library.",
+      "adv": "Origin is who, when and where. Name the book, the date and where it is now."
+     },
+     {
+      "id": "bd7b",
+      "k": "source",
+      "t": "I described its features: a figure with a halo teaching a crowd, beside columns of Chinese text.",
+      "adv": "Features are what you can see. Look at the central figure, the crowd and the text."
+     },
+     {
+      "id": "bd7c",
+      "k": "source",
+      "t": "I said its purpose: its last lines say it was made for free distribution, to spread a Buddhist text.",
+      "adv": "The last lines say it was made for universal free distribution."
+     },
+     {
+      "id": "bd7d",
+      "k": "context",
+      "t": "I said that by the Tang dynasty people of every class followed Buddhism, with many monasteries and temples.",
+      "adv": "Say how popular Buddhism had become by the Tang dynasty."
+     },
+     {
+      "id": "bd7e",
+      "k": "context",
+      "t": "I said what it shows: a religion from India had become part of Chinese life.",
+      "adv": "The book is a Chinese translation of an Indian religion's teaching."
+     },
+     {
+      "id": "bd7f",
+      "k": "judge",
+      "t": "I drew a conclusion: it is useful for how widely Buddhism had spread, but as one book it cannot tell us how many people believed.",
+      "adv": "Finish with what the source is useful for, then what it cannot show."
+     }
+    ],
+    "8": [
+     {
+      "id": "bd8a",
+      "k": "source",
+      "t": "I backed up the origin with evidence: a scroll about 5 metres long, found in a sealed cave at the Mogao Caves, and the oldest dated printed book.",
+      "adv": "Use detail from the facts: where it was found, how long it is, how old it is."
+     },
+     {
+      "id": "bd8b",
+      "k": "context",
+      "t": "I used the history: Emperor Wuzong persecuted Buddhism from 841 to 845, so Wang Jie's gift suggests believers held on to their faith.",
+      "adv": "Only about 23 years before this book, Buddhism was persecuted. What does printing it then suggest?"
+     },
+     {
+      "id": "bd8c",
+      "k": "judge",
+      "t": "I said it is strong evidence that Buddhist texts were printed and shared, and weak evidence of how many people followed Buddhism.",
+      "adv": "Say what the book proves strongly, and what it hardly shows."
+     }
+    ],
+    "9": [
+     {
+      "id": "bd9a",
+      "k": "source",
+      "t": "I explained what the origin means: it records its own date, who paid for it and why, which was Wang Jie, for his two parents.",
+      "adv": "Few sources tell us this much about where they came from. Say what that means for how far we can trust it."
+     },
+     {
+      "id": "bd9b",
+      "k": "context",
+      "t": "I used the readings: respect for parents (filial piety) is part of Chinese Buddhist ethics as well as Confucianism, so one man acted on both.",
+      "adv": "The readings say filial piety belongs to Confucian, Chinese Buddhist and Daoist ethics."
+     },
+     {
+      "id": "bd9c",
+      "k": "judge",
+      "t": "I explained the limits: it survived only because it was sealed in a cave, and it comes from one region of China.",
+      "adv": "Say what one surviving book cannot show about the whole country."
+     }
+    ]
+   }
+  },
+  "stems": {
+   "confucian": {
+    "source": [
+     "Source C is ",
+     "It is not a primary source because ",
+     "It comes from ",
+     "Its features include ",
+     "It was made to "
+    ],
+    "context": [
+     "The story is about ",
+     "Confucius taught that ",
+     "The painting shows a wife ",
+     "This means the court expected "
+    ],
+    "judge": [
+     "It is useful for ",
+     "It is strong evidence of ",
+     "But it cannot tell us ",
+     "A historian must be careful because "
+    ]
+   },
+   "daoist": {
+    "source": [
+     "Source D is ",
+     "It is not a primary source because ",
+     "It was painted ",
+     "Its features include ",
+     "It shows a story that "
+    ],
+    "context": [
+     "The story is that ",
+     "Taoism taught ",
+     "Laozi is said to have ",
+     "Historians think "
+    ],
+    "judge": [
+     "It is useful for ",
+     "It is strong evidence of ",
+     "But it cannot tell us ",
+     "A historian must be careful because "
+    ]
+   },
+   "buddhist": {
+    "source": [
+     "Source B is ",
+     "It is a primary source because ",
+     "It was printed ",
+     "Its features include ",
+     "It was made to "
+    ],
+    "context": [
+     "By the Tang dynasty ",
+     "Buddhism came from ",
+     "Wang Jie made it ",
+     "This shows "
+    ],
+    "judge": [
+     "It is useful for ",
+     "It is strong evidence of ",
+     "But it cannot tell us ",
+     "A historian must be careful because "
+    ]
+   }
+  }
+ },
+ "stems": {
+  "source": [
+   "Source ",
+   "It is not a primary source because ",
+   "It comes from ",
+   "Its features include ",
+   "It was made to "
+  ],
+  "context": [
+   "The story is about ",
+   "Confucius taught that ",
+   "Taoism teaches ",
+   "By the Tang dynasty "
+  ],
+  "judge": [
+   "It is useful for ",
+   "It is strong evidence of ",
+   "But it cannot tell us ",
+   "A historian must be careful because "
+  ]
+ }
+};
+
 const $ = id => document.getElementById(id);
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const cap1 = t => t[0].toUpperCase() + t.slice(1);
-const KEY = "three24.access.v1";
-const VIDEO = "87jRYTOONRw";
-/* The paper sheet's stops, word for word (lesson-2-4-build/build24.js in the private repository).
-   m = marks; "fact" is a key detail, "link" is levelled: 1 names it, 2 links it. The stems are
-   sentence starters only; the model answer appears after the student checks their own. */
-const STOPS = [
- { n:1, from:"0:33", at:"1:30", title:"Taoism (Daoism)", qs:[
-  { id:"1a", kind:"fact", m:1, min:4, q:"What did Taoists believe about nature?", stems:["Taoists believed that people should ", "A universal force "],
-    a:"People should be one with nature (1); or: a universal force flows through all living things. [0:50]" },
-  { id:"1b", kind:"link", m:2, min:8, q:"How were Taoists different from the followers of Confucius?", stems:["Taoists did not believe in ", "The followers of Confucius wanted ", "This is different because "],
-    a:"1 mark: Taoists did not believe in a lot of rules or government.\n2 marks: sets it against Confucius's followers, who wanted a strong, organised government. [1:00, 2:14]" },
-  { id:"1c", kind:"fact", m:2, min:4, q:"Yin and yang are pairs of opposite forces. Give two of the video's pairs.", stems:["One pair is ", "Another pair is "],
-    a:"Any two of dark and light, cold and hot, male and female (1 each). [1:19]" } ] },
- { n:2, from:"1:33", at:"3:11", title:"Confucianism", qs:[
-  { id:"2a", kind:"fact", m:1, min:3, q:"Who wrote down Confucius's teachings?", stems:["His ", "They were written down by "],
-    a:"His followers (he did not write them himself). [1:50]" },
-  { id:"2b", kind:"fact", m:2, min:4, q:"Name two things Confucius said were important.", stems:["One thing was ", "Another thing was "],
-    a:"Any two of respect, politeness, fairness, honour, morality, family (1 each). [1:55 to 2:14]" },
-  { id:"2c", kind:"fact", m:1, min:3, q:"Family mattered to Confucius. What did he say people had to do?", stems:["People had to ", "Children had to "],
-    a:"Honour their relatives. [2:11]" } ] },
- { n:3, from:"3:16", at:"4:09", title:"Buddhism", qs:[
-  { id:"3a", kind:"fact", m:1, min:3, q:"Where and when does the video say the Buddha was born?", stems:["The video says he was born in ", "The year was "],
-    a:"Nepal, 563 BC. [3:25]" },
-  { id:"3b", kind:"link", m:2, min:8, q:"What is karma?", stems:["Karma means ", "So good actions will ", "And bad actions will "],
-    a:"1 mark: all actions have consequences.\n2 marks: links it: good actions will help you later and bad ones will hurt you. [3:54 to 4:09]" },
-  { id:"3c", kind:"fact", m:1, min:3, q:"What does the video say happens when the cycle of rebirth is complete?", stems:["The video says the person ", "When the cycle ends, "],
-    a:"The person enters nirvana. [3:46]" } ] }];
-/* The bonus: the video gets something wrong about each way. Students check it against their group's reading.
-   No model answer on this page: the reading decides. */
-const ERRORS = [
- { id:"e1", n:1, t:"Taoism (Daoism)", m:1, min:8, claim:"Taoism was founded in the sixth century by Laozi, who wrote the Tao Te Ching (0:36). The idea of yin and yang comes from Taoism (1:08).", stems:["The reading says ", "The video is wrong because "] },
- { id:"e2", n:2, t:"Confucianism", m:1, min:8, claim:"The video quotes Confucius with sayings such as 'Forget injuries, never forget kindnesses' (2:28 to 3:06).", stems:["The reading says ", "The video is wrong because "] },
- { id:"e3", n:3, t:"Buddhism", m:1, min:8, claim:"Buddhists believe in a rebirth of the self, and the person's soul enters nirvana (3:38 to 3:50). Buddhism spread through India and China (3:34), with no date.", stems:["The reading says ", "The video is wrong because "] }];
-const ALLQ = STOPS.flatMap(st => st.qs);
-const JOTTED = ALLQ.reduce((n, q) => n + q.m, 0);
-const BONUS = ERRORS.reduce((n, e) => n + e.m, 0);
-const TOTAL = JOTTED + BONUS;
-const WORDS_HINT = "Tip: if a word is new, open the vocab hub for 2.4 first.";
+const KEY = CFG.key;
+const STOPS = CFG.stops;
+const EXTRA = CFG.extra;                         /* going further, or a bonus; may be absent */
+const EXTRA_ITEMS = EXTRA ? EXTRA.items : [];
+const ALLQ = STOPS.flatMap(st => st.qs).concat(EXTRA_ITEMS);
+const BASEQ = ALLQ.filter(q => !q.bonus);
+const BASE = BASEQ.reduce((n, q) => n + q.m, 0), BONUS = ALLQ.filter(q => q.bonus).reduce((n, q) => n + q.m, 0);
+/* 2.4: each group writes about the source of its own tradition. CFG.pick = { levels: {sourceId: checklist}, stems: {sourceId: {row: [...]}}, labels: {sourceId: text} }. */
+const PICK = CFG.pick || null;
+const curSource = () => PICK ? (SOURCES.find(s => s.id === A.src) || null) : null;
+const srcQ = () => PICK ? (curSource() ? curSource().inquiry : "") : CFG.srcQ;
+const curCheck = () => PICK ? ((curSource() && PICK.levels[curSource().id]) || {}) : CFG.levels;
+const curFacts = () => PICK ? (curSource() ? curSource().facts : []) : FACTS;
+const srcList = () => PICK ? (curSource() ? [curSource()] : []) : SOURCES;
+const stemsFor = k => (PICK && PICK.stems && curSource() && PICK.stems[curSource().id] && PICK.stems[curSource().id][k]) || CFG.stems[k];
+const srcLabel = () => PICK && curSource() ? (PICK.labels[curSource().id] || curSource().tab) : "";
+/* The rubric rows come from the wall's own content.js, so the words are the wall's words. */
+const ROWS = CRITERIA.map(c => [c.key, c.name.replace(/&amp;/g, "&"), c.glyph, CFG.stems[c.key]]);
+const LEVELS_SA = [5, 6, 7, 8, 9];
+const CRIT = Object.fromEntries(CRITERIA.map(c => [c.key, c]));
+/* the checklist: level -> items {id, k, t, adv}; one set, or one per source when students choose */
+const ITEM = {}; (PICK ? Object.values(PICK.levels) : [CFG.levels]).forEach(ch => LEVELS_SA.forEach(L => (ch[L] || []).forEach(it => { ITEM[it.id] = Object.assign({ L }, it); })));
+const WORDS = CFG.words;
+(function(){
+  const s = document.createElement("style");
+  s.textContent = CRITERIA.map(c => ".g-" + c.key + " .big{border-color:" + c.ink + ";border-style:" + (c.underline === "dotted" ? "dotted" : c.underline === "dashed" ? "dashed" : "solid") + (c.underline === "double" ? ";border-width:5px" : "") + "}.g-" + c.key + " .lab{color:" + c.ink + "}").join("")
+    + ".g-answer .big{border-color:#555}.g-answer .lab{color:#333}"
+    + ".facts,.parts{margin:8px 0 0;padding-left:1.3em}.facts li{margin:0 0 8px;list-style:none;padding:0}.plain{font-style:italic;color:#333;margin:2px 0 10px 12px;border-left:4px solid #bbb;padding-left:10px}"
+    + ".psg{border-left:6px solid #176b87;background:#fff;border-radius:8px;padding:8px 14px;margin:8px 0}.src{max-width:100%;height:auto;border-radius:10px}img.tall{max-height:70vh;width:auto}.lnk{display:inline-block;margin-top:6px}.bandrow{margin:0 0 18px}";
+  document.head.appendChild(s);
+})();
 
-let A = { name:"", txt:{}, chk:{}, mk:{}, step:0, zoom:1, rate:.9, tint:"cream",
+let A = { name:"", src:"", txt:{}, chk:{}, mk:{}, self:{}, sa:{ phase:"write", orig:"", lvl:5, items:{}, done:false }, step:0, zoom:1, rate:.9, tint:"cream",
           sup:{ big:false, read:false, mic:false }, used:{}, started:0, secs:0, log:[] };
 try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) A = Object.assign(A, x); } catch (e) {}
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(A)); } catch (e) {} }
+A.sa = Object.assign({ phase:"write", orig:"", lvl:5, items:{}, done:false }, A.sa || {});
 if (!A.started) { A.started = Date.now(); save(); }
 setInterval(() => { if (document.visibilityState === "visible" && A.step > 0) { A.secs += 15; save(); } }, 15000);
 let lastTap = 0;
@@ -357,11 +1073,15 @@ function startMic(key){
 /* ---------- the pages ---------- */
 const STEPS = [{ id:"start", label:"Start" }]
   .concat(STOPS.map(st => ({ id:"stop", n:st.n, label:"Stop " + st.n })))
-  .concat([{ id:"errors", label:"Bonus: find the errors" }, { id:"hand", label:"Hand in" }]);
-const jotDone = () => ALLQ.filter(q => A.chk[q.id]).length;
+  .concat(EXTRA ? [{ id:"extra", label:EXTRA.label }] : [])
+  .concat([{ id:"source", label:"Source analysis" }, { id:"check", label:"Check it" }, { id:"hand", label:"Hand in" }]);
+const qDone = q => q.a ? !!A.chk[q.id] : wc(A.txt[q.id]) >= q.min;
+const jotDone = () => ALLQ.filter(qDone).length;
 function stepDone(s){
-  if (s.id === "stop") return STOPS[s.n - 1].qs.every(q => A.chk[q.id]);
-  if (s.id === "errors") return ERRORS.every(e => wc(A.txt[e.id]) >= e.min);
+  if (s.id === "stop") return STOPS[s.n - 1].qs.every(qDone);
+  if (s.id === "extra") return EXTRA_ITEMS.every(qDone);
+  if (s.id === "source") return A.sa.phase === "check" || wc(A.txt.para) >= 30;
+  if (s.id === "check") return !!A.sa.done;
   return false;
 }
 function drawStrip(){
@@ -420,7 +1140,7 @@ function render(){
   const s = STEPS[A.step];
   $("back").disabled = A.step === 0;
   $("next").hidden = A.step === STEPS.length - 1;
-  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), errors:errorsScreen, hand:handScreen }[s.id]();
+  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), extra:extraScreen, source:sourceScreen, check:checkScreen, hand:handScreen }[s.id]();
   wire();
 }
 
@@ -441,8 +1161,8 @@ function supportsUsed(){
 function applyTint(){ TINTS.forEach(t => document.body.classList.toggle("tint-" + t, (A.tint || "cream") === t)); }
 
 function startScreen(){
-  return `<div class="card"><p class="task">Ancient China 2.4</p><h1>The three ways</h1>
-    <p class="rd">Watch the video in three parts. Stop and jot at each stop. Then find the errors, with your group's reading.</p>
+  return `<div class="card"><p class="task">Ancient China ${esc(CFG.id)}</p><h1>${esc(CFG.title)}</h1>
+    <p class="rd">${esc(CFG.intro)}</p>
     <div class="row" style="margin-top:16px"><label for="nm" style="font-weight:800">NAME</label><input id="nm" type="text" autocomplete="off" value="${esc(A.name)}"></div>
     <div class="looks" role="group" aria-label="Supports"><span class="lbl">Supports</span>
       <button type="button" class="big sup" data-sup="big" aria-pressed="${A.sup.big}">Big buttons</button>
@@ -451,65 +1171,247 @@ function startScreen(){
     ${SR && A.sup.mic ? `<p class="note" id="micNote" aria-live="polite">${esc(micMsg)}</p>` : ""}
     ${TTS && A.sup.read ? `<div class="looks" role="group" aria-label="Reading speed"><span class="lbl">Reading speed</span>${[[.75, "Slower"], [.9, "Normal"]].map(([r, t]) => `<button type="button" class="big" data-rate="${r}" aria-pressed="${(A.rate || .9) === r}">${t}</button>`).join("")}</div>` : ""}
     <div class="looks" role="group" aria-label="Background"><span class="lbl">Background</span>${TINTS.map(t => `<button type="button" class="big" data-tint="${t}" aria-pressed="${(A.tint || "cream") === t}">${cap1(t)}</button>`).join("")}</div>
-    <p class="note">More practice: <a href='../china/vocab-hub.html#2.4' target='_blank' rel='noopener'>the Ancient China vocab hub, lesson 2.4</a>. ${esc(WORDS_HINT)}</p>
+    <h2 style="margin-top:18px">Words for this lesson</h2>
+    <dl class="words">${WORDS.map(([w, d]) => `<div><span class="rd"><dt>${esc(cap1(w))}</dt><dd>${esc(d)}</dd></span>${readBtn("Read this word")}</div>`).join("")}</dl>
+    <p class="note">More practice: <a href='../china/vocab-hub.html#${esc(CFG.id)}' target='_blank' rel='noopener'>the Ancient China vocab hub, lesson ${esc(CFG.id)}</a>. Open it before you start.</p>
     <p class="note">Your work saves on this device as you go.</p>
     <p class="note">${FS ? "When you leave Start, the lesson goes full screen. If you leave full screen or the page, it is written in your lesson log." : "This browser cannot go full screen."}</p></div>`;
 }
 
 /* ---------- the stops ---------- */
 const secs = t => { const p = t.split(":").map(Number); return p[0] * 60 + p[1]; };
-function vid(from, label){
-  return `<div><iframe class="vid" title="Confucianism, Taoism and Buddhism, video" src="https://www.youtube-nocookie.com/embed/${VIDEO}?start=${secs(from)}&rel=0&modestbranding=1" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
-    <p class="note rd">${esc(label)}</p></div>`;
+function vid(from, label, v){
+  const V = CFG.videos[v || "main"];
+  return `<div><iframe class="vid" title="${esc(V.title)}" src="https://www.youtube-nocookie.com/embed/${V.id}?start=${secs(from)}&rel=0&modestbranding=1" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    <p class="note rd">${esc(label)}</p>
+    <a class="lnk" href="https://youtu.be/${V.id}?t=${secs(from)}" target="_blank" rel="noopener">If the video does not play, open it on YouTube</a></div>`;
 }
 const needNote = q => "Write at least " + q.min + " word" + (q.min > 1 ? "s" : "") + " first.";
 function qBox(q){
   const t = A.txt[q.id] || "", ok = wc(t) >= q.min, shown = !!A.chk[q.id];
   return `<div class="qa" id="qa_${q.id}">
     <div class="q"><p>${esc(q.q)}</p>${readBtn("Read the question")}</div>
-    <span class="marks">${q.m} mark${q.m > 1 ? "s" : ""}${q.kind === "link" ? ": say what, then link it to a cause or a result" : ": a key detail"}</span>
+    <span class="marks">${q.m} ${q.bonus ? "bonus " : ""}mark${q.m > 1 ? "s" : ""}${q.kind === "link" ? ": say what, then link it to a cause or a result" : q.kind === "weigh" ? ": give a reason, then weigh both" : ": a key detail"}</span>
     <div class="stems" role="group" aria-label="Sentence starters">${q.stems.map((x, k) => `<button type="button" class="big" data-stem="${q.id}" data-k="${k}">${esc(x.trim())} …</button>`).join("")}</div>
     <textarea class="short" data-key="${q.id}" aria-label="Your answer">${esc(t)}</textarea>
     <div class="row" style="margin-top:8px">${micBtn(q.id)}<button type="button" class="big" data-undo="${q.id}">↶ Undo</button><button type="button" class="big" data-sayans="${q.id}">🔊 Read my answer</button>
-      <button type="button" class="big" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-check="${q.id}" ${ok ? "" : "disabled"}>Check my answer</button></div>
+      ${q.a ? `<button type="button" class="big" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-check="${q.id}" ${ok ? "" : "disabled"}>Check my answer</button>` : ""}</div>
     <p class="note" id="cn_${q.id}">${ok ? "" : needNote(q)}</p>
-    <div id="k_${q.id}" ${shown ? "" : "hidden"}>
-      <div class="key rd"><b>Model answer</b>\n${esc(q.a)}</div>
+    <div id="k_${q.id}" ${shown || !q.a ? "" : "hidden"}>
+      ${q.a ? `<div class="key rd"><b>Model answer</b>\n${esc(q.a)}</div>` : `<p class="note">No model answer here: your group's reading decides. Mark yourself against it.</p>`}
       <div class="selfm" role="group" aria-label="My marks"><b>My marks:</b> ${Array.from({ length:q.m + 1 }, (_, v) => `<button type="button" class="big" data-mk="${q.id}" data-v="${v}" aria-pressed="${A.mk[q.id] === v}">${v}</button>`).join("")}</div></div></div>`;
 }
 function stopScreen(st){
-  return `<div class="card"><p class="task">Part 1 · Stop and jot · ${st.n} of 3</p><h2 class="rd">${esc(st.title)}</h2>
-    <div class="two">${vid(st.from, "Watch from " + st.from + " to " + st.at + ". Pause the video at " + st.at + ", then jot your answers.")}
+  return `<div class="card"><p class="task">Stop and jot · ${st.n} of ${STOPS.length}</p><h2 class="rd">${esc(st.title)}</h2>
+    <div class="two">${vid(st.from, "Watch from " + st.from + " to " + st.at + ". Pause the video at " + st.at + ", then jot your answers.", st.v)}
     <div>${st.qs.map(qBox).join("")}</div></div></div>`;
 }
-
-/* ---------- the bonus: find the errors ---------- */
-function errBox(e){
-  const t = A.txt[e.id] || "", ok = wc(t) >= e.min;
-  return `<div class="qa" id="qa_${e.id}">
-    <div class="q"><p><b>${esc(e.t)}.</b> The video says: ${esc(e.claim)}</p>${readBtn("Read the video's claim")}</div>
-    <span class="marks">${e.m} bonus mark: say what your group's reading says instead</span>
-    <div class="stems" role="group" aria-label="Sentence starters">${e.stems.map((x, k) => `<button type="button" class="big" data-stem="${e.id}" data-k="${k}">${esc(x.trim())} …</button>`).join("")}</div>
-    <textarea class="short" data-key="${e.id}" aria-label="Your answer">${esc(t)}</textarea>
-    <div class="row" style="margin-top:8px">${micBtn(e.id)}<button type="button" class="big" data-undo="${e.id}">↶ Undo</button><button type="button" class="big" data-sayans="${e.id}">🔊 Read my answer</button></div>
-    <p class="note" id="cn_${e.id}">${ok ? "" : needNote(e)}</p>
-    <div class="selfm" role="group" aria-label="My bonus mark"><b>My mark:</b> ${[0, 1].map(v => `<button type="button" class="big" data-mk="${e.id}" data-v="${v}" aria-pressed="${A.mk[e.id] === v}">${v}</button>`).join("")}</div></div>`;
+function extraScreen(){
+  const v = EXTRA.video;
+  return `<div class="card"><p class="task">${esc(EXTRA.task)}</p><h2 class="rd">${esc(EXTRA.title)}</h2>
+    ${EXTRA.intro ? `<p class="rd">${esc(EXTRA.intro)}</p>` : ""}
+    ${v ? `<div class="two">${vid(v.from, v.label, v.v)}<div>${EXTRA_ITEMS.map(qBox).join("")}</div></div>` : EXTRA_ITEMS.map(qBox).join("")}</div>`;
 }
-function errorsScreen(){
-  return `<div class="card"><p class="task">Bonus · after your reading</p><h2 class="rd">Find the errors</h2>
-    <p class="rd">The video gets something wrong about each of the three ways. Find one for each, and say what your group's reading says instead. 1 bonus mark each.</p>
-    ${ERRORS.map(errBox).join("")}</div>`;
+
+/* ---------- source analysis, with stems ---------- */
+const factList = list => `<ul class="facts">${list.map(([h, t]) => `<li><span class="rd">${h ? `<b>${esc(h)}.</b> ` : ""}${esc(t)}</span>${readBtn("Read this")}</li>`).join("")}</ul>`;
+const paraNote = () => { const n = wc(A.txt.para); return n < 30 ? n + " words so far. Aim for 30 or more, and use every colour." : n + " words. Now read it back and add what the source cannot tell us."; };
+function sourceBlock(S){
+  if (S.kind === "text"){
+    return `<div class="srcblk"><h3>${esc(S.tab)}</h3>
+      ${S.paragraphs.map((p, k) => `<div class="psg rd">${esc(p)}</div>${readBtn("Read this extract")}${S.plain && S.plain[k] ? `<p class="plain rd">In plain English: ${esc(S.plain[k])}</p>` : ""}`).join("")}
+      <p class="cap rd">${esc(S.cite)}</p>
+      <ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul></div>`;
+  }
+  return `<div class="srcblk"><h3>${esc(S.tab)}</h3>
+    <img class="src tall" src="${S.file}" alt="${esc(S.alt)}"><p class="cap rd">${esc(S.cite)}</p>
+    <ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul></div>`;
+}
+function pickScreen(){
+  return `<div class="card"><p class="task">Source analysis</p><h2 class="rd">Which source is yours?</h2>
+    <p class="rd">Choose the source for the tradition your group read about. You write about this one source.</p>
+    <div class="row" style="margin-top:12px" role="group" aria-label="My source">${SOURCES.filter(s => PICK.levels[s.id]).map(s => `<button type="button" class="big go" data-pick="${s.id}">${esc(PICK.labels[s.id] || s.tab)}</button>`).join("")}</div>
+    <p class="note">You can change your mind until you press Check my answer.</p></div>`;
+}
+function sourceScreen(){
+  if (PICK && !curSource()) return pickScreen();
+  return `<div class="card"><p class="task">Source analysis${PICK ? " · " + esc(srcLabel()) : ""}</p>
+    <div class="q"><p>${esc(srcQ())}</p>${readBtn("Read the question")}</div>
+    ${PICK && A.sa.phase !== "check" ? `<div class="row"><button type="button" class="big" data-unpick="1">Choose a different source</button></div>` : ""}
+    <div class="two"><div>
+      ${srcList().map(sourceBlock).join("")}
+      <h3 style="margin-top:12px">What you need to know</h3>${factList(curFacts())}
+    </div><div>
+      <p class="note">Tap a starter to add it to your answer, then finish the sentence. Use every colour.</p>
+      ${ROWS.map(r => `<div class="grp g-${r[0]}"><p class="lab">${r[2]} ${esc(r[1])}</p><div class="stems">${stemsFor(r[0]).map((x, i) => `<button type="button" class="big" data-sstem="${r[0]}" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>`).join("")}
+      ${CFG.answerStems ? `<div class="grp g-answer"><p class="lab">My answer to the question</p><div class="stems">${CFG.answerStems.map((x, i) => `<button type="button" class="big" data-sstem="answer" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>` : ""}
+      ${A.sa.phase === "check" ? `<p class="note"><b>Your first answer is saved.</b> Go to Check it to see what you included.</p>` : ""}
+      <textarea data-key="para" style="margin-top:14px" aria-label="Your answer to the question" ${A.sa.phase === "check" ? "readonly" : ""}>${esc(A.txt.para || "")}</textarea>
+      <div class="row" style="margin-top:8px">${A.sa.phase === "check" ? "" : micBtn("para") + `<button type="button" class="big" data-undo="para">↶ Undo</button>`}<button type="button" class="big" data-sayans="para">🔊 Read my answer</button>
+        ${A.sa.phase === "check" ? `<button type="button" class="big" data-gostep="check">Go to Check it</button>` : `<button type="button" class="big" id="startCheck" style="background:var(--sel);color:#fff;border-color:var(--sel)" ${wc(A.txt.para) >= 30 ? "" : "disabled"}>Check my answer</button>`}</div>
+      <p class="note" id="paraN" aria-live="polite">${A.sa.phase === "check" ? "" : paraNote()}</p>
+    </div></div></div>`;
+}
+
+/* ---------- check it: what did I include? Level by level, with the words highlighted ----------
+   The 2.3 module's way: the student writes first, with no list in front of them. Then they check the
+   answer against each level's list. A tick needs words highlighted in their own answer. "Not yet" lets
+   them add it in their own words (kept, and shown as added after seeing the list) or skip it. Highlighting
+   is two taps on words, first and last, so it works by touch, keyboard and switch, not only by dragging.
+   Nothing here judges the writing: the ticks and the highlights are the student's own. */
+let SEL = null, NOTYET = null, SAMSG = "";
+const aWords = () => (A.txt.para || "").trim().split(/\s+/).filter(Boolean);
+const origCount = () => (A.sa.orig || "").trim().split(/\s+/).filter(Boolean).length;
+const itemState = id => A.sa.items[id] || null;
+const ulStyle = c => c.underline === "double" ? "double" : c.underline === "dotted" ? "dotted" : c.underline === "dashed" ? "dashed" : "solid";
+function hlMap(){                                     /* word number -> rubric row of the latest mark on it */
+  const m = {};
+  Object.entries(A.sa.items).forEach(([id, st]) => { if (st.hl && ITEM[id]) for (let w = st.hl[0]; w <= st.hl[1]; w++) m[w] = ITEM[id].k; });
+  return m;
+}
+const snippet = st => (st && st.hl) ? aWords().slice(st.hl[0], st.hl[1] + 1).join(" ") : "";
+function markedAnswer(tap){
+  const text = A.txt.para || "", map = hlMap(), oc = origCount();
+  let w = 0, out = "";
+  text.replace(/(\S+)(\s*)/g, (m, word, sp) => {
+    const k = map[w], c = k && CRIT[k], added = w >= oc && A.sa.phase === "check";
+    const sel = tap && SEL && w >= SEL.a && w <= SEL.b;
+    const style = c ? ` style="background:${c.lamp}88;border-bottom:3px ${ulStyle(c)} ${c.ink}"` : "";
+    out += tap ? `<span class="w${sel ? " sel" : ""}${added ? " added" : ""}" role="button" tabindex="0" data-w="${w}"${style} aria-pressed="${!!sel}">${esc(word)}</span>${esc(sp)}`
+               : `<span class="${added ? "added" : ""}"${style}>${esc(word)}</span>${esc(sp)}`;
+    w++; return m;
+  });
+  return out;
+}
+const legend = () => `<p class="legend">${CRITERIA.map(c => `<span class="lg" style="background:${c.lamp}88;border-bottom:3px ${ulStyle(c)} ${c.ink}">${c.glyph} ${esc(c.name.replace(/&amp;/g, "&"))}</span>`).join(" ")} <span class="lg added">Italic with a dashed top line: words I added after seeing the list</span></p>`;
+/* the highest level a row reached: every item of that row at that level and below ticked. */
+function rowLevel(k, withAdds){
+  let lvl = 0;
+  for (const L of LEVELS_SA){
+    const its = (curCheck()[L] || []).filter(it => it.k === k);
+    if (!its.length) continue;
+    const okAll = its.every(it => { const st = itemState(it.id); return st && ((st.s === "got" && (withAdds || !st.inAdded)) || (withAdds && st.s === "add")); });
+    if (!okAll) break;
+    lvl = L;
+  }
+  return lvl;
+}
+const lvlText = n => n ? "Level " + n : "below Level 5";
+const tagOf = st => !st ? "Not checked" : st.s === "got" ? (st.inAdded ? "In words I added" : "In my first answer") : st.s === "add" ? "Added after seeing the list" : "Skipped";
+const itemRows = () => LEVELS_SA.flatMap(L => (curCheck()[L] || []).map(it => ({ L, it, st: itemState(it.id) })));
+
+function itemBox(it){
+  const st = itemState(it.id), c = CRIT[it.k], id = it.id;
+  let ctl;
+  if (NOTYET === id) {
+    ctl = `<p class="note rd">${esc(it.adv)}</p><p class="note">Add it now, in your own words, about this source. Or skip it. Your report shows it was added after you saw the list.</p>
+      <textarea class="short" data-key="add_${id}" aria-label="Add it in my own words">${esc(A.txt["add_" + id] || "")}</textarea>
+      <div class="row" style="margin-top:8px">${micBtn("add_" + id)}<button type="button" class="big go" data-addgo="${id}">Add to my answer</button><button type="button" class="big" data-skip="${id}">Skip it</button><button type="button" class="big" data-cancelnot="1">Cancel</button></div>`;
+  } else if (st) {
+    ctl = `<p class="note"><b>${esc(tagOf(st))}.</b>${st.hl ? ` Highlighted: “${esc(snippet(st))}”` : ""}</p>${st.s === "add" ? "" : `<div class="row"><button type="button" class="big" data-undoitem="${id}">Change it</button></div>`}`;
+  } else {
+    ctl = `<div class="row"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-mark="${id}">Mark it in my answer</button><button type="button" class="big" data-notyet="${id}">Not yet</button></div>`;
+  }
+  return `<div class="qa g-${it.k}" style="border-color:${c.ink}"><p class="lab">${c.glyph} ${esc(c.name.replace(/&amp;/g, "&"))}</p><div class="q"><p>${esc(it.t)}</p>${readBtn("Read this")}</div>${ctl}</div>`;
+}
+function checkScreen(){
+  if (A.sa.phase !== "check") return `<div class="card"><p class="task">Check it</p><h2 class="rd">Write your answer first.</h2>
+    <p class="rd">Finish your source analysis (at least 30 words), then press Check my answer.</p><div class="row"><button type="button" class="big" data-gostep="source">Go to my answer</button></div></div>`;
+  if (A.sa.done) return `<div class="card"><p class="task">Check it</p><h2 class="rd">You have checked every level.</h2>
+    <ul class="parts">${ROWS.map(r => `<li class="rd"><b>${r[2]} ${esc(r[1])}:</b> my first answer reached ${esc(lvlText(rowLevel(r[0], false)))}; with what I added, ${esc(lvlText(rowLevel(r[0], true)))}.</li>`).join("")}</ul>
+    <p class="note">These come from your own ticks. The page did not judge your writing.</p>
+    <div class="row"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-gostep="hand">Go to Hand in</button><button type="button" class="big" data-relevel="1">Look at the levels again</button></div></div>`;
+  const L = A.sa.lvl, its = curCheck()[L] || [], all = its.every(it => itemState(it.id));
+  return `<div class="card"><p class="task">Check it · Level ${L} of 9</p><h2 class="rd">What did I include?</h2>
+    <p class="note">Choose the part of your answer that shows it: tap the first word and then the last word, or drag across the words. To take a whole sentence, tap a word and press Select the sentence. Then press Mark it. Your first answer is locked. Anything you add is shown in italics.</p>
+    ${legend()}
+    <div class="two"><div><div class="ansbox rd" id="ans" aria-label="My answer">${markedAnswer(true)}</div>
+      <div class="row" style="margin-top:8px"><button type="button" class="big" data-selsent="1">Select the sentence</button><button type="button" class="big" data-selall="1">Select all of my answer</button><button type="button" class="big" data-selclear="1">Clear</button></div>
+      <p class="note" id="selNote" aria-live="polite">${SEL ? "Selected: “" + esc(aWords().slice(SEL.a, SEL.b + 1).join(" ")) + "”" : "Nothing selected."}</p>
+      ${SAMSG ? `<p class="note" role="alert"><b>${esc(SAMSG)}</b></p>` : ""}</div>
+    <div>${its.map(itemBox).join("")}
+      <div class="row" style="margin-top:12px">${L > 5 ? `<button type="button" class="big" data-prevlvl="1">Back: Level ${L - 1}</button>` : ""}
+        <button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-nextlvl="1" ${all ? "" : "disabled"}>${L < 9 ? "Next: Level " + (L + 1) : "Finish"}</button></div>
+      ${all ? "" : `<p class="note">Mark each one, or choose Not yet, to go on.</p>`}</div></div></div>`;
+}
+function refreshSel(){
+  document.querySelectorAll("#ans [data-w]").forEach(el => { const i = +el.dataset.w, on = !!(SEL && i >= SEL.a && i <= SEL.b); el.classList.toggle("sel", on); el.setAttribute("aria-pressed", on); });
+  const n = $("selNote"); if (n) n.textContent = SEL ? "Selected: “" + aWords().slice(SEL.a, SEL.b + 1).join(" ") + "”" : "Nothing selected.";
+}
+function tapWord(i){
+  if (SEL && SEL.open) SEL = { a: Math.min(SEL.a, i), b: Math.max(SEL.a, i), open: false };
+  else if (SEL && !SEL.open && (i < SEL.a || i > SEL.b)) SEL = { a: Math.min(SEL.a, i), b: Math.max(SEL.b, i), open: false };   /* grow the range */
+  else SEL = { a: i, b: i, open: true };
+  SAMSG = ""; refreshSel();
+}
+/* sentences: a word that ends in . ? or ! (maybe followed by a quote or bracket) ends a sentence */
+const endsSentence = w => /[.?!]["\u201d')\]]*$/.test(w);
+function sentenceBounds(a, b){
+  const ws = aWords(); let x = a, y = b;
+  while (x > 0 && !endsSentence(ws[x - 1])) x--;
+  while (y < ws.length - 1 && !endsSentence(ws[y])) y++;
+  return [x, y];
+}
+/* touch handles: read the browser's own selection and turn it into a word range */
+function selFromNative(){
+  const sel = window.getSelection(), ans = $("ans");
+  if (!sel || !ans || sel.isCollapsed || !sel.rangeCount) return null;
+  const r = sel.getRangeAt(0), total = ans.textContent.length;
+  const offOf = (node, o) => {
+    if (!ans.contains(node)) return (ans.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING) ? total : 0;
+    const p = document.createRange(); p.selectNodeContents(ans); p.setEnd(node, o); return p.toString().length;
+  };
+  const from = offOf(r.startContainer, r.startOffset), to = offOf(r.endContainer, r.endOffset);
+  if (to <= from) return null;
+  let pos = 0, a = -1, b = -1;
+  ans.childNodes.forEach(n => {
+    const len = n.textContent.length;
+    if (n.dataset && n.dataset.w !== undefined && pos < to && pos + len > from) { const w = +n.dataset.w; if (a < 0) a = w; b = w; }
+    pos += len;
+  });
+  return a < 0 ? null : { a, b, open: false };
+}
+/* mouse: press on a word, drag over others, let go. A press and release on one word is a tap. */
+let DRAG = null, SUPPRESS = false;
+document.addEventListener("mousemove", e => {
+  if (!DRAG) return;
+  const t = document.elementFromPoint(e.clientX, e.clientY), w = t && t.closest ? t.closest("#ans [data-w]") : null;
+  if (!w) return;
+  const i = +w.dataset.w;
+  if (i === DRAG.s && !DRAG.moved) return;
+  DRAG.moved = true; SEL = { a: Math.min(DRAG.s, i), b: Math.max(DRAG.s, i), open: false }; SAMSG = ""; refreshSel();
+});
+document.addEventListener("mouseup", () => {
+  if (!DRAG) return;
+  if (DRAG.moved) { SUPPRESS = true; setTimeout(() => { SUPPRESS = false; }, 0); }
+  DRAG = null;
+});
+document.addEventListener("selectionchange", () => {
+  const n = selFromNative(); if (!n) return;
+  SEL = n; SAMSG = ""; refreshSel();
+});
+/* the report: the answer with each highlight in its row's colour, then every item against its highlight */
+function reportHTML(){
+  if (A.sa.phase !== "check") return `<p class="rd">(The check was not done.)</p>`;
+  const done = itemRows();
+  return `<table class="rep"><tr><th>Rubric row</th><th>My first answer reached</th><th>With what I added</th></tr>
+      ${ROWS.map(r => `<tr><td>${r[2]} ${esc(r[1])}</td><td>${esc(lvlText(rowLevel(r[0], false)))}</td><td>${esc(lvlText(rowLevel(r[0], true)))}</td></tr>`).join("")}</table>
+    ${legend()}<div class="ans ansbox">${markedAnswer(false)}</div>
+    <table class="rep"><tr><th>Level</th><th>What I checked</th><th>Result</th><th>The words I highlighted</th></tr>
+      ${done.map(({ L, it, st }) => `<tr><td>${L}</td><td>${CRIT[it.k].glyph} ${esc(it.t)}</td><td>${esc(tagOf(st))}</td><td>${st && st.hl ? esc(snippet(st)) : st && st.s === "skip" ? "(skipped)" : ""}</td></tr>`).join("")}</table>`;
 }
 
 /* ---------- hand in ---------- */
-const jotMarks = () => ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0) + ERRORS.reduce((n, e) => n + (A.mk[e.id] || 0), 0);
+const jotMarks = () => ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0);
+const marksLine = () => jotMarks() + " out of " + BASE + (BONUS ? " (plus up to " + BONUS + " bonus)" : "");
 function handScreen(){
-  return `<div class="card"><p class="task">Hand in</p><h2 class="rd">2.4 stop and jot: the three ways</h2>
-    <p class="tot">${jotMarks()} out of ${TOTAL} marks, by my own marking. ${jotDone()} of ${ALLQ.length} questions checked.</p>
+  return `<div class="card"><p class="task">Hand in</p><h2 class="rd">Stop and jot</h2>
+    <p class="tot">${marksLine()}, by my own marking. ${jotDone()} of ${ALLQ.length} questions checked.</p>
+    <h2 class="rd">Source analysis: what I included${PICK && curSource() ? " (" + esc(srcLabel()) + ")" : ""}</h2>${PICK ? `<p class="rd"><b>${esc(srcQ())}</b></p>` : ""}<div class="rep">${A.sa.phase === "check" ? reportHTML() : `<p class="rd" style="white-space:pre-wrap">${esc(A.txt.para || "(nothing written)")}</p><p class="note">The check was not done, so there are no highlights.</p>`}</div>
     <div class="row" style="margin-top:16px"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" id="printBtn">Print</button>
     <button type="button" class="big" id="copyBtn">Copy my work</button>
     <button type="button" class="big" id="rowBtn">Copy a row for the class sheet</button><span id="copied" role="status"></span></div>
-    <p class="note">The marks are your own. Nothing on this page judged your writing. Your teacher marks it.</p></div>`;
+    <p class="note">The marks and the levels are your own. Nothing on this page judged your writing. Your teacher marks it.</p></div>`;
 }
 
 const undo = {};
@@ -522,22 +1424,23 @@ function caretInsert(key, text){
   ta.value = before + pad + text + after;
   const at = (before + pad + text).length;
   ta.focus(); ta.setSelectionRange(at, at);
-  A.txt[key] = ta.value; save(); drawStrip();
+  A.txt[key] = ta.value; save(); drawStrip(); noteFor(key);
 }
 
 function noteFor(key){
-  const q = [...ALLQ, ...ERRORS].find(x => x.id === key);
+  const q = ALLQ.find(x => x.id === key);
   if (q){
     const ok = wc(A.txt[key]) >= q.min, b = document.querySelector('[data-check="' + key + '"]'), n = $("cn_" + key);
     if (b) b.disabled = !ok;
     if (n) n.textContent = ok ? "" : needNote(q);
   }
+  if (key === "para"){ const n = $("paraN"); if (n) n.textContent = paraNote(); const c = $("startCheck"); if (c) c.disabled = wc(A.txt.para) < 30; }
 }
 function wire(){
   const S = $("screen");
   const nm = $("nm"); if (nm) nm.addEventListener("input", () => { A.name = nm.value; save(); });
   S.querySelectorAll("textarea[data-key]").forEach(ta => ta.addEventListener("input", () => { A.txt[ta.dataset.key] = ta.value; save(); noteFor(ta.dataset.key); drawStrip(); }));
-  S.querySelectorAll("[data-readel]").forEach(b => b.onclick = () => readEls([b.parentElement.querySelector(".rd, p")]));
+  S.querySelectorAll("[data-readel]").forEach(b => b.onclick = () => readEls([b.previousElementSibling && b.previousElementSibling.matches(".psg") ? b.previousElementSibling : b.parentElement.querySelector(".rd, p")]));
   S.querySelectorAll("[data-sayans]").forEach(b => b.onclick = () => speak(A.txt[b.dataset.sayans] || "Nothing written yet."));
   S.querySelectorAll("[data-mic]").forEach(b => {
     b.addEventListener("pointerdown", e => e.preventDefault());
@@ -551,8 +1454,13 @@ function wire(){
     if (k === "mic" && A.sup.mic) openMic();
   });
   S.querySelectorAll("[data-tint]").forEach(b => b.onclick = () => { if (!steady()) return; A.tint = b.dataset.tint; save(); applyTint(); render(); });
-  S.querySelectorAll("[data-stem]").forEach(b => b.addEventListener("pointerdown", e => e.preventDefault()));
-  S.querySelectorAll("[data-stem]").forEach(b => b.onclick = () => { if (!steady()) return; const q = [...ALLQ, ...ERRORS].find(x => x.id === b.dataset.stem); caretInsert(q.id, q.stems[+b.dataset.k]); });
+  S.querySelectorAll("[data-stem],[data-sstem]").forEach(b => b.addEventListener("pointerdown", e => e.preventDefault()));
+  S.querySelectorAll("[data-stem]").forEach(b => b.onclick = () => { if (!steady()) return; const q = ALLQ.find(x => x.id === b.dataset.stem); caretInsert(q.id, q.stems[+b.dataset.k]); });
+  S.querySelectorAll("[data-sstem]").forEach(b => b.onclick = () => {
+    if (!steady()) return; const k = b.dataset.sstem;
+    if (k === "answer") return caretInsert("para", CFG.answerStems[+b.dataset.k]);
+    caretInsert("para", stemsFor(k)[+b.dataset.k]);
+  });
   S.querySelectorAll("[data-undo]").forEach(b => {
     b.addEventListener("pointerdown", e => e.preventDefault());
     b.onclick = () => {
@@ -568,6 +1476,41 @@ function wire(){
     if (!steady()) return; const id = b.dataset.mk; A.mk[id] = +b.dataset.v; save();
     S.querySelectorAll('[data-mk="' + id + '"]').forEach(x => x.setAttribute("aria-pressed", +x.dataset.v === A.mk[id]));
   });
+  S.querySelectorAll("[data-gostep]").forEach(b => b.onclick = () => { if (!steady()) return; go(STEPS.findIndex(x => x.id === b.dataset.gostep)); });
+  S.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => { if (!steady()) return; A.src = b.dataset.pick; save(); render(); });
+  S.querySelectorAll("[data-unpick]").forEach(b => b.onclick = () => { if (!steady() || A.sa.phase === "check") return; A.src = ""; save(); render(); });
+  const sc = $("startCheck"); if (sc) sc.onclick = () => { if (!steady() || wc(A.txt.para) < 30 || (PICK && !curSource())) return; A.sa.orig = A.txt.para || ""; A.sa.phase = "check"; A.sa.lvl = 5; A.sa.done = false; A.sa.checkedAt = Date.now(); SEL = null; NOTYET = null; SAMSG = ""; save(); go(STEPS.findIndex(x => x.id === "check")); };
+  S.querySelectorAll("[data-selsent]").forEach(b => b.onclick = () => {
+    if (!SEL) { SAMSG = "Tap a word first, then press Select the sentence."; render(); return; }
+    const [x, y] = sentenceBounds(SEL.a, SEL.b); SEL = { a: x, b: y, open: false }; SAMSG = ""; refreshSel();
+  });
+  S.querySelectorAll("[data-selall]").forEach(b => b.onclick = () => { SEL = { a: 0, b: Math.max(0, aWords().length - 1), open: false }; SAMSG = ""; refreshSel(); });
+  S.querySelectorAll("[data-selclear]").forEach(b => b.onclick = () => { SEL = null; SAMSG = ""; window.getSelection().removeAllRanges(); refreshSel(); });
+  S.querySelectorAll("#ans [data-w]").forEach(el => {
+    el.onmousedown = e => { if (e.button !== 0) return; e.preventDefault(); window.getSelection().removeAllRanges(); DRAG = { s: +el.dataset.w, moved: false }; };
+    el.onclick = () => { if (SUPPRESS) { SUPPRESS = false; return; } if (String(window.getSelection()).trim()) return; tapWord(+el.dataset.w); };
+    el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tapWord(+el.dataset.w); } };
+  });
+  S.querySelectorAll("[data-mark]").forEach(b => b.onclick = () => {
+    if (!steady()) return;
+    if (!SEL) { SAMSG = "Tap the words in your answer first, then press Mark it."; render(); return; }
+    A.sa.items[b.dataset.mark] = { s:"got", hl:[SEL.a, SEL.b], inAdded: SEL.b >= origCount(), at: Date.now() };
+    SEL = null; SAMSG = ""; save(); render();
+  });
+  S.querySelectorAll("[data-notyet]").forEach(b => b.onclick = () => { if (!steady()) return; NOTYET = b.dataset.notyet; SAMSG = ""; render(); });
+  S.querySelectorAll("[data-cancelnot]").forEach(b => b.onclick = () => { if (!steady()) return; NOTYET = null; SAMSG = ""; render(); });
+  S.querySelectorAll("[data-skip]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.items[b.dataset.skip] = { s:"skip", at: Date.now() }; NOTYET = null; save(); render(); });
+  S.querySelectorAll("[data-addgo]").forEach(b => b.onclick = () => {
+    if (!steady()) return; const id = b.dataset.addgo, t = (A.txt["add_" + id] || "").trim();
+    if (wc(t) < 3) { SAMSG = "Write at least 3 words, or choose Skip it."; render(); return; }
+    const start = aWords().length; A.txt.para = (A.txt.para || "").trim() + " " + t;
+    A.sa.items[id] = { s:"add", text:t, hl:[start, aWords().length - 1], at: Date.now() };
+    delete A.txt["add_" + id]; NOTYET = null; SAMSG = ""; save(); render();
+  });
+  S.querySelectorAll("[data-undoitem]").forEach(b => b.onclick = () => { if (!steady()) return; delete A.sa.items[b.dataset.undoitem]; save(); render(); });
+  S.querySelectorAll("[data-nextlvl]").forEach(b => b.onclick = () => { if (!steady()) return; if (A.sa.lvl < 9) A.sa.lvl++; else A.sa.done = true; NOTYET = null; SEL = null; SAMSG = ""; save(); render(); drawStrip(); });
+  S.querySelectorAll("[data-prevlvl]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.lvl = Math.max(5, A.sa.lvl - 1); NOTYET = null; SEL = null; save(); render(); });
+  S.querySelectorAll("[data-relevel]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.done = false; A.sa.lvl = 5; save(); render(); drawStrip(); });
   const pr = $("printBtn"); if (pr) pr.onclick = () => { graceUntil = Date.now() + 120000; buildPrint(); window.print(); graceUntil = Date.now() + 3000; };
   const copy = async t => { try { await navigator.clipboard.writeText(t); $("copied").textContent = "Copied."; } catch (e) { $("copied").textContent = "Copy did not work here. Use Print instead."; } };
   const cp = $("copyBtn"); if (cp) cp.onclick = () => copy(plainText());
@@ -578,34 +1521,34 @@ function wire(){
 const mins = () => Math.round((A.secs || 0) / 60);
 function buildPrint(){
   $("print").innerHTML = `
-    <h1>Ancient China 2.4 · The three ways</h1>
+    <h1>Ancient China ${esc(CFG.id)} · ${esc(CFG.title)}</h1>
     <p><b>Name:</b> ${esc(A.name || "")} &nbsp; <b>Printed:</b> ${new Date().toLocaleDateString("en-AU")} &nbsp; <i>Done on the accessible online version.</i></p>
     <p><b>Supports used:</b> ${esc(supportsUsed())} &nbsp; <b>Time on the page:</b> about ${mins()} minutes</p>
-    <h2>Stop and jot (my own marks: ${ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0)} out of ${JOTTED})</h2>
+    <h2>Stop and jot (my own marks: ${marksLine()})</h2>
     <table><tr><th>Question</th><th>My answer</th><th>Marks</th></tr>${ALLQ.map(q => `<tr><td>${esc(q.q)}</td><td>${esc(A.txt[q.id] || "")}</td><td>${A.mk[q.id] === undefined ? "" : A.mk[q.id] + " / " + q.m}</td></tr>`).join("")}</table>
-    <h2>Bonus: find the errors (my own marks: ${ERRORS.reduce((n, e) => n + (A.mk[e.id] || 0), 0)} out of ${BONUS})</h2>
-    <table><tr><th>The video says</th><th>What my reading says</th><th>Marks</th></tr>${ERRORS.map(e => `<tr><td>${esc(e.t)}: ${esc(e.claim)}</td><td>${esc(A.txt[e.id] || "")}</td><td>${A.mk[e.id] === undefined ? "" : A.mk[e.id] + " / " + e.m}</td></tr>`).join("")}</table>
+    <h2>${esc(srcQ())}${PICK && curSource() ? " (" + esc(srcLabel()) + ")" : ""}</h2>${A.sa.phase === "check" ? reportHTML() : `<div class="ans">${esc(A.txt.para || "(nothing written)")}</div><p>The check was not done.</p>`}
     <h2>Lesson log</h2><p>${FS ? `Left full screen or the page ${exits()} time${exits() === 1 ? "" : "s"}.` : "This browser has no full screen, so the lesson was not locked."}</p>
     ${exits() ? `<p>${logLines().map(esc).join("<br>")}</p>` : ""}
-    <p style="font-size:9pt;color:#555">The marks are the student's own. Nothing on the page judged the writing.</p>`;
+    <p style="font-size:9pt;color:#555">The marks and the levels are the student's own. Nothing on the page judged the writing.</p>`;
 }
 function plainText(){
-  return ["Ancient China 2.4: The three ways", "Name: " + A.name, "Supports used: " + supportsUsed(), "Time on the page: about " + mins() + " minutes", "",
-    "Stop and jot, my own marks " + ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0) + " out of " + JOTTED]
+  return ["Ancient China " + CFG.id + ": " + CFG.title, "Name: " + A.name, "Supports used: " + supportsUsed(), "Time on the page: about " + mins() + " minutes", "",
+    "Stop and jot, my own marks " + marksLine()]
     .concat(ALLQ.map(q => q.q + "\n  " + (A.txt[q.id] || "(nothing written)") + "\n  Marks: " + (A.mk[q.id] === undefined ? "not marked" : A.mk[q.id] + " / " + q.m)))
-    .concat(["", "Bonus: find the errors, my own marks " + ERRORS.reduce((n, e) => n + (A.mk[e.id] || 0), 0) + " out of " + BONUS])
-    .concat(ERRORS.map(e => e.t + "\n  The video says: " + e.claim + "\n  My reading says: " + (A.txt[e.id] || "(nothing written)") + "\n  Mark: " + (A.mk[e.id] === undefined ? "not marked" : A.mk[e.id] + " / " + e.m)))
-    .concat(["", "Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
+    .concat(["", srcQ() + (PICK && curSource() ? " (" + srcLabel() + ")" : ""), A.txt.para || "(nothing written)", ""])
+    .concat(A.sa.phase === "check" ? ROWS.map(r => r[1] + ": first answer " + lvlText(rowLevel(r[0], false)) + "; with what I added " + lvlText(rowLevel(r[0], true))) : ["The check was not done."])
+    .concat(A.sa.phase === "check" ? [""].concat(itemRows().map(({ L, it, st }) => "Level " + L + " | " + it.t + " | " + tagOf(st) + (st && st.hl ? " | highlighted: " + snippet(st) : ""))) : [])
+    .concat(["Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
 }
 /* One tab-separated row for a shared sheet. Columns: name, date, minutes on the page, my marks for each
-   of the 9 stop-and-jot questions, their total, my marks for each of the 3 bonus errors, their total,
-   times out of full screen. It cannot tell you whether any of it is good. */
+   stop-and-jot question, their total, (when students choose, the source they chose), words in the source answer, for each rubric row the level the first
+   answer reached and the level with additions (by the student's own ticks), items added, items skipped,
+   times out of full screen, the answer. It cannot tell you whether any of it is good. */
 function classRow(){
   const clean = t => String(t || "").replace(/[\t\r\n]+/g, " ").trim();
-  const jot = ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0), bon = ERRORS.reduce((n, e) => n + (A.mk[e.id] || 0), 0);
   return [clean(A.name), new Date().toLocaleDateString("en-AU"), mins()].concat(ALLQ.map(q => A.mk[q.id] === undefined ? "" : A.mk[q.id]))
-    .concat([jot]).concat(ERRORS.map(e => A.mk[e.id] === undefined ? "" : A.mk[e.id])).concat([bon])
-    .concat([FS ? exits() : "no lock"]).join("\t");
+    .concat([jotMarks()]).concat(PICK ? [A.src || ""] : []).concat([wc(A.txt.para)]).concat(ROWS.flatMap(r => A.sa.phase === "check" ? [rowLevel(r[0], false) || "<5", rowLevel(r[0], true) || "<5"] : ["", ""]))
+    .concat([Object.values(A.sa.items).filter(x => x.s === "add").length, Object.values(A.sa.items).filter(x => x.s === "skip").length, FS ? exits() : "no lock", clean(A.txt.para)]).join("\t");
 }
 
 $("readPage").onclick = () => { if (!steady()) return; if (reading) stopReading(); else readEls(readPageEls()); };

@@ -4,12 +4,12 @@
 //   node build_lesson_access.js 31      (terracotta, 3.1)      node build_lesson_access.js 32   (great-wall, 3.2)
 const fs = require("fs"), path = require("path");
 const WHICH = process.argv[2];
-const FOLDERS = { "31": "terracotta", "32": "great-wall" };
-if (!FOLDERS[WHICH]) throw new Error("usage: node build_lesson_access.js 31|32");
+const FOLDERS = { "22": "fu-hao", "24": "three-ways", "31": "terracotta", "32": "great-wall" };
+if (!FOLDERS[WHICH]) throw new Error("usage: node build_lesson_access.js 22|24|31|32");
 const SRC = "C:/Tau/Year-7-Humanities-Pages/history/cai-lun/accessible.html";
 const OUT = "C:/Tau/Year-7-Humanities-Pages/history/" + FOLDERS[WHICH] + "/accessible.html";
 const cfg = fs.readFileSync(path.join(__dirname, "cfg" + WHICH + ".js"), "utf8");
-const TITLE = (cfg.match(/title: "([^"]+)"/) || [])[1], ID = (cfg.match(/id: "([^"]+)"/) || [])[1];
+const TITLE = (cfg.match(/"?title"?: "([^"]+)"/) || [])[1], ID = (cfg.match(/"?id"?: "([^"]+)"/) || [])[1];
 const s = fs.readFileSync(SRC, "utf8").replace(/\r\n/g, "\n");
 const between = (a, b) => { const i = s.indexOf(a); if (i < 0) throw new Error("no " + a); const j = s.indexOf(b, i + a.length); if (j < 0) throw new Error("no " + b); return s.slice(i, j); };
 

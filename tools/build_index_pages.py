@@ -254,12 +254,12 @@ SITE = [
             "A bronze owl-shaped wine vessel from the tomb of Fu Hao, a wife of a Shang king, analysed Foundation to Level 10 on three rubric rows: "
             "origin, features and purpose; historical context; accuracy, usefulness and reliability. Starts with the Shang context.", None),
            ("&#128187;", "2.2 Social groups: the whole lesson online", "../fu-hao/accessible.html",
-            "For a student who works better on a device: stop and jot for the video with sentence starters, then the Fu Hao owl analysed with starters for each rubric row. Read to me, voice typing, big buttons, zoom. Goes full screen.", None),
+            "For a student who works better on a device: stop and jot for the video with sentence starters, then the Fu Hao owl analysed with starters for each rubric row, and a check of what you included. Read to me, voice typing, big buttons, zoom. Goes full screen.", None),
            ("&#127982;", "2.3 Daily life", "../daily-life/module.html",
             "The whole lesson online: the words, the video and its questions, the readings at Year 6, 7 or 8, "
             "the ruling and working classes table, and two sources checked level by level. Goes full screen.", None),
-           ("&#128187;", "2.4 Stop and jot: the three ways, online", "../three-ways/accessible.html",
-            "For a student who works better on a device: the Captivating video in three stops, with sentence starters, then the bonus error hunt. "
+           ("&#128187;", "2.4 The three ways: the whole lesson online", "../three-ways/accessible.html",
+            "For a student who works better on a device: the video in three stops with sentence starters, the bonus error hunt, then the source for your own tradition analysed with starters, and a check of what you included. "
             "Read to me, voice typing, big buttons, zoom. Goes full screen.", None),
            ("&#127862;", "2.4 Bump it up: the three ways", "../three-ways/bump-it-up.html",
             "Four sources, Foundation to Level 10 on three rubric rows. The model, The Three Vinegar Tasters, is open at every level; "

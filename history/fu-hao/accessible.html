@@ -4,23 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Social groups and Fu Hao's owl</title>
+<title>2.2 Social groups: the whole lesson online</title>
 <!--
-  Ancient China lesson 2.2, Social groups: the accessible online version. Two parts: the
-  stop-and-jot for the Captivating History video (the paper sheet's four stops and its
-  going-further question, word for word, with sentence stems), then the source analysis of
-  Source A, the Fu Hao owl zun, with sentence stems by rubric row. Facts and rubric wording
-  are read from content.js, the same file the Fu Hao wall uses. The wall's worked examples
+  Ancient China lesson 2.2, Social groups: the whole lesson online, for a student who works better on a
+  device. The paper sheet's stops and questions, word for word (lesson-2-2-build in the
+  private repository), with sentence starters and model answers after each student's own check; then the
+  source analysis with starters for each rubric row, and a level to choose. Sources, facts and rubric
+  wording are read from content.js in this folder, the same file the wall uses. The wall's worked examples
   (Levels 7 to 10) are NOT shown here: they stay behind the wall's password.
 
-  Supports (Big buttons, Read to me, Voice typing, zoom, background colours) and the
-  full-screen lock with no password are the accessible Cai Lun page's, copied from
-  history/cai-lun/accessible.html. If that machinery is patched, patch this file in the same
-  change. Hidden: not in the site map, opened by its address.
-
-  Honest interface: nothing here judges the writing. A box needs a few real words before the
-  model answer appears; the student marks themselves against it; the teacher marks.
-  Saved on this device as it is typed (china22.access.v1).
+  Supports (Big buttons, Read to me, Voice typing, zoom, background colours) and the full-screen lock with
+  no password are the accessible Cai Lun page's, copied from history/cai-lun/accessible.html. If that
+  machinery is patched, patch this file in the same change. Built by scratchpad/tools/build_lesson_access.js.
+  Honest interface: nothing here judges the writing. A box needs a few real words before the model answer
+  appears; the student marks themselves against it; the teacher marks. Saved on this device as it is typed.
 -->
 <style>
   :root{
@@ -161,11 +158,30 @@
   .selfm{display:flex;gap:var(--gap);flex-wrap:wrap;align-items:center;margin:10px 0 0}
   textarea.short{min-height:110px}
   .grp{margin:10px 0 0}.grp .lab{font-weight:800;margin:0 0 6px}
-  .g-source .big{border-color:#176b87}.g-context .big{border-color:#357a46;border-style:dashed}.g-judge .big{border-color:#744f91;border-style:double;border-width:5px}
-  .g-source .lab{color:#176b87}.g-context .lab{color:#357a46}.g-judge .lab{color:#744f91}
-  .parts{margin:8px 0 0;padding-left:1.3em}
-  .bandrow{margin:0 0 18px}
   .tot{font-weight:800;font-size:22px}
+  /* check it: the student's own answer, words tappable, highlights in the rubric row's colour */
+  .ansbox{border:2px solid var(--line);border-radius:12px;background:#fff;padding:14px 16px;line-height:2.2;white-space:pre-wrap}
+  .w{cursor:pointer;border-radius:3px;padding:2px 1px}
+  .w:hover{outline:2px solid #2c7488}
+  .w.sel{outline:3px solid #2c7488;background:#cfe9f2}
+  body.bigui .w{padding:8px 3px}
+  .added{font-style:italic;border-top:2px dashed #555}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:15px;margin:0 0 12px}
+  .legend .lg{padding:2px 8px;border-radius:4px}
+  table.rep{width:100%;border-collapse:collapse;margin:12px 0}
+  table.rep th,table.rep td{border:2px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .g-answer{margin:10px 0 0}
+  @media print{
+    #print *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    #print .added{font-style:italic;border-top:1.5px dashed #000}
+    #print .legend{display:block;font-size:9pt} #print .legend .lg{margin-right:8pt;display:inline-block}
+  }
+  /* phone width: the shared template's header and bottom bar were sized by their widest row, so the
+     page scrolled sideways. Let the rows wrap instead. */
+  body{grid-template-columns:minmax(0,1fr)!important}
+  header.top{width:100%;max-width:100%}
+  header.top>.strip{flex:0 0 100%;max-width:100%;min-width:0;width:100%}
+  .bottom{flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -194,52 +210,401 @@
 <script src="content.js"></script>
 <script>
 /* ======================================================================= */
+/* Config for the 2.2 accessible page: social groups and the Fu Hao owl. The stops, questions, model answers,
+   starters and words are the earlier 2.2 page's, which are the paper sheet's word for word (lesson-2-2-build in the
+   private repository). The Check it checklist (levels) is new. Facts are the wall's own (history/fu-hao/content.js).
+   Made once from the old page body; edit this file from now on. */
+const CFG = {
+ "id": "2.2",
+ "title": "Social groups",
+ "key": "china22.access.v1",
+ "intro": "Part 1: watch the video in four parts. Stop and jot at each stop. Part 2: look at a bronze owl and say what it tells us about who held power.",
+ "videos": {
+  "main": {
+   "id": "qUGbfNN8nWA",
+   "title": "Life in Ancient China, Captivating History"
+  }
+ },
+ "srcQ": "What does Source A tell us about social groups in Shang China?",
+ "words": [
+  [
+   "hierarchy",
+   "A system that ranks people from the top to the bottom, from the most powerful to the least powerful."
+  ],
+  [
+   "bureaucrat",
+   "A government official."
+  ],
+  [
+   "peasant",
+   "A poor farmer who works a small piece of land."
+  ],
+  [
+   "merchant",
+   "A person who buys and sells goods to make a profit."
+  ],
+  [
+   "scholar",
+   "A person who has studied a subject for many years and knows a great deal about it."
+  ]
+ ],
+ "stops": [
+  {
+   "n": 1,
+   "from": "0:38",
+   "at": "2:34",
+   "title": "The first Chinese societies",
+   "qs": [
+    {
+     "id": "1a",
+     "kind": "fact",
+     "m": 2,
+     "min": 2,
+     "q": "What two crops did the first farmers in China grow?",
+     "stems": [
+      "The first farmers grew ",
+      " and "
+     ],
+     "a": "Rice (1) and millet (1)."
+    },
+    {
+     "id": "1b",
+     "kind": "fact",
+     "m": 2,
+     "min": 4,
+     "q": "Who was at the top of these early societies, and who was at the bottom?",
+     "stems": [
+      "At the top were ",
+      "At the bottom were "
+     ],
+     "a": "Top: kings and shamans (1). Bottom: the working class, mostly farmers (1)."
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "from": "2:34",
+   "at": "5:11",
+   "title": "From kings to an empire",
+   "qs": [
+    {
+     "id": "2a",
+     "kind": "fact",
+     "m": 1,
+     "min": 1,
+     "q": "In what year did the Qin dynasty unify most of the states?",
+     "stems": [
+      "The Qin dynasty unified most of the states in "
+     ],
+     "a": "221 BCE (1)."
+    },
+    {
+     "id": "2b",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "The feudal system was replaced by one based on merit. What changed, and what did it lead to?",
+     "stems": [
+      "Before, jobs went to people because of ",
+      "Now, jobs went to people because of ",
+      "This led to "
+     ],
+     "a": "1 mark: says what changed: important jobs, even high court positions, went to people for their ability (merit) instead of their family or land.\n2 marks: links it to a result: it led to a new emphasis on learning and ideas (intellectualism), because ability now mattered."
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "from": "5:11",
+   "at": "8:06",
+   "title": "Kings, nobles and officials",
+   "qs": [
+    {
+     "id": "3a",
+     "kind": "fact",
+     "m": 2,
+     "min": 6,
+     "q": "The earliest kings had two roles. Name them.",
+     "stems": [
+      "The first role was ",
+      "The second role was "
+     ],
+     "a": "Religious: leading rituals and ceremonies (1). Secular (worldly): wealth and the power to command the commoners' work (1)."
+    },
+    {
+     "id": "3b",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "How did the Mandate of Heaven change what a king could do?",
+     "stems": [
+      "The Mandate of Heaven said ",
+      "This meant the king could "
+     ],
+     "a": "1 mark: says the king's authority was given and confirmed by heaven.\n2 marks: links that to more power: he could do as he pleased, drop his ceremonial roles and interfere directly in people's lives."
+    },
+    {
+     "id": "3c",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "What was the difference between a noble and an official?",
+     "stems": [
+      "A noble was ",
+      "An official was ",
+      "The difference is "
+     ],
+     "a": "1 mark: one side: nobles inherited their position (it was hereditary), or officials were appointed by the emperor.\n2 marks: both sides, set against each other: nobles were born to it, officials were chosen by the emperor."
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "from": "8:06",
+   "at": "9:58",
+   "title": "Who was respected, and who was not",
+   "qs": [
+    {
+     "id": "4a",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "Why did Confucius say farmers deserved respect, even above artisans?",
+     "stems": [
+      "Confucius said farmers deserved respect because ",
+      "This matters because everyone "
+     ],
+     "a": "1 mark: says farmers provided the food.\n2 marks: links it to the whole society: everyone depended on farmers to survive, so farming was the only hard work by hand that the elites respected."
+    },
+    {
+     "id": "4b",
+     "kind": "link",
+     "m": 2,
+     "min": 8,
+     "q": "Did women have any protection? Give a protection and a limit.",
+     "stems": [
+      "One protection was ",
+      "But a limit was "
+     ],
+     "a": "1 mark: one protection: women were excluded from corvée (unpaid forced labour), or in Han times could own land in their own right.\n2 marks: weighs a protection against a limit: marriages were arranged by the heads of families and a wife joined her husband's clan."
+    }
+   ]
+  }
+ ],
+ "extra": {
+  "label": "Going further",
+  "task": "Part 1 · Going further",
+  "title": "Merchants and rank",
+  "video": {
+   "from": "8:06",
+   "label": "Watch from 8:06 to 8:57 again if you need it.",
+   "v": "main"
+  },
+  "items": [
+   {
+    "id": "f",
+    "kind": "link",
+    "m": 3,
+    "min": 12,
+    "q": "Merchants were ranked near the bottom, yet some grew rich. Why might a rich merchant's real life differ from his rank?",
+    "stems": [
+     "Merchants were ranked ",
+     "But a rich merchant could ",
+     "The ranking and real life differed because "
+    ],
+    "a": "1 mark: says where the hierarchy put merchants: low, below farmers and artisans.\n2 marks: links wealth to real life: a rich merchant could live comfortably, own goods and land, and have influence.\n3 marks: explains the gap: the hierarchy was an ideal set by Confucian scholars, who looked down on making money from other people's work (and the gentry despised small traders); money gave power the official ranking did not."
+   }
+  ]
+ },
+ "levels": {
+  "5": [
+   {
+    "id": "o5a",
+    "k": "source",
+    "t": "I said Source A is a bronze wine vessel shaped like an owl, and named one feature I notice.",
+    "adv": "Say what it is and one thing you can see: the wings, the tail that touches the ground like a third leg, or the lid."
+   },
+   {
+    "id": "o5b",
+    "k": "context",
+    "t": "I said who it belonged to, or where and when it is from.",
+    "adv": "It belonged to Fu Hao, a wife of a Shang king. It comes from China, about 1200 BCE."
+   },
+   {
+    "id": "o5c",
+    "k": "judge",
+    "t": "I said one thing it tells us and one thing it cannot tell us.",
+    "adv": "It tells us Fu Hao's family owned fine bronze. It does not tell us how ordinary people lived."
+   }
+  ],
+  "6": [
+   {
+    "id": "o6a",
+    "k": "source",
+    "t": "I said Source A is a primary source.",
+    "adv": "A primary source was made at the time. The owl was made in the Shang dynasty, about 1200 BCE."
+   },
+   {
+    "id": "o6b",
+    "k": "source",
+    "t": "I gave a reason: people made it at the time it comes from.",
+    "adv": "Back up the type with a reason about who made it and when."
+   },
+   {
+    "id": "o6c",
+    "k": "context",
+    "t": "I said who Fu Hao was: she was married to a Shang king.",
+    "adv": "Fu Hao was married to King Wu Ding of the Shang dynasty."
+   },
+   {
+    "id": "o6d",
+    "k": "judge",
+    "t": "I said it is more useful for rich and powerful people than for ordinary people.",
+    "adv": "Say what it is more useful for, and what it is less useful for."
+   }
+  ],
+  "7": [
+   {
+    "id": "o7a",
+    "k": "source",
+    "t": "I said where and when it was found: Fu Hao's tomb at Anyang, dug up in 1976.",
+    "adv": "Origin is who, when and where. Archaeologists found it in 1976 in Fu Hao's tomb at Anyang."
+   },
+   {
+    "id": "o7b",
+    "k": "source",
+    "t": "I described its features: folded wings, a tail that acts as a third leg, patterns over the surface.",
+    "adv": "Features are what you can see. Look at the wings, the tail, the lid and the patterns."
+   },
+   {
+    "id": "o7c",
+    "k": "source",
+    "t": "I said its purpose: it held wine for ceremonies to honour the ancestors.",
+    "adv": "Purpose is why it was made. It is a zun, a ritual wine vessel used in ceremonies."
+   },
+   {
+    "id": "o7d",
+    "k": "context",
+    "t": "I said Fu Hao was also a general and a priestess, not only a wife.",
+    "adv": "Fu Hao led armies and served as a high priestess as well as being married to the king."
+   },
+   {
+    "id": "o7e",
+    "k": "context",
+    "t": "I said the court and nobles used bronze vessels to honour their ancestors, so its owner was at the top of Shang society.",
+    "adv": "Bronze vessels were needed for ceremonies to the ancestors. Only the ruling class owned them."
+   },
+   {
+    "id": "o7f",
+    "k": "judge",
+    "t": "I drew a conclusion: useful for the ruling class's wealth and skill, but it tells us nothing about ordinary labourers.",
+    "adv": "Finish with what the source is useful for, then what it cannot show."
+   }
+  ],
+  "8": [
+   {
+    "id": "o8a",
+    "k": "source",
+    "t": "I backed up its origin with evidence: her name is cast inside the vessel, and robbers never reached her tomb.",
+    "adv": "Her name is cast inside the vessel's mouth. Robbers had broken into many other Shang royal tombs, but not hers."
+   },
+   {
+    "id": "o8b",
+    "k": "context",
+    "t": "I used the tomb to show her rank: 468 bronzes, over 700 jades and sixteen sacrificed people, and rules that limited bronze by rank.",
+    "adv": "Shang rules set how many bronze vessels a noble of each rank could own. What does her tomb suggest about her rank?"
+   },
+   {
+    "id": "o8c",
+    "k": "judge",
+    "t": "I said what it is strong evidence for (the ruling family's wealth) and what it is weak evidence for (artisans and labourers).",
+    "adv": "Say what the owl proves strongly, and what it hardly shows at all."
+   }
+  ],
+  "9": [
+   {
+    "id": "o9a",
+    "k": "source",
+    "t": "I explained what its origin means for the evidence: it came from an undisturbed tomb with her name on it, so we can trust where it came from.",
+    "adv": "Say what the origin means for us. It was found in a tomb that robbers never reached."
+   },
+   {
+    "id": "o9b",
+    "k": "context",
+    "t": "I explained what the burial shows about power: the ruling family controlled metal, skilled workers and even the lives of war captives.",
+    "adv": "Sixteen people were sacrificed in her tomb. Most people sacrificed in Shang rituals were war captives."
+   },
+   {
+    "id": "o9c",
+    "k": "judge",
+    "t": "I explained the limits: Fu Hao was exceptional, and the vessel says nothing directly about artisans and labourers.",
+    "adv": "She was a woman with both military and religious authority. Can one tomb stand for all Shang rulers?"
+   }
+  ]
+ },
+ "stems": {
+  "source": [
+   "Source A is ",
+   "It is a primary source because ",
+   "It was found ",
+   "Its features include ",
+   "Its purpose was "
+  ],
+  "context": [
+   "Fu Hao was ",
+   "Her tomb held ",
+   "In Shang society, bronze showed ",
+   "So the vessel belonged to "
+  ],
+  "judge": [
+   "It is useful for ",
+   "It is strong evidence of ",
+   "But it cannot tell us ",
+   "A historian must be careful because "
+  ]
+ }
+};
+
 const $ = id => document.getElementById(id);
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const cap1 = t => t[0].toUpperCase() + t.slice(1);
-const KEY = "china22.access.v1";
-const VIDEO = "qUGbfNN8nWA";
-/* The paper sheet's stops, word for word (lesson-2-2-stop-and-jot in the private repository).
-   m = marks; "fact" is a key detail, "link" is levelled: 1 names it, 2 links it. */
-const STOPS = [
- { n:1, from:"0:38", at:"2:34", title:"The first Chinese societies", qs:[
-  { id:"1a", kind:"fact", m:2, min:2, q:"What two crops did the first farmers in China grow?", stems:["The first farmers grew ", " and "], a:"Rice (1) and millet (1)." },
-  { id:"1b", kind:"fact", m:2, min:4, q:"Who was at the top of these early societies, and who was at the bottom?", stems:["At the top were ", "At the bottom were "], a:"Top: kings and shamans (1). Bottom: the working class, mostly farmers (1)." } ] },
- { n:2, from:"2:34", at:"5:11", title:"From kings to an empire", qs:[
-  { id:"2a", kind:"fact", m:1, min:1, q:"In what year did the Qin dynasty unify most of the states?", stems:["The Qin dynasty unified most of the states in "], a:"221 BCE (1)." },
-  { id:"2b", kind:"link", m:2, min:8, q:"The feudal system was replaced by one based on merit. What changed, and what did it lead to?", stems:["Before, jobs went to people because of ", "Now, jobs went to people because of ", "This led to "],
-    a:"1 mark: says what changed: important jobs, even high court positions, went to people for their ability (merit) instead of their family or land.\n2 marks: links it to a result: it led to a new emphasis on learning and ideas (intellectualism), because ability now mattered." } ] },
- { n:3, from:"5:11", at:"8:06", title:"Kings, nobles and officials", qs:[
-  { id:"3a", kind:"fact", m:2, min:6, q:"The earliest kings had two roles. Name them.", stems:["The first role was ", "The second role was "], a:"Religious: leading rituals and ceremonies (1). Secular (worldly): wealth and the power to command the commoners' work (1)." },
-  { id:"3b", kind:"link", m:2, min:8, q:"How did the Mandate of Heaven change what a king could do?", stems:["The Mandate of Heaven said ", "This meant the king could "],
-    a:"1 mark: says the king's authority was given and confirmed by heaven.\n2 marks: links that to more power: he could do as he pleased, drop his ceremonial roles and interfere directly in people's lives." },
-  { id:"3c", kind:"link", m:2, min:8, q:"What was the difference between a noble and an official?", stems:["A noble was ", "An official was ", "The difference is "],
-    a:"1 mark: one side: nobles inherited their position (it was hereditary), or officials were appointed by the emperor.\n2 marks: both sides, set against each other: nobles were born to it, officials were chosen by the emperor." } ] },
- { n:4, from:"8:06", at:"9:58", title:"Who was respected, and who was not", qs:[
-  { id:"4a", kind:"link", m:2, min:8, q:"Why did Confucius say farmers deserved respect, even above artisans?", stems:["Confucius said farmers deserved respect because ", "This matters because everyone "],
-    a:"1 mark: says farmers provided the food.\n2 marks: links it to the whole society: everyone depended on farmers to survive, so farming was the only hard work by hand that the elites respected." },
-  { id:"4b", kind:"link", m:2, min:8, q:"Did women have any protection? Give a protection and a limit.", stems:["One protection was ", "But a limit was "],
-    a:"1 mark: one protection: women were excluded from corvée (unpaid forced labour), or in Han times could own land in their own right.\n2 marks: weighs a protection against a limit: marriages were arranged by the heads of families and a wife joined her husband's clan." } ] }
-];
-const FURTHER = { id:"f", kind:"link", m:3, min:12, q:"Merchants were ranked near the bottom, yet some grew rich. Why might a rich merchant's real life differ from his rank?",
-  stems:["Merchants were ranked ", "But a rich merchant could ", "The ranking and real life differed because "],
-  a:"1 mark: says where the hierarchy put merchants: low, below farmers and artisans.\n2 marks: links wealth to real life: a rich merchant could live comfortably, own goods and land, and have influence.\n3 marks: explains the gap: the hierarchy was an ideal set by Confucian scholars, who looked down on making money from other people's work (and the gentry despised small traders); money gave power the official ranking did not." };
-const ALLQ = STOPS.flatMap(st => st.qs).concat([FURTHER]);
-const TOTAL = ALLQ.reduce((n, q) => n + q.m, 0);
-const SRC_Q = "What does Source A tell us about social groups in Shang China?";
-const ROWS = [
-  ["source", "Origin, features & purpose", "■", ["Source A is ", "It is a primary source because ", "It was found ", "Its features include ", "Its purpose was "]],
-  ["context", "Historical context", "▲", ["Fu Hao was ", "Her tomb held ", "In Shang society, bronze showed ", "So the vessel belonged to "]],
-  ["judge", "Accuracy, usefulness & reliability", "◆", ["It is useful for ", "It is strong evidence of ", "But it cannot tell us ", "A historian must be careful because "]]
-];
-const NEXT_STEMS = ["add ", "say what the source cannot show: ", "use the tomb to explain the context: "];
-const LV = ["Level 6", "Level 7", "Level 8", "Level 9"];
-const WORDS = [["hierarchy", GLOSS.tier3.hierarchy], ["bureaucrat", "A government official."], ["peasant", "A poor farmer who works a small piece of land."], ["merchant", "A person who buys and sells goods to make a profit."], ["scholar", "A person who has studied a subject for many years and knows a great deal about it."]];
+const KEY = CFG.key;
+const STOPS = CFG.stops;
+const EXTRA = CFG.extra;                         /* going further, or a bonus; may be absent */
+const EXTRA_ITEMS = EXTRA ? EXTRA.items : [];
+const ALLQ = STOPS.flatMap(st => st.qs).concat(EXTRA_ITEMS);
+const BASEQ = ALLQ.filter(q => !q.bonus);
+const BASE = BASEQ.reduce((n, q) => n + q.m, 0), BONUS = ALLQ.filter(q => q.bonus).reduce((n, q) => n + q.m, 0);
+/* 2.4: each group writes about the source of its own tradition. CFG.pick = { levels: {sourceId: checklist}, stems: {sourceId: {row: [...]}}, labels: {sourceId: text} }. */
+const PICK = CFG.pick || null;
+const curSource = () => PICK ? (SOURCES.find(s => s.id === A.src) || null) : null;
+const srcQ = () => PICK ? (curSource() ? curSource().inquiry : "") : CFG.srcQ;
+const curCheck = () => PICK ? ((curSource() && PICK.levels[curSource().id]) || {}) : CFG.levels;
+const curFacts = () => PICK ? (curSource() ? curSource().facts : []) : FACTS;
+const srcList = () => PICK ? (curSource() ? [curSource()] : []) : SOURCES;
+const stemsFor = k => (PICK && PICK.stems && curSource() && PICK.stems[curSource().id] && PICK.stems[curSource().id][k]) || CFG.stems[k];
+const srcLabel = () => PICK && curSource() ? (PICK.labels[curSource().id] || curSource().tab) : "";
+/* The rubric rows come from the wall's own content.js, so the words are the wall's words. */
+const ROWS = CRITERIA.map(c => [c.key, c.name.replace(/&amp;/g, "&"), c.glyph, CFG.stems[c.key]]);
+const LEVELS_SA = [5, 6, 7, 8, 9];
+const CRIT = Object.fromEntries(CRITERIA.map(c => [c.key, c]));
+/* the checklist: level -> items {id, k, t, adv}; one set, or one per source when students choose */
+const ITEM = {}; (PICK ? Object.values(PICK.levels) : [CFG.levels]).forEach(ch => LEVELS_SA.forEach(L => (ch[L] || []).forEach(it => { ITEM[it.id] = Object.assign({ L }, it); })));
+const WORDS = CFG.words;
+(function(){
+  const s = document.createElement("style");
+  s.textContent = CRITERIA.map(c => ".g-" + c.key + " .big{border-color:" + c.ink + ";border-style:" + (c.underline === "dotted" ? "dotted" : c.underline === "dashed" ? "dashed" : "solid") + (c.underline === "double" ? ";border-width:5px" : "") + "}.g-" + c.key + " .lab{color:" + c.ink + "}").join("")
+    + ".g-answer .big{border-color:#555}.g-answer .lab{color:#333}"
+    + ".facts,.parts{margin:8px 0 0;padding-left:1.3em}.facts li{margin:0 0 8px;list-style:none;padding:0}.plain{font-style:italic;color:#333;margin:2px 0 10px 12px;border-left:4px solid #bbb;padding-left:10px}"
+    + ".psg{border-left:6px solid #176b87;background:#fff;border-radius:8px;padding:8px 14px;margin:8px 0}.src{max-width:100%;height:auto;border-radius:10px}img.tall{max-height:70vh;width:auto}.lnk{display:inline-block;margin-top:6px}.bandrow{margin:0 0 18px}";
+  document.head.appendChild(s);
+})();
 
-let A = { name:"", txt:{}, chk:{}, mk:{}, self:{}, step:0, zoom:1, rate:.9, tint:"cream",
+let A = { name:"", src:"", txt:{}, chk:{}, mk:{}, self:{}, sa:{ phase:"write", orig:"", lvl:5, items:{}, done:false }, step:0, zoom:1, rate:.9, tint:"cream",
           sup:{ big:false, read:false, mic:false }, used:{}, started:0, secs:0, log:[] };
 try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) A = Object.assign(A, x); } catch (e) {}
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(A)); } catch (e) {} }
+A.sa = Object.assign({ phase:"write", orig:"", lvl:5, items:{}, done:false }, A.sa || {});
 if (!A.started) { A.started = Date.now(); save(); }
 setInterval(() => { if (document.visibilityState === "visible" && A.step > 0) { A.secs += 15; save(); } }, 15000);
 let lastTap = 0;
@@ -362,13 +727,15 @@ function startMic(key){
 /* ---------- the pages ---------- */
 const STEPS = [{ id:"start", label:"Start" }]
   .concat(STOPS.map(st => ({ id:"stop", n:st.n, label:"Stop " + st.n })))
-  .concat([{ id:"further", label:"Going further" }, { id:"source", label:"Source A" }, { id:"level", label:"My level" }, { id:"hand", label:"Hand in" }]);
-const jotDone = () => ALLQ.filter(q => A.chk[q.id]).length;
+  .concat(EXTRA ? [{ id:"extra", label:EXTRA.label }] : [])
+  .concat([{ id:"source", label:"Source analysis" }, { id:"check", label:"Check it" }, { id:"hand", label:"Hand in" }]);
+const qDone = q => q.a ? !!A.chk[q.id] : wc(A.txt[q.id]) >= q.min;
+const jotDone = () => ALLQ.filter(qDone).length;
 function stepDone(s){
-  if (s.id === "stop") return STOPS[s.n - 1].qs.every(q => A.chk[q.id]);
-  if (s.id === "further") return !!A.chk.f;
-  if (s.id === "source") return wc(A.txt.para) >= 30;
-  if (s.id === "level") return ROWS.every(r => A.self[r[0]]);
+  if (s.id === "stop") return STOPS[s.n - 1].qs.every(qDone);
+  if (s.id === "extra") return EXTRA_ITEMS.every(qDone);
+  if (s.id === "source") return A.sa.phase === "check" || wc(A.txt.para) >= 30;
+  if (s.id === "check") return !!A.sa.done;
   return false;
 }
 function drawStrip(){
@@ -427,7 +794,7 @@ function render(){
   const s = STEPS[A.step];
   $("back").disabled = A.step === 0;
   $("next").hidden = A.step === STEPS.length - 1;
-  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), further:furtherScreen, source:sourceScreen, level:levelScreen, hand:handScreen }[s.id]();
+  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), extra:extraScreen, source:sourceScreen, check:checkScreen, hand:handScreen }[s.id]();
   wire();
 }
 
@@ -448,8 +815,8 @@ function supportsUsed(){
 function applyTint(){ TINTS.forEach(t => document.body.classList.toggle("tint-" + t, (A.tint || "cream") === t)); }
 
 function startScreen(){
-  return `<div class="card"><p class="task">Ancient China 2.2</p><h1>Social groups</h1>
-    <p class="rd">Part 1: watch the video in four parts. Stop and jot at each stop. Part 2: look at a bronze owl and say what it tells us about who held power.</p>
+  return `<div class="card"><p class="task">Ancient China ${esc(CFG.id)}</p><h1>${esc(CFG.title)}</h1>
+    <p class="rd">${esc(CFG.intro)}</p>
     <div class="row" style="margin-top:16px"><label for="nm" style="font-weight:800">NAME</label><input id="nm" type="text" autocomplete="off" value="${esc(A.name)}"></div>
     <div class="looks" role="group" aria-label="Supports"><span class="lbl">Supports</span>
       <button type="button" class="big sup" data-sup="big" aria-pressed="${A.sup.big}">Big buttons</button>
@@ -460,79 +827,241 @@ function startScreen(){
     <div class="looks" role="group" aria-label="Background"><span class="lbl">Background</span>${TINTS.map(t => `<button type="button" class="big" data-tint="${t}" aria-pressed="${(A.tint || "cream") === t}">${cap1(t)}</button>`).join("")}</div>
     <h2 style="margin-top:18px">Words for this lesson</h2>
     <dl class="words">${WORDS.map(([w, d]) => `<div><span class="rd"><dt>${esc(cap1(w))}</dt><dd>${esc(d)}</dd></span>${readBtn("Read this word")}</div>`).join("")}</dl>
-    <p class="note">More practice: <a href='../china/vocab-hub.html#2.2' target='_blank' rel='noopener'>the Ancient China vocab hub, lesson 2.2</a>. Open it before you start.</p>
+    <p class="note">More practice: <a href='../china/vocab-hub.html#${esc(CFG.id)}' target='_blank' rel='noopener'>the Ancient China vocab hub, lesson ${esc(CFG.id)}</a>. Open it before you start.</p>
     <p class="note">Your work saves on this device as you go.</p>
     <p class="note">${FS ? "When you leave Start, the lesson goes full screen. If you leave full screen or the page, it is written in your lesson log." : "This browser cannot go full screen."}</p></div>`;
 }
 
-/* ---------- part 1: stop and jot ---------- */
+/* ---------- the stops ---------- */
 const secs = t => { const p = t.split(":").map(Number); return p[0] * 60 + p[1]; };
-function vid(from, label){
-  return `<div><iframe class="vid" title="Life in Ancient China, Captivating History" src="https://www.youtube-nocookie.com/embed/${VIDEO}?start=${secs(from)}&rel=0&modestbranding=1" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
-    <p class="note rd">${esc(label)}</p></div>`;
+function vid(from, label, v){
+  const V = CFG.videos[v || "main"];
+  return `<div><iframe class="vid" title="${esc(V.title)}" src="https://www.youtube-nocookie.com/embed/${V.id}?start=${secs(from)}&rel=0&modestbranding=1" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    <p class="note rd">${esc(label)}</p>
+    <a class="lnk" href="https://youtu.be/${V.id}?t=${secs(from)}" target="_blank" rel="noopener">If the video does not play, open it on YouTube</a></div>`;
 }
 const needNote = q => "Write at least " + q.min + " word" + (q.min > 1 ? "s" : "") + " first.";
 function qBox(q){
   const t = A.txt[q.id] || "", ok = wc(t) >= q.min, shown = !!A.chk[q.id];
   return `<div class="qa" id="qa_${q.id}">
     <div class="q"><p>${esc(q.q)}</p>${readBtn("Read the question")}</div>
-    <span class="marks">${q.m} mark${q.m > 1 ? "s" : ""}${q.kind === "link" ? ": say what, then link it to a cause or a result" : ": a key detail"}</span>
+    <span class="marks">${q.m} ${q.bonus ? "bonus " : ""}mark${q.m > 1 ? "s" : ""}${q.kind === "link" ? ": say what, then link it to a cause or a result" : q.kind === "weigh" ? ": give a reason, then weigh both" : ": a key detail"}</span>
     <div class="stems" role="group" aria-label="Sentence starters">${q.stems.map((x, k) => `<button type="button" class="big" data-stem="${q.id}" data-k="${k}">${esc(x.trim())} …</button>`).join("")}</div>
     <textarea class="short" data-key="${q.id}" aria-label="Your answer">${esc(t)}</textarea>
     <div class="row" style="margin-top:8px">${micBtn(q.id)}<button type="button" class="big" data-undo="${q.id}">↶ Undo</button><button type="button" class="big" data-sayans="${q.id}">🔊 Read my answer</button>
-      <button type="button" class="big" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-check="${q.id}" ${ok ? "" : "disabled"}>Check my answer</button></div>
+      ${q.a ? `<button type="button" class="big" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-check="${q.id}" ${ok ? "" : "disabled"}>Check my answer</button>` : ""}</div>
     <p class="note" id="cn_${q.id}">${ok ? "" : needNote(q)}</p>
-    <div id="k_${q.id}" ${shown ? "" : "hidden"}>
-      <div class="key rd"><b>Model answer</b>\n${esc(q.a)}</div>
+    <div id="k_${q.id}" ${shown || !q.a ? "" : "hidden"}>
+      ${q.a ? `<div class="key rd"><b>Model answer</b>\n${esc(q.a)}</div>` : `<p class="note">No model answer here: your group's reading decides. Mark yourself against it.</p>`}
       <div class="selfm" role="group" aria-label="My marks"><b>My marks:</b> ${Array.from({ length:q.m + 1 }, (_, v) => `<button type="button" class="big" data-mk="${q.id}" data-v="${v}" aria-pressed="${A.mk[q.id] === v}">${v}</button>`).join("")}</div></div></div>`;
 }
 function stopScreen(st){
-  return `<div class="card"><p class="task">Part 1 · Stop and jot · ${st.n} of 4</p><h2 class="rd">${esc(st.title)}</h2>
-    <div class="two">${vid(st.from, "Watch from " + st.from + " to " + st.at + ". Pause the video at " + st.at + ", then jot your answers.")}
+  return `<div class="card"><p class="task">Stop and jot · ${st.n} of ${STOPS.length}</p><h2 class="rd">${esc(st.title)}</h2>
+    <div class="two">${vid(st.from, "Watch from " + st.from + " to " + st.at + ". Pause the video at " + st.at + ", then jot your answers.", st.v)}
     <div>${st.qs.map(qBox).join("")}</div></div></div>`;
 }
-function furtherScreen(){
-  return `<div class="card"><p class="task">Part 1 · Going further</p><h2 class="rd">Merchants and rank</h2>
-    <div class="two">${vid("8:06", "Watch from 8:06 to 8:57 again if you need it.")}<div>${qBox(FURTHER)}</div></div></div>`;
+function extraScreen(){
+  const v = EXTRA.video;
+  return `<div class="card"><p class="task">${esc(EXTRA.task)}</p><h2 class="rd">${esc(EXTRA.title)}</h2>
+    ${EXTRA.intro ? `<p class="rd">${esc(EXTRA.intro)}</p>` : ""}
+    ${v ? `<div class="two">${vid(v.from, v.label, v.v)}<div>${EXTRA_ITEMS.map(qBox).join("")}</div></div>` : EXTRA_ITEMS.map(qBox).join("")}</div>`;
 }
 
-/* ---------- part 2: Source A with stems ---------- */
-const factList = list => `<ul class="facts">${list.map(([h, t]) => `<li><span class="rd">${h ? `<b>${esc(h)}</b>` : ""}${esc(t)}</span>${readBtn("Read this")}</li>`).join("")}</ul>`;
-const paraNote = () => { const n = wc(A.txt.para); return n < 30 ? n + " words so far. Aim for 30 or more, and use all three colours." : n + " words. Now read it back and add what the source cannot tell us."; };
+/* ---------- source analysis, with stems ---------- */
+const factList = list => `<ul class="facts">${list.map(([h, t]) => `<li><span class="rd">${h ? `<b>${esc(h)}.</b> ` : ""}${esc(t)}</span>${readBtn("Read this")}</li>`).join("")}</ul>`;
+const paraNote = () => { const n = wc(A.txt.para); return n < 30 ? n + " words so far. Aim for 30 or more, and use every colour." : n + " words. Now read it back and add what the source cannot tell us."; };
+function sourceBlock(S){
+  if (S.kind === "text"){
+    return `<div class="srcblk"><h3>${esc(S.tab)}</h3>
+      ${S.paragraphs.map((p, k) => `<div class="psg rd">${esc(p)}</div>${readBtn("Read this extract")}${S.plain && S.plain[k] ? `<p class="plain rd">In plain English: ${esc(S.plain[k])}</p>` : ""}`).join("")}
+      <p class="cap rd">${esc(S.cite)}</p>
+      <ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul></div>`;
+  }
+  return `<div class="srcblk"><h3>${esc(S.tab)}</h3>
+    <img class="src tall" src="${S.file}" alt="${esc(S.alt)}"><p class="cap rd">${esc(S.cite)}</p>
+    <ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul></div>`;
+}
+function pickScreen(){
+  return `<div class="card"><p class="task">Source analysis</p><h2 class="rd">Which source is yours?</h2>
+    <p class="rd">Choose the source for the tradition your group read about. You write about this one source.</p>
+    <div class="row" style="margin-top:12px" role="group" aria-label="My source">${SOURCES.filter(s => PICK.levels[s.id]).map(s => `<button type="button" class="big go" data-pick="${s.id}">${esc(PICK.labels[s.id] || s.tab)}</button>`).join("")}</div>
+    <p class="note">You can change your mind until you press Check my answer.</p></div>`;
+}
 function sourceScreen(){
-  const S = SOURCES[0];
-  return `<div class="card"><p class="task">Part 2 · Source analysis</p>
-    <div class="q"><p>${esc(SRC_Q)}</p>${readBtn("Read the question")}</div>
+  if (PICK && !curSource()) return pickScreen();
+  return `<div class="card"><p class="task">Source analysis${PICK ? " · " + esc(srcLabel()) : ""}</p>
+    <div class="q"><p>${esc(srcQ())}</p>${readBtn("Read the question")}</div>
+    ${PICK && A.sa.phase !== "check" ? `<div class="row"><button type="button" class="big" data-unpick="1">Choose a different source</button></div>` : ""}
     <div class="two"><div>
-      <img class="src tall" src="${S.file}" alt="${esc(S.alt)}"><p class="cap rd">${esc(S.cite)}</p>
-      <h3 style="margin-top:12px">Parts of the vessel</h3><ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul>
-      <h3 style="margin-top:12px">What you need to know</h3>${factList(FACTS)}
+      ${srcList().map(sourceBlock).join("")}
+      <h3 style="margin-top:12px">What you need to know</h3>${factList(curFacts())}
     </div><div>
-      <p class="note">Tap a starter to add it to your answer, then finish the sentence. Use all three colours.</p>
-      ${ROWS.map(r => `<div class="grp g-${r[0]}"><p class="lab">${r[2]} ${esc(r[1])}</p><div class="stems">${r[3].map((x, i) => `<button type="button" class="big" data-sstem="${r[0]}" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>`).join("")}
-      <textarea data-key="para" style="margin-top:14px" aria-label="Your answer about Source A">${esc(A.txt.para || "")}</textarea>
-      <div class="row" style="margin-top:8px">${micBtn("para")}<button type="button" class="big" data-undo="para">↶ Undo</button><button type="button" class="big" data-sayans="para">🔊 Read my answer</button></div>
-      <p class="note" id="paraN" aria-live="polite">${paraNote()}</p>
+      <p class="note">Tap a starter to add it to your answer, then finish the sentence. Use every colour.</p>
+      ${ROWS.map(r => `<div class="grp g-${r[0]}"><p class="lab">${r[2]} ${esc(r[1])}</p><div class="stems">${stemsFor(r[0]).map((x, i) => `<button type="button" class="big" data-sstem="${r[0]}" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>`).join("")}
+      ${CFG.answerStems ? `<div class="grp g-answer"><p class="lab">My answer to the question</p><div class="stems">${CFG.answerStems.map((x, i) => `<button type="button" class="big" data-sstem="answer" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>` : ""}
+      ${A.sa.phase === "check" ? `<p class="note"><b>Your first answer is saved.</b> Go to Check it to see what you included.</p>` : ""}
+      <textarea data-key="para" style="margin-top:14px" aria-label="Your answer to the question" ${A.sa.phase === "check" ? "readonly" : ""}>${esc(A.txt.para || "")}</textarea>
+      <div class="row" style="margin-top:8px">${A.sa.phase === "check" ? "" : micBtn("para") + `<button type="button" class="big" data-undo="para">↶ Undo</button>`}<button type="button" class="big" data-sayans="para">🔊 Read my answer</button>
+        ${A.sa.phase === "check" ? `<button type="button" class="big" data-gostep="check">Go to Check it</button>` : `<button type="button" class="big" id="startCheck" style="background:var(--sel);color:#fff;border-color:var(--sel)" ${wc(A.txt.para) >= 30 ? "" : "disabled"}>Check my answer</button>`}</div>
+      <p class="note" id="paraN" aria-live="polite">${A.sa.phase === "check" ? "" : paraNote()}</p>
     </div></div></div>`;
 }
 
-/* ---------- my level: the rubric rows, word for word ---------- */
-function levelScreen(){
-  return `<div class="card"><p class="task">Part 2 · My level</p><h2 class="rd">Read your answer, then choose the level that fits it, row by row.</h2>
-    ${ROWS.map(r => `<div class="bandrow"><h3>${r[2]} ${esc(r[1])}</h3><div class="bands" role="group" aria-label="${esc(r[1])}">${LV.map(l => `<button type="button" class="big" data-self="${r[0]}" data-v="${l}" aria-pressed="${A.self[r[0]] === l}"><b>${l}</b>${esc(CONTINUUM[r[0]][l])}</button>`).join("")}</div></div>`).join("")}
-    <h3>To move up one level I would</h3>
-    <div class="stems">${NEXT_STEMS.map((x, i) => `<button type="button" class="big" data-sstem="next" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div>
-    <textarea class="short" data-key="nextstep" style="margin-top:10px" aria-label="To move up one level I would">${esc(A.txt.nextstep || "")}</textarea>
-    <div class="row" style="margin-top:8px">${micBtn("nextstep")}<button type="button" class="big" data-undo="nextstep">↶ Undo</button></div></div>`;
+/* ---------- check it: what did I include? Level by level, with the words highlighted ----------
+   The 2.3 module's way: the student writes first, with no list in front of them. Then they check the
+   answer against each level's list. A tick needs words highlighted in their own answer. "Not yet" lets
+   them add it in their own words (kept, and shown as added after seeing the list) or skip it. Highlighting
+   is two taps on words, first and last, so it works by touch, keyboard and switch, not only by dragging.
+   Nothing here judges the writing: the ticks and the highlights are the student's own. */
+let SEL = null, NOTYET = null, SAMSG = "";
+const aWords = () => (A.txt.para || "").trim().split(/\s+/).filter(Boolean);
+const origCount = () => (A.sa.orig || "").trim().split(/\s+/).filter(Boolean).length;
+const itemState = id => A.sa.items[id] || null;
+const ulStyle = c => c.underline === "double" ? "double" : c.underline === "dotted" ? "dotted" : c.underline === "dashed" ? "dashed" : "solid";
+function hlMap(){                                     /* word number -> rubric row of the latest mark on it */
+  const m = {};
+  Object.entries(A.sa.items).forEach(([id, st]) => { if (st.hl && ITEM[id]) for (let w = st.hl[0]; w <= st.hl[1]; w++) m[w] = ITEM[id].k; });
+  return m;
+}
+const snippet = st => (st && st.hl) ? aWords().slice(st.hl[0], st.hl[1] + 1).join(" ") : "";
+function markedAnswer(tap){
+  const text = A.txt.para || "", map = hlMap(), oc = origCount();
+  let w = 0, out = "";
+  text.replace(/(\S+)(\s*)/g, (m, word, sp) => {
+    const k = map[w], c = k && CRIT[k], added = w >= oc && A.sa.phase === "check";
+    const sel = tap && SEL && w >= SEL.a && w <= SEL.b;
+    const style = c ? ` style="background:${c.lamp}88;border-bottom:3px ${ulStyle(c)} ${c.ink}"` : "";
+    out += tap ? `<span class="w${sel ? " sel" : ""}${added ? " added" : ""}" role="button" tabindex="0" data-w="${w}"${style} aria-pressed="${!!sel}">${esc(word)}</span>${esc(sp)}`
+               : `<span class="${added ? "added" : ""}"${style}>${esc(word)}</span>${esc(sp)}`;
+    w++; return m;
+  });
+  return out;
+}
+const legend = () => `<p class="legend">${CRITERIA.map(c => `<span class="lg" style="background:${c.lamp}88;border-bottom:3px ${ulStyle(c)} ${c.ink}">${c.glyph} ${esc(c.name.replace(/&amp;/g, "&"))}</span>`).join(" ")} <span class="lg added">Italic with a dashed top line: words I added after seeing the list</span></p>`;
+/* the highest level a row reached: every item of that row at that level and below ticked. */
+function rowLevel(k, withAdds){
+  let lvl = 0;
+  for (const L of LEVELS_SA){
+    const its = (curCheck()[L] || []).filter(it => it.k === k);
+    if (!its.length) continue;
+    const okAll = its.every(it => { const st = itemState(it.id); return st && ((st.s === "got" && (withAdds || !st.inAdded)) || (withAdds && st.s === "add")); });
+    if (!okAll) break;
+    lvl = L;
+  }
+  return lvl;
+}
+const lvlText = n => n ? "Level " + n : "below Level 5";
+const tagOf = st => !st ? "Not checked" : st.s === "got" ? (st.inAdded ? "In words I added" : "In my first answer") : st.s === "add" ? "Added after seeing the list" : "Skipped";
+const itemRows = () => LEVELS_SA.flatMap(L => (curCheck()[L] || []).map(it => ({ L, it, st: itemState(it.id) })));
+
+function itemBox(it){
+  const st = itemState(it.id), c = CRIT[it.k], id = it.id;
+  let ctl;
+  if (NOTYET === id) {
+    ctl = `<p class="note rd">${esc(it.adv)}</p><p class="note">Add it now, in your own words, about this source. Or skip it. Your report shows it was added after you saw the list.</p>
+      <textarea class="short" data-key="add_${id}" aria-label="Add it in my own words">${esc(A.txt["add_" + id] || "")}</textarea>
+      <div class="row" style="margin-top:8px">${micBtn("add_" + id)}<button type="button" class="big go" data-addgo="${id}">Add to my answer</button><button type="button" class="big" data-skip="${id}">Skip it</button><button type="button" class="big" data-cancelnot="1">Cancel</button></div>`;
+  } else if (st) {
+    ctl = `<p class="note"><b>${esc(tagOf(st))}.</b>${st.hl ? ` Highlighted: “${esc(snippet(st))}”` : ""}</p>${st.s === "add" ? "" : `<div class="row"><button type="button" class="big" data-undoitem="${id}">Change it</button></div>`}`;
+  } else {
+    ctl = `<div class="row"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-mark="${id}">Mark it in my answer</button><button type="button" class="big" data-notyet="${id}">Not yet</button></div>`;
+  }
+  return `<div class="qa g-${it.k}" style="border-color:${c.ink}"><p class="lab">${c.glyph} ${esc(c.name.replace(/&amp;/g, "&"))}</p><div class="q"><p>${esc(it.t)}</p>${readBtn("Read this")}</div>${ctl}</div>`;
+}
+function checkScreen(){
+  if (A.sa.phase !== "check") return `<div class="card"><p class="task">Check it</p><h2 class="rd">Write your answer first.</h2>
+    <p class="rd">Finish your source analysis (at least 30 words), then press Check my answer.</p><div class="row"><button type="button" class="big" data-gostep="source">Go to my answer</button></div></div>`;
+  if (A.sa.done) return `<div class="card"><p class="task">Check it</p><h2 class="rd">You have checked every level.</h2>
+    <ul class="parts">${ROWS.map(r => `<li class="rd"><b>${r[2]} ${esc(r[1])}:</b> my first answer reached ${esc(lvlText(rowLevel(r[0], false)))}; with what I added, ${esc(lvlText(rowLevel(r[0], true)))}.</li>`).join("")}</ul>
+    <p class="note">These come from your own ticks. The page did not judge your writing.</p>
+    <div class="row"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-gostep="hand">Go to Hand in</button><button type="button" class="big" data-relevel="1">Look at the levels again</button></div></div>`;
+  const L = A.sa.lvl, its = curCheck()[L] || [], all = its.every(it => itemState(it.id));
+  return `<div class="card"><p class="task">Check it · Level ${L} of 9</p><h2 class="rd">What did I include?</h2>
+    <p class="note">Choose the part of your answer that shows it: tap the first word and then the last word, or drag across the words. To take a whole sentence, tap a word and press Select the sentence. Then press Mark it. Your first answer is locked. Anything you add is shown in italics.</p>
+    ${legend()}
+    <div class="two"><div><div class="ansbox rd" id="ans" aria-label="My answer">${markedAnswer(true)}</div>
+      <div class="row" style="margin-top:8px"><button type="button" class="big" data-selsent="1">Select the sentence</button><button type="button" class="big" data-selall="1">Select all of my answer</button><button type="button" class="big" data-selclear="1">Clear</button></div>
+      <p class="note" id="selNote" aria-live="polite">${SEL ? "Selected: “" + esc(aWords().slice(SEL.a, SEL.b + 1).join(" ")) + "”" : "Nothing selected."}</p>
+      ${SAMSG ? `<p class="note" role="alert"><b>${esc(SAMSG)}</b></p>` : ""}</div>
+    <div>${its.map(itemBox).join("")}
+      <div class="row" style="margin-top:12px">${L > 5 ? `<button type="button" class="big" data-prevlvl="1">Back: Level ${L - 1}</button>` : ""}
+        <button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-nextlvl="1" ${all ? "" : "disabled"}>${L < 9 ? "Next: Level " + (L + 1) : "Finish"}</button></div>
+      ${all ? "" : `<p class="note">Mark each one, or choose Not yet, to go on.</p>`}</div></div></div>`;
+}
+function refreshSel(){
+  document.querySelectorAll("#ans [data-w]").forEach(el => { const i = +el.dataset.w, on = !!(SEL && i >= SEL.a && i <= SEL.b); el.classList.toggle("sel", on); el.setAttribute("aria-pressed", on); });
+  const n = $("selNote"); if (n) n.textContent = SEL ? "Selected: “" + aWords().slice(SEL.a, SEL.b + 1).join(" ") + "”" : "Nothing selected.";
+}
+function tapWord(i){
+  if (SEL && SEL.open) SEL = { a: Math.min(SEL.a, i), b: Math.max(SEL.a, i), open: false };
+  else if (SEL && !SEL.open && (i < SEL.a || i > SEL.b)) SEL = { a: Math.min(SEL.a, i), b: Math.max(SEL.b, i), open: false };   /* grow the range */
+  else SEL = { a: i, b: i, open: true };
+  SAMSG = ""; refreshSel();
+}
+/* sentences: a word that ends in . ? or ! (maybe followed by a quote or bracket) ends a sentence */
+const endsSentence = w => /[.?!]["\u201d')\]]*$/.test(w);
+function sentenceBounds(a, b){
+  const ws = aWords(); let x = a, y = b;
+  while (x > 0 && !endsSentence(ws[x - 1])) x--;
+  while (y < ws.length - 1 && !endsSentence(ws[y])) y++;
+  return [x, y];
+}
+/* touch handles: read the browser's own selection and turn it into a word range */
+function selFromNative(){
+  const sel = window.getSelection(), ans = $("ans");
+  if (!sel || !ans || sel.isCollapsed || !sel.rangeCount) return null;
+  const r = sel.getRangeAt(0), total = ans.textContent.length;
+  const offOf = (node, o) => {
+    if (!ans.contains(node)) return (ans.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING) ? total : 0;
+    const p = document.createRange(); p.selectNodeContents(ans); p.setEnd(node, o); return p.toString().length;
+  };
+  const from = offOf(r.startContainer, r.startOffset), to = offOf(r.endContainer, r.endOffset);
+  if (to <= from) return null;
+  let pos = 0, a = -1, b = -1;
+  ans.childNodes.forEach(n => {
+    const len = n.textContent.length;
+    if (n.dataset && n.dataset.w !== undefined && pos < to && pos + len > from) { const w = +n.dataset.w; if (a < 0) a = w; b = w; }
+    pos += len;
+  });
+  return a < 0 ? null : { a, b, open: false };
+}
+/* mouse: press on a word, drag over others, let go. A press and release on one word is a tap. */
+let DRAG = null, SUPPRESS = false;
+document.addEventListener("mousemove", e => {
+  if (!DRAG) return;
+  const t = document.elementFromPoint(e.clientX, e.clientY), w = t && t.closest ? t.closest("#ans [data-w]") : null;
+  if (!w) return;
+  const i = +w.dataset.w;
+  if (i === DRAG.s && !DRAG.moved) return;
+  DRAG.moved = true; SEL = { a: Math.min(DRAG.s, i), b: Math.max(DRAG.s, i), open: false }; SAMSG = ""; refreshSel();
+});
+document.addEventListener("mouseup", () => {
+  if (!DRAG) return;
+  if (DRAG.moved) { SUPPRESS = true; setTimeout(() => { SUPPRESS = false; }, 0); }
+  DRAG = null;
+});
+document.addEventListener("selectionchange", () => {
+  const n = selFromNative(); if (!n) return;
+  SEL = n; SAMSG = ""; refreshSel();
+});
+/* the report: the answer with each highlight in its row's colour, then every item against its highlight */
+function reportHTML(){
+  if (A.sa.phase !== "check") return `<p class="rd">(The check was not done.)</p>`;
+  const done = itemRows();
+  return `<table class="rep"><tr><th>Rubric row</th><th>My first answer reached</th><th>With what I added</th></tr>
+      ${ROWS.map(r => `<tr><td>${r[2]} ${esc(r[1])}</td><td>${esc(lvlText(rowLevel(r[0], false)))}</td><td>${esc(lvlText(rowLevel(r[0], true)))}</td></tr>`).join("")}</table>
+    ${legend()}<div class="ans ansbox">${markedAnswer(false)}</div>
+    <table class="rep"><tr><th>Level</th><th>What I checked</th><th>Result</th><th>The words I highlighted</th></tr>
+      ${done.map(({ L, it, st }) => `<tr><td>${L}</td><td>${CRIT[it.k].glyph} ${esc(it.t)}</td><td>${esc(tagOf(st))}</td><td>${st && st.hl ? esc(snippet(st)) : st && st.s === "skip" ? "(skipped)" : ""}</td></tr>`).join("")}</table>`;
 }
 
 /* ---------- hand in ---------- */
 const jotMarks = () => ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0);
+const marksLine = () => jotMarks() + " out of " + BASE + (BONUS ? " (plus up to " + BONUS + " bonus)" : "");
 function handScreen(){
-  return `<div class="card"><p class="task">Hand in</p><h2 class="rd">Part 1: stop and jot</h2>
-    <p class="tot">${jotMarks()} out of ${TOTAL} marks, by my own marking. ${jotDone()} of ${ALLQ.length} questions checked.</p>
-    <h2 class="rd">Part 2: Source A</h2><p class="rd" style="white-space:pre-wrap">${esc(A.txt.para || "(nothing written)")}</p>
-    <p>${ROWS.map(r => esc(r[1]) + ": " + esc(A.self[r[0]] || "not chosen")).join(" · ")}</p>
+  return `<div class="card"><p class="task">Hand in</p><h2 class="rd">Stop and jot</h2>
+    <p class="tot">${marksLine()}, by my own marking. ${jotDone()} of ${ALLQ.length} questions checked.</p>
+    <h2 class="rd">Source analysis: what I included${PICK && curSource() ? " (" + esc(srcLabel()) + ")" : ""}</h2>${PICK ? `<p class="rd"><b>${esc(srcQ())}</b></p>` : ""}<div class="rep">${A.sa.phase === "check" ? reportHTML() : `<p class="rd" style="white-space:pre-wrap">${esc(A.txt.para || "(nothing written)")}</p><p class="note">The check was not done, so there are no highlights.</p>`}</div>
     <div class="row" style="margin-top:16px"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" id="printBtn">Print</button>
     <button type="button" class="big" id="copyBtn">Copy my work</button>
     <button type="button" class="big" id="rowBtn">Copy a row for the class sheet</button><span id="copied" role="status"></span></div>
@@ -559,13 +1088,13 @@ function noteFor(key){
     if (b) b.disabled = !ok;
     if (n) n.textContent = ok ? "" : needNote(q);
   }
-  if (key === "para"){ const n = $("paraN"); if (n) n.textContent = paraNote(); }
+  if (key === "para"){ const n = $("paraN"); if (n) n.textContent = paraNote(); const c = $("startCheck"); if (c) c.disabled = wc(A.txt.para) < 30; }
 }
 function wire(){
   const S = $("screen");
   const nm = $("nm"); if (nm) nm.addEventListener("input", () => { A.name = nm.value; save(); });
   S.querySelectorAll("textarea[data-key]").forEach(ta => ta.addEventListener("input", () => { A.txt[ta.dataset.key] = ta.value; save(); noteFor(ta.dataset.key); drawStrip(); }));
-  S.querySelectorAll("[data-readel]").forEach(b => b.onclick = () => readEls([b.parentElement.querySelector(".rd, p")]));
+  S.querySelectorAll("[data-readel]").forEach(b => b.onclick = () => readEls([b.previousElementSibling && b.previousElementSibling.matches(".psg") ? b.previousElementSibling : b.parentElement.querySelector(".rd, p")]));
   S.querySelectorAll("[data-sayans]").forEach(b => b.onclick = () => speak(A.txt[b.dataset.sayans] || "Nothing written yet."));
   S.querySelectorAll("[data-mic]").forEach(b => {
     b.addEventListener("pointerdown", e => e.preventDefault());
@@ -583,8 +1112,8 @@ function wire(){
   S.querySelectorAll("[data-stem]").forEach(b => b.onclick = () => { if (!steady()) return; const q = ALLQ.find(x => x.id === b.dataset.stem); caretInsert(q.id, q.stems[+b.dataset.k]); });
   S.querySelectorAll("[data-sstem]").forEach(b => b.onclick = () => {
     if (!steady()) return; const k = b.dataset.sstem;
-    if (k === "next") return caretInsert("nextstep", NEXT_STEMS[+b.dataset.k]);
-    caretInsert("para", ROWS.find(r => r[0] === k)[3][+b.dataset.k]);
+    if (k === "answer") return caretInsert("para", CFG.answerStems[+b.dataset.k]);
+    caretInsert("para", stemsFor(k)[+b.dataset.k]);
   });
   S.querySelectorAll("[data-undo]").forEach(b => {
     b.addEventListener("pointerdown", e => e.preventDefault());
@@ -601,7 +1130,41 @@ function wire(){
     if (!steady()) return; const id = b.dataset.mk; A.mk[id] = +b.dataset.v; save();
     S.querySelectorAll('[data-mk="' + id + '"]').forEach(x => x.setAttribute("aria-pressed", +x.dataset.v === A.mk[id]));
   });
-  S.querySelectorAll("[data-self]").forEach(b => b.onclick = () => { if (!steady()) return; A.self[b.dataset.self] = b.dataset.v; save(); render(); });
+  S.querySelectorAll("[data-gostep]").forEach(b => b.onclick = () => { if (!steady()) return; go(STEPS.findIndex(x => x.id === b.dataset.gostep)); });
+  S.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => { if (!steady()) return; A.src = b.dataset.pick; save(); render(); });
+  S.querySelectorAll("[data-unpick]").forEach(b => b.onclick = () => { if (!steady() || A.sa.phase === "check") return; A.src = ""; save(); render(); });
+  const sc = $("startCheck"); if (sc) sc.onclick = () => { if (!steady() || wc(A.txt.para) < 30 || (PICK && !curSource())) return; A.sa.orig = A.txt.para || ""; A.sa.phase = "check"; A.sa.lvl = 5; A.sa.done = false; A.sa.checkedAt = Date.now(); SEL = null; NOTYET = null; SAMSG = ""; save(); go(STEPS.findIndex(x => x.id === "check")); };
+  S.querySelectorAll("[data-selsent]").forEach(b => b.onclick = () => {
+    if (!SEL) { SAMSG = "Tap a word first, then press Select the sentence."; render(); return; }
+    const [x, y] = sentenceBounds(SEL.a, SEL.b); SEL = { a: x, b: y, open: false }; SAMSG = ""; refreshSel();
+  });
+  S.querySelectorAll("[data-selall]").forEach(b => b.onclick = () => { SEL = { a: 0, b: Math.max(0, aWords().length - 1), open: false }; SAMSG = ""; refreshSel(); });
+  S.querySelectorAll("[data-selclear]").forEach(b => b.onclick = () => { SEL = null; SAMSG = ""; window.getSelection().removeAllRanges(); refreshSel(); });
+  S.querySelectorAll("#ans [data-w]").forEach(el => {
+    el.onmousedown = e => { if (e.button !== 0) return; e.preventDefault(); window.getSelection().removeAllRanges(); DRAG = { s: +el.dataset.w, moved: false }; };
+    el.onclick = () => { if (SUPPRESS) { SUPPRESS = false; return; } if (String(window.getSelection()).trim()) return; tapWord(+el.dataset.w); };
+    el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tapWord(+el.dataset.w); } };
+  });
+  S.querySelectorAll("[data-mark]").forEach(b => b.onclick = () => {
+    if (!steady()) return;
+    if (!SEL) { SAMSG = "Tap the words in your answer first, then press Mark it."; render(); return; }
+    A.sa.items[b.dataset.mark] = { s:"got", hl:[SEL.a, SEL.b], inAdded: SEL.b >= origCount(), at: Date.now() };
+    SEL = null; SAMSG = ""; save(); render();
+  });
+  S.querySelectorAll("[data-notyet]").forEach(b => b.onclick = () => { if (!steady()) return; NOTYET = b.dataset.notyet; SAMSG = ""; render(); });
+  S.querySelectorAll("[data-cancelnot]").forEach(b => b.onclick = () => { if (!steady()) return; NOTYET = null; SAMSG = ""; render(); });
+  S.querySelectorAll("[data-skip]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.items[b.dataset.skip] = { s:"skip", at: Date.now() }; NOTYET = null; save(); render(); });
+  S.querySelectorAll("[data-addgo]").forEach(b => b.onclick = () => {
+    if (!steady()) return; const id = b.dataset.addgo, t = (A.txt["add_" + id] || "").trim();
+    if (wc(t) < 3) { SAMSG = "Write at least 3 words, or choose Skip it."; render(); return; }
+    const start = aWords().length; A.txt.para = (A.txt.para || "").trim() + " " + t;
+    A.sa.items[id] = { s:"add", text:t, hl:[start, aWords().length - 1], at: Date.now() };
+    delete A.txt["add_" + id]; NOTYET = null; SAMSG = ""; save(); render();
+  });
+  S.querySelectorAll("[data-undoitem]").forEach(b => b.onclick = () => { if (!steady()) return; delete A.sa.items[b.dataset.undoitem]; save(); render(); });
+  S.querySelectorAll("[data-nextlvl]").forEach(b => b.onclick = () => { if (!steady()) return; if (A.sa.lvl < 9) A.sa.lvl++; else A.sa.done = true; NOTYET = null; SEL = null; SAMSG = ""; save(); render(); drawStrip(); });
+  S.querySelectorAll("[data-prevlvl]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.lvl = Math.max(5, A.sa.lvl - 1); NOTYET = null; SEL = null; save(); render(); });
+  S.querySelectorAll("[data-relevel]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.done = false; A.sa.lvl = 5; save(); render(); drawStrip(); });
   const pr = $("printBtn"); if (pr) pr.onclick = () => { graceUntil = Date.now() + 120000; buildPrint(); window.print(); graceUntil = Date.now() + 3000; };
   const copy = async t => { try { await navigator.clipboard.writeText(t); $("copied").textContent = "Copied."; } catch (e) { $("copied").textContent = "Copy did not work here. Use Print instead."; } };
   const cp = $("copyBtn"); if (cp) cp.onclick = () => copy(plainText());
@@ -612,40 +1175,38 @@ function wire(){
 const mins = () => Math.round((A.secs || 0) / 60);
 function buildPrint(){
   $("print").innerHTML = `
-    <h1>Ancient China 2.2 · Social groups</h1>
+    <h1>Ancient China ${esc(CFG.id)} · ${esc(CFG.title)}</h1>
     <p><b>Name:</b> ${esc(A.name || "")} &nbsp; <b>Printed:</b> ${new Date().toLocaleDateString("en-AU")} &nbsp; <i>Done on the accessible online version.</i></p>
     <p><b>Supports used:</b> ${esc(supportsUsed())} &nbsp; <b>Time on the page:</b> about ${mins()} minutes</p>
-    <h2>Part 1: stop and jot (my own marks: ${jotMarks()} out of ${TOTAL})</h2>
+    <h2>Stop and jot (my own marks: ${marksLine()})</h2>
     <table><tr><th>Question</th><th>My answer</th><th>Marks</th></tr>${ALLQ.map(q => `<tr><td>${esc(q.q)}</td><td>${esc(A.txt[q.id] || "")}</td><td>${A.mk[q.id] === undefined ? "" : A.mk[q.id] + " / " + q.m}</td></tr>`).join("")}</table>
-    <h2>Part 2: ${esc(SRC_Q)}</h2><div class="ans">${esc(A.txt.para || "(nothing written)")}</div>
-    <table><tr><th>Row</th><th>My level</th></tr>${ROWS.map(r => `<tr><td>${esc(r[1])}</td><td>${esc(A.self[r[0]] ? A.self[r[0]] + ": " + CONTINUUM[r[0]][A.self[r[0]]] : "not chosen")}</td></tr>`).join("")}</table>
-    <p><b>To move up one level I would:</b> ${esc((A.txt.nextstep || "").trim()) || "<i>(not written)</i>"}</p>
+    <h2>${esc(srcQ())}${PICK && curSource() ? " (" + esc(srcLabel()) + ")" : ""}</h2>${A.sa.phase === "check" ? reportHTML() : `<div class="ans">${esc(A.txt.para || "(nothing written)")}</div><p>The check was not done.</p>`}
     <h2>Lesson log</h2><p>${FS ? `Left full screen or the page ${exits()} time${exits() === 1 ? "" : "s"}.` : "This browser has no full screen, so the lesson was not locked."}</p>
     ${exits() ? `<p>${logLines().map(esc).join("<br>")}</p>` : ""}
     <p style="font-size:9pt;color:#555">The marks and the levels are the student's own. Nothing on the page judged the writing.</p>`;
 }
 function plainText(){
-  return ["Ancient China 2.2: Social groups", "Name: " + A.name, "Supports used: " + supportsUsed(), "Time on the page: about " + mins() + " minutes", "",
-    "Part 1: stop and jot, my own marks " + jotMarks() + " out of " + TOTAL]
+  return ["Ancient China " + CFG.id + ": " + CFG.title, "Name: " + A.name, "Supports used: " + supportsUsed(), "Time on the page: about " + mins() + " minutes", "",
+    "Stop and jot, my own marks " + marksLine()]
     .concat(ALLQ.map(q => q.q + "\n  " + (A.txt[q.id] || "(nothing written)") + "\n  Marks: " + (A.mk[q.id] === undefined ? "not marked" : A.mk[q.id] + " / " + q.m)))
-    .concat(["", "Part 2: " + SRC_Q, A.txt.para || "(nothing written)", ""])
-    .concat(ROWS.map(r => r[1] + ": " + (A.self[r[0]] || "not chosen")))
-    .concat(["To move up one level I would: " + ((A.txt.nextstep || "").trim() || "(not written)"),
-      "Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
+    .concat(["", srcQ() + (PICK && curSource() ? " (" + srcLabel() + ")" : ""), A.txt.para || "(nothing written)", ""])
+    .concat(A.sa.phase === "check" ? ROWS.map(r => r[1] + ": first answer " + lvlText(rowLevel(r[0], false)) + "; with what I added " + lvlText(rowLevel(r[0], true))) : ["The check was not done."])
+    .concat(A.sa.phase === "check" ? [""].concat(itemRows().map(({ L, it, st }) => "Level " + L + " | " + it.t + " | " + tagOf(st) + (st && st.hl ? " | highlighted: " + snippet(st) : ""))) : [])
+    .concat(["Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
 }
-/* One tab-separated row for a shared sheet. Columns: name, date, minutes on the page, my marks
-   for each of the 10 stop-and-jot questions, their total, words in the Source A answer, my level
-   for origin, context and judge, times out of full screen, next step, the answer. It cannot tell
-   you whether any of it is good. */
+/* One tab-separated row for a shared sheet. Columns: name, date, minutes on the page, my marks for each
+   stop-and-jot question, their total, (when students choose, the source they chose), words in the source answer, for each rubric row the level the first
+   answer reached and the level with additions (by the student's own ticks), items added, items skipped,
+   times out of full screen, the answer. It cannot tell you whether any of it is good. */
 function classRow(){
   const clean = t => String(t || "").replace(/[\t\r\n]+/g, " ").trim();
   return [clean(A.name), new Date().toLocaleDateString("en-AU"), mins()].concat(ALLQ.map(q => A.mk[q.id] === undefined ? "" : A.mk[q.id]))
-    .concat([jotMarks(), wc(A.txt.para)]).concat(ROWS.map(r => A.self[r[0]] || ""))
-    .concat([FS ? exits() : "no lock", clean(A.txt.nextstep), clean(A.txt.para)]).join("\t");
+    .concat([jotMarks()]).concat(PICK ? [A.src || ""] : []).concat([wc(A.txt.para)]).concat(ROWS.flatMap(r => A.sa.phase === "check" ? [rowLevel(r[0], false) || "<5", rowLevel(r[0], true) || "<5"] : ["", ""]))
+    .concat([Object.values(A.sa.items).filter(x => x.s === "add").length, Object.values(A.sa.items).filter(x => x.s === "skip").length, FS ? exits() : "no lock", clean(A.txt.para)]).join("\t");
 }
 
 $("readPage").onclick = () => { if (!steady()) return; if (reading) stopReading(); else readEls(readPageEls()); };
-A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup); A.used = A.used || {}; A.self = A.self || {}; A.chk = A.chk || {}; A.mk = A.mk || {};
+A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup); A.used = A.used || {}; A.chk = A.chk || {}; A.mk = A.mk || {};
 setZoom(A.zoom); applyTint(); applySupports(); setReadUI();
 render();
 if (A.sup.mic && SR) openMic();
