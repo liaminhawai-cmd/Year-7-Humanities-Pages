@@ -264,9 +264,15 @@ SITE = [
            ("&#127862;", "2.4 Bump it up: the three ways", "../three-ways/bump-it-up.html",
             "Four sources, Foundation to Level 10 on three rubric rows. The model, The Three Vinegar Tasters, is open at every level; "
             "the three sources students write about have worked examples that open with the teacher's password at the end.", None),
+           ("&#128187;", "3.1 The Terracotta Army: the whole lesson online", "../terracotta/accessible.html",
+            "For a student who works better on a device: the video in four stops with sentence starters, the going further question, then the kneeling archer analysed with starters for each rubric row. "
+            "Read to me, voice typing, big buttons, zoom. Goes full screen.", None),
            ("&#128737;", "3.1 Bump it up: the kneeling archer", "../terracotta/bump-it-up.html",
             "A clay archer from the Terracotta Army: what it tells us about how Qin Shi Huang wanted to be seen, and whose point of view is missing. "
             "Foundation to Level 10 on three rubric rows, with historical perspectives.", None),
+           ("&#128187;", "3.2 The Great Wall: the whole lesson online", "../great-wall/accessible.html",
+            "For a student who works better on a device: two videos in four stops with sentence starters, the myth hunt, then three sources on whether the wall was a success, with starters for each rubric row. "
+            "Read to me, voice typing, big buttons, zoom. Goes full screen.", None),
            ("&#129521;", "3.2 Bump it up: the Great Wall", "../great-wall/bump-it-up.html",
             "Was the Great Wall a success? A photo of the Ming wall, a historian's interpretation and a video's own words. "
             "Foundation to Level 10 on three rubric rows, with historical interpretations.", None)]),

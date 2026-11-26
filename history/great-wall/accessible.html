@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>3.2 The Great Wall: the whole lesson online</title>
+<!--
+  Ancient China lesson 3.2, The Great Wall: the whole lesson online, for a student who works better on a
+  device. The paper sheet's stops and questions, word for word (lesson-3-2-build in the
+  private repository), with sentence starters and model answers after each student's own check; then the
+  source analysis with starters for each rubric row, and a level to choose. Sources, facts and rubric
+  wording are read from content.js in this folder, the same file the wall uses. The wall's worked examples
+  (Levels 7 to 10) are NOT shown here: they stay behind the wall's password.
+
+  Supports (Big buttons, Read to me, Voice typing, zoom, background colours) and the full-screen lock with
+  no password are the accessible Cai Lun page's, copied from history/cai-lun/accessible.html. If that
+  machinery is patched, patch this file in the same change. Built by scratchpad/tools/build_lesson_access.js.
+  Honest interface: nothing here judges the writing. A box needs a few real words before the model answer
+  appears; the student marks themselves against it; the teacher marks. Saved on this device as it is typed.
+-->
+<style>
+  :root{
+    --bg:#f6f1e7; --paper:#fffdf8; --ink:#1f2a2e; --muted:#5b6669; --line:#d9cfbd;
+    --sel:#1d3b4a; --selbg:#dce9ee; --yes:#1f6b3a; --focus:#2c7488; --gold:#8a6d1e;
+    --src:#1f5fa8; --sig:#9b2f22;
+    --tap:48px; --tap2:44px; --gap:10px; --qf:20px; --tf:20px;
+  }
+  body.bigui{--tap:64px; --tap2:56px; --gap:16px; --qf:22px; --tf:22px}
+  body.bigui .top .t{display:none}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:var(--bg);color:var(--ink);font:20px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.01em;word-spacing:.06em;
+       display:grid;grid-template-rows:auto 1fr auto;overflow:hidden}
+  button,input,textarea{font:inherit;color:inherit}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+  [hidden]{display:none!important}
+  .top{background:var(--sel);color:#fbf7ee;padding:8px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .top .t{font:700 20px/1.2 Georgia,serif;margin-right:8px}
+  .strip{display:flex;gap:8px;flex-wrap:wrap}
+  .strip button{min-width:var(--tap2);min-height:var(--tap2);border:3px solid rgba(251,247,238,.4);border-radius:12px;background:transparent;color:#fbf7ee;font-weight:800;font-size:16px;cursor:pointer;padding:2px 10px}
+  .strip button[aria-current="true"]{background:#fbf7ee;color:var(--sel);border-color:#fbf7ee}
+  .strip button.ok::after{content:" ✓"}
+  main{overflow:auto;padding:16px}
+  .wrap{max-width:1150px;margin:0 auto;zoom:var(--z,1)}
+  .task{font:700 15px/1.2 system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);margin:0 0 4px}
+  h1{font:700 30px/1.25 Georgia,serif;margin:0 0 10px}
+  h2{font:700 25px/1.3 Georgia,serif;margin:0 0 10px}
+  h3{font-size:19px;margin:0 0 8px}
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:18px 20px}
+  .row{display:flex;gap:var(--gap);flex-wrap:wrap;align-items:center}
+  .big{min-height:var(--tap);padding:6px 18px;border:3px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;font-weight:700;touch-action:manipulation;text-align:left}
+  .big[aria-pressed="true"]{border-color:var(--sel);background:var(--selbg)}
+  .big[aria-pressed="true"]::after{content:" ✓"}
+  .say{min-width:var(--tap);min-height:var(--tap);border:3px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;font-size:calc(var(--tap) * .4);touch-action:manipulation;flex:none}
+  .q{display:flex;gap:var(--gap);align-items:flex-start;margin:0 0 14px}
+  .q p{margin:0;font-size:var(--qf);font-weight:700;flex:1}
+  .note{color:var(--muted);font-size:17px;margin:8px 0 0}
+  textarea{width:100%;min-height:220px;font-size:var(--tf);line-height:1.5;padding:14px 16px;border:3px solid var(--line);border-radius:16px;background:#fff;resize:vertical}
+  input[type=text]{min-height:var(--tap);font-size:var(--tf);padding:10px 14px;border:3px solid var(--line);border-radius:16px;background:#fff;width:min(460px,100%)}
+  .stems{display:flex;flex-wrap:wrap;gap:var(--gap);margin:14px 0 0}
+  .stems .big{font-weight:600;background:#fbf8f1}
+  .stems .lab{width:100%;font-size:16px;color:var(--muted);margin:0 0 -6px}
+  .bottom{background:var(--paper);border-top:2px solid var(--line);padding:10px 16px;display:flex;gap:var(--gap);justify-content:space-between;align-items:center}
+  .bottom .big{min-width:calc(var(--tap) * 2.8);text-align:center}
+  .bottom .go{background:var(--sel);border-color:var(--sel);color:#fff}
+  .zoom{display:flex;gap:12px;align-items:center}
+  .zoom .big{min-width:calc(var(--tap) * 1.3);text-align:center;font-size:calc(var(--tap) * .4);padding:4px 14px;line-height:1}
+  .zoom output{min-width:5.5em;text-align:center;font-weight:700;font-size:17px;color:var(--muted)}
+
+  /* two columns: a source beside its words; one column when zoomed in or narrow */
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+  body.zbig .two{grid-template-columns:1fr}
+  .src{width:100%;border:2px solid var(--line);border-radius:12px;background:#fff;display:block}
+  .src.tall{max-height:70vh;width:auto;max-width:100%;margin:0 auto}
+  .cap{font-size:16px;color:var(--muted);margin:6px 0 0}
+  .facts{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+  .facts li{display:flex;gap:10px;align-items:flex-start}
+  .facts li .rd{flex:1}
+  .facts b{display:block}
+  dl.words{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+  body.zbig dl.words{grid-template-columns:1fr}
+  dl.words div{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 14px;display:flex;gap:10px;align-items:flex-start}
+  dl.words dt{font-weight:800} dl.words dd{margin:0} dl.words .rd{flex:1}
+
+  /* the three marks, the same as the paper legend */
+  .m-origin{color:var(--src);text-decoration:underline solid var(--src);text-decoration-thickness:2px;text-underline-offset:.2em}
+  .m-significance{color:var(--sig);text-decoration:underline double var(--sig);text-decoration-thickness:2px;text-underline-offset:.2em}
+  .m-link{font-weight:800;outline:2px solid var(--ink);outline-offset:1px;border-radius:3px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:17px;margin:0 0 12px}
+  .ladder{font-size:var(--qf);line-height:1.9}
+  .newbar{background:#8a6d1e;color:#fff;border-radius:12px;padding:8px 14px;margin:0 0 12px;font-weight:700}
+  .newbar span{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+
+  /* the moves beside the writing box */
+  .moves{margin:0;padding-left:1.4em} .moves li{margin:0 0 8px}
+
+  /* marking my paragraph: every word is a button */
+  .pens{display:flex;gap:var(--gap);flex-wrap:wrap;margin:0 0 12px}
+  .pens .big{min-width:150px}
+  .para{background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 14px;line-height:2.3;font-size:var(--tf)}
+  .para button{border:2px solid transparent;background:none;padding:0 3px;margin:0 1px;border-radius:6px;cursor:pointer;font:inherit;min-height:var(--tap2)}
+  .para button.anchor{background:#ffe9a8;border-color:var(--gold)}
+  .para button.m-link{outline-offset:-1px}
+  .tally{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 0}
+  .tally div{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 14px;font-size:18px}
+  .tally b{font-size:26px;display:block}
+  .rule{border-left:6px solid var(--sig);background:#fbeeea;padding:10px 14px;border-radius:8px;margin:14px 0 0;font-weight:700}
+  .rule.okay{border-color:var(--yes);background:#e8f3eb}
+
+  /* choosing my level: one row of the rubric at a time, bands as buttons */
+  .bands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+  body.zbig .bands{grid-template-columns:1fr 1fr}
+  body.zhuge .bands{grid-template-columns:1fr}
+  .bands .big{font-weight:500;font-size:16px;line-height:1.4;padding:10px 12px;align-self:stretch}
+  .bands .big b{display:block;font-size:18px;margin:0 0 4px}
+
+  .check li{margin:6px 0}
+  .missing{color:#9b2c1f;font-weight:700}
+  .done{color:var(--yes);font-weight:700}
+  #print{display:none}
+  /* the lock: covers everything until the student goes back to full screen */
+  #lock{position:fixed;inset:0;z-index:50;background:var(--sel);color:#fbf7ee;display:grid;place-items:center;padding:24px;text-align:center}
+  #lock h2{font-size:34px;margin:0 0 12px} #lock p{font-size:20px;max-width:34em;margin:0 auto 18px}
+  #lock .big{background:#fbf7ee;color:var(--sel);border-color:#fbf7ee;min-height:72px;font-size:24px;padding:10px 28px;text-align:center}
+  @media screen and (max-width:860px){ .two,.bands,dl.words,.tally{grid-template-columns:1fr} }
+  .w.now{background:#ffd54a;color:#1f2a2e;border-radius:4px;box-shadow:0 0 0 2px #ffd54a}
+  .mic[aria-pressed="true"]{background:#9b2c1f;border-color:#9b2c1f;color:#fff}
+  .heard{width:100%;min-height:1.6em;margin:0;font-size:18px;color:var(--muted)}
+  body.tint-blue{--bg:#e3ebf2;--paper:#f3f7fa}
+  body.tint-yellow{--bg:#f4ecc2;--paper:#fffbe3}
+  body.tint-white{--bg:#ffffff;--paper:#ffffff}
+  .looks{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:10px 0 0}
+  .looks .lbl{font-weight:800;min-width:9em}
+  .looks .big{min-width:110px;text-align:center}
+  .looks .sup{min-height:64px;min-width:210px;font-size:20px}
+  body.noread .say,body.noread #readPage,body.noread [data-sayans],body.noread [data-readel]{display:none!important}
+  body.nomic .mic,body.nomic .heard{display:none!important}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+  @media print{
+    @page{size:A4 portrait;margin:14mm}
+    body{display:block;background:#fff;font-size:11pt;overflow:visible}
+    .top,main,.bottom{display:none!important}
+    #print{display:block}
+    #print h1{font-size:18pt;margin:0 0 4pt} #print h2{font-size:13pt;margin:12pt 0 4pt}
+    #print p{margin:3pt 0}
+    #print table{width:100%;border-collapse:collapse;margin:4pt 0}
+    #print th,#print td{border:1px solid #555;padding:4pt;vertical-align:top;text-align:left;font-size:9.5pt}
+    #print .ans{border:1px solid #999;padding:6pt;line-height:1.9;white-space:pre-wrap}
+    #print .m-link{outline:none;border:1.5px solid #000;padding:0 2px}
+    #print .picked{background:#e6e6e6;font-weight:700}
+  }
+
+  .vid{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000;display:block}
+  .qa{border:2px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 16px;background:#fff}
+  .qa .marks{font-size:15px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
+  .key{border-left:6px solid var(--yes);background:#e8f3eb;border-radius:8px;padding:10px 14px;margin:12px 0 0;white-space:pre-line}
+  .selfm{display:flex;gap:var(--gap);flex-wrap:wrap;align-items:center;margin:10px 0 0}
+  textarea.short{min-height:110px}
+  .grp{margin:10px 0 0}.grp .lab{font-weight:800;margin:0 0 6px}
+  .tot{font-weight:800;font-size:22px}
+  /* phone width: the shared template's header and bottom bar were sized by their widest row, so the
+     page scrolled sideways. Let the rows wrap instead. */
+  body{grid-template-columns:minmax(0,1fr)!important}
+  header.top{width:100%;max-width:100%}
+  header.top>.strip{flex:0 0 100%;max-width:100%;min-width:0;width:100%}
+  .bottom{flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="t">The Great Wall</span>
+  <nav class="strip" id="strip" aria-label="Pages"></nav>
+</header>
+<main><div class="wrap" id="screen" aria-live="polite"></div></main>
+<footer class="bottom">
+  <button type="button" class="big" id="back">← Back</button>
+  <button type="button" class="big" id="readPage" aria-pressed="false">🔊 Read this page</button>
+  <div class="zoom" role="group" aria-label="Zoom">
+    <button type="button" class="big" id="zOut" aria-label="Zoom out">A−</button>
+    <output id="zLvl" aria-live="polite">Zoom 100%</output>
+    <button type="button" class="big" id="zIn" aria-label="Zoom in">A+</button>
+  </div>
+  <button type="button" class="big go" id="next">Next →</button>
+</footer>
+<div id="print"></div>
+<div id="lock" hidden role="alertdialog" aria-modal="true" aria-labelledby="lockH">
+  <div><h2 id="lockH">You left full screen</h2>
+  <p>Your work is saved. Leaving full screen is written in your lesson log, and your teacher sees it when you hand in.</p>
+  <button type="button" class="big" id="lockBack">Back to full screen</button></div>
+</div>
+
+<script src="content.js"></script>
+<script>
+/* ======================================================================= */
+/* Config for the 3.2 accessible page: the Great Wall. The stops, questions and model answers are the paper
+   sheet's, word for word (lesson-3-2-build/build32.js in the private repository). Stems are sentence
+   starters only. The words are the vocab hub's 3.2 words. */
+const CFG = {
+  id: "3.2", title: "The Great Wall", key: "china32.access.v1",
+  intro: "Watch two videos in four parts. Stop and jot at each stop. Then do the myth hunt, and read three sources to decide: was the Great Wall a success?",
+  videos: { v1: { id: "m68zyXyeYG0", title: "How and why the Great Wall of China was really built" }, v2: { id: "23oHqNEqRyo", title: "What makes the Great Wall of China so extraordinary (TED-Ed)" } },
+  srcQ: "Was the Great Wall a success?",
+  words: [["impregnable", "So strong that it cannot be captured or broken into."], ["vassal state", "A smaller state that pays tribute to, and obeys, a stronger ruler."],
+    ["fortification", "A strong wall, tower or other structure built to protect a place from attack."], ["defence", "Action taken to protect a place or its people from attack."],
+    ["nomadic", "Moving from place to place to find food and grazing land, rather than living in one settled place."], ["symbol", "An object, image or place that stands for an idea or for a whole country."],
+    ["conflict", "A serious fight or struggle between groups, such as a war."]],
+  stops: [
+   { n: 1, v: "v1", from: "0:00", at: "2:44", title: "Video 1: why the first walls were built", qs: [
+    { id: "1a", kind: "link", m: 2, min: 8, q: "Why did China first build walls in the north?", stems: ["China built walls to ", "The Xiongnu were ", "A fixed wall suited China because "],
+      a: "1 mark: to defend against raiders from the north, the Xiongnu (the video says \"Shungu\").\n2 marks: links it to how they fought: they were horse archers who struck suddenly and were hard to chase, so a fixed defence suited China better. [1:16 to 2:44]" }] },
+   { n: 2, v: "v1", from: "2:44", at: "4:50", title: "Video 1: how the early wall worked", qs: [
+    { id: "2a", kind: "fact", m: 2, min: 5, q: "How was the early wall built in the desert?", stems: ["The wall was built from ", "Bundles of "], a: "Rammed earth pounded inside a frame (1), with bundles of reeds layered in to bind it (1). [2:56 to 3:29]" },
+    { id: "2b", kind: "link", m: 2, min: 8, q: "The video says the wall was more than a barrier. What else was it?", stems: ["It was also ", "For example, ", "It blocked "],
+      a: "1 mark: a protection and communications network.\n2 marks: gives an example: spikes slowed attackers while soldiers shot down from the wall; it blocked weak points such as passes and valleys. [3:48 to 4:42]" }] },
+   { n: 3, v: "v2", from: "0:06", at: "1:49", title: "Video 2: the Qin and Han walls", qs: [
+    { id: "3a", kind: "link", m: 2, min: 8, q: "What did Qin Shi Huang do with the walls after 221 BCE, and why?", stems: ["Qin Shi Huang ", "He did this because "],
+      a: "1 mark: he expanded the earlier states' walls, connecting some and strengthening others.\n2 marks: links it: the northern mountains were open to Xiongnu and other invasions. [0:27 to 0:55]" },
+    { id: "3b", kind: "link", m: 2, min: 8, q: "Who built the wall, and what was it like for them?", stems: ["The wall was built by ", "Many of them ", "This made the wall "],
+      a: "1 mark: soldiers, conscripted peasants and criminals, many not by choice.\n2 marks: links it: many died from accidents, hunger and exhaustion, and the wall became known as a place of suffering. [0:59 to 1:47]" }] },
+   { n: 4, v: "v2", from: "1:49", at: "4:13", title: "Video 2: the Ming wall, and did it work?", qs: [
+    { id: "4a", kind: "fact", m: 2, min: 5, q: "How did the Ming dynasty change the wall?", stems: ["The Ming used ", "They also added "], a: "Any two: rebuilt it in brick and stone; added watchtowers; fire and smoke signals between towers; openings for archers (1 each). [1:59 to 2:33]" },
+    { id: "4b", kind: "link", m: 2, min: 8, q: "Did the wall keep invaders out? Give evidence.", stems: ["Not always. ", "For example, ", "In 1644 "],
+      a: "1 mark: not always.\n2 marks: gives an example: the Mongols crossed it in the 13th century, and in 1644 the Manchus overthrew the Ming. [1:49 to 2:51]" }] }],
+  extra: { label: "Myth hunt", task: "Bonus · myth hunt", title: "Myth or true?",
+    intro: "People say these three things about the wall. Decide if each is a myth or true, and give your evidence from the videos.",
+    items: [
+     { id: "m1", kind: "fact", bonus: true, m: 1, min: 6, q: "People say: you can see the Great Wall from the Moon. Myth or true? Give your evidence.", stems: ["I think this is ", "The video says "],
+       a: "Myth. Video 2 (3:40 to 3:57): it is barely visible even from low Earth orbit, and not at all from the Moon. Wikipedia agrees." },
+     { id: "m2", kind: "fact", bonus: true, m: 1, min: 6, q: "People say: workers who died were buried inside the wall. Myth or true? Give your evidence.", stems: ["I think this is ", "The video says "],
+       a: "Myth. Video 2 (1:38 to 1:45): no human remains have been found inside it, though grave pits show many workers died. Simple Wikipedia calls it a myth." },
+     { id: "m3", kind: "fact", bonus: true, m: 1, min: 6, q: "People say: Qin Shi Huang built the Great Wall in one go. Myth or true? Give your evidence.", stems: ["I think this is ", "The video says "],
+       a: "Myth. Video 2 (0:16 to 0:55): states built walls first; he joined and extended them; later dynasties rebuilt them, and the best-known parts are Ming." }] },
+  stems: {
+    source: ["Source A is ", "It was taken ", "It shows ", "The Ming built walls like this to "],
+    interpretation: ["Source C says the wall was ", "Source B says ", "Waldron thinks ", "The two sources disagree about "],
+    judge: ["The photo is useful for ", "But it cannot tell us ", "Source C is accurate about ", "Source C leaves out "]
+  },
+  answerStems: ["I think the wall was ", "because ", "The Qin wall ", "The Ming wall "]
+};
+
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const cap1 = t => t[0].toUpperCase() + t.slice(1);
+const KEY = CFG.key;
+const STOPS = CFG.stops;
+const EXTRA = CFG.extra;                         /* going further, or a bonus; may be absent */
+const EXTRA_ITEMS = EXTRA ? EXTRA.items : [];
+const ALLQ = STOPS.flatMap(st => st.qs).concat(EXTRA_ITEMS);
+const BASEQ = ALLQ.filter(q => !q.bonus);
+const BASE = BASEQ.reduce((n, q) => n + q.m, 0), BONUS = ALLQ.filter(q => q.bonus).reduce((n, q) => n + q.m, 0);
+const SRC_Q = CFG.srcQ;
+/* The rubric rows come from the wall's own content.js, so the words are the wall's words. */
+const ROWS = CRITERIA.map(c => [c.key, c.name.replace(/&amp;/g, "&"), c.glyph, CFG.stems[c.key]]);
+const NEXT_STEMS = CFG.nextStems || ["add ", "say what the source cannot show: ", "use a fact from the lesson to explain: "];
+const LV = ["Level 6", "Level 7", "Level 8", "Level 9"];
+const WORDS = CFG.words;
+(function(){
+  const s = document.createElement("style");
+  s.textContent = CRITERIA.map(c => ".g-" + c.key + " .big{border-color:" + c.ink + ";border-style:" + (c.underline === "dotted" ? "dotted" : c.underline === "dashed" ? "dashed" : "solid") + (c.underline === "double" ? ";border-width:5px" : "") + "}.g-" + c.key + " .lab{color:" + c.ink + "}").join("")
+    + ".g-answer .big{border-color:#555}.g-answer .lab{color:#333}"
+    + ".facts,.parts{margin:8px 0 0;padding-left:1.3em}.facts li{margin:0 0 8px;list-style:none;padding:0}.plain{font-style:italic;color:#333;margin:2px 0 10px 12px;border-left:4px solid #bbb;padding-left:10px}"
+    + ".psg{border-left:6px solid #176b87;background:#fff;border-radius:8px;padding:8px 14px;margin:8px 0}.src{max-width:100%;height:auto;border-radius:10px}img.tall{max-height:70vh;width:auto}.lnk{display:inline-block;margin-top:6px}.bandrow{margin:0 0 18px}";
+  document.head.appendChild(s);
+})();
+
+let A = { name:"", txt:{}, chk:{}, mk:{}, self:{}, step:0, zoom:1, rate:.9, tint:"cream",
+          sup:{ big:false, read:false, mic:false }, used:{}, started:0, secs:0, log:[] };
+try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) A = Object.assign(A, x); } catch (e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(A)); } catch (e) {} }
+if (!A.started) { A.started = Date.now(); save(); }
+setInterval(() => { if (document.visibilityState === "visible" && A.step > 0) { A.secs += 15; save(); } }, 15000);
+let lastTap = 0;
+function steady(){ const n = Date.now(); if (n - lastTap < 400) return false; lastTap = n; return true; }
+const wc = t => (t || "").trim() ? t.trim().split(/\s+/).length : 0;
+
+/* ---------- read to me (as in the accessible CAT) ---------- */
+const TTS = "speechSynthesis" in window;
+let voice = null;
+function pickVoice(){
+  const v = speechSynthesis.getVoices().filter(x => /^en/i.test(x.lang));
+  const rank = x => (x.lang === "en-AU" ? 0 : /en-(GB|NZ)/.test(x.lang) ? 1 : 2) + (x.localService ? 0 : 3);
+  voice = v.sort((a, b) => rank(a) - rank(b))[0] || null;
+}
+if (TTS) { pickVoice(); speechSynthesis.addEventListener("voiceschanged", pickVoice); }
+function utter(text){ const u = new SpeechSynthesisUtterance(text); u.lang = voice ? voice.lang : "en-AU"; if (voice) u.voice = voice; u.rate = A.rate || .9; return u; }
+let reading = null;
+function setReadUI(){ const b = $("readPage"); if (!b) return; b.hidden = !TTS; b.setAttribute("aria-pressed", !!reading); b.textContent = reading ? "■ Stop reading" : "🔊 Read this page"; }
+function stopReading(){ if (!TTS) return; const r = reading; reading = null; if (r && r.el) r.el.innerHTML = r.orig; speechSynthesis.cancel(); setReadUI(); }
+function speak(t){ if (!TTS) return; stopReading(); speechSynthesis.speak(utter(t)); }
+function readEls(els){
+  if (!TTS) return;
+  stopReading();
+  const r = reading = { queue: els.filter(e => e && e.textContent.trim()), el: null, orig: "" };
+  setReadUI();
+  const next = () => {
+    if (reading !== r) return;
+    if (r.el) { r.el.innerHTML = r.orig; r.el = null; }
+    const el = r.queue.shift();
+    if (!el) { reading = null; setReadUI(); return; }
+    const text = el.textContent.replace(/\s+/g, " ").trim(), spans = [];
+    text.replace(/\S+/g, (w, i) => { spans.push([i, i + w.length]); return w; });
+    r.el = el; r.orig = el.innerHTML;
+    el.innerHTML = spans.map(([a, b]) => `<span class="w">${esc(text.slice(a, b))}</span>`).join(" ");
+    const ws = el.querySelectorAll(".w"), u = utter(text);
+    u.onboundary = e => {
+      if (reading !== r || e.name === "sentence") return;
+      const k = spans.findIndex(([a, b]) => e.charIndex >= a && e.charIndex < b);
+      ws.forEach((w, j) => w.classList.toggle("now", j === k));
+      if (k >= 0) ws[k].scrollIntoView({ block:"nearest" });
+    };
+    u.onend = u.onerror = () => setTimeout(next, 150);
+    speechSynthesis.speak(u);
+  };
+  next();
+}
+const readPageEls = () => [...$("screen").querySelectorAll(".q p, .rd")];
+const readBtn = label => TTS ? `<button type="button" class="say" data-readel="1" aria-label="${esc(label)}">🔊</button>` : "";
+/* The marked paragraph is read without its marks: the lit word replaces them while it reads,
+   and they come back when it stops. */
+
+/* ---------- voice typing (as in the accessible CAT) ---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null, recKey = null, sttLang = null;
+(async () => { try { if (SR && SR.available) for (const l of ["en-AU", "en-GB", "en-US"])
+  if (await SR.available({ langs:[l], processLocally:true }) === "available") { sttLang = l; break; } } catch (e) {} })();
+const micBtn = key => SR ? `<button type="button" class="big mic" data-mic="${key}" aria-pressed="false">🎤 Speak</button><p class="heard" id="heard_${key}" aria-live="polite"></p>` : "";
+let micStream = null, micMsg = "";
+const liveTrack = () => micStream && micStream.getAudioTracks().find(t => t.readyState === "live");
+function micNote(t){ micMsg = t; const n = $("micNote"); if (n) n.textContent = t; }
+async function openMic(){
+  if (liveTrack()) { micNote("Microphone on. It only listens when you tap Speak."); return; }
+  if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { micNote("This browser cannot use the microphone."); return; }
+  micNote("If the browser asks to use the microphone, choose Allow.");
+  try { micStream = await navigator.mediaDevices.getUserMedia({ audio:true }); micNote("Microphone on. It only listens when you tap Speak."); }
+  catch (e) { micStream = null; micNote(e.name === "NotFoundError" ? "No microphone found on this device." : "The microphone is blocked. Ask your teacher."); }
+}
+function closeMic(){ if (micStream) micStream.getTracks().forEach(t => t.stop()); micStream = null; micMsg = ""; }
+function heard(key, t){ const h = document.getElementById("heard_" + key); if (h) h.textContent = t; }
+function setMicUI(){ document.querySelectorAll("[data-mic]").forEach(b => { const on = b.dataset.mic === recKey; b.setAttribute("aria-pressed", on); b.textContent = on ? "■ Stop" : "🎤 Speak"; }); }
+function stopMic(){ const r = rec; rec = null; recKey = null; if (r) { try { r.stop(); } catch (e) {} } setMicUI(); }
+function putSaid(key, said){
+  said = (said || "").trim(); if (!said) return;
+  const ta = document.querySelector(`textarea[data-key="${key}"]`);
+  const cur = ta ? ta.value : (A.txt[key] || "");
+  const before = ta ? cur.slice(0, ta.selectionStart ?? cur.length) : cur;
+  const text = (!before.trim() || /[.!?]\s*$/.test(before) ? cap1(said) : said) + " ";
+  if (ta) return caretInsert(key, text);
+  undo[key] = undo[key] || []; undo[key].push(cur);
+  A.txt[key] = cur + (cur && !/\s$/.test(cur) ? " " : "") + text; save(); drawStrip();
+}
+function startMic(key){
+  stopMic(); stopReading();
+  const r = rec = new SR(); recKey = key;
+  r.lang = sttLang || "en-AU"; r.continuous = true; r.interimResults = true;
+  if (sttLang) r.processLocally = true;
+  r.onresult = e => {
+    if (r.closed) return;
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const res = e.results[i];
+      if (res.isFinal) putSaid(key, res[0].transcript); else interim += " " + res[0].transcript.trim();
+    }
+    r.pending = interim.trim();
+    heard(key, r.pending ? "Hearing: " + r.pending : rec === r ? "Listening." : "");
+  };
+  r.onerror = e => {
+    if (e.error === "aborted") return;
+    r.err = true;
+    heard(key, e.error === "network" ? "Voice typing needs the internet on this device. Ask your teacher."
+             : e.error === "not-allowed" || e.error === "service-not-allowed" ? "The microphone is blocked. Ask your teacher."
+             : e.error === "no-speech" ? "Nothing heard. Tap Speak and try again." : "Voice typing stopped. Tap Speak to start again.");
+  };
+  r.onend = () => {
+    r.closed = true;
+    if (r.pending) { putSaid(key, r.pending); r.pending = ""; }
+    if (rec === r) { rec = null; recKey = null; setMicUI(); }
+    if (!r.err) heard(key, "");
+  };
+  const track = liveTrack();
+  let started = false;
+  if (track) { try { r.start(track); started = true; } catch (e) {} }
+  if (!started) { try { r.start(); started = true; } catch (e) {} }
+  if (started) heard(key, "Listening."); else { rec = null; recKey = null; heard(key, "Voice typing did not start."); }
+  setMicUI();
+}
+
+
+
+/* ---------- the pages ---------- */
+const STEPS = [{ id:"start", label:"Start" }]
+  .concat(STOPS.map(st => ({ id:"stop", n:st.n, label:"Stop " + st.n })))
+  .concat(EXTRA ? [{ id:"extra", label:EXTRA.label }] : [])
+  .concat([{ id:"source", label:"Source analysis" }, { id:"level", label:"My level" }, { id:"hand", label:"Hand in" }]);
+const jotDone = () => ALLQ.filter(q => A.chk[q.id]).length;
+function stepDone(s){
+  if (s.id === "stop") return STOPS[s.n - 1].qs.every(q => A.chk[q.id]);
+  if (s.id === "extra") return EXTRA_ITEMS.every(q => A.chk[q.id]);
+  if (s.id === "source") return wc(A.txt.para) >= 30;
+  if (s.id === "level") return ROWS.every(r => A.self[r[0]]);
+  return false;
+}
+function drawStrip(){
+  $("strip").innerHTML = STEPS.map((s, i) => '<button type="button" data-step="' + i + '" class="' + (stepDone(s) ? "ok" : "") + '"' + (i === A.step ? ' aria-current="true"' : "") + ">" + esc(s.label) + "</button>").join("");
+  $("strip").querySelectorAll("button").forEach(b => b.onclick = () => { if (steady()) go(+b.dataset.step); });
+}
+function go(k){ A.step = Math.max(0, Math.min(STEPS.length - 1, k)); if (A.step !== 0) armLock(); save(); render(); $("screen").parentElement.scrollTop = 0; }
+/* ---------- the full-screen lock (no password) ---------- */
+const FS = !!(document.documentElement.requestFullscreen && document.fullscreenEnabled !== false);
+let graceUntil = 0;          // printing leaves full screen; that is not counted
+function logIt(what){ A.log = A.log || []; A.log.push({ t:Date.now(), what }); save(); }
+function armLock(){ if (FS && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {}); }
+function showLock(what){
+  if (A.step === 0 || !$("lock").hidden) return;
+  stopReading(); stopMic();
+  if (Date.now() > graceUntil) logIt(what);
+  $("lockH").textContent = what === "Left the page" ? "You left the page" : what === "Left the window" ? "You switched away" : "You left full screen";
+  $("lock").hidden = false; $("lockBack").focus();
+}
+$("lockBack").onclick = () => {
+  const done = () => { $("lock").hidden = true; };
+  if (FS) document.documentElement.requestFullscreen().then(done, done); else done();
+};
+document.addEventListener("fullscreenchange", () => { if (FS && !document.fullscreenElement) showLock("Left full screen"); });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") showLock("Left the page"); });
+/* Alt+Tab leaves the page visible and in full screen, so watch focus as well. A click
+   into the video or the vocab hub also blurs the window, but document.hasFocus() stays
+   true; and once focus is inside a frame the page gets no second blur, so check each second. */
+window.addEventListener("blur", () => setTimeout(() => { if (!document.hasFocus() && Date.now() > graceUntil) showLock("Left the window"); }, 200));
+setInterval(() => { if (document.visibilityState === "visible" && !document.hasFocus() && Date.now() > graceUntil) showLock("Left the window"); }, 1000);
+const exits = () => (A.log || []).length;
+const logLines = () => (A.log || []).map(x => new Date(x.t).toLocaleString("en-AU", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" }) + ": " + x.what);
+
+$("back").onclick = () => { if (steady()) go(A.step - 1); };
+$("next").onclick = () => { if (steady()) go(A.step + 1); };
+
+const ZOOMS = [0.8, 0.9, 1, 1.15, 1.3, 1.5, 1.75, 2];
+function setZoom(z){
+  A.zoom = ZOOMS.includes(z) ? z : 1;
+  if (A.zoom > 1) A.used.zoom = Math.max(A.used.zoom || 1, A.zoom);
+  document.documentElement.style.setProperty("--z", A.zoom);
+  document.body.classList.toggle("zbig", A.zoom >= 1.5);
+  document.body.classList.toggle("zhuge", A.zoom >= 1.75);
+  $("zLvl").textContent = "Zoom " + Math.round(A.zoom * 100) + "%";
+  $("zOut").disabled = A.zoom === ZOOMS[0];
+  $("zIn").disabled = A.zoom === ZOOMS[ZOOMS.length - 1];
+  save();
+}
+$("zIn").onclick = () => { if (steady()) setZoom(ZOOMS[Math.min(ZOOMS.length - 1, ZOOMS.indexOf(A.zoom) + 1)]); };
+$("zOut").onclick = () => { if (steady()) setZoom(ZOOMS[Math.max(0, ZOOMS.indexOf(A.zoom) - 1)]); };
+
+
+function render(){
+  stopReading(); stopMic();
+  drawStrip();
+  const s = STEPS[A.step];
+  $("back").disabled = A.step === 0;
+  $("next").hidden = A.step === STEPS.length - 1;
+  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), extra:extraScreen, source:sourceScreen, level:levelScreen, hand:handScreen }[s.id]();
+  wire();
+}
+
+const TINTS = ["cream", "blue", "yellow", "white"];
+const SUPPORT_NAMES = { big:"Big buttons", read:"Read to me", mic:"Voice typing" };
+function applySupports(){
+  document.body.classList.toggle("bigui", !!A.sup.big);
+  document.body.classList.toggle("noread", !A.sup.read || !TTS);
+  document.body.classList.toggle("nomic", !A.sup.mic || !SR);
+  if (!A.sup.read) stopReading();
+  if (!A.sup.mic) { stopMic(); closeMic(); }
+}
+function supportsUsed(){
+  const L = Object.keys(SUPPORT_NAMES).filter(k => A.used[k]).map(k => SUPPORT_NAMES[k]);
+  if (A.used.zoom > 1) L.push("Zoom up to " + Math.round(A.used.zoom * 100) + "%");
+  return L.length ? L.join(", ") : "none";
+}
+function applyTint(){ TINTS.forEach(t => document.body.classList.toggle("tint-" + t, (A.tint || "cream") === t)); }
+
+function startScreen(){
+  return `<div class="card"><p class="task">Ancient China ${esc(CFG.id)}</p><h1>${esc(CFG.title)}</h1>
+    <p class="rd">${esc(CFG.intro)}</p>
+    <div class="row" style="margin-top:16px"><label for="nm" style="font-weight:800">NAME</label><input id="nm" type="text" autocomplete="off" value="${esc(A.name)}"></div>
+    <div class="looks" role="group" aria-label="Supports"><span class="lbl">Supports</span>
+      <button type="button" class="big sup" data-sup="big" aria-pressed="${A.sup.big}">Big buttons</button>
+      <button type="button" class="big sup" data-sup="read" aria-pressed="${A.sup.read}" ${TTS ? "" : "disabled"}>🔊 Read to me${TTS ? "" : " (not in this browser)"}</button>
+      <button type="button" class="big sup" data-sup="mic" aria-pressed="${A.sup.mic}" ${SR ? "" : "disabled"}>🎤 Voice typing${SR ? "" : " (not in this browser)"}</button></div>
+    ${SR && A.sup.mic ? `<p class="note" id="micNote" aria-live="polite">${esc(micMsg)}</p>` : ""}
+    ${TTS && A.sup.read ? `<div class="looks" role="group" aria-label="Reading speed"><span class="lbl">Reading speed</span>${[[.75, "Slower"], [.9, "Normal"]].map(([r, t]) => `<button type="button" class="big" data-rate="${r}" aria-pressed="${(A.rate || .9) === r}">${t}</button>`).join("")}</div>` : ""}
+    <div class="looks" role="group" aria-label="Background"><span class="lbl">Background</span>${TINTS.map(t => `<button type="button" class="big" data-tint="${t}" aria-pressed="${(A.tint || "cream") === t}">${cap1(t)}</button>`).join("")}</div>
+    <h2 style="margin-top:18px">Words for this lesson</h2>
+    <dl class="words">${WORDS.map(([w, d]) => `<div><span class="rd"><dt>${esc(cap1(w))}</dt><dd>${esc(d)}</dd></span>${readBtn("Read this word")}</div>`).join("")}</dl>
+    <p class="note">More practice: <a href='../china/vocab-hub.html#${esc(CFG.id)}' target='_blank' rel='noopener'>the Ancient China vocab hub, lesson ${esc(CFG.id)}</a>. Open it before you start.</p>
+    <p class="note">Your work saves on this device as you go.</p>
+    <p class="note">${FS ? "When you leave Start, the lesson goes full screen. If you leave full screen or the page, it is written in your lesson log." : "This browser cannot go full screen."}</p></div>`;
+}
+
+/* ---------- the stops ---------- */
+const secs = t => { const p = t.split(":").map(Number); return p[0] * 60 + p[1]; };
+function vid(from, label, v){
+  const V = CFG.videos[v || "main"];
+  return `<div><iframe class="vid" title="${esc(V.title)}" src="https://www.youtube-nocookie.com/embed/${V.id}?start=${secs(from)}&rel=0&modestbranding=1" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    <p class="note rd">${esc(label)}</p>
+    <a class="lnk" href="https://youtu.be/${V.id}?t=${secs(from)}" target="_blank" rel="noopener">If the video does not play, open it on YouTube</a></div>`;
+}
+const needNote = q => "Write at least " + q.min + " word" + (q.min > 1 ? "s" : "") + " first.";
+function qBox(q){
+  const t = A.txt[q.id] || "", ok = wc(t) >= q.min, shown = !!A.chk[q.id];
+  return `<div class="qa" id="qa_${q.id}">
+    <div class="q"><p>${esc(q.q)}</p>${readBtn("Read the question")}</div>
+    <span class="marks">${q.m} ${q.bonus ? "bonus " : ""}mark${q.m > 1 ? "s" : ""}${q.kind === "link" ? ": say what, then link it to a cause or a result" : q.kind === "weigh" ? ": give a reason, then weigh both" : ": a key detail"}</span>
+    <div class="stems" role="group" aria-label="Sentence starters">${q.stems.map((x, k) => `<button type="button" class="big" data-stem="${q.id}" data-k="${k}">${esc(x.trim())} …</button>`).join("")}</div>
+    <textarea class="short" data-key="${q.id}" aria-label="Your answer">${esc(t)}</textarea>
+    <div class="row" style="margin-top:8px">${micBtn(q.id)}<button type="button" class="big" data-undo="${q.id}">↶ Undo</button><button type="button" class="big" data-sayans="${q.id}">🔊 Read my answer</button>
+      <button type="button" class="big" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-check="${q.id}" ${ok ? "" : "disabled"}>Check my answer</button></div>
+    <p class="note" id="cn_${q.id}">${ok ? "" : needNote(q)}</p>
+    <div id="k_${q.id}" ${shown ? "" : "hidden"}>
+      <div class="key rd"><b>Model answer</b>\n${esc(q.a)}</div>
+      <div class="selfm" role="group" aria-label="My marks"><b>My marks:</b> ${Array.from({ length:q.m + 1 }, (_, v) => `<button type="button" class="big" data-mk="${q.id}" data-v="${v}" aria-pressed="${A.mk[q.id] === v}">${v}</button>`).join("")}</div></div></div>`;
+}
+function stopScreen(st){
+  return `<div class="card"><p class="task">Stop and jot · ${st.n} of ${STOPS.length}</p><h2 class="rd">${esc(st.title)}</h2>
+    <div class="two">${vid(st.from, "Watch from " + st.from + " to " + st.at + ". Pause the video at " + st.at + ", then jot your answers.", st.v)}
+    <div>${st.qs.map(qBox).join("")}</div></div></div>`;
+}
+function extraScreen(){
+  const v = EXTRA.video;
+  return `<div class="card"><p class="task">${esc(EXTRA.task)}</p><h2 class="rd">${esc(EXTRA.title)}</h2>
+    ${EXTRA.intro ? `<p class="rd">${esc(EXTRA.intro)}</p>` : ""}
+    ${v ? `<div class="two">${vid(v.from, v.label, v.v)}<div>${EXTRA_ITEMS.map(qBox).join("")}</div></div>` : EXTRA_ITEMS.map(qBox).join("")}</div>`;
+}
+
+/* ---------- source analysis, with stems ---------- */
+const factList = list => `<ul class="facts">${list.map(([h, t]) => `<li><span class="rd">${h ? `<b>${esc(h)}.</b> ` : ""}${esc(t)}</span>${readBtn("Read this")}</li>`).join("")}</ul>`;
+const paraNote = () => { const n = wc(A.txt.para); return n < 30 ? n + " words so far. Aim for 30 or more, and use every colour." : n + " words. Now read it back and add what the source cannot tell us."; };
+function sourceBlock(S){
+  if (S.kind === "text"){
+    return `<div class="srcblk"><h3>${esc(S.tab)}</h3>
+      ${S.paragraphs.map((p, k) => `<div class="psg rd">${esc(p)}</div>${readBtn("Read this extract")}${S.plain && S.plain[k] ? `<p class="plain rd">In plain English: ${esc(S.plain[k])}</p>` : ""}`).join("")}
+      <p class="cap rd">${esc(S.cite)}</p>
+      <ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul></div>`;
+  }
+  return `<div class="srcblk"><h3>${esc(S.tab)}</h3>
+    <img class="src tall" src="${S.file}" alt="${esc(S.alt)}"><p class="cap rd">${esc(S.cite)}</p>
+    <ul class="parts">${S.hotspots.map(h => `<li class="rd"><b>${esc(h.label)}.</b> ${esc(h.text)}</li>`).join("")}</ul></div>`;
+}
+function sourceScreen(){
+  return `<div class="card"><p class="task">Source analysis</p>
+    <div class="q"><p>${esc(SRC_Q)}</p>${readBtn("Read the question")}</div>
+    <div class="two"><div>
+      ${SOURCES.map(sourceBlock).join("")}
+      <h3 style="margin-top:12px">What you need to know</h3>${factList(FACTS)}
+    </div><div>
+      <p class="note">Tap a starter to add it to your answer, then finish the sentence. Use every colour.</p>
+      ${ROWS.map(r => `<div class="grp g-${r[0]}"><p class="lab">${r[2]} ${esc(r[1])}</p><div class="stems">${r[3].map((x, i) => `<button type="button" class="big" data-sstem="${r[0]}" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>`).join("")}
+      ${CFG.answerStems ? `<div class="grp g-answer"><p class="lab">My answer to the question</p><div class="stems">${CFG.answerStems.map((x, i) => `<button type="button" class="big" data-sstem="answer" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>` : ""}
+      <textarea data-key="para" style="margin-top:14px" aria-label="Your answer to the question">${esc(A.txt.para || "")}</textarea>
+      <div class="row" style="margin-top:8px">${micBtn("para")}<button type="button" class="big" data-undo="para">↶ Undo</button><button type="button" class="big" data-sayans="para">🔊 Read my answer</button></div>
+      <p class="note" id="paraN" aria-live="polite">${paraNote()}</p>
+    </div></div></div>`;
+}
+
+/* ---------- my level: the rubric rows, word for word ---------- */
+function levelScreen(){
+  const line = (k, l) => (CONTINUUM[k] && CONTINUUM[k][l]) || "";
+  return `<div class="card"><p class="task">My level</p><h2 class="rd">Read your answer, then choose the level that fits it, row by row.</h2>
+    ${ROWS.map(r => `<div class="bandrow"><h3>${r[2]} ${esc(r[1])}</h3><div class="bands" role="group" aria-label="${esc(r[1])}">${LV.map(l => `<button type="button" class="big" data-self="${r[0]}" data-v="${l}" aria-pressed="${A.self[r[0]] === l}"><b>${l}</b>${esc(line(r[0], l))}</button>`).join("")}</div></div>`).join("")}
+    <h3>To move up one level I would</h3>
+    <div class="stems">${NEXT_STEMS.map((x, i) => `<button type="button" class="big" data-sstem="next" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div>
+    <textarea class="short" data-key="nextstep" style="margin-top:10px" aria-label="To move up one level I would">${esc(A.txt.nextstep || "")}</textarea>
+    <div class="row" style="margin-top:8px">${micBtn("nextstep")}<button type="button" class="big" data-undo="nextstep">↶ Undo</button></div></div>`;
+}
+
+/* ---------- hand in ---------- */
+const jotMarks = () => ALLQ.reduce((n, q) => n + (A.mk[q.id] || 0), 0);
+const marksLine = () => jotMarks() + " out of " + BASE + (BONUS ? " (plus up to " + BONUS + " bonus)" : "");
+function handScreen(){
+  return `<div class="card"><p class="task">Hand in</p><h2 class="rd">Stop and jot</h2>
+    <p class="tot">${marksLine()}, by my own marking. ${jotDone()} of ${ALLQ.length} questions checked.</p>
+    <h2 class="rd">Source analysis</h2><p class="rd" style="white-space:pre-wrap">${esc(A.txt.para || "(nothing written)")}</p>
+    <p>${ROWS.map(r => esc(r[1]) + ": " + esc(A.self[r[0]] || "not chosen")).join(" · ")}</p>
+    <div class="row" style="margin-top:16px"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" id="printBtn">Print</button>
+    <button type="button" class="big" id="copyBtn">Copy my work</button>
+    <button type="button" class="big" id="rowBtn">Copy a row for the class sheet</button><span id="copied" role="status"></span></div>
+    <p class="note">The marks and the levels are your own. Nothing on this page judged your writing. Your teacher marks it.</p></div>`;
+}
+
+const undo = {};
+function caretInsert(key, text){
+  const ta = document.querySelector(`textarea[data-key="${key}"]`); if (!ta) return;
+  undo[key] = undo[key] || []; undo[key].push(ta.value);
+  const s = ta.selectionStart ?? ta.value.length, e = ta.selectionEnd ?? ta.value.length;
+  const before = ta.value.slice(0, s), after = ta.value.slice(e);
+  const pad = before && !/\s$/.test(before) && !/^\s/.test(text) ? " " : "";
+  ta.value = before + pad + text + after;
+  const at = (before + pad + text).length;
+  ta.focus(); ta.setSelectionRange(at, at);
+  A.txt[key] = ta.value; save(); drawStrip(); noteFor(key);
+}
+
+function noteFor(key){
+  const q = ALLQ.find(x => x.id === key);
+  if (q){
+    const ok = wc(A.txt[key]) >= q.min, b = document.querySelector('[data-check="' + key + '"]'), n = $("cn_" + key);
+    if (b) b.disabled = !ok;
+    if (n) n.textContent = ok ? "" : needNote(q);
+  }
+  if (key === "para"){ const n = $("paraN"); if (n) n.textContent = paraNote(); }
+}
+function wire(){
+  const S = $("screen");
+  const nm = $("nm"); if (nm) nm.addEventListener("input", () => { A.name = nm.value; save(); });
+  S.querySelectorAll("textarea[data-key]").forEach(ta => ta.addEventListener("input", () => { A.txt[ta.dataset.key] = ta.value; save(); noteFor(ta.dataset.key); drawStrip(); }));
+  S.querySelectorAll("[data-readel]").forEach(b => b.onclick = () => readEls([b.previousElementSibling && b.previousElementSibling.matches(".psg") ? b.previousElementSibling : b.parentElement.querySelector(".rd, p")]));
+  S.querySelectorAll("[data-sayans]").forEach(b => b.onclick = () => speak(A.txt[b.dataset.sayans] || "Nothing written yet."));
+  S.querySelectorAll("[data-mic]").forEach(b => {
+    b.addEventListener("pointerdown", e => e.preventDefault());
+    b.onclick = () => { if (!steady()) return; if (recKey === b.dataset.mic) stopMic(); else startMic(b.dataset.mic); };
+  });
+  S.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => { if (!steady()) return; A.rate = +b.dataset.rate; save(); render(); speak("This is the reading speed."); });
+  S.querySelectorAll("[data-sup]").forEach(b => b.onclick = () => {
+    if (!steady()) return;
+    const k = b.dataset.sup; A.sup[k] = !A.sup[k]; if (A.sup[k]) A.used[k] = true;
+    save(); applySupports(); render();
+    if (k === "mic" && A.sup.mic) openMic();
+  });
+  S.querySelectorAll("[data-tint]").forEach(b => b.onclick = () => { if (!steady()) return; A.tint = b.dataset.tint; save(); applyTint(); render(); });
+  S.querySelectorAll("[data-stem],[data-sstem]").forEach(b => b.addEventListener("pointerdown", e => e.preventDefault()));
+  S.querySelectorAll("[data-stem]").forEach(b => b.onclick = () => { if (!steady()) return; const q = ALLQ.find(x => x.id === b.dataset.stem); caretInsert(q.id, q.stems[+b.dataset.k]); });
+  S.querySelectorAll("[data-sstem]").forEach(b => b.onclick = () => {
+    if (!steady()) return; const k = b.dataset.sstem;
+    if (k === "next") return caretInsert("nextstep", NEXT_STEMS[+b.dataset.k]);
+    if (k === "answer") return caretInsert("para", CFG.answerStems[+b.dataset.k]);
+    caretInsert("para", ROWS.find(r => r[0] === k)[3][+b.dataset.k]);
+  });
+  S.querySelectorAll("[data-undo]").forEach(b => {
+    b.addEventListener("pointerdown", e => e.preventDefault());
+    b.onclick = () => {
+      if (!steady()) return;
+      const key = b.dataset.undo, ta = document.querySelector('textarea[data-key="' + key + '"]');
+      if (!ta || !undo[key] || !undo[key].length) return;
+      ta.value = undo[key].pop(); A.txt[key] = ta.value; save(); noteFor(key); drawStrip(); ta.focus();
+    };
+  });
+  /* checking an answer opens the model in place, with no re-render, so the video keeps its place */
+  S.querySelectorAll("[data-check]").forEach(b => b.onclick = () => { if (!steady()) return; A.chk[b.dataset.check] = true; save(); const k = $("k_" + b.dataset.check); if (k) k.hidden = false; drawStrip(); });
+  S.querySelectorAll("[data-mk]").forEach(b => b.onclick = () => {
+    if (!steady()) return; const id = b.dataset.mk; A.mk[id] = +b.dataset.v; save();
+    S.querySelectorAll('[data-mk="' + id + '"]').forEach(x => x.setAttribute("aria-pressed", +x.dataset.v === A.mk[id]));
+  });
+  S.querySelectorAll("[data-self]").forEach(b => b.onclick = () => { if (!steady()) return; A.self[b.dataset.self] = b.dataset.v; save(); render(); });
+  const pr = $("printBtn"); if (pr) pr.onclick = () => { graceUntil = Date.now() + 120000; buildPrint(); window.print(); graceUntil = Date.now() + 3000; };
+  const copy = async t => { try { await navigator.clipboard.writeText(t); $("copied").textContent = "Copied."; } catch (e) { $("copied").textContent = "Copy did not work here. Use Print instead."; } };
+  const cp = $("copyBtn"); if (cp) cp.onclick = () => copy(plainText());
+  const rw = $("rowBtn"); if (rw) rw.onclick = () => copy(classRow());
+}
+
+/* ---------- the printed copy, the class row ---------- */
+const mins = () => Math.round((A.secs || 0) / 60);
+function buildPrint(){
+  $("print").innerHTML = `
+    <h1>Ancient China ${esc(CFG.id)} · ${esc(CFG.title)}</h1>
+    <p><b>Name:</b> ${esc(A.name || "")} &nbsp; <b>Printed:</b> ${new Date().toLocaleDateString("en-AU")} &nbsp; <i>Done on the accessible online version.</i></p>
+    <p><b>Supports used:</b> ${esc(supportsUsed())} &nbsp; <b>Time on the page:</b> about ${mins()} minutes</p>
+    <h2>Stop and jot (my own marks: ${marksLine()})</h2>
+    <table><tr><th>Question</th><th>My answer</th><th>Marks</th></tr>${ALLQ.map(q => `<tr><td>${esc(q.q)}</td><td>${esc(A.txt[q.id] || "")}</td><td>${A.mk[q.id] === undefined ? "" : A.mk[q.id] + " / " + q.m}</td></tr>`).join("")}</table>
+    <h2>${esc(SRC_Q)}</h2><div class="ans">${esc(A.txt.para || "(nothing written)")}</div>
+    <table><tr><th>Row</th><th>My level</th></tr>${ROWS.map(r => `<tr><td>${esc(r[1])}</td><td>${esc(A.self[r[0]] ? A.self[r[0]] + ": " + ((CONTINUUM[r[0]] && CONTINUUM[r[0]][A.self[r[0]]]) || "") : "not chosen")}</td></tr>`).join("")}</table>
+    <p><b>To move up one level I would:</b> ${esc((A.txt.nextstep || "").trim()) || "<i>(not written)</i>"}</p>
+    <h2>Lesson log</h2><p>${FS ? `Left full screen or the page ${exits()} time${exits() === 1 ? "" : "s"}.` : "This browser has no full screen, so the lesson was not locked."}</p>
+    ${exits() ? `<p>${logLines().map(esc).join("<br>")}</p>` : ""}
+    <p style="font-size:9pt;color:#555">The marks and the levels are the student's own. Nothing on the page judged the writing.</p>`;
+}
+function plainText(){
+  return ["Ancient China " + CFG.id + ": " + CFG.title, "Name: " + A.name, "Supports used: " + supportsUsed(), "Time on the page: about " + mins() + " minutes", "",
+    "Stop and jot, my own marks " + marksLine()]
+    .concat(ALLQ.map(q => q.q + "\n  " + (A.txt[q.id] || "(nothing written)") + "\n  Marks: " + (A.mk[q.id] === undefined ? "not marked" : A.mk[q.id] + " / " + q.m)))
+    .concat(["", SRC_Q, A.txt.para || "(nothing written)", ""])
+    .concat(ROWS.map(r => r[1] + ": " + (A.self[r[0]] || "not chosen")))
+    .concat(["To move up one level I would: " + ((A.txt.nextstep || "").trim() || "(not written)"),
+      "Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
+}
+/* One tab-separated row for a shared sheet. Columns: name, date, minutes on the page, my marks for each
+   stop-and-jot question, their total, words in the source answer, my level for each row, times out of
+   full screen, next step, the answer. It cannot tell you whether any of it is good. */
+function classRow(){
+  const clean = t => String(t || "").replace(/[\t\r\n]+/g, " ").trim();
+  return [clean(A.name), new Date().toLocaleDateString("en-AU"), mins()].concat(ALLQ.map(q => A.mk[q.id] === undefined ? "" : A.mk[q.id]))
+    .concat([jotMarks(), wc(A.txt.para)]).concat(ROWS.map(r => A.self[r[0]] || ""))
+    .concat([FS ? exits() : "no lock", clean(A.txt.nextstep), clean(A.txt.para)]).join("\t");
+}
+
+$("readPage").onclick = () => { if (!steady()) return; if (reading) stopReading(); else readEls(readPageEls()); };
+A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup); A.used = A.used || {}; A.self = A.self || {}; A.chk = A.chk || {}; A.mk = A.mk || {};
+setZoom(A.zoom); applyTint(); applySupports(); setReadUI();
+render();
+if (A.sup.mic && SR) openMic();
+if (A.step !== 0 && FS && !document.fullscreenElement) { $("lockH").textContent = "Back to the lesson"; $("lock").hidden = false; }
+</script>
+</body>
+</html>
