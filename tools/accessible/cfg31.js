@@ -32,6 +32,34 @@ const CFG = {
      { id: "f", kind: "weigh", m: 3, min: 12, q: "The video says Qin chose clay figures \"rather than sacrificing living ones\". Sima Qian, a historian writing about a century later, says the workers who built the tomb were trapped inside it when it was sealed. Which do you trust more, and why?",
        stems: ["I trust ", "more, because ", "Sima Qian wrote ", "But the video is "],
        a: "1 mark: picks one and gives a reason.\n2 marks: uses who wrote it and when: Sima Qian wrote about 100 years later, for a Han emperor; the video is a modern summary.\n3 marks: weighs both: the lead archaeologist at the site thinks Sima Qian's account was made up to persuade Emperor Wu, but mercury found in the soil backs up other parts of it; a mass grave of workers shows many workers died, so 'no living people' may be too simple. [3:51; Wikipedia, Mausoleum of the First Qin Emperor]" }] },
+  /* The checklist the student ticks against their own answer after writing it. Each item is something they can
+     point at. k is the rubric row (a CRITERIA key). Facts are the wall's own (history/terracotta/content.js). */
+  levels: {
+    5: [
+      { id: "a5a", k: "source", t: "I said Source A is a clay statue of a soldier, and named one thing I can see.", adv: "Start with what it is and what you can see: a clay soldier, kneeling, with armour and a topknot." },
+      { id: "a5b", k: "perspective", t: "I said what the emperor wanted.", adv: "Say whose idea the army was: Qin Shi Huang wanted soldiers to guard him after he died." },
+      { id: "a5c", k: "judge", t: "I said one thing the statue shows and one thing it cannot tell us.", adv: "It shows the emperor was powerful. It cannot tell us what the workers who made it thought." }],
+    6: [
+      { id: "a6a", k: "source", t: "I said Source A is a primary source.", adv: "A primary source was made at the time. The army was made in the late 200s BCE." },
+      { id: "a6b", k: "source", t: "I gave a reason: workers made it then, and it was buried with Qin Shi Huang.", adv: "Back up the type with a reason about who made it and when." },
+      { id: "a6c", k: "perspective", t: "I said whose point of view it shows: the emperor's.", adv: "Name the person. The army shows the emperor's point of view: he wanted protection after death." },
+      { id: "a6d", k: "judge", t: "I said what it is more useful for, and what it is less useful for.", adv: "It is more useful for the emperor's wishes, and less useful for the workers' lives." }],
+    7: [
+      { id: "a7a", k: "source", t: "I said where it came from: the Terracotta Army, buried 210 to 209 BCE and found by farmers in 1974.", adv: "Origin is who, when and where. The army was buried in 210 to 209 BCE. Farmers found it in 1974." },
+      { id: "a7b", k: "source", t: "I described its features: armour of small plates, hands held to grip a crossbow, a kneeling pose.", adv: "Features are what you can see. Look at the armour, the hands and how he kneels." },
+      { id: "a7c", k: "source", t: "I said its purpose: to protect the emperor in the afterlife.", adv: "Purpose is why it was made. Workers made the army to guard the emperor after he died." },
+      { id: "a7d", k: "perspective", t: "I described the emperor's point of view: the army showed his power.", adv: "Thousands of soldiers stand by rank, facing east towards the states he conquered. What did that show?" },
+      { id: "a7e", k: "perspective", t: "I described the workers' point of view: they were conscripted.", adv: "The workers probably saw it differently. Sima Qian says 700,000 conscripted workers built the tomb." },
+      { id: "a7f", k: "judge", t: "I drew a conclusion: it is useful for how the emperor wanted to be seen, but cannot show how the workers felt.", adv: "Finish with what the source is useful for, then what it cannot show." }],
+    8: [
+      { id: "a8a", k: "source", t: "I backed up its origin with evidence: every face is different, and traces of paint survive.", adv: "Use detail from the facts: the faces all differ and some of the original paint is still there." },
+      { id: "a8b", k: "perspective", t: "I explained the workers' point of view with evidence: a grave pit of workers, or signatures in the figures' armpits.", adv: "Archaeologists found a grave pit of workers near the tomb. Sculptors also signed their names in the armpits of the figures." },
+      { id: "a8c", k: "judge", t: "I said what it is strong evidence for and weak evidence for, and asked a question about it.", adv: "Strong evidence of the emperor's view, weak evidence of the workers' experience. Ask how much choice the workers had." }],
+    9: [
+      { id: "a9a", k: "source", t: "I explained what its origin means for the evidence: it was buried in the pits around the tomb, so its origin is not in doubt.", adv: "Say what the origin means for us. It was found where it was buried, so we can trust where it came from." },
+      { id: "a9b", k: "perspective", t: "I compared the two points of view: how they differ and what they share.", adv: "The emperor saw protection and display. The workers saw forced labour. Both views agree the project was enormous." },
+      { id: "a9c", k: "judge", t: "I explained the limit: it shows one side, and most of what we know about the workers comes from graves and from Sima Qian.", adv: "Sima Qian wrote a century later. Say what that does to how far we can trust it about the workers." }]
+  },
   stems: {
     source: ["Source A is ", "It is a primary source because ", "It was made ", "Its features include ", "It was made to "],
     perspective: ["The emperor wanted ", "The emperor's point of view is shown by ", "The workers probably felt ", "The workers' point of view is missing because "],

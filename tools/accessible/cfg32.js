@@ -36,6 +36,34 @@ const CFG = {
        a: "Myth. Video 2 (1:38 to 1:45): no human remains have been found inside it, though grave pits show many workers died. Simple Wikipedia calls it a myth." },
      { id: "m3", kind: "fact", bonus: true, m: 1, min: 6, q: "People say: Qin Shi Huang built the Great Wall in one go. Myth or true? Give your evidence.", stems: ["I think this is ", "The video says "],
        a: "Myth. Video 2 (0:16 to 0:55): states built walls first; he joined and extended them; later dynasties rebuilt them, and the best-known parts are Ming." }] },
+  /* The checklist the student ticks against their own answer after writing it. Each item is something they can
+     point at. k is the rubric row (a CRITERIA key). Facts are the wall's own (history/great-wall/content.js). */
+  levels: {
+    5: [
+      { id: "b5a", k: "source", t: "I said Source A is a photo of the Great Wall at Mutianyu, and named one feature I notice.", adv: "Name what it is and one thing you can see: a square watchtower, battlements, or the path along the top." },
+      { id: "b5b", k: "interpretation", t: "I said what Source B and Source C think about the wall.", adv: "Source B says many walls were built at different times. Source C says the wall was formidable but not invincible." },
+      { id: "b5c", k: "judge", t: "I said one thing the photo shows and one thing it cannot tell us.", adv: "The photo shows what the wall looks like. It cannot tell us if the wall kept invaders out." }],
+    6: [
+      { id: "b6a", k: "source", t: "I said what kind of source the photo is, and when it was taken (2006).", adv: "It is a modern photo, taken in 2006, of an old wall." },
+      { id: "b6b", k: "source", t: "I said the Ming dynasty built the wall in it.", adv: "Mutianyu is part of the Ming wall. The Ming dynasty ruled China from 1368 to 1644." },
+      { id: "b6c", k: "interpretation", t: "I said that Source B and Source C see the wall differently.", adv: "Say how they differ. One treats the wall as a monument. The other says it was many walls." },
+      { id: "b6d", k: "judge", t: "I said which source is more useful for the question, and why.", adv: "Source C is more useful for deciding if the wall worked, because it says the wall was not enough in 1644." }],
+    7: [
+      { id: "b7a", k: "source", t: "I said where it is from: Mutianyu, near Beijing, a Ming section built between 1368 and 1644.", adv: "Origin is who, when and where. Name the place and the dynasty." },
+      { id: "b7b", k: "source", t: "I described its features: a brick wall with battlements and a square watchtower, along steep ridges.", adv: "Features are what you can see. Look at the walls, the towers and the land." },
+      { id: "b7c", k: "source", t: "I said why the Ming built walls like this: to defend the northern border from Mongol raids.", adv: "Purpose is why it was made. The Ming wanted to stop raids from the north." },
+      { id: "b7d", k: "interpretation", t: "I described Source C's view, using its words (formidable but not invincible, or a notorious place of suffering).", adv: "Quote a few of Source C's own words, then say what they show." },
+      { id: "b7e", k: "interpretation", t: "I described Source B's view: many walls were built at different times, and the idea of one Great Wall came from the Ming wall.", adv: "Source B is about the historian Arthur Waldron. Say what he thinks about the wall." },
+      { id: "b7f", k: "judge", t: "I drew a conclusion about usefulness: the photo shows strength but cannot say if the wall kept invaders out, so Source C is more useful for that.", adv: "Say what the photo is useful for, what it cannot show, and which source helps instead." }],
+    8: [
+      { id: "b8a", k: "source", t: "I said what the features show: Ming brick was stronger than the earlier earth walls, and soldiers in the towers sent smoke or fire signals.", adv: "Say what the features tell us, not only what they are. Earlier walls were rammed earth." },
+      { id: "b8b", k: "interpretation", t: "I explained the debate: one great monument, or many walls that were part of a bigger plan for the border.", adv: "Explain what historians disagree about, with Source B and Source C as your two examples." },
+      { id: "b8c", k: "judge", t: "I asked questions about accuracy: how much of the photo is original, and does Source C tell the whole story of 1644?", adv: "Mutianyu was restored after the Cultural Revolution. In 1644 a Ming general opened the gates. Does Source C say so?" }],
+    9: [
+      { id: "b9a", k: "source", t: "I explained what the photo's origin means: it was restored, so it looks stronger than much of the wall does now.", adv: "A 2012 report found that 22% of the Ming wall has disappeared. What does that say about this photo?" },
+      { id: "b9b", k: "interpretation", t: "I named the evidence behind each interpretation: written records for Waldron, the builders and the many dynasties for Source C.", adv: "Wikipedia says Waldron's book drew on extensive documentary research. Source C talks about who built the wall and when." },
+      { id: "b9c", k: "judge", t: "I said what Source C is accurate about, and where it falls short.", adv: "It is right about the Ming bricks, the towers, and the Manchus taking over in 1644. It calls Kublai Khan Genghis Khan's son, and leaves out how the gates were opened." }]
+  },
   stems: {
     source: ["Source A is ", "It was taken ", "It shows ", "The Ming built walls like this to "],
     interpretation: ["Source C says the wall was ", "Source B says ", "Waldron thinks ", "The two sources disagree about "],

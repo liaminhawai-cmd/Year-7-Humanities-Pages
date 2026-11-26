@@ -13,8 +13,10 @@ const BASE = BASEQ.reduce((n, q) => n + q.m, 0), BONUS = ALLQ.filter(q => q.bonu
 const SRC_Q = CFG.srcQ;
 /* The rubric rows come from the wall's own content.js, so the words are the wall's words. */
 const ROWS = CRITERIA.map(c => [c.key, c.name.replace(/&amp;/g, "&"), c.glyph, CFG.stems[c.key]]);
-const NEXT_STEMS = CFG.nextStems || ["add ", "say what the source cannot show: ", "use a fact from the lesson to explain: "];
-const LV = ["Level 6", "Level 7", "Level 8", "Level 9"];
+const LEVELS_SA = [5, 6, 7, 8, 9];
+const CRIT = Object.fromEntries(CRITERIA.map(c => [c.key, c]));
+const CHECK = CFG.levels;                         /* the checklist: level -> items {id, k, t, adv} */
+const ITEM = {}; LEVELS_SA.forEach(L => (CHECK[L] || []).forEach(it => { ITEM[it.id] = Object.assign({ L }, it); }));
 const WORDS = CFG.words;
 (function(){
   const s = document.createElement("style");
@@ -25,10 +27,11 @@ const WORDS = CFG.words;
   document.head.appendChild(s);
 })();
 
-let A = { name:"", txt:{}, chk:{}, mk:{}, self:{}, step:0, zoom:1, rate:.9, tint:"cream",
+let A = { name:"", txt:{}, chk:{}, mk:{}, self:{}, sa:{ phase:"write", orig:"", lvl:5, items:{}, done:false }, step:0, zoom:1, rate:.9, tint:"cream",
           sup:{ big:false, read:false, mic:false }, used:{}, started:0, secs:0, log:[] };
 try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) A = Object.assign(A, x); } catch (e) {}
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(A)); } catch (e) {} }
+A.sa = Object.assign({ phase:"write", orig:"", lvl:5, items:{}, done:false }, A.sa || {});
 if (!A.started) { A.started = Date.now(); save(); }
 setInterval(() => { if (document.visibilityState === "visible" && A.step > 0) { A.secs += 15; save(); } }, 15000);
 let lastTap = 0;
@@ -41,13 +44,13 @@ const wc = t => (t || "").trim() ? t.trim().split(/\s+/).length : 0;
 const STEPS = [{ id:"start", label:"Start" }]
   .concat(STOPS.map(st => ({ id:"stop", n:st.n, label:"Stop " + st.n })))
   .concat(EXTRA ? [{ id:"extra", label:EXTRA.label }] : [])
-  .concat([{ id:"source", label:"Source analysis" }, { id:"level", label:"My level" }, { id:"hand", label:"Hand in" }]);
+  .concat([{ id:"source", label:"Source analysis" }, { id:"check", label:"Check it" }, { id:"hand", label:"Hand in" }]);
 const jotDone = () => ALLQ.filter(q => A.chk[q.id]).length;
 function stepDone(s){
   if (s.id === "stop") return STOPS[s.n - 1].qs.every(q => A.chk[q.id]);
   if (s.id === "extra") return EXTRA_ITEMS.every(q => A.chk[q.id]);
-  if (s.id === "source") return wc(A.txt.para) >= 30;
-  if (s.id === "level") return ROWS.every(r => A.self[r[0]]);
+  if (s.id === "source") return A.sa.phase === "check" || wc(A.txt.para) >= 30;
+  if (s.id === "check") return !!A.sa.done;
   return false;
 }
 function drawStrip(){
@@ -66,7 +69,7 @@ function render(){
   const s = STEPS[A.step];
   $("back").disabled = A.step === 0;
   $("next").hidden = A.step === STEPS.length - 1;
-  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), extra:extraScreen, source:sourceScreen, level:levelScreen, hand:handScreen }[s.id]();
+  $("screen").innerHTML = { start:startScreen, stop:() => stopScreen(STOPS[s.n - 1]), extra:extraScreen, source:sourceScreen, check:checkScreen, hand:handScreen }[s.id]();
   wire();
 }
 
@@ -148,21 +151,112 @@ function sourceScreen(){
       <p class="note">Tap a starter to add it to your answer, then finish the sentence. Use every colour.</p>
       ${ROWS.map(r => `<div class="grp g-${r[0]}"><p class="lab">${r[2]} ${esc(r[1])}</p><div class="stems">${r[3].map((x, i) => `<button type="button" class="big" data-sstem="${r[0]}" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>`).join("")}
       ${CFG.answerStems ? `<div class="grp g-answer"><p class="lab">My answer to the question</p><div class="stems">${CFG.answerStems.map((x, i) => `<button type="button" class="big" data-sstem="answer" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div></div>` : ""}
-      <textarea data-key="para" style="margin-top:14px" aria-label="Your answer to the question">${esc(A.txt.para || "")}</textarea>
-      <div class="row" style="margin-top:8px">${micBtn("para")}<button type="button" class="big" data-undo="para">↶ Undo</button><button type="button" class="big" data-sayans="para">🔊 Read my answer</button></div>
-      <p class="note" id="paraN" aria-live="polite">${paraNote()}</p>
+      ${A.sa.phase === "check" ? `<p class="note"><b>Your first answer is saved.</b> Go to Check it to see what you included.</p>` : ""}
+      <textarea data-key="para" style="margin-top:14px" aria-label="Your answer to the question" ${A.sa.phase === "check" ? "readonly" : ""}>${esc(A.txt.para || "")}</textarea>
+      <div class="row" style="margin-top:8px">${A.sa.phase === "check" ? "" : micBtn("para") + `<button type="button" class="big" data-undo="para">↶ Undo</button>`}<button type="button" class="big" data-sayans="para">🔊 Read my answer</button>
+        ${A.sa.phase === "check" ? `<button type="button" class="big" data-gostep="check">Go to Check it</button>` : `<button type="button" class="big" id="startCheck" style="background:var(--sel);color:#fff;border-color:var(--sel)" ${wc(A.txt.para) >= 30 ? "" : "disabled"}>Check my answer</button>`}</div>
+      <p class="note" id="paraN" aria-live="polite">${A.sa.phase === "check" ? "" : paraNote()}</p>
     </div></div></div>`;
 }
 
-/* ---------- my level: the rubric rows, word for word ---------- */
-function levelScreen(){
-  const line = (k, l) => (CONTINUUM[k] && CONTINUUM[k][l]) || "";
-  return `<div class="card"><p class="task">My level</p><h2 class="rd">Read your answer, then choose the level that fits it, row by row.</h2>
-    ${ROWS.map(r => `<div class="bandrow"><h3>${r[2]} ${esc(r[1])}</h3><div class="bands" role="group" aria-label="${esc(r[1])}">${LV.map(l => `<button type="button" class="big" data-self="${r[0]}" data-v="${l}" aria-pressed="${A.self[r[0]] === l}"><b>${l}</b>${esc(line(r[0], l))}</button>`).join("")}</div></div>`).join("")}
-    <h3>To move up one level I would</h3>
-    <div class="stems">${NEXT_STEMS.map((x, i) => `<button type="button" class="big" data-sstem="next" data-k="${i}">${esc(x.trim())} …</button>`).join("")}</div>
-    <textarea class="short" data-key="nextstep" style="margin-top:10px" aria-label="To move up one level I would">${esc(A.txt.nextstep || "")}</textarea>
-    <div class="row" style="margin-top:8px">${micBtn("nextstep")}<button type="button" class="big" data-undo="nextstep">↶ Undo</button></div></div>`;
+/* ---------- check it: what did I include? Level by level, with the words highlighted ----------
+   The 2.3 module's way: the student writes first, with no list in front of them. Then they check the
+   answer against each level's list. A tick needs words highlighted in their own answer. "Not yet" lets
+   them add it in their own words (kept, and shown as added after seeing the list) or skip it. Highlighting
+   is two taps on words, first and last, so it works by touch, keyboard and switch, not only by dragging.
+   Nothing here judges the writing: the ticks and the highlights are the student's own. */
+let SEL = null, NOTYET = null, SAMSG = "";
+const aWords = () => (A.txt.para || "").trim().split(/\s+/).filter(Boolean);
+const origCount = () => (A.sa.orig || "").trim().split(/\s+/).filter(Boolean).length;
+const itemState = id => A.sa.items[id] || null;
+const ulStyle = c => c.underline === "double" ? "double" : c.underline === "dotted" ? "dotted" : c.underline === "dashed" ? "dashed" : "solid";
+function hlMap(){                                     /* word number -> rubric row of the latest mark on it */
+  const m = {};
+  Object.entries(A.sa.items).forEach(([id, st]) => { if (st.hl && ITEM[id]) for (let w = st.hl[0]; w <= st.hl[1]; w++) m[w] = ITEM[id].k; });
+  return m;
+}
+const snippet = st => (st && st.hl) ? aWords().slice(st.hl[0], st.hl[1] + 1).join(" ") : "";
+function markedAnswer(tap){
+  const text = A.txt.para || "", map = hlMap(), oc = origCount();
+  let w = 0, out = "";
+  text.replace(/(\S+)(\s*)/g, (m, word, sp) => {
+    const k = map[w], c = k && CRIT[k], added = w >= oc && A.sa.phase === "check";
+    const sel = tap && SEL && w >= SEL.a && w <= SEL.b;
+    const style = c ? ` style="background:${c.lamp}88;border-bottom:3px ${ulStyle(c)} ${c.ink}"` : "";
+    out += tap ? `<span class="w${sel ? " sel" : ""}${added ? " added" : ""}" role="button" tabindex="0" data-w="${w}"${style} aria-pressed="${!!sel}">${esc(word)}</span>${esc(sp)}`
+               : `<span class="${added ? "added" : ""}"${style}>${esc(word)}</span>${esc(sp)}`;
+    w++; return m;
+  });
+  return out;
+}
+const legend = () => `<p class="legend">${CRITERIA.map(c => `<span class="lg" style="background:${c.lamp}88;border-bottom:3px ${ulStyle(c)} ${c.ink}">${c.glyph} ${esc(c.name.replace(/&amp;/g, "&"))}</span>`).join(" ")} <span class="lg added">Italic with a dashed top line: words I added after seeing the list</span></p>`;
+/* the highest level a row reached: every item of that row at that level and below ticked. */
+function rowLevel(k, withAdds){
+  let lvl = 0;
+  for (const L of LEVELS_SA){
+    const its = (CHECK[L] || []).filter(it => it.k === k);
+    if (!its.length) continue;
+    const okAll = its.every(it => { const st = itemState(it.id); return st && ((st.s === "got" && (withAdds || !st.inAdded)) || (withAdds && st.s === "add")); });
+    if (!okAll) break;
+    lvl = L;
+  }
+  return lvl;
+}
+const lvlText = n => n ? "Level " + n : "below Level 5";
+const tagOf = st => !st ? "Not checked" : st.s === "got" ? (st.inAdded ? "In words I added" : "In my first answer") : st.s === "add" ? "Added after seeing the list" : "Skipped";
+const itemRows = () => LEVELS_SA.flatMap(L => (CHECK[L] || []).map(it => ({ L, it, st: itemState(it.id) })));
+
+function itemBox(it){
+  const st = itemState(it.id), c = CRIT[it.k], id = it.id;
+  let ctl;
+  if (NOTYET === id) {
+    ctl = `<p class="note rd">${esc(it.adv)}</p><p class="note">Add it now, in your own words, about this source. Or skip it. Your report shows it was added after you saw the list.</p>
+      <textarea class="short" data-key="add_${id}" aria-label="Add it in my own words">${esc(A.txt["add_" + id] || "")}</textarea>
+      <div class="row" style="margin-top:8px">${micBtn("add_" + id)}<button type="button" class="big go" data-addgo="${id}">Add to my answer</button><button type="button" class="big" data-skip="${id}">Skip it</button><button type="button" class="big" data-cancelnot="1">Cancel</button></div>`;
+  } else if (st) {
+    ctl = `<p class="note"><b>${esc(tagOf(st))}.</b>${st.hl ? ` Highlighted: “${esc(snippet(st))}”` : ""}</p>${st.s === "add" ? "" : `<div class="row"><button type="button" class="big" data-undoitem="${id}">Change it</button></div>`}`;
+  } else {
+    ctl = `<div class="row"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-mark="${id}">Mark it in my answer</button><button type="button" class="big" data-notyet="${id}">Not yet</button></div>`;
+  }
+  return `<div class="qa g-${it.k}" style="border-color:${c.ink}"><p class="lab">${c.glyph} ${esc(c.name.replace(/&amp;/g, "&"))}</p><div class="q"><p>${esc(it.t)}</p>${readBtn("Read this")}</div>${ctl}</div>`;
+}
+function checkScreen(){
+  if (A.sa.phase !== "check") return `<div class="card"><p class="task">Check it</p><h2 class="rd">Write your answer first.</h2>
+    <p class="rd">Finish your source analysis (at least 30 words), then press Check my answer.</p><div class="row"><button type="button" class="big" data-gostep="source">Go to my answer</button></div></div>`;
+  if (A.sa.done) return `<div class="card"><p class="task">Check it</p><h2 class="rd">You have checked every level.</h2>
+    <ul class="parts">${ROWS.map(r => `<li class="rd"><b>${r[2]} ${esc(r[1])}:</b> my first answer reached ${esc(lvlText(rowLevel(r[0], false)))}; with what I added, ${esc(lvlText(rowLevel(r[0], true)))}.</li>`).join("")}</ul>
+    <p class="note">These come from your own ticks. The page did not judge your writing.</p>
+    <div class="row"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-gostep="hand">Go to Hand in</button><button type="button" class="big" data-relevel="1">Look at the levels again</button></div></div>`;
+  const L = A.sa.lvl, its = CHECK[L] || [], all = its.every(it => itemState(it.id));
+  return `<div class="card"><p class="task">Check it · Level ${L} of 9</p><h2 class="rd">What did I include?</h2>
+    <p class="note">Tap the first word, then the last word, of the part of your answer that shows it. Then press Mark it. Your first answer is locked. Anything you add is shown in italics.</p>
+    ${legend()}
+    <div class="two"><div><div class="ansbox rd" id="ans" aria-label="My answer">${markedAnswer(true)}</div>
+      <p class="note" id="selNote" aria-live="polite">${SEL ? "Selected: “" + esc(aWords().slice(SEL.a, SEL.b + 1).join(" ")) + "”" : "Nothing selected."}</p>
+      ${SAMSG ? `<p class="note" role="alert"><b>${esc(SAMSG)}</b></p>` : ""}</div>
+    <div>${its.map(itemBox).join("")}
+      <div class="row" style="margin-top:12px">${L > 5 ? `<button type="button" class="big" data-prevlvl="1">Back: Level ${L - 1}</button>` : ""}
+        <button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" data-nextlvl="1" ${all ? "" : "disabled"}>${L < 9 ? "Next: Level " + (L + 1) : "Finish"}</button></div>
+      ${all ? "" : `<p class="note">Mark each one, or choose Not yet, to go on.</p>`}</div></div></div>`;
+}
+function refreshSel(){
+  document.querySelectorAll("#ans [data-w]").forEach(el => { const i = +el.dataset.w, on = !!(SEL && i >= SEL.a && i <= SEL.b); el.classList.toggle("sel", on); el.setAttribute("aria-pressed", on); });
+  const n = $("selNote"); if (n) n.textContent = SEL ? "Selected: “" + aWords().slice(SEL.a, SEL.b + 1).join(" ") + "”" : "Nothing selected.";
+}
+function tapWord(i){
+  if (SEL && SEL.open) SEL = { a: Math.min(SEL.a, i), b: Math.max(SEL.a, i), open: false };
+  else SEL = { a: i, b: i, open: true };
+  SAMSG = ""; refreshSel();
+}
+/* the report: the answer with each highlight in its row's colour, then every item against its highlight */
+function reportHTML(){
+  if (A.sa.phase !== "check") return `<p class="rd">(The check was not done.)</p>`;
+  const done = itemRows();
+  return `<table class="rep"><tr><th>Rubric row</th><th>My first answer reached</th><th>With what I added</th></tr>
+      ${ROWS.map(r => `<tr><td>${r[2]} ${esc(r[1])}</td><td>${esc(lvlText(rowLevel(r[0], false)))}</td><td>${esc(lvlText(rowLevel(r[0], true)))}</td></tr>`).join("")}</table>
+    ${legend()}<div class="ans ansbox">${markedAnswer(false)}</div>
+    <table class="rep"><tr><th>Level</th><th>What I checked</th><th>Result</th><th>The words I highlighted</th></tr>
+      ${done.map(({ L, it, st }) => `<tr><td>${L}</td><td>${CRIT[it.k].glyph} ${esc(it.t)}</td><td>${esc(tagOf(st))}</td><td>${st && st.hl ? esc(snippet(st)) : st && st.s === "skip" ? "(skipped)" : ""}</td></tr>`).join("")}</table>`;
 }
 
 /* ---------- hand in ---------- */
@@ -171,8 +265,7 @@ const marksLine = () => jotMarks() + " out of " + BASE + (BONUS ? " (plus up to 
 function handScreen(){
   return `<div class="card"><p class="task">Hand in</p><h2 class="rd">Stop and jot</h2>
     <p class="tot">${marksLine()}, by my own marking. ${jotDone()} of ${ALLQ.length} questions checked.</p>
-    <h2 class="rd">Source analysis</h2><p class="rd" style="white-space:pre-wrap">${esc(A.txt.para || "(nothing written)")}</p>
-    <p>${ROWS.map(r => esc(r[1]) + ": " + esc(A.self[r[0]] || "not chosen")).join(" · ")}</p>
+    <h2 class="rd">Source analysis: what I included</h2><div class="rep">${A.sa.phase === "check" ? reportHTML() : `<p class="rd" style="white-space:pre-wrap">${esc(A.txt.para || "(nothing written)")}</p><p class="note">The check was not done, so there are no highlights.</p>`}</div>
     <div class="row" style="margin-top:16px"><button type="button" class="big go" style="background:var(--sel);color:#fff;border-color:var(--sel)" id="printBtn">Print</button>
     <button type="button" class="big" id="copyBtn">Copy my work</button>
     <button type="button" class="big" id="rowBtn">Copy a row for the class sheet</button><span id="copied" role="status"></span></div>
@@ -187,7 +280,7 @@ function noteFor(key){
     if (b) b.disabled = !ok;
     if (n) n.textContent = ok ? "" : needNote(q);
   }
-  if (key === "para"){ const n = $("paraN"); if (n) n.textContent = paraNote(); }
+  if (key === "para"){ const n = $("paraN"); if (n) n.textContent = paraNote(); const c = $("startCheck"); if (c) c.disabled = wc(A.txt.para) < 30; }
 }
 function wire(){
   const S = $("screen");
@@ -211,7 +304,6 @@ function wire(){
   S.querySelectorAll("[data-stem]").forEach(b => b.onclick = () => { if (!steady()) return; const q = ALLQ.find(x => x.id === b.dataset.stem); caretInsert(q.id, q.stems[+b.dataset.k]); });
   S.querySelectorAll("[data-sstem]").forEach(b => b.onclick = () => {
     if (!steady()) return; const k = b.dataset.sstem;
-    if (k === "next") return caretInsert("nextstep", NEXT_STEMS[+b.dataset.k]);
     if (k === "answer") return caretInsert("para", CFG.answerStems[+b.dataset.k]);
     caretInsert("para", ROWS.find(r => r[0] === k)[3][+b.dataset.k]);
   });
@@ -230,7 +322,32 @@ function wire(){
     if (!steady()) return; const id = b.dataset.mk; A.mk[id] = +b.dataset.v; save();
     S.querySelectorAll('[data-mk="' + id + '"]').forEach(x => x.setAttribute("aria-pressed", +x.dataset.v === A.mk[id]));
   });
-  S.querySelectorAll("[data-self]").forEach(b => b.onclick = () => { if (!steady()) return; A.self[b.dataset.self] = b.dataset.v; save(); render(); });
+  S.querySelectorAll("[data-gostep]").forEach(b => b.onclick = () => { if (!steady()) return; go(STEPS.findIndex(x => x.id === b.dataset.gostep)); });
+  const sc = $("startCheck"); if (sc) sc.onclick = () => { if (!steady() || wc(A.txt.para) < 30) return; A.sa.orig = A.txt.para || ""; A.sa.phase = "check"; A.sa.lvl = 5; A.sa.done = false; A.sa.checkedAt = Date.now(); SEL = null; NOTYET = null; SAMSG = ""; save(); go(STEPS.findIndex(x => x.id === "check")); };
+  S.querySelectorAll("#ans [data-w]").forEach(el => {
+    el.onclick = () => tapWord(+el.dataset.w);
+    el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tapWord(+el.dataset.w); } };
+  });
+  S.querySelectorAll("[data-mark]").forEach(b => b.onclick = () => {
+    if (!steady()) return;
+    if (!SEL) { SAMSG = "Tap the words in your answer first, then press Mark it."; render(); return; }
+    A.sa.items[b.dataset.mark] = { s:"got", hl:[SEL.a, SEL.b], inAdded: SEL.b >= origCount(), at: Date.now() };
+    SEL = null; SAMSG = ""; save(); render();
+  });
+  S.querySelectorAll("[data-notyet]").forEach(b => b.onclick = () => { if (!steady()) return; NOTYET = b.dataset.notyet; SAMSG = ""; render(); });
+  S.querySelectorAll("[data-cancelnot]").forEach(b => b.onclick = () => { if (!steady()) return; NOTYET = null; SAMSG = ""; render(); });
+  S.querySelectorAll("[data-skip]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.items[b.dataset.skip] = { s:"skip", at: Date.now() }; NOTYET = null; save(); render(); });
+  S.querySelectorAll("[data-addgo]").forEach(b => b.onclick = () => {
+    if (!steady()) return; const id = b.dataset.addgo, t = (A.txt["add_" + id] || "").trim();
+    if (wc(t) < 3) { SAMSG = "Write at least 3 words, or choose Skip it."; render(); return; }
+    const start = aWords().length; A.txt.para = (A.txt.para || "").trim() + " " + t;
+    A.sa.items[id] = { s:"add", text:t, hl:[start, aWords().length - 1], at: Date.now() };
+    delete A.txt["add_" + id]; NOTYET = null; SAMSG = ""; save(); render();
+  });
+  S.querySelectorAll("[data-undoitem]").forEach(b => b.onclick = () => { if (!steady()) return; delete A.sa.items[b.dataset.undoitem]; save(); render(); });
+  S.querySelectorAll("[data-nextlvl]").forEach(b => b.onclick = () => { if (!steady()) return; if (A.sa.lvl < 9) A.sa.lvl++; else A.sa.done = true; NOTYET = null; SEL = null; SAMSG = ""; save(); render(); drawStrip(); });
+  S.querySelectorAll("[data-prevlvl]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.lvl = Math.max(5, A.sa.lvl - 1); NOTYET = null; SEL = null; save(); render(); });
+  S.querySelectorAll("[data-relevel]").forEach(b => b.onclick = () => { if (!steady()) return; A.sa.done = false; A.sa.lvl = 5; save(); render(); drawStrip(); });
   const pr = $("printBtn"); if (pr) pr.onclick = () => { graceUntil = Date.now() + 120000; buildPrint(); window.print(); graceUntil = Date.now() + 3000; };
   const copy = async t => { try { await navigator.clipboard.writeText(t); $("copied").textContent = "Copied."; } catch (e) { $("copied").textContent = "Copy did not work here. Use Print instead."; } };
   const cp = $("copyBtn"); if (cp) cp.onclick = () => copy(plainText());
@@ -246,9 +363,7 @@ function buildPrint(){
     <p><b>Supports used:</b> ${esc(supportsUsed())} &nbsp; <b>Time on the page:</b> about ${mins()} minutes</p>
     <h2>Stop and jot (my own marks: ${marksLine()})</h2>
     <table><tr><th>Question</th><th>My answer</th><th>Marks</th></tr>${ALLQ.map(q => `<tr><td>${esc(q.q)}</td><td>${esc(A.txt[q.id] || "")}</td><td>${A.mk[q.id] === undefined ? "" : A.mk[q.id] + " / " + q.m}</td></tr>`).join("")}</table>
-    <h2>${esc(SRC_Q)}</h2><div class="ans">${esc(A.txt.para || "(nothing written)")}</div>
-    <table><tr><th>Row</th><th>My level</th></tr>${ROWS.map(r => `<tr><td>${esc(r[1])}</td><td>${esc(A.self[r[0]] ? A.self[r[0]] + ": " + ((CONTINUUM[r[0]] && CONTINUUM[r[0]][A.self[r[0]]]) || "") : "not chosen")}</td></tr>`).join("")}</table>
-    <p><b>To move up one level I would:</b> ${esc((A.txt.nextstep || "").trim()) || "<i>(not written)</i>"}</p>
+    <h2>${esc(SRC_Q)}</h2>${A.sa.phase === "check" ? reportHTML() : `<div class="ans">${esc(A.txt.para || "(nothing written)")}</div><p>The check was not done.</p>`}
     <h2>Lesson log</h2><p>${FS ? `Left full screen or the page ${exits()} time${exits() === 1 ? "" : "s"}.` : "This browser has no full screen, so the lesson was not locked."}</p>
     ${exits() ? `<p>${logLines().map(esc).join("<br>")}</p>` : ""}
     <p style="font-size:9pt;color:#555">The marks and the levels are the student's own. Nothing on the page judged the writing.</p>`;
@@ -258,22 +373,23 @@ function plainText(){
     "Stop and jot, my own marks " + marksLine()]
     .concat(ALLQ.map(q => q.q + "\n  " + (A.txt[q.id] || "(nothing written)") + "\n  Marks: " + (A.mk[q.id] === undefined ? "not marked" : A.mk[q.id] + " / " + q.m)))
     .concat(["", SRC_Q, A.txt.para || "(nothing written)", ""])
-    .concat(ROWS.map(r => r[1] + ": " + (A.self[r[0]] || "not chosen")))
-    .concat(["To move up one level I would: " + ((A.txt.nextstep || "").trim() || "(not written)"),
-      "Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
+    .concat(A.sa.phase === "check" ? ROWS.map(r => r[1] + ": first answer " + lvlText(rowLevel(r[0], false)) + "; with what I added " + lvlText(rowLevel(r[0], true))) : ["The check was not done."])
+    .concat(A.sa.phase === "check" ? [""].concat(itemRows().map(({ L, it, st }) => "Level " + L + " | " + it.t + " | " + tagOf(st) + (st && st.hl ? " | highlighted: " + snippet(st) : ""))) : [])
+    .concat(["Left full screen or the page: " + (FS ? exits() + " times" : "no full screen in this browser")]).concat(logLines()).join("\n");
 }
 /* One tab-separated row for a shared sheet. Columns: name, date, minutes on the page, my marks for each
-   stop-and-jot question, their total, words in the source answer, my level for each row, times out of
-   full screen, next step, the answer. It cannot tell you whether any of it is good. */
+   stop-and-jot question, their total, words in the source answer, for each rubric row the level the first
+   answer reached and the level with additions (by the student's own ticks), items added, items skipped,
+   times out of full screen, the answer. It cannot tell you whether any of it is good. */
 function classRow(){
   const clean = t => String(t || "").replace(/[\t\r\n]+/g, " ").trim();
   return [clean(A.name), new Date().toLocaleDateString("en-AU"), mins()].concat(ALLQ.map(q => A.mk[q.id] === undefined ? "" : A.mk[q.id]))
-    .concat([jotMarks(), wc(A.txt.para)]).concat(ROWS.map(r => A.self[r[0]] || ""))
-    .concat([FS ? exits() : "no lock", clean(A.txt.nextstep), clean(A.txt.para)]).join("\t");
+    .concat([jotMarks(), wc(A.txt.para)]).concat(ROWS.flatMap(r => A.sa.phase === "check" ? [rowLevel(r[0], false) || "<5", rowLevel(r[0], true) || "<5"] : ["", ""]))
+    .concat([Object.values(A.sa.items).filter(x => x.s === "add").length, Object.values(A.sa.items).filter(x => x.s === "skip").length, FS ? exits() : "no lock", clean(A.txt.para)]).join("\t");
 }
 
 $("readPage").onclick = () => { if (!steady()) return; if (reading) stopReading(); else readEls(readPageEls()); };
-A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup); A.used = A.used || {}; A.self = A.self || {}; A.chk = A.chk || {}; A.mk = A.mk || {};
+A.sup = Object.assign({ big:false, read:false, mic:false }, A.sup); A.used = A.used || {}; A.chk = A.chk || {}; A.mk = A.mk || {};
 setZoom(A.zoom); applyTint(); applySupports(); setReadUI();
 render();
 if (A.sup.mic && SR) openMic();

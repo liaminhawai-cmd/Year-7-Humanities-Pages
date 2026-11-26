@@ -22,6 +22,23 @@ const extra = `
   textarea.short{min-height:110px}
   .grp{margin:10px 0 0}.grp .lab{font-weight:800;margin:0 0 6px}
   .tot{font-weight:800;font-size:22px}
+  /* check it: the student's own answer, words tappable, highlights in the rubric row's colour */
+  .ansbox{border:2px solid var(--line);border-radius:12px;background:#fff;padding:14px 16px;line-height:2.2;white-space:pre-wrap}
+  .w{cursor:pointer;border-radius:3px;padding:2px 1px}
+  .w:hover{outline:2px solid #2c7488}
+  .w.sel{outline:3px solid #2c7488;background:#cfe9f2}
+  body.bigui .w{padding:8px 3px}
+  .added{font-style:italic;border-top:2px dashed #555}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:15px;margin:0 0 12px}
+  .legend .lg{padding:2px 8px;border-radius:4px}
+  table.rep{width:100%;border-collapse:collapse;margin:12px 0}
+  table.rep th,table.rep td{border:2px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  .g-answer{margin:10px 0 0}
+  @media print{
+    #print *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    #print .added{font-style:italic;border-top:1.5px dashed #000}
+    #print .legend{display:block;font-size:9pt} #print .legend .lg{margin-right:8pt;display:inline-block}
+  }
   /* phone width: the shared template's header and bottom bar were sized by their widest row, so the
      page scrolled sideways. Let the rows wrap instead. */
   body{grid-template-columns:minmax(0,1fr)!important}
