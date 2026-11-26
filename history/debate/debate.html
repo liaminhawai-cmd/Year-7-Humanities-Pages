@@ -18,6 +18,8 @@
     so every argument gets answered and every speaker gets one rebuttal. It can be switched off.
   - Both teams give the same number of arguments. If a team has fewer people, someone speaks twice (marked x2).
 
+  Speakers name each other: the rebuttal starter says "<name> said that…", planned rebuttals that start "They said"
+  use the name of the speaker being answered, and changing a name swaps it in every planned box.
   Two debates: the lesson's (Qin Shi Huang) and a demo (Batman) with two arguments a side, and the rebuttals to
   them, already planned as dot points; the third argument and its answer are left for the class. Each keeps its own topic and ideas, so switching loses nothing.
   Edit the text in the DATA block below. Names, the topic and the settings are saved in this browser only
@@ -146,20 +148,23 @@ body.view-run #stage{display:none}
 .brb b{font-weight:800}
 .bnone{color:var(--muted);font-weight:700}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-dialog#spk{border:0;background:transparent;padding:0;width:min(820px,96vw);max-width:none;max-height:92vh;overflow:visible;color:var(--ink)}
+dialog#spk{border:0;background:transparent;padding:0;width:min(1280px,96vw);max-width:none;max-height:94vh;overflow:visible;color:var(--ink)}
 dialog#spk::backdrop{background:rgba(29,43,47,.55)}
 .spkWrap{display:flex;gap:16px;align-items:center}
 .spkWrap.B{flex-direction:row-reverse}
-.spkFig2{flex:0 0 170px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.spkFig2{flex:0 0 190px;display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:3px solid var(--tc);border-radius:18px;padding:12px 10px}
+.spkFig2 .fig{width:90px;height:140px}
 .spkFig2 input{width:100%;height:40px;padding:4px 8px;border:2px solid var(--tc);border-radius:8px;background:#fff;text-align:center;font-weight:700}
-.spkBubble{position:relative;flex:1 1 0;min-width:0;background:#fff;border:3px solid var(--tc);border-radius:24px;padding:14px 18px;max-height:88vh;display:flex;flex-direction:column;margin:0 14px}
+.spkBubble{position:relative;flex:1 1 0;min-width:0;background:#fff;border:3px solid var(--tc);border-radius:26px;padding:18px 24px;max-height:90vh;display:flex;flex-direction:column;margin:0 14px;font-size:20px}
+.spkBubble label{font-size:18px}
+.spkBubble textarea{min-height:150px;font-size:21px;line-height:1.5;overflow:hidden;resize:none}
 .spkScroll{overflow:auto;min-height:0;padding:6px}
 .spkBubble::before,.spkBubble::after{content:"";position:absolute;top:60px;border:12px solid transparent}
 .spkWrap.A .spkBubble::before{left:-18px;border-left:0;border-right-color:var(--tc)}
 .spkWrap.A .spkBubble::after{left:-13px;border-left:0;border-right-color:#fff}
 .spkWrap.B .spkBubble::before{right:-18px;border-right:0;border-left-color:var(--tc)}
 .spkWrap.B .spkBubble::after{right:-13px;border-right:0;border-left-color:#fff}
-.spkBubble h2{color:var(--tc);margin:0 0 8px}
+.spkBubble h2{color:var(--tc);margin:0 0 10px;font-size:24px}
 .spkBubble .foot{display:flex;justify-content:flex-end;margin-top:4px}
 @media screen and (max-width:860px){
   #stage{overflow:visible} #court{overflow:visible;grid-template-columns:minmax(0,1fr)}
@@ -282,7 +287,7 @@ const PARTS = {
     stems: ["Today's topic is: {motion}", "Our team {stand} with this topic.", "To commemorate someone means to honour and remember them, for example with a statue, a museum or a special day.", "Our team will show that…"] },
   reb: { name: "Rebuttal", glyph: "◆",
     who: "Answer the speaker before you",
-    stems: ["They said that…", "But…", "In fact, the evidence shows…", "So their point does not work, because…"] },
+    stems: ["{prev} said that…", "But…", "In fact, the evidence shows…", "So their point does not work, because…"] },
   arg: { name: "Argument", glyph: "■",
     who: "Your one argument",
     stems: ["We think… because…", "For example,…", "This shows that…"] }
@@ -304,11 +309,25 @@ let S = { mode: "real", modes: {}, teamA: DEFAULTS.teamA, teamB: DEFAULTS.teamB,
           namesA: [], namesB: [], reply: DEFAULTS.reply, secs: Object.assign({}, DEFAULTS.secs), sound: DEFAULTS.sound, turn: 0, big: false, view: "teams" };
 try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) S = Object.assign(S, x, { secs: Object.assign({}, DEFAULTS.secs, x.secs || {}) }); } catch (e) {}
 const IDEA_KEYS = ["A", "B", "rebA", "rebB"];
-const fresh = k => ({ motion: MODES[k].motion, ideas: Object.fromEntries(IDEA_KEYS.map(x => [x, MODES[k].ideas[x].slice()])) });
+const fresh = k => ({ motion: MODES[k].motion, ideas: nameTheySaid(Object.fromEntries(IDEA_KEYS.map(x => [x, MODES[k].ideas[x].slice()]))) });
+/* Names in the planned boxes. rebA[k] answers Team B's argument k; rebB[k] answers Team A's argument k. */
+function answered(key, k){ return key === "rebA" ? speakerName("B", k % S.sizeB) : speakerName("A", k % S.sizeA); }
+function nameTheySaid(ideas){
+  for (const key of ["rebA", "rebB"]) ideas[key] = (ideas[key] || []).map((txt, k) => (txt || "").replace(/^(\s*[-•*]?\s*)They said\b/gm, (m, pre) => pre + answered(key, k) + " said"));
+  return ideas;
+}
+const reEsc = x => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function renameEverywhere(from, to){
+  if (!from || !to || from === to || from.trim().length < 2) return;
+  const re = new RegExp("(^|[^\\w])" + reEsc(from) + "(?![\\w])", "g");
+  for (const m of Object.values(S.modes)) for (const key of IDEA_KEYS) m.ideas[key] = (m.ideas[key] || []).map(t => (t || "").replace(re, (x, p) => p + to));
+  save();
+}
 for (const k of Object.keys(MODES)) {
   if (!S.modes[k]) S.modes[k] = fresh(k);
   S.modes[k].ideas = S.modes[k].ideas || {};
   for (const x of IDEA_KEYS) if (!Array.isArray(S.modes[k].ideas[x])) S.modes[k].ideas[x] = fresh(k).ideas[x];   /* saved before rebuttals existed */
+  nameTheySaid(S.modes[k].ideas);   /* rebuttals saved as "They said…" now name the speaker */
 }
 if (typeof S.motion === "string") { S.modes.real.motion = S.motion; delete S.motion; }   /* a topic saved before there were two debates */
 if (!MODES[S.mode]) S.mode = "real";
@@ -394,7 +413,9 @@ function openSpeaker(T, i){
     bx.map((b, n) => `<div class="idea"><label for="spkTa${n}">${esc(b.label)}</label><textarea id="spkTa${n}" data-idea="${b.key}" data-k="${b.k}" placeholder="Dot points, one per line" ${n === 0 ? "autofocus" : ""}>${esc(M().ideas[b.key][b.k] || "")}</textarea></div>`).join("") +
     `</div><div class="foot"><button type="button" class="primary" id="spkDone">Done</button></div></div></div>`;
   $("spk").showModal();
+  document.querySelectorAll("#spk textarea").forEach(growBox);
 }
+function growBox(ta){ ta.style.height = "auto"; ta.style.height = Math.max(150, ta.scrollHeight + 4) + "px"; }
 function drawRules(){
   const n = Math.max(S.sizeA, S.sizeB);
   $("rules").innerHTML = [
@@ -419,7 +440,7 @@ function drawOrder(){
 }
 function drawNow(){
   const T = turns(), t = T[S.turn], prev = T[S.turn - 1];
-  const fill = s => s.replace("{motion}", M().motion || "…").replace("{stand}", stand(t.team));
+  const fill = s => s.replace("{motion}", M().motion || "…").replace("{stand}", stand(t.team)).replace("{prev}", prev ? speakerName(prev.team, prev.slot) : "They");
   const raw = p => p === "arg" ? (M().ideas[t.team][t.k] || "") : p === "reb" ? (() => { const [key, k] = rebKey(t); return k >= 0 ? (M().ideas[key][k] || "") : ""; })() : "";
   const lines = p => raw(p).split("\n").map(x => x.replace(/^\s*[-•*]\s*/, "").trim()).filter(Boolean);
   const dots = p => { if (p !== "arg" && p !== "reb") return ""; const L = lines(p), what = p === "arg" ? "argument" : "rebuttal";
@@ -504,7 +525,25 @@ $("spk").addEventListener("input", e => {
   const el = e.target;
   if (el.id === "spkName" && spk) { const arr = spk.T === "A" ? S.namesA : S.namesB; arr[spk.i] = el.value; save();
     const f = document.querySelector(`[data-name="${spk.T}"][data-i="${spk.i}"]`); if (f) f.value = el.value; drawOrder(); drawNow(); refreshBubbles(); }
-  else if (el.dataset.idea) { M().ideas[el.dataset.idea][+el.dataset.k] = el.value; save(); drawNow(); refreshBubbles(); }
+  else if (el.dataset.idea) { M().ideas[el.dataset.idea][+el.dataset.k] = el.value; growBox(el); save(); drawNow(); refreshBubbles(); }
+});
+let nameWho = null, nameWas = null;
+function nameTarget(el){
+  if (!el || !el.dataset) return null;
+  if (el.dataset.name !== undefined && el.dataset.i !== undefined) return { T: el.dataset.name, i: +el.dataset.i };
+  if (el.id === "spkName" && spk) return { T: spk.T, i: spk.i };
+  return null;
+}
+document.addEventListener("focusin", e => { const w = nameTarget(e.target); nameWho = w; nameWas = w ? speakerName(w.T, w.i) : null; });
+document.addEventListener("change", e => {
+  if (!nameWho || nameWas === null || !(e.target.dataset && (e.target.dataset.name !== undefined || e.target.id === "spkName"))) return;
+  const now = speakerName(nameWho.T, nameWho.i);
+  if (now !== nameWas) {
+    renameEverywhere(nameWas, now);
+    drawNow(); refreshBubbles(); drawOrder();
+    document.querySelectorAll("#spk textarea[data-idea]").forEach(ta => { ta.value = M().ideas[ta.dataset.idea][+ta.dataset.k] || ""; growBox(ta); });
+  }
+  nameWas = now;
 });
 let spkDown = null;
 $("spk").addEventListener("mousedown", e => { spkDown = e.target; });
