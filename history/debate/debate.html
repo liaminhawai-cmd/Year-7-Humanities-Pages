@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Debate: speaking order and timer</title>
 <!--
-  Year 7 debate structure tool. Type a topic (it starts with the Qin Shi Huang one), set how many speakers
-  each team has, type names if you like, then run the debate turn by turn with a timer and sentence
+  Year 7 debate structure tool. Type a topic (it starts with the Qin Shi Huang one). The Teams view is a stage: set how many speakers
+  each team has, type each name under its stick figure, and click a speech bubble to plan that speaker's argument
+  and rebuttal. The Run view runs the debate turn by turn with a timer and sentence
   starters for each part of the turn.
 
   The rules (kept simple for Year 7, adapted from the ELC debate structure):
@@ -17,8 +18,8 @@
     so every argument gets answered and every speaker gets one rebuttal. It can be switched off.
   - Both teams give the same number of arguments. If a team has fewer people, someone speaks twice (marked x2).
 
-  Two debates: the lesson's (Qin Shi Huang) and a demo (Batman) with two arguments a side already planned as dot
-  points and the third left for the class. Each keeps its own topic and ideas, so switching loses nothing.
+  Two debates: the lesson's (Qin Shi Huang) and a demo (Batman) with two arguments a side, and the rebuttals to
+  them, already planned as dot points; the third argument and its answer are left for the class. Each keeps its own topic and ideas, so switching loses nothing.
   Edit the text in the DATA block below. Names, the topic and the settings are saved in this browser only
   (localStorage), never sent anywhere. One self-contained file: no internet needed.
 -->
@@ -31,7 +32,7 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--paper);color:var(--ink);font:17px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
-button,input,select{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
 button{min-height:40px;border:2px solid var(--line);background:#fff;border-radius:10px;padding:4px 12px;cursor:pointer;font-weight:700}
 button:hover{border-color:var(--sel)}
 button.primary{background:var(--sel);color:#fff;border-color:var(--sel)}
@@ -41,8 +42,9 @@ button:disabled{opacity:.45;cursor:default}
 header{background:var(--sel);color:#fff;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 header h1{font-size:20px;margin:0;white-space:nowrap}
 header label{font-weight:700;font-size:15px;opacity:.9}
-#motion{flex:1 1 420px;min-width:0;font-size:20px;font-weight:700;padding:6px 10px;border-radius:8px;border:2px solid #fff;background:#fff;color:var(--ink)}
+#motion{flex:1 1 260px;min-width:0;font-size:20px;font-weight:700;padding:6px 10px;border-radius:8px;border:2px solid #fff;background:#fff;color:var(--ink)}
 header .hbtn{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+body.view-teams #bigBtn{display:none}
 main{display:grid;grid-template-columns:380px minmax(0,1fr);gap:14px;padding:12px 16px;min-height:0}
 body.big main{grid-template-columns:minmax(0,1fr)}
 body.big #setup{display:none}
@@ -51,15 +53,9 @@ h2{font-size:17px;margin:0 0 8px}
 .quick{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
 .team{border-left:6px solid;padding:4px 0 6px 10px;margin:0 0 12px}
 .team.A{border-color:var(--teamA)} .team.B{border-color:var(--teamB)}
-.team .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.team .tname{width:150px;font-weight:800;padding:4px 6px;border:2px solid var(--line);border-radius:8px}
 .stepper{display:inline-flex;align-items:center;gap:4px}
 .stepper button{min-width:40px;padding:0}
 .stepper output{min-width:26px;text-align:center;font-weight:800}
-.names{list-style:none;margin:6px 0 0;padding:0}
-.names li{display:flex;gap:4px;align-items:center;margin:0 0 4px}
-.names input{flex:1;min-width:0;padding:5px 8px;border:2px solid var(--line);border-radius:8px}
-.names button{min-width:40px;padding:0}
 .opts label{display:flex;gap:8px;align-items:center;margin:4px 0}
 .opts input[type=number]{width:70px;padding:4px 6px;border:2px solid var(--line);border-radius:8px}
 .opts input[type=checkbox]{width:22px;height:22px}
@@ -104,16 +100,85 @@ body.big .part{font-size:22px}
 .links a{display:block;margin:3px 0;color:var(--sel);font-weight:700}
 .modes{display:inline-flex;gap:6px}
 header .hbtn[aria-pressed="true"]{background:#fff;color:var(--sel);border-color:#fff}
-.idea{margin:0 0 8px}
-.idea label{display:block;font-weight:700;font-size:14px;margin:0 0 2px}
-.idea textarea{width:100%;min-height:64px;padding:6px 8px;border:2px solid var(--line);border-radius:8px;font:inherit;font-size:15px;resize:vertical}
-.ideasTeam{border-left:6px solid;padding:2px 0 2px 10px;margin:0 0 10px}
-.ideasTeam.A{border-color:var(--teamA)} .ideasTeam.B{border-color:var(--teamB)}
+.idea{margin:0 0 10px}
+.idea label{display:block;font-weight:700;font-size:15px;margin:0 0 3px}
+.idea textarea{width:100%;min-height:96px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;font:inherit;font-size:17px;resize:vertical}
 .dots{margin:6px 0 0;padding:8px 12px;background:#fff;border-radius:8px;border:2px solid var(--arg)}
 .dots b{display:block;font-size:14px;color:var(--arg)}
 .dots.todo{border-style:dashed;color:var(--muted)}
+.dots.reb{border-color:var(--reb)} .dots.reb b{color:var(--reb)}
 body.big .dots{font-size:22px}
 .demoNote{font-size:13px;font-weight:800;background:#fff2c9;color:#7a5a00;border-radius:6px;padding:0 6px;margin-left:6px}
+/* the Teams stage */
+body.view-teams main{grid-template-columns:minmax(0,1fr)}
+body.view-teams #setup,body.view-teams #run{display:none}
+body.view-run #stage{display:none}
+#stage{display:flex;flex-direction:column;padding:0;overflow:hidden}
+.stageTop{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 14px;border-bottom:2px solid var(--line)}
+.stageTop .quick{margin:0}
+#court{flex:1 1 0;min-height:0;overflow:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;padding:0 14px 10px}
+.A{--tc:var(--teamA)} .B{--tc:var(--teamB)}
+.side{padding:0 14px}
+.side.A{border-right:3px dashed var(--line)}
+.sideHead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--tc);font-weight:800;padding:8px 0;position:sticky;top:0;background:var(--card);z-index:2}
+.sideHead .tname{width:140px;height:40px;font-weight:800;padding:4px 8px;border:2px solid var(--tc);border-radius:8px;color:var(--tc);background:#fff}
+.spk{display:flex;gap:6px;align-items:center;margin:0 0 8px}
+.side.B .spk{flex-direction:row-reverse}
+.spkFig{flex:0 0 196px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.fig{color:var(--tc);display:block;flex:none}
+.side.B .fig,.spkWrap.B .fig{transform:scaleX(-1)}
+.nrow{display:flex;gap:2px;align-items:center;width:100%}
+.nrow input{flex:1;min-width:0;height:40px;padding:4px 8px;border:2px solid var(--line);border-radius:8px;border-bottom-color:var(--tc)}
+.nrow button{min-width:40px;width:40px;padding:0}
+.bubble{position:relative;flex:1 1 0;min-width:0;margin:0 14px;min-height:96px;text-align:left;background:#fff;border:2px solid var(--tc);border-radius:18px;padding:8px 14px;font-weight:400;font-size:15px;line-height:1.35;display:flex;flex-direction:column;justify-content:center;gap:2px;cursor:pointer}
+.bubble:hover{border-color:var(--tc);background:#fafcfd;box-shadow:0 0 0 2px var(--tc)}
+.bubble::before,.bubble::after{content:"";position:absolute;top:50%;margin-top:-10px;border:10px solid transparent}
+.side.A .bubble::before{left:-13px;border-left:0;border-right-color:var(--tc)}
+.side.A .bubble::after{left:-9px;border-left:0;border-right-color:#fff}
+.side.B .bubble::before{right:-13px;border-right:0;border-left-color:var(--tc)}
+.side.B .bubble::after{right:-9px;border-right:0;border-left-color:#fff}
+.bubble:hover::after{border-right-color:#fafcfd;border-left-color:#fafcfd}
+.side.A .bubble:hover::after{border-left-color:transparent}
+.side.B .bubble:hover::after{border-right-color:transparent}
+.bl{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bl::before{content:"• "}
+.brb{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;color:var(--reb);border-top:1px dashed var(--reb);margin-top:3px;padding-top:2px}
+.brb b{font-weight:800}
+.bnone{color:var(--muted);font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+dialog#spk{border:0;background:transparent;padding:0;width:min(820px,96vw);max-width:none;max-height:92vh;overflow:visible;color:var(--ink)}
+dialog#spk::backdrop{background:rgba(29,43,47,.55)}
+.spkWrap{display:flex;gap:16px;align-items:center}
+.spkWrap.B{flex-direction:row-reverse}
+.spkFig2{flex:0 0 170px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.spkFig2 input{width:100%;height:40px;padding:4px 8px;border:2px solid var(--tc);border-radius:8px;background:#fff;text-align:center;font-weight:700}
+.spkBubble{position:relative;flex:1 1 0;min-width:0;background:#fff;border:3px solid var(--tc);border-radius:24px;padding:14px 18px;max-height:88vh;display:flex;flex-direction:column;margin:0 14px}
+.spkScroll{overflow:auto;min-height:0;padding:6px}
+.spkBubble::before,.spkBubble::after{content:"";position:absolute;top:60px;border:12px solid transparent}
+.spkWrap.A .spkBubble::before{left:-18px;border-left:0;border-right-color:var(--tc)}
+.spkWrap.A .spkBubble::after{left:-13px;border-left:0;border-right-color:#fff}
+.spkWrap.B .spkBubble::before{right:-18px;border-right:0;border-left-color:var(--tc)}
+.spkWrap.B .spkBubble::after{right:-13px;border-right:0;border-left-color:#fff}
+.spkBubble h2{color:var(--tc);margin:0 0 8px}
+.spkBubble .foot{display:flex;justify-content:flex-end;margin-top:4px}
+@media screen and (max-width:860px){
+  #stage{overflow:visible} #court{overflow:visible;grid-template-columns:minmax(0,1fr)}
+  .side.A{border-right:0;border-bottom:3px dashed var(--line);padding-bottom:6px}
+  .sideHead{position:static}
+}
+@media screen and (max-width:620px){
+  #court{padding:0 8px 10px} .side{padding:0 4px}
+  .spk,.side.B .spk{flex-wrap:wrap;flex-direction:row}
+  .spkFig{flex:1 1 100%;flex-direction:row;gap:8px}
+  .side.B .spkFig{flex-direction:row-reverse}
+  .fig{width:36px;height:58px}
+  .bubble{flex:1 1 100%;margin:8px 0 0}
+  .bubble::before,.bubble::after{display:none}
+  .spkWrap,.spkWrap.B{flex-direction:column}
+  .spkFig2{flex:none;width:100%;flex-direction:row}
+  .spkBubble{margin:0;width:100%;max-height:78vh}
+  .spkBubble::before,.spkBubble::after{display:none}
+}
 #printOrder{display:none}
 @media screen and (max-width:860px){
   body{overflow:auto;display:block}
@@ -138,23 +203,24 @@ body.big .dots{font-size:22px}
   <span class="modes" role="group" aria-label="Which debate"><button type="button" class="hbtn" data-mode="real">Qin Shi Huang</button><button type="button" class="hbtn" data-mode="demo">Demo: Batman</button></span>
   <label for="motion">Topic</label>
   <input id="motion" type="text" autocomplete="off" aria-label="The debate topic">
+  <span class="modes" role="group" aria-label="View"><button type="button" class="hbtn" data-view="teams" aria-pressed="true">Teams</button><button type="button" class="hbtn" data-view="run" aria-pressed="false">Run</button></span>
   <button type="button" class="hbtn" id="resetMotion" title="Put back the starting topic and ideas for this debate">Reset</button>
   <button type="button" class="hbtn" id="bigBtn" aria-pressed="false">Big view</button>
   <button type="button" class="hbtn" id="printBtn">Print the order</button>
 </header>
 <main>
-  <section class="panel" id="setup" aria-label="Set up the debate">
-    <h2>Teams</h2>
-    <div class="quick" role="group" aria-label="Quick sizes">
-      <button type="button" data-quick="1">1 v 1</button>
-      <button type="button" data-quick="2">2 v 2</button>
-      <button type="button" data-quick="3">3 v 3</button>
-      <button type="button" data-quick="4">4 v 4</button>
+  <section class="panel" id="stage" aria-label="Teams">
+    <div class="stageTop">
+      <div class="quick" role="group" aria-label="Quick sizes">
+        <button type="button" data-quick="1">1 v 1</button>
+        <button type="button" data-quick="2">2 v 2</button>
+        <button type="button" data-quick="3">3 v 3</button>
+        <button type="button" data-quick="4">4 v 4</button>
+      </div>
     </div>
-    <div id="teams"></div>
-    <h2>Argument ideas</h2>
-    <p class="note">Dot points for each argument, one per line. They show on the screen when that argument comes up.</p>
-    <div id="ideas"></div>
+    <div id="court"></div>
+  </section>
+  <section class="panel" id="setup" aria-label="Set up the debate">
     <h2>Settings</h2>
     <div class="opts">
       <label><input type="checkbox" id="optReply"> Final reply (Team <span class="nmA"></span>'s first speaker answers the last argument)</label>
@@ -174,6 +240,7 @@ body.big .dots{font-size:22px}
     <div class="panel"><h2>Speaking order</h2><div class="legend" id="legend"></div><ol class="order" id="order"></ol></div>
   </section>
 </main>
+<dialog id="spk" aria-label="Plan a speaker"></dialog>
 <div id="printOrder"></div>
 
 <script>
@@ -183,7 +250,7 @@ body.big .dots{font-size:22px}
    edits in this browser. */
 const MODES = {
   real: { label: "Qin Shi Huang", motion: "We should commemorate Qin Shi Huang.",
-    ideas: { A: ["", "", ""], B: ["", "", ""] } },
+    ideas: { A: ["", "", ""], B: ["", "", ""], rebA: ["", "", ""], rebB: ["", "", ""] } },
   demo: { label: "Demo: Batman", motion: "Should the people of Gotham commemorate Batman?",
     ideas: {
       A: ["He has kept Gotham safe for years\nHe catches criminals the police cannot catch\nExample: the police shine the Bat-Signal when they need his help\nThis shows the city depends on him",
@@ -191,7 +258,15 @@ const MODES = {
           ""],
       B: ["He breaks the law to fight crime\nNobody voted for him, and he answers to no one\nExample: he hides his face behind a mask and works in secret\nThis shows a statue would honour someone who ignores the rules",
           "His fights put ordinary people in danger\nBattles happen in busy streets\nExample: cars, buildings and shops get wrecked when he chases villains\nThis shows the people of Gotham pay a price for his war on crime",
-          ""] } }
+          ""],
+      /* rebA[k]: Team For answers Team Against's argument k. rebB[k]: Team Against answers Team For's argument k.
+         The answers to each team's third argument are left for the class, like the third arguments. */
+      rebA: ["They said he breaks the law\nBut he only stops criminals and hands them to the police\nSo he works with the law, not against it",
+             "They said his fights put people in danger\nBut the villains start those fights, not him\nSo Gotham would be more dangerous without him",
+             ""],
+      rebB: ["They said he keeps Gotham safe\nBut crime is still everywhere in Gotham, year after year\nSo he has not fixed the problem; the city needs police it can trust",
+             "They said he gives people hope\nBut it teaches people to wait for someone else to save them\nSo a statue should honour people who help openly, like firefighters",
+             ""] } }
 };
 const DEFAULTS = {
   teamA: "For", teamB: "Against",
@@ -226,12 +301,18 @@ const KEY = "y7debate.v1";
 const $ = id => document.getElementById(id);
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
 let S = { mode: "real", modes: {}, teamA: DEFAULTS.teamA, teamB: DEFAULTS.teamB, sizeA: DEFAULTS.sizeA, sizeB: DEFAULTS.sizeB,
-          namesA: [], namesB: [], reply: DEFAULTS.reply, secs: Object.assign({}, DEFAULTS.secs), sound: DEFAULTS.sound, turn: 0, big: false };
+          namesA: [], namesB: [], reply: DEFAULTS.reply, secs: Object.assign({}, DEFAULTS.secs), sound: DEFAULTS.sound, turn: 0, big: false, view: "teams" };
 try { const x = JSON.parse(localStorage.getItem(KEY)); if (x) S = Object.assign(S, x, { secs: Object.assign({}, DEFAULTS.secs, x.secs || {}) }); } catch (e) {}
-const fresh = k => ({ motion: MODES[k].motion, ideas: { A: MODES[k].ideas.A.slice(), B: MODES[k].ideas.B.slice() } });
-for (const k of Object.keys(MODES)) { if (!S.modes[k]) S.modes[k] = fresh(k); S.modes[k].ideas = S.modes[k].ideas || fresh(k).ideas; }
+const IDEA_KEYS = ["A", "B", "rebA", "rebB"];
+const fresh = k => ({ motion: MODES[k].motion, ideas: Object.fromEntries(IDEA_KEYS.map(x => [x, MODES[k].ideas[x].slice()])) });
+for (const k of Object.keys(MODES)) {
+  if (!S.modes[k]) S.modes[k] = fresh(k);
+  S.modes[k].ideas = S.modes[k].ideas || {};
+  for (const x of IDEA_KEYS) if (!Array.isArray(S.modes[k].ideas[x])) S.modes[k].ideas[x] = fresh(k).ideas[x];   /* saved before rebuttals existed */
+}
 if (typeof S.motion === "string") { S.modes.real.motion = S.motion; delete S.motion; }   /* a topic saved before there were two debates */
 if (!MODES[S.mode]) S.mode = "real";
+if (S.view !== "run") S.view = "teams";
 const M = () => S.modes[S.mode];
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
@@ -256,28 +337,64 @@ function turns(){
   return out;
 }
 const teamName = t => t === "A" ? S.teamA : S.teamB;
+/* the rebuttal a turn gives: B's turn k answers A's argument k; A's turn k answers B's argument k-1; the final reply answers B's last */
+function rebKey(t){ const n = Math.max(S.sizeA, S.sizeB); return t.team === "B" ? ["rebB", t.k] : ["rebA", t.reply ? n - 1 : t.k - 1]; }
 const stand = t => t === "A" ? "agrees" : "disagrees";
 
-/* ---------- set-up panel ---------- */
-function drawTeams(){
-  const one = t => {
-    const size = t === "A" ? S.sizeA : S.sizeB, names = t === "A" ? S.namesA : S.namesB;
-    return `<div class="team ${t}"><div class="row">
-        <input class="tname" data-tname="${t}" value="${esc(teamName(t))}" aria-label="Name of team ${t === "A" ? "one" : "two"}">
-        <span>${t === "A" ? "agrees" : "disagrees"}</span>
-        <span class="stepper" role="group" aria-label="Speakers in Team ${esc(teamName(t))}"><button type="button" data-size="${t}" data-d="-1" aria-label="One fewer speaker">−</button><output>${size}</output><button type="button" data-size="${t}" data-d="1" aria-label="One more speaker">+</button></span></div>
-      <ol class="names">${Array.from({ length: size }, (_, i) => `<li><input data-name="${t}" data-i="${i}" value="${esc(names[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(t))} speaker ${i + 1} name"><button type="button" data-move="${t}" data-i="${i}" data-d="-1" aria-label="Move up" ${i === 0 ? "disabled" : ""}>↑</button><button type="button" data-move="${t}" data-i="${i}" data-d="1" aria-label="Move down" ${i === size - 1 ? "disabled" : ""}>↓</button></li>`).join("")}</ol></div>`;
+/* ---------- the Teams stage ---------- */
+const sizeOf = t => t === "A" ? S.sizeA : S.sizeB;
+const dotLines = x => String(x || "").split("\n").map(l => l.replace(/^\s*[-•*]\s*/, "").trim()).filter(Boolean);
+/* a speaker's boxes, in the order they speak: an argument for each argument turn, a rebuttal for each rebuttal turn (final reply included) */
+function planOf(T, i){
+  const out = [];
+  turns().filter(t => t.team === T && t.slot === i).forEach(t => t.parts.forEach(p => {
+    if (p === "arg") out.push({ kind: "arg", key: T, k: t.k, label: "Argument " + (t.k + 1) });
+    if (p === "reb") { const [key, k] = rebKey(t); if (k < 0) return; const o = key === "rebA" ? "B" : "A";
+      out.push({ kind: "reb", key, k, label: "Rebuttal" + (t.reply ? " (final reply)" : "") + ": answer to " + speakerName(o, k % sizeOf(o)) + "'s argument" }); }
+  }));
+  return out;
+}
+function figSVG(){
+  return '<svg class="fig" viewBox="0 0 60 96" width="56" height="88" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="14" r="11" fill="#fff"/><path d="M30 25V62M30 36L13 54M30 36L47 44M30 62L16 92M30 62L44 92"/><path d="M33 19Q37 22 40 18" stroke-width="2.5"/></g><circle cx="35" cy="12" r="2" fill="currentColor"/></svg>';
+}
+function bubbleHTML(T, i){
+  const bx = planOf(T, i), idea = b => M().ideas[b.key][b.k];
+  const args = bx.filter(b => b.kind === "arg").flatMap(b => dotLines(idea(b)));
+  const reb = bx.filter(b => b.kind === "reb").map(b => dotLines(idea(b))[0]).find(Boolean);
+  return `<span class="sr">Plan ${esc(speakerName(T, i))}: </span>` +
+    (args.length ? args.slice(0, 3).map(l => `<span class="bl">${esc(l)}</span>`).join("") : `<span class="bnone">Tap to plan</span>`) +
+    (reb ? `<span class="brb"><b>Rebuttal</b> ${esc(reb)}</span>` : "");
+}
+function refreshBubbles(){ document.querySelectorAll("#court .bubble").forEach(b => { b.innerHTML = bubbleHTML(b.dataset.bubble, +b.dataset.slot); }); }
+function drawStage(){
+  const side = T => {
+    const size = sizeOf(T), names = T === "A" ? S.namesA : S.namesB;
+    return `<section class="side ${T}" aria-label="Team ${esc(teamName(T))}"><div class="sideHead"><span>Team</span>
+        <input class="tname" data-tname="${T}" value="${esc(teamName(T))}" aria-label="Name of team ${T === "A" ? "one" : "two"}">
+        <span>${stand(T)}</span>
+        <span class="stepper" role="group" aria-label="Speakers in Team ${esc(teamName(T))}"><button type="button" data-size="${T}" data-d="-1" aria-label="One fewer speaker">−</button><output>${size}</output><button type="button" data-size="${T}" data-d="1" aria-label="One more speaker">+</button></span></div>` +
+      Array.from({ length: size }, (_, i) => `<div class="spk"><div class="spkFig">${figSVG()}<div class="nrow"><input data-name="${T}" data-i="${i}" value="${esc(names[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(T))} speaker ${i + 1} name"><button type="button" data-move="${T}" data-i="${i}" data-d="-1" aria-label="Move up" ${i === 0 ? "disabled" : ""}>↑</button><button type="button" data-move="${T}" data-i="${i}" data-d="1" aria-label="Move down" ${i === size - 1 ? "disabled" : ""}>↓</button></div></div>
+        <button type="button" class="bubble" data-bubble="${T}" data-slot="${i}">${bubbleHTML(T, i)}</button></div>`).join("") + `</section>`;
   };
-  $("teams").innerHTML = one("A") + one("B");
+  $("court").innerHTML = side("A") + side("B");
   document.querySelectorAll(".nmA").forEach(e => e.textContent = S.teamA);
   document.querySelectorAll("[data-quick]").forEach(b => b.setAttribute("aria-pressed", S.sizeA === +b.dataset.quick && S.sizeB === +b.dataset.quick));
 }
-function drawIdeas(){
-  const n = Math.max(S.sizeA, S.sizeB);
-  const one = t => `<div class="ideasTeam ${t}"><b>Team ${esc(teamName(t))}</b>${Array.from({ length: n }, (_, k) => `<div class="idea"><label for="idea${t}${k}">Argument ${k + 1} · ${esc(speakerName(t, k % (t === "A" ? S.sizeA : S.sizeB)))}</label><textarea id="idea${t}${k}" data-idea="${t}" data-k="${k}" placeholder="Not planned yet">${esc(M().ideas[t][k] || "")}</textarea></div>`).join("")}</div>`;
-  $("ideas").innerHTML = one("A") + one("B");
+function drawView(){
+  document.body.classList.toggle("view-teams", S.view === "teams"); document.body.classList.toggle("view-run", S.view === "run");
+  document.querySelectorAll("[data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === S.view));
 }
-function drawIdeaLabels(){ document.querySelectorAll("#ideas label").forEach(l => { const ta = document.getElementById(l.htmlFor); if (!ta) return; const t = ta.dataset.idea, k = +ta.dataset.k; l.textContent = "Argument " + (k + 1) + " · " + speakerName(t, k % (t === "A" ? S.sizeA : S.sizeB)); }); }
+/* the big speech bubble: every box this speaker fills in */
+let spk = null;
+function openSpeaker(T, i){
+  spk = { T, i };
+  const bx = planOf(T, i), twice = turns().filter(t => t.team === T && t.slot === i && !t.reply).length > 1;
+  $("spk").innerHTML = `<div class="spkWrap ${T}" style="--tc:var(--team${T})"><div class="spkFig2">${figSVG()}<input id="spkName" value="${esc((T === "A" ? S.namesA : S.namesB)[i] || "")}" placeholder="Speaker ${i + 1}" aria-label="Team ${esc(teamName(T))} speaker ${i + 1} name"></div>
+    <div class="spkBubble"><div class="spkScroll"><h2>Team ${esc(teamName(T))} · speaker ${i + 1}${twice ? " · speaks twice" : ""}</h2>` +
+    bx.map((b, n) => `<div class="idea"><label for="spkTa${n}">${esc(b.label)}</label><textarea id="spkTa${n}" data-idea="${b.key}" data-k="${b.k}" placeholder="Dot points, one per line" ${n === 0 ? "autofocus" : ""}>${esc(M().ideas[b.key][b.k] || "")}</textarea></div>`).join("") +
+    `</div><div class="foot"><button type="button" class="primary" id="spkDone">Done</button></div></div></div>`;
+  $("spk").showModal();
+}
 function drawRules(){
   const n = Math.max(S.sizeA, S.sizeB);
   $("rules").innerHTML = [
@@ -303,10 +420,11 @@ function drawOrder(){
 function drawNow(){
   const T = turns(), t = T[S.turn], prev = T[S.turn - 1];
   const fill = s => s.replace("{motion}", M().motion || "…").replace("{stand}", stand(t.team));
-  const lines = p => p === "arg" ? (M().ideas[t.team][t.k] || "").split("\n").map(x => x.replace(/^\s*[-•*]\s*/, "").trim()).filter(Boolean) : [];
-  const dots = p => { if (p !== "arg") return ""; const L = lines(p);
-    return L.length ? `<div class="dots"><b>Our dot points</b><ul>${L.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`
-      : `<div class="dots todo"><b>Not planned yet</b>${S.mode === "demo" ? "Your turn: plan this argument as dot points, then say it." : "Plan it with the starters above, or add dot points in Argument ideas."}</div>`; };
+  const raw = p => p === "arg" ? (M().ideas[t.team][t.k] || "") : p === "reb" ? (() => { const [key, k] = rebKey(t); return k >= 0 ? (M().ideas[key][k] || "") : ""; })() : "";
+  const lines = p => raw(p).split("\n").map(x => x.replace(/^\s*[-•*]\s*/, "").trim()).filter(Boolean);
+  const dots = p => { if (p !== "arg" && p !== "reb") return ""; const L = lines(p), what = p === "arg" ? "argument" : "rebuttal";
+    return L.length ? `<div class="dots${p === "reb" ? " reb" : ""}"><b>Our dot points</b><ul>${L.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`
+      : `<div class="dots todo${p === "reb" ? " reb" : ""}"><b>Not planned yet</b>${S.mode === "demo" ? "Your turn: plan this " + what + " as dot points, then say it." : p === "arg" ? "Plan it with the starters above, or add dot points in the Teams view." : "Listen to what they really say, then answer it with the starters above."}</div>`; };
   $("now").innerHTML = `<div class="who"><span class="turnno">Turn ${S.turn + 1} of ${T.length}</span>
       <span class="name">${esc(speakerName(t.team, t.slot))}</span>
       <span class="team" style="color:var(--team${t.team})">Team ${esc(teamName(t.team))} · ${stand(t.team)}</span>${S.mode === "demo" ? '<span class="demoNote">Demo</span>' : ""}</div>
@@ -346,11 +464,11 @@ function beep(){
 function buildPrint(){
   const T = turns();
   $("printOrder").innerHTML = `<h1>${esc(M().motion)}</h1><p>Team ${esc(S.teamA)} agrees · Team ${esc(S.teamB)} disagrees</p>
-    <table><tr><th>Turn</th><th>Speaker</th><th>Team</th><th>What they do</th><th>Time</th></tr>${T.map((t, i) => `<tr><td>${i + 1}</td><td>${esc(speakerName(t.team, t.slot))}${t.twice && !t.reply ? " (×2)" : ""}</td><td>${esc(teamName(t.team))}</td><td>${t.parts.map(p => PARTS[p].glyph + " " + (t.reply ? "Final reply" : PARTS[p].name)).join(", ")}${t.parts.includes("arg") && M().ideas[t.team][t.k] ? "<br><small>" + esc(M().ideas[t.team][t.k]).replace(/\n/g, "; ") + "</small>" : ""}</td><td>${fmt(t.secs)}</td></tr>`).join("")}</table>`;
+    <table><tr><th>Turn</th><th>Speaker</th><th>Team</th><th>What they do</th><th>Time</th></tr>${T.map((t, i) => `<tr><td>${i + 1}</td><td>${esc(speakerName(t.team, t.slot))}${t.twice && !t.reply ? " (×2)" : ""}</td><td>${esc(teamName(t.team))}</td><td>${t.parts.map(p => PARTS[p].glyph + " " + (t.reply ? "Final reply" : PARTS[p].name)).join(", ")}${t.parts.includes("reb") && (() => { const [key, k] = rebKey(t); return k >= 0 && M().ideas[key][k]; })() ? "<br><small>Rebuttal: " + esc((() => { const [key, k] = rebKey(t); return M().ideas[key][k]; })()).replace(/\n/g, "; ") + "</small>" : ""}${t.parts.includes("arg") && M().ideas[t.team][t.k] ? "<br><small>Argument: " + esc(M().ideas[t.team][t.k]).replace(/\n/g, "; ") + "</small>" : ""}</td><td>${fmt(t.secs)}</td></tr>`).join("")}</table>`;
 }
 
 /* ---------- wiring ---------- */
-function drawAll(){ drawMode(); drawTeams(); drawIdeas(); drawRules(); drawLegend(); drawOrder(); drawNow(); }
+function drawAll(){ drawMode(); drawView(); drawStage(); drawRules(); drawLegend(); drawOrder(); drawNow(); }
 function drawMode(){
   document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === S.mode));
   $("motion").value = M().motion;
@@ -358,7 +476,6 @@ function drawMode(){
 $("motion").addEventListener("input", e => { M().motion = e.target.value; save(); drawNow(); });
 $("resetMotion").onclick = () => { if (!confirm("Put back the starting topic and argument ideas for " + MODES[S.mode].label + "? Your edits to this debate will go.")) return; S.modes[S.mode] = fresh(S.mode); save(); drawAll(); };
 document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { if (S.mode === b.dataset.mode) return; S.mode = b.dataset.mode; S.turn = 0; left = null; stop(); save(); drawAll(); });
-$("ideas").addEventListener("input", e => { const el = e.target; if (!el.dataset.idea) return; M().ideas[el.dataset.idea][+el.dataset.k] = el.value; save(); drawNow(); });
 $("optReply").checked = S.reply; $("optSound").checked = S.sound;
 $("optReply").onchange = e => { S.reply = e.target.checked; save(); left = null; drawRules(); drawOrder(); drawNow(); };
 $("optSound").onchange = e => { S.sound = e.target.checked; save(); };
@@ -366,21 +483,34 @@ for (const [id, k] of [["tIntro", "intro"], ["tReb", "reb"], ["tArg", "arg"]]) {
   $(id).value = S.secs[k];
   $(id).addEventListener("input", e => { S.secs[k] = clamp(+e.target.value || 0, 0, 600); save(); if (!ticking) left = null; drawOrder(); drawNow(); });
 }
-$("teams").addEventListener("input", e => {
+$("court").addEventListener("input", e => {
   const el = e.target;
-  if (el.dataset.name) { const arr = el.dataset.name === "A" ? S.namesA : S.namesB; arr[+el.dataset.i] = el.value; save(); drawOrder(); drawNow(); drawIdeaLabels(); }
-  if (el.dataset.tname) { if (el.dataset.tname === "A") S.teamA = el.value || "For"; else S.teamB = el.value || "Against"; save(); document.querySelectorAll(".nmA").forEach(x => x.textContent = S.teamA); drawRules(); drawOrder(); drawNow(); }
+  if (el.dataset.name) { const arr = el.dataset.name === "A" ? S.namesA : S.namesB; arr[+el.dataset.i] = el.value; save(); drawOrder(); drawNow(); refreshBubbles(); }
+  if (el.dataset.tname) { if (el.dataset.tname === "A") S.teamA = el.value || "For"; else S.teamB = el.value || "Against"; save(); document.querySelectorAll(".nmA").forEach(x => x.textContent = S.teamA); drawRules(); drawOrder(); drawNow(); refreshBubbles(); }
 });
-$("teams").addEventListener("click", e => {
+$("court").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  if (b.dataset.size) { const k = b.dataset.size === "A" ? "sizeA" : "sizeB"; S[k] = clamp(S[k] + +b.dataset.d, 1, MAXT); left = null; save(); drawAll(); return; }
+  if (b.dataset.bubble) { openSpeaker(b.dataset.bubble, +b.dataset.slot); return; }
+  if (b.dataset.size) { const k = b.dataset.size === "A" ? "sizeA" : "sizeB"; S[k] = clamp(S[k] + +b.dataset.d, 1, MAXT); left = null; save(); drawAll();
+    const f = document.querySelector(`[data-size="${b.dataset.size}"][data-d="${b.dataset.d}"]`); if (f) f.focus(); return; }
   if (b.dataset.move) {
     const arr = b.dataset.move === "A" ? S.namesA : S.namesB, i = +b.dataset.i, j = i + +b.dataset.d;
-    const size = b.dataset.move === "A" ? S.sizeA : S.sizeB; if (j < 0 || j >= size) return;
+    if (j < 0 || j >= sizeOf(b.dataset.move)) return;
     const t = arr[i]; arr[i] = arr[j]; arr[j] = t; save(); drawAll();
-    const f = document.querySelector(`[data-move="${b.dataset.move}"][data-i="${j}"][data-d="${b.dataset.d}"]`) || document.querySelector(`[data-name="${b.dataset.move}"][data-i="${j}"]`); if (f) f.focus();
+    const f = document.querySelector(`[data-move="${b.dataset.move}"][data-i="${j}"][data-d="${b.dataset.d}"]`); const g = f && !f.disabled ? f : document.querySelector(`[data-name="${b.dataset.move}"][data-i="${j}"]`); if (g) g.focus();
   }
 });
+$("spk").addEventListener("input", e => {
+  const el = e.target;
+  if (el.id === "spkName" && spk) { const arr = spk.T === "A" ? S.namesA : S.namesB; arr[spk.i] = el.value; save();
+    const f = document.querySelector(`[data-name="${spk.T}"][data-i="${spk.i}"]`); if (f) f.value = el.value; drawOrder(); drawNow(); refreshBubbles(); }
+  else if (el.dataset.idea) { M().ideas[el.dataset.idea][+el.dataset.k] = el.value; save(); drawNow(); refreshBubbles(); }
+});
+let spkDown = null;
+$("spk").addEventListener("mousedown", e => { spkDown = e.target; });
+$("spk").addEventListener("click", e => { if (e.target === $("spk") && spkDown === $("spk")) $("spk").close(); else if (e.target.id === "spkDone") $("spk").close(); });
+$("spk").addEventListener("close", () => { const s0 = spk; spk = null; if (!s0) return; const b = document.querySelector(`[data-bubble="${s0.T}"][data-slot="${s0.i}"]`); if (b) b.focus(); });
+document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => { S.view = b.dataset.view; save(); drawView(); });
 document.querySelectorAll("[data-quick]").forEach(b => b.onclick = () => { S.sizeA = S.sizeB = +b.dataset.quick; S.turn = 0; left = null; stop(); save(); drawAll(); });
 $("order").addEventListener("click", e => { const li = e.target.closest("[data-turn]"); if (!li) return; stop(); left = null; S.turn = +li.dataset.turn; save(); drawOrder(); drawNow(); });
 $("order").addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset.turn) { e.preventDefault(); e.target.click(); } });
@@ -388,6 +518,7 @@ $("bigBtn").onclick = () => { S.big = !S.big; document.body.classList.toggle("bi
 $("printBtn").onclick = () => { buildPrint(); window.print(); };
 window.addEventListener("beforeprint", buildPrint);
 document.addEventListener("keydown", e => {
+  if (S.view !== "run" || $("spk").open) return;
   if (e.target.closest && e.target.closest("input,textarea,select")) return;
   if (e.key === " " && !e.target.closest("button,[data-turn]")) { e.preventDefault(); toggle(); }
   if (e.key === "ArrowRight") moveTurn(1);

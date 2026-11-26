@@ -316,6 +316,10 @@ SITE = [
            "Starts on the Qin Shi Huang topic, 3 v 3; type your own topic or change the team sizes. Shows whose turn it is, "
            "what they do (intro, rebuttal, argument), a timer and sentence starters. Switch to the Batman demo to model it: "
            "two arguments a side are planned as dot points, the third is left for the class.", None)]),
+        ("Plan online", "for a student who works better on a device", [
+          ("&#128187;", "Debate planner online", "planner.html",
+           "The paper planner as an online page: our team, my intro, my argument with the evidence cards beside it, get ready to rebut, "
+           "while they speak, my rebuttal, after the debate. Sentence starters, Read to me, voice typing, big buttons, zoom. Saves as you type; prints and copies for the teacher.", None)]),
         ("Print and edit", "Word to edit, PDF to print", [
           ("&#128221;", "Debate planner (Word)", "../../print/China-4.3-Debate-planner.docx",
            "2 A4 pages: our team, my intro, my one argument; get ready to rebut, while they speak, my rebuttal, after the debate.", None),
@@ -324,7 +328,7 @@ SITE = [
            "2 A4 pages, 16 cards to cut out. Every card can help either team; one is blank for your own.", None),
           ("&#128424;", "Evidence cards (PDF)", "../../print/China-4.3-Debate-evidence-cards.pdf", "The same, ready to print.", None),
           ("&#128221;", "Rubric and feedback slips (Word)", "../../print/China-4.3-Debate-rubric.docx",
-           "1 A4 page: the Learning Continuum rows for historical significance and Personal Social Capability, "
+           "1 A4 page: the Learning Continuum rows for historical significance and Ethical Capability (consequences of actions, ethical conflicts), "
            "and six feedback slips.", None),
           ("&#128424;", "Rubric and feedback slips (PDF)", "../../print/China-4.3-Debate-rubric.pdf", "The same, ready to print.", None)]),
       ],
